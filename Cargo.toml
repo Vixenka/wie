@@ -1,0 +1,10 @@
+[workspace]
+members = ["crates/*"]
+resolver = "2"
+
+[workspace.dependencies]
+vsock = "0.5.0"
+
+wie.path = "crates/wie"
+wie-transport-guest.path = "crates/transport-guest"
+wie-transport-host.path = "crates/transport-host"

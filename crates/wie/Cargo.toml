@@ -1,0 +1,7 @@
+[package]
+name = "wie"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+vsock.workspace = true
