@@ -3,7 +3,7 @@
 use std::{ffi::c_void, mem, num::NonZeroU32};
 
 use windows::{
-    core::{w, PCSTR, PCWSTR},
+    core::{w, PCWSTR},
     Win32::{
         Foundation::{self, ERROR_SUCCESS, GENERIC_READ},
         Networking::WinSock::{
@@ -21,7 +21,7 @@ use crate::{
     Vsock, VsockAddress, VsockCid,
 };
 
-const VIOSOCK_NAME: PCWSTR = w!("\\??\\Viosock");
+const VIOSOCK_NAME: PCWSTR = w!("\\\\??\\\\Viosock");
 const IOCTL_GET_AF: u32 = 0x0801300C;
 
 pub(crate) fn new_socket() -> Result<Vsock, VsockCreationError> {
@@ -130,6 +130,7 @@ fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
 
     println!("deviceiocontrol");
     let mut dw_returned = 0u32;
+
     let result = unsafe {
         IO::DeviceIoControl(
             h_device,
