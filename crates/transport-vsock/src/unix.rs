@@ -1,6 +1,6 @@
-use std::mem;
+use std::{mem, num::NonZeroU32};
 
-use libc::{c_void, sockaddr, sockaddr_vm};
+use libc::{c_void, sa_family_t, sockaddr, sockaddr_vm};
 
 use crate::{
     errors::{VsockConnectionError, VsockCreationError, VsockListenerBindError},
@@ -17,7 +17,7 @@ pub(crate) fn new_socket() -> Result<Vsock, VsockCreationError> {
 
 pub(crate) fn bind(socket: &mut Vsock, port: u32) -> Result<(), VsockListenerBindError> {
     let address = sockaddr_vm {
-        svm_family: libc::AF_VSOCK as u16,
+        svm_family: libc::AF_VSOCK as sa_family_t,
         svm_reserved1: 0,
         svm_port: port,
         svm_cid: libc::VMADDR_CID_HOST,
@@ -38,7 +38,18 @@ pub(crate) fn bind(socket: &mut Vsock, port: u32) -> Result<(), VsockListenerBin
     }
 }
 
-pub fn accept(
+pub(crate) fn listen(
+    socket: &mut Vsock,
+    max_connections: NonZeroU32,
+) -> Result<(), VsockListenerBindError> {
+    let result = unsafe { libc::listen(socket.inner, max_connections.get() as i32) };
+    match result >= 0 {
+        true => Ok(()),
+        false => Err(VsockListenerBindError::Listen),
+    }
+}
+
+pub(crate) fn accept(
     socket: &Vsock,
     client_address: Option<VsockAddress>,
 ) -> std::io::Result<(Vsock, VsockAddress)> {
@@ -48,7 +59,7 @@ pub fn accept(
     });
 
     let mut address = sockaddr_vm {
-        svm_family: libc::AF_VSOCK as u16,
+        svm_family: libc::AF_VSOCK as sa_family_t,
         svm_reserved1: 0,
         svm_port: client_address.port,
         svm_cid: client_address.cid.0,

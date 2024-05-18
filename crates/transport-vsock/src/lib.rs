@@ -8,6 +8,7 @@ mod windows;
 use std::{
     fmt,
     io::{Read, Write},
+    num::NonZeroU32,
 };
 
 use errors::{VsockConnectionError, VsockCreationError, VsockListenerBindError};
@@ -23,9 +24,10 @@ pub struct VsockListener {
 }
 
 impl VsockListener {
-    pub fn bind(port: u32) -> Result<Self, VsockListenerBindError> {
+    pub fn bind(port: u32, max_connections: NonZeroU32) -> Result<Self, VsockListenerBindError> {
         let mut socket = Vsock::new()?;
         imp::bind(&mut socket, port)?;
+        imp::listen(&mut socket, max_connections)?;
         Ok(Self { socket })
     }
 
@@ -35,6 +37,25 @@ impl VsockListener {
     ) -> std::io::Result<(VsockStream, VsockAddress)> {
         let socket = imp::accept(&self.socket, client_address)?;
         Ok((VsockStream { socket: socket.0 }, socket.1))
+    }
+
+    /// An iterator over the connections being received on this listener.
+    pub fn incoming(&self) -> Incoming {
+        Incoming { listener: self }
+    }
+}
+
+/// An iterator that infinitely accepts connections on a VsockListener.
+#[derive(Debug)]
+pub struct Incoming<'a> {
+    listener: &'a VsockListener,
+}
+
+impl<'a> Iterator for Incoming<'a> {
+    type Item = std::io::Result<VsockStream>;
+
+    fn next(&mut self) -> Option<std::io::Result<VsockStream>> {
+        Some(self.listener.accept(None).map(|p| p.0))
     }
 }
 

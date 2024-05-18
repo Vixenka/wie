@@ -1,6 +1,6 @@
 //! Implementation based on [github.com](https://gist.github.com/tuxxi/85c03d6593d1f121aa439c0a007f1475) - [archive](https://web.archive.org/web/20240518093847/https://gist.github.com/tuxxi/85c03d6593d1f121aa439c0a007f1475)
 
-use std::{ffi::c_void, mem};
+use std::{ffi::c_void, mem, num::NonZeroU32};
 
 use windows::{
     core::PCSTR,
@@ -60,7 +60,14 @@ pub(crate) fn bind(socket: &mut Vsock, port: u32) -> Result<(), VsockListenerBin
     }
 }
 
-pub fn accept(
+pub(crate) fn listen(
+    _socket: &mut Vsock,
+    _max_connections: NonZeroU32,
+) -> Result<(), VsockListenerBindError> {
+    unimplemented!()
+}
+
+pub(crate) fn accept(
     _socket: &Vsock,
     _client_address: Option<VsockAddress>,
 ) -> std::io::Result<(Vsock, VsockAddress)> {

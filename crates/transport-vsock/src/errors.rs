@@ -32,6 +32,8 @@ pub enum VsockListenerBindError {
     Creation(#[from] VsockCreationError),
     #[error("unable bind to port {0}")]
     Bind(u32),
+    #[error("unable to listen")]
+    Listen,
 }
 
 #[derive(Error, Debug)]
