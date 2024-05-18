@@ -21,7 +21,7 @@ use crate::{
     Vsock, VsockAddress, VsockCid,
 };
 
-const VIOSOCK_NAME: PCWSTR = w!("\\\\??\\\\Viosock");
+const VIOSOCK_NAME: PCWSTR = w!("\\??\\Viosock");
 const IOCTL_GET_AF: u32 = 0x0801300C;
 
 pub(crate) fn new_socket() -> Result<Vsock, VsockCreationError> {
@@ -126,7 +126,7 @@ fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
         )
     }?;
 
-    let mut af = ADDRESS_FAMILY::default();
+    let mut af: u32 = 0;
 
     println!("deviceiocontrol");
     let mut dw_returned = 0u32;
@@ -137,8 +137,8 @@ fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
             IOCTL_GET_AF,
             None,
             0,
-            Some(&mut af as *mut ADDRESS_FAMILY as *mut c_void),
-            mem::size_of::<ADDRESS_FAMILY>().try_into().unwrap(),
+            Some(&mut af as *mut _ as *mut c_void),
+            mem::size_of_val(&af) as u32,
             Some(&mut dw_returned as *mut _),
             None,
         )
@@ -154,7 +154,7 @@ fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
 
     println!("end");
 
-    Ok(af)
+    Ok(ADDRESS_FAMILY(af as u16))
 }
 
 #[allow(non_camel_case_types)]
