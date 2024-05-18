@@ -126,6 +126,8 @@ fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
     }?;
 
     let mut af = ADDRESS_FAMILY::default();
+
+    let mut dw_returned = 0u32;
     unsafe {
         IO::DeviceIoControl(
             h_device,
@@ -134,7 +136,7 @@ fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
             0,
             Some(&mut af as *mut ADDRESS_FAMILY as *mut c_void),
             mem::size_of::<ADDRESS_FAMILY>().try_into().unwrap(),
-            None,
+            Some(&mut dw_returned as *mut _),
             None,
         )
     }?;
