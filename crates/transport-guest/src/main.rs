@@ -1,11 +1,9 @@
-use std::io::{Read, Write};
+//use std::io::{Read, Write};
 
-use vsock::VsockStream;
-
-const PORT: u32 = 9999;
+//const PORT: u32 = 9999;
 
 fn main() {
-    let mut buffer = vec![0; 1024];
+    /*let mut buffer = vec![0; 1024];
 
     let mut stream = VsockStream::connect_with_cid_port(vsock::VMADDR_CID_HOST, PORT)
         .expect("Connection failed");
@@ -24,5 +22,5 @@ fn main() {
     println!(
         "[Guest] Received: {:?}",
         std::str::from_utf8(&buffer[..len]).unwrap()
-    );
+    );*/
 }

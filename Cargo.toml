@@ -3,8 +3,13 @@ members = ["crates/*"]
 resolver = "2"
 
 [workspace.dependencies]
-vsock = "0.5.0"
+thiserror = "1.0.61"
+tracing = "0.1.40"
+windows = "0.56.0"
+libc = "0.2.155"
 
 wie.path = "crates/wie"
+wie-common.path = "crates/common"
+wie-transport-vsock.path = "crates/transport-vsock"
 wie-transport-guest.path = "crates/transport-guest"
 wie-transport-host.path = "crates/transport-host"
