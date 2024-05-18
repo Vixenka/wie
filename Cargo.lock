@@ -124,6 +124,9 @@ dependencies = [
 [[package]]
 name = "wie-transport-guest"
 version = "0.1.0"
+dependencies = [
+ "wie-transport-vsock",
+]
 
 [[package]]
 name = "wie-transport-host"

@@ -1,12 +1,15 @@
-//use std::io::{Read, Write};
+use std::io::{Read, Write};
 
-//const PORT: u32 = 9999;
+use wie_transport_vsock::{VsockAddress, VsockCid, VsockStream};
 
 fn main() {
-    /*let mut buffer = vec![0; 1024];
+    let mut buffer = vec![0; 1024];
 
-    let mut stream = VsockStream::connect_with_cid_port(vsock::VMADDR_CID_HOST, PORT)
-        .expect("Connection failed");
+    let mut stream = VsockStream::connect(VsockAddress {
+        cid: VsockCid::host(),
+        port: 9999,
+    })
+    .expect("Connection failed");
 
     let written_bytes = stream
         .write(b"Hello from guest")
@@ -14,7 +17,6 @@ fn main() {
     if written_bytes == 0 {
         panic!("Failed to write to stream");
     }
-    stream.flush().expect("flush");
 
     let len = stream
         .read(&mut buffer)
@@ -22,5 +24,5 @@ fn main() {
     println!(
         "[Guest] Received: {:?}",
         std::str::from_utf8(&buffer[..len]).unwrap()
-    );*/
+    );
 }

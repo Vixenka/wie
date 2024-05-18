@@ -9,10 +9,17 @@ fn main() {
     let mut buffer = vec![0; 1024];
 
     println!("[Host] Setting up listening socket on port 9999");
-    let listener = VsockListener::bind(63256, NonZeroU32::new(1).unwrap())
+    let listener = VsockListener::bind(9999, NonZeroU32::new(1).unwrap())
         .expect("Failed to set up listening port");
 
-    let (mut stream, _) = listener.accept(None).unwrap();
+    let Ok((mut stream, address)) = listener.accept(None) else {
+        println!("[Host] Failed to get vsock_stream");
+        return;
+    };
+    println!(
+        "[Host] Accept connection: {:?}, peer addr: {:?}, local addr: {:?}",
+        stream, address.cid.0, address.port
+    );
 
     let len = stream
         .read(&mut buffer)
