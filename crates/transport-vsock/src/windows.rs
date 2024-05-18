@@ -117,7 +117,7 @@ pub(crate) fn close(socket: &mut Vsock) {
 
 /// https://github.com/virtio-win/kvm-guest-drivers-windows/blob/657ad7efb539dd186cec1fd33cf31ba710f5dfb1/viosock/inc/vio_sockets.h#L73
 fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
-    println("createfilea");
+    println!("createfilea");
     let h_device = unsafe {
         FileSystem::CreateFileA(
             PCSTR::from_raw(VIOSOCK_NAME.as_ptr() as *const u8),
@@ -132,7 +132,7 @@ fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
 
     let mut af = ADDRESS_FAMILY::default();
 
-    println("deviceiocontrol");
+    println!("deviceiocontrol");
     let mut dw_returned = 0u32;
     let result = unsafe {
         IO::DeviceIoControl(
@@ -147,11 +147,11 @@ fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
         )
     };
 
-    println("closehandle");
+    println!("closehandle");
     // SAFETY: h_device is created before by WinAPI, and checked by Result then h_device must be valid.
     unsafe { Foundation::CloseHandle(h_device) }?;
 
-    println("readresult");
+    println!("readresult");
     // Read result after closing handle.
     _ = result?;
 
