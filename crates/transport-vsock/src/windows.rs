@@ -1,13 +1,9 @@
 //! Implementation based on [github.com](https://gist.github.com/tuxxi/85c03d6593d1f121aa439c0a007f1475) - [archive](https://web.archive.org/web/20240518093847/https://gist.github.com/tuxxi/85c03d6593d1f121aa439c0a007f1475)
 
-use std::{
-    ffi::{c_void, CStr},
-    mem,
-    num::NonZeroU32,
-};
+use std::{ffi::c_void, mem, num::NonZeroU32};
 
 use windows::{
-    core::PCSTR,
+    core::{w, PCSTR, PCWSTR},
     Win32::{
         Foundation::{self, ERROR_SUCCESS, GENERIC_READ},
         Networking::WinSock::{
@@ -25,7 +21,7 @@ use crate::{
     Vsock, VsockAddress, VsockCid,
 };
 
-const VIOSOCK_NAME: &CStr = c"\\??\\Viosock";
+const VIOSOCK_NAME: PCWSTR = w!("\\??\\Viosock");
 const IOCTL_GET_AF: u32 = 0x0801300C;
 
 pub(crate) fn new_socket() -> Result<Vsock, VsockCreationError> {
@@ -153,7 +149,9 @@ fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
 
     println!("readresult");
     // Read result after closing handle.
-    _ = result?;
+    result?;
+
+    println!("end");
 
     Ok(af)
 }
