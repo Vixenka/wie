@@ -1,6 +1,10 @@
 //! Implementation based on [github.com](https://gist.github.com/tuxxi/85c03d6593d1f121aa439c0a007f1475) - [archive](https://web.archive.org/web/20240518093847/https://gist.github.com/tuxxi/85c03d6593d1f121aa439c0a007f1475)
 
-use std::{ffi::c_void, mem, num::NonZeroU32};
+use std::{
+    ffi::{c_void, CStr},
+    mem,
+    num::NonZeroU32,
+};
 
 use windows::{
     core::PCSTR,
@@ -21,7 +25,7 @@ use crate::{
     Vsock, VsockAddress, VsockCid,
 };
 
-const VIOSOCK_NAME: &str = "\\??\\Viosock";
+const VIOSOCK_NAME: &CStr = c"\\??\\Viosock";
 const IOCTL_GET_AF: u32 = 0x0801300C;
 
 pub(crate) fn new_socket() -> Result<Vsock, VsockCreationError> {
@@ -115,7 +119,7 @@ pub(crate) fn close(socket: &mut Vsock) {
 fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
     let h_device = unsafe {
         FileSystem::CreateFileA(
-            PCSTR::from_raw(VIOSOCK_NAME.as_ptr()),
+            PCSTR::from_raw(VIOSOCK_NAME.as_ptr() as *const u8),
             GENERIC_READ.0,
             FILE_SHARE_READ,
             None,
@@ -128,7 +132,7 @@ fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
     let mut af = ADDRESS_FAMILY::default();
 
     let mut dw_returned = 0u32;
-    unsafe {
+    let result = unsafe {
         IO::DeviceIoControl(
             h_device,
             IOCTL_GET_AF,
@@ -139,10 +143,13 @@ fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
             Some(&mut dw_returned as *mut _),
             None,
         )
-    }?;
+    };
 
     // SAFETY: h_device is created before by WinAPI, and checked by Result then h_device must be valid.
     unsafe { Foundation::CloseHandle(h_device) }?;
+
+    // Read result after closing handle.
+    _ = result?;
 
     Ok(af)
 }
