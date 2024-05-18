@@ -26,7 +26,7 @@ const IOCTL_GET_AF: u32 = 0x0801300C;
 
 pub(crate) fn new_socket() -> Result<Vsock, VsockCreationError> {
     let mut wsa_data = WSADATA::default();
-    let i_res = unsafe { WinSock::WSAStartup(2 << 8 | 2, &mut wsa_data as *mut WSADATA) };
+    let i_res = unsafe { WinSock::WSAStartup((2 << 8) | 2, &mut wsa_data as *mut WSADATA) };
 
     if i_res != ERROR_SUCCESS.0 as i32 {
         return Err(VsockCreationWindowsError::WSAStartupFail.into());
@@ -115,8 +115,8 @@ pub(crate) fn close(socket: &mut Vsock) {
 fn viosock_get_af() -> Result<ADDRESS_FAMILY, windows::core::Error> {
     println!("createfilea");
     let h_device = unsafe {
-        FileSystem::CreateFileA(
-            PCSTR::from_raw(VIOSOCK_NAME.as_ptr() as *const u8),
+        FileSystem::CreateFileW(
+            VIOSOCK_NAME,
             GENERIC_READ.0,
             FILE_SHARE_READ,
             None,
