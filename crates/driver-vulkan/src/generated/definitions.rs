@@ -9,6 +9,7 @@ extern "C" fn vkCreateInstance(
     p_allocator: *const vk::AllocationCallbacks,
     p_instance: *mut vk::Instance,
 ) -> vk::Result {
+    println!("vkCreateInstance");
     unimplemented!();
 }
 
@@ -18,6 +19,7 @@ extern "C" fn vkDestroyInstance(
     instance: vk::Instance,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyInstance");
     unimplemented!();
 }
 
@@ -28,6 +30,7 @@ extern "C" fn vkEnumeratePhysicalDevices(
     p_physical_device_count: *mut u32,
     p_physical_devices: *mut vk::PhysicalDevice,
 ) -> vk::Result {
+    println!("vkEnumeratePhysicalDevices");
     unimplemented!();
 }
 
@@ -37,6 +40,7 @@ extern "C" fn vkGetDeviceProcAddr(
     device: vk::Device,
     p_name: *const char,
 ) -> vk::PFN_vkVoidFunction {
+    println!("vkGetDeviceProcAddr");
     unimplemented!();
 }
 
@@ -46,6 +50,7 @@ extern "C" fn vkGetInstanceProcAddr(
     instance: vk::Instance,
     p_name: *const char,
 ) -> vk::PFN_vkVoidFunction {
+    println!("vkGetInstanceProcAddr");
     unimplemented!();
 }
 
@@ -55,6 +60,7 @@ extern "C" fn vkGetPhysicalDeviceProperties(
     physical_device: vk::PhysicalDevice,
     p_properties: *mut vk::PhysicalDeviceProperties,
 ) {
+    println!("vkGetPhysicalDeviceProperties");
     unimplemented!();
 }
 
@@ -65,6 +71,7 @@ extern "C" fn vkGetPhysicalDeviceQueueFamilyProperties(
     p_queue_family_property_count: *mut u32,
     p_queue_family_properties: *mut vk::QueueFamilyProperties,
 ) {
+    println!("vkGetPhysicalDeviceQueueFamilyProperties");
     unimplemented!();
 }
 
@@ -74,6 +81,7 @@ extern "C" fn vkGetPhysicalDeviceMemoryProperties(
     physical_device: vk::PhysicalDevice,
     p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties,
 ) {
+    println!("vkGetPhysicalDeviceMemoryProperties");
     unimplemented!();
 }
 
@@ -83,6 +91,7 @@ extern "C" fn vkGetPhysicalDeviceFeatures(
     physical_device: vk::PhysicalDevice,
     p_features: *mut vk::PhysicalDeviceFeatures,
 ) {
+    println!("vkGetPhysicalDeviceFeatures");
     unimplemented!();
 }
 
@@ -93,6 +102,7 @@ extern "C" fn vkGetPhysicalDeviceFormatProperties(
     format: vk::Format,
     p_format_properties: *mut vk::FormatProperties,
 ) {
+    println!("vkGetPhysicalDeviceFormatProperties");
     unimplemented!();
 }
 
@@ -107,6 +117,7 @@ extern "C" fn vkGetPhysicalDeviceImageFormatProperties(
     flags: vk::ImageCreateFlags,
     p_image_format_properties: *mut vk::ImageFormatProperties,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceImageFormatProperties");
     unimplemented!();
 }
 
@@ -118,23 +129,21 @@ extern "C" fn vkCreateDevice(
     p_allocator: *const vk::AllocationCallbacks,
     p_device: *mut vk::Device,
 ) -> vk::Result {
+    println!("vkCreateDevice");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDevice.html>"]
-extern "C" fn vkDestroyDevice(
-    device: vk::Device,
-    p_allocator: *const vk::AllocationCallbacks,
-) {
+extern "C" fn vkDestroyDevice(device: vk::Device, p_allocator: *const vk::AllocationCallbacks) {
+    println!("vkDestroyDevice");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceVersion.html>"]
-extern "C" fn vkEnumerateInstanceVersion(
-    p_api_version: *mut u32,
-) -> vk::Result {
+extern "C" fn vkEnumerateInstanceVersion(p_api_version: *mut u32) -> vk::Result {
+    println!("vkEnumerateInstanceVersion");
     unimplemented!();
 }
 
@@ -144,6 +153,7 @@ extern "C" fn vkEnumerateInstanceLayerProperties(
     p_property_count: *mut u32,
     p_properties: *mut vk::LayerProperties,
 ) -> vk::Result {
+    println!("vkEnumerateInstanceLayerProperties");
     unimplemented!();
 }
 
@@ -154,6 +164,7 @@ extern "C" fn vkEnumerateInstanceExtensionProperties(
     p_property_count: *mut u32,
     p_properties: *mut vk::ExtensionProperties,
 ) -> vk::Result {
+    println!("vkEnumerateInstanceExtensionProperties");
     unimplemented!();
 }
 
@@ -164,6 +175,7 @@ extern "C" fn vkEnumerateDeviceLayerProperties(
     p_property_count: *mut u32,
     p_properties: *mut vk::LayerProperties,
 ) -> vk::Result {
+    println!("vkEnumerateDeviceLayerProperties");
     unimplemented!();
 }
 
@@ -175,6 +187,7 @@ extern "C" fn vkEnumerateDeviceExtensionProperties(
     p_property_count: *mut u32,
     p_properties: *mut vk::ExtensionProperties,
 ) -> vk::Result {
+    println!("vkEnumerateDeviceExtensionProperties");
     unimplemented!();
 }
 
@@ -186,6 +199,7 @@ extern "C" fn vkGetDeviceQueue(
     queue_index: u32,
     p_queue: *mut vk::Queue,
 ) {
+    println!("vkGetDeviceQueue");
     unimplemented!();
 }
 
@@ -197,22 +211,21 @@ extern "C" fn vkQueueSubmit(
     p_submits: *const vk::SubmitInfo,
     fence: vk::Fence,
 ) -> vk::Result {
+    println!("vkQueueSubmit");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueWaitIdle.html>"]
-extern "C" fn vkQueueWaitIdle(
-    queue: vk::Queue,
-) -> vk::Result {
+extern "C" fn vkQueueWaitIdle(queue: vk::Queue) -> vk::Result {
+    println!("vkQueueWaitIdle");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDeviceWaitIdle.html>"]
-extern "C" fn vkDeviceWaitIdle(
-    device: vk::Device,
-) -> vk::Result {
+extern "C" fn vkDeviceWaitIdle(device: vk::Device) -> vk::Result {
+    println!("vkDeviceWaitIdle");
     unimplemented!();
 }
 
@@ -224,6 +237,7 @@ extern "C" fn vkAllocateMemory(
     p_allocator: *const vk::AllocationCallbacks,
     p_memory: *mut vk::DeviceMemory,
 ) -> vk::Result {
+    println!("vkAllocateMemory");
     unimplemented!();
 }
 
@@ -234,6 +248,7 @@ extern "C" fn vkFreeMemory(
     memory: vk::DeviceMemory,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkFreeMemory");
     unimplemented!();
 }
 
@@ -247,15 +262,14 @@ extern "C" fn vkMapMemory(
     flags: vk::MemoryMapFlags,
     pp_data: *mut *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkMapMemory");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUnmapMemory.html>"]
-extern "C" fn vkUnmapMemory(
-    device: vk::Device,
-    memory: vk::DeviceMemory,
-) {
+extern "C" fn vkUnmapMemory(device: vk::Device, memory: vk::DeviceMemory) {
+    println!("vkUnmapMemory");
     unimplemented!();
 }
 
@@ -266,6 +280,7 @@ extern "C" fn vkFlushMappedMemoryRanges(
     memory_range_count: u32,
     p_memory_ranges: *const vk::MappedMemoryRange,
 ) -> vk::Result {
+    println!("vkFlushMappedMemoryRanges");
     unimplemented!();
 }
 
@@ -276,6 +291,7 @@ extern "C" fn vkInvalidateMappedMemoryRanges(
     memory_range_count: u32,
     p_memory_ranges: *const vk::MappedMemoryRange,
 ) -> vk::Result {
+    println!("vkInvalidateMappedMemoryRanges");
     unimplemented!();
 }
 
@@ -286,6 +302,7 @@ extern "C" fn vkGetDeviceMemoryCommitment(
     memory: vk::DeviceMemory,
     p_committed_memory_in_bytes: *mut vk::DeviceSize,
 ) {
+    println!("vkGetDeviceMemoryCommitment");
     unimplemented!();
 }
 
@@ -296,6 +313,7 @@ extern "C" fn vkGetBufferMemoryRequirements(
     buffer: vk::Buffer,
     p_memory_requirements: *mut vk::MemoryRequirements,
 ) {
+    println!("vkGetBufferMemoryRequirements");
     unimplemented!();
 }
 
@@ -307,6 +325,7 @@ extern "C" fn vkBindBufferMemory(
     memory: vk::DeviceMemory,
     memory_offset: vk::DeviceSize,
 ) -> vk::Result {
+    println!("vkBindBufferMemory");
     unimplemented!();
 }
 
@@ -317,6 +336,7 @@ extern "C" fn vkGetImageMemoryRequirements(
     image: vk::Image,
     p_memory_requirements: *mut vk::MemoryRequirements,
 ) {
+    println!("vkGetImageMemoryRequirements");
     unimplemented!();
 }
 
@@ -328,6 +348,7 @@ extern "C" fn vkBindImageMemory(
     memory: vk::DeviceMemory,
     memory_offset: vk::DeviceSize,
 ) -> vk::Result {
+    println!("vkBindImageMemory");
     unimplemented!();
 }
 
@@ -339,6 +360,7 @@ extern "C" fn vkGetImageSparseMemoryRequirements(
     p_sparse_memory_requirement_count: *mut u32,
     p_sparse_memory_requirements: *mut vk::SparseImageMemoryRequirements,
 ) {
+    println!("vkGetImageSparseMemoryRequirements");
     unimplemented!();
 }
 
@@ -354,6 +376,7 @@ extern "C" fn vkGetPhysicalDeviceSparseImageFormatProperties(
     p_property_count: *mut u32,
     p_properties: *mut vk::SparseImageFormatProperties,
 ) {
+    println!("vkGetPhysicalDeviceSparseImageFormatProperties");
     unimplemented!();
 }
 
@@ -365,6 +388,7 @@ extern "C" fn vkQueueBindSparse(
     p_bind_info: *const vk::BindSparseInfo,
     fence: vk::Fence,
 ) -> vk::Result {
+    println!("vkQueueBindSparse");
     unimplemented!();
 }
 
@@ -376,6 +400,7 @@ extern "C" fn vkCreateFence(
     p_allocator: *const vk::AllocationCallbacks,
     p_fence: *mut vk::Fence,
 ) -> vk::Result {
+    println!("vkCreateFence");
     unimplemented!();
 }
 
@@ -386,6 +411,7 @@ extern "C" fn vkDestroyFence(
     fence: vk::Fence,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyFence");
     unimplemented!();
 }
 
@@ -396,15 +422,14 @@ extern "C" fn vkResetFences(
     fence_count: u32,
     p_fences: *const vk::Fence,
 ) -> vk::Result {
+    println!("vkResetFences");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceStatus.html>"]
-extern "C" fn vkGetFenceStatus(
-    device: vk::Device,
-    fence: vk::Fence,
-) -> vk::Result {
+extern "C" fn vkGetFenceStatus(device: vk::Device, fence: vk::Fence) -> vk::Result {
+    println!("vkGetFenceStatus");
     unimplemented!();
 }
 
@@ -417,6 +442,7 @@ extern "C" fn vkWaitForFences(
     wait_all: vk::Bool32,
     timeout: u64,
 ) -> vk::Result {
+    println!("vkWaitForFences");
     unimplemented!();
 }
 
@@ -428,6 +454,7 @@ extern "C" fn vkCreateSemaphore(
     p_allocator: *const vk::AllocationCallbacks,
     p_semaphore: *mut vk::Semaphore,
 ) -> vk::Result {
+    println!("vkCreateSemaphore");
     unimplemented!();
 }
 
@@ -438,6 +465,7 @@ extern "C" fn vkDestroySemaphore(
     semaphore: vk::Semaphore,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroySemaphore");
     unimplemented!();
 }
 
@@ -449,6 +477,7 @@ extern "C" fn vkCreateEvent(
     p_allocator: *const vk::AllocationCallbacks,
     p_event: *mut vk::Event,
 ) -> vk::Result {
+    println!("vkCreateEvent");
     unimplemented!();
 }
 
@@ -459,33 +488,28 @@ extern "C" fn vkDestroyEvent(
     event: vk::Event,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyEvent");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetEventStatus.html>"]
-extern "C" fn vkGetEventStatus(
-    device: vk::Device,
-    event: vk::Event,
-) -> vk::Result {
+extern "C" fn vkGetEventStatus(device: vk::Device, event: vk::Event) -> vk::Result {
+    println!("vkGetEventStatus");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetEvent.html>"]
-extern "C" fn vkSetEvent(
-    device: vk::Device,
-    event: vk::Event,
-) -> vk::Result {
+extern "C" fn vkSetEvent(device: vk::Device, event: vk::Event) -> vk::Result {
+    println!("vkSetEvent");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetEvent.html>"]
-extern "C" fn vkResetEvent(
-    device: vk::Device,
-    event: vk::Event,
-) -> vk::Result {
+extern "C" fn vkResetEvent(device: vk::Device, event: vk::Event) -> vk::Result {
+    println!("vkResetEvent");
     unimplemented!();
 }
 
@@ -497,6 +521,7 @@ extern "C" fn vkCreateQueryPool(
     p_allocator: *const vk::AllocationCallbacks,
     p_query_pool: *mut vk::QueryPool,
 ) -> vk::Result {
+    println!("vkCreateQueryPool");
     unimplemented!();
 }
 
@@ -507,6 +532,7 @@ extern "C" fn vkDestroyQueryPool(
     query_pool: vk::QueryPool,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyQueryPool");
     unimplemented!();
 }
 
@@ -522,6 +548,7 @@ extern "C" fn vkGetQueryPoolResults(
     stride: vk::DeviceSize,
     flags: vk::QueryResultFlags,
 ) -> vk::Result {
+    println!("vkGetQueryPoolResults");
     unimplemented!();
 }
 
@@ -533,6 +560,7 @@ extern "C" fn vkResetQueryPool(
     first_query: u32,
     query_count: u32,
 ) {
+    println!("vkResetQueryPool");
     unimplemented!();
 }
 
@@ -544,6 +572,7 @@ extern "C" fn vkCreateBuffer(
     p_allocator: *const vk::AllocationCallbacks,
     p_buffer: *mut vk::Buffer,
 ) -> vk::Result {
+    println!("vkCreateBuffer");
     unimplemented!();
 }
 
@@ -554,6 +583,7 @@ extern "C" fn vkDestroyBuffer(
     buffer: vk::Buffer,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyBuffer");
     unimplemented!();
 }
 
@@ -565,6 +595,7 @@ extern "C" fn vkCreateBufferView(
     p_allocator: *const vk::AllocationCallbacks,
     p_view: *mut vk::BufferView,
 ) -> vk::Result {
+    println!("vkCreateBufferView");
     unimplemented!();
 }
 
@@ -575,6 +606,7 @@ extern "C" fn vkDestroyBufferView(
     buffer_view: vk::BufferView,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyBufferView");
     unimplemented!();
 }
 
@@ -586,6 +618,7 @@ extern "C" fn vkCreateImage(
     p_allocator: *const vk::AllocationCallbacks,
     p_image: *mut vk::Image,
 ) -> vk::Result {
+    println!("vkCreateImage");
     unimplemented!();
 }
 
@@ -596,6 +629,7 @@ extern "C" fn vkDestroyImage(
     image: vk::Image,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyImage");
     unimplemented!();
 }
 
@@ -607,6 +641,7 @@ extern "C" fn vkGetImageSubresourceLayout(
     p_subresource: *const vk::ImageSubresource,
     p_layout: *mut vk::SubresourceLayout,
 ) {
+    println!("vkGetImageSubresourceLayout");
     unimplemented!();
 }
 
@@ -618,6 +653,7 @@ extern "C" fn vkCreateImageView(
     p_allocator: *const vk::AllocationCallbacks,
     p_view: *mut vk::ImageView,
 ) -> vk::Result {
+    println!("vkCreateImageView");
     unimplemented!();
 }
 
@@ -628,6 +664,7 @@ extern "C" fn vkDestroyImageView(
     image_view: vk::ImageView,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyImageView");
     unimplemented!();
 }
 
@@ -639,6 +676,7 @@ extern "C" fn vkCreateShaderModule(
     p_allocator: *const vk::AllocationCallbacks,
     p_shader_module: *mut vk::ShaderModule,
 ) -> vk::Result {
+    println!("vkCreateShaderModule");
     unimplemented!();
 }
 
@@ -649,6 +687,7 @@ extern "C" fn vkDestroyShaderModule(
     shader_module: vk::ShaderModule,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyShaderModule");
     unimplemented!();
 }
 
@@ -660,6 +699,7 @@ extern "C" fn vkCreatePipelineCache(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipeline_cache: *mut vk::PipelineCache,
 ) -> vk::Result {
+    println!("vkCreatePipelineCache");
     unimplemented!();
 }
 
@@ -670,6 +710,7 @@ extern "C" fn vkDestroyPipelineCache(
     pipeline_cache: vk::PipelineCache,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyPipelineCache");
     unimplemented!();
 }
 
@@ -681,6 +722,7 @@ extern "C" fn vkGetPipelineCacheData(
     p_data_size: *mut isize,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetPipelineCacheData");
     unimplemented!();
 }
 
@@ -692,6 +734,7 @@ extern "C" fn vkMergePipelineCaches(
     src_cache_count: u32,
     p_src_caches: *const vk::PipelineCache,
 ) -> vk::Result {
+    println!("vkMergePipelineCaches");
     unimplemented!();
 }
 
@@ -705,6 +748,7 @@ extern "C" fn vkCreateGraphicsPipelines(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipelines: *mut vk::Pipeline,
 ) -> vk::Result {
+    println!("vkCreateGraphicsPipelines");
     unimplemented!();
 }
 
@@ -718,6 +762,7 @@ extern "C" fn vkCreateComputePipelines(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipelines: *mut vk::Pipeline,
 ) -> vk::Result {
+    println!("vkCreateComputePipelines");
     unimplemented!();
 }
 
@@ -728,6 +773,7 @@ extern "C" fn vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(
     renderpass: vk::RenderPass,
     p_max_workgroup_size: *mut vk::Extent2D,
 ) -> vk::Result {
+    println!("vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI");
     unimplemented!();
 }
 
@@ -738,6 +784,7 @@ extern "C" fn vkDestroyPipeline(
     pipeline: vk::Pipeline,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyPipeline");
     unimplemented!();
 }
 
@@ -749,6 +796,7 @@ extern "C" fn vkCreatePipelineLayout(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipeline_layout: *mut vk::PipelineLayout,
 ) -> vk::Result {
+    println!("vkCreatePipelineLayout");
     unimplemented!();
 }
 
@@ -759,6 +807,7 @@ extern "C" fn vkDestroyPipelineLayout(
     pipeline_layout: vk::PipelineLayout,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyPipelineLayout");
     unimplemented!();
 }
 
@@ -770,6 +819,7 @@ extern "C" fn vkCreateSampler(
     p_allocator: *const vk::AllocationCallbacks,
     p_sampler: *mut vk::Sampler,
 ) -> vk::Result {
+    println!("vkCreateSampler");
     unimplemented!();
 }
 
@@ -780,6 +830,7 @@ extern "C" fn vkDestroySampler(
     sampler: vk::Sampler,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroySampler");
     unimplemented!();
 }
 
@@ -791,6 +842,7 @@ extern "C" fn vkCreateDescriptorSetLayout(
     p_allocator: *const vk::AllocationCallbacks,
     p_set_layout: *mut vk::DescriptorSetLayout,
 ) -> vk::Result {
+    println!("vkCreateDescriptorSetLayout");
     unimplemented!();
 }
 
@@ -801,6 +853,7 @@ extern "C" fn vkDestroyDescriptorSetLayout(
     descriptor_set_layout: vk::DescriptorSetLayout,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyDescriptorSetLayout");
     unimplemented!();
 }
 
@@ -812,6 +865,7 @@ extern "C" fn vkCreateDescriptorPool(
     p_allocator: *const vk::AllocationCallbacks,
     p_descriptor_pool: *mut vk::DescriptorPool,
 ) -> vk::Result {
+    println!("vkCreateDescriptorPool");
     unimplemented!();
 }
 
@@ -822,6 +876,7 @@ extern "C" fn vkDestroyDescriptorPool(
     descriptor_pool: vk::DescriptorPool,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyDescriptorPool");
     unimplemented!();
 }
 
@@ -832,6 +887,7 @@ extern "C" fn vkResetDescriptorPool(
     descriptor_pool: vk::DescriptorPool,
     flags: vk::DescriptorPoolResetFlags,
 ) -> vk::Result {
+    println!("vkResetDescriptorPool");
     unimplemented!();
 }
 
@@ -842,6 +898,7 @@ extern "C" fn vkAllocateDescriptorSets(
     p_allocate_info: *const vk::DescriptorSetAllocateInfo,
     p_descriptor_sets: *mut vk::DescriptorSet,
 ) -> vk::Result {
+    println!("vkAllocateDescriptorSets");
     unimplemented!();
 }
 
@@ -853,6 +910,7 @@ extern "C" fn vkFreeDescriptorSets(
     descriptor_set_count: u32,
     p_descriptor_sets: *const vk::DescriptorSet,
 ) -> vk::Result {
+    println!("vkFreeDescriptorSets");
     unimplemented!();
 }
 
@@ -865,6 +923,7 @@ extern "C" fn vkUpdateDescriptorSets(
     descriptor_copy_count: u32,
     p_descriptor_copies: *const vk::CopyDescriptorSet,
 ) {
+    println!("vkUpdateDescriptorSets");
     unimplemented!();
 }
 
@@ -876,6 +935,7 @@ extern "C" fn vkCreateFramebuffer(
     p_allocator: *const vk::AllocationCallbacks,
     p_framebuffer: *mut vk::Framebuffer,
 ) -> vk::Result {
+    println!("vkCreateFramebuffer");
     unimplemented!();
 }
 
@@ -886,6 +946,7 @@ extern "C" fn vkDestroyFramebuffer(
     framebuffer: vk::Framebuffer,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyFramebuffer");
     unimplemented!();
 }
 
@@ -897,6 +958,7 @@ extern "C" fn vkCreateRenderPass(
     p_allocator: *const vk::AllocationCallbacks,
     p_render_pass: *mut vk::RenderPass,
 ) -> vk::Result {
+    println!("vkCreateRenderPass");
     unimplemented!();
 }
 
@@ -907,6 +969,7 @@ extern "C" fn vkDestroyRenderPass(
     render_pass: vk::RenderPass,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyRenderPass");
     unimplemented!();
 }
 
@@ -917,6 +980,7 @@ extern "C" fn vkGetRenderAreaGranularity(
     render_pass: vk::RenderPass,
     p_granularity: *mut vk::Extent2D,
 ) {
+    println!("vkGetRenderAreaGranularity");
     unimplemented!();
 }
 
@@ -927,6 +991,7 @@ extern "C" fn vkGetRenderingAreaGranularityKHR(
     p_rendering_area_info: *const vk::RenderingAreaInfoKHR,
     p_granularity: *mut vk::Extent2D,
 ) {
+    println!("vkGetRenderingAreaGranularityKHR");
     unimplemented!();
 }
 
@@ -938,6 +1003,7 @@ extern "C" fn vkCreateCommandPool(
     p_allocator: *const vk::AllocationCallbacks,
     p_command_pool: *mut vk::CommandPool,
 ) -> vk::Result {
+    println!("vkCreateCommandPool");
     unimplemented!();
 }
 
@@ -948,6 +1014,7 @@ extern "C" fn vkDestroyCommandPool(
     command_pool: vk::CommandPool,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyCommandPool");
     unimplemented!();
 }
 
@@ -958,6 +1025,7 @@ extern "C" fn vkResetCommandPool(
     command_pool: vk::CommandPool,
     flags: vk::CommandPoolResetFlags,
 ) -> vk::Result {
+    println!("vkResetCommandPool");
     unimplemented!();
 }
 
@@ -968,6 +1036,7 @@ extern "C" fn vkAllocateCommandBuffers(
     p_allocate_info: *const vk::CommandBufferAllocateInfo,
     p_command_buffers: *mut vk::CommandBuffer,
 ) -> vk::Result {
+    println!("vkAllocateCommandBuffers");
     unimplemented!();
 }
 
@@ -979,6 +1048,7 @@ extern "C" fn vkFreeCommandBuffers(
     command_buffer_count: u32,
     p_command_buffers: *const vk::CommandBuffer,
 ) {
+    println!("vkFreeCommandBuffers");
     unimplemented!();
 }
 
@@ -988,14 +1058,14 @@ extern "C" fn vkBeginCommandBuffer(
     command_buffer: vk::CommandBuffer,
     p_begin_info: *const vk::CommandBufferBeginInfo,
 ) -> vk::Result {
+    println!("vkBeginCommandBuffer");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEndCommandBuffer.html>"]
-extern "C" fn vkEndCommandBuffer(
-    command_buffer: vk::CommandBuffer,
-) -> vk::Result {
+extern "C" fn vkEndCommandBuffer(command_buffer: vk::CommandBuffer) -> vk::Result {
+    println!("vkEndCommandBuffer");
     unimplemented!();
 }
 
@@ -1005,6 +1075,7 @@ extern "C" fn vkResetCommandBuffer(
     command_buffer: vk::CommandBuffer,
     flags: vk::CommandBufferResetFlags,
 ) -> vk::Result {
+    println!("vkResetCommandBuffer");
     unimplemented!();
 }
 
@@ -1015,6 +1086,7 @@ extern "C" fn vkCmdBindPipeline(
     pipeline_bind_point: vk::PipelineBindPoint,
     pipeline: vk::Pipeline,
 ) {
+    println!("vkCmdBindPipeline");
     unimplemented!();
 }
 
@@ -1024,6 +1096,7 @@ extern "C" fn vkCmdSetAttachmentFeedbackLoopEnableEXT(
     command_buffer: vk::CommandBuffer,
     aspect_mask: vk::ImageAspectFlags,
 ) {
+    println!("vkCmdSetAttachmentFeedbackLoopEnableEXT");
     unimplemented!();
 }
 
@@ -1035,6 +1108,7 @@ extern "C" fn vkCmdSetViewport(
     viewport_count: u32,
     p_viewports: *const vk::Viewport,
 ) {
+    println!("vkCmdSetViewport");
     unimplemented!();
 }
 
@@ -1046,15 +1120,14 @@ extern "C" fn vkCmdSetScissor(
     scissor_count: u32,
     p_scissors: *const vk::Rect2D,
 ) {
+    println!("vkCmdSetScissor");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineWidth.html>"]
-extern "C" fn vkCmdSetLineWidth(
-    command_buffer: vk::CommandBuffer,
-    line_width: f32,
-) {
+extern "C" fn vkCmdSetLineWidth(command_buffer: vk::CommandBuffer, line_width: f32) {
+    println!("vkCmdSetLineWidth");
     unimplemented!();
 }
 
@@ -1066,15 +1139,14 @@ extern "C" fn vkCmdSetDepthBias(
     depth_bias_clamp: f32,
     depth_bias_slope_factor: f32,
 ) {
+    println!("vkCmdSetDepthBias");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetBlendConstants.html>"]
-extern "C" fn vkCmdSetBlendConstants(
-    command_buffer: vk::CommandBuffer,
-    blend_constants: f32,
-) {
+extern "C" fn vkCmdSetBlendConstants(command_buffer: vk::CommandBuffer, blend_constants: f32) {
+    println!("vkCmdSetBlendConstants");
     unimplemented!();
 }
 
@@ -1085,6 +1157,7 @@ extern "C" fn vkCmdSetDepthBounds(
     min_depth_bounds: f32,
     max_depth_bounds: f32,
 ) {
+    println!("vkCmdSetDepthBounds");
     unimplemented!();
 }
 
@@ -1095,6 +1168,7 @@ extern "C" fn vkCmdSetStencilCompareMask(
     face_mask: vk::StencilFaceFlags,
     compare_mask: u32,
 ) {
+    println!("vkCmdSetStencilCompareMask");
     unimplemented!();
 }
 
@@ -1105,6 +1179,7 @@ extern "C" fn vkCmdSetStencilWriteMask(
     face_mask: vk::StencilFaceFlags,
     write_mask: u32,
 ) {
+    println!("vkCmdSetStencilWriteMask");
     unimplemented!();
 }
 
@@ -1115,6 +1190,7 @@ extern "C" fn vkCmdSetStencilReference(
     face_mask: vk::StencilFaceFlags,
     reference: u32,
 ) {
+    println!("vkCmdSetStencilReference");
     unimplemented!();
 }
 
@@ -1130,6 +1206,7 @@ extern "C" fn vkCmdBindDescriptorSets(
     dynamic_offset_count: u32,
     p_dynamic_offsets: *const u32,
 ) {
+    println!("vkCmdBindDescriptorSets");
     unimplemented!();
 }
 
@@ -1141,6 +1218,7 @@ extern "C" fn vkCmdBindIndexBuffer(
     offset: vk::DeviceSize,
     index_type: vk::IndexType,
 ) {
+    println!("vkCmdBindIndexBuffer");
     unimplemented!();
 }
 
@@ -1153,6 +1231,7 @@ extern "C" fn vkCmdBindVertexBuffers(
     p_buffers: *const vk::Buffer,
     p_offsets: *const vk::DeviceSize,
 ) {
+    println!("vkCmdBindVertexBuffers");
     unimplemented!();
 }
 
@@ -1165,6 +1244,7 @@ extern "C" fn vkCmdDraw(
     first_vertex: u32,
     first_instance: u32,
 ) {
+    println!("vkCmdDraw");
     unimplemented!();
 }
 
@@ -1178,6 +1258,7 @@ extern "C" fn vkCmdDrawIndexed(
     vertex_offset: i32,
     first_instance: u32,
 ) {
+    println!("vkCmdDrawIndexed");
     unimplemented!();
 }
 
@@ -1191,6 +1272,7 @@ extern "C" fn vkCmdDrawMultiEXT(
     first_instance: u32,
     stride: u32,
 ) {
+    println!("vkCmdDrawMultiEXT");
     unimplemented!();
 }
 
@@ -1205,6 +1287,7 @@ extern "C" fn vkCmdDrawMultiIndexedEXT(
     stride: u32,
     p_vertex_offset: *const i32,
 ) {
+    println!("vkCmdDrawMultiIndexedEXT");
     unimplemented!();
 }
 
@@ -1217,6 +1300,7 @@ extern "C" fn vkCmdDrawIndirect(
     draw_count: u32,
     stride: u32,
 ) {
+    println!("vkCmdDrawIndirect");
     unimplemented!();
 }
 
@@ -1229,6 +1313,7 @@ extern "C" fn vkCmdDrawIndexedIndirect(
     draw_count: u32,
     stride: u32,
 ) {
+    println!("vkCmdDrawIndexedIndirect");
     unimplemented!();
 }
 
@@ -1240,6 +1325,7 @@ extern "C" fn vkCmdDispatch(
     group_count_y: u32,
     group_count_z: u32,
 ) {
+    println!("vkCmdDispatch");
     unimplemented!();
 }
 
@@ -1250,14 +1336,14 @@ extern "C" fn vkCmdDispatchIndirect(
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
 ) {
+    println!("vkCmdDispatchIndirect");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSubpassShadingHUAWEI.html>"]
-extern "C" fn vkCmdSubpassShadingHUAWEI(
-    command_buffer: vk::CommandBuffer,
-) {
+extern "C" fn vkCmdSubpassShadingHUAWEI(command_buffer: vk::CommandBuffer) {
+    println!("vkCmdSubpassShadingHUAWEI");
     unimplemented!();
 }
 
@@ -1269,6 +1355,7 @@ extern "C" fn vkCmdDrawClusterHUAWEI(
     group_count_y: u32,
     group_count_z: u32,
 ) {
+    println!("vkCmdDrawClusterHUAWEI");
     unimplemented!();
 }
 
@@ -1279,6 +1366,7 @@ extern "C" fn vkCmdDrawClusterIndirectHUAWEI(
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
 ) {
+    println!("vkCmdDrawClusterIndirectHUAWEI");
     unimplemented!();
 }
 
@@ -1289,6 +1377,7 @@ extern "C" fn vkCmdUpdatePipelineIndirectBufferNV(
     pipeline_bind_point: vk::PipelineBindPoint,
     pipeline: vk::Pipeline,
 ) {
+    println!("vkCmdUpdatePipelineIndirectBufferNV");
     unimplemented!();
 }
 
@@ -1301,6 +1390,7 @@ extern "C" fn vkCmdCopyBuffer(
     region_count: u32,
     p_regions: *const vk::BufferCopy,
 ) {
+    println!("vkCmdCopyBuffer");
     unimplemented!();
 }
 
@@ -1315,6 +1405,7 @@ extern "C" fn vkCmdCopyImage(
     region_count: u32,
     p_regions: *const vk::ImageCopy,
 ) {
+    println!("vkCmdCopyImage");
     unimplemented!();
 }
 
@@ -1330,6 +1421,7 @@ extern "C" fn vkCmdBlitImage(
     p_regions: *const vk::ImageBlit,
     filter: vk::Filter,
 ) {
+    println!("vkCmdBlitImage");
     unimplemented!();
 }
 
@@ -1343,6 +1435,7 @@ extern "C" fn vkCmdCopyBufferToImage(
     region_count: u32,
     p_regions: *const vk::BufferImageCopy,
 ) {
+    println!("vkCmdCopyBufferToImage");
     unimplemented!();
 }
 
@@ -1356,6 +1449,7 @@ extern "C" fn vkCmdCopyImageToBuffer(
     region_count: u32,
     p_regions: *const vk::BufferImageCopy,
 ) {
+    println!("vkCmdCopyImageToBuffer");
     unimplemented!();
 }
 
@@ -1367,6 +1461,7 @@ extern "C" fn vkCmdCopyMemoryIndirectNV(
     copy_count: u32,
     stride: u32,
 ) {
+    println!("vkCmdCopyMemoryIndirectNV");
     unimplemented!();
 }
 
@@ -1381,6 +1476,7 @@ extern "C" fn vkCmdCopyMemoryToImageIndirectNV(
     dst_image_layout: vk::ImageLayout,
     p_image_subresources: *const vk::ImageSubresourceLayers,
 ) {
+    println!("vkCmdCopyMemoryToImageIndirectNV");
     unimplemented!();
 }
 
@@ -1393,6 +1489,7 @@ extern "C" fn vkCmdUpdateBuffer(
     data_size: vk::DeviceSize,
     p_data: *const std::ffi::c_void,
 ) {
+    println!("vkCmdUpdateBuffer");
     unimplemented!();
 }
 
@@ -1405,6 +1502,7 @@ extern "C" fn vkCmdFillBuffer(
     size: vk::DeviceSize,
     data: u32,
 ) {
+    println!("vkCmdFillBuffer");
     unimplemented!();
 }
 
@@ -1418,6 +1516,7 @@ extern "C" fn vkCmdClearColorImage(
     range_count: u32,
     p_ranges: *const vk::ImageSubresourceRange,
 ) {
+    println!("vkCmdClearColorImage");
     unimplemented!();
 }
 
@@ -1431,6 +1530,7 @@ extern "C" fn vkCmdClearDepthStencilImage(
     range_count: u32,
     p_ranges: *const vk::ImageSubresourceRange,
 ) {
+    println!("vkCmdClearDepthStencilImage");
     unimplemented!();
 }
 
@@ -1443,6 +1543,7 @@ extern "C" fn vkCmdClearAttachments(
     rect_count: u32,
     p_rects: *const vk::ClearRect,
 ) {
+    println!("vkCmdClearAttachments");
     unimplemented!();
 }
 
@@ -1457,6 +1558,7 @@ extern "C" fn vkCmdResolveImage(
     region_count: u32,
     p_regions: *const vk::ImageResolve,
 ) {
+    println!("vkCmdResolveImage");
     unimplemented!();
 }
 
@@ -1467,6 +1569,7 @@ extern "C" fn vkCmdSetEvent(
     event: vk::Event,
     stage_mask: vk::PipelineStageFlags,
 ) {
+    println!("vkCmdSetEvent");
     unimplemented!();
 }
 
@@ -1477,6 +1580,7 @@ extern "C" fn vkCmdResetEvent(
     event: vk::Event,
     stage_mask: vk::PipelineStageFlags,
 ) {
+    println!("vkCmdResetEvent");
     unimplemented!();
 }
 
@@ -1495,6 +1599,7 @@ extern "C" fn vkCmdWaitEvents(
     image_memory_barrier_count: u32,
     p_image_memory_barriers: *const vk::ImageMemoryBarrier,
 ) {
+    println!("vkCmdWaitEvents");
     unimplemented!();
 }
 
@@ -1512,6 +1617,7 @@ extern "C" fn vkCmdPipelineBarrier(
     image_memory_barrier_count: u32,
     p_image_memory_barriers: *const vk::ImageMemoryBarrier,
 ) {
+    println!("vkCmdPipelineBarrier");
     unimplemented!();
 }
 
@@ -1523,6 +1629,7 @@ extern "C" fn vkCmdBeginQuery(
     query: u32,
     flags: vk::QueryControlFlags,
 ) {
+    println!("vkCmdBeginQuery");
     unimplemented!();
 }
 
@@ -1533,6 +1640,7 @@ extern "C" fn vkCmdEndQuery(
     query_pool: vk::QueryPool,
     query: u32,
 ) {
+    println!("vkCmdEndQuery");
     unimplemented!();
 }
 
@@ -1542,14 +1650,14 @@ extern "C" fn vkCmdBeginConditionalRenderingEXT(
     command_buffer: vk::CommandBuffer,
     p_conditional_rendering_begin: *const vk::ConditionalRenderingBeginInfoEXT,
 ) {
+    println!("vkCmdBeginConditionalRenderingEXT");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndConditionalRenderingEXT.html>"]
-extern "C" fn vkCmdEndConditionalRenderingEXT(
-    command_buffer: vk::CommandBuffer,
-) {
+extern "C" fn vkCmdEndConditionalRenderingEXT(command_buffer: vk::CommandBuffer) {
+    println!("vkCmdEndConditionalRenderingEXT");
     unimplemented!();
 }
 
@@ -1561,6 +1669,7 @@ extern "C" fn vkCmdResetQueryPool(
     first_query: u32,
     query_count: u32,
 ) {
+    println!("vkCmdResetQueryPool");
     unimplemented!();
 }
 
@@ -1572,6 +1681,7 @@ extern "C" fn vkCmdWriteTimestamp(
     query_pool: vk::QueryPool,
     query: u32,
 ) {
+    println!("vkCmdWriteTimestamp");
     unimplemented!();
 }
 
@@ -1587,6 +1697,7 @@ extern "C" fn vkCmdCopyQueryPoolResults(
     stride: vk::DeviceSize,
     flags: vk::QueryResultFlags,
 ) {
+    println!("vkCmdCopyQueryPoolResults");
     unimplemented!();
 }
 
@@ -1600,6 +1711,7 @@ extern "C" fn vkCmdPushConstants(
     size: u32,
     p_values: *const std::ffi::c_void,
 ) {
+    println!("vkCmdPushConstants");
     unimplemented!();
 }
 
@@ -1610,23 +1722,21 @@ extern "C" fn vkCmdBeginRenderPass(
     p_render_pass_begin: *const vk::RenderPassBeginInfo,
     contents: vk::SubpassContents,
 ) {
+    println!("vkCmdBeginRenderPass");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdNextSubpass.html>"]
-extern "C" fn vkCmdNextSubpass(
-    command_buffer: vk::CommandBuffer,
-    contents: vk::SubpassContents,
-) {
+extern "C" fn vkCmdNextSubpass(command_buffer: vk::CommandBuffer, contents: vk::SubpassContents) {
+    println!("vkCmdNextSubpass");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass.html>"]
-extern "C" fn vkCmdEndRenderPass(
-    command_buffer: vk::CommandBuffer,
-) {
+extern "C" fn vkCmdEndRenderPass(command_buffer: vk::CommandBuffer) {
+    println!("vkCmdEndRenderPass");
     unimplemented!();
 }
 
@@ -1637,6 +1747,7 @@ extern "C" fn vkCmdExecuteCommands(
     command_buffer_count: u32,
     p_command_buffers: *const vk::CommandBuffer,
 ) {
+    println!("vkCmdExecuteCommands");
     unimplemented!();
 }
 
@@ -1648,6 +1759,7 @@ extern "C" fn vkCreateAndroidSurfaceKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateAndroidSurfaceKHR");
     unimplemented!();
 }
 
@@ -1658,6 +1770,7 @@ extern "C" fn vkGetPhysicalDeviceDisplayPropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayPropertiesKHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceDisplayPropertiesKHR");
     unimplemented!();
 }
 
@@ -1668,6 +1781,7 @@ extern "C" fn vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayPlanePropertiesKHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
     unimplemented!();
 }
 
@@ -1679,6 +1793,7 @@ extern "C" fn vkGetDisplayPlaneSupportedDisplaysKHR(
     p_display_count: *mut u32,
     p_displays: *mut vk::DisplayKHR,
 ) -> vk::Result {
+    println!("vkGetDisplayPlaneSupportedDisplaysKHR");
     unimplemented!();
 }
 
@@ -1690,6 +1805,7 @@ extern "C" fn vkGetDisplayModePropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayModePropertiesKHR,
 ) -> vk::Result {
+    println!("vkGetDisplayModePropertiesKHR");
     unimplemented!();
 }
 
@@ -1702,6 +1818,7 @@ extern "C" fn vkCreateDisplayModeKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_mode: *mut vk::DisplayModeKHR,
 ) -> vk::Result {
+    println!("vkCreateDisplayModeKHR");
     unimplemented!();
 }
 
@@ -1713,6 +1830,7 @@ extern "C" fn vkGetDisplayPlaneCapabilitiesKHR(
     plane_index: u32,
     p_capabilities: *mut vk::DisplayPlaneCapabilitiesKHR,
 ) -> vk::Result {
+    println!("vkGetDisplayPlaneCapabilitiesKHR");
     unimplemented!();
 }
 
@@ -1724,6 +1842,7 @@ extern "C" fn vkCreateDisplayPlaneSurfaceKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateDisplayPlaneSurfaceKHR");
     unimplemented!();
 }
 
@@ -1736,6 +1855,7 @@ extern "C" fn vkCreateSharedSwapchainsKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_swapchains: *mut vk::SwapchainKHR,
 ) -> vk::Result {
+    println!("vkCreateSharedSwapchainsKHR");
     unimplemented!();
 }
 
@@ -1746,6 +1866,7 @@ extern "C" fn vkDestroySurfaceKHR(
     surface: vk::SurfaceKHR,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroySurfaceKHR");
     unimplemented!();
 }
 
@@ -1757,6 +1878,7 @@ extern "C" fn vkGetPhysicalDeviceSurfaceSupportKHR(
     surface: vk::SurfaceKHR,
     p_supported: *mut vk::Bool32,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceSurfaceSupportKHR");
     unimplemented!();
 }
 
@@ -1767,6 +1889,7 @@ extern "C" fn vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
     surface: vk::SurfaceKHR,
     p_surface_capabilities: *mut vk::SurfaceCapabilitiesKHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceSurfaceCapabilitiesKHR");
     unimplemented!();
 }
 
@@ -1778,6 +1901,7 @@ extern "C" fn vkGetPhysicalDeviceSurfaceFormatsKHR(
     p_surface_format_count: *mut u32,
     p_surface_formats: *mut vk::SurfaceFormatKHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceSurfaceFormatsKHR");
     unimplemented!();
 }
 
@@ -1789,6 +1913,7 @@ extern "C" fn vkGetPhysicalDeviceSurfacePresentModesKHR(
     p_present_mode_count: *mut u32,
     p_present_modes: *mut vk::PresentModeKHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceSurfacePresentModesKHR");
     unimplemented!();
 }
 
@@ -1800,6 +1925,7 @@ extern "C" fn vkCreateSwapchainKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_swapchain: *mut vk::SwapchainKHR,
 ) -> vk::Result {
+    println!("vkCreateSwapchainKHR");
     unimplemented!();
 }
 
@@ -1810,6 +1936,7 @@ extern "C" fn vkDestroySwapchainKHR(
     swapchain: vk::SwapchainKHR,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroySwapchainKHR");
     unimplemented!();
 }
 
@@ -1821,6 +1948,7 @@ extern "C" fn vkGetSwapchainImagesKHR(
     p_swapchain_image_count: *mut u32,
     p_swapchain_images: *mut vk::Image,
 ) -> vk::Result {
+    println!("vkGetSwapchainImagesKHR");
     unimplemented!();
 }
 
@@ -1834,6 +1962,7 @@ extern "C" fn vkAcquireNextImageKHR(
     fence: vk::Fence,
     p_image_index: *mut u32,
 ) -> vk::Result {
+    println!("vkAcquireNextImageKHR");
     unimplemented!();
 }
 
@@ -1843,6 +1972,7 @@ extern "C" fn vkQueuePresentKHR(
     queue: vk::Queue,
     p_present_info: *const vk::PresentInfoKHR,
 ) -> vk::Result {
+    println!("vkQueuePresentKHR");
     unimplemented!();
 }
 
@@ -1854,6 +1984,7 @@ extern "C" fn vkCreateViSurfaceNN(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateViSurfaceNN");
     unimplemented!();
 }
 
@@ -1865,6 +1996,7 @@ extern "C" fn vkCreateWaylandSurfaceKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateWaylandSurfaceKHR");
     unimplemented!();
 }
 
@@ -1875,6 +2007,7 @@ extern "C" fn vkGetPhysicalDeviceWaylandPresentationSupportKHR(
     queue_family_index: u32,
     display: *mut vk::wl_display,
 ) -> vk::Bool32 {
+    println!("vkGetPhysicalDeviceWaylandPresentationSupportKHR");
     unimplemented!();
 }
 
@@ -1886,6 +2019,7 @@ extern "C" fn vkCreateWin32SurfaceKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateWin32SurfaceKHR");
     unimplemented!();
 }
 
@@ -1895,6 +2029,7 @@ extern "C" fn vkGetPhysicalDeviceWin32PresentationSupportKHR(
     physical_device: vk::PhysicalDevice,
     queue_family_index: u32,
 ) -> vk::Bool32 {
+    println!("vkGetPhysicalDeviceWin32PresentationSupportKHR");
     unimplemented!();
 }
 
@@ -1906,6 +2041,7 @@ extern "C" fn vkCreateXlibSurfaceKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateXlibSurfaceKHR");
     unimplemented!();
 }
 
@@ -1917,6 +2053,7 @@ extern "C" fn vkGetPhysicalDeviceXlibPresentationSupportKHR(
     dpy: *mut vk::Display,
     visual_i_d: vk::VisualID,
 ) -> vk::Bool32 {
+    println!("vkGetPhysicalDeviceXlibPresentationSupportKHR");
     unimplemented!();
 }
 
@@ -1928,6 +2065,7 @@ extern "C" fn vkCreateXcbSurfaceKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateXcbSurfaceKHR");
     unimplemented!();
 }
 
@@ -1939,6 +2077,7 @@ extern "C" fn vkGetPhysicalDeviceXcbPresentationSupportKHR(
     connection: *mut vk::xcb_connection_t,
     visual_id: vk::xcb_visualid_t,
 ) -> vk::Bool32 {
+    println!("vkGetPhysicalDeviceXcbPresentationSupportKHR");
     unimplemented!();
 }
 
@@ -1950,6 +2089,7 @@ extern "C" fn vkCreateDirectFBSurfaceEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateDirectFBSurfaceEXT");
     unimplemented!();
 }
 
@@ -1960,6 +2100,7 @@ extern "C" fn vkGetPhysicalDeviceDirectFBPresentationSupportEXT(
     queue_family_index: u32,
     dfb: *mut vk::IDirectFB,
 ) -> vk::Bool32 {
+    println!("vkGetPhysicalDeviceDirectFBPresentationSupportEXT");
     unimplemented!();
 }
 
@@ -1971,6 +2112,7 @@ extern "C" fn vkCreateImagePipeSurfaceFUCHSIA(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateImagePipeSurfaceFUCHSIA");
     unimplemented!();
 }
 
@@ -1982,6 +2124,7 @@ extern "C" fn vkCreateStreamDescriptorSurfaceGGP(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateStreamDescriptorSurfaceGGP");
     unimplemented!();
 }
 
@@ -1993,6 +2136,7 @@ extern "C" fn vkCreateScreenSurfaceQNX(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateScreenSurfaceQNX");
     unimplemented!();
 }
 
@@ -2003,6 +2147,7 @@ extern "C" fn vkGetPhysicalDeviceScreenPresentationSupportQNX(
     queue_family_index: u32,
     window: *mut vk::_screen_window,
 ) -> vk::Bool32 {
+    println!("vkGetPhysicalDeviceScreenPresentationSupportQNX");
     unimplemented!();
 }
 
@@ -2014,6 +2159,7 @@ extern "C" fn vkCreateDebugReportCallbackEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_callback: *mut vk::DebugReportCallbackEXT,
 ) -> vk::Result {
+    println!("vkCreateDebugReportCallbackEXT");
     unimplemented!();
 }
 
@@ -2024,6 +2170,7 @@ extern "C" fn vkDestroyDebugReportCallbackEXT(
     callback: vk::DebugReportCallbackEXT,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyDebugReportCallbackEXT");
     unimplemented!();
 }
 
@@ -2039,6 +2186,7 @@ extern "C" fn vkDebugReportMessageEXT(
     p_layer_prefix: *const char,
     p_message: *const char,
 ) {
+    println!("vkDebugReportMessageEXT");
     unimplemented!();
 }
 
@@ -2048,6 +2196,7 @@ extern "C" fn vkDebugMarkerSetObjectNameEXT(
     device: vk::Device,
     p_name_info: *const vk::DebugMarkerObjectNameInfoEXT,
 ) -> vk::Result {
+    println!("vkDebugMarkerSetObjectNameEXT");
     unimplemented!();
 }
 
@@ -2057,6 +2206,7 @@ extern "C" fn vkDebugMarkerSetObjectTagEXT(
     device: vk::Device,
     p_tag_info: *const vk::DebugMarkerObjectTagInfoEXT,
 ) -> vk::Result {
+    println!("vkDebugMarkerSetObjectTagEXT");
     unimplemented!();
 }
 
@@ -2066,14 +2216,14 @@ extern "C" fn vkCmdDebugMarkerBeginEXT(
     command_buffer: vk::CommandBuffer,
     p_marker_info: *const vk::DebugMarkerMarkerInfoEXT,
 ) {
+    println!("vkCmdDebugMarkerBeginEXT");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerEndEXT.html>"]
-extern "C" fn vkCmdDebugMarkerEndEXT(
-    command_buffer: vk::CommandBuffer,
-) {
+extern "C" fn vkCmdDebugMarkerEndEXT(command_buffer: vk::CommandBuffer) {
+    println!("vkCmdDebugMarkerEndEXT");
     unimplemented!();
 }
 
@@ -2083,6 +2233,7 @@ extern "C" fn vkCmdDebugMarkerInsertEXT(
     command_buffer: vk::CommandBuffer,
     p_marker_info: *const vk::DebugMarkerMarkerInfoEXT,
 ) {
+    println!("vkCmdDebugMarkerInsertEXT");
     unimplemented!();
 }
 
@@ -2098,6 +2249,7 @@ extern "C" fn vkGetPhysicalDeviceExternalImageFormatPropertiesNV(
     external_handle_type: vk::ExternalMemoryHandleTypeFlagsNV,
     p_external_image_format_properties: *mut vk::ExternalImageFormatPropertiesNV,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceExternalImageFormatPropertiesNV");
     unimplemented!();
 }
 
@@ -2109,6 +2261,7 @@ extern "C" fn vkGetMemoryWin32HandleNV(
     handle_type: vk::ExternalMemoryHandleTypeFlagsNV,
     p_handle: *mut vk::HANDLE,
 ) -> vk::Result {
+    println!("vkGetMemoryWin32HandleNV");
     unimplemented!();
 }
 
@@ -2119,6 +2272,7 @@ extern "C" fn vkCmdExecuteGeneratedCommandsNV(
     is_preprocessed: vk::Bool32,
     p_generated_commands_info: *const vk::GeneratedCommandsInfoNV,
 ) {
+    println!("vkCmdExecuteGeneratedCommandsNV");
     unimplemented!();
 }
 
@@ -2128,6 +2282,7 @@ extern "C" fn vkCmdPreprocessGeneratedCommandsNV(
     command_buffer: vk::CommandBuffer,
     p_generated_commands_info: *const vk::GeneratedCommandsInfoNV,
 ) {
+    println!("vkCmdPreprocessGeneratedCommandsNV");
     unimplemented!();
 }
 
@@ -2139,6 +2294,7 @@ extern "C" fn vkCmdBindPipelineShaderGroupNV(
     pipeline: vk::Pipeline,
     group_index: u32,
 ) {
+    println!("vkCmdBindPipelineShaderGroupNV");
     unimplemented!();
 }
 
@@ -2149,6 +2305,7 @@ extern "C" fn vkGetGeneratedCommandsMemoryRequirementsNV(
     p_info: *const vk::GeneratedCommandsMemoryRequirementsInfoNV,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
+    println!("vkGetGeneratedCommandsMemoryRequirementsNV");
     unimplemented!();
 }
 
@@ -2160,6 +2317,7 @@ extern "C" fn vkCreateIndirectCommandsLayoutNV(
     p_allocator: *const vk::AllocationCallbacks,
     p_indirect_commands_layout: *mut vk::IndirectCommandsLayoutNV,
 ) -> vk::Result {
+    println!("vkCreateIndirectCommandsLayoutNV");
     unimplemented!();
 }
 
@@ -2170,6 +2328,7 @@ extern "C" fn vkDestroyIndirectCommandsLayoutNV(
     indirect_commands_layout: vk::IndirectCommandsLayoutNV,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyIndirectCommandsLayoutNV");
     unimplemented!();
 }
 
@@ -2179,6 +2338,7 @@ extern "C" fn vkGetPhysicalDeviceFeatures2(
     physical_device: vk::PhysicalDevice,
     p_features: *mut vk::PhysicalDeviceFeatures2,
 ) {
+    println!("vkGetPhysicalDeviceFeatures2");
     unimplemented!();
 }
 
@@ -2188,6 +2348,7 @@ extern "C" fn vkGetPhysicalDeviceProperties2(
     physical_device: vk::PhysicalDevice,
     p_properties: *mut vk::PhysicalDeviceProperties2,
 ) {
+    println!("vkGetPhysicalDeviceProperties2");
     unimplemented!();
 }
 
@@ -2198,6 +2359,7 @@ extern "C" fn vkGetPhysicalDeviceFormatProperties2(
     format: vk::Format,
     p_format_properties: *mut vk::FormatProperties2,
 ) {
+    println!("vkGetPhysicalDeviceFormatProperties2");
     unimplemented!();
 }
 
@@ -2208,6 +2370,7 @@ extern "C" fn vkGetPhysicalDeviceImageFormatProperties2(
     p_image_format_info: *const vk::PhysicalDeviceImageFormatInfo2,
     p_image_format_properties: *mut vk::ImageFormatProperties2,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceImageFormatProperties2");
     unimplemented!();
 }
 
@@ -2218,6 +2381,7 @@ extern "C" fn vkGetPhysicalDeviceQueueFamilyProperties2(
     p_queue_family_property_count: *mut u32,
     p_queue_family_properties: *mut vk::QueueFamilyProperties2,
 ) {
+    println!("vkGetPhysicalDeviceQueueFamilyProperties2");
     unimplemented!();
 }
 
@@ -2227,6 +2391,7 @@ extern "C" fn vkGetPhysicalDeviceMemoryProperties2(
     physical_device: vk::PhysicalDevice,
     p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties2,
 ) {
+    println!("vkGetPhysicalDeviceMemoryProperties2");
     unimplemented!();
 }
 
@@ -2238,6 +2403,7 @@ extern "C" fn vkGetPhysicalDeviceSparseImageFormatProperties2(
     p_property_count: *mut u32,
     p_properties: *mut vk::SparseImageFormatProperties2,
 ) {
+    println!("vkGetPhysicalDeviceSparseImageFormatProperties2");
     unimplemented!();
 }
 
@@ -2251,6 +2417,7 @@ extern "C" fn vkCmdPushDescriptorSetKHR(
     descriptor_write_count: u32,
     p_descriptor_writes: *const vk::WriteDescriptorSet,
 ) {
+    println!("vkCmdPushDescriptorSetKHR");
     unimplemented!();
 }
 
@@ -2261,6 +2428,7 @@ extern "C" fn vkTrimCommandPool(
     command_pool: vk::CommandPool,
     flags: vk::CommandPoolTrimFlags,
 ) {
+    println!("vkTrimCommandPool");
     unimplemented!();
 }
 
@@ -2271,6 +2439,7 @@ extern "C" fn vkGetPhysicalDeviceExternalBufferProperties(
     p_external_buffer_info: *const vk::PhysicalDeviceExternalBufferInfo,
     p_external_buffer_properties: *mut vk::ExternalBufferProperties,
 ) {
+    println!("vkGetPhysicalDeviceExternalBufferProperties");
     unimplemented!();
 }
 
@@ -2281,6 +2450,7 @@ extern "C" fn vkGetMemoryWin32HandleKHR(
     p_get_win32_handle_info: *const vk::MemoryGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> vk::Result {
+    println!("vkGetMemoryWin32HandleKHR");
     unimplemented!();
 }
 
@@ -2292,6 +2462,7 @@ extern "C" fn vkGetMemoryWin32HandlePropertiesKHR(
     handle: vk::HANDLE,
     p_memory_win32_handle_properties: *mut vk::MemoryWin32HandlePropertiesKHR,
 ) -> vk::Result {
+    println!("vkGetMemoryWin32HandlePropertiesKHR");
     unimplemented!();
 }
 
@@ -2302,6 +2473,7 @@ extern "C" fn vkGetMemoryFdKHR(
     p_get_fd_info: *const vk::MemoryGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
 ) -> vk::Result {
+    println!("vkGetMemoryFdKHR");
     unimplemented!();
 }
 
@@ -2313,6 +2485,7 @@ extern "C" fn vkGetMemoryFdPropertiesKHR(
     fd: std::os::raw::c_int,
     p_memory_fd_properties: *mut vk::MemoryFdPropertiesKHR,
 ) -> vk::Result {
+    println!("vkGetMemoryFdPropertiesKHR");
     unimplemented!();
 }
 
@@ -2323,6 +2496,7 @@ extern "C" fn vkGetMemoryZirconHandleFUCHSIA(
     p_get_zircon_handle_info: *const vk::MemoryGetZirconHandleInfoFUCHSIA,
     p_zircon_handle: *mut vk::zx_handle_t,
 ) -> vk::Result {
+    println!("vkGetMemoryZirconHandleFUCHSIA");
     unimplemented!();
 }
 
@@ -2334,6 +2508,7 @@ extern "C" fn vkGetMemoryZirconHandlePropertiesFUCHSIA(
     zircon_handle: vk::zx_handle_t,
     p_memory_zircon_handle_properties: *mut vk::MemoryZirconHandlePropertiesFUCHSIA,
 ) -> vk::Result {
+    println!("vkGetMemoryZirconHandlePropertiesFUCHSIA");
     unimplemented!();
 }
 
@@ -2344,6 +2519,7 @@ extern "C" fn vkGetMemoryRemoteAddressNV(
     p_memory_get_remote_address_info: *const vk::MemoryGetRemoteAddressInfoNV,
     p_address: *mut vk::RemoteAddressNV,
 ) -> vk::Result {
+    println!("vkGetMemoryRemoteAddressNV");
     unimplemented!();
 }
 
@@ -2354,6 +2530,7 @@ extern "C" fn vkGetPhysicalDeviceExternalSemaphoreProperties(
     p_external_semaphore_info: *const vk::PhysicalDeviceExternalSemaphoreInfo,
     p_external_semaphore_properties: *mut vk::ExternalSemaphoreProperties,
 ) {
+    println!("vkGetPhysicalDeviceExternalSemaphoreProperties");
     unimplemented!();
 }
 
@@ -2364,6 +2541,7 @@ extern "C" fn vkGetSemaphoreWin32HandleKHR(
     p_get_win32_handle_info: *const vk::SemaphoreGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> vk::Result {
+    println!("vkGetSemaphoreWin32HandleKHR");
     unimplemented!();
 }
 
@@ -2373,6 +2551,7 @@ extern "C" fn vkImportSemaphoreWin32HandleKHR(
     device: vk::Device,
     p_import_semaphore_win32_handle_info: *const vk::ImportSemaphoreWin32HandleInfoKHR,
 ) -> vk::Result {
+    println!("vkImportSemaphoreWin32HandleKHR");
     unimplemented!();
 }
 
@@ -2383,6 +2562,7 @@ extern "C" fn vkGetSemaphoreFdKHR(
     p_get_fd_info: *const vk::SemaphoreGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
 ) -> vk::Result {
+    println!("vkGetSemaphoreFdKHR");
     unimplemented!();
 }
 
@@ -2392,6 +2572,7 @@ extern "C" fn vkImportSemaphoreFdKHR(
     device: vk::Device,
     p_import_semaphore_fd_info: *const vk::ImportSemaphoreFdInfoKHR,
 ) -> vk::Result {
+    println!("vkImportSemaphoreFdKHR");
     unimplemented!();
 }
 
@@ -2402,6 +2583,7 @@ extern "C" fn vkGetSemaphoreZirconHandleFUCHSIA(
     p_get_zircon_handle_info: *const vk::SemaphoreGetZirconHandleInfoFUCHSIA,
     p_zircon_handle: *mut vk::zx_handle_t,
 ) -> vk::Result {
+    println!("vkGetSemaphoreZirconHandleFUCHSIA");
     unimplemented!();
 }
 
@@ -2411,6 +2593,7 @@ extern "C" fn vkImportSemaphoreZirconHandleFUCHSIA(
     device: vk::Device,
     p_import_semaphore_zircon_handle_info: *const vk::ImportSemaphoreZirconHandleInfoFUCHSIA,
 ) -> vk::Result {
+    println!("vkImportSemaphoreZirconHandleFUCHSIA");
     unimplemented!();
 }
 
@@ -2421,6 +2604,7 @@ extern "C" fn vkGetPhysicalDeviceExternalFenceProperties(
     p_external_fence_info: *const vk::PhysicalDeviceExternalFenceInfo,
     p_external_fence_properties: *mut vk::ExternalFenceProperties,
 ) {
+    println!("vkGetPhysicalDeviceExternalFenceProperties");
     unimplemented!();
 }
 
@@ -2431,6 +2615,7 @@ extern "C" fn vkGetFenceWin32HandleKHR(
     p_get_win32_handle_info: *const vk::FenceGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> vk::Result {
+    println!("vkGetFenceWin32HandleKHR");
     unimplemented!();
 }
 
@@ -2440,6 +2625,7 @@ extern "C" fn vkImportFenceWin32HandleKHR(
     device: vk::Device,
     p_import_fence_win32_handle_info: *const vk::ImportFenceWin32HandleInfoKHR,
 ) -> vk::Result {
+    println!("vkImportFenceWin32HandleKHR");
     unimplemented!();
 }
 
@@ -2450,6 +2636,7 @@ extern "C" fn vkGetFenceFdKHR(
     p_get_fd_info: *const vk::FenceGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
 ) -> vk::Result {
+    println!("vkGetFenceFdKHR");
     unimplemented!();
 }
 
@@ -2459,6 +2646,7 @@ extern "C" fn vkImportFenceFdKHR(
     device: vk::Device,
     p_import_fence_fd_info: *const vk::ImportFenceFdInfoKHR,
 ) -> vk::Result {
+    println!("vkImportFenceFdKHR");
     unimplemented!();
 }
 
@@ -2468,6 +2656,7 @@ extern "C" fn vkReleaseDisplayEXT(
     physical_device: vk::PhysicalDevice,
     display: vk::DisplayKHR,
 ) -> vk::Result {
+    println!("vkReleaseDisplayEXT");
     unimplemented!();
 }
 
@@ -2478,6 +2667,7 @@ extern "C" fn vkAcquireXlibDisplayEXT(
     dpy: *mut vk::Display,
     display: vk::DisplayKHR,
 ) -> vk::Result {
+    println!("vkAcquireXlibDisplayEXT");
     unimplemented!();
 }
 
@@ -2489,6 +2679,7 @@ extern "C" fn vkGetRandROutputDisplayEXT(
     rr_output: vk::RROutput,
     p_display: *mut vk::DisplayKHR,
 ) -> vk::Result {
+    println!("vkGetRandROutputDisplayEXT");
     unimplemented!();
 }
 
@@ -2498,6 +2689,7 @@ extern "C" fn vkAcquireWinrtDisplayNV(
     physical_device: vk::PhysicalDevice,
     display: vk::DisplayKHR,
 ) -> vk::Result {
+    println!("vkAcquireWinrtDisplayNV");
     unimplemented!();
 }
 
@@ -2508,6 +2700,7 @@ extern "C" fn vkGetWinrtDisplayNV(
     device_relative_id: u32,
     p_display: *mut vk::DisplayKHR,
 ) -> vk::Result {
+    println!("vkGetWinrtDisplayNV");
     unimplemented!();
 }
 
@@ -2518,6 +2711,7 @@ extern "C" fn vkDisplayPowerControlEXT(
     display: vk::DisplayKHR,
     p_display_power_info: *const vk::DisplayPowerInfoEXT,
 ) -> vk::Result {
+    println!("vkDisplayPowerControlEXT");
     unimplemented!();
 }
 
@@ -2529,6 +2723,7 @@ extern "C" fn vkRegisterDeviceEventEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_fence: *mut vk::Fence,
 ) -> vk::Result {
+    println!("vkRegisterDeviceEventEXT");
     unimplemented!();
 }
 
@@ -2541,6 +2736,7 @@ extern "C" fn vkRegisterDisplayEventEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_fence: *mut vk::Fence,
 ) -> vk::Result {
+    println!("vkRegisterDisplayEventEXT");
     unimplemented!();
 }
 
@@ -2552,6 +2748,7 @@ extern "C" fn vkGetSwapchainCounterEXT(
     counter: vk::SurfaceCounterFlagsEXT,
     p_counter_value: *mut u64,
 ) -> vk::Result {
+    println!("vkGetSwapchainCounterEXT");
     unimplemented!();
 }
 
@@ -2562,6 +2759,7 @@ extern "C" fn vkGetPhysicalDeviceSurfaceCapabilities2EXT(
     surface: vk::SurfaceKHR,
     p_surface_capabilities: *mut vk::SurfaceCapabilities2EXT,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceSurfaceCapabilities2EXT");
     unimplemented!();
 }
 
@@ -2572,6 +2770,7 @@ extern "C" fn vkEnumeratePhysicalDeviceGroups(
     p_physical_device_group_count: *mut u32,
     p_physical_device_group_properties: *mut vk::PhysicalDeviceGroupProperties,
 ) -> vk::Result {
+    println!("vkEnumeratePhysicalDeviceGroups");
     unimplemented!();
 }
 
@@ -2584,6 +2783,7 @@ extern "C" fn vkGetDeviceGroupPeerMemoryFeatures(
     remote_device_index: u32,
     p_peer_memory_features: *mut vk::PeerMemoryFeatureFlags,
 ) {
+    println!("vkGetDeviceGroupPeerMemoryFeatures");
     unimplemented!();
 }
 
@@ -2594,6 +2794,7 @@ extern "C" fn vkBindBufferMemory2(
     bind_info_count: u32,
     p_bind_infos: *const vk::BindBufferMemoryInfo,
 ) -> vk::Result {
+    println!("vkBindBufferMemory2");
     unimplemented!();
 }
 
@@ -2604,15 +2805,14 @@ extern "C" fn vkBindImageMemory2(
     bind_info_count: u32,
     p_bind_infos: *const vk::BindImageMemoryInfo,
 ) -> vk::Result {
+    println!("vkBindImageMemory2");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDeviceMask.html>"]
-extern "C" fn vkCmdSetDeviceMask(
-    command_buffer: vk::CommandBuffer,
-    device_mask: u32,
-) {
+extern "C" fn vkCmdSetDeviceMask(command_buffer: vk::CommandBuffer, device_mask: u32) {
+    println!("vkCmdSetDeviceMask");
     unimplemented!();
 }
 
@@ -2622,6 +2822,7 @@ extern "C" fn vkGetDeviceGroupPresentCapabilitiesKHR(
     device: vk::Device,
     p_device_group_present_capabilities: *mut vk::DeviceGroupPresentCapabilitiesKHR,
 ) -> vk::Result {
+    println!("vkGetDeviceGroupPresentCapabilitiesKHR");
     unimplemented!();
 }
 
@@ -2632,6 +2833,7 @@ extern "C" fn vkGetDeviceGroupSurfacePresentModesKHR(
     surface: vk::SurfaceKHR,
     p_modes: *mut vk::DeviceGroupPresentModeFlagsKHR,
 ) -> vk::Result {
+    println!("vkGetDeviceGroupSurfacePresentModesKHR");
     unimplemented!();
 }
 
@@ -2642,6 +2844,7 @@ extern "C" fn vkAcquireNextImage2KHR(
     p_acquire_info: *const vk::AcquireNextImageInfoKHR,
     p_image_index: *mut u32,
 ) -> vk::Result {
+    println!("vkAcquireNextImage2KHR");
     unimplemented!();
 }
 
@@ -2656,6 +2859,7 @@ extern "C" fn vkCmdDispatchBase(
     group_count_y: u32,
     group_count_z: u32,
 ) {
+    println!("vkCmdDispatchBase");
     unimplemented!();
 }
 
@@ -2667,6 +2871,7 @@ extern "C" fn vkGetPhysicalDevicePresentRectanglesKHR(
     p_rect_count: *mut u32,
     p_rects: *mut vk::Rect2D,
 ) -> vk::Result {
+    println!("vkGetPhysicalDevicePresentRectanglesKHR");
     unimplemented!();
 }
 
@@ -2678,6 +2883,7 @@ extern "C" fn vkCreateDescriptorUpdateTemplate(
     p_allocator: *const vk::AllocationCallbacks,
     p_descriptor_update_template: *mut vk::DescriptorUpdateTemplate,
 ) -> vk::Result {
+    println!("vkCreateDescriptorUpdateTemplate");
     unimplemented!();
 }
 
@@ -2688,6 +2894,7 @@ extern "C" fn vkDestroyDescriptorUpdateTemplate(
     descriptor_update_template: vk::DescriptorUpdateTemplate,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyDescriptorUpdateTemplate");
     unimplemented!();
 }
 
@@ -2699,6 +2906,7 @@ extern "C" fn vkUpdateDescriptorSetWithTemplate(
     descriptor_update_template: vk::DescriptorUpdateTemplate,
     p_data: *const std::ffi::c_void,
 ) {
+    println!("vkUpdateDescriptorSetWithTemplate");
     unimplemented!();
 }
 
@@ -2711,6 +2919,7 @@ extern "C" fn vkCmdPushDescriptorSetWithTemplateKHR(
     set: u32,
     p_data: *const std::ffi::c_void,
 ) {
+    println!("vkCmdPushDescriptorSetWithTemplateKHR");
     unimplemented!();
 }
 
@@ -2722,6 +2931,7 @@ extern "C" fn vkSetHdrMetadataEXT(
     p_swapchains: *const vk::SwapchainKHR,
     p_metadata: *const vk::HdrMetadataEXT,
 ) {
+    println!("vkSetHdrMetadataEXT");
     unimplemented!();
 }
 
@@ -2731,6 +2941,7 @@ extern "C" fn vkGetSwapchainStatusKHR(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
 ) -> vk::Result {
+    println!("vkGetSwapchainStatusKHR");
     unimplemented!();
 }
 
@@ -2741,6 +2952,7 @@ extern "C" fn vkGetRefreshCycleDurationGOOGLE(
     swapchain: vk::SwapchainKHR,
     p_display_timing_properties: *mut vk::RefreshCycleDurationGOOGLE,
 ) -> vk::Result {
+    println!("vkGetRefreshCycleDurationGOOGLE");
     unimplemented!();
 }
 
@@ -2752,6 +2964,7 @@ extern "C" fn vkGetPastPresentationTimingGOOGLE(
     p_presentation_timing_count: *mut u32,
     p_presentation_timings: *mut vk::PastPresentationTimingGOOGLE,
 ) -> vk::Result {
+    println!("vkGetPastPresentationTimingGOOGLE");
     unimplemented!();
 }
 
@@ -2763,6 +2976,7 @@ extern "C" fn vkCreateIOSSurfaceMVK(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateIOSSurfaceMVK");
     unimplemented!();
 }
 
@@ -2774,6 +2988,7 @@ extern "C" fn vkCreateMacOSSurfaceMVK(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateMacOSSurfaceMVK");
     unimplemented!();
 }
 
@@ -2785,6 +3000,7 @@ extern "C" fn vkCreateMetalSurfaceEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateMetalSurfaceEXT");
     unimplemented!();
 }
 
@@ -2796,6 +3012,7 @@ extern "C" fn vkCmdSetViewportWScalingNV(
     viewport_count: u32,
     p_viewport_w_scalings: *const vk::ViewportWScalingNV,
 ) {
+    println!("vkCmdSetViewportWScalingNV");
     unimplemented!();
 }
 
@@ -2807,6 +3024,7 @@ extern "C" fn vkCmdSetDiscardRectangleEXT(
     discard_rectangle_count: u32,
     p_discard_rectangles: *const vk::Rect2D,
 ) {
+    println!("vkCmdSetDiscardRectangleEXT");
     unimplemented!();
 }
 
@@ -2816,6 +3034,7 @@ extern "C" fn vkCmdSetDiscardRectangleEnableEXT(
     command_buffer: vk::CommandBuffer,
     discard_rectangle_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetDiscardRectangleEnableEXT");
     unimplemented!();
 }
 
@@ -2825,6 +3044,7 @@ extern "C" fn vkCmdSetDiscardRectangleModeEXT(
     command_buffer: vk::CommandBuffer,
     discard_rectangle_mode: vk::DiscardRectangleModeEXT,
 ) {
+    println!("vkCmdSetDiscardRectangleModeEXT");
     unimplemented!();
 }
 
@@ -2834,6 +3054,7 @@ extern "C" fn vkCmdSetSampleLocationsEXT(
     command_buffer: vk::CommandBuffer,
     p_sample_locations_info: *const vk::SampleLocationsInfoEXT,
 ) {
+    println!("vkCmdSetSampleLocationsEXT");
     unimplemented!();
 }
 
@@ -2844,6 +3065,7 @@ extern "C" fn vkGetPhysicalDeviceMultisamplePropertiesEXT(
     samples: vk::SampleCountFlags,
     p_multisample_properties: *mut vk::MultisamplePropertiesEXT,
 ) {
+    println!("vkGetPhysicalDeviceMultisamplePropertiesEXT");
     unimplemented!();
 }
 
@@ -2854,6 +3076,7 @@ extern "C" fn vkGetPhysicalDeviceSurfaceCapabilities2KHR(
     p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR,
     p_surface_capabilities: *mut vk::SurfaceCapabilities2KHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceSurfaceCapabilities2KHR");
     unimplemented!();
 }
 
@@ -2865,6 +3088,7 @@ extern "C" fn vkGetPhysicalDeviceSurfaceFormats2KHR(
     p_surface_format_count: *mut u32,
     p_surface_formats: *mut vk::SurfaceFormat2KHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceSurfaceFormats2KHR");
     unimplemented!();
 }
 
@@ -2875,6 +3099,7 @@ extern "C" fn vkGetPhysicalDeviceDisplayProperties2KHR(
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayProperties2KHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceDisplayProperties2KHR");
     unimplemented!();
 }
 
@@ -2885,6 +3110,7 @@ extern "C" fn vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayPlaneProperties2KHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
     unimplemented!();
 }
 
@@ -2896,6 +3122,7 @@ extern "C" fn vkGetDisplayModeProperties2KHR(
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayModeProperties2KHR,
 ) -> vk::Result {
+    println!("vkGetDisplayModeProperties2KHR");
     unimplemented!();
 }
 
@@ -2906,6 +3133,7 @@ extern "C" fn vkGetDisplayPlaneCapabilities2KHR(
     p_display_plane_info: *const vk::DisplayPlaneInfo2KHR,
     p_capabilities: *mut vk::DisplayPlaneCapabilities2KHR,
 ) -> vk::Result {
+    println!("vkGetDisplayPlaneCapabilities2KHR");
     unimplemented!();
 }
 
@@ -2916,6 +3144,7 @@ extern "C" fn vkGetBufferMemoryRequirements2(
     p_info: *const vk::BufferMemoryRequirementsInfo2,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
+    println!("vkGetBufferMemoryRequirements2");
     unimplemented!();
 }
 
@@ -2926,6 +3155,7 @@ extern "C" fn vkGetImageMemoryRequirements2(
     p_info: *const vk::ImageMemoryRequirementsInfo2,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
+    println!("vkGetImageMemoryRequirements2");
     unimplemented!();
 }
 
@@ -2937,6 +3167,7 @@ extern "C" fn vkGetImageSparseMemoryRequirements2(
     p_sparse_memory_requirement_count: *mut u32,
     p_sparse_memory_requirements: *mut vk::SparseImageMemoryRequirements2,
 ) {
+    println!("vkGetImageSparseMemoryRequirements2");
     unimplemented!();
 }
 
@@ -2947,6 +3178,7 @@ extern "C" fn vkGetDeviceBufferMemoryRequirements(
     p_info: *const vk::DeviceBufferMemoryRequirements,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
+    println!("vkGetDeviceBufferMemoryRequirements");
     unimplemented!();
 }
 
@@ -2957,6 +3189,7 @@ extern "C" fn vkGetDeviceImageMemoryRequirements(
     p_info: *const vk::DeviceImageMemoryRequirements,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
+    println!("vkGetDeviceImageMemoryRequirements");
     unimplemented!();
 }
 
@@ -2968,6 +3201,7 @@ extern "C" fn vkGetDeviceImageSparseMemoryRequirements(
     p_sparse_memory_requirement_count: *mut u32,
     p_sparse_memory_requirements: *mut vk::SparseImageMemoryRequirements2,
 ) {
+    println!("vkGetDeviceImageSparseMemoryRequirements");
     unimplemented!();
 }
 
@@ -2979,6 +3213,7 @@ extern "C" fn vkCreateSamplerYcbcrConversion(
     p_allocator: *const vk::AllocationCallbacks,
     p_ycbcr_conversion: *mut vk::SamplerYcbcrConversion,
 ) -> vk::Result {
+    println!("vkCreateSamplerYcbcrConversion");
     unimplemented!();
 }
 
@@ -2989,6 +3224,7 @@ extern "C" fn vkDestroySamplerYcbcrConversion(
     ycbcr_conversion: vk::SamplerYcbcrConversion,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroySamplerYcbcrConversion");
     unimplemented!();
 }
 
@@ -2999,6 +3235,7 @@ extern "C" fn vkGetDeviceQueue2(
     p_queue_info: *const vk::DeviceQueueInfo2,
     p_queue: *mut vk::Queue,
 ) {
+    println!("vkGetDeviceQueue2");
     unimplemented!();
 }
 
@@ -3010,6 +3247,7 @@ extern "C" fn vkCreateValidationCacheEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_validation_cache: *mut vk::ValidationCacheEXT,
 ) -> vk::Result {
+    println!("vkCreateValidationCacheEXT");
     unimplemented!();
 }
 
@@ -3020,6 +3258,7 @@ extern "C" fn vkDestroyValidationCacheEXT(
     validation_cache: vk::ValidationCacheEXT,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyValidationCacheEXT");
     unimplemented!();
 }
 
@@ -3031,6 +3270,7 @@ extern "C" fn vkGetValidationCacheDataEXT(
     p_data_size: *mut isize,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetValidationCacheDataEXT");
     unimplemented!();
 }
 
@@ -3042,6 +3282,7 @@ extern "C" fn vkMergeValidationCachesEXT(
     src_cache_count: u32,
     p_src_caches: *const vk::ValidationCacheEXT,
 ) -> vk::Result {
+    println!("vkMergeValidationCachesEXT");
     unimplemented!();
 }
 
@@ -3052,6 +3293,7 @@ extern "C" fn vkGetDescriptorSetLayoutSupport(
     p_create_info: *const vk::DescriptorSetLayoutCreateInfo,
     p_support: *mut vk::DescriptorSetLayoutSupport,
 ) {
+    println!("vkGetDescriptorSetLayoutSupport");
     unimplemented!();
 }
 
@@ -3063,6 +3305,7 @@ extern "C" fn vkGetSwapchainGrallocUsageANDROID(
     image_usage: vk::ImageUsageFlags,
     gralloc_usage: *mut std::os::raw::c_int,
 ) -> vk::Result {
+    println!("vkGetSwapchainGrallocUsageANDROID");
     unimplemented!();
 }
 
@@ -3076,6 +3319,7 @@ extern "C" fn vkGetSwapchainGrallocUsage2ANDROID(
     gralloc_consumer_usage: *mut u64,
     gralloc_producer_usage: *mut u64,
 ) -> vk::Result {
+    println!("vkGetSwapchainGrallocUsage2ANDROID");
     unimplemented!();
 }
 
@@ -3088,6 +3332,7 @@ extern "C" fn vkAcquireImageANDROID(
     semaphore: vk::Semaphore,
     fence: vk::Fence,
 ) -> vk::Result {
+    println!("vkAcquireImageANDROID");
     unimplemented!();
 }
 
@@ -3100,6 +3345,7 @@ extern "C" fn vkQueueSignalReleaseImageANDROID(
     image: vk::Image,
     p_native_fence_fd: *mut std::os::raw::c_int,
 ) -> vk::Result {
+    println!("vkQueueSignalReleaseImageANDROID");
     unimplemented!();
 }
 
@@ -3113,6 +3359,7 @@ extern "C" fn vkGetShaderInfoAMD(
     p_info_size: *mut isize,
     p_info: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetShaderInfoAMD");
     unimplemented!();
 }
 
@@ -3123,6 +3370,7 @@ extern "C" fn vkSetLocalDimmingAMD(
     swap_chain: vk::SwapchainKHR,
     local_dimming_enable: vk::Bool32,
 ) {
+    println!("vkSetLocalDimmingAMD");
     unimplemented!();
 }
 
@@ -3133,6 +3381,7 @@ extern "C" fn vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
     p_time_domain_count: *mut u32,
     p_time_domains: *mut vk::TimeDomainKHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceCalibrateableTimeDomainsKHR");
     unimplemented!();
 }
 
@@ -3145,6 +3394,7 @@ extern "C" fn vkGetCalibratedTimestampsKHR(
     p_timestamps: *mut u64,
     p_max_deviation: *mut u64,
 ) -> vk::Result {
+    println!("vkGetCalibratedTimestampsKHR");
     unimplemented!();
 }
 
@@ -3154,6 +3404,7 @@ extern "C" fn vkSetDebugUtilsObjectNameEXT(
     device: vk::Device,
     p_name_info: *const vk::DebugUtilsObjectNameInfoEXT,
 ) -> vk::Result {
+    println!("vkSetDebugUtilsObjectNameEXT");
     unimplemented!();
 }
 
@@ -3163,6 +3414,7 @@ extern "C" fn vkSetDebugUtilsObjectTagEXT(
     device: vk::Device,
     p_tag_info: *const vk::DebugUtilsObjectTagInfoEXT,
 ) -> vk::Result {
+    println!("vkSetDebugUtilsObjectTagEXT");
     unimplemented!();
 }
 
@@ -3172,14 +3424,14 @@ extern "C" fn vkQueueBeginDebugUtilsLabelEXT(
     queue: vk::Queue,
     p_label_info: *const vk::DebugUtilsLabelEXT,
 ) {
+    println!("vkQueueBeginDebugUtilsLabelEXT");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueEndDebugUtilsLabelEXT.html>"]
-extern "C" fn vkQueueEndDebugUtilsLabelEXT(
-    queue: vk::Queue,
-) {
+extern "C" fn vkQueueEndDebugUtilsLabelEXT(queue: vk::Queue) {
+    println!("vkQueueEndDebugUtilsLabelEXT");
     unimplemented!();
 }
 
@@ -3189,6 +3441,7 @@ extern "C" fn vkQueueInsertDebugUtilsLabelEXT(
     queue: vk::Queue,
     p_label_info: *const vk::DebugUtilsLabelEXT,
 ) {
+    println!("vkQueueInsertDebugUtilsLabelEXT");
     unimplemented!();
 }
 
@@ -3198,14 +3451,14 @@ extern "C" fn vkCmdBeginDebugUtilsLabelEXT(
     command_buffer: vk::CommandBuffer,
     p_label_info: *const vk::DebugUtilsLabelEXT,
 ) {
+    println!("vkCmdBeginDebugUtilsLabelEXT");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndDebugUtilsLabelEXT.html>"]
-extern "C" fn vkCmdEndDebugUtilsLabelEXT(
-    command_buffer: vk::CommandBuffer,
-) {
+extern "C" fn vkCmdEndDebugUtilsLabelEXT(command_buffer: vk::CommandBuffer) {
+    println!("vkCmdEndDebugUtilsLabelEXT");
     unimplemented!();
 }
 
@@ -3215,6 +3468,7 @@ extern "C" fn vkCmdInsertDebugUtilsLabelEXT(
     command_buffer: vk::CommandBuffer,
     p_label_info: *const vk::DebugUtilsLabelEXT,
 ) {
+    println!("vkCmdInsertDebugUtilsLabelEXT");
     unimplemented!();
 }
 
@@ -3226,6 +3480,7 @@ extern "C" fn vkCreateDebugUtilsMessengerEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_messenger: *mut vk::DebugUtilsMessengerEXT,
 ) -> vk::Result {
+    println!("vkCreateDebugUtilsMessengerEXT");
     unimplemented!();
 }
 
@@ -3236,6 +3491,7 @@ extern "C" fn vkDestroyDebugUtilsMessengerEXT(
     messenger: vk::DebugUtilsMessengerEXT,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyDebugUtilsMessengerEXT");
     unimplemented!();
 }
 
@@ -3247,6 +3503,7 @@ extern "C" fn vkSubmitDebugUtilsMessageEXT(
     message_types: vk::DebugUtilsMessageTypeFlagsEXT,
     p_callback_data: *const vk::DebugUtilsMessengerCallbackDataEXT,
 ) {
+    println!("vkSubmitDebugUtilsMessageEXT");
     unimplemented!();
 }
 
@@ -3258,6 +3515,7 @@ extern "C" fn vkGetMemoryHostPointerPropertiesEXT(
     p_host_pointer: *const std::ffi::c_void,
     p_memory_host_pointer_properties: *mut vk::MemoryHostPointerPropertiesEXT,
 ) -> vk::Result {
+    println!("vkGetMemoryHostPointerPropertiesEXT");
     unimplemented!();
 }
 
@@ -3270,6 +3528,7 @@ extern "C" fn vkCmdWriteBufferMarkerAMD(
     dst_offset: vk::DeviceSize,
     marker: u32,
 ) {
+    println!("vkCmdWriteBufferMarkerAMD");
     unimplemented!();
 }
 
@@ -3281,6 +3540,7 @@ extern "C" fn vkCreateRenderPass2(
     p_allocator: *const vk::AllocationCallbacks,
     p_render_pass: *mut vk::RenderPass,
 ) -> vk::Result {
+    println!("vkCreateRenderPass2");
     unimplemented!();
 }
 
@@ -3291,6 +3551,7 @@ extern "C" fn vkCmdBeginRenderPass2(
     p_render_pass_begin: *const vk::RenderPassBeginInfo,
     p_subpass_begin_info: *const vk::SubpassBeginInfo,
 ) {
+    println!("vkCmdBeginRenderPass2");
     unimplemented!();
 }
 
@@ -3301,6 +3562,7 @@ extern "C" fn vkCmdNextSubpass2(
     p_subpass_begin_info: *const vk::SubpassBeginInfo,
     p_subpass_end_info: *const vk::SubpassEndInfo,
 ) {
+    println!("vkCmdNextSubpass2");
     unimplemented!();
 }
 
@@ -3310,6 +3572,7 @@ extern "C" fn vkCmdEndRenderPass2(
     command_buffer: vk::CommandBuffer,
     p_subpass_end_info: *const vk::SubpassEndInfo,
 ) {
+    println!("vkCmdEndRenderPass2");
     unimplemented!();
 }
 
@@ -3320,6 +3583,7 @@ extern "C" fn vkGetSemaphoreCounterValue(
     semaphore: vk::Semaphore,
     p_value: *mut u64,
 ) -> vk::Result {
+    println!("vkGetSemaphoreCounterValue");
     unimplemented!();
 }
 
@@ -3330,6 +3594,7 @@ extern "C" fn vkWaitSemaphores(
     p_wait_info: *const vk::SemaphoreWaitInfo,
     timeout: u64,
 ) -> vk::Result {
+    println!("vkWaitSemaphores");
     unimplemented!();
 }
 
@@ -3339,6 +3604,7 @@ extern "C" fn vkSignalSemaphore(
     device: vk::Device,
     p_signal_info: *const vk::SemaphoreSignalInfo,
 ) -> vk::Result {
+    println!("vkSignalSemaphore");
     unimplemented!();
 }
 
@@ -3349,6 +3615,7 @@ extern "C" fn vkGetAndroidHardwareBufferPropertiesANDROID(
     buffer: *const vk::AHardwareBuffer,
     p_properties: *mut vk::AndroidHardwareBufferPropertiesANDROID,
 ) -> vk::Result {
+    println!("vkGetAndroidHardwareBufferPropertiesANDROID");
     unimplemented!();
 }
 
@@ -3359,6 +3626,7 @@ extern "C" fn vkGetMemoryAndroidHardwareBufferANDROID(
     p_info: *const vk::MemoryGetAndroidHardwareBufferInfoANDROID,
     p_buffer: *mut *mut vk::AHardwareBuffer,
 ) -> vk::Result {
+    println!("vkGetMemoryAndroidHardwareBufferANDROID");
     unimplemented!();
 }
 
@@ -3373,6 +3641,7 @@ extern "C" fn vkCmdDrawIndirectCount(
     max_draw_count: u32,
     stride: u32,
 ) {
+    println!("vkCmdDrawIndirectCount");
     unimplemented!();
 }
 
@@ -3387,6 +3656,7 @@ extern "C" fn vkCmdDrawIndexedIndirectCount(
     max_draw_count: u32,
     stride: u32,
 ) {
+    println!("vkCmdDrawIndexedIndirectCount");
     unimplemented!();
 }
 
@@ -3396,6 +3666,7 @@ extern "C" fn vkCmdSetCheckpointNV(
     command_buffer: vk::CommandBuffer,
     p_checkpoint_marker: *const std::ffi::c_void,
 ) {
+    println!("vkCmdSetCheckpointNV");
     unimplemented!();
 }
 
@@ -3406,6 +3677,7 @@ extern "C" fn vkGetQueueCheckpointDataNV(
     p_checkpoint_data_count: *mut u32,
     p_checkpoint_data: *mut vk::CheckpointDataNV,
 ) {
+    println!("vkGetQueueCheckpointDataNV");
     unimplemented!();
 }
 
@@ -3419,6 +3691,7 @@ extern "C" fn vkCmdBindTransformFeedbackBuffersEXT(
     p_offsets: *const vk::DeviceSize,
     p_sizes: *const vk::DeviceSize,
 ) {
+    println!("vkCmdBindTransformFeedbackBuffersEXT");
     unimplemented!();
 }
 
@@ -3431,6 +3704,7 @@ extern "C" fn vkCmdBeginTransformFeedbackEXT(
     p_counter_buffers: *const vk::Buffer,
     p_counter_buffer_offsets: *const vk::DeviceSize,
 ) {
+    println!("vkCmdBeginTransformFeedbackEXT");
     unimplemented!();
 }
 
@@ -3443,6 +3717,7 @@ extern "C" fn vkCmdEndTransformFeedbackEXT(
     p_counter_buffers: *const vk::Buffer,
     p_counter_buffer_offsets: *const vk::DeviceSize,
 ) {
+    println!("vkCmdEndTransformFeedbackEXT");
     unimplemented!();
 }
 
@@ -3455,6 +3730,7 @@ extern "C" fn vkCmdBeginQueryIndexedEXT(
     flags: vk::QueryControlFlags,
     index: u32,
 ) {
+    println!("vkCmdBeginQueryIndexedEXT");
     unimplemented!();
 }
 
@@ -3466,6 +3742,7 @@ extern "C" fn vkCmdEndQueryIndexedEXT(
     query: u32,
     index: u32,
 ) {
+    println!("vkCmdEndQueryIndexedEXT");
     unimplemented!();
 }
 
@@ -3480,6 +3757,7 @@ extern "C" fn vkCmdDrawIndirectByteCountEXT(
     counter_offset: u32,
     vertex_stride: u32,
 ) {
+    println!("vkCmdDrawIndirectByteCountEXT");
     unimplemented!();
 }
 
@@ -3491,6 +3769,7 @@ extern "C" fn vkCmdSetExclusiveScissorNV(
     exclusive_scissor_count: u32,
     p_exclusive_scissors: *const vk::Rect2D,
 ) {
+    println!("vkCmdSetExclusiveScissorNV");
     unimplemented!();
 }
 
@@ -3502,6 +3781,7 @@ extern "C" fn vkCmdSetExclusiveScissorEnableNV(
     exclusive_scissor_count: u32,
     p_exclusive_scissor_enables: *const vk::Bool32,
 ) {
+    println!("vkCmdSetExclusiveScissorEnableNV");
     unimplemented!();
 }
 
@@ -3512,6 +3792,7 @@ extern "C" fn vkCmdBindShadingRateImageNV(
     image_view: vk::ImageView,
     image_layout: vk::ImageLayout,
 ) {
+    println!("vkCmdBindShadingRateImageNV");
     unimplemented!();
 }
 
@@ -3523,6 +3804,7 @@ extern "C" fn vkCmdSetViewportShadingRatePaletteNV(
     viewport_count: u32,
     p_shading_rate_palettes: *const vk::ShadingRatePaletteNV,
 ) {
+    println!("vkCmdSetViewportShadingRatePaletteNV");
     unimplemented!();
 }
 
@@ -3534,6 +3816,7 @@ extern "C" fn vkCmdSetCoarseSampleOrderNV(
     custom_sample_order_count: u32,
     p_custom_sample_orders: *const vk::CoarseSampleOrderCustomNV,
 ) {
+    println!("vkCmdSetCoarseSampleOrderNV");
     unimplemented!();
 }
 
@@ -3544,6 +3827,7 @@ extern "C" fn vkCmdDrawMeshTasksNV(
     task_count: u32,
     first_task: u32,
 ) {
+    println!("vkCmdDrawMeshTasksNV");
     unimplemented!();
 }
 
@@ -3556,6 +3840,7 @@ extern "C" fn vkCmdDrawMeshTasksIndirectNV(
     draw_count: u32,
     stride: u32,
 ) {
+    println!("vkCmdDrawMeshTasksIndirectNV");
     unimplemented!();
 }
 
@@ -3570,6 +3855,7 @@ extern "C" fn vkCmdDrawMeshTasksIndirectCountNV(
     max_draw_count: u32,
     stride: u32,
 ) {
+    println!("vkCmdDrawMeshTasksIndirectCountNV");
     unimplemented!();
 }
 
@@ -3581,6 +3867,7 @@ extern "C" fn vkCmdDrawMeshTasksEXT(
     group_count_y: u32,
     group_count_z: u32,
 ) {
+    println!("vkCmdDrawMeshTasksEXT");
     unimplemented!();
 }
 
@@ -3593,6 +3880,7 @@ extern "C" fn vkCmdDrawMeshTasksIndirectEXT(
     draw_count: u32,
     stride: u32,
 ) {
+    println!("vkCmdDrawMeshTasksIndirectEXT");
     unimplemented!();
 }
 
@@ -3607,6 +3895,7 @@ extern "C" fn vkCmdDrawMeshTasksIndirectCountEXT(
     max_draw_count: u32,
     stride: u32,
 ) {
+    println!("vkCmdDrawMeshTasksIndirectCountEXT");
     unimplemented!();
 }
 
@@ -3617,6 +3906,7 @@ extern "C" fn vkCompileDeferredNV(
     pipeline: vk::Pipeline,
     shader: u32,
 ) -> vk::Result {
+    println!("vkCompileDeferredNV");
     unimplemented!();
 }
 
@@ -3628,6 +3918,7 @@ extern "C" fn vkCreateAccelerationStructureNV(
     p_allocator: *const vk::AllocationCallbacks,
     p_acceleration_structure: *mut vk::AccelerationStructureNV,
 ) -> vk::Result {
+    println!("vkCreateAccelerationStructureNV");
     unimplemented!();
 }
 
@@ -3638,6 +3929,7 @@ extern "C" fn vkCmdBindInvocationMaskHUAWEI(
     image_view: vk::ImageView,
     image_layout: vk::ImageLayout,
 ) {
+    println!("vkCmdBindInvocationMaskHUAWEI");
     unimplemented!();
 }
 
@@ -3648,6 +3940,7 @@ extern "C" fn vkDestroyAccelerationStructureKHR(
     acceleration_structure: vk::AccelerationStructureKHR,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyAccelerationStructureKHR");
     unimplemented!();
 }
 
@@ -3658,6 +3951,7 @@ extern "C" fn vkDestroyAccelerationStructureNV(
     acceleration_structure: vk::AccelerationStructureNV,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyAccelerationStructureNV");
     unimplemented!();
 }
 
@@ -3668,6 +3962,7 @@ extern "C" fn vkGetAccelerationStructureMemoryRequirementsNV(
     p_info: *const vk::AccelerationStructureMemoryRequirementsInfoNV,
     p_memory_requirements: *mut vk::MemoryRequirements2KHR,
 ) {
+    println!("vkGetAccelerationStructureMemoryRequirementsNV");
     unimplemented!();
 }
 
@@ -3678,6 +3973,7 @@ extern "C" fn vkBindAccelerationStructureMemoryNV(
     bind_info_count: u32,
     p_bind_infos: *const vk::BindAccelerationStructureMemoryInfoNV,
 ) -> vk::Result {
+    println!("vkBindAccelerationStructureMemoryNV");
     unimplemented!();
 }
 
@@ -3689,6 +3985,7 @@ extern "C" fn vkCmdCopyAccelerationStructureNV(
     src: vk::AccelerationStructureNV,
     mode: vk::CopyAccelerationStructureModeKHR,
 ) {
+    println!("vkCmdCopyAccelerationStructureNV");
     unimplemented!();
 }
 
@@ -3698,6 +3995,7 @@ extern "C" fn vkCmdCopyAccelerationStructureKHR(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyAccelerationStructureInfoKHR,
 ) {
+    println!("vkCmdCopyAccelerationStructureKHR");
     unimplemented!();
 }
 
@@ -3708,6 +4006,7 @@ extern "C" fn vkCopyAccelerationStructureKHR(
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyAccelerationStructureInfoKHR,
 ) -> vk::Result {
+    println!("vkCopyAccelerationStructureKHR");
     unimplemented!();
 }
 
@@ -3717,6 +4016,7 @@ extern "C" fn vkCmdCopyAccelerationStructureToMemoryKHR(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyAccelerationStructureToMemoryInfoKHR,
 ) {
+    println!("vkCmdCopyAccelerationStructureToMemoryKHR");
     unimplemented!();
 }
 
@@ -3727,6 +4027,7 @@ extern "C" fn vkCopyAccelerationStructureToMemoryKHR(
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyAccelerationStructureToMemoryInfoKHR,
 ) -> vk::Result {
+    println!("vkCopyAccelerationStructureToMemoryKHR");
     unimplemented!();
 }
 
@@ -3736,6 +4037,7 @@ extern "C" fn vkCmdCopyMemoryToAccelerationStructureKHR(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyMemoryToAccelerationStructureInfoKHR,
 ) {
+    println!("vkCmdCopyMemoryToAccelerationStructureKHR");
     unimplemented!();
 }
 
@@ -3746,6 +4048,7 @@ extern "C" fn vkCopyMemoryToAccelerationStructureKHR(
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyMemoryToAccelerationStructureInfoKHR,
 ) -> vk::Result {
+    println!("vkCopyMemoryToAccelerationStructureKHR");
     unimplemented!();
 }
 
@@ -3759,6 +4062,7 @@ extern "C" fn vkCmdWriteAccelerationStructuresPropertiesKHR(
     query_pool: vk::QueryPool,
     first_query: u32,
 ) {
+    println!("vkCmdWriteAccelerationStructuresPropertiesKHR");
     unimplemented!();
 }
 
@@ -3772,6 +4076,7 @@ extern "C" fn vkCmdWriteAccelerationStructuresPropertiesNV(
     query_pool: vk::QueryPool,
     first_query: u32,
 ) {
+    println!("vkCmdWriteAccelerationStructuresPropertiesNV");
     unimplemented!();
 }
 
@@ -3788,6 +4093,7 @@ extern "C" fn vkCmdBuildAccelerationStructureNV(
     scratch: vk::Buffer,
     scratch_offset: vk::DeviceSize,
 ) {
+    println!("vkCmdBuildAccelerationStructureNV");
     unimplemented!();
 }
 
@@ -3802,6 +4108,7 @@ extern "C" fn vkWriteAccelerationStructuresPropertiesKHR(
     p_data: *mut std::ffi::c_void,
     stride: isize,
 ) -> vk::Result {
+    println!("vkWriteAccelerationStructuresPropertiesKHR");
     unimplemented!();
 }
 
@@ -3817,6 +4124,7 @@ extern "C" fn vkCmdTraceRaysKHR(
     height: u32,
     depth: u32,
 ) {
+    println!("vkCmdTraceRaysKHR");
     unimplemented!();
 }
 
@@ -3839,6 +4147,7 @@ extern "C" fn vkCmdTraceRaysNV(
     height: u32,
     depth: u32,
 ) {
+    println!("vkCmdTraceRaysNV");
     unimplemented!();
 }
 
@@ -3852,6 +4161,7 @@ extern "C" fn vkGetRayTracingShaderGroupHandlesKHR(
     data_size: isize,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetRayTracingShaderGroupHandlesKHR");
     unimplemented!();
 }
 
@@ -3865,6 +4175,7 @@ extern "C" fn vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(
     data_size: isize,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetRayTracingCaptureReplayShaderGroupHandlesKHR");
     unimplemented!();
 }
 
@@ -3876,6 +4187,7 @@ extern "C" fn vkGetAccelerationStructureHandleNV(
     data_size: isize,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetAccelerationStructureHandleNV");
     unimplemented!();
 }
 
@@ -3889,6 +4201,7 @@ extern "C" fn vkCreateRayTracingPipelinesNV(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipelines: *mut vk::Pipeline,
 ) -> vk::Result {
+    println!("vkCreateRayTracingPipelinesNV");
     unimplemented!();
 }
 
@@ -3903,6 +4216,7 @@ extern "C" fn vkCreateRayTracingPipelinesKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipelines: *mut vk::Pipeline,
 ) -> vk::Result {
+    println!("vkCreateRayTracingPipelinesKHR");
     unimplemented!();
 }
 
@@ -3913,6 +4227,7 @@ extern "C" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
     p_property_count: *mut u32,
     p_properties: *mut vk::CooperativeMatrixPropertiesNV,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
     unimplemented!();
 }
 
@@ -3926,6 +4241,7 @@ extern "C" fn vkCmdTraceRaysIndirectKHR(
     p_callable_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR,
     indirect_device_address: vk::DeviceAddress,
 ) {
+    println!("vkCmdTraceRaysIndirectKHR");
     unimplemented!();
 }
 
@@ -3935,6 +4251,7 @@ extern "C" fn vkCmdTraceRaysIndirect2KHR(
     command_buffer: vk::CommandBuffer,
     indirect_device_address: vk::DeviceAddress,
 ) {
+    println!("vkCmdTraceRaysIndirect2KHR");
     unimplemented!();
 }
 
@@ -3945,6 +4262,7 @@ extern "C" fn vkGetDeviceAccelerationStructureCompatibilityKHR(
     p_version_info: *const vk::AccelerationStructureVersionInfoKHR,
     p_compatibility: *mut vk::AccelerationStructureCompatibilityKHR,
 ) {
+    println!("vkGetDeviceAccelerationStructureCompatibilityKHR");
     unimplemented!();
 }
 
@@ -3956,6 +4274,7 @@ extern "C" fn vkGetRayTracingShaderGroupStackSizeKHR(
     group: u32,
     group_shader: vk::ShaderGroupShaderKHR,
 ) -> vk::DeviceSize {
+    println!("vkGetRayTracingShaderGroupStackSizeKHR");
     unimplemented!();
 }
 
@@ -3965,6 +4284,7 @@ extern "C" fn vkCmdSetRayTracingPipelineStackSizeKHR(
     command_buffer: vk::CommandBuffer,
     pipeline_stack_size: u32,
 ) {
+    println!("vkCmdSetRayTracingPipelineStackSizeKHR");
     unimplemented!();
 }
 
@@ -3974,6 +4294,7 @@ extern "C" fn vkGetImageViewHandleNVX(
     device: vk::Device,
     p_info: *const vk::ImageViewHandleInfoNVX,
 ) -> u32 {
+    println!("vkGetImageViewHandleNVX");
     unimplemented!();
 }
 
@@ -3984,6 +4305,7 @@ extern "C" fn vkGetImageViewAddressNVX(
     image_view: vk::ImageView,
     p_properties: *mut vk::ImageViewAddressPropertiesNVX,
 ) -> vk::Result {
+    println!("vkGetImageViewAddressNVX");
     unimplemented!();
 }
 
@@ -3995,6 +4317,7 @@ extern "C" fn vkGetPhysicalDeviceSurfacePresentModes2EXT(
     p_present_mode_count: *mut u32,
     p_present_modes: *mut vk::PresentModeKHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceSurfacePresentModes2EXT");
     unimplemented!();
 }
 
@@ -4005,6 +4328,7 @@ extern "C" fn vkGetDeviceGroupSurfacePresentModes2EXT(
     p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR,
     p_modes: *mut vk::DeviceGroupPresentModeFlagsKHR,
 ) -> vk::Result {
+    println!("vkGetDeviceGroupSurfacePresentModes2EXT");
     unimplemented!();
 }
 
@@ -4014,6 +4338,7 @@ extern "C" fn vkAcquireFullScreenExclusiveModeEXT(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
 ) -> vk::Result {
+    println!("vkAcquireFullScreenExclusiveModeEXT");
     unimplemented!();
 }
 
@@ -4023,6 +4348,7 @@ extern "C" fn vkReleaseFullScreenExclusiveModeEXT(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
 ) -> vk::Result {
+    println!("vkReleaseFullScreenExclusiveModeEXT");
     unimplemented!();
 }
 
@@ -4035,6 +4361,7 @@ extern "C" fn vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(
     p_counters: *mut vk::PerformanceCounterKHR,
     p_counter_descriptions: *mut vk::PerformanceCounterDescriptionKHR,
 ) -> vk::Result {
+    println!("vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR");
     unimplemented!();
 }
 
@@ -4045,6 +4372,7 @@ extern "C" fn vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(
     p_performance_query_create_info: *const vk::QueryPoolPerformanceCreateInfoKHR,
     p_num_passes: *mut u32,
 ) {
+    println!("vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR");
     unimplemented!();
 }
 
@@ -4054,14 +4382,14 @@ extern "C" fn vkAcquireProfilingLockKHR(
     device: vk::Device,
     p_info: *const vk::AcquireProfilingLockInfoKHR,
 ) -> vk::Result {
+    println!("vkAcquireProfilingLockKHR");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseProfilingLockKHR.html>"]
-extern "C" fn vkReleaseProfilingLockKHR(
-    device: vk::Device,
-) {
+extern "C" fn vkReleaseProfilingLockKHR(device: vk::Device) {
+    println!("vkReleaseProfilingLockKHR");
     unimplemented!();
 }
 
@@ -4072,6 +4400,7 @@ extern "C" fn vkGetImageDrmFormatModifierPropertiesEXT(
     image: vk::Image,
     p_properties: *mut vk::ImageDrmFormatModifierPropertiesEXT,
 ) -> vk::Result {
+    println!("vkGetImageDrmFormatModifierPropertiesEXT");
     unimplemented!();
 }
 
@@ -4081,6 +4410,7 @@ extern "C" fn vkGetBufferOpaqueCaptureAddress(
     device: vk::Device,
     p_info: *const vk::BufferDeviceAddressInfo,
 ) -> u64 {
+    println!("vkGetBufferOpaqueCaptureAddress");
     unimplemented!();
 }
 
@@ -4090,6 +4420,7 @@ extern "C" fn vkGetBufferDeviceAddress(
     device: vk::Device,
     p_info: *const vk::BufferDeviceAddressInfo,
 ) -> vk::DeviceAddress {
+    println!("vkGetBufferDeviceAddress");
     unimplemented!();
 }
 
@@ -4101,6 +4432,7 @@ extern "C" fn vkCreateHeadlessSurfaceEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
+    println!("vkCreateHeadlessSurfaceEXT");
     unimplemented!();
 }
 
@@ -4111,6 +4443,7 @@ extern "C" fn vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(
     p_combination_count: *mut u32,
     p_combinations: *mut vk::FramebufferMixedSamplesCombinationNV,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV");
     unimplemented!();
 }
 
@@ -4120,14 +4453,14 @@ extern "C" fn vkInitializePerformanceApiINTEL(
     device: vk::Device,
     p_initialize_info: *const vk::InitializePerformanceApiInfoINTEL,
 ) -> vk::Result {
+    println!("vkInitializePerformanceApiINTEL");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUninitializePerformanceApiINTEL.html>"]
-extern "C" fn vkUninitializePerformanceApiINTEL(
-    device: vk::Device,
-) {
+extern "C" fn vkUninitializePerformanceApiINTEL(device: vk::Device) {
+    println!("vkUninitializePerformanceApiINTEL");
     unimplemented!();
 }
 
@@ -4137,6 +4470,7 @@ extern "C" fn vkCmdSetPerformanceMarkerINTEL(
     command_buffer: vk::CommandBuffer,
     p_marker_info: *const vk::PerformanceMarkerInfoINTEL,
 ) -> vk::Result {
+    println!("vkCmdSetPerformanceMarkerINTEL");
     unimplemented!();
 }
 
@@ -4146,6 +4480,7 @@ extern "C" fn vkCmdSetPerformanceStreamMarkerINTEL(
     command_buffer: vk::CommandBuffer,
     p_marker_info: *const vk::PerformanceStreamMarkerInfoINTEL,
 ) -> vk::Result {
+    println!("vkCmdSetPerformanceStreamMarkerINTEL");
     unimplemented!();
 }
 
@@ -4155,6 +4490,7 @@ extern "C" fn vkCmdSetPerformanceOverrideINTEL(
     command_buffer: vk::CommandBuffer,
     p_override_info: *const vk::PerformanceOverrideInfoINTEL,
 ) -> vk::Result {
+    println!("vkCmdSetPerformanceOverrideINTEL");
     unimplemented!();
 }
 
@@ -4165,6 +4501,7 @@ extern "C" fn vkAcquirePerformanceConfigurationINTEL(
     p_acquire_info: *const vk::PerformanceConfigurationAcquireInfoINTEL,
     p_configuration: *mut vk::PerformanceConfigurationINTEL,
 ) -> vk::Result {
+    println!("vkAcquirePerformanceConfigurationINTEL");
     unimplemented!();
 }
 
@@ -4174,6 +4511,7 @@ extern "C" fn vkReleasePerformanceConfigurationINTEL(
     device: vk::Device,
     configuration: vk::PerformanceConfigurationINTEL,
 ) -> vk::Result {
+    println!("vkReleasePerformanceConfigurationINTEL");
     unimplemented!();
 }
 
@@ -4183,6 +4521,7 @@ extern "C" fn vkQueueSetPerformanceConfigurationINTEL(
     queue: vk::Queue,
     configuration: vk::PerformanceConfigurationINTEL,
 ) -> vk::Result {
+    println!("vkQueueSetPerformanceConfigurationINTEL");
     unimplemented!();
 }
 
@@ -4193,6 +4532,7 @@ extern "C" fn vkGetPerformanceParameterINTEL(
     parameter: vk::PerformanceParameterTypeINTEL,
     p_value: *mut vk::PerformanceValueINTEL,
 ) -> vk::Result {
+    println!("vkGetPerformanceParameterINTEL");
     unimplemented!();
 }
 
@@ -4202,6 +4542,7 @@ extern "C" fn vkGetDeviceMemoryOpaqueCaptureAddress(
     device: vk::Device,
     p_info: *const vk::DeviceMemoryOpaqueCaptureAddressInfo,
 ) -> u64 {
+    println!("vkGetDeviceMemoryOpaqueCaptureAddress");
     unimplemented!();
 }
 
@@ -4213,6 +4554,7 @@ extern "C" fn vkGetPipelineExecutablePropertiesKHR(
     p_executable_count: *mut u32,
     p_properties: *mut vk::PipelineExecutablePropertiesKHR,
 ) -> vk::Result {
+    println!("vkGetPipelineExecutablePropertiesKHR");
     unimplemented!();
 }
 
@@ -4224,6 +4566,7 @@ extern "C" fn vkGetPipelineExecutableStatisticsKHR(
     p_statistic_count: *mut u32,
     p_statistics: *mut vk::PipelineExecutableStatisticKHR,
 ) -> vk::Result {
+    println!("vkGetPipelineExecutableStatisticsKHR");
     unimplemented!();
 }
 
@@ -4235,6 +4578,7 @@ extern "C" fn vkGetPipelineExecutableInternalRepresentationsKHR(
     p_internal_representation_count: *mut u32,
     p_internal_representations: *mut vk::PipelineExecutableInternalRepresentationKHR,
 ) -> vk::Result {
+    println!("vkGetPipelineExecutableInternalRepresentationsKHR");
     unimplemented!();
 }
 
@@ -4245,6 +4589,7 @@ extern "C" fn vkCmdSetLineStippleKHR(
     line_stipple_factor: u32,
     line_stipple_pattern: u16,
 ) {
+    println!("vkCmdSetLineStippleKHR");
     unimplemented!();
 }
 
@@ -4255,6 +4600,7 @@ extern "C" fn vkGetPhysicalDeviceToolProperties(
     p_tool_count: *mut u32,
     p_tool_properties: *mut vk::PhysicalDeviceToolProperties,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceToolProperties");
     unimplemented!();
 }
 
@@ -4266,6 +4612,7 @@ extern "C" fn vkCreateAccelerationStructureKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_acceleration_structure: *mut vk::AccelerationStructureKHR,
 ) -> vk::Result {
+    println!("vkCreateAccelerationStructureKHR");
     unimplemented!();
 }
 
@@ -4277,6 +4624,7 @@ extern "C" fn vkCmdBuildAccelerationStructuresKHR(
     p_infos: *const vk::AccelerationStructureBuildGeometryInfoKHR,
     pp_build_range_infos: *mut *const vk::AccelerationStructureBuildRangeInfoKHR,
 ) {
+    println!("vkCmdBuildAccelerationStructuresKHR");
     unimplemented!();
 }
 
@@ -4290,6 +4638,7 @@ extern "C" fn vkCmdBuildAccelerationStructuresIndirectKHR(
     p_indirect_strides: *const u32,
     pp_max_primitive_counts: *mut *const u32,
 ) {
+    println!("vkCmdBuildAccelerationStructuresIndirectKHR");
     unimplemented!();
 }
 
@@ -4302,6 +4651,7 @@ extern "C" fn vkBuildAccelerationStructuresKHR(
     p_infos: *const vk::AccelerationStructureBuildGeometryInfoKHR,
     pp_build_range_infos: *mut *const vk::AccelerationStructureBuildRangeInfoKHR,
 ) -> vk::Result {
+    println!("vkBuildAccelerationStructuresKHR");
     unimplemented!();
 }
 
@@ -4311,6 +4661,7 @@ extern "C" fn vkGetAccelerationStructureDeviceAddressKHR(
     device: vk::Device,
     p_info: *const vk::AccelerationStructureDeviceAddressInfoKHR,
 ) -> vk::DeviceAddress {
+    println!("vkGetAccelerationStructureDeviceAddressKHR");
     unimplemented!();
 }
 
@@ -4321,6 +4672,7 @@ extern "C" fn vkCreateDeferredOperationKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_deferred_operation: *mut vk::DeferredOperationKHR,
 ) -> vk::Result {
+    println!("vkCreateDeferredOperationKHR");
     unimplemented!();
 }
 
@@ -4331,6 +4683,7 @@ extern "C" fn vkDestroyDeferredOperationKHR(
     operation: vk::DeferredOperationKHR,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyDeferredOperationKHR");
     unimplemented!();
 }
 
@@ -4340,6 +4693,7 @@ extern "C" fn vkGetDeferredOperationMaxConcurrencyKHR(
     device: vk::Device,
     operation: vk::DeferredOperationKHR,
 ) -> u32 {
+    println!("vkGetDeferredOperationMaxConcurrencyKHR");
     unimplemented!();
 }
 
@@ -4349,6 +4703,7 @@ extern "C" fn vkGetDeferredOperationResultKHR(
     device: vk::Device,
     operation: vk::DeferredOperationKHR,
 ) -> vk::Result {
+    println!("vkGetDeferredOperationResultKHR");
     unimplemented!();
 }
 
@@ -4358,6 +4713,7 @@ extern "C" fn vkDeferredOperationJoinKHR(
     device: vk::Device,
     operation: vk::DeferredOperationKHR,
 ) -> vk::Result {
+    println!("vkDeferredOperationJoinKHR");
     unimplemented!();
 }
 
@@ -4368,6 +4724,7 @@ extern "C" fn vkGetPipelineIndirectMemoryRequirementsNV(
     p_create_info: *const vk::ComputePipelineCreateInfo,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
+    println!("vkGetPipelineIndirectMemoryRequirementsNV");
     unimplemented!();
 }
 
@@ -4377,24 +4734,21 @@ extern "C" fn vkGetPipelineIndirectDeviceAddressNV(
     device: vk::Device,
     p_info: *const vk::PipelineIndirectDeviceAddressInfoNV,
 ) -> vk::DeviceAddress {
+    println!("vkGetPipelineIndirectDeviceAddressNV");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCullMode.html>"]
-extern "C" fn vkCmdSetCullMode(
-    command_buffer: vk::CommandBuffer,
-    cull_mode: vk::CullModeFlags,
-) {
+extern "C" fn vkCmdSetCullMode(command_buffer: vk::CommandBuffer, cull_mode: vk::CullModeFlags) {
+    println!("vkCmdSetCullMode");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetFrontFace.html>"]
-extern "C" fn vkCmdSetFrontFace(
-    command_buffer: vk::CommandBuffer,
-    front_face: vk::FrontFace,
-) {
+extern "C" fn vkCmdSetFrontFace(command_buffer: vk::CommandBuffer, front_face: vk::FrontFace) {
+    println!("vkCmdSetFrontFace");
     unimplemented!();
 }
 
@@ -4404,6 +4758,7 @@ extern "C" fn vkCmdSetPrimitiveTopology(
     command_buffer: vk::CommandBuffer,
     primitive_topology: vk::PrimitiveTopology,
 ) {
+    println!("vkCmdSetPrimitiveTopology");
     unimplemented!();
 }
 
@@ -4414,6 +4769,7 @@ extern "C" fn vkCmdSetViewportWithCount(
     viewport_count: u32,
     p_viewports: *const vk::Viewport,
 ) {
+    println!("vkCmdSetViewportWithCount");
     unimplemented!();
 }
 
@@ -4424,6 +4780,7 @@ extern "C" fn vkCmdSetScissorWithCount(
     scissor_count: u32,
     p_scissors: *const vk::Rect2D,
 ) {
+    println!("vkCmdSetScissorWithCount");
     unimplemented!();
 }
 
@@ -4436,6 +4793,7 @@ extern "C" fn vkCmdBindIndexBuffer2KHR(
     size: vk::DeviceSize,
     index_type: vk::IndexType,
 ) {
+    println!("vkCmdBindIndexBuffer2KHR");
     unimplemented!();
 }
 
@@ -4450,6 +4808,7 @@ extern "C" fn vkCmdBindVertexBuffers2(
     p_sizes: *const vk::DeviceSize,
     p_strides: *const vk::DeviceSize,
 ) {
+    println!("vkCmdBindVertexBuffers2");
     unimplemented!();
 }
 
@@ -4459,6 +4818,7 @@ extern "C" fn vkCmdSetDepthTestEnable(
     command_buffer: vk::CommandBuffer,
     depth_test_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetDepthTestEnable");
     unimplemented!();
 }
 
@@ -4468,6 +4828,7 @@ extern "C" fn vkCmdSetDepthWriteEnable(
     command_buffer: vk::CommandBuffer,
     depth_write_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetDepthWriteEnable");
     unimplemented!();
 }
 
@@ -4477,6 +4838,7 @@ extern "C" fn vkCmdSetDepthCompareOp(
     command_buffer: vk::CommandBuffer,
     depth_compare_op: vk::CompareOp,
 ) {
+    println!("vkCmdSetDepthCompareOp");
     unimplemented!();
 }
 
@@ -4486,6 +4848,7 @@ extern "C" fn vkCmdSetDepthBoundsTestEnable(
     command_buffer: vk::CommandBuffer,
     depth_bounds_test_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetDepthBoundsTestEnable");
     unimplemented!();
 }
 
@@ -4495,6 +4858,7 @@ extern "C" fn vkCmdSetStencilTestEnable(
     command_buffer: vk::CommandBuffer,
     stencil_test_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetStencilTestEnable");
     unimplemented!();
 }
 
@@ -4508,6 +4872,7 @@ extern "C" fn vkCmdSetStencilOp(
     depth_fail_op: vk::StencilOp,
     compare_op: vk::CompareOp,
 ) {
+    println!("vkCmdSetStencilOp");
     unimplemented!();
 }
 
@@ -4517,6 +4882,7 @@ extern "C" fn vkCmdSetPatchControlPointsEXT(
     command_buffer: vk::CommandBuffer,
     patch_control_points: u32,
 ) {
+    println!("vkCmdSetPatchControlPointsEXT");
     unimplemented!();
 }
 
@@ -4526,6 +4892,7 @@ extern "C" fn vkCmdSetRasterizerDiscardEnable(
     command_buffer: vk::CommandBuffer,
     rasterizer_discard_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetRasterizerDiscardEnable");
     unimplemented!();
 }
 
@@ -4535,15 +4902,14 @@ extern "C" fn vkCmdSetDepthBiasEnable(
     command_buffer: vk::CommandBuffer,
     depth_bias_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetDepthBiasEnable");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLogicOpEXT.html>"]
-extern "C" fn vkCmdSetLogicOpEXT(
-    command_buffer: vk::CommandBuffer,
-    logic_op: vk::LogicOp,
-) {
+extern "C" fn vkCmdSetLogicOpEXT(command_buffer: vk::CommandBuffer, logic_op: vk::LogicOp) {
+    println!("vkCmdSetLogicOpEXT");
     unimplemented!();
 }
 
@@ -4553,6 +4919,7 @@ extern "C" fn vkCmdSetPrimitiveRestartEnable(
     command_buffer: vk::CommandBuffer,
     primitive_restart_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetPrimitiveRestartEnable");
     unimplemented!();
 }
 
@@ -4562,6 +4929,7 @@ extern "C" fn vkCmdSetTessellationDomainOriginEXT(
     command_buffer: vk::CommandBuffer,
     domain_origin: vk::TessellationDomainOrigin,
 ) {
+    println!("vkCmdSetTessellationDomainOriginEXT");
     unimplemented!();
 }
 
@@ -4571,6 +4939,7 @@ extern "C" fn vkCmdSetDepthClampEnableEXT(
     command_buffer: vk::CommandBuffer,
     depth_clamp_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetDepthClampEnableEXT");
     unimplemented!();
 }
 
@@ -4580,6 +4949,7 @@ extern "C" fn vkCmdSetPolygonModeEXT(
     command_buffer: vk::CommandBuffer,
     polygon_mode: vk::PolygonMode,
 ) {
+    println!("vkCmdSetPolygonModeEXT");
     unimplemented!();
 }
 
@@ -4589,6 +4959,7 @@ extern "C" fn vkCmdSetRasterizationSamplesEXT(
     command_buffer: vk::CommandBuffer,
     rasterization_samples: vk::SampleCountFlags,
 ) {
+    println!("vkCmdSetRasterizationSamplesEXT");
     unimplemented!();
 }
 
@@ -4599,6 +4970,7 @@ extern "C" fn vkCmdSetSampleMaskEXT(
     samples: vk::SampleCountFlags,
     p_sample_mask: *const vk::SampleMask,
 ) {
+    println!("vkCmdSetSampleMaskEXT");
     unimplemented!();
 }
 
@@ -4608,6 +4980,7 @@ extern "C" fn vkCmdSetAlphaToCoverageEnableEXT(
     command_buffer: vk::CommandBuffer,
     alpha_to_coverage_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetAlphaToCoverageEnableEXT");
     unimplemented!();
 }
 
@@ -4617,6 +4990,7 @@ extern "C" fn vkCmdSetAlphaToOneEnableEXT(
     command_buffer: vk::CommandBuffer,
     alpha_to_one_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetAlphaToOneEnableEXT");
     unimplemented!();
 }
 
@@ -4626,6 +5000,7 @@ extern "C" fn vkCmdSetLogicOpEnableEXT(
     command_buffer: vk::CommandBuffer,
     logic_op_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetLogicOpEnableEXT");
     unimplemented!();
 }
 
@@ -4637,6 +5012,7 @@ extern "C" fn vkCmdSetColorBlendEnableEXT(
     attachment_count: u32,
     p_color_blend_enables: *const vk::Bool32,
 ) {
+    println!("vkCmdSetColorBlendEnableEXT");
     unimplemented!();
 }
 
@@ -4648,6 +5024,7 @@ extern "C" fn vkCmdSetColorBlendEquationEXT(
     attachment_count: u32,
     p_color_blend_equations: *const vk::ColorBlendEquationEXT,
 ) {
+    println!("vkCmdSetColorBlendEquationEXT");
     unimplemented!();
 }
 
@@ -4659,6 +5036,7 @@ extern "C" fn vkCmdSetColorWriteMaskEXT(
     attachment_count: u32,
     p_color_write_masks: *const vk::ColorComponentFlags,
 ) {
+    println!("vkCmdSetColorWriteMaskEXT");
     unimplemented!();
 }
 
@@ -4668,6 +5046,7 @@ extern "C" fn vkCmdSetRasterizationStreamEXT(
     command_buffer: vk::CommandBuffer,
     rasterization_stream: u32,
 ) {
+    println!("vkCmdSetRasterizationStreamEXT");
     unimplemented!();
 }
 
@@ -4677,6 +5056,7 @@ extern "C" fn vkCmdSetConservativeRasterizationModeEXT(
     command_buffer: vk::CommandBuffer,
     conservative_rasterization_mode: vk::ConservativeRasterizationModeEXT,
 ) {
+    println!("vkCmdSetConservativeRasterizationModeEXT");
     unimplemented!();
 }
 
@@ -4686,6 +5066,7 @@ extern "C" fn vkCmdSetExtraPrimitiveOverestimationSizeEXT(
     command_buffer: vk::CommandBuffer,
     extra_primitive_overestimation_size: f32,
 ) {
+    println!("vkCmdSetExtraPrimitiveOverestimationSizeEXT");
     unimplemented!();
 }
 
@@ -4695,6 +5076,7 @@ extern "C" fn vkCmdSetDepthClipEnableEXT(
     command_buffer: vk::CommandBuffer,
     depth_clip_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetDepthClipEnableEXT");
     unimplemented!();
 }
 
@@ -4704,6 +5086,7 @@ extern "C" fn vkCmdSetSampleLocationsEnableEXT(
     command_buffer: vk::CommandBuffer,
     sample_locations_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetSampleLocationsEnableEXT");
     unimplemented!();
 }
 
@@ -4715,6 +5098,7 @@ extern "C" fn vkCmdSetColorBlendAdvancedEXT(
     attachment_count: u32,
     p_color_blend_advanced: *const vk::ColorBlendAdvancedEXT,
 ) {
+    println!("vkCmdSetColorBlendAdvancedEXT");
     unimplemented!();
 }
 
@@ -4724,6 +5108,7 @@ extern "C" fn vkCmdSetProvokingVertexModeEXT(
     command_buffer: vk::CommandBuffer,
     provoking_vertex_mode: vk::ProvokingVertexModeEXT,
 ) {
+    println!("vkCmdSetProvokingVertexModeEXT");
     unimplemented!();
 }
 
@@ -4733,6 +5118,7 @@ extern "C" fn vkCmdSetLineRasterizationModeEXT(
     command_buffer: vk::CommandBuffer,
     line_rasterization_mode: vk::LineRasterizationModeEXT,
 ) {
+    println!("vkCmdSetLineRasterizationModeEXT");
     unimplemented!();
 }
 
@@ -4742,6 +5128,7 @@ extern "C" fn vkCmdSetLineStippleEnableEXT(
     command_buffer: vk::CommandBuffer,
     stippled_line_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetLineStippleEnableEXT");
     unimplemented!();
 }
 
@@ -4751,6 +5138,7 @@ extern "C" fn vkCmdSetDepthClipNegativeOneToOneEXT(
     command_buffer: vk::CommandBuffer,
     negative_one_to_one: vk::Bool32,
 ) {
+    println!("vkCmdSetDepthClipNegativeOneToOneEXT");
     unimplemented!();
 }
 
@@ -4760,6 +5148,7 @@ extern "C" fn vkCmdSetViewportWScalingEnableNV(
     command_buffer: vk::CommandBuffer,
     viewport_w_scaling_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetViewportWScalingEnableNV");
     unimplemented!();
 }
 
@@ -4771,6 +5160,7 @@ extern "C" fn vkCmdSetViewportSwizzleNV(
     viewport_count: u32,
     p_viewport_swizzles: *const vk::ViewportSwizzleNV,
 ) {
+    println!("vkCmdSetViewportSwizzleNV");
     unimplemented!();
 }
 
@@ -4780,6 +5170,7 @@ extern "C" fn vkCmdSetCoverageToColorEnableNV(
     command_buffer: vk::CommandBuffer,
     coverage_to_color_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetCoverageToColorEnableNV");
     unimplemented!();
 }
 
@@ -4789,6 +5180,7 @@ extern "C" fn vkCmdSetCoverageToColorLocationNV(
     command_buffer: vk::CommandBuffer,
     coverage_to_color_location: u32,
 ) {
+    println!("vkCmdSetCoverageToColorLocationNV");
     unimplemented!();
 }
 
@@ -4798,6 +5190,7 @@ extern "C" fn vkCmdSetCoverageModulationModeNV(
     command_buffer: vk::CommandBuffer,
     coverage_modulation_mode: vk::CoverageModulationModeNV,
 ) {
+    println!("vkCmdSetCoverageModulationModeNV");
     unimplemented!();
 }
 
@@ -4807,6 +5200,7 @@ extern "C" fn vkCmdSetCoverageModulationTableEnableNV(
     command_buffer: vk::CommandBuffer,
     coverage_modulation_table_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetCoverageModulationTableEnableNV");
     unimplemented!();
 }
 
@@ -4817,6 +5211,7 @@ extern "C" fn vkCmdSetCoverageModulationTableNV(
     coverage_modulation_table_count: u32,
     p_coverage_modulation_table: *const f32,
 ) {
+    println!("vkCmdSetCoverageModulationTableNV");
     unimplemented!();
 }
 
@@ -4826,6 +5221,7 @@ extern "C" fn vkCmdSetShadingRateImageEnableNV(
     command_buffer: vk::CommandBuffer,
     shading_rate_image_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetShadingRateImageEnableNV");
     unimplemented!();
 }
 
@@ -4835,6 +5231,7 @@ extern "C" fn vkCmdSetCoverageReductionModeNV(
     command_buffer: vk::CommandBuffer,
     coverage_reduction_mode: vk::CoverageReductionModeNV,
 ) {
+    println!("vkCmdSetCoverageReductionModeNV");
     unimplemented!();
 }
 
@@ -4844,6 +5241,7 @@ extern "C" fn vkCmdSetRepresentativeFragmentTestEnableNV(
     command_buffer: vk::CommandBuffer,
     representative_fragment_test_enable: vk::Bool32,
 ) {
+    println!("vkCmdSetRepresentativeFragmentTestEnableNV");
     unimplemented!();
 }
 
@@ -4855,6 +5253,7 @@ extern "C" fn vkCreatePrivateDataSlot(
     p_allocator: *const vk::AllocationCallbacks,
     p_private_data_slot: *mut vk::PrivateDataSlot,
 ) -> vk::Result {
+    println!("vkCreatePrivateDataSlot");
     unimplemented!();
 }
 
@@ -4865,6 +5264,7 @@ extern "C" fn vkDestroyPrivateDataSlot(
     private_data_slot: vk::PrivateDataSlot,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyPrivateDataSlot");
     unimplemented!();
 }
 
@@ -4877,6 +5277,7 @@ extern "C" fn vkSetPrivateData(
     private_data_slot: vk::PrivateDataSlot,
     data: u64,
 ) -> vk::Result {
+    println!("vkSetPrivateData");
     unimplemented!();
 }
 
@@ -4889,6 +5290,7 @@ extern "C" fn vkGetPrivateData(
     private_data_slot: vk::PrivateDataSlot,
     p_data: *mut u64,
 ) {
+    println!("vkGetPrivateData");
     unimplemented!();
 }
 
@@ -4898,6 +5300,7 @@ extern "C" fn vkCmdCopyBuffer2(
     command_buffer: vk::CommandBuffer,
     p_copy_buffer_info: *const vk::CopyBufferInfo2,
 ) {
+    println!("vkCmdCopyBuffer2");
     unimplemented!();
 }
 
@@ -4907,6 +5310,7 @@ extern "C" fn vkCmdCopyImage2(
     command_buffer: vk::CommandBuffer,
     p_copy_image_info: *const vk::CopyImageInfo2,
 ) {
+    println!("vkCmdCopyImage2");
     unimplemented!();
 }
 
@@ -4916,6 +5320,7 @@ extern "C" fn vkCmdBlitImage2(
     command_buffer: vk::CommandBuffer,
     p_blit_image_info: *const vk::BlitImageInfo2,
 ) {
+    println!("vkCmdBlitImage2");
     unimplemented!();
 }
 
@@ -4925,6 +5330,7 @@ extern "C" fn vkCmdCopyBufferToImage2(
     command_buffer: vk::CommandBuffer,
     p_copy_buffer_to_image_info: *const vk::CopyBufferToImageInfo2,
 ) {
+    println!("vkCmdCopyBufferToImage2");
     unimplemented!();
 }
 
@@ -4934,6 +5340,7 @@ extern "C" fn vkCmdCopyImageToBuffer2(
     command_buffer: vk::CommandBuffer,
     p_copy_image_to_buffer_info: *const vk::CopyImageToBufferInfo2,
 ) {
+    println!("vkCmdCopyImageToBuffer2");
     unimplemented!();
 }
 
@@ -4943,6 +5350,7 @@ extern "C" fn vkCmdResolveImage2(
     command_buffer: vk::CommandBuffer,
     p_resolve_image_info: *const vk::ResolveImageInfo2,
 ) {
+    println!("vkCmdResolveImage2");
     unimplemented!();
 }
 
@@ -4953,6 +5361,7 @@ extern "C" fn vkCmdSetFragmentShadingRateKHR(
     p_fragment_size: *const vk::Extent2D,
     combiner_ops: vk::FragmentShadingRateCombinerOpKHR,
 ) {
+    println!("vkCmdSetFragmentShadingRateKHR");
     unimplemented!();
 }
 
@@ -4963,6 +5372,7 @@ extern "C" fn vkGetPhysicalDeviceFragmentShadingRatesKHR(
     p_fragment_shading_rate_count: *mut u32,
     p_fragment_shading_rates: *mut vk::PhysicalDeviceFragmentShadingRateKHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceFragmentShadingRatesKHR");
     unimplemented!();
 }
 
@@ -4973,6 +5383,7 @@ extern "C" fn vkCmdSetFragmentShadingRateEnumNV(
     shading_rate: vk::FragmentShadingRateNV,
     combiner_ops: vk::FragmentShadingRateCombinerOpKHR,
 ) {
+    println!("vkCmdSetFragmentShadingRateEnumNV");
     unimplemented!();
 }
 
@@ -4985,6 +5396,7 @@ extern "C" fn vkGetAccelerationStructureBuildSizesKHR(
     p_max_primitive_counts: *const u32,
     p_size_info: *mut vk::AccelerationStructureBuildSizesInfoKHR,
 ) {
+    println!("vkGetAccelerationStructureBuildSizesKHR");
     unimplemented!();
 }
 
@@ -4997,6 +5409,7 @@ extern "C" fn vkCmdSetVertexInputEXT(
     vertex_attribute_description_count: u32,
     p_vertex_attribute_descriptions: *const vk::VertexInputAttributeDescription2EXT,
 ) {
+    println!("vkCmdSetVertexInputEXT");
     unimplemented!();
 }
 
@@ -5007,6 +5420,7 @@ extern "C" fn vkCmdSetColorWriteEnableEXT(
     attachment_count: u32,
     p_color_write_enables: *const vk::Bool32,
 ) {
+    println!("vkCmdSetColorWriteEnableEXT");
     unimplemented!();
 }
 
@@ -5017,6 +5431,7 @@ extern "C" fn vkCmdSetEvent2(
     event: vk::Event,
     p_dependency_info: *const vk::DependencyInfo,
 ) {
+    println!("vkCmdSetEvent2");
     unimplemented!();
 }
 
@@ -5027,6 +5442,7 @@ extern "C" fn vkCmdResetEvent2(
     event: vk::Event,
     stage_mask: vk::PipelineStageFlags2,
 ) {
+    println!("vkCmdResetEvent2");
     unimplemented!();
 }
 
@@ -5038,6 +5454,7 @@ extern "C" fn vkCmdWaitEvents2(
     p_events: *const vk::Event,
     p_dependency_infos: *const vk::DependencyInfo,
 ) {
+    println!("vkCmdWaitEvents2");
     unimplemented!();
 }
 
@@ -5047,6 +5464,7 @@ extern "C" fn vkCmdPipelineBarrier2(
     command_buffer: vk::CommandBuffer,
     p_dependency_info: *const vk::DependencyInfo,
 ) {
+    println!("vkCmdPipelineBarrier2");
     unimplemented!();
 }
 
@@ -5058,6 +5476,7 @@ extern "C" fn vkQueueSubmit2(
     p_submits: *const vk::SubmitInfo2,
     fence: vk::Fence,
 ) -> vk::Result {
+    println!("vkQueueSubmit2");
     unimplemented!();
 }
 
@@ -5069,6 +5488,7 @@ extern "C" fn vkCmdWriteTimestamp2(
     query_pool: vk::QueryPool,
     query: u32,
 ) {
+    println!("vkCmdWriteTimestamp2");
     unimplemented!();
 }
 
@@ -5081,6 +5501,7 @@ extern "C" fn vkCmdWriteBufferMarker2AMD(
     dst_offset: vk::DeviceSize,
     marker: u32,
 ) {
+    println!("vkCmdWriteBufferMarker2AMD");
     unimplemented!();
 }
 
@@ -5091,6 +5512,7 @@ extern "C" fn vkGetQueueCheckpointData2NV(
     p_checkpoint_data_count: *mut u32,
     p_checkpoint_data: *mut vk::CheckpointData2NV,
 ) {
+    println!("vkGetQueueCheckpointData2NV");
     unimplemented!();
 }
 
@@ -5100,6 +5522,7 @@ extern "C" fn vkCopyMemoryToImageEXT(
     device: vk::Device,
     p_copy_memory_to_image_info: *const vk::CopyMemoryToImageInfoEXT,
 ) -> vk::Result {
+    println!("vkCopyMemoryToImageEXT");
     unimplemented!();
 }
 
@@ -5109,6 +5532,7 @@ extern "C" fn vkCopyImageToMemoryEXT(
     device: vk::Device,
     p_copy_image_to_memory_info: *const vk::CopyImageToMemoryInfoEXT,
 ) -> vk::Result {
+    println!("vkCopyImageToMemoryEXT");
     unimplemented!();
 }
 
@@ -5118,6 +5542,7 @@ extern "C" fn vkCopyImageToImageEXT(
     device: vk::Device,
     p_copy_image_to_image_info: *const vk::CopyImageToImageInfoEXT,
 ) -> vk::Result {
+    println!("vkCopyImageToImageEXT");
     unimplemented!();
 }
 
@@ -5128,6 +5553,7 @@ extern "C" fn vkTransitionImageLayoutEXT(
     transition_count: u32,
     p_transitions: *const vk::HostImageLayoutTransitionInfoEXT,
 ) -> vk::Result {
+    println!("vkTransitionImageLayoutEXT");
     unimplemented!();
 }
 
@@ -5138,6 +5564,7 @@ extern "C" fn vkGetPhysicalDeviceVideoCapabilitiesKHR(
     p_video_profile: *const vk::VideoProfileInfoKHR,
     p_capabilities: *mut vk::VideoCapabilitiesKHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceVideoCapabilitiesKHR");
     unimplemented!();
 }
 
@@ -5149,6 +5576,7 @@ extern "C" fn vkGetPhysicalDeviceVideoFormatPropertiesKHR(
     p_video_format_property_count: *mut u32,
     p_video_format_properties: *mut vk::VideoFormatPropertiesKHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceVideoFormatPropertiesKHR");
     unimplemented!();
 }
 
@@ -5159,6 +5587,7 @@ extern "C" fn vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR(
     p_quality_level_info: *const vk::PhysicalDeviceVideoEncodeQualityLevelInfoKHR,
     p_quality_level_properties: *mut vk::VideoEncodeQualityLevelPropertiesKHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR");
     unimplemented!();
 }
 
@@ -5170,6 +5599,7 @@ extern "C" fn vkCreateVideoSessionKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_video_session: *mut vk::VideoSessionKHR,
 ) -> vk::Result {
+    println!("vkCreateVideoSessionKHR");
     unimplemented!();
 }
 
@@ -5180,6 +5610,7 @@ extern "C" fn vkDestroyVideoSessionKHR(
     video_session: vk::VideoSessionKHR,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyVideoSessionKHR");
     unimplemented!();
 }
 
@@ -5191,6 +5622,7 @@ extern "C" fn vkCreateVideoSessionParametersKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_video_session_parameters: *mut vk::VideoSessionParametersKHR,
 ) -> vk::Result {
+    println!("vkCreateVideoSessionParametersKHR");
     unimplemented!();
 }
 
@@ -5201,6 +5633,7 @@ extern "C" fn vkUpdateVideoSessionParametersKHR(
     video_session_parameters: vk::VideoSessionParametersKHR,
     p_update_info: *const vk::VideoSessionParametersUpdateInfoKHR,
 ) -> vk::Result {
+    println!("vkUpdateVideoSessionParametersKHR");
     unimplemented!();
 }
 
@@ -5213,6 +5646,7 @@ extern "C" fn vkGetEncodedVideoSessionParametersKHR(
     p_data_size: *mut isize,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetEncodedVideoSessionParametersKHR");
     unimplemented!();
 }
 
@@ -5223,6 +5657,7 @@ extern "C" fn vkDestroyVideoSessionParametersKHR(
     video_session_parameters: vk::VideoSessionParametersKHR,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyVideoSessionParametersKHR");
     unimplemented!();
 }
 
@@ -5234,6 +5669,7 @@ extern "C" fn vkGetVideoSessionMemoryRequirementsKHR(
     p_memory_requirements_count: *mut u32,
     p_memory_requirements: *mut vk::VideoSessionMemoryRequirementsKHR,
 ) -> vk::Result {
+    println!("vkGetVideoSessionMemoryRequirementsKHR");
     unimplemented!();
 }
 
@@ -5245,6 +5681,7 @@ extern "C" fn vkBindVideoSessionMemoryKHR(
     bind_session_memory_info_count: u32,
     p_bind_session_memory_infos: *const vk::BindVideoSessionMemoryInfoKHR,
 ) -> vk::Result {
+    println!("vkBindVideoSessionMemoryKHR");
     unimplemented!();
 }
 
@@ -5254,6 +5691,7 @@ extern "C" fn vkCmdDecodeVideoKHR(
     command_buffer: vk::CommandBuffer,
     p_decode_info: *const vk::VideoDecodeInfoKHR,
 ) {
+    println!("vkCmdDecodeVideoKHR");
     unimplemented!();
 }
 
@@ -5263,6 +5701,7 @@ extern "C" fn vkCmdBeginVideoCodingKHR(
     command_buffer: vk::CommandBuffer,
     p_begin_info: *const vk::VideoBeginCodingInfoKHR,
 ) {
+    println!("vkCmdBeginVideoCodingKHR");
     unimplemented!();
 }
 
@@ -5272,6 +5711,7 @@ extern "C" fn vkCmdControlVideoCodingKHR(
     command_buffer: vk::CommandBuffer,
     p_coding_control_info: *const vk::VideoCodingControlInfoKHR,
 ) {
+    println!("vkCmdControlVideoCodingKHR");
     unimplemented!();
 }
 
@@ -5281,6 +5721,7 @@ extern "C" fn vkCmdEndVideoCodingKHR(
     command_buffer: vk::CommandBuffer,
     p_end_coding_info: *const vk::VideoEndCodingInfoKHR,
 ) {
+    println!("vkCmdEndVideoCodingKHR");
     unimplemented!();
 }
 
@@ -5290,6 +5731,7 @@ extern "C" fn vkCmdEncodeVideoKHR(
     command_buffer: vk::CommandBuffer,
     p_encode_info: *const vk::VideoEncodeInfoKHR,
 ) {
+    println!("vkCmdEncodeVideoKHR");
     unimplemented!();
 }
 
@@ -5300,6 +5742,7 @@ extern "C" fn vkCmdDecompressMemoryNV(
     decompress_region_count: u32,
     p_decompress_memory_regions: *const vk::DecompressMemoryRegionNV,
 ) {
+    println!("vkCmdDecompressMemoryNV");
     unimplemented!();
 }
 
@@ -5311,6 +5754,7 @@ extern "C" fn vkCmdDecompressMemoryIndirectCountNV(
     indirect_commands_count_address: vk::DeviceAddress,
     stride: u32,
 ) {
+    println!("vkCmdDecompressMemoryIndirectCountNV");
     unimplemented!();
 }
 
@@ -5322,6 +5766,7 @@ extern "C" fn vkCreateCuModuleNVX(
     p_allocator: *const vk::AllocationCallbacks,
     p_module: *mut vk::CuModuleNVX,
 ) -> vk::Result {
+    println!("vkCreateCuModuleNVX");
     unimplemented!();
 }
 
@@ -5333,6 +5778,7 @@ extern "C" fn vkCreateCuFunctionNVX(
     p_allocator: *const vk::AllocationCallbacks,
     p_function: *mut vk::CuFunctionNVX,
 ) -> vk::Result {
+    println!("vkCreateCuFunctionNVX");
     unimplemented!();
 }
 
@@ -5343,6 +5789,7 @@ extern "C" fn vkDestroyCuModuleNVX(
     module: vk::CuModuleNVX,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyCuModuleNVX");
     unimplemented!();
 }
 
@@ -5353,6 +5800,7 @@ extern "C" fn vkDestroyCuFunctionNVX(
     function: vk::CuFunctionNVX,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyCuFunctionNVX");
     unimplemented!();
 }
 
@@ -5362,6 +5810,7 @@ extern "C" fn vkCmdCuLaunchKernelNVX(
     command_buffer: vk::CommandBuffer,
     p_launch_info: *const vk::CuLaunchInfoNVX,
 ) {
+    println!("vkCmdCuLaunchKernelNVX");
     unimplemented!();
 }
 
@@ -5372,6 +5821,7 @@ extern "C" fn vkGetDescriptorSetLayoutSizeEXT(
     layout: vk::DescriptorSetLayout,
     p_layout_size_in_bytes: *mut vk::DeviceSize,
 ) {
+    println!("vkGetDescriptorSetLayoutSizeEXT");
     unimplemented!();
 }
 
@@ -5383,6 +5833,7 @@ extern "C" fn vkGetDescriptorSetLayoutBindingOffsetEXT(
     binding: u32,
     p_offset: *mut vk::DeviceSize,
 ) {
+    println!("vkGetDescriptorSetLayoutBindingOffsetEXT");
     unimplemented!();
 }
 
@@ -5394,6 +5845,7 @@ extern "C" fn vkGetDescriptorEXT(
     data_size: isize,
     p_descriptor: *mut std::ffi::c_void,
 ) {
+    println!("vkGetDescriptorEXT");
     unimplemented!();
 }
 
@@ -5404,6 +5856,7 @@ extern "C" fn vkCmdBindDescriptorBuffersEXT(
     buffer_count: u32,
     p_binding_infos: *const vk::DescriptorBufferBindingInfoEXT,
 ) {
+    println!("vkCmdBindDescriptorBuffersEXT");
     unimplemented!();
 }
 
@@ -5418,6 +5871,7 @@ extern "C" fn vkCmdSetDescriptorBufferOffsetsEXT(
     p_buffer_indices: *const u32,
     p_offsets: *const vk::DeviceSize,
 ) {
+    println!("vkCmdSetDescriptorBufferOffsetsEXT");
     unimplemented!();
 }
 
@@ -5429,6 +5883,7 @@ extern "C" fn vkCmdBindDescriptorBufferEmbeddedSamplersEXT(
     layout: vk::PipelineLayout,
     set: u32,
 ) {
+    println!("vkCmdBindDescriptorBufferEmbeddedSamplersEXT");
     unimplemented!();
 }
 
@@ -5439,6 +5894,7 @@ extern "C" fn vkGetBufferOpaqueCaptureDescriptorDataEXT(
     p_info: *const vk::BufferCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetBufferOpaqueCaptureDescriptorDataEXT");
     unimplemented!();
 }
 
@@ -5449,6 +5905,7 @@ extern "C" fn vkGetImageOpaqueCaptureDescriptorDataEXT(
     p_info: *const vk::ImageCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetImageOpaqueCaptureDescriptorDataEXT");
     unimplemented!();
 }
 
@@ -5459,6 +5916,7 @@ extern "C" fn vkGetImageViewOpaqueCaptureDescriptorDataEXT(
     p_info: *const vk::ImageViewCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetImageViewOpaqueCaptureDescriptorDataEXT");
     unimplemented!();
 }
 
@@ -5469,6 +5927,7 @@ extern "C" fn vkGetSamplerOpaqueCaptureDescriptorDataEXT(
     p_info: *const vk::SamplerCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetSamplerOpaqueCaptureDescriptorDataEXT");
     unimplemented!();
 }
 
@@ -5479,6 +5938,7 @@ extern "C" fn vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(
     p_info: *const vk::AccelerationStructureCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT");
     unimplemented!();
 }
 
@@ -5489,6 +5949,7 @@ extern "C" fn vkSetDeviceMemoryPriorityEXT(
     memory: vk::DeviceMemory,
     priority: f32,
 ) {
+    println!("vkSetDeviceMemoryPriorityEXT");
     unimplemented!();
 }
 
@@ -5499,6 +5960,7 @@ extern "C" fn vkAcquireDrmDisplayEXT(
     drm_fd: i32,
     display: vk::DisplayKHR,
 ) -> vk::Result {
+    println!("vkAcquireDrmDisplayEXT");
     unimplemented!();
 }
 
@@ -5510,6 +5972,7 @@ extern "C" fn vkGetDrmDisplayEXT(
     connector_id: u32,
     display: *mut vk::DisplayKHR,
 ) -> vk::Result {
+    println!("vkGetDrmDisplayEXT");
     unimplemented!();
 }
 
@@ -5521,6 +5984,7 @@ extern "C" fn vkWaitForPresentKHR(
     present_id: u64,
     timeout: u64,
 ) -> vk::Result {
+    println!("vkWaitForPresentKHR");
     unimplemented!();
 }
 
@@ -5532,6 +5996,7 @@ extern "C" fn vkCreateBufferCollectionFUCHSIA(
     p_allocator: *const vk::AllocationCallbacks,
     p_collection: *mut vk::BufferCollectionFUCHSIA,
 ) -> vk::Result {
+    println!("vkCreateBufferCollectionFUCHSIA");
     unimplemented!();
 }
 
@@ -5542,6 +6007,7 @@ extern "C" fn vkSetBufferCollectionBufferConstraintsFUCHSIA(
     collection: vk::BufferCollectionFUCHSIA,
     p_buffer_constraints_info: *const vk::BufferConstraintsInfoFUCHSIA,
 ) -> vk::Result {
+    println!("vkSetBufferCollectionBufferConstraintsFUCHSIA");
     unimplemented!();
 }
 
@@ -5552,6 +6018,7 @@ extern "C" fn vkSetBufferCollectionImageConstraintsFUCHSIA(
     collection: vk::BufferCollectionFUCHSIA,
     p_image_constraints_info: *const vk::ImageConstraintsInfoFUCHSIA,
 ) -> vk::Result {
+    println!("vkSetBufferCollectionImageConstraintsFUCHSIA");
     unimplemented!();
 }
 
@@ -5562,6 +6029,7 @@ extern "C" fn vkDestroyBufferCollectionFUCHSIA(
     collection: vk::BufferCollectionFUCHSIA,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyBufferCollectionFUCHSIA");
     unimplemented!();
 }
 
@@ -5572,6 +6040,7 @@ extern "C" fn vkGetBufferCollectionPropertiesFUCHSIA(
     collection: vk::BufferCollectionFUCHSIA,
     p_properties: *mut vk::BufferCollectionPropertiesFUCHSIA,
 ) -> vk::Result {
+    println!("vkGetBufferCollectionPropertiesFUCHSIA");
     unimplemented!();
 }
 
@@ -5583,6 +6052,7 @@ extern "C" fn vkCreateCudaModuleNV(
     p_allocator: *const vk::AllocationCallbacks,
     p_module: *mut vk::CudaModuleNV,
 ) -> vk::Result {
+    println!("vkCreateCudaModuleNV");
     unimplemented!();
 }
 
@@ -5594,6 +6064,7 @@ extern "C" fn vkGetCudaModuleCacheNV(
     p_cache_size: *mut isize,
     p_cache_data: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetCudaModuleCacheNV");
     unimplemented!();
 }
 
@@ -5605,6 +6076,7 @@ extern "C" fn vkCreateCudaFunctionNV(
     p_allocator: *const vk::AllocationCallbacks,
     p_function: *mut vk::CudaFunctionNV,
 ) -> vk::Result {
+    println!("vkCreateCudaFunctionNV");
     unimplemented!();
 }
 
@@ -5615,6 +6087,7 @@ extern "C" fn vkDestroyCudaModuleNV(
     module: vk::CudaModuleNV,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyCudaModuleNV");
     unimplemented!();
 }
 
@@ -5625,6 +6098,7 @@ extern "C" fn vkDestroyCudaFunctionNV(
     function: vk::CudaFunctionNV,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyCudaFunctionNV");
     unimplemented!();
 }
 
@@ -5634,6 +6108,7 @@ extern "C" fn vkCmdCudaLaunchKernelNV(
     command_buffer: vk::CommandBuffer,
     p_launch_info: *const vk::CudaLaunchInfoNV,
 ) {
+    println!("vkCmdCudaLaunchKernelNV");
     unimplemented!();
 }
 
@@ -5643,14 +6118,14 @@ extern "C" fn vkCmdBeginRendering(
     command_buffer: vk::CommandBuffer,
     p_rendering_info: *const vk::RenderingInfo,
 ) {
+    println!("vkCmdBeginRendering");
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRendering.html>"]
-extern "C" fn vkCmdEndRendering(
-    command_buffer: vk::CommandBuffer,
-) {
+extern "C" fn vkCmdEndRendering(command_buffer: vk::CommandBuffer) {
+    println!("vkCmdEndRendering");
     unimplemented!();
 }
 
@@ -5661,6 +6136,7 @@ extern "C" fn vkGetDescriptorSetLayoutHostMappingInfoVALVE(
     p_binding_reference: *const vk::DescriptorSetBindingReferenceVALVE,
     p_host_mapping: *mut vk::DescriptorSetLayoutHostMappingInfoVALVE,
 ) {
+    println!("vkGetDescriptorSetLayoutHostMappingInfoVALVE");
     unimplemented!();
 }
 
@@ -5671,6 +6147,7 @@ extern "C" fn vkGetDescriptorSetHostMappingVALVE(
     descriptor_set: vk::DescriptorSet,
     pp_data: *mut *mut std::ffi::c_void,
 ) {
+    println!("vkGetDescriptorSetHostMappingVALVE");
     unimplemented!();
 }
 
@@ -5682,6 +6159,7 @@ extern "C" fn vkCreateMicromapEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_micromap: *mut vk::MicromapEXT,
 ) -> vk::Result {
+    println!("vkCreateMicromapEXT");
     unimplemented!();
 }
 
@@ -5692,6 +6170,7 @@ extern "C" fn vkCmdBuildMicromapsEXT(
     info_count: u32,
     p_infos: *const vk::MicromapBuildInfoEXT,
 ) {
+    println!("vkCmdBuildMicromapsEXT");
     unimplemented!();
 }
 
@@ -5703,6 +6182,7 @@ extern "C" fn vkBuildMicromapsEXT(
     info_count: u32,
     p_infos: *const vk::MicromapBuildInfoEXT,
 ) -> vk::Result {
+    println!("vkBuildMicromapsEXT");
     unimplemented!();
 }
 
@@ -5713,6 +6193,7 @@ extern "C" fn vkDestroyMicromapEXT(
     micromap: vk::MicromapEXT,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyMicromapEXT");
     unimplemented!();
 }
 
@@ -5722,6 +6203,7 @@ extern "C" fn vkCmdCopyMicromapEXT(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyMicromapInfoEXT,
 ) {
+    println!("vkCmdCopyMicromapEXT");
     unimplemented!();
 }
 
@@ -5732,6 +6214,7 @@ extern "C" fn vkCopyMicromapEXT(
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyMicromapInfoEXT,
 ) -> vk::Result {
+    println!("vkCopyMicromapEXT");
     unimplemented!();
 }
 
@@ -5741,6 +6224,7 @@ extern "C" fn vkCmdCopyMicromapToMemoryEXT(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyMicromapToMemoryInfoEXT,
 ) {
+    println!("vkCmdCopyMicromapToMemoryEXT");
     unimplemented!();
 }
 
@@ -5751,6 +6235,7 @@ extern "C" fn vkCopyMicromapToMemoryEXT(
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyMicromapToMemoryInfoEXT,
 ) -> vk::Result {
+    println!("vkCopyMicromapToMemoryEXT");
     unimplemented!();
 }
 
@@ -5760,6 +6245,7 @@ extern "C" fn vkCmdCopyMemoryToMicromapEXT(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyMemoryToMicromapInfoEXT,
 ) {
+    println!("vkCmdCopyMemoryToMicromapEXT");
     unimplemented!();
 }
 
@@ -5770,6 +6256,7 @@ extern "C" fn vkCopyMemoryToMicromapEXT(
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyMemoryToMicromapInfoEXT,
 ) -> vk::Result {
+    println!("vkCopyMemoryToMicromapEXT");
     unimplemented!();
 }
 
@@ -5783,6 +6270,7 @@ extern "C" fn vkCmdWriteMicromapsPropertiesEXT(
     query_pool: vk::QueryPool,
     first_query: u32,
 ) {
+    println!("vkCmdWriteMicromapsPropertiesEXT");
     unimplemented!();
 }
 
@@ -5797,6 +6285,7 @@ extern "C" fn vkWriteMicromapsPropertiesEXT(
     p_data: *mut std::ffi::c_void,
     stride: isize,
 ) -> vk::Result {
+    println!("vkWriteMicromapsPropertiesEXT");
     unimplemented!();
 }
 
@@ -5807,6 +6296,7 @@ extern "C" fn vkGetDeviceMicromapCompatibilityEXT(
     p_version_info: *const vk::MicromapVersionInfoEXT,
     p_compatibility: *mut vk::AccelerationStructureCompatibilityKHR,
 ) {
+    println!("vkGetDeviceMicromapCompatibilityEXT");
     unimplemented!();
 }
 
@@ -5818,6 +6308,7 @@ extern "C" fn vkGetMicromapBuildSizesEXT(
     p_build_info: *const vk::MicromapBuildInfoEXT,
     p_size_info: *mut vk::MicromapBuildSizesInfoEXT,
 ) {
+    println!("vkGetMicromapBuildSizesEXT");
     unimplemented!();
 }
 
@@ -5828,6 +6319,7 @@ extern "C" fn vkGetShaderModuleIdentifierEXT(
     shader_module: vk::ShaderModule,
     p_identifier: *mut vk::ShaderModuleIdentifierEXT,
 ) {
+    println!("vkGetShaderModuleIdentifierEXT");
     unimplemented!();
 }
 
@@ -5838,6 +6330,7 @@ extern "C" fn vkGetShaderModuleCreateInfoIdentifierEXT(
     p_create_info: *const vk::ShaderModuleCreateInfo,
     p_identifier: *mut vk::ShaderModuleIdentifierEXT,
 ) {
+    println!("vkGetShaderModuleCreateInfoIdentifierEXT");
     unimplemented!();
 }
 
@@ -5849,6 +6342,7 @@ extern "C" fn vkGetImageSubresourceLayout2KHR(
     p_subresource: *const vk::ImageSubresource2KHR,
     p_layout: *mut vk::SubresourceLayout2KHR,
 ) {
+    println!("vkGetImageSubresourceLayout2KHR");
     unimplemented!();
 }
 
@@ -5859,6 +6353,7 @@ extern "C" fn vkGetPipelinePropertiesEXT(
     p_pipeline_info: *const vk::PipelineInfoEXT,
     p_pipeline_properties: *mut vk::BaseOutStructure,
 ) -> vk::Result {
+    println!("vkGetPipelinePropertiesEXT");
     unimplemented!();
 }
 
@@ -5868,6 +6363,7 @@ extern "C" fn vkExportMetalObjectsEXT(
     device: vk::Device,
     p_metal_objects_info: *mut vk::ExportMetalObjectsInfoEXT,
 ) {
+    println!("vkExportMetalObjectsEXT");
     unimplemented!();
 }
 
@@ -5879,6 +6375,7 @@ extern "C" fn vkGetFramebufferTilePropertiesQCOM(
     p_properties_count: *mut u32,
     p_properties: *mut vk::TilePropertiesQCOM,
 ) -> vk::Result {
+    println!("vkGetFramebufferTilePropertiesQCOM");
     unimplemented!();
 }
 
@@ -5889,6 +6386,7 @@ extern "C" fn vkGetDynamicRenderingTilePropertiesQCOM(
     p_rendering_info: *const vk::RenderingInfo,
     p_properties: *mut vk::TilePropertiesQCOM,
 ) -> vk::Result {
+    println!("vkGetDynamicRenderingTilePropertiesQCOM");
     unimplemented!();
 }
 
@@ -5900,6 +6398,7 @@ extern "C" fn vkGetPhysicalDeviceOpticalFlowImageFormatsNV(
     p_format_count: *mut u32,
     p_image_format_properties: *mut vk::OpticalFlowImageFormatPropertiesNV,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceOpticalFlowImageFormatsNV");
     unimplemented!();
 }
 
@@ -5911,6 +6410,7 @@ extern "C" fn vkCreateOpticalFlowSessionNV(
     p_allocator: *const vk::AllocationCallbacks,
     p_session: *mut vk::OpticalFlowSessionNV,
 ) -> vk::Result {
+    println!("vkCreateOpticalFlowSessionNV");
     unimplemented!();
 }
 
@@ -5921,6 +6421,7 @@ extern "C" fn vkDestroyOpticalFlowSessionNV(
     session: vk::OpticalFlowSessionNV,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyOpticalFlowSessionNV");
     unimplemented!();
 }
 
@@ -5933,6 +6434,7 @@ extern "C" fn vkBindOpticalFlowSessionImageNV(
     view: vk::ImageView,
     layout: vk::ImageLayout,
 ) -> vk::Result {
+    println!("vkBindOpticalFlowSessionImageNV");
     unimplemented!();
 }
 
@@ -5943,6 +6445,7 @@ extern "C" fn vkCmdOpticalFlowExecuteNV(
     session: vk::OpticalFlowSessionNV,
     p_execute_info: *const vk::OpticalFlowExecuteInfoNV,
 ) {
+    println!("vkCmdOpticalFlowExecuteNV");
     unimplemented!();
 }
 
@@ -5953,6 +6456,7 @@ extern "C" fn vkGetDeviceFaultInfoEXT(
     p_fault_counts: *mut vk::DeviceFaultCountsEXT,
     p_fault_info: *mut vk::DeviceFaultInfoEXT,
 ) -> vk::Result {
+    println!("vkGetDeviceFaultInfoEXT");
     unimplemented!();
 }
 
@@ -5962,6 +6466,7 @@ extern "C" fn vkCmdSetDepthBias2EXT(
     command_buffer: vk::CommandBuffer,
     p_depth_bias_info: *const vk::DepthBiasInfoEXT,
 ) {
+    println!("vkCmdSetDepthBias2EXT");
     unimplemented!();
 }
 
@@ -5971,6 +6476,7 @@ extern "C" fn vkReleaseSwapchainImagesEXT(
     device: vk::Device,
     p_release_info: *const vk::ReleaseSwapchainImagesInfoEXT,
 ) -> vk::Result {
+    println!("vkReleaseSwapchainImagesEXT");
     unimplemented!();
 }
 
@@ -5981,6 +6487,7 @@ extern "C" fn vkGetDeviceImageSubresourceLayoutKHR(
     p_info: *const vk::DeviceImageSubresourceInfoKHR,
     p_layout: *mut vk::SubresourceLayout2KHR,
 ) {
+    println!("vkGetDeviceImageSubresourceLayoutKHR");
     unimplemented!();
 }
 
@@ -5991,6 +6498,7 @@ extern "C" fn vkMapMemory2KHR(
     p_memory_map_info: *const vk::MemoryMapInfoKHR,
     pp_data: *mut *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkMapMemory2KHR");
     unimplemented!();
 }
 
@@ -6000,6 +6508,7 @@ extern "C" fn vkUnmapMemory2KHR(
     device: vk::Device,
     p_memory_unmap_info: *const vk::MemoryUnmapInfoKHR,
 ) -> vk::Result {
+    println!("vkUnmapMemory2KHR");
     unimplemented!();
 }
 
@@ -6012,6 +6521,7 @@ extern "C" fn vkCreateShadersEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_shaders: *mut vk::ShaderEXT,
 ) -> vk::Result {
+    println!("vkCreateShadersEXT");
     unimplemented!();
 }
 
@@ -6022,6 +6532,7 @@ extern "C" fn vkDestroyShaderEXT(
     shader: vk::ShaderEXT,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
+    println!("vkDestroyShaderEXT");
     unimplemented!();
 }
 
@@ -6033,6 +6544,7 @@ extern "C" fn vkGetShaderBinaryDataEXT(
     p_data_size: *mut isize,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
+    println!("vkGetShaderBinaryDataEXT");
     unimplemented!();
 }
 
@@ -6044,6 +6556,7 @@ extern "C" fn vkCmdBindShadersEXT(
     p_stages: *const vk::ShaderStageFlags,
     p_shaders: *const vk::ShaderEXT,
 ) {
+    println!("vkCmdBindShadersEXT");
     unimplemented!();
 }
 
@@ -6054,6 +6567,7 @@ extern "C" fn vkGetScreenBufferPropertiesQNX(
     buffer: *const vk::_screen_buffer,
     p_properties: *mut vk::ScreenBufferPropertiesQNX,
 ) -> vk::Result {
+    println!("vkGetScreenBufferPropertiesQNX");
     unimplemented!();
 }
 
@@ -6064,6 +6578,7 @@ extern "C" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut vk::CooperativeMatrixPropertiesKHR,
 ) -> vk::Result {
+    println!("vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR");
     unimplemented!();
 }
 
@@ -6074,6 +6589,7 @@ extern "C" fn vkGetExecutionGraphPipelineScratchSizeAMDX(
     execution_graph: vk::Pipeline,
     p_size_info: *mut vk::ExecutionGraphPipelineScratchSizeAMDX,
 ) -> vk::Result {
+    println!("vkGetExecutionGraphPipelineScratchSizeAMDX");
     unimplemented!();
 }
 
@@ -6085,6 +6601,7 @@ extern "C" fn vkGetExecutionGraphPipelineNodeIndexAMDX(
     p_node_info: *const vk::PipelineShaderStageNodeCreateInfoAMDX,
     p_node_index: *mut u32,
 ) -> vk::Result {
+    println!("vkGetExecutionGraphPipelineNodeIndexAMDX");
     unimplemented!();
 }
 
@@ -6098,6 +6615,7 @@ extern "C" fn vkCreateExecutionGraphPipelinesAMDX(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipelines: *mut vk::Pipeline,
 ) -> vk::Result {
+    println!("vkCreateExecutionGraphPipelinesAMDX");
     unimplemented!();
 }
 
@@ -6107,6 +6625,7 @@ extern "C" fn vkCmdInitializeGraphScratchMemoryAMDX(
     command_buffer: vk::CommandBuffer,
     scratch: vk::DeviceAddress,
 ) {
+    println!("vkCmdInitializeGraphScratchMemoryAMDX");
     unimplemented!();
 }
 
@@ -6117,6 +6636,7 @@ extern "C" fn vkCmdDispatchGraphAMDX(
     scratch: vk::DeviceAddress,
     p_count_info: *const vk::DispatchGraphCountInfoAMDX,
 ) {
+    println!("vkCmdDispatchGraphAMDX");
     unimplemented!();
 }
 
@@ -6127,6 +6647,7 @@ extern "C" fn vkCmdDispatchGraphIndirectAMDX(
     scratch: vk::DeviceAddress,
     p_count_info: *const vk::DispatchGraphCountInfoAMDX,
 ) {
+    println!("vkCmdDispatchGraphIndirectAMDX");
     unimplemented!();
 }
 
@@ -6137,6 +6658,7 @@ extern "C" fn vkCmdDispatchGraphIndirectCountAMDX(
     scratch: vk::DeviceAddress,
     count_info: vk::DeviceAddress,
 ) {
+    println!("vkCmdDispatchGraphIndirectCountAMDX");
     unimplemented!();
 }
 
@@ -6146,6 +6668,7 @@ extern "C" fn vkCmdBindDescriptorSets2KHR(
     command_buffer: vk::CommandBuffer,
     p_bind_descriptor_sets_info: *const vk::BindDescriptorSetsInfoKHR,
 ) {
+    println!("vkCmdBindDescriptorSets2KHR");
     unimplemented!();
 }
 
@@ -6155,6 +6678,7 @@ extern "C" fn vkCmdPushConstants2KHR(
     command_buffer: vk::CommandBuffer,
     p_push_constants_info: *const vk::PushConstantsInfoKHR,
 ) {
+    println!("vkCmdPushConstants2KHR");
     unimplemented!();
 }
 
@@ -6164,6 +6688,7 @@ extern "C" fn vkCmdPushDescriptorSet2KHR(
     command_buffer: vk::CommandBuffer,
     p_push_descriptor_set_info: *const vk::PushDescriptorSetInfoKHR,
 ) {
+    println!("vkCmdPushDescriptorSet2KHR");
     unimplemented!();
 }
 
@@ -6173,6 +6698,7 @@ extern "C" fn vkCmdPushDescriptorSetWithTemplate2KHR(
     command_buffer: vk::CommandBuffer,
     p_push_descriptor_set_with_template_info: *const vk::PushDescriptorSetWithTemplateInfoKHR,
 ) {
+    println!("vkCmdPushDescriptorSetWithTemplate2KHR");
     unimplemented!();
 }
 
@@ -6182,6 +6708,7 @@ extern "C" fn vkCmdSetDescriptorBufferOffsets2EXT(
     command_buffer: vk::CommandBuffer,
     p_set_descriptor_buffer_offsets_info: *const vk::SetDescriptorBufferOffsetsInfoEXT,
 ) {
+    println!("vkCmdSetDescriptorBufferOffsets2EXT");
     unimplemented!();
 }
 
@@ -6191,6 +6718,7 @@ extern "C" fn vkCmdBindDescriptorBufferEmbeddedSamplers2EXT(
     command_buffer: vk::CommandBuffer,
     p_bind_descriptor_buffer_embedded_samplers_info: *const vk::BindDescriptorBufferEmbeddedSamplersInfoEXT,
 ) {
+    println!("vkCmdBindDescriptorBufferEmbeddedSamplers2EXT");
     unimplemented!();
 }
 
@@ -6201,6 +6729,7 @@ extern "C" fn vkSetLatencySleepModeNV(
     swapchain: vk::SwapchainKHR,
     p_sleep_mode_info: *const vk::LatencySleepModeInfoNV,
 ) -> vk::Result {
+    println!("vkSetLatencySleepModeNV");
     unimplemented!();
 }
 
@@ -6211,6 +6740,7 @@ extern "C" fn vkLatencySleepNV(
     swapchain: vk::SwapchainKHR,
     p_sleep_info: *const vk::LatencySleepInfoNV,
 ) -> vk::Result {
+    println!("vkLatencySleepNV");
     unimplemented!();
 }
 
@@ -6221,6 +6751,7 @@ extern "C" fn vkSetLatencyMarkerNV(
     swapchain: vk::SwapchainKHR,
     p_latency_marker_info: *const vk::SetLatencyMarkerInfoNV,
 ) {
+    println!("vkSetLatencyMarkerNV");
     unimplemented!();
 }
 
@@ -6231,6 +6762,7 @@ extern "C" fn vkGetLatencyTimingsNV(
     swapchain: vk::SwapchainKHR,
     p_latency_marker_info: *mut vk::GetLatencyMarkerInfoNV,
 ) {
+    println!("vkGetLatencyTimingsNV");
     unimplemented!();
 }
 
@@ -6240,6 +6772,7 @@ extern "C" fn vkQueueNotifyOutOfBandNV(
     queue: vk::Queue,
     p_queue_type_info: *const vk::OutOfBandQueueTypeInfoNV,
 ) {
+    println!("vkQueueNotifyOutOfBandNV");
     unimplemented!();
 }
 
@@ -6249,6 +6782,7 @@ extern "C" fn vkCmdSetRenderingAttachmentLocationsKHR(
     command_buffer: vk::CommandBuffer,
     p_location_info: *const vk::RenderingAttachmentLocationInfoKHR,
 ) {
+    println!("vkCmdSetRenderingAttachmentLocationsKHR");
     unimplemented!();
 }
 
@@ -6258,5 +6792,6 @@ extern "C" fn vkCmdSetRenderingInputAttachmentIndicesKHR(
     command_buffer: vk::CommandBuffer,
     p_location_info: *const vk::RenderingInputAttachmentIndexInfoKHR,
 ) {
+    println!("vkCmdSetRenderingInputAttachmentIndicesKHR");
     unimplemented!();
 }
