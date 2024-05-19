@@ -1,0 +1,3 @@
+[submodule "generators/driver-vulkan-generator/Vulkan-Headers"]
+	path = generators/driver-vulkan-generator/Vulkan-Headers
+	url = https://github.com/KhronosGroup/Vulkan-Headers.git
