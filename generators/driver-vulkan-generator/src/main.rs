@@ -105,7 +105,7 @@ fn generate(vk_headers_path: &Path, source_directory: &Path) {
 fn generate_command(builder: &mut String, definition: &CommandDefinition) {
     builder.push_str("\n#[no_mangle]\n#[doc = \"<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/");
     builder.push_str(&definition.proto.name);
-    builder.push_str(".html>\"]\nextern \"C\" fn ");
+    builder.push_str(".html>\"]\nextern \"stdcall\" fn ");
     builder.push_str(&definition.proto.name);
     builder.push('(');
 

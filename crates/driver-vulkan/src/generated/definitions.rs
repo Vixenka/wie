@@ -4,7 +4,7 @@ use ash::vk;
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateInstance.html>"]
-extern "C" fn vkCreateInstance(
+extern "stdcall" fn vkCreateInstance(
     p_create_info: *const vk::InstanceCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
     p_instance: *mut vk::Instance,
@@ -16,7 +16,7 @@ extern "C" fn vkCreateInstance(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyInstance.html>"]
-extern "C" fn vkDestroyInstance(
+extern "stdcall" fn vkDestroyInstance(
     instance: vk::Instance,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
@@ -27,7 +27,7 @@ extern "C" fn vkDestroyInstance(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDevices.html>"]
-extern "C" fn vkEnumeratePhysicalDevices(
+extern "stdcall" fn vkEnumeratePhysicalDevices(
     instance: vk::Instance,
     p_physical_device_count: *mut u32,
     p_physical_devices: *mut vk::PhysicalDevice,
@@ -39,7 +39,7 @@ extern "C" fn vkEnumeratePhysicalDevices(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceProcAddr.html>"]
-extern "C" fn vkGetDeviceProcAddr(
+extern "stdcall" fn vkGetDeviceProcAddr(
     device: vk::Device,
     p_name: *const char,
 ) -> vk::PFN_vkVoidFunction {
@@ -50,7 +50,7 @@ extern "C" fn vkGetDeviceProcAddr(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html>"]
-extern "C" fn vkGetInstanceProcAddr(
+extern "stdcall" fn vkGetInstanceProcAddr(
     instance: vk::Instance,
     p_name: *const char,
 ) -> vk::PFN_vkVoidFunction {
@@ -61,7 +61,7 @@ extern "C" fn vkGetInstanceProcAddr(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties.html>"]
-extern "C" fn vkGetPhysicalDeviceProperties(
+extern "stdcall" fn vkGetPhysicalDeviceProperties(
     physical_device: vk::PhysicalDevice,
     p_properties: *mut vk::PhysicalDeviceProperties,
 ) {
@@ -72,7 +72,7 @@ extern "C" fn vkGetPhysicalDeviceProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html>"]
-extern "C" fn vkGetPhysicalDeviceQueueFamilyProperties(
+extern "stdcall" fn vkGetPhysicalDeviceQueueFamilyProperties(
     physical_device: vk::PhysicalDevice,
     p_queue_family_property_count: *mut u32,
     p_queue_family_properties: *mut vk::QueueFamilyProperties,
@@ -84,7 +84,7 @@ extern "C" fn vkGetPhysicalDeviceQueueFamilyProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMemoryProperties.html>"]
-extern "C" fn vkGetPhysicalDeviceMemoryProperties(
+extern "stdcall" fn vkGetPhysicalDeviceMemoryProperties(
     physical_device: vk::PhysicalDevice,
     p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties,
 ) {
@@ -95,7 +95,7 @@ extern "C" fn vkGetPhysicalDeviceMemoryProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures.html>"]
-extern "C" fn vkGetPhysicalDeviceFeatures(
+extern "stdcall" fn vkGetPhysicalDeviceFeatures(
     physical_device: vk::PhysicalDevice,
     p_features: *mut vk::PhysicalDeviceFeatures,
 ) {
@@ -106,7 +106,7 @@ extern "C" fn vkGetPhysicalDeviceFeatures(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFormatProperties.html>"]
-extern "C" fn vkGetPhysicalDeviceFormatProperties(
+extern "stdcall" fn vkGetPhysicalDeviceFormatProperties(
     physical_device: vk::PhysicalDevice,
     format: vk::Format,
     p_format_properties: *mut vk::FormatProperties,
@@ -118,7 +118,7 @@ extern "C" fn vkGetPhysicalDeviceFormatProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties.html>"]
-extern "C" fn vkGetPhysicalDeviceImageFormatProperties(
+extern "stdcall" fn vkGetPhysicalDeviceImageFormatProperties(
     physical_device: vk::PhysicalDevice,
     format: vk::Format,
     r#type: vk::ImageType,
@@ -134,7 +134,7 @@ extern "C" fn vkGetPhysicalDeviceImageFormatProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDevice.html>"]
-extern "C" fn vkCreateDevice(
+extern "stdcall" fn vkCreateDevice(
     physical_device: vk::PhysicalDevice,
     p_create_info: *const vk::DeviceCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -147,7 +147,7 @@ extern "C" fn vkCreateDevice(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDevice.html>"]
-extern "C" fn vkDestroyDevice(
+extern "stdcall" fn vkDestroyDevice(
     device: vk::Device,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
@@ -158,7 +158,7 @@ extern "C" fn vkDestroyDevice(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceVersion.html>"]
-extern "C" fn vkEnumerateInstanceVersion(
+extern "stdcall" fn vkEnumerateInstanceVersion(
     p_api_version: *mut u32,
 ) -> vk::Result {
     std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumerateInstanceVersion.txt", "whoa").unwrap();
@@ -168,7 +168,7 @@ extern "C" fn vkEnumerateInstanceVersion(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceLayerProperties.html>"]
-extern "C" fn vkEnumerateInstanceLayerProperties(
+extern "stdcall" fn vkEnumerateInstanceLayerProperties(
     p_property_count: *mut u32,
     p_properties: *mut vk::LayerProperties,
 ) -> vk::Result {
@@ -179,7 +179,7 @@ extern "C" fn vkEnumerateInstanceLayerProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceExtensionProperties.html>"]
-extern "C" fn vkEnumerateInstanceExtensionProperties(
+extern "stdcall" fn vkEnumerateInstanceExtensionProperties(
     p_layer_name: *const char,
     p_property_count: *mut u32,
     p_properties: *mut vk::ExtensionProperties,
@@ -191,7 +191,7 @@ extern "C" fn vkEnumerateInstanceExtensionProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceLayerProperties.html>"]
-extern "C" fn vkEnumerateDeviceLayerProperties(
+extern "stdcall" fn vkEnumerateDeviceLayerProperties(
     physical_device: vk::PhysicalDevice,
     p_property_count: *mut u32,
     p_properties: *mut vk::LayerProperties,
@@ -203,7 +203,7 @@ extern "C" fn vkEnumerateDeviceLayerProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceExtensionProperties.html>"]
-extern "C" fn vkEnumerateDeviceExtensionProperties(
+extern "stdcall" fn vkEnumerateDeviceExtensionProperties(
     physical_device: vk::PhysicalDevice,
     p_layer_name: *const char,
     p_property_count: *mut u32,
@@ -216,7 +216,7 @@ extern "C" fn vkEnumerateDeviceExtensionProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceQueue.html>"]
-extern "C" fn vkGetDeviceQueue(
+extern "stdcall" fn vkGetDeviceQueue(
     device: vk::Device,
     queue_family_index: u32,
     queue_index: u32,
@@ -229,7 +229,7 @@ extern "C" fn vkGetDeviceQueue(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSubmit.html>"]
-extern "C" fn vkQueueSubmit(
+extern "stdcall" fn vkQueueSubmit(
     queue: vk::Queue,
     submit_count: u32,
     p_submits: *const vk::SubmitInfo,
@@ -242,7 +242,7 @@ extern "C" fn vkQueueSubmit(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueWaitIdle.html>"]
-extern "C" fn vkQueueWaitIdle(
+extern "stdcall" fn vkQueueWaitIdle(
     queue: vk::Queue,
 ) -> vk::Result {
     std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueWaitIdle.txt", "whoa").unwrap();
@@ -252,7 +252,7 @@ extern "C" fn vkQueueWaitIdle(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDeviceWaitIdle.html>"]
-extern "C" fn vkDeviceWaitIdle(
+extern "stdcall" fn vkDeviceWaitIdle(
     device: vk::Device,
 ) -> vk::Result {
     std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDeviceWaitIdle.txt", "whoa").unwrap();
@@ -262,7 +262,7 @@ extern "C" fn vkDeviceWaitIdle(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateMemory.html>"]
-extern "C" fn vkAllocateMemory(
+extern "stdcall" fn vkAllocateMemory(
     device: vk::Device,
     p_allocate_info: *const vk::MemoryAllocateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -275,7 +275,7 @@ extern "C" fn vkAllocateMemory(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeMemory.html>"]
-extern "C" fn vkFreeMemory(
+extern "stdcall" fn vkFreeMemory(
     device: vk::Device,
     memory: vk::DeviceMemory,
     p_allocator: *const vk::AllocationCallbacks,
@@ -287,7 +287,7 @@ extern "C" fn vkFreeMemory(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMapMemory.html>"]
-extern "C" fn vkMapMemory(
+extern "stdcall" fn vkMapMemory(
     device: vk::Device,
     memory: vk::DeviceMemory,
     offset: vk::DeviceSize,
@@ -302,7 +302,7 @@ extern "C" fn vkMapMemory(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUnmapMemory.html>"]
-extern "C" fn vkUnmapMemory(
+extern "stdcall" fn vkUnmapMemory(
     device: vk::Device,
     memory: vk::DeviceMemory,
 ) {
@@ -313,7 +313,7 @@ extern "C" fn vkUnmapMemory(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFlushMappedMemoryRanges.html>"]
-extern "C" fn vkFlushMappedMemoryRanges(
+extern "stdcall" fn vkFlushMappedMemoryRanges(
     device: vk::Device,
     memory_range_count: u32,
     p_memory_ranges: *const vk::MappedMemoryRange,
@@ -325,7 +325,7 @@ extern "C" fn vkFlushMappedMemoryRanges(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkInvalidateMappedMemoryRanges.html>"]
-extern "C" fn vkInvalidateMappedMemoryRanges(
+extern "stdcall" fn vkInvalidateMappedMemoryRanges(
     device: vk::Device,
     memory_range_count: u32,
     p_memory_ranges: *const vk::MappedMemoryRange,
@@ -337,7 +337,7 @@ extern "C" fn vkInvalidateMappedMemoryRanges(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMemoryCommitment.html>"]
-extern "C" fn vkGetDeviceMemoryCommitment(
+extern "stdcall" fn vkGetDeviceMemoryCommitment(
     device: vk::Device,
     memory: vk::DeviceMemory,
     p_committed_memory_in_bytes: *mut vk::DeviceSize,
@@ -349,7 +349,7 @@ extern "C" fn vkGetDeviceMemoryCommitment(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferMemoryRequirements.html>"]
-extern "C" fn vkGetBufferMemoryRequirements(
+extern "stdcall" fn vkGetBufferMemoryRequirements(
     device: vk::Device,
     buffer: vk::Buffer,
     p_memory_requirements: *mut vk::MemoryRequirements,
@@ -361,7 +361,7 @@ extern "C" fn vkGetBufferMemoryRequirements(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindBufferMemory.html>"]
-extern "C" fn vkBindBufferMemory(
+extern "stdcall" fn vkBindBufferMemory(
     device: vk::Device,
     buffer: vk::Buffer,
     memory: vk::DeviceMemory,
@@ -374,7 +374,7 @@ extern "C" fn vkBindBufferMemory(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageMemoryRequirements.html>"]
-extern "C" fn vkGetImageMemoryRequirements(
+extern "stdcall" fn vkGetImageMemoryRequirements(
     device: vk::Device,
     image: vk::Image,
     p_memory_requirements: *mut vk::MemoryRequirements,
@@ -386,7 +386,7 @@ extern "C" fn vkGetImageMemoryRequirements(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindImageMemory.html>"]
-extern "C" fn vkBindImageMemory(
+extern "stdcall" fn vkBindImageMemory(
     device: vk::Device,
     image: vk::Image,
     memory: vk::DeviceMemory,
@@ -399,7 +399,7 @@ extern "C" fn vkBindImageMemory(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSparseMemoryRequirements.html>"]
-extern "C" fn vkGetImageSparseMemoryRequirements(
+extern "stdcall" fn vkGetImageSparseMemoryRequirements(
     device: vk::Device,
     image: vk::Image,
     p_sparse_memory_requirement_count: *mut u32,
@@ -412,7 +412,7 @@ extern "C" fn vkGetImageSparseMemoryRequirements(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html>"]
-extern "C" fn vkGetPhysicalDeviceSparseImageFormatProperties(
+extern "stdcall" fn vkGetPhysicalDeviceSparseImageFormatProperties(
     physical_device: vk::PhysicalDevice,
     format: vk::Format,
     r#type: vk::ImageType,
@@ -429,7 +429,7 @@ extern "C" fn vkGetPhysicalDeviceSparseImageFormatProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueBindSparse.html>"]
-extern "C" fn vkQueueBindSparse(
+extern "stdcall" fn vkQueueBindSparse(
     queue: vk::Queue,
     bind_info_count: u32,
     p_bind_info: *const vk::BindSparseInfo,
@@ -442,7 +442,7 @@ extern "C" fn vkQueueBindSparse(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateFence.html>"]
-extern "C" fn vkCreateFence(
+extern "stdcall" fn vkCreateFence(
     device: vk::Device,
     p_create_info: *const vk::FenceCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -455,7 +455,7 @@ extern "C" fn vkCreateFence(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyFence.html>"]
-extern "C" fn vkDestroyFence(
+extern "stdcall" fn vkDestroyFence(
     device: vk::Device,
     fence: vk::Fence,
     p_allocator: *const vk::AllocationCallbacks,
@@ -467,7 +467,7 @@ extern "C" fn vkDestroyFence(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetFences.html>"]
-extern "C" fn vkResetFences(
+extern "stdcall" fn vkResetFences(
     device: vk::Device,
     fence_count: u32,
     p_fences: *const vk::Fence,
@@ -479,7 +479,7 @@ extern "C" fn vkResetFences(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceStatus.html>"]
-extern "C" fn vkGetFenceStatus(
+extern "stdcall" fn vkGetFenceStatus(
     device: vk::Device,
     fence: vk::Fence,
 ) -> vk::Result {
@@ -490,7 +490,7 @@ extern "C" fn vkGetFenceStatus(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWaitForFences.html>"]
-extern "C" fn vkWaitForFences(
+extern "stdcall" fn vkWaitForFences(
     device: vk::Device,
     fence_count: u32,
     p_fences: *const vk::Fence,
@@ -504,7 +504,7 @@ extern "C" fn vkWaitForFences(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSemaphore.html>"]
-extern "C" fn vkCreateSemaphore(
+extern "stdcall" fn vkCreateSemaphore(
     device: vk::Device,
     p_create_info: *const vk::SemaphoreCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -517,7 +517,7 @@ extern "C" fn vkCreateSemaphore(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySemaphore.html>"]
-extern "C" fn vkDestroySemaphore(
+extern "stdcall" fn vkDestroySemaphore(
     device: vk::Device,
     semaphore: vk::Semaphore,
     p_allocator: *const vk::AllocationCallbacks,
@@ -529,7 +529,7 @@ extern "C" fn vkDestroySemaphore(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateEvent.html>"]
-extern "C" fn vkCreateEvent(
+extern "stdcall" fn vkCreateEvent(
     device: vk::Device,
     p_create_info: *const vk::EventCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -542,7 +542,7 @@ extern "C" fn vkCreateEvent(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyEvent.html>"]
-extern "C" fn vkDestroyEvent(
+extern "stdcall" fn vkDestroyEvent(
     device: vk::Device,
     event: vk::Event,
     p_allocator: *const vk::AllocationCallbacks,
@@ -554,7 +554,7 @@ extern "C" fn vkDestroyEvent(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetEventStatus.html>"]
-extern "C" fn vkGetEventStatus(
+extern "stdcall" fn vkGetEventStatus(
     device: vk::Device,
     event: vk::Event,
 ) -> vk::Result {
@@ -565,7 +565,7 @@ extern "C" fn vkGetEventStatus(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetEvent.html>"]
-extern "C" fn vkSetEvent(
+extern "stdcall" fn vkSetEvent(
     device: vk::Device,
     event: vk::Event,
 ) -> vk::Result {
@@ -576,7 +576,7 @@ extern "C" fn vkSetEvent(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetEvent.html>"]
-extern "C" fn vkResetEvent(
+extern "stdcall" fn vkResetEvent(
     device: vk::Device,
     event: vk::Event,
 ) -> vk::Result {
@@ -587,7 +587,7 @@ extern "C" fn vkResetEvent(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateQueryPool.html>"]
-extern "C" fn vkCreateQueryPool(
+extern "stdcall" fn vkCreateQueryPool(
     device: vk::Device,
     p_create_info: *const vk::QueryPoolCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -600,7 +600,7 @@ extern "C" fn vkCreateQueryPool(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyQueryPool.html>"]
-extern "C" fn vkDestroyQueryPool(
+extern "stdcall" fn vkDestroyQueryPool(
     device: vk::Device,
     query_pool: vk::QueryPool,
     p_allocator: *const vk::AllocationCallbacks,
@@ -612,7 +612,7 @@ extern "C" fn vkDestroyQueryPool(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetQueryPoolResults.html>"]
-extern "C" fn vkGetQueryPoolResults(
+extern "stdcall" fn vkGetQueryPoolResults(
     device: vk::Device,
     query_pool: vk::QueryPool,
     first_query: u32,
@@ -629,7 +629,7 @@ extern "C" fn vkGetQueryPoolResults(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetQueryPool.html>"]
-extern "C" fn vkResetQueryPool(
+extern "stdcall" fn vkResetQueryPool(
     device: vk::Device,
     query_pool: vk::QueryPool,
     first_query: u32,
@@ -642,7 +642,7 @@ extern "C" fn vkResetQueryPool(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBuffer.html>"]
-extern "C" fn vkCreateBuffer(
+extern "stdcall" fn vkCreateBuffer(
     device: vk::Device,
     p_create_info: *const vk::BufferCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -655,7 +655,7 @@ extern "C" fn vkCreateBuffer(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBuffer.html>"]
-extern "C" fn vkDestroyBuffer(
+extern "stdcall" fn vkDestroyBuffer(
     device: vk::Device,
     buffer: vk::Buffer,
     p_allocator: *const vk::AllocationCallbacks,
@@ -667,7 +667,7 @@ extern "C" fn vkDestroyBuffer(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBufferView.html>"]
-extern "C" fn vkCreateBufferView(
+extern "stdcall" fn vkCreateBufferView(
     device: vk::Device,
     p_create_info: *const vk::BufferViewCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -680,7 +680,7 @@ extern "C" fn vkCreateBufferView(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBufferView.html>"]
-extern "C" fn vkDestroyBufferView(
+extern "stdcall" fn vkDestroyBufferView(
     device: vk::Device,
     buffer_view: vk::BufferView,
     p_allocator: *const vk::AllocationCallbacks,
@@ -692,7 +692,7 @@ extern "C" fn vkDestroyBufferView(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImage.html>"]
-extern "C" fn vkCreateImage(
+extern "stdcall" fn vkCreateImage(
     device: vk::Device,
     p_create_info: *const vk::ImageCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -705,7 +705,7 @@ extern "C" fn vkCreateImage(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyImage.html>"]
-extern "C" fn vkDestroyImage(
+extern "stdcall" fn vkDestroyImage(
     device: vk::Device,
     image: vk::Image,
     p_allocator: *const vk::AllocationCallbacks,
@@ -717,7 +717,7 @@ extern "C" fn vkDestroyImage(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSubresourceLayout.html>"]
-extern "C" fn vkGetImageSubresourceLayout(
+extern "stdcall" fn vkGetImageSubresourceLayout(
     device: vk::Device,
     image: vk::Image,
     p_subresource: *const vk::ImageSubresource,
@@ -730,7 +730,7 @@ extern "C" fn vkGetImageSubresourceLayout(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImageView.html>"]
-extern "C" fn vkCreateImageView(
+extern "stdcall" fn vkCreateImageView(
     device: vk::Device,
     p_create_info: *const vk::ImageViewCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -743,7 +743,7 @@ extern "C" fn vkCreateImageView(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyImageView.html>"]
-extern "C" fn vkDestroyImageView(
+extern "stdcall" fn vkDestroyImageView(
     device: vk::Device,
     image_view: vk::ImageView,
     p_allocator: *const vk::AllocationCallbacks,
@@ -755,7 +755,7 @@ extern "C" fn vkDestroyImageView(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateShaderModule.html>"]
-extern "C" fn vkCreateShaderModule(
+extern "stdcall" fn vkCreateShaderModule(
     device: vk::Device,
     p_create_info: *const vk::ShaderModuleCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -768,7 +768,7 @@ extern "C" fn vkCreateShaderModule(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyShaderModule.html>"]
-extern "C" fn vkDestroyShaderModule(
+extern "stdcall" fn vkDestroyShaderModule(
     device: vk::Device,
     shader_module: vk::ShaderModule,
     p_allocator: *const vk::AllocationCallbacks,
@@ -780,7 +780,7 @@ extern "C" fn vkDestroyShaderModule(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineCache.html>"]
-extern "C" fn vkCreatePipelineCache(
+extern "stdcall" fn vkCreatePipelineCache(
     device: vk::Device,
     p_create_info: *const vk::PipelineCacheCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -793,7 +793,7 @@ extern "C" fn vkCreatePipelineCache(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineCache.html>"]
-extern "C" fn vkDestroyPipelineCache(
+extern "stdcall" fn vkDestroyPipelineCache(
     device: vk::Device,
     pipeline_cache: vk::PipelineCache,
     p_allocator: *const vk::AllocationCallbacks,
@@ -805,7 +805,7 @@ extern "C" fn vkDestroyPipelineCache(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineCacheData.html>"]
-extern "C" fn vkGetPipelineCacheData(
+extern "stdcall" fn vkGetPipelineCacheData(
     device: vk::Device,
     pipeline_cache: vk::PipelineCache,
     p_data_size: *mut isize,
@@ -818,7 +818,7 @@ extern "C" fn vkGetPipelineCacheData(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMergePipelineCaches.html>"]
-extern "C" fn vkMergePipelineCaches(
+extern "stdcall" fn vkMergePipelineCaches(
     device: vk::Device,
     dst_cache: vk::PipelineCache,
     src_cache_count: u32,
@@ -831,7 +831,7 @@ extern "C" fn vkMergePipelineCaches(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateGraphicsPipelines.html>"]
-extern "C" fn vkCreateGraphicsPipelines(
+extern "stdcall" fn vkCreateGraphicsPipelines(
     device: vk::Device,
     pipeline_cache: vk::PipelineCache,
     create_info_count: u32,
@@ -846,7 +846,7 @@ extern "C" fn vkCreateGraphicsPipelines(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateComputePipelines.html>"]
-extern "C" fn vkCreateComputePipelines(
+extern "stdcall" fn vkCreateComputePipelines(
     device: vk::Device,
     pipeline_cache: vk::PipelineCache,
     create_info_count: u32,
@@ -861,7 +861,7 @@ extern "C" fn vkCreateComputePipelines(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html>"]
-extern "C" fn vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(
+extern "stdcall" fn vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(
     device: vk::Device,
     renderpass: vk::RenderPass,
     p_max_workgroup_size: *mut vk::Extent2D,
@@ -873,7 +873,7 @@ extern "C" fn vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipeline.html>"]
-extern "C" fn vkDestroyPipeline(
+extern "stdcall" fn vkDestroyPipeline(
     device: vk::Device,
     pipeline: vk::Pipeline,
     p_allocator: *const vk::AllocationCallbacks,
@@ -885,7 +885,7 @@ extern "C" fn vkDestroyPipeline(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineLayout.html>"]
-extern "C" fn vkCreatePipelineLayout(
+extern "stdcall" fn vkCreatePipelineLayout(
     device: vk::Device,
     p_create_info: *const vk::PipelineLayoutCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -898,7 +898,7 @@ extern "C" fn vkCreatePipelineLayout(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineLayout.html>"]
-extern "C" fn vkDestroyPipelineLayout(
+extern "stdcall" fn vkDestroyPipelineLayout(
     device: vk::Device,
     pipeline_layout: vk::PipelineLayout,
     p_allocator: *const vk::AllocationCallbacks,
@@ -910,7 +910,7 @@ extern "C" fn vkDestroyPipelineLayout(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSampler.html>"]
-extern "C" fn vkCreateSampler(
+extern "stdcall" fn vkCreateSampler(
     device: vk::Device,
     p_create_info: *const vk::SamplerCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -923,7 +923,7 @@ extern "C" fn vkCreateSampler(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySampler.html>"]
-extern "C" fn vkDestroySampler(
+extern "stdcall" fn vkDestroySampler(
     device: vk::Device,
     sampler: vk::Sampler,
     p_allocator: *const vk::AllocationCallbacks,
@@ -935,7 +935,7 @@ extern "C" fn vkDestroySampler(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorSetLayout.html>"]
-extern "C" fn vkCreateDescriptorSetLayout(
+extern "stdcall" fn vkCreateDescriptorSetLayout(
     device: vk::Device,
     p_create_info: *const vk::DescriptorSetLayoutCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -948,7 +948,7 @@ extern "C" fn vkCreateDescriptorSetLayout(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorSetLayout.html>"]
-extern "C" fn vkDestroyDescriptorSetLayout(
+extern "stdcall" fn vkDestroyDescriptorSetLayout(
     device: vk::Device,
     descriptor_set_layout: vk::DescriptorSetLayout,
     p_allocator: *const vk::AllocationCallbacks,
@@ -960,7 +960,7 @@ extern "C" fn vkDestroyDescriptorSetLayout(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorPool.html>"]
-extern "C" fn vkCreateDescriptorPool(
+extern "stdcall" fn vkCreateDescriptorPool(
     device: vk::Device,
     p_create_info: *const vk::DescriptorPoolCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -973,7 +973,7 @@ extern "C" fn vkCreateDescriptorPool(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorPool.html>"]
-extern "C" fn vkDestroyDescriptorPool(
+extern "stdcall" fn vkDestroyDescriptorPool(
     device: vk::Device,
     descriptor_pool: vk::DescriptorPool,
     p_allocator: *const vk::AllocationCallbacks,
@@ -985,7 +985,7 @@ extern "C" fn vkDestroyDescriptorPool(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetDescriptorPool.html>"]
-extern "C" fn vkResetDescriptorPool(
+extern "stdcall" fn vkResetDescriptorPool(
     device: vk::Device,
     descriptor_pool: vk::DescriptorPool,
     flags: vk::DescriptorPoolResetFlags,
@@ -997,7 +997,7 @@ extern "C" fn vkResetDescriptorPool(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateDescriptorSets.html>"]
-extern "C" fn vkAllocateDescriptorSets(
+extern "stdcall" fn vkAllocateDescriptorSets(
     device: vk::Device,
     p_allocate_info: *const vk::DescriptorSetAllocateInfo,
     p_descriptor_sets: *mut vk::DescriptorSet,
@@ -1009,7 +1009,7 @@ extern "C" fn vkAllocateDescriptorSets(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeDescriptorSets.html>"]
-extern "C" fn vkFreeDescriptorSets(
+extern "stdcall" fn vkFreeDescriptorSets(
     device: vk::Device,
     descriptor_pool: vk::DescriptorPool,
     descriptor_set_count: u32,
@@ -1022,7 +1022,7 @@ extern "C" fn vkFreeDescriptorSets(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateDescriptorSets.html>"]
-extern "C" fn vkUpdateDescriptorSets(
+extern "stdcall" fn vkUpdateDescriptorSets(
     device: vk::Device,
     descriptor_write_count: u32,
     p_descriptor_writes: *const vk::WriteDescriptorSet,
@@ -1036,7 +1036,7 @@ extern "C" fn vkUpdateDescriptorSets(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateFramebuffer.html>"]
-extern "C" fn vkCreateFramebuffer(
+extern "stdcall" fn vkCreateFramebuffer(
     device: vk::Device,
     p_create_info: *const vk::FramebufferCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -1049,7 +1049,7 @@ extern "C" fn vkCreateFramebuffer(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyFramebuffer.html>"]
-extern "C" fn vkDestroyFramebuffer(
+extern "stdcall" fn vkDestroyFramebuffer(
     device: vk::Device,
     framebuffer: vk::Framebuffer,
     p_allocator: *const vk::AllocationCallbacks,
@@ -1061,7 +1061,7 @@ extern "C" fn vkDestroyFramebuffer(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRenderPass.html>"]
-extern "C" fn vkCreateRenderPass(
+extern "stdcall" fn vkCreateRenderPass(
     device: vk::Device,
     p_create_info: *const vk::RenderPassCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -1074,7 +1074,7 @@ extern "C" fn vkCreateRenderPass(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyRenderPass.html>"]
-extern "C" fn vkDestroyRenderPass(
+extern "stdcall" fn vkDestroyRenderPass(
     device: vk::Device,
     render_pass: vk::RenderPass,
     p_allocator: *const vk::AllocationCallbacks,
@@ -1086,7 +1086,7 @@ extern "C" fn vkDestroyRenderPass(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRenderAreaGranularity.html>"]
-extern "C" fn vkGetRenderAreaGranularity(
+extern "stdcall" fn vkGetRenderAreaGranularity(
     device: vk::Device,
     render_pass: vk::RenderPass,
     p_granularity: *mut vk::Extent2D,
@@ -1098,7 +1098,7 @@ extern "C" fn vkGetRenderAreaGranularity(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRenderingAreaGranularityKHR.html>"]
-extern "C" fn vkGetRenderingAreaGranularityKHR(
+extern "stdcall" fn vkGetRenderingAreaGranularityKHR(
     device: vk::Device,
     p_rendering_area_info: *const vk::RenderingAreaInfoKHR,
     p_granularity: *mut vk::Extent2D,
@@ -1110,7 +1110,7 @@ extern "C" fn vkGetRenderingAreaGranularityKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCommandPool.html>"]
-extern "C" fn vkCreateCommandPool(
+extern "stdcall" fn vkCreateCommandPool(
     device: vk::Device,
     p_create_info: *const vk::CommandPoolCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -1123,7 +1123,7 @@ extern "C" fn vkCreateCommandPool(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCommandPool.html>"]
-extern "C" fn vkDestroyCommandPool(
+extern "stdcall" fn vkDestroyCommandPool(
     device: vk::Device,
     command_pool: vk::CommandPool,
     p_allocator: *const vk::AllocationCallbacks,
@@ -1135,7 +1135,7 @@ extern "C" fn vkDestroyCommandPool(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetCommandPool.html>"]
-extern "C" fn vkResetCommandPool(
+extern "stdcall" fn vkResetCommandPool(
     device: vk::Device,
     command_pool: vk::CommandPool,
     flags: vk::CommandPoolResetFlags,
@@ -1147,7 +1147,7 @@ extern "C" fn vkResetCommandPool(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateCommandBuffers.html>"]
-extern "C" fn vkAllocateCommandBuffers(
+extern "stdcall" fn vkAllocateCommandBuffers(
     device: vk::Device,
     p_allocate_info: *const vk::CommandBufferAllocateInfo,
     p_command_buffers: *mut vk::CommandBuffer,
@@ -1159,7 +1159,7 @@ extern "C" fn vkAllocateCommandBuffers(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeCommandBuffers.html>"]
-extern "C" fn vkFreeCommandBuffers(
+extern "stdcall" fn vkFreeCommandBuffers(
     device: vk::Device,
     command_pool: vk::CommandPool,
     command_buffer_count: u32,
@@ -1172,7 +1172,7 @@ extern "C" fn vkFreeCommandBuffers(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBeginCommandBuffer.html>"]
-extern "C" fn vkBeginCommandBuffer(
+extern "stdcall" fn vkBeginCommandBuffer(
     command_buffer: vk::CommandBuffer,
     p_begin_info: *const vk::CommandBufferBeginInfo,
 ) -> vk::Result {
@@ -1183,7 +1183,7 @@ extern "C" fn vkBeginCommandBuffer(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEndCommandBuffer.html>"]
-extern "C" fn vkEndCommandBuffer(
+extern "stdcall" fn vkEndCommandBuffer(
     command_buffer: vk::CommandBuffer,
 ) -> vk::Result {
     std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEndCommandBuffer.txt", "whoa").unwrap();
@@ -1193,7 +1193,7 @@ extern "C" fn vkEndCommandBuffer(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetCommandBuffer.html>"]
-extern "C" fn vkResetCommandBuffer(
+extern "stdcall" fn vkResetCommandBuffer(
     command_buffer: vk::CommandBuffer,
     flags: vk::CommandBufferResetFlags,
 ) -> vk::Result {
@@ -1204,7 +1204,7 @@ extern "C" fn vkResetCommandBuffer(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindPipeline.html>"]
-extern "C" fn vkCmdBindPipeline(
+extern "stdcall" fn vkCmdBindPipeline(
     command_buffer: vk::CommandBuffer,
     pipeline_bind_point: vk::PipelineBindPoint,
     pipeline: vk::Pipeline,
@@ -1216,7 +1216,7 @@ extern "C" fn vkCmdBindPipeline(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetAttachmentFeedbackLoopEnableEXT.html>"]
-extern "C" fn vkCmdSetAttachmentFeedbackLoopEnableEXT(
+extern "stdcall" fn vkCmdSetAttachmentFeedbackLoopEnableEXT(
     command_buffer: vk::CommandBuffer,
     aspect_mask: vk::ImageAspectFlags,
 ) {
@@ -1227,7 +1227,7 @@ extern "C" fn vkCmdSetAttachmentFeedbackLoopEnableEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewport.html>"]
-extern "C" fn vkCmdSetViewport(
+extern "stdcall" fn vkCmdSetViewport(
     command_buffer: vk::CommandBuffer,
     first_viewport: u32,
     viewport_count: u32,
@@ -1240,7 +1240,7 @@ extern "C" fn vkCmdSetViewport(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetScissor.html>"]
-extern "C" fn vkCmdSetScissor(
+extern "stdcall" fn vkCmdSetScissor(
     command_buffer: vk::CommandBuffer,
     first_scissor: u32,
     scissor_count: u32,
@@ -1253,7 +1253,7 @@ extern "C" fn vkCmdSetScissor(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineWidth.html>"]
-extern "C" fn vkCmdSetLineWidth(
+extern "stdcall" fn vkCmdSetLineWidth(
     command_buffer: vk::CommandBuffer,
     line_width: f32,
 ) {
@@ -1264,7 +1264,7 @@ extern "C" fn vkCmdSetLineWidth(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBias.html>"]
-extern "C" fn vkCmdSetDepthBias(
+extern "stdcall" fn vkCmdSetDepthBias(
     command_buffer: vk::CommandBuffer,
     depth_bias_constant_factor: f32,
     depth_bias_clamp: f32,
@@ -1277,7 +1277,7 @@ extern "C" fn vkCmdSetDepthBias(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetBlendConstants.html>"]
-extern "C" fn vkCmdSetBlendConstants(
+extern "stdcall" fn vkCmdSetBlendConstants(
     command_buffer: vk::CommandBuffer,
     blend_constants: f32,
 ) {
@@ -1288,7 +1288,7 @@ extern "C" fn vkCmdSetBlendConstants(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBounds.html>"]
-extern "C" fn vkCmdSetDepthBounds(
+extern "stdcall" fn vkCmdSetDepthBounds(
     command_buffer: vk::CommandBuffer,
     min_depth_bounds: f32,
     max_depth_bounds: f32,
@@ -1300,7 +1300,7 @@ extern "C" fn vkCmdSetDepthBounds(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilCompareMask.html>"]
-extern "C" fn vkCmdSetStencilCompareMask(
+extern "stdcall" fn vkCmdSetStencilCompareMask(
     command_buffer: vk::CommandBuffer,
     face_mask: vk::StencilFaceFlags,
     compare_mask: u32,
@@ -1312,7 +1312,7 @@ extern "C" fn vkCmdSetStencilCompareMask(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilWriteMask.html>"]
-extern "C" fn vkCmdSetStencilWriteMask(
+extern "stdcall" fn vkCmdSetStencilWriteMask(
     command_buffer: vk::CommandBuffer,
     face_mask: vk::StencilFaceFlags,
     write_mask: u32,
@@ -1324,7 +1324,7 @@ extern "C" fn vkCmdSetStencilWriteMask(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilReference.html>"]
-extern "C" fn vkCmdSetStencilReference(
+extern "stdcall" fn vkCmdSetStencilReference(
     command_buffer: vk::CommandBuffer,
     face_mask: vk::StencilFaceFlags,
     reference: u32,
@@ -1336,7 +1336,7 @@ extern "C" fn vkCmdSetStencilReference(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorSets.html>"]
-extern "C" fn vkCmdBindDescriptorSets(
+extern "stdcall" fn vkCmdBindDescriptorSets(
     command_buffer: vk::CommandBuffer,
     pipeline_bind_point: vk::PipelineBindPoint,
     layout: vk::PipelineLayout,
@@ -1353,7 +1353,7 @@ extern "C" fn vkCmdBindDescriptorSets(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindIndexBuffer.html>"]
-extern "C" fn vkCmdBindIndexBuffer(
+extern "stdcall" fn vkCmdBindIndexBuffer(
     command_buffer: vk::CommandBuffer,
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
@@ -1366,7 +1366,7 @@ extern "C" fn vkCmdBindIndexBuffer(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindVertexBuffers.html>"]
-extern "C" fn vkCmdBindVertexBuffers(
+extern "stdcall" fn vkCmdBindVertexBuffers(
     command_buffer: vk::CommandBuffer,
     first_binding: u32,
     binding_count: u32,
@@ -1380,7 +1380,7 @@ extern "C" fn vkCmdBindVertexBuffers(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDraw.html>"]
-extern "C" fn vkCmdDraw(
+extern "stdcall" fn vkCmdDraw(
     command_buffer: vk::CommandBuffer,
     vertex_count: u32,
     instance_count: u32,
@@ -1394,7 +1394,7 @@ extern "C" fn vkCmdDraw(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexed.html>"]
-extern "C" fn vkCmdDrawIndexed(
+extern "stdcall" fn vkCmdDrawIndexed(
     command_buffer: vk::CommandBuffer,
     index_count: u32,
     instance_count: u32,
@@ -1409,7 +1409,7 @@ extern "C" fn vkCmdDrawIndexed(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMultiEXT.html>"]
-extern "C" fn vkCmdDrawMultiEXT(
+extern "stdcall" fn vkCmdDrawMultiEXT(
     command_buffer: vk::CommandBuffer,
     draw_count: u32,
     p_vertex_info: *const vk::MultiDrawInfoEXT,
@@ -1424,7 +1424,7 @@ extern "C" fn vkCmdDrawMultiEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMultiIndexedEXT.html>"]
-extern "C" fn vkCmdDrawMultiIndexedEXT(
+extern "stdcall" fn vkCmdDrawMultiIndexedEXT(
     command_buffer: vk::CommandBuffer,
     draw_count: u32,
     p_index_info: *const vk::MultiDrawIndexedInfoEXT,
@@ -1440,7 +1440,7 @@ extern "C" fn vkCmdDrawMultiIndexedEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirect.html>"]
-extern "C" fn vkCmdDrawIndirect(
+extern "stdcall" fn vkCmdDrawIndirect(
     command_buffer: vk::CommandBuffer,
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
@@ -1454,7 +1454,7 @@ extern "C" fn vkCmdDrawIndirect(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexedIndirect.html>"]
-extern "C" fn vkCmdDrawIndexedIndirect(
+extern "stdcall" fn vkCmdDrawIndexedIndirect(
     command_buffer: vk::CommandBuffer,
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
@@ -1468,7 +1468,7 @@ extern "C" fn vkCmdDrawIndexedIndirect(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatch.html>"]
-extern "C" fn vkCmdDispatch(
+extern "stdcall" fn vkCmdDispatch(
     command_buffer: vk::CommandBuffer,
     group_count_x: u32,
     group_count_y: u32,
@@ -1481,7 +1481,7 @@ extern "C" fn vkCmdDispatch(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchIndirect.html>"]
-extern "C" fn vkCmdDispatchIndirect(
+extern "stdcall" fn vkCmdDispatchIndirect(
     command_buffer: vk::CommandBuffer,
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
@@ -1493,7 +1493,7 @@ extern "C" fn vkCmdDispatchIndirect(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSubpassShadingHUAWEI.html>"]
-extern "C" fn vkCmdSubpassShadingHUAWEI(
+extern "stdcall" fn vkCmdSubpassShadingHUAWEI(
     command_buffer: vk::CommandBuffer,
 ) {
     std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSubpassShadingHUAWEI.txt", "whoa").unwrap();
@@ -1503,7 +1503,7 @@ extern "C" fn vkCmdSubpassShadingHUAWEI(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawClusterHUAWEI.html>"]
-extern "C" fn vkCmdDrawClusterHUAWEI(
+extern "stdcall" fn vkCmdDrawClusterHUAWEI(
     command_buffer: vk::CommandBuffer,
     group_count_x: u32,
     group_count_y: u32,
@@ -1516,7 +1516,7 @@ extern "C" fn vkCmdDrawClusterHUAWEI(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawClusterIndirectHUAWEI.html>"]
-extern "C" fn vkCmdDrawClusterIndirectHUAWEI(
+extern "stdcall" fn vkCmdDrawClusterIndirectHUAWEI(
     command_buffer: vk::CommandBuffer,
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
@@ -1528,7 +1528,7 @@ extern "C" fn vkCmdDrawClusterIndirectHUAWEI(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdUpdatePipelineIndirectBufferNV.html>"]
-extern "C" fn vkCmdUpdatePipelineIndirectBufferNV(
+extern "stdcall" fn vkCmdUpdatePipelineIndirectBufferNV(
     command_buffer: vk::CommandBuffer,
     pipeline_bind_point: vk::PipelineBindPoint,
     pipeline: vk::Pipeline,
@@ -1540,7 +1540,7 @@ extern "C" fn vkCmdUpdatePipelineIndirectBufferNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBuffer.html>"]
-extern "C" fn vkCmdCopyBuffer(
+extern "stdcall" fn vkCmdCopyBuffer(
     command_buffer: vk::CommandBuffer,
     src_buffer: vk::Buffer,
     dst_buffer: vk::Buffer,
@@ -1554,7 +1554,7 @@ extern "C" fn vkCmdCopyBuffer(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImage.html>"]
-extern "C" fn vkCmdCopyImage(
+extern "stdcall" fn vkCmdCopyImage(
     command_buffer: vk::CommandBuffer,
     src_image: vk::Image,
     src_image_layout: vk::ImageLayout,
@@ -1570,7 +1570,7 @@ extern "C" fn vkCmdCopyImage(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBlitImage.html>"]
-extern "C" fn vkCmdBlitImage(
+extern "stdcall" fn vkCmdBlitImage(
     command_buffer: vk::CommandBuffer,
     src_image: vk::Image,
     src_image_layout: vk::ImageLayout,
@@ -1587,7 +1587,7 @@ extern "C" fn vkCmdBlitImage(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBufferToImage.html>"]
-extern "C" fn vkCmdCopyBufferToImage(
+extern "stdcall" fn vkCmdCopyBufferToImage(
     command_buffer: vk::CommandBuffer,
     src_buffer: vk::Buffer,
     dst_image: vk::Image,
@@ -1602,7 +1602,7 @@ extern "C" fn vkCmdCopyBufferToImage(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImageToBuffer.html>"]
-extern "C" fn vkCmdCopyImageToBuffer(
+extern "stdcall" fn vkCmdCopyImageToBuffer(
     command_buffer: vk::CommandBuffer,
     src_image: vk::Image,
     src_image_layout: vk::ImageLayout,
@@ -1617,7 +1617,7 @@ extern "C" fn vkCmdCopyImageToBuffer(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryIndirectNV.html>"]
-extern "C" fn vkCmdCopyMemoryIndirectNV(
+extern "stdcall" fn vkCmdCopyMemoryIndirectNV(
     command_buffer: vk::CommandBuffer,
     copy_buffer_address: vk::DeviceAddress,
     copy_count: u32,
@@ -1630,7 +1630,7 @@ extern "C" fn vkCmdCopyMemoryIndirectNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryToImageIndirectNV.html>"]
-extern "C" fn vkCmdCopyMemoryToImageIndirectNV(
+extern "stdcall" fn vkCmdCopyMemoryToImageIndirectNV(
     command_buffer: vk::CommandBuffer,
     copy_buffer_address: vk::DeviceAddress,
     copy_count: u32,
@@ -1646,7 +1646,7 @@ extern "C" fn vkCmdCopyMemoryToImageIndirectNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdUpdateBuffer.html>"]
-extern "C" fn vkCmdUpdateBuffer(
+extern "stdcall" fn vkCmdUpdateBuffer(
     command_buffer: vk::CommandBuffer,
     dst_buffer: vk::Buffer,
     dst_offset: vk::DeviceSize,
@@ -1660,7 +1660,7 @@ extern "C" fn vkCmdUpdateBuffer(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdFillBuffer.html>"]
-extern "C" fn vkCmdFillBuffer(
+extern "stdcall" fn vkCmdFillBuffer(
     command_buffer: vk::CommandBuffer,
     dst_buffer: vk::Buffer,
     dst_offset: vk::DeviceSize,
@@ -1674,7 +1674,7 @@ extern "C" fn vkCmdFillBuffer(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearColorImage.html>"]
-extern "C" fn vkCmdClearColorImage(
+extern "stdcall" fn vkCmdClearColorImage(
     command_buffer: vk::CommandBuffer,
     image: vk::Image,
     image_layout: vk::ImageLayout,
@@ -1689,7 +1689,7 @@ extern "C" fn vkCmdClearColorImage(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearDepthStencilImage.html>"]
-extern "C" fn vkCmdClearDepthStencilImage(
+extern "stdcall" fn vkCmdClearDepthStencilImage(
     command_buffer: vk::CommandBuffer,
     image: vk::Image,
     image_layout: vk::ImageLayout,
@@ -1704,7 +1704,7 @@ extern "C" fn vkCmdClearDepthStencilImage(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearAttachments.html>"]
-extern "C" fn vkCmdClearAttachments(
+extern "stdcall" fn vkCmdClearAttachments(
     command_buffer: vk::CommandBuffer,
     attachment_count: u32,
     p_attachments: *const vk::ClearAttachment,
@@ -1718,7 +1718,7 @@ extern "C" fn vkCmdClearAttachments(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResolveImage.html>"]
-extern "C" fn vkCmdResolveImage(
+extern "stdcall" fn vkCmdResolveImage(
     command_buffer: vk::CommandBuffer,
     src_image: vk::Image,
     src_image_layout: vk::ImageLayout,
@@ -1734,7 +1734,7 @@ extern "C" fn vkCmdResolveImage(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetEvent.html>"]
-extern "C" fn vkCmdSetEvent(
+extern "stdcall" fn vkCmdSetEvent(
     command_buffer: vk::CommandBuffer,
     event: vk::Event,
     stage_mask: vk::PipelineStageFlags,
@@ -1746,7 +1746,7 @@ extern "C" fn vkCmdSetEvent(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetEvent.html>"]
-extern "C" fn vkCmdResetEvent(
+extern "stdcall" fn vkCmdResetEvent(
     command_buffer: vk::CommandBuffer,
     event: vk::Event,
     stage_mask: vk::PipelineStageFlags,
@@ -1758,7 +1758,7 @@ extern "C" fn vkCmdResetEvent(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents.html>"]
-extern "C" fn vkCmdWaitEvents(
+extern "stdcall" fn vkCmdWaitEvents(
     command_buffer: vk::CommandBuffer,
     event_count: u32,
     p_events: *const vk::Event,
@@ -1778,7 +1778,7 @@ extern "C" fn vkCmdWaitEvents(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPipelineBarrier.html>"]
-extern "C" fn vkCmdPipelineBarrier(
+extern "stdcall" fn vkCmdPipelineBarrier(
     command_buffer: vk::CommandBuffer,
     src_stage_mask: vk::PipelineStageFlags,
     dst_stage_mask: vk::PipelineStageFlags,
@@ -1797,7 +1797,7 @@ extern "C" fn vkCmdPipelineBarrier(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginQuery.html>"]
-extern "C" fn vkCmdBeginQuery(
+extern "stdcall" fn vkCmdBeginQuery(
     command_buffer: vk::CommandBuffer,
     query_pool: vk::QueryPool,
     query: u32,
@@ -1810,7 +1810,7 @@ extern "C" fn vkCmdBeginQuery(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndQuery.html>"]
-extern "C" fn vkCmdEndQuery(
+extern "stdcall" fn vkCmdEndQuery(
     command_buffer: vk::CommandBuffer,
     query_pool: vk::QueryPool,
     query: u32,
@@ -1822,7 +1822,7 @@ extern "C" fn vkCmdEndQuery(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginConditionalRenderingEXT.html>"]
-extern "C" fn vkCmdBeginConditionalRenderingEXT(
+extern "stdcall" fn vkCmdBeginConditionalRenderingEXT(
     command_buffer: vk::CommandBuffer,
     p_conditional_rendering_begin: *const vk::ConditionalRenderingBeginInfoEXT,
 ) {
@@ -1833,7 +1833,7 @@ extern "C" fn vkCmdBeginConditionalRenderingEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndConditionalRenderingEXT.html>"]
-extern "C" fn vkCmdEndConditionalRenderingEXT(
+extern "stdcall" fn vkCmdEndConditionalRenderingEXT(
     command_buffer: vk::CommandBuffer,
 ) {
     std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndConditionalRenderingEXT.txt", "whoa").unwrap();
@@ -1843,7 +1843,7 @@ extern "C" fn vkCmdEndConditionalRenderingEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetQueryPool.html>"]
-extern "C" fn vkCmdResetQueryPool(
+extern "stdcall" fn vkCmdResetQueryPool(
     command_buffer: vk::CommandBuffer,
     query_pool: vk::QueryPool,
     first_query: u32,
@@ -1856,7 +1856,7 @@ extern "C" fn vkCmdResetQueryPool(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteTimestamp.html>"]
-extern "C" fn vkCmdWriteTimestamp(
+extern "stdcall" fn vkCmdWriteTimestamp(
     command_buffer: vk::CommandBuffer,
     pipeline_stage: vk::PipelineStageFlags,
     query_pool: vk::QueryPool,
@@ -1869,7 +1869,7 @@ extern "C" fn vkCmdWriteTimestamp(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyQueryPoolResults.html>"]
-extern "C" fn vkCmdCopyQueryPoolResults(
+extern "stdcall" fn vkCmdCopyQueryPoolResults(
     command_buffer: vk::CommandBuffer,
     query_pool: vk::QueryPool,
     first_query: u32,
@@ -1886,7 +1886,7 @@ extern "C" fn vkCmdCopyQueryPoolResults(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushConstants.html>"]
-extern "C" fn vkCmdPushConstants(
+extern "stdcall" fn vkCmdPushConstants(
     command_buffer: vk::CommandBuffer,
     layout: vk::PipelineLayout,
     stage_flags: vk::ShaderStageFlags,
@@ -1901,7 +1901,7 @@ extern "C" fn vkCmdPushConstants(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRenderPass.html>"]
-extern "C" fn vkCmdBeginRenderPass(
+extern "stdcall" fn vkCmdBeginRenderPass(
     command_buffer: vk::CommandBuffer,
     p_render_pass_begin: *const vk::RenderPassBeginInfo,
     contents: vk::SubpassContents,
@@ -1913,7 +1913,7 @@ extern "C" fn vkCmdBeginRenderPass(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdNextSubpass.html>"]
-extern "C" fn vkCmdNextSubpass(
+extern "stdcall" fn vkCmdNextSubpass(
     command_buffer: vk::CommandBuffer,
     contents: vk::SubpassContents,
 ) {
@@ -1924,7 +1924,7 @@ extern "C" fn vkCmdNextSubpass(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass.html>"]
-extern "C" fn vkCmdEndRenderPass(
+extern "stdcall" fn vkCmdEndRenderPass(
     command_buffer: vk::CommandBuffer,
 ) {
     std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndRenderPass.txt", "whoa").unwrap();
@@ -1934,7 +1934,7 @@ extern "C" fn vkCmdEndRenderPass(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdExecuteCommands.html>"]
-extern "C" fn vkCmdExecuteCommands(
+extern "stdcall" fn vkCmdExecuteCommands(
     command_buffer: vk::CommandBuffer,
     command_buffer_count: u32,
     p_command_buffers: *const vk::CommandBuffer,
@@ -1946,7 +1946,7 @@ extern "C" fn vkCmdExecuteCommands(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateAndroidSurfaceKHR.html>"]
-extern "C" fn vkCreateAndroidSurfaceKHR(
+extern "stdcall" fn vkCreateAndroidSurfaceKHR(
     instance: vk::Instance,
     p_create_info: *const vk::AndroidSurfaceCreateInfoKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -1959,7 +1959,7 @@ extern "C" fn vkCreateAndroidSurfaceKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceDisplayPropertiesKHR(
+extern "stdcall" fn vkGetPhysicalDeviceDisplayPropertiesKHR(
     physical_device: vk::PhysicalDevice,
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayPropertiesKHR,
@@ -1971,7 +1971,7 @@ extern "C" fn vkGetPhysicalDeviceDisplayPropertiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
+extern "stdcall" fn vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
     physical_device: vk::PhysicalDevice,
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayPlanePropertiesKHR,
@@ -1983,7 +1983,7 @@ extern "C" fn vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html>"]
-extern "C" fn vkGetDisplayPlaneSupportedDisplaysKHR(
+extern "stdcall" fn vkGetDisplayPlaneSupportedDisplaysKHR(
     physical_device: vk::PhysicalDevice,
     plane_index: u32,
     p_display_count: *mut u32,
@@ -1996,7 +1996,7 @@ extern "C" fn vkGetDisplayPlaneSupportedDisplaysKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayModePropertiesKHR.html>"]
-extern "C" fn vkGetDisplayModePropertiesKHR(
+extern "stdcall" fn vkGetDisplayModePropertiesKHR(
     physical_device: vk::PhysicalDevice,
     display: vk::DisplayKHR,
     p_property_count: *mut u32,
@@ -2009,7 +2009,7 @@ extern "C" fn vkGetDisplayModePropertiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDisplayModeKHR.html>"]
-extern "C" fn vkCreateDisplayModeKHR(
+extern "stdcall" fn vkCreateDisplayModeKHR(
     physical_device: vk::PhysicalDevice,
     display: vk::DisplayKHR,
     p_create_info: *const vk::DisplayModeCreateInfoKHR,
@@ -2023,7 +2023,7 @@ extern "C" fn vkCreateDisplayModeKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneCapabilitiesKHR.html>"]
-extern "C" fn vkGetDisplayPlaneCapabilitiesKHR(
+extern "stdcall" fn vkGetDisplayPlaneCapabilitiesKHR(
     physical_device: vk::PhysicalDevice,
     mode: vk::DisplayModeKHR,
     plane_index: u32,
@@ -2036,7 +2036,7 @@ extern "C" fn vkGetDisplayPlaneCapabilitiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDisplayPlaneSurfaceKHR.html>"]
-extern "C" fn vkCreateDisplayPlaneSurfaceKHR(
+extern "stdcall" fn vkCreateDisplayPlaneSurfaceKHR(
     instance: vk::Instance,
     p_create_info: *const vk::DisplaySurfaceCreateInfoKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2049,7 +2049,7 @@ extern "C" fn vkCreateDisplayPlaneSurfaceKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSharedSwapchainsKHR.html>"]
-extern "C" fn vkCreateSharedSwapchainsKHR(
+extern "stdcall" fn vkCreateSharedSwapchainsKHR(
     device: vk::Device,
     swapchain_count: u32,
     p_create_infos: *const vk::SwapchainCreateInfoKHR,
@@ -2063,7 +2063,7 @@ extern "C" fn vkCreateSharedSwapchainsKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySurfaceKHR.html>"]
-extern "C" fn vkDestroySurfaceKHR(
+extern "stdcall" fn vkDestroySurfaceKHR(
     instance: vk::Instance,
     surface: vk::SurfaceKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2075,7 +2075,7 @@ extern "C" fn vkDestroySurfaceKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceSurfaceSupportKHR(
+extern "stdcall" fn vkGetPhysicalDeviceSurfaceSupportKHR(
     physical_device: vk::PhysicalDevice,
     queue_family_index: u32,
     surface: vk::SurfaceKHR,
@@ -2088,7 +2088,7 @@ extern "C" fn vkGetPhysicalDeviceSurfaceSupportKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
+extern "stdcall" fn vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
     physical_device: vk::PhysicalDevice,
     surface: vk::SurfaceKHR,
     p_surface_capabilities: *mut vk::SurfaceCapabilitiesKHR,
@@ -2100,7 +2100,7 @@ extern "C" fn vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceSurfaceFormatsKHR(
+extern "stdcall" fn vkGetPhysicalDeviceSurfaceFormatsKHR(
     physical_device: vk::PhysicalDevice,
     surface: vk::SurfaceKHR,
     p_surface_format_count: *mut u32,
@@ -2113,7 +2113,7 @@ extern "C" fn vkGetPhysicalDeviceSurfaceFormatsKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceSurfacePresentModesKHR(
+extern "stdcall" fn vkGetPhysicalDeviceSurfacePresentModesKHR(
     physical_device: vk::PhysicalDevice,
     surface: vk::SurfaceKHR,
     p_present_mode_count: *mut u32,
@@ -2126,7 +2126,7 @@ extern "C" fn vkGetPhysicalDeviceSurfacePresentModesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSwapchainKHR.html>"]
-extern "C" fn vkCreateSwapchainKHR(
+extern "stdcall" fn vkCreateSwapchainKHR(
     device: vk::Device,
     p_create_info: *const vk::SwapchainCreateInfoKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2139,7 +2139,7 @@ extern "C" fn vkCreateSwapchainKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySwapchainKHR.html>"]
-extern "C" fn vkDestroySwapchainKHR(
+extern "stdcall" fn vkDestroySwapchainKHR(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2151,7 +2151,7 @@ extern "C" fn vkDestroySwapchainKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainImagesKHR.html>"]
-extern "C" fn vkGetSwapchainImagesKHR(
+extern "stdcall" fn vkGetSwapchainImagesKHR(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
     p_swapchain_image_count: *mut u32,
@@ -2164,7 +2164,7 @@ extern "C" fn vkGetSwapchainImagesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireNextImageKHR.html>"]
-extern "C" fn vkAcquireNextImageKHR(
+extern "stdcall" fn vkAcquireNextImageKHR(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
     timeout: u64,
@@ -2179,7 +2179,7 @@ extern "C" fn vkAcquireNextImageKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueuePresentKHR.html>"]
-extern "C" fn vkQueuePresentKHR(
+extern "stdcall" fn vkQueuePresentKHR(
     queue: vk::Queue,
     p_present_info: *const vk::PresentInfoKHR,
 ) -> vk::Result {
@@ -2190,7 +2190,7 @@ extern "C" fn vkQueuePresentKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateViSurfaceNN.html>"]
-extern "C" fn vkCreateViSurfaceNN(
+extern "stdcall" fn vkCreateViSurfaceNN(
     instance: vk::Instance,
     p_create_info: *const vk::ViSurfaceCreateInfoNN,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2203,7 +2203,7 @@ extern "C" fn vkCreateViSurfaceNN(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateWaylandSurfaceKHR.html>"]
-extern "C" fn vkCreateWaylandSurfaceKHR(
+extern "stdcall" fn vkCreateWaylandSurfaceKHR(
     instance: vk::Instance,
     p_create_info: *const vk::WaylandSurfaceCreateInfoKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2216,7 +2216,7 @@ extern "C" fn vkCreateWaylandSurfaceKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceWaylandPresentationSupportKHR(
+extern "stdcall" fn vkGetPhysicalDeviceWaylandPresentationSupportKHR(
     physical_device: vk::PhysicalDevice,
     queue_family_index: u32,
     display: *mut vk::wl_display,
@@ -2228,7 +2228,7 @@ extern "C" fn vkGetPhysicalDeviceWaylandPresentationSupportKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateWin32SurfaceKHR.html>"]
-extern "C" fn vkCreateWin32SurfaceKHR(
+extern "stdcall" fn vkCreateWin32SurfaceKHR(
     instance: vk::Instance,
     p_create_info: *const vk::Win32SurfaceCreateInfoKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2241,7 +2241,7 @@ extern "C" fn vkCreateWin32SurfaceKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceWin32PresentationSupportKHR(
+extern "stdcall" fn vkGetPhysicalDeviceWin32PresentationSupportKHR(
     physical_device: vk::PhysicalDevice,
     queue_family_index: u32,
 ) -> vk::Bool32 {
@@ -2252,7 +2252,7 @@ extern "C" fn vkGetPhysicalDeviceWin32PresentationSupportKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateXlibSurfaceKHR.html>"]
-extern "C" fn vkCreateXlibSurfaceKHR(
+extern "stdcall" fn vkCreateXlibSurfaceKHR(
     instance: vk::Instance,
     p_create_info: *const vk::XlibSurfaceCreateInfoKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2265,7 +2265,7 @@ extern "C" fn vkCreateXlibSurfaceKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceXlibPresentationSupportKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceXlibPresentationSupportKHR(
+extern "stdcall" fn vkGetPhysicalDeviceXlibPresentationSupportKHR(
     physical_device: vk::PhysicalDevice,
     queue_family_index: u32,
     dpy: *mut vk::Display,
@@ -2278,7 +2278,7 @@ extern "C" fn vkGetPhysicalDeviceXlibPresentationSupportKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateXcbSurfaceKHR.html>"]
-extern "C" fn vkCreateXcbSurfaceKHR(
+extern "stdcall" fn vkCreateXcbSurfaceKHR(
     instance: vk::Instance,
     p_create_info: *const vk::XcbSurfaceCreateInfoKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2291,7 +2291,7 @@ extern "C" fn vkCreateXcbSurfaceKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceXcbPresentationSupportKHR(
+extern "stdcall" fn vkGetPhysicalDeviceXcbPresentationSupportKHR(
     physical_device: vk::PhysicalDevice,
     queue_family_index: u32,
     connection: *mut vk::xcb_connection_t,
@@ -2304,7 +2304,7 @@ extern "C" fn vkGetPhysicalDeviceXcbPresentationSupportKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDirectFBSurfaceEXT.html>"]
-extern "C" fn vkCreateDirectFBSurfaceEXT(
+extern "stdcall" fn vkCreateDirectFBSurfaceEXT(
     instance: vk::Instance,
     p_create_info: *const vk::DirectFBSurfaceCreateInfoEXT,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2317,7 +2317,7 @@ extern "C" fn vkCreateDirectFBSurfaceEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html>"]
-extern "C" fn vkGetPhysicalDeviceDirectFBPresentationSupportEXT(
+extern "stdcall" fn vkGetPhysicalDeviceDirectFBPresentationSupportEXT(
     physical_device: vk::PhysicalDevice,
     queue_family_index: u32,
     dfb: *mut vk::IDirectFB,
@@ -2329,7 +2329,7 @@ extern "C" fn vkGetPhysicalDeviceDirectFBPresentationSupportEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImagePipeSurfaceFUCHSIA.html>"]
-extern "C" fn vkCreateImagePipeSurfaceFUCHSIA(
+extern "stdcall" fn vkCreateImagePipeSurfaceFUCHSIA(
     instance: vk::Instance,
     p_create_info: *const vk::ImagePipeSurfaceCreateInfoFUCHSIA,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2342,7 +2342,7 @@ extern "C" fn vkCreateImagePipeSurfaceFUCHSIA(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateStreamDescriptorSurfaceGGP.html>"]
-extern "C" fn vkCreateStreamDescriptorSurfaceGGP(
+extern "stdcall" fn vkCreateStreamDescriptorSurfaceGGP(
     instance: vk::Instance,
     p_create_info: *const vk::StreamDescriptorSurfaceCreateInfoGGP,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2355,7 +2355,7 @@ extern "C" fn vkCreateStreamDescriptorSurfaceGGP(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateScreenSurfaceQNX.html>"]
-extern "C" fn vkCreateScreenSurfaceQNX(
+extern "stdcall" fn vkCreateScreenSurfaceQNX(
     instance: vk::Instance,
     p_create_info: *const vk::ScreenSurfaceCreateInfoQNX,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2368,7 +2368,7 @@ extern "C" fn vkCreateScreenSurfaceQNX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html>"]
-extern "C" fn vkGetPhysicalDeviceScreenPresentationSupportQNX(
+extern "stdcall" fn vkGetPhysicalDeviceScreenPresentationSupportQNX(
     physical_device: vk::PhysicalDevice,
     queue_family_index: u32,
     window: *mut vk::_screen_window,
@@ -2380,7 +2380,7 @@ extern "C" fn vkGetPhysicalDeviceScreenPresentationSupportQNX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDebugReportCallbackEXT.html>"]
-extern "C" fn vkCreateDebugReportCallbackEXT(
+extern "stdcall" fn vkCreateDebugReportCallbackEXT(
     instance: vk::Instance,
     p_create_info: *const vk::DebugReportCallbackCreateInfoEXT,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2393,7 +2393,7 @@ extern "C" fn vkCreateDebugReportCallbackEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDebugReportCallbackEXT.html>"]
-extern "C" fn vkDestroyDebugReportCallbackEXT(
+extern "stdcall" fn vkDestroyDebugReportCallbackEXT(
     instance: vk::Instance,
     callback: vk::DebugReportCallbackEXT,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2405,7 +2405,7 @@ extern "C" fn vkDestroyDebugReportCallbackEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDebugReportMessageEXT.html>"]
-extern "C" fn vkDebugReportMessageEXT(
+extern "stdcall" fn vkDebugReportMessageEXT(
     instance: vk::Instance,
     flags: vk::DebugReportFlagsEXT,
     object_type: vk::DebugReportObjectTypeEXT,
@@ -2422,7 +2422,7 @@ extern "C" fn vkDebugReportMessageEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDebugMarkerSetObjectNameEXT.html>"]
-extern "C" fn vkDebugMarkerSetObjectNameEXT(
+extern "stdcall" fn vkDebugMarkerSetObjectNameEXT(
     device: vk::Device,
     p_name_info: *const vk::DebugMarkerObjectNameInfoEXT,
 ) -> vk::Result {
@@ -2433,7 +2433,7 @@ extern "C" fn vkDebugMarkerSetObjectNameEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDebugMarkerSetObjectTagEXT.html>"]
-extern "C" fn vkDebugMarkerSetObjectTagEXT(
+extern "stdcall" fn vkDebugMarkerSetObjectTagEXT(
     device: vk::Device,
     p_tag_info: *const vk::DebugMarkerObjectTagInfoEXT,
 ) -> vk::Result {
@@ -2444,7 +2444,7 @@ extern "C" fn vkDebugMarkerSetObjectTagEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerBeginEXT.html>"]
-extern "C" fn vkCmdDebugMarkerBeginEXT(
+extern "stdcall" fn vkCmdDebugMarkerBeginEXT(
     command_buffer: vk::CommandBuffer,
     p_marker_info: *const vk::DebugMarkerMarkerInfoEXT,
 ) {
@@ -2455,7 +2455,7 @@ extern "C" fn vkCmdDebugMarkerBeginEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerEndEXT.html>"]
-extern "C" fn vkCmdDebugMarkerEndEXT(
+extern "stdcall" fn vkCmdDebugMarkerEndEXT(
     command_buffer: vk::CommandBuffer,
 ) {
     std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDebugMarkerEndEXT.txt", "whoa").unwrap();
@@ -2465,7 +2465,7 @@ extern "C" fn vkCmdDebugMarkerEndEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerInsertEXT.html>"]
-extern "C" fn vkCmdDebugMarkerInsertEXT(
+extern "stdcall" fn vkCmdDebugMarkerInsertEXT(
     command_buffer: vk::CommandBuffer,
     p_marker_info: *const vk::DebugMarkerMarkerInfoEXT,
 ) {
@@ -2476,7 +2476,7 @@ extern "C" fn vkCmdDebugMarkerInsertEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html>"]
-extern "C" fn vkGetPhysicalDeviceExternalImageFormatPropertiesNV(
+extern "stdcall" fn vkGetPhysicalDeviceExternalImageFormatPropertiesNV(
     physical_device: vk::PhysicalDevice,
     format: vk::Format,
     r#type: vk::ImageType,
@@ -2493,7 +2493,7 @@ extern "C" fn vkGetPhysicalDeviceExternalImageFormatPropertiesNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandleNV.html>"]
-extern "C" fn vkGetMemoryWin32HandleNV(
+extern "stdcall" fn vkGetMemoryWin32HandleNV(
     device: vk::Device,
     memory: vk::DeviceMemory,
     handle_type: vk::ExternalMemoryHandleTypeFlagsNV,
@@ -2506,7 +2506,7 @@ extern "C" fn vkGetMemoryWin32HandleNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdExecuteGeneratedCommandsNV.html>"]
-extern "C" fn vkCmdExecuteGeneratedCommandsNV(
+extern "stdcall" fn vkCmdExecuteGeneratedCommandsNV(
     command_buffer: vk::CommandBuffer,
     is_preprocessed: vk::Bool32,
     p_generated_commands_info: *const vk::GeneratedCommandsInfoNV,
@@ -2518,7 +2518,7 @@ extern "C" fn vkCmdExecuteGeneratedCommandsNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPreprocessGeneratedCommandsNV.html>"]
-extern "C" fn vkCmdPreprocessGeneratedCommandsNV(
+extern "stdcall" fn vkCmdPreprocessGeneratedCommandsNV(
     command_buffer: vk::CommandBuffer,
     p_generated_commands_info: *const vk::GeneratedCommandsInfoNV,
 ) {
@@ -2529,7 +2529,7 @@ extern "C" fn vkCmdPreprocessGeneratedCommandsNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindPipelineShaderGroupNV.html>"]
-extern "C" fn vkCmdBindPipelineShaderGroupNV(
+extern "stdcall" fn vkCmdBindPipelineShaderGroupNV(
     command_buffer: vk::CommandBuffer,
     pipeline_bind_point: vk::PipelineBindPoint,
     pipeline: vk::Pipeline,
@@ -2542,7 +2542,7 @@ extern "C" fn vkCmdBindPipelineShaderGroupNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetGeneratedCommandsMemoryRequirementsNV.html>"]
-extern "C" fn vkGetGeneratedCommandsMemoryRequirementsNV(
+extern "stdcall" fn vkGetGeneratedCommandsMemoryRequirementsNV(
     device: vk::Device,
     p_info: *const vk::GeneratedCommandsMemoryRequirementsInfoNV,
     p_memory_requirements: *mut vk::MemoryRequirements2,
@@ -2554,7 +2554,7 @@ extern "C" fn vkGetGeneratedCommandsMemoryRequirementsNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateIndirectCommandsLayoutNV.html>"]
-extern "C" fn vkCreateIndirectCommandsLayoutNV(
+extern "stdcall" fn vkCreateIndirectCommandsLayoutNV(
     device: vk::Device,
     p_create_info: *const vk::IndirectCommandsLayoutCreateInfoNV,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2567,7 +2567,7 @@ extern "C" fn vkCreateIndirectCommandsLayoutNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyIndirectCommandsLayoutNV.html>"]
-extern "C" fn vkDestroyIndirectCommandsLayoutNV(
+extern "stdcall" fn vkDestroyIndirectCommandsLayoutNV(
     device: vk::Device,
     indirect_commands_layout: vk::IndirectCommandsLayoutNV,
     p_allocator: *const vk::AllocationCallbacks,
@@ -2579,7 +2579,7 @@ extern "C" fn vkDestroyIndirectCommandsLayoutNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures2.html>"]
-extern "C" fn vkGetPhysicalDeviceFeatures2(
+extern "stdcall" fn vkGetPhysicalDeviceFeatures2(
     physical_device: vk::PhysicalDevice,
     p_features: *mut vk::PhysicalDeviceFeatures2,
 ) {
@@ -2590,7 +2590,7 @@ extern "C" fn vkGetPhysicalDeviceFeatures2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties2.html>"]
-extern "C" fn vkGetPhysicalDeviceProperties2(
+extern "stdcall" fn vkGetPhysicalDeviceProperties2(
     physical_device: vk::PhysicalDevice,
     p_properties: *mut vk::PhysicalDeviceProperties2,
 ) {
@@ -2601,7 +2601,7 @@ extern "C" fn vkGetPhysicalDeviceProperties2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFormatProperties2.html>"]
-extern "C" fn vkGetPhysicalDeviceFormatProperties2(
+extern "stdcall" fn vkGetPhysicalDeviceFormatProperties2(
     physical_device: vk::PhysicalDevice,
     format: vk::Format,
     p_format_properties: *mut vk::FormatProperties2,
@@ -2613,7 +2613,7 @@ extern "C" fn vkGetPhysicalDeviceFormatProperties2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties2.html>"]
-extern "C" fn vkGetPhysicalDeviceImageFormatProperties2(
+extern "stdcall" fn vkGetPhysicalDeviceImageFormatProperties2(
     physical_device: vk::PhysicalDevice,
     p_image_format_info: *const vk::PhysicalDeviceImageFormatInfo2,
     p_image_format_properties: *mut vk::ImageFormatProperties2,
@@ -2625,7 +2625,7 @@ extern "C" fn vkGetPhysicalDeviceImageFormatProperties2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties2.html>"]
-extern "C" fn vkGetPhysicalDeviceQueueFamilyProperties2(
+extern "stdcall" fn vkGetPhysicalDeviceQueueFamilyProperties2(
     physical_device: vk::PhysicalDevice,
     p_queue_family_property_count: *mut u32,
     p_queue_family_properties: *mut vk::QueueFamilyProperties2,
@@ -2637,7 +2637,7 @@ extern "C" fn vkGetPhysicalDeviceQueueFamilyProperties2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMemoryProperties2.html>"]
-extern "C" fn vkGetPhysicalDeviceMemoryProperties2(
+extern "stdcall" fn vkGetPhysicalDeviceMemoryProperties2(
     physical_device: vk::PhysicalDevice,
     p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties2,
 ) {
@@ -2648,7 +2648,7 @@ extern "C" fn vkGetPhysicalDeviceMemoryProperties2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2.html>"]
-extern "C" fn vkGetPhysicalDeviceSparseImageFormatProperties2(
+extern "stdcall" fn vkGetPhysicalDeviceSparseImageFormatProperties2(
     physical_device: vk::PhysicalDevice,
     p_format_info: *const vk::PhysicalDeviceSparseImageFormatInfo2,
     p_property_count: *mut u32,
@@ -2661,7 +2661,7 @@ extern "C" fn vkGetPhysicalDeviceSparseImageFormatProperties2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetKHR.html>"]
-extern "C" fn vkCmdPushDescriptorSetKHR(
+extern "stdcall" fn vkCmdPushDescriptorSetKHR(
     command_buffer: vk::CommandBuffer,
     pipeline_bind_point: vk::PipelineBindPoint,
     layout: vk::PipelineLayout,
@@ -2676,7 +2676,7 @@ extern "C" fn vkCmdPushDescriptorSetKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkTrimCommandPool.html>"]
-extern "C" fn vkTrimCommandPool(
+extern "stdcall" fn vkTrimCommandPool(
     device: vk::Device,
     command_pool: vk::CommandPool,
     flags: vk::CommandPoolTrimFlags,
@@ -2688,7 +2688,7 @@ extern "C" fn vkTrimCommandPool(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalBufferProperties.html>"]
-extern "C" fn vkGetPhysicalDeviceExternalBufferProperties(
+extern "stdcall" fn vkGetPhysicalDeviceExternalBufferProperties(
     physical_device: vk::PhysicalDevice,
     p_external_buffer_info: *const vk::PhysicalDeviceExternalBufferInfo,
     p_external_buffer_properties: *mut vk::ExternalBufferProperties,
@@ -2700,7 +2700,7 @@ extern "C" fn vkGetPhysicalDeviceExternalBufferProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandleKHR.html>"]
-extern "C" fn vkGetMemoryWin32HandleKHR(
+extern "stdcall" fn vkGetMemoryWin32HandleKHR(
     device: vk::Device,
     p_get_win32_handle_info: *const vk::MemoryGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
@@ -2712,7 +2712,7 @@ extern "C" fn vkGetMemoryWin32HandleKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandlePropertiesKHR.html>"]
-extern "C" fn vkGetMemoryWin32HandlePropertiesKHR(
+extern "stdcall" fn vkGetMemoryWin32HandlePropertiesKHR(
     device: vk::Device,
     handle_type: vk::ExternalMemoryHandleTypeFlags,
     handle: vk::HANDLE,
@@ -2725,7 +2725,7 @@ extern "C" fn vkGetMemoryWin32HandlePropertiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryFdKHR.html>"]
-extern "C" fn vkGetMemoryFdKHR(
+extern "stdcall" fn vkGetMemoryFdKHR(
     device: vk::Device,
     p_get_fd_info: *const vk::MemoryGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
@@ -2737,7 +2737,7 @@ extern "C" fn vkGetMemoryFdKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryFdPropertiesKHR.html>"]
-extern "C" fn vkGetMemoryFdPropertiesKHR(
+extern "stdcall" fn vkGetMemoryFdPropertiesKHR(
     device: vk::Device,
     handle_type: vk::ExternalMemoryHandleTypeFlags,
     fd: std::os::raw::c_int,
@@ -2750,7 +2750,7 @@ extern "C" fn vkGetMemoryFdPropertiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryZirconHandleFUCHSIA.html>"]
-extern "C" fn vkGetMemoryZirconHandleFUCHSIA(
+extern "stdcall" fn vkGetMemoryZirconHandleFUCHSIA(
     device: vk::Device,
     p_get_zircon_handle_info: *const vk::MemoryGetZirconHandleInfoFUCHSIA,
     p_zircon_handle: *mut vk::zx_handle_t,
@@ -2762,7 +2762,7 @@ extern "C" fn vkGetMemoryZirconHandleFUCHSIA(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryZirconHandlePropertiesFUCHSIA.html>"]
-extern "C" fn vkGetMemoryZirconHandlePropertiesFUCHSIA(
+extern "stdcall" fn vkGetMemoryZirconHandlePropertiesFUCHSIA(
     device: vk::Device,
     handle_type: vk::ExternalMemoryHandleTypeFlags,
     zircon_handle: vk::zx_handle_t,
@@ -2775,7 +2775,7 @@ extern "C" fn vkGetMemoryZirconHandlePropertiesFUCHSIA(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryRemoteAddressNV.html>"]
-extern "C" fn vkGetMemoryRemoteAddressNV(
+extern "stdcall" fn vkGetMemoryRemoteAddressNV(
     device: vk::Device,
     p_memory_get_remote_address_info: *const vk::MemoryGetRemoteAddressInfoNV,
     p_address: *mut vk::RemoteAddressNV,
@@ -2787,7 +2787,7 @@ extern "C" fn vkGetMemoryRemoteAddressNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalSemaphoreProperties.html>"]
-extern "C" fn vkGetPhysicalDeviceExternalSemaphoreProperties(
+extern "stdcall" fn vkGetPhysicalDeviceExternalSemaphoreProperties(
     physical_device: vk::PhysicalDevice,
     p_external_semaphore_info: *const vk::PhysicalDeviceExternalSemaphoreInfo,
     p_external_semaphore_properties: *mut vk::ExternalSemaphoreProperties,
@@ -2799,7 +2799,7 @@ extern "C" fn vkGetPhysicalDeviceExternalSemaphoreProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreWin32HandleKHR.html>"]
-extern "C" fn vkGetSemaphoreWin32HandleKHR(
+extern "stdcall" fn vkGetSemaphoreWin32HandleKHR(
     device: vk::Device,
     p_get_win32_handle_info: *const vk::SemaphoreGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
@@ -2811,7 +2811,7 @@ extern "C" fn vkGetSemaphoreWin32HandleKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreWin32HandleKHR.html>"]
-extern "C" fn vkImportSemaphoreWin32HandleKHR(
+extern "stdcall" fn vkImportSemaphoreWin32HandleKHR(
     device: vk::Device,
     p_import_semaphore_win32_handle_info: *const vk::ImportSemaphoreWin32HandleInfoKHR,
 ) -> vk::Result {
@@ -2822,7 +2822,7 @@ extern "C" fn vkImportSemaphoreWin32HandleKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreFdKHR.html>"]
-extern "C" fn vkGetSemaphoreFdKHR(
+extern "stdcall" fn vkGetSemaphoreFdKHR(
     device: vk::Device,
     p_get_fd_info: *const vk::SemaphoreGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
@@ -2834,7 +2834,7 @@ extern "C" fn vkGetSemaphoreFdKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreFdKHR.html>"]
-extern "C" fn vkImportSemaphoreFdKHR(
+extern "stdcall" fn vkImportSemaphoreFdKHR(
     device: vk::Device,
     p_import_semaphore_fd_info: *const vk::ImportSemaphoreFdInfoKHR,
 ) -> vk::Result {
@@ -2845,7 +2845,7 @@ extern "C" fn vkImportSemaphoreFdKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html>"]
-extern "C" fn vkGetSemaphoreZirconHandleFUCHSIA(
+extern "stdcall" fn vkGetSemaphoreZirconHandleFUCHSIA(
     device: vk::Device,
     p_get_zircon_handle_info: *const vk::SemaphoreGetZirconHandleInfoFUCHSIA,
     p_zircon_handle: *mut vk::zx_handle_t,
@@ -2857,7 +2857,7 @@ extern "C" fn vkGetSemaphoreZirconHandleFUCHSIA(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html>"]
-extern "C" fn vkImportSemaphoreZirconHandleFUCHSIA(
+extern "stdcall" fn vkImportSemaphoreZirconHandleFUCHSIA(
     device: vk::Device,
     p_import_semaphore_zircon_handle_info: *const vk::ImportSemaphoreZirconHandleInfoFUCHSIA,
 ) -> vk::Result {
@@ -2868,7 +2868,7 @@ extern "C" fn vkImportSemaphoreZirconHandleFUCHSIA(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalFenceProperties.html>"]
-extern "C" fn vkGetPhysicalDeviceExternalFenceProperties(
+extern "stdcall" fn vkGetPhysicalDeviceExternalFenceProperties(
     physical_device: vk::PhysicalDevice,
     p_external_fence_info: *const vk::PhysicalDeviceExternalFenceInfo,
     p_external_fence_properties: *mut vk::ExternalFenceProperties,
@@ -2880,7 +2880,7 @@ extern "C" fn vkGetPhysicalDeviceExternalFenceProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceWin32HandleKHR.html>"]
-extern "C" fn vkGetFenceWin32HandleKHR(
+extern "stdcall" fn vkGetFenceWin32HandleKHR(
     device: vk::Device,
     p_get_win32_handle_info: *const vk::FenceGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
@@ -2892,7 +2892,7 @@ extern "C" fn vkGetFenceWin32HandleKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportFenceWin32HandleKHR.html>"]
-extern "C" fn vkImportFenceWin32HandleKHR(
+extern "stdcall" fn vkImportFenceWin32HandleKHR(
     device: vk::Device,
     p_import_fence_win32_handle_info: *const vk::ImportFenceWin32HandleInfoKHR,
 ) -> vk::Result {
@@ -2903,7 +2903,7 @@ extern "C" fn vkImportFenceWin32HandleKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceFdKHR.html>"]
-extern "C" fn vkGetFenceFdKHR(
+extern "stdcall" fn vkGetFenceFdKHR(
     device: vk::Device,
     p_get_fd_info: *const vk::FenceGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
@@ -2915,7 +2915,7 @@ extern "C" fn vkGetFenceFdKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportFenceFdKHR.html>"]
-extern "C" fn vkImportFenceFdKHR(
+extern "stdcall" fn vkImportFenceFdKHR(
     device: vk::Device,
     p_import_fence_fd_info: *const vk::ImportFenceFdInfoKHR,
 ) -> vk::Result {
@@ -2926,7 +2926,7 @@ extern "C" fn vkImportFenceFdKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseDisplayEXT.html>"]
-extern "C" fn vkReleaseDisplayEXT(
+extern "stdcall" fn vkReleaseDisplayEXT(
     physical_device: vk::PhysicalDevice,
     display: vk::DisplayKHR,
 ) -> vk::Result {
@@ -2937,7 +2937,7 @@ extern "C" fn vkReleaseDisplayEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireXlibDisplayEXT.html>"]
-extern "C" fn vkAcquireXlibDisplayEXT(
+extern "stdcall" fn vkAcquireXlibDisplayEXT(
     physical_device: vk::PhysicalDevice,
     dpy: *mut vk::Display,
     display: vk::DisplayKHR,
@@ -2949,7 +2949,7 @@ extern "C" fn vkAcquireXlibDisplayEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRandROutputDisplayEXT.html>"]
-extern "C" fn vkGetRandROutputDisplayEXT(
+extern "stdcall" fn vkGetRandROutputDisplayEXT(
     physical_device: vk::PhysicalDevice,
     dpy: *mut vk::Display,
     rr_output: vk::RROutput,
@@ -2962,7 +2962,7 @@ extern "C" fn vkGetRandROutputDisplayEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireWinrtDisplayNV.html>"]
-extern "C" fn vkAcquireWinrtDisplayNV(
+extern "stdcall" fn vkAcquireWinrtDisplayNV(
     physical_device: vk::PhysicalDevice,
     display: vk::DisplayKHR,
 ) -> vk::Result {
@@ -2973,7 +2973,7 @@ extern "C" fn vkAcquireWinrtDisplayNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetWinrtDisplayNV.html>"]
-extern "C" fn vkGetWinrtDisplayNV(
+extern "stdcall" fn vkGetWinrtDisplayNV(
     physical_device: vk::PhysicalDevice,
     device_relative_id: u32,
     p_display: *mut vk::DisplayKHR,
@@ -2985,7 +2985,7 @@ extern "C" fn vkGetWinrtDisplayNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDisplayPowerControlEXT.html>"]
-extern "C" fn vkDisplayPowerControlEXT(
+extern "stdcall" fn vkDisplayPowerControlEXT(
     device: vk::Device,
     display: vk::DisplayKHR,
     p_display_power_info: *const vk::DisplayPowerInfoEXT,
@@ -2997,7 +2997,7 @@ extern "C" fn vkDisplayPowerControlEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkRegisterDeviceEventEXT.html>"]
-extern "C" fn vkRegisterDeviceEventEXT(
+extern "stdcall" fn vkRegisterDeviceEventEXT(
     device: vk::Device,
     p_device_event_info: *const vk::DeviceEventInfoEXT,
     p_allocator: *const vk::AllocationCallbacks,
@@ -3010,7 +3010,7 @@ extern "C" fn vkRegisterDeviceEventEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkRegisterDisplayEventEXT.html>"]
-extern "C" fn vkRegisterDisplayEventEXT(
+extern "stdcall" fn vkRegisterDisplayEventEXT(
     device: vk::Device,
     display: vk::DisplayKHR,
     p_display_event_info: *const vk::DisplayEventInfoEXT,
@@ -3024,7 +3024,7 @@ extern "C" fn vkRegisterDisplayEventEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainCounterEXT.html>"]
-extern "C" fn vkGetSwapchainCounterEXT(
+extern "stdcall" fn vkGetSwapchainCounterEXT(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
     counter: vk::SurfaceCounterFlagsEXT,
@@ -3037,7 +3037,7 @@ extern "C" fn vkGetSwapchainCounterEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2EXT.html>"]
-extern "C" fn vkGetPhysicalDeviceSurfaceCapabilities2EXT(
+extern "stdcall" fn vkGetPhysicalDeviceSurfaceCapabilities2EXT(
     physical_device: vk::PhysicalDevice,
     surface: vk::SurfaceKHR,
     p_surface_capabilities: *mut vk::SurfaceCapabilities2EXT,
@@ -3049,7 +3049,7 @@ extern "C" fn vkGetPhysicalDeviceSurfaceCapabilities2EXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDeviceGroups.html>"]
-extern "C" fn vkEnumeratePhysicalDeviceGroups(
+extern "stdcall" fn vkEnumeratePhysicalDeviceGroups(
     instance: vk::Instance,
     p_physical_device_group_count: *mut u32,
     p_physical_device_group_properties: *mut vk::PhysicalDeviceGroupProperties,
@@ -3061,7 +3061,7 @@ extern "C" fn vkEnumeratePhysicalDeviceGroups(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupPeerMemoryFeatures.html>"]
-extern "C" fn vkGetDeviceGroupPeerMemoryFeatures(
+extern "stdcall" fn vkGetDeviceGroupPeerMemoryFeatures(
     device: vk::Device,
     heap_index: u32,
     local_device_index: u32,
@@ -3075,7 +3075,7 @@ extern "C" fn vkGetDeviceGroupPeerMemoryFeatures(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindBufferMemory2.html>"]
-extern "C" fn vkBindBufferMemory2(
+extern "stdcall" fn vkBindBufferMemory2(
     device: vk::Device,
     bind_info_count: u32,
     p_bind_infos: *const vk::BindBufferMemoryInfo,
@@ -3087,7 +3087,7 @@ extern "C" fn vkBindBufferMemory2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindImageMemory2.html>"]
-extern "C" fn vkBindImageMemory2(
+extern "stdcall" fn vkBindImageMemory2(
     device: vk::Device,
     bind_info_count: u32,
     p_bind_infos: *const vk::BindImageMemoryInfo,
@@ -3099,7 +3099,7 @@ extern "C" fn vkBindImageMemory2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDeviceMask.html>"]
-extern "C" fn vkCmdSetDeviceMask(
+extern "stdcall" fn vkCmdSetDeviceMask(
     command_buffer: vk::CommandBuffer,
     device_mask: u32,
 ) {
@@ -3110,7 +3110,7 @@ extern "C" fn vkCmdSetDeviceMask(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html>"]
-extern "C" fn vkGetDeviceGroupPresentCapabilitiesKHR(
+extern "stdcall" fn vkGetDeviceGroupPresentCapabilitiesKHR(
     device: vk::Device,
     p_device_group_present_capabilities: *mut vk::DeviceGroupPresentCapabilitiesKHR,
 ) -> vk::Result {
@@ -3121,7 +3121,7 @@ extern "C" fn vkGetDeviceGroupPresentCapabilitiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html>"]
-extern "C" fn vkGetDeviceGroupSurfacePresentModesKHR(
+extern "stdcall" fn vkGetDeviceGroupSurfacePresentModesKHR(
     device: vk::Device,
     surface: vk::SurfaceKHR,
     p_modes: *mut vk::DeviceGroupPresentModeFlagsKHR,
@@ -3133,7 +3133,7 @@ extern "C" fn vkGetDeviceGroupSurfacePresentModesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireNextImage2KHR.html>"]
-extern "C" fn vkAcquireNextImage2KHR(
+extern "stdcall" fn vkAcquireNextImage2KHR(
     device: vk::Device,
     p_acquire_info: *const vk::AcquireNextImageInfoKHR,
     p_image_index: *mut u32,
@@ -3145,7 +3145,7 @@ extern "C" fn vkAcquireNextImage2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchBase.html>"]
-extern "C" fn vkCmdDispatchBase(
+extern "stdcall" fn vkCmdDispatchBase(
     command_buffer: vk::CommandBuffer,
     base_group_x: u32,
     base_group_y: u32,
@@ -3161,7 +3161,7 @@ extern "C" fn vkCmdDispatchBase(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html>"]
-extern "C" fn vkGetPhysicalDevicePresentRectanglesKHR(
+extern "stdcall" fn vkGetPhysicalDevicePresentRectanglesKHR(
     physical_device: vk::PhysicalDevice,
     surface: vk::SurfaceKHR,
     p_rect_count: *mut u32,
@@ -3174,7 +3174,7 @@ extern "C" fn vkGetPhysicalDevicePresentRectanglesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorUpdateTemplate.html>"]
-extern "C" fn vkCreateDescriptorUpdateTemplate(
+extern "stdcall" fn vkCreateDescriptorUpdateTemplate(
     device: vk::Device,
     p_create_info: *const vk::DescriptorUpdateTemplateCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -3187,7 +3187,7 @@ extern "C" fn vkCreateDescriptorUpdateTemplate(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorUpdateTemplate.html>"]
-extern "C" fn vkDestroyDescriptorUpdateTemplate(
+extern "stdcall" fn vkDestroyDescriptorUpdateTemplate(
     device: vk::Device,
     descriptor_update_template: vk::DescriptorUpdateTemplate,
     p_allocator: *const vk::AllocationCallbacks,
@@ -3199,7 +3199,7 @@ extern "C" fn vkDestroyDescriptorUpdateTemplate(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateDescriptorSetWithTemplate.html>"]
-extern "C" fn vkUpdateDescriptorSetWithTemplate(
+extern "stdcall" fn vkUpdateDescriptorSetWithTemplate(
     device: vk::Device,
     descriptor_set: vk::DescriptorSet,
     descriptor_update_template: vk::DescriptorUpdateTemplate,
@@ -3212,7 +3212,7 @@ extern "C" fn vkUpdateDescriptorSetWithTemplate(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html>"]
-extern "C" fn vkCmdPushDescriptorSetWithTemplateKHR(
+extern "stdcall" fn vkCmdPushDescriptorSetWithTemplateKHR(
     command_buffer: vk::CommandBuffer,
     descriptor_update_template: vk::DescriptorUpdateTemplate,
     layout: vk::PipelineLayout,
@@ -3226,7 +3226,7 @@ extern "C" fn vkCmdPushDescriptorSetWithTemplateKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetHdrMetadataEXT.html>"]
-extern "C" fn vkSetHdrMetadataEXT(
+extern "stdcall" fn vkSetHdrMetadataEXT(
     device: vk::Device,
     swapchain_count: u32,
     p_swapchains: *const vk::SwapchainKHR,
@@ -3239,7 +3239,7 @@ extern "C" fn vkSetHdrMetadataEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainStatusKHR.html>"]
-extern "C" fn vkGetSwapchainStatusKHR(
+extern "stdcall" fn vkGetSwapchainStatusKHR(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
 ) -> vk::Result {
@@ -3250,7 +3250,7 @@ extern "C" fn vkGetSwapchainStatusKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRefreshCycleDurationGOOGLE.html>"]
-extern "C" fn vkGetRefreshCycleDurationGOOGLE(
+extern "stdcall" fn vkGetRefreshCycleDurationGOOGLE(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
     p_display_timing_properties: *mut vk::RefreshCycleDurationGOOGLE,
@@ -3262,7 +3262,7 @@ extern "C" fn vkGetRefreshCycleDurationGOOGLE(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPastPresentationTimingGOOGLE.html>"]
-extern "C" fn vkGetPastPresentationTimingGOOGLE(
+extern "stdcall" fn vkGetPastPresentationTimingGOOGLE(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
     p_presentation_timing_count: *mut u32,
@@ -3275,7 +3275,7 @@ extern "C" fn vkGetPastPresentationTimingGOOGLE(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateIOSSurfaceMVK.html>"]
-extern "C" fn vkCreateIOSSurfaceMVK(
+extern "stdcall" fn vkCreateIOSSurfaceMVK(
     instance: vk::Instance,
     p_create_info: *const vk::IOSSurfaceCreateInfoMVK,
     p_allocator: *const vk::AllocationCallbacks,
@@ -3288,7 +3288,7 @@ extern "C" fn vkCreateIOSSurfaceMVK(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateMacOSSurfaceMVK.html>"]
-extern "C" fn vkCreateMacOSSurfaceMVK(
+extern "stdcall" fn vkCreateMacOSSurfaceMVK(
     instance: vk::Instance,
     p_create_info: *const vk::MacOSSurfaceCreateInfoMVK,
     p_allocator: *const vk::AllocationCallbacks,
@@ -3301,7 +3301,7 @@ extern "C" fn vkCreateMacOSSurfaceMVK(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateMetalSurfaceEXT.html>"]
-extern "C" fn vkCreateMetalSurfaceEXT(
+extern "stdcall" fn vkCreateMetalSurfaceEXT(
     instance: vk::Instance,
     p_create_info: *const vk::MetalSurfaceCreateInfoEXT,
     p_allocator: *const vk::AllocationCallbacks,
@@ -3314,7 +3314,7 @@ extern "C" fn vkCreateMetalSurfaceEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWScalingNV.html>"]
-extern "C" fn vkCmdSetViewportWScalingNV(
+extern "stdcall" fn vkCmdSetViewportWScalingNV(
     command_buffer: vk::CommandBuffer,
     first_viewport: u32,
     viewport_count: u32,
@@ -3327,7 +3327,7 @@ extern "C" fn vkCmdSetViewportWScalingNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleEXT.html>"]
-extern "C" fn vkCmdSetDiscardRectangleEXT(
+extern "stdcall" fn vkCmdSetDiscardRectangleEXT(
     command_buffer: vk::CommandBuffer,
     first_discard_rectangle: u32,
     discard_rectangle_count: u32,
@@ -3340,7 +3340,7 @@ extern "C" fn vkCmdSetDiscardRectangleEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleEnableEXT.html>"]
-extern "C" fn vkCmdSetDiscardRectangleEnableEXT(
+extern "stdcall" fn vkCmdSetDiscardRectangleEnableEXT(
     command_buffer: vk::CommandBuffer,
     discard_rectangle_enable: vk::Bool32,
 ) {
@@ -3351,7 +3351,7 @@ extern "C" fn vkCmdSetDiscardRectangleEnableEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleModeEXT.html>"]
-extern "C" fn vkCmdSetDiscardRectangleModeEXT(
+extern "stdcall" fn vkCmdSetDiscardRectangleModeEXT(
     command_buffer: vk::CommandBuffer,
     discard_rectangle_mode: vk::DiscardRectangleModeEXT,
 ) {
@@ -3362,7 +3362,7 @@ extern "C" fn vkCmdSetDiscardRectangleModeEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleLocationsEXT.html>"]
-extern "C" fn vkCmdSetSampleLocationsEXT(
+extern "stdcall" fn vkCmdSetSampleLocationsEXT(
     command_buffer: vk::CommandBuffer,
     p_sample_locations_info: *const vk::SampleLocationsInfoEXT,
 ) {
@@ -3373,7 +3373,7 @@ extern "C" fn vkCmdSetSampleLocationsEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html>"]
-extern "C" fn vkGetPhysicalDeviceMultisamplePropertiesEXT(
+extern "stdcall" fn vkGetPhysicalDeviceMultisamplePropertiesEXT(
     physical_device: vk::PhysicalDevice,
     samples: vk::SampleCountFlags,
     p_multisample_properties: *mut vk::MultisamplePropertiesEXT,
@@ -3385,7 +3385,7 @@ extern "C" fn vkGetPhysicalDeviceMultisamplePropertiesEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html>"]
-extern "C" fn vkGetPhysicalDeviceSurfaceCapabilities2KHR(
+extern "stdcall" fn vkGetPhysicalDeviceSurfaceCapabilities2KHR(
     physical_device: vk::PhysicalDevice,
     p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR,
     p_surface_capabilities: *mut vk::SurfaceCapabilities2KHR,
@@ -3397,7 +3397,7 @@ extern "C" fn vkGetPhysicalDeviceSurfaceCapabilities2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html>"]
-extern "C" fn vkGetPhysicalDeviceSurfaceFormats2KHR(
+extern "stdcall" fn vkGetPhysicalDeviceSurfaceFormats2KHR(
     physical_device: vk::PhysicalDevice,
     p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR,
     p_surface_format_count: *mut u32,
@@ -3410,7 +3410,7 @@ extern "C" fn vkGetPhysicalDeviceSurfaceFormats2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayProperties2KHR.html>"]
-extern "C" fn vkGetPhysicalDeviceDisplayProperties2KHR(
+extern "stdcall" fn vkGetPhysicalDeviceDisplayProperties2KHR(
     physical_device: vk::PhysicalDevice,
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayProperties2KHR,
@@ -3422,7 +3422,7 @@ extern "C" fn vkGetPhysicalDeviceDisplayProperties2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html>"]
-extern "C" fn vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
+extern "stdcall" fn vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
     physical_device: vk::PhysicalDevice,
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayPlaneProperties2KHR,
@@ -3434,7 +3434,7 @@ extern "C" fn vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayModeProperties2KHR.html>"]
-extern "C" fn vkGetDisplayModeProperties2KHR(
+extern "stdcall" fn vkGetDisplayModeProperties2KHR(
     physical_device: vk::PhysicalDevice,
     display: vk::DisplayKHR,
     p_property_count: *mut u32,
@@ -3447,7 +3447,7 @@ extern "C" fn vkGetDisplayModeProperties2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneCapabilities2KHR.html>"]
-extern "C" fn vkGetDisplayPlaneCapabilities2KHR(
+extern "stdcall" fn vkGetDisplayPlaneCapabilities2KHR(
     physical_device: vk::PhysicalDevice,
     p_display_plane_info: *const vk::DisplayPlaneInfo2KHR,
     p_capabilities: *mut vk::DisplayPlaneCapabilities2KHR,
@@ -3459,7 +3459,7 @@ extern "C" fn vkGetDisplayPlaneCapabilities2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferMemoryRequirements2.html>"]
-extern "C" fn vkGetBufferMemoryRequirements2(
+extern "stdcall" fn vkGetBufferMemoryRequirements2(
     device: vk::Device,
     p_info: *const vk::BufferMemoryRequirementsInfo2,
     p_memory_requirements: *mut vk::MemoryRequirements2,
@@ -3471,7 +3471,7 @@ extern "C" fn vkGetBufferMemoryRequirements2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageMemoryRequirements2.html>"]
-extern "C" fn vkGetImageMemoryRequirements2(
+extern "stdcall" fn vkGetImageMemoryRequirements2(
     device: vk::Device,
     p_info: *const vk::ImageMemoryRequirementsInfo2,
     p_memory_requirements: *mut vk::MemoryRequirements2,
@@ -3483,7 +3483,7 @@ extern "C" fn vkGetImageMemoryRequirements2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSparseMemoryRequirements2.html>"]
-extern "C" fn vkGetImageSparseMemoryRequirements2(
+extern "stdcall" fn vkGetImageSparseMemoryRequirements2(
     device: vk::Device,
     p_info: *const vk::ImageSparseMemoryRequirementsInfo2,
     p_sparse_memory_requirement_count: *mut u32,
@@ -3496,7 +3496,7 @@ extern "C" fn vkGetImageSparseMemoryRequirements2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceBufferMemoryRequirements.html>"]
-extern "C" fn vkGetDeviceBufferMemoryRequirements(
+extern "stdcall" fn vkGetDeviceBufferMemoryRequirements(
     device: vk::Device,
     p_info: *const vk::DeviceBufferMemoryRequirements,
     p_memory_requirements: *mut vk::MemoryRequirements2,
@@ -3508,7 +3508,7 @@ extern "C" fn vkGetDeviceBufferMemoryRequirements(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceImageMemoryRequirements.html>"]
-extern "C" fn vkGetDeviceImageMemoryRequirements(
+extern "stdcall" fn vkGetDeviceImageMemoryRequirements(
     device: vk::Device,
     p_info: *const vk::DeviceImageMemoryRequirements,
     p_memory_requirements: *mut vk::MemoryRequirements2,
@@ -3520,7 +3520,7 @@ extern "C" fn vkGetDeviceImageMemoryRequirements(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceImageSparseMemoryRequirements.html>"]
-extern "C" fn vkGetDeviceImageSparseMemoryRequirements(
+extern "stdcall" fn vkGetDeviceImageSparseMemoryRequirements(
     device: vk::Device,
     p_info: *const vk::DeviceImageMemoryRequirements,
     p_sparse_memory_requirement_count: *mut u32,
@@ -3533,7 +3533,7 @@ extern "C" fn vkGetDeviceImageSparseMemoryRequirements(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSamplerYcbcrConversion.html>"]
-extern "C" fn vkCreateSamplerYcbcrConversion(
+extern "stdcall" fn vkCreateSamplerYcbcrConversion(
     device: vk::Device,
     p_create_info: *const vk::SamplerYcbcrConversionCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -3546,7 +3546,7 @@ extern "C" fn vkCreateSamplerYcbcrConversion(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySamplerYcbcrConversion.html>"]
-extern "C" fn vkDestroySamplerYcbcrConversion(
+extern "stdcall" fn vkDestroySamplerYcbcrConversion(
     device: vk::Device,
     ycbcr_conversion: vk::SamplerYcbcrConversion,
     p_allocator: *const vk::AllocationCallbacks,
@@ -3558,7 +3558,7 @@ extern "C" fn vkDestroySamplerYcbcrConversion(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceQueue2.html>"]
-extern "C" fn vkGetDeviceQueue2(
+extern "stdcall" fn vkGetDeviceQueue2(
     device: vk::Device,
     p_queue_info: *const vk::DeviceQueueInfo2,
     p_queue: *mut vk::Queue,
@@ -3570,7 +3570,7 @@ extern "C" fn vkGetDeviceQueue2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateValidationCacheEXT.html>"]
-extern "C" fn vkCreateValidationCacheEXT(
+extern "stdcall" fn vkCreateValidationCacheEXT(
     device: vk::Device,
     p_create_info: *const vk::ValidationCacheCreateInfoEXT,
     p_allocator: *const vk::AllocationCallbacks,
@@ -3583,7 +3583,7 @@ extern "C" fn vkCreateValidationCacheEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyValidationCacheEXT.html>"]
-extern "C" fn vkDestroyValidationCacheEXT(
+extern "stdcall" fn vkDestroyValidationCacheEXT(
     device: vk::Device,
     validation_cache: vk::ValidationCacheEXT,
     p_allocator: *const vk::AllocationCallbacks,
@@ -3595,7 +3595,7 @@ extern "C" fn vkDestroyValidationCacheEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetValidationCacheDataEXT.html>"]
-extern "C" fn vkGetValidationCacheDataEXT(
+extern "stdcall" fn vkGetValidationCacheDataEXT(
     device: vk::Device,
     validation_cache: vk::ValidationCacheEXT,
     p_data_size: *mut isize,
@@ -3608,7 +3608,7 @@ extern "C" fn vkGetValidationCacheDataEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMergeValidationCachesEXT.html>"]
-extern "C" fn vkMergeValidationCachesEXT(
+extern "stdcall" fn vkMergeValidationCachesEXT(
     device: vk::Device,
     dst_cache: vk::ValidationCacheEXT,
     src_cache_count: u32,
@@ -3621,7 +3621,7 @@ extern "C" fn vkMergeValidationCachesEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutSupport.html>"]
-extern "C" fn vkGetDescriptorSetLayoutSupport(
+extern "stdcall" fn vkGetDescriptorSetLayoutSupport(
     device: vk::Device,
     p_create_info: *const vk::DescriptorSetLayoutCreateInfo,
     p_support: *mut vk::DescriptorSetLayoutSupport,
@@ -3633,7 +3633,7 @@ extern "C" fn vkGetDescriptorSetLayoutSupport(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainGrallocUsageANDROID.html>"]
-extern "C" fn vkGetSwapchainGrallocUsageANDROID(
+extern "stdcall" fn vkGetSwapchainGrallocUsageANDROID(
     device: vk::Device,
     format: vk::Format,
     image_usage: vk::ImageUsageFlags,
@@ -3646,7 +3646,7 @@ extern "C" fn vkGetSwapchainGrallocUsageANDROID(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainGrallocUsage2ANDROID.html>"]
-extern "C" fn vkGetSwapchainGrallocUsage2ANDROID(
+extern "stdcall" fn vkGetSwapchainGrallocUsage2ANDROID(
     device: vk::Device,
     format: vk::Format,
     image_usage: vk::ImageUsageFlags,
@@ -3661,7 +3661,7 @@ extern "C" fn vkGetSwapchainGrallocUsage2ANDROID(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireImageANDROID.html>"]
-extern "C" fn vkAcquireImageANDROID(
+extern "stdcall" fn vkAcquireImageANDROID(
     device: vk::Device,
     image: vk::Image,
     native_fence_fd: std::os::raw::c_int,
@@ -3675,7 +3675,7 @@ extern "C" fn vkAcquireImageANDROID(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSignalReleaseImageANDROID.html>"]
-extern "C" fn vkQueueSignalReleaseImageANDROID(
+extern "stdcall" fn vkQueueSignalReleaseImageANDROID(
     queue: vk::Queue,
     wait_semaphore_count: u32,
     p_wait_semaphores: *const vk::Semaphore,
@@ -3689,7 +3689,7 @@ extern "C" fn vkQueueSignalReleaseImageANDROID(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderInfoAMD.html>"]
-extern "C" fn vkGetShaderInfoAMD(
+extern "stdcall" fn vkGetShaderInfoAMD(
     device: vk::Device,
     pipeline: vk::Pipeline,
     shader_stage: vk::ShaderStageFlags,
@@ -3704,7 +3704,7 @@ extern "C" fn vkGetShaderInfoAMD(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetLocalDimmingAMD.html>"]
-extern "C" fn vkSetLocalDimmingAMD(
+extern "stdcall" fn vkSetLocalDimmingAMD(
     device: vk::Device,
     swap_chain: vk::SwapchainKHR,
     local_dimming_enable: vk::Bool32,
@@ -3716,7 +3716,7 @@ extern "C" fn vkSetLocalDimmingAMD(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
+extern "stdcall" fn vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
     physical_device: vk::PhysicalDevice,
     p_time_domain_count: *mut u32,
     p_time_domains: *mut vk::TimeDomainKHR,
@@ -3728,7 +3728,7 @@ extern "C" fn vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetCalibratedTimestampsKHR.html>"]
-extern "C" fn vkGetCalibratedTimestampsKHR(
+extern "stdcall" fn vkGetCalibratedTimestampsKHR(
     device: vk::Device,
     timestamp_count: u32,
     p_timestamp_infos: *const vk::CalibratedTimestampInfoKHR,
@@ -3742,7 +3742,7 @@ extern "C" fn vkGetCalibratedTimestampsKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetDebugUtilsObjectNameEXT.html>"]
-extern "C" fn vkSetDebugUtilsObjectNameEXT(
+extern "stdcall" fn vkSetDebugUtilsObjectNameEXT(
     device: vk::Device,
     p_name_info: *const vk::DebugUtilsObjectNameInfoEXT,
 ) -> vk::Result {
@@ -3753,7 +3753,7 @@ extern "C" fn vkSetDebugUtilsObjectNameEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetDebugUtilsObjectTagEXT.html>"]
-extern "C" fn vkSetDebugUtilsObjectTagEXT(
+extern "stdcall" fn vkSetDebugUtilsObjectTagEXT(
     device: vk::Device,
     p_tag_info: *const vk::DebugUtilsObjectTagInfoEXT,
 ) -> vk::Result {
@@ -3764,7 +3764,7 @@ extern "C" fn vkSetDebugUtilsObjectTagEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueBeginDebugUtilsLabelEXT.html>"]
-extern "C" fn vkQueueBeginDebugUtilsLabelEXT(
+extern "stdcall" fn vkQueueBeginDebugUtilsLabelEXT(
     queue: vk::Queue,
     p_label_info: *const vk::DebugUtilsLabelEXT,
 ) {
@@ -3775,7 +3775,7 @@ extern "C" fn vkQueueBeginDebugUtilsLabelEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueEndDebugUtilsLabelEXT.html>"]
-extern "C" fn vkQueueEndDebugUtilsLabelEXT(
+extern "stdcall" fn vkQueueEndDebugUtilsLabelEXT(
     queue: vk::Queue,
 ) {
     std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueEndDebugUtilsLabelEXT.txt", "whoa").unwrap();
@@ -3785,7 +3785,7 @@ extern "C" fn vkQueueEndDebugUtilsLabelEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueInsertDebugUtilsLabelEXT.html>"]
-extern "C" fn vkQueueInsertDebugUtilsLabelEXT(
+extern "stdcall" fn vkQueueInsertDebugUtilsLabelEXT(
     queue: vk::Queue,
     p_label_info: *const vk::DebugUtilsLabelEXT,
 ) {
@@ -3796,7 +3796,7 @@ extern "C" fn vkQueueInsertDebugUtilsLabelEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginDebugUtilsLabelEXT.html>"]
-extern "C" fn vkCmdBeginDebugUtilsLabelEXT(
+extern "stdcall" fn vkCmdBeginDebugUtilsLabelEXT(
     command_buffer: vk::CommandBuffer,
     p_label_info: *const vk::DebugUtilsLabelEXT,
 ) {
@@ -3807,7 +3807,7 @@ extern "C" fn vkCmdBeginDebugUtilsLabelEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndDebugUtilsLabelEXT.html>"]
-extern "C" fn vkCmdEndDebugUtilsLabelEXT(
+extern "stdcall" fn vkCmdEndDebugUtilsLabelEXT(
     command_buffer: vk::CommandBuffer,
 ) {
     std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndDebugUtilsLabelEXT.txt", "whoa").unwrap();
@@ -3817,7 +3817,7 @@ extern "C" fn vkCmdEndDebugUtilsLabelEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdInsertDebugUtilsLabelEXT.html>"]
-extern "C" fn vkCmdInsertDebugUtilsLabelEXT(
+extern "stdcall" fn vkCmdInsertDebugUtilsLabelEXT(
     command_buffer: vk::CommandBuffer,
     p_label_info: *const vk::DebugUtilsLabelEXT,
 ) {
@@ -3828,7 +3828,7 @@ extern "C" fn vkCmdInsertDebugUtilsLabelEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDebugUtilsMessengerEXT.html>"]
-extern "C" fn vkCreateDebugUtilsMessengerEXT(
+extern "stdcall" fn vkCreateDebugUtilsMessengerEXT(
     instance: vk::Instance,
     p_create_info: *const vk::DebugUtilsMessengerCreateInfoEXT,
     p_allocator: *const vk::AllocationCallbacks,
@@ -3841,7 +3841,7 @@ extern "C" fn vkCreateDebugUtilsMessengerEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDebugUtilsMessengerEXT.html>"]
-extern "C" fn vkDestroyDebugUtilsMessengerEXT(
+extern "stdcall" fn vkDestroyDebugUtilsMessengerEXT(
     instance: vk::Instance,
     messenger: vk::DebugUtilsMessengerEXT,
     p_allocator: *const vk::AllocationCallbacks,
@@ -3853,7 +3853,7 @@ extern "C" fn vkDestroyDebugUtilsMessengerEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSubmitDebugUtilsMessageEXT.html>"]
-extern "C" fn vkSubmitDebugUtilsMessageEXT(
+extern "stdcall" fn vkSubmitDebugUtilsMessageEXT(
     instance: vk::Instance,
     message_severity: vk::DebugUtilsMessageSeverityFlagsEXT,
     message_types: vk::DebugUtilsMessageTypeFlagsEXT,
@@ -3866,7 +3866,7 @@ extern "C" fn vkSubmitDebugUtilsMessageEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryHostPointerPropertiesEXT.html>"]
-extern "C" fn vkGetMemoryHostPointerPropertiesEXT(
+extern "stdcall" fn vkGetMemoryHostPointerPropertiesEXT(
     device: vk::Device,
     handle_type: vk::ExternalMemoryHandleTypeFlags,
     p_host_pointer: *const std::ffi::c_void,
@@ -3879,7 +3879,7 @@ extern "C" fn vkGetMemoryHostPointerPropertiesEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteBufferMarkerAMD.html>"]
-extern "C" fn vkCmdWriteBufferMarkerAMD(
+extern "stdcall" fn vkCmdWriteBufferMarkerAMD(
     command_buffer: vk::CommandBuffer,
     pipeline_stage: vk::PipelineStageFlags,
     dst_buffer: vk::Buffer,
@@ -3893,7 +3893,7 @@ extern "C" fn vkCmdWriteBufferMarkerAMD(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRenderPass2.html>"]
-extern "C" fn vkCreateRenderPass2(
+extern "stdcall" fn vkCreateRenderPass2(
     device: vk::Device,
     p_create_info: *const vk::RenderPassCreateInfo2,
     p_allocator: *const vk::AllocationCallbacks,
@@ -3906,7 +3906,7 @@ extern "C" fn vkCreateRenderPass2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRenderPass2.html>"]
-extern "C" fn vkCmdBeginRenderPass2(
+extern "stdcall" fn vkCmdBeginRenderPass2(
     command_buffer: vk::CommandBuffer,
     p_render_pass_begin: *const vk::RenderPassBeginInfo,
     p_subpass_begin_info: *const vk::SubpassBeginInfo,
@@ -3918,7 +3918,7 @@ extern "C" fn vkCmdBeginRenderPass2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdNextSubpass2.html>"]
-extern "C" fn vkCmdNextSubpass2(
+extern "stdcall" fn vkCmdNextSubpass2(
     command_buffer: vk::CommandBuffer,
     p_subpass_begin_info: *const vk::SubpassBeginInfo,
     p_subpass_end_info: *const vk::SubpassEndInfo,
@@ -3930,7 +3930,7 @@ extern "C" fn vkCmdNextSubpass2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass2.html>"]
-extern "C" fn vkCmdEndRenderPass2(
+extern "stdcall" fn vkCmdEndRenderPass2(
     command_buffer: vk::CommandBuffer,
     p_subpass_end_info: *const vk::SubpassEndInfo,
 ) {
@@ -3941,7 +3941,7 @@ extern "C" fn vkCmdEndRenderPass2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreCounterValue.html>"]
-extern "C" fn vkGetSemaphoreCounterValue(
+extern "stdcall" fn vkGetSemaphoreCounterValue(
     device: vk::Device,
     semaphore: vk::Semaphore,
     p_value: *mut u64,
@@ -3953,7 +3953,7 @@ extern "C" fn vkGetSemaphoreCounterValue(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWaitSemaphores.html>"]
-extern "C" fn vkWaitSemaphores(
+extern "stdcall" fn vkWaitSemaphores(
     device: vk::Device,
     p_wait_info: *const vk::SemaphoreWaitInfo,
     timeout: u64,
@@ -3965,7 +3965,7 @@ extern "C" fn vkWaitSemaphores(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSignalSemaphore.html>"]
-extern "C" fn vkSignalSemaphore(
+extern "stdcall" fn vkSignalSemaphore(
     device: vk::Device,
     p_signal_info: *const vk::SemaphoreSignalInfo,
 ) -> vk::Result {
@@ -3976,7 +3976,7 @@ extern "C" fn vkSignalSemaphore(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html>"]
-extern "C" fn vkGetAndroidHardwareBufferPropertiesANDROID(
+extern "stdcall" fn vkGetAndroidHardwareBufferPropertiesANDROID(
     device: vk::Device,
     buffer: *const vk::AHardwareBuffer,
     p_properties: *mut vk::AndroidHardwareBufferPropertiesANDROID,
@@ -3988,7 +3988,7 @@ extern "C" fn vkGetAndroidHardwareBufferPropertiesANDROID(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html>"]
-extern "C" fn vkGetMemoryAndroidHardwareBufferANDROID(
+extern "stdcall" fn vkGetMemoryAndroidHardwareBufferANDROID(
     device: vk::Device,
     p_info: *const vk::MemoryGetAndroidHardwareBufferInfoANDROID,
     p_buffer: *mut *mut vk::AHardwareBuffer,
@@ -4000,7 +4000,7 @@ extern "C" fn vkGetMemoryAndroidHardwareBufferANDROID(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirectCount.html>"]
-extern "C" fn vkCmdDrawIndirectCount(
+extern "stdcall" fn vkCmdDrawIndirectCount(
     command_buffer: vk::CommandBuffer,
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
@@ -4016,7 +4016,7 @@ extern "C" fn vkCmdDrawIndirectCount(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexedIndirectCount.html>"]
-extern "C" fn vkCmdDrawIndexedIndirectCount(
+extern "stdcall" fn vkCmdDrawIndexedIndirectCount(
     command_buffer: vk::CommandBuffer,
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
@@ -4032,7 +4032,7 @@ extern "C" fn vkCmdDrawIndexedIndirectCount(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCheckpointNV.html>"]
-extern "C" fn vkCmdSetCheckpointNV(
+extern "stdcall" fn vkCmdSetCheckpointNV(
     command_buffer: vk::CommandBuffer,
     p_checkpoint_marker: *const std::ffi::c_void,
 ) {
@@ -4043,7 +4043,7 @@ extern "C" fn vkCmdSetCheckpointNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetQueueCheckpointDataNV.html>"]
-extern "C" fn vkGetQueueCheckpointDataNV(
+extern "stdcall" fn vkGetQueueCheckpointDataNV(
     queue: vk::Queue,
     p_checkpoint_data_count: *mut u32,
     p_checkpoint_data: *mut vk::CheckpointDataNV,
@@ -4055,7 +4055,7 @@ extern "C" fn vkGetQueueCheckpointDataNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindTransformFeedbackBuffersEXT.html>"]
-extern "C" fn vkCmdBindTransformFeedbackBuffersEXT(
+extern "stdcall" fn vkCmdBindTransformFeedbackBuffersEXT(
     command_buffer: vk::CommandBuffer,
     first_binding: u32,
     binding_count: u32,
@@ -4070,7 +4070,7 @@ extern "C" fn vkCmdBindTransformFeedbackBuffersEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginTransformFeedbackEXT.html>"]
-extern "C" fn vkCmdBeginTransformFeedbackEXT(
+extern "stdcall" fn vkCmdBeginTransformFeedbackEXT(
     command_buffer: vk::CommandBuffer,
     first_counter_buffer: u32,
     counter_buffer_count: u32,
@@ -4084,7 +4084,7 @@ extern "C" fn vkCmdBeginTransformFeedbackEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndTransformFeedbackEXT.html>"]
-extern "C" fn vkCmdEndTransformFeedbackEXT(
+extern "stdcall" fn vkCmdEndTransformFeedbackEXT(
     command_buffer: vk::CommandBuffer,
     first_counter_buffer: u32,
     counter_buffer_count: u32,
@@ -4098,7 +4098,7 @@ extern "C" fn vkCmdEndTransformFeedbackEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginQueryIndexedEXT.html>"]
-extern "C" fn vkCmdBeginQueryIndexedEXT(
+extern "stdcall" fn vkCmdBeginQueryIndexedEXT(
     command_buffer: vk::CommandBuffer,
     query_pool: vk::QueryPool,
     query: u32,
@@ -4112,7 +4112,7 @@ extern "C" fn vkCmdBeginQueryIndexedEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndQueryIndexedEXT.html>"]
-extern "C" fn vkCmdEndQueryIndexedEXT(
+extern "stdcall" fn vkCmdEndQueryIndexedEXT(
     command_buffer: vk::CommandBuffer,
     query_pool: vk::QueryPool,
     query: u32,
@@ -4125,7 +4125,7 @@ extern "C" fn vkCmdEndQueryIndexedEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirectByteCountEXT.html>"]
-extern "C" fn vkCmdDrawIndirectByteCountEXT(
+extern "stdcall" fn vkCmdDrawIndirectByteCountEXT(
     command_buffer: vk::CommandBuffer,
     instance_count: u32,
     first_instance: u32,
@@ -4141,7 +4141,7 @@ extern "C" fn vkCmdDrawIndirectByteCountEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetExclusiveScissorNV.html>"]
-extern "C" fn vkCmdSetExclusiveScissorNV(
+extern "stdcall" fn vkCmdSetExclusiveScissorNV(
     command_buffer: vk::CommandBuffer,
     first_exclusive_scissor: u32,
     exclusive_scissor_count: u32,
@@ -4154,7 +4154,7 @@ extern "C" fn vkCmdSetExclusiveScissorNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetExclusiveScissorEnableNV.html>"]
-extern "C" fn vkCmdSetExclusiveScissorEnableNV(
+extern "stdcall" fn vkCmdSetExclusiveScissorEnableNV(
     command_buffer: vk::CommandBuffer,
     first_exclusive_scissor: u32,
     exclusive_scissor_count: u32,
@@ -4167,7 +4167,7 @@ extern "C" fn vkCmdSetExclusiveScissorEnableNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindShadingRateImageNV.html>"]
-extern "C" fn vkCmdBindShadingRateImageNV(
+extern "stdcall" fn vkCmdBindShadingRateImageNV(
     command_buffer: vk::CommandBuffer,
     image_view: vk::ImageView,
     image_layout: vk::ImageLayout,
@@ -4179,7 +4179,7 @@ extern "C" fn vkCmdBindShadingRateImageNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportShadingRatePaletteNV.html>"]
-extern "C" fn vkCmdSetViewportShadingRatePaletteNV(
+extern "stdcall" fn vkCmdSetViewportShadingRatePaletteNV(
     command_buffer: vk::CommandBuffer,
     first_viewport: u32,
     viewport_count: u32,
@@ -4192,7 +4192,7 @@ extern "C" fn vkCmdSetViewportShadingRatePaletteNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoarseSampleOrderNV.html>"]
-extern "C" fn vkCmdSetCoarseSampleOrderNV(
+extern "stdcall" fn vkCmdSetCoarseSampleOrderNV(
     command_buffer: vk::CommandBuffer,
     sample_order_type: vk::CoarseSampleOrderTypeNV,
     custom_sample_order_count: u32,
@@ -4205,7 +4205,7 @@ extern "C" fn vkCmdSetCoarseSampleOrderNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksNV.html>"]
-extern "C" fn vkCmdDrawMeshTasksNV(
+extern "stdcall" fn vkCmdDrawMeshTasksNV(
     command_buffer: vk::CommandBuffer,
     task_count: u32,
     first_task: u32,
@@ -4217,7 +4217,7 @@ extern "C" fn vkCmdDrawMeshTasksNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectNV.html>"]
-extern "C" fn vkCmdDrawMeshTasksIndirectNV(
+extern "stdcall" fn vkCmdDrawMeshTasksIndirectNV(
     command_buffer: vk::CommandBuffer,
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
@@ -4231,7 +4231,7 @@ extern "C" fn vkCmdDrawMeshTasksIndirectNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectCountNV.html>"]
-extern "C" fn vkCmdDrawMeshTasksIndirectCountNV(
+extern "stdcall" fn vkCmdDrawMeshTasksIndirectCountNV(
     command_buffer: vk::CommandBuffer,
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
@@ -4247,7 +4247,7 @@ extern "C" fn vkCmdDrawMeshTasksIndirectCountNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksEXT.html>"]
-extern "C" fn vkCmdDrawMeshTasksEXT(
+extern "stdcall" fn vkCmdDrawMeshTasksEXT(
     command_buffer: vk::CommandBuffer,
     group_count_x: u32,
     group_count_y: u32,
@@ -4260,7 +4260,7 @@ extern "C" fn vkCmdDrawMeshTasksEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectEXT.html>"]
-extern "C" fn vkCmdDrawMeshTasksIndirectEXT(
+extern "stdcall" fn vkCmdDrawMeshTasksIndirectEXT(
     command_buffer: vk::CommandBuffer,
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
@@ -4274,7 +4274,7 @@ extern "C" fn vkCmdDrawMeshTasksIndirectEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectCountEXT.html>"]
-extern "C" fn vkCmdDrawMeshTasksIndirectCountEXT(
+extern "stdcall" fn vkCmdDrawMeshTasksIndirectCountEXT(
     command_buffer: vk::CommandBuffer,
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
@@ -4290,7 +4290,7 @@ extern "C" fn vkCmdDrawMeshTasksIndirectCountEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCompileDeferredNV.html>"]
-extern "C" fn vkCompileDeferredNV(
+extern "stdcall" fn vkCompileDeferredNV(
     device: vk::Device,
     pipeline: vk::Pipeline,
     shader: u32,
@@ -4302,7 +4302,7 @@ extern "C" fn vkCompileDeferredNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateAccelerationStructureNV.html>"]
-extern "C" fn vkCreateAccelerationStructureNV(
+extern "stdcall" fn vkCreateAccelerationStructureNV(
     device: vk::Device,
     p_create_info: *const vk::AccelerationStructureCreateInfoNV,
     p_allocator: *const vk::AllocationCallbacks,
@@ -4315,7 +4315,7 @@ extern "C" fn vkCreateAccelerationStructureNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindInvocationMaskHUAWEI.html>"]
-extern "C" fn vkCmdBindInvocationMaskHUAWEI(
+extern "stdcall" fn vkCmdBindInvocationMaskHUAWEI(
     command_buffer: vk::CommandBuffer,
     image_view: vk::ImageView,
     image_layout: vk::ImageLayout,
@@ -4327,7 +4327,7 @@ extern "C" fn vkCmdBindInvocationMaskHUAWEI(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyAccelerationStructureKHR.html>"]
-extern "C" fn vkDestroyAccelerationStructureKHR(
+extern "stdcall" fn vkDestroyAccelerationStructureKHR(
     device: vk::Device,
     acceleration_structure: vk::AccelerationStructureKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -4339,7 +4339,7 @@ extern "C" fn vkDestroyAccelerationStructureKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyAccelerationStructureNV.html>"]
-extern "C" fn vkDestroyAccelerationStructureNV(
+extern "stdcall" fn vkDestroyAccelerationStructureNV(
     device: vk::Device,
     acceleration_structure: vk::AccelerationStructureNV,
     p_allocator: *const vk::AllocationCallbacks,
@@ -4351,7 +4351,7 @@ extern "C" fn vkDestroyAccelerationStructureNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureMemoryRequirementsNV.html>"]
-extern "C" fn vkGetAccelerationStructureMemoryRequirementsNV(
+extern "stdcall" fn vkGetAccelerationStructureMemoryRequirementsNV(
     device: vk::Device,
     p_info: *const vk::AccelerationStructureMemoryRequirementsInfoNV,
     p_memory_requirements: *mut vk::MemoryRequirements2KHR,
@@ -4363,7 +4363,7 @@ extern "C" fn vkGetAccelerationStructureMemoryRequirementsNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindAccelerationStructureMemoryNV.html>"]
-extern "C" fn vkBindAccelerationStructureMemoryNV(
+extern "stdcall" fn vkBindAccelerationStructureMemoryNV(
     device: vk::Device,
     bind_info_count: u32,
     p_bind_infos: *const vk::BindAccelerationStructureMemoryInfoNV,
@@ -4375,7 +4375,7 @@ extern "C" fn vkBindAccelerationStructureMemoryNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyAccelerationStructureNV.html>"]
-extern "C" fn vkCmdCopyAccelerationStructureNV(
+extern "stdcall" fn vkCmdCopyAccelerationStructureNV(
     command_buffer: vk::CommandBuffer,
     dst: vk::AccelerationStructureNV,
     src: vk::AccelerationStructureNV,
@@ -4388,7 +4388,7 @@ extern "C" fn vkCmdCopyAccelerationStructureNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyAccelerationStructureKHR.html>"]
-extern "C" fn vkCmdCopyAccelerationStructureKHR(
+extern "stdcall" fn vkCmdCopyAccelerationStructureKHR(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyAccelerationStructureInfoKHR,
 ) {
@@ -4399,7 +4399,7 @@ extern "C" fn vkCmdCopyAccelerationStructureKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyAccelerationStructureKHR.html>"]
-extern "C" fn vkCopyAccelerationStructureKHR(
+extern "stdcall" fn vkCopyAccelerationStructureKHR(
     device: vk::Device,
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyAccelerationStructureInfoKHR,
@@ -4411,7 +4411,7 @@ extern "C" fn vkCopyAccelerationStructureKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyAccelerationStructureToMemoryKHR.html>"]
-extern "C" fn vkCmdCopyAccelerationStructureToMemoryKHR(
+extern "stdcall" fn vkCmdCopyAccelerationStructureToMemoryKHR(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyAccelerationStructureToMemoryInfoKHR,
 ) {
@@ -4422,7 +4422,7 @@ extern "C" fn vkCmdCopyAccelerationStructureToMemoryKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyAccelerationStructureToMemoryKHR.html>"]
-extern "C" fn vkCopyAccelerationStructureToMemoryKHR(
+extern "stdcall" fn vkCopyAccelerationStructureToMemoryKHR(
     device: vk::Device,
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyAccelerationStructureToMemoryInfoKHR,
@@ -4434,7 +4434,7 @@ extern "C" fn vkCopyAccelerationStructureToMemoryKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryToAccelerationStructureKHR.html>"]
-extern "C" fn vkCmdCopyMemoryToAccelerationStructureKHR(
+extern "stdcall" fn vkCmdCopyMemoryToAccelerationStructureKHR(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyMemoryToAccelerationStructureInfoKHR,
 ) {
@@ -4445,7 +4445,7 @@ extern "C" fn vkCmdCopyMemoryToAccelerationStructureKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMemoryToAccelerationStructureKHR.html>"]
-extern "C" fn vkCopyMemoryToAccelerationStructureKHR(
+extern "stdcall" fn vkCopyMemoryToAccelerationStructureKHR(
     device: vk::Device,
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyMemoryToAccelerationStructureInfoKHR,
@@ -4457,7 +4457,7 @@ extern "C" fn vkCopyMemoryToAccelerationStructureKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesKHR.html>"]
-extern "C" fn vkCmdWriteAccelerationStructuresPropertiesKHR(
+extern "stdcall" fn vkCmdWriteAccelerationStructuresPropertiesKHR(
     command_buffer: vk::CommandBuffer,
     acceleration_structure_count: u32,
     p_acceleration_structures: *const vk::AccelerationStructureKHR,
@@ -4472,7 +4472,7 @@ extern "C" fn vkCmdWriteAccelerationStructuresPropertiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesNV.html>"]
-extern "C" fn vkCmdWriteAccelerationStructuresPropertiesNV(
+extern "stdcall" fn vkCmdWriteAccelerationStructuresPropertiesNV(
     command_buffer: vk::CommandBuffer,
     acceleration_structure_count: u32,
     p_acceleration_structures: *const vk::AccelerationStructureNV,
@@ -4487,7 +4487,7 @@ extern "C" fn vkCmdWriteAccelerationStructuresPropertiesNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBuildAccelerationStructureNV.html>"]
-extern "C" fn vkCmdBuildAccelerationStructureNV(
+extern "stdcall" fn vkCmdBuildAccelerationStructureNV(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::AccelerationStructureInfoNV,
     instance_data: vk::Buffer,
@@ -4505,7 +4505,7 @@ extern "C" fn vkCmdBuildAccelerationStructureNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWriteAccelerationStructuresPropertiesKHR.html>"]
-extern "C" fn vkWriteAccelerationStructuresPropertiesKHR(
+extern "stdcall" fn vkWriteAccelerationStructuresPropertiesKHR(
     device: vk::Device,
     acceleration_structure_count: u32,
     p_acceleration_structures: *const vk::AccelerationStructureKHR,
@@ -4521,7 +4521,7 @@ extern "C" fn vkWriteAccelerationStructuresPropertiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysKHR.html>"]
-extern "C" fn vkCmdTraceRaysKHR(
+extern "stdcall" fn vkCmdTraceRaysKHR(
     command_buffer: vk::CommandBuffer,
     p_raygen_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR,
     p_miss_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR,
@@ -4538,7 +4538,7 @@ extern "C" fn vkCmdTraceRaysKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysNV.html>"]
-extern "C" fn vkCmdTraceRaysNV(
+extern "stdcall" fn vkCmdTraceRaysNV(
     command_buffer: vk::CommandBuffer,
     raygen_shader_binding_table_buffer: vk::Buffer,
     raygen_shader_binding_offset: vk::DeviceSize,
@@ -4562,7 +4562,7 @@ extern "C" fn vkCmdTraceRaysNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRayTracingShaderGroupHandlesKHR.html>"]
-extern "C" fn vkGetRayTracingShaderGroupHandlesKHR(
+extern "stdcall" fn vkGetRayTracingShaderGroupHandlesKHR(
     device: vk::Device,
     pipeline: vk::Pipeline,
     first_group: u32,
@@ -4577,7 +4577,7 @@ extern "C" fn vkGetRayTracingShaderGroupHandlesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html>"]
-extern "C" fn vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(
+extern "stdcall" fn vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(
     device: vk::Device,
     pipeline: vk::Pipeline,
     first_group: u32,
@@ -4592,7 +4592,7 @@ extern "C" fn vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureHandleNV.html>"]
-extern "C" fn vkGetAccelerationStructureHandleNV(
+extern "stdcall" fn vkGetAccelerationStructureHandleNV(
     device: vk::Device,
     acceleration_structure: vk::AccelerationStructureNV,
     data_size: isize,
@@ -4605,7 +4605,7 @@ extern "C" fn vkGetAccelerationStructureHandleNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRayTracingPipelinesNV.html>"]
-extern "C" fn vkCreateRayTracingPipelinesNV(
+extern "stdcall" fn vkCreateRayTracingPipelinesNV(
     device: vk::Device,
     pipeline_cache: vk::PipelineCache,
     create_info_count: u32,
@@ -4620,7 +4620,7 @@ extern "C" fn vkCreateRayTracingPipelinesNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRayTracingPipelinesKHR.html>"]
-extern "C" fn vkCreateRayTracingPipelinesKHR(
+extern "stdcall" fn vkCreateRayTracingPipelinesKHR(
     device: vk::Device,
     deferred_operation: vk::DeferredOperationKHR,
     pipeline_cache: vk::PipelineCache,
@@ -4636,7 +4636,7 @@ extern "C" fn vkCreateRayTracingPipelinesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html>"]
-extern "C" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
+extern "stdcall" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
     physical_device: vk::PhysicalDevice,
     p_property_count: *mut u32,
     p_properties: *mut vk::CooperativeMatrixPropertiesNV,
@@ -4648,7 +4648,7 @@ extern "C" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysIndirectKHR.html>"]
-extern "C" fn vkCmdTraceRaysIndirectKHR(
+extern "stdcall" fn vkCmdTraceRaysIndirectKHR(
     command_buffer: vk::CommandBuffer,
     p_raygen_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR,
     p_miss_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR,
@@ -4663,7 +4663,7 @@ extern "C" fn vkCmdTraceRaysIndirectKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysIndirect2KHR.html>"]
-extern "C" fn vkCmdTraceRaysIndirect2KHR(
+extern "stdcall" fn vkCmdTraceRaysIndirect2KHR(
     command_buffer: vk::CommandBuffer,
     indirect_device_address: vk::DeviceAddress,
 ) {
@@ -4674,7 +4674,7 @@ extern "C" fn vkCmdTraceRaysIndirect2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceAccelerationStructureCompatibilityKHR.html>"]
-extern "C" fn vkGetDeviceAccelerationStructureCompatibilityKHR(
+extern "stdcall" fn vkGetDeviceAccelerationStructureCompatibilityKHR(
     device: vk::Device,
     p_version_info: *const vk::AccelerationStructureVersionInfoKHR,
     p_compatibility: *mut vk::AccelerationStructureCompatibilityKHR,
@@ -4686,7 +4686,7 @@ extern "C" fn vkGetDeviceAccelerationStructureCompatibilityKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRayTracingShaderGroupStackSizeKHR.html>"]
-extern "C" fn vkGetRayTracingShaderGroupStackSizeKHR(
+extern "stdcall" fn vkGetRayTracingShaderGroupStackSizeKHR(
     device: vk::Device,
     pipeline: vk::Pipeline,
     group: u32,
@@ -4699,7 +4699,7 @@ extern "C" fn vkGetRayTracingShaderGroupStackSizeKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRayTracingPipelineStackSizeKHR.html>"]
-extern "C" fn vkCmdSetRayTracingPipelineStackSizeKHR(
+extern "stdcall" fn vkCmdSetRayTracingPipelineStackSizeKHR(
     command_buffer: vk::CommandBuffer,
     pipeline_stack_size: u32,
 ) {
@@ -4710,7 +4710,7 @@ extern "C" fn vkCmdSetRayTracingPipelineStackSizeKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageViewHandleNVX.html>"]
-extern "C" fn vkGetImageViewHandleNVX(
+extern "stdcall" fn vkGetImageViewHandleNVX(
     device: vk::Device,
     p_info: *const vk::ImageViewHandleInfoNVX,
 ) -> u32 {
@@ -4721,7 +4721,7 @@ extern "C" fn vkGetImageViewHandleNVX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageViewAddressNVX.html>"]
-extern "C" fn vkGetImageViewAddressNVX(
+extern "stdcall" fn vkGetImageViewAddressNVX(
     device: vk::Device,
     image_view: vk::ImageView,
     p_properties: *mut vk::ImageViewAddressPropertiesNVX,
@@ -4733,7 +4733,7 @@ extern "C" fn vkGetImageViewAddressNVX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModes2EXT.html>"]
-extern "C" fn vkGetPhysicalDeviceSurfacePresentModes2EXT(
+extern "stdcall" fn vkGetPhysicalDeviceSurfacePresentModes2EXT(
     physical_device: vk::PhysicalDevice,
     p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR,
     p_present_mode_count: *mut u32,
@@ -4746,7 +4746,7 @@ extern "C" fn vkGetPhysicalDeviceSurfacePresentModes2EXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupSurfacePresentModes2EXT.html>"]
-extern "C" fn vkGetDeviceGroupSurfacePresentModes2EXT(
+extern "stdcall" fn vkGetDeviceGroupSurfacePresentModes2EXT(
     device: vk::Device,
     p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR,
     p_modes: *mut vk::DeviceGroupPresentModeFlagsKHR,
@@ -4758,7 +4758,7 @@ extern "C" fn vkGetDeviceGroupSurfacePresentModes2EXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireFullScreenExclusiveModeEXT.html>"]
-extern "C" fn vkAcquireFullScreenExclusiveModeEXT(
+extern "stdcall" fn vkAcquireFullScreenExclusiveModeEXT(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
 ) -> vk::Result {
@@ -4769,7 +4769,7 @@ extern "C" fn vkAcquireFullScreenExclusiveModeEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseFullScreenExclusiveModeEXT.html>"]
-extern "C" fn vkReleaseFullScreenExclusiveModeEXT(
+extern "stdcall" fn vkReleaseFullScreenExclusiveModeEXT(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
 ) -> vk::Result {
@@ -4780,7 +4780,7 @@ extern "C" fn vkReleaseFullScreenExclusiveModeEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html>"]
-extern "C" fn vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(
+extern "stdcall" fn vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(
     physical_device: vk::PhysicalDevice,
     queue_family_index: u32,
     p_counter_count: *mut u32,
@@ -4794,7 +4794,7 @@ extern "C" fn vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(
+extern "stdcall" fn vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(
     physical_device: vk::PhysicalDevice,
     p_performance_query_create_info: *const vk::QueryPoolPerformanceCreateInfoKHR,
     p_num_passes: *mut u32,
@@ -4806,7 +4806,7 @@ extern "C" fn vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireProfilingLockKHR.html>"]
-extern "C" fn vkAcquireProfilingLockKHR(
+extern "stdcall" fn vkAcquireProfilingLockKHR(
     device: vk::Device,
     p_info: *const vk::AcquireProfilingLockInfoKHR,
 ) -> vk::Result {
@@ -4817,7 +4817,7 @@ extern "C" fn vkAcquireProfilingLockKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseProfilingLockKHR.html>"]
-extern "C" fn vkReleaseProfilingLockKHR(
+extern "stdcall" fn vkReleaseProfilingLockKHR(
     device: vk::Device,
 ) {
     std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkReleaseProfilingLockKHR.txt", "whoa").unwrap();
@@ -4827,7 +4827,7 @@ extern "C" fn vkReleaseProfilingLockKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html>"]
-extern "C" fn vkGetImageDrmFormatModifierPropertiesEXT(
+extern "stdcall" fn vkGetImageDrmFormatModifierPropertiesEXT(
     device: vk::Device,
     image: vk::Image,
     p_properties: *mut vk::ImageDrmFormatModifierPropertiesEXT,
@@ -4839,7 +4839,7 @@ extern "C" fn vkGetImageDrmFormatModifierPropertiesEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferOpaqueCaptureAddress.html>"]
-extern "C" fn vkGetBufferOpaqueCaptureAddress(
+extern "stdcall" fn vkGetBufferOpaqueCaptureAddress(
     device: vk::Device,
     p_info: *const vk::BufferDeviceAddressInfo,
 ) -> u64 {
@@ -4850,7 +4850,7 @@ extern "C" fn vkGetBufferOpaqueCaptureAddress(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferDeviceAddress.html>"]
-extern "C" fn vkGetBufferDeviceAddress(
+extern "stdcall" fn vkGetBufferDeviceAddress(
     device: vk::Device,
     p_info: *const vk::BufferDeviceAddressInfo,
 ) -> vk::DeviceAddress {
@@ -4861,7 +4861,7 @@ extern "C" fn vkGetBufferDeviceAddress(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateHeadlessSurfaceEXT.html>"]
-extern "C" fn vkCreateHeadlessSurfaceEXT(
+extern "stdcall" fn vkCreateHeadlessSurfaceEXT(
     instance: vk::Instance,
     p_create_info: *const vk::HeadlessSurfaceCreateInfoEXT,
     p_allocator: *const vk::AllocationCallbacks,
@@ -4874,7 +4874,7 @@ extern "C" fn vkCreateHeadlessSurfaceEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html>"]
-extern "C" fn vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(
+extern "stdcall" fn vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(
     physical_device: vk::PhysicalDevice,
     p_combination_count: *mut u32,
     p_combinations: *mut vk::FramebufferMixedSamplesCombinationNV,
@@ -4886,7 +4886,7 @@ extern "C" fn vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkInitializePerformanceApiINTEL.html>"]
-extern "C" fn vkInitializePerformanceApiINTEL(
+extern "stdcall" fn vkInitializePerformanceApiINTEL(
     device: vk::Device,
     p_initialize_info: *const vk::InitializePerformanceApiInfoINTEL,
 ) -> vk::Result {
@@ -4897,7 +4897,7 @@ extern "C" fn vkInitializePerformanceApiINTEL(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUninitializePerformanceApiINTEL.html>"]
-extern "C" fn vkUninitializePerformanceApiINTEL(
+extern "stdcall" fn vkUninitializePerformanceApiINTEL(
     device: vk::Device,
 ) {
     std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkUninitializePerformanceApiINTEL.txt", "whoa").unwrap();
@@ -4907,7 +4907,7 @@ extern "C" fn vkUninitializePerformanceApiINTEL(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPerformanceMarkerINTEL.html>"]
-extern "C" fn vkCmdSetPerformanceMarkerINTEL(
+extern "stdcall" fn vkCmdSetPerformanceMarkerINTEL(
     command_buffer: vk::CommandBuffer,
     p_marker_info: *const vk::PerformanceMarkerInfoINTEL,
 ) -> vk::Result {
@@ -4918,7 +4918,7 @@ extern "C" fn vkCmdSetPerformanceMarkerINTEL(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPerformanceStreamMarkerINTEL.html>"]
-extern "C" fn vkCmdSetPerformanceStreamMarkerINTEL(
+extern "stdcall" fn vkCmdSetPerformanceStreamMarkerINTEL(
     command_buffer: vk::CommandBuffer,
     p_marker_info: *const vk::PerformanceStreamMarkerInfoINTEL,
 ) -> vk::Result {
@@ -4929,7 +4929,7 @@ extern "C" fn vkCmdSetPerformanceStreamMarkerINTEL(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPerformanceOverrideINTEL.html>"]
-extern "C" fn vkCmdSetPerformanceOverrideINTEL(
+extern "stdcall" fn vkCmdSetPerformanceOverrideINTEL(
     command_buffer: vk::CommandBuffer,
     p_override_info: *const vk::PerformanceOverrideInfoINTEL,
 ) -> vk::Result {
@@ -4940,7 +4940,7 @@ extern "C" fn vkCmdSetPerformanceOverrideINTEL(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquirePerformanceConfigurationINTEL.html>"]
-extern "C" fn vkAcquirePerformanceConfigurationINTEL(
+extern "stdcall" fn vkAcquirePerformanceConfigurationINTEL(
     device: vk::Device,
     p_acquire_info: *const vk::PerformanceConfigurationAcquireInfoINTEL,
     p_configuration: *mut vk::PerformanceConfigurationINTEL,
@@ -4952,7 +4952,7 @@ extern "C" fn vkAcquirePerformanceConfigurationINTEL(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleasePerformanceConfigurationINTEL.html>"]
-extern "C" fn vkReleasePerformanceConfigurationINTEL(
+extern "stdcall" fn vkReleasePerformanceConfigurationINTEL(
     device: vk::Device,
     configuration: vk::PerformanceConfigurationINTEL,
 ) -> vk::Result {
@@ -4963,7 +4963,7 @@ extern "C" fn vkReleasePerformanceConfigurationINTEL(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSetPerformanceConfigurationINTEL.html>"]
-extern "C" fn vkQueueSetPerformanceConfigurationINTEL(
+extern "stdcall" fn vkQueueSetPerformanceConfigurationINTEL(
     queue: vk::Queue,
     configuration: vk::PerformanceConfigurationINTEL,
 ) -> vk::Result {
@@ -4974,7 +4974,7 @@ extern "C" fn vkQueueSetPerformanceConfigurationINTEL(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPerformanceParameterINTEL.html>"]
-extern "C" fn vkGetPerformanceParameterINTEL(
+extern "stdcall" fn vkGetPerformanceParameterINTEL(
     device: vk::Device,
     parameter: vk::PerformanceParameterTypeINTEL,
     p_value: *mut vk::PerformanceValueINTEL,
@@ -4986,7 +4986,7 @@ extern "C" fn vkGetPerformanceParameterINTEL(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMemoryOpaqueCaptureAddress.html>"]
-extern "C" fn vkGetDeviceMemoryOpaqueCaptureAddress(
+extern "stdcall" fn vkGetDeviceMemoryOpaqueCaptureAddress(
     device: vk::Device,
     p_info: *const vk::DeviceMemoryOpaqueCaptureAddressInfo,
 ) -> u64 {
@@ -4997,7 +4997,7 @@ extern "C" fn vkGetDeviceMemoryOpaqueCaptureAddress(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineExecutablePropertiesKHR.html>"]
-extern "C" fn vkGetPipelineExecutablePropertiesKHR(
+extern "stdcall" fn vkGetPipelineExecutablePropertiesKHR(
     device: vk::Device,
     p_pipeline_info: *const vk::PipelineInfoKHR,
     p_executable_count: *mut u32,
@@ -5010,7 +5010,7 @@ extern "C" fn vkGetPipelineExecutablePropertiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineExecutableStatisticsKHR.html>"]
-extern "C" fn vkGetPipelineExecutableStatisticsKHR(
+extern "stdcall" fn vkGetPipelineExecutableStatisticsKHR(
     device: vk::Device,
     p_executable_info: *const vk::PipelineExecutableInfoKHR,
     p_statistic_count: *mut u32,
@@ -5023,7 +5023,7 @@ extern "C" fn vkGetPipelineExecutableStatisticsKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineExecutableInternalRepresentationsKHR.html>"]
-extern "C" fn vkGetPipelineExecutableInternalRepresentationsKHR(
+extern "stdcall" fn vkGetPipelineExecutableInternalRepresentationsKHR(
     device: vk::Device,
     p_executable_info: *const vk::PipelineExecutableInfoKHR,
     p_internal_representation_count: *mut u32,
@@ -5036,7 +5036,7 @@ extern "C" fn vkGetPipelineExecutableInternalRepresentationsKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineStippleKHR.html>"]
-extern "C" fn vkCmdSetLineStippleKHR(
+extern "stdcall" fn vkCmdSetLineStippleKHR(
     command_buffer: vk::CommandBuffer,
     line_stipple_factor: u32,
     line_stipple_pattern: u16,
@@ -5048,7 +5048,7 @@ extern "C" fn vkCmdSetLineStippleKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceToolProperties.html>"]
-extern "C" fn vkGetPhysicalDeviceToolProperties(
+extern "stdcall" fn vkGetPhysicalDeviceToolProperties(
     physical_device: vk::PhysicalDevice,
     p_tool_count: *mut u32,
     p_tool_properties: *mut vk::PhysicalDeviceToolProperties,
@@ -5060,7 +5060,7 @@ extern "C" fn vkGetPhysicalDeviceToolProperties(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateAccelerationStructureKHR.html>"]
-extern "C" fn vkCreateAccelerationStructureKHR(
+extern "stdcall" fn vkCreateAccelerationStructureKHR(
     device: vk::Device,
     p_create_info: *const vk::AccelerationStructureCreateInfoKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -5073,7 +5073,7 @@ extern "C" fn vkCreateAccelerationStructureKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBuildAccelerationStructuresKHR.html>"]
-extern "C" fn vkCmdBuildAccelerationStructuresKHR(
+extern "stdcall" fn vkCmdBuildAccelerationStructuresKHR(
     command_buffer: vk::CommandBuffer,
     info_count: u32,
     p_infos: *const vk::AccelerationStructureBuildGeometryInfoKHR,
@@ -5086,7 +5086,7 @@ extern "C" fn vkCmdBuildAccelerationStructuresKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBuildAccelerationStructuresIndirectKHR.html>"]
-extern "C" fn vkCmdBuildAccelerationStructuresIndirectKHR(
+extern "stdcall" fn vkCmdBuildAccelerationStructuresIndirectKHR(
     command_buffer: vk::CommandBuffer,
     info_count: u32,
     p_infos: *const vk::AccelerationStructureBuildGeometryInfoKHR,
@@ -5101,7 +5101,7 @@ extern "C" fn vkCmdBuildAccelerationStructuresIndirectKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBuildAccelerationStructuresKHR.html>"]
-extern "C" fn vkBuildAccelerationStructuresKHR(
+extern "stdcall" fn vkBuildAccelerationStructuresKHR(
     device: vk::Device,
     deferred_operation: vk::DeferredOperationKHR,
     info_count: u32,
@@ -5115,7 +5115,7 @@ extern "C" fn vkBuildAccelerationStructuresKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureDeviceAddressKHR.html>"]
-extern "C" fn vkGetAccelerationStructureDeviceAddressKHR(
+extern "stdcall" fn vkGetAccelerationStructureDeviceAddressKHR(
     device: vk::Device,
     p_info: *const vk::AccelerationStructureDeviceAddressInfoKHR,
 ) -> vk::DeviceAddress {
@@ -5126,7 +5126,7 @@ extern "C" fn vkGetAccelerationStructureDeviceAddressKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDeferredOperationKHR.html>"]
-extern "C" fn vkCreateDeferredOperationKHR(
+extern "stdcall" fn vkCreateDeferredOperationKHR(
     device: vk::Device,
     p_allocator: *const vk::AllocationCallbacks,
     p_deferred_operation: *mut vk::DeferredOperationKHR,
@@ -5138,7 +5138,7 @@ extern "C" fn vkCreateDeferredOperationKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDeferredOperationKHR.html>"]
-extern "C" fn vkDestroyDeferredOperationKHR(
+extern "stdcall" fn vkDestroyDeferredOperationKHR(
     device: vk::Device,
     operation: vk::DeferredOperationKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -5150,7 +5150,7 @@ extern "C" fn vkDestroyDeferredOperationKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeferredOperationMaxConcurrencyKHR.html>"]
-extern "C" fn vkGetDeferredOperationMaxConcurrencyKHR(
+extern "stdcall" fn vkGetDeferredOperationMaxConcurrencyKHR(
     device: vk::Device,
     operation: vk::DeferredOperationKHR,
 ) -> u32 {
@@ -5161,7 +5161,7 @@ extern "C" fn vkGetDeferredOperationMaxConcurrencyKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeferredOperationResultKHR.html>"]
-extern "C" fn vkGetDeferredOperationResultKHR(
+extern "stdcall" fn vkGetDeferredOperationResultKHR(
     device: vk::Device,
     operation: vk::DeferredOperationKHR,
 ) -> vk::Result {
@@ -5172,7 +5172,7 @@ extern "C" fn vkGetDeferredOperationResultKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDeferredOperationJoinKHR.html>"]
-extern "C" fn vkDeferredOperationJoinKHR(
+extern "stdcall" fn vkDeferredOperationJoinKHR(
     device: vk::Device,
     operation: vk::DeferredOperationKHR,
 ) -> vk::Result {
@@ -5183,7 +5183,7 @@ extern "C" fn vkDeferredOperationJoinKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineIndirectMemoryRequirementsNV.html>"]
-extern "C" fn vkGetPipelineIndirectMemoryRequirementsNV(
+extern "stdcall" fn vkGetPipelineIndirectMemoryRequirementsNV(
     device: vk::Device,
     p_create_info: *const vk::ComputePipelineCreateInfo,
     p_memory_requirements: *mut vk::MemoryRequirements2,
@@ -5195,7 +5195,7 @@ extern "C" fn vkGetPipelineIndirectMemoryRequirementsNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineIndirectDeviceAddressNV.html>"]
-extern "C" fn vkGetPipelineIndirectDeviceAddressNV(
+extern "stdcall" fn vkGetPipelineIndirectDeviceAddressNV(
     device: vk::Device,
     p_info: *const vk::PipelineIndirectDeviceAddressInfoNV,
 ) -> vk::DeviceAddress {
@@ -5206,7 +5206,7 @@ extern "C" fn vkGetPipelineIndirectDeviceAddressNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCullMode.html>"]
-extern "C" fn vkCmdSetCullMode(
+extern "stdcall" fn vkCmdSetCullMode(
     command_buffer: vk::CommandBuffer,
     cull_mode: vk::CullModeFlags,
 ) {
@@ -5217,7 +5217,7 @@ extern "C" fn vkCmdSetCullMode(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetFrontFace.html>"]
-extern "C" fn vkCmdSetFrontFace(
+extern "stdcall" fn vkCmdSetFrontFace(
     command_buffer: vk::CommandBuffer,
     front_face: vk::FrontFace,
 ) {
@@ -5228,7 +5228,7 @@ extern "C" fn vkCmdSetFrontFace(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPrimitiveTopology.html>"]
-extern "C" fn vkCmdSetPrimitiveTopology(
+extern "stdcall" fn vkCmdSetPrimitiveTopology(
     command_buffer: vk::CommandBuffer,
     primitive_topology: vk::PrimitiveTopology,
 ) {
@@ -5239,7 +5239,7 @@ extern "C" fn vkCmdSetPrimitiveTopology(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWithCount.html>"]
-extern "C" fn vkCmdSetViewportWithCount(
+extern "stdcall" fn vkCmdSetViewportWithCount(
     command_buffer: vk::CommandBuffer,
     viewport_count: u32,
     p_viewports: *const vk::Viewport,
@@ -5251,7 +5251,7 @@ extern "C" fn vkCmdSetViewportWithCount(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetScissorWithCount.html>"]
-extern "C" fn vkCmdSetScissorWithCount(
+extern "stdcall" fn vkCmdSetScissorWithCount(
     command_buffer: vk::CommandBuffer,
     scissor_count: u32,
     p_scissors: *const vk::Rect2D,
@@ -5263,7 +5263,7 @@ extern "C" fn vkCmdSetScissorWithCount(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindIndexBuffer2KHR.html>"]
-extern "C" fn vkCmdBindIndexBuffer2KHR(
+extern "stdcall" fn vkCmdBindIndexBuffer2KHR(
     command_buffer: vk::CommandBuffer,
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
@@ -5277,7 +5277,7 @@ extern "C" fn vkCmdBindIndexBuffer2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindVertexBuffers2.html>"]
-extern "C" fn vkCmdBindVertexBuffers2(
+extern "stdcall" fn vkCmdBindVertexBuffers2(
     command_buffer: vk::CommandBuffer,
     first_binding: u32,
     binding_count: u32,
@@ -5293,7 +5293,7 @@ extern "C" fn vkCmdBindVertexBuffers2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthTestEnable.html>"]
-extern "C" fn vkCmdSetDepthTestEnable(
+extern "stdcall" fn vkCmdSetDepthTestEnable(
     command_buffer: vk::CommandBuffer,
     depth_test_enable: vk::Bool32,
 ) {
@@ -5304,7 +5304,7 @@ extern "C" fn vkCmdSetDepthTestEnable(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthWriteEnable.html>"]
-extern "C" fn vkCmdSetDepthWriteEnable(
+extern "stdcall" fn vkCmdSetDepthWriteEnable(
     command_buffer: vk::CommandBuffer,
     depth_write_enable: vk::Bool32,
 ) {
@@ -5315,7 +5315,7 @@ extern "C" fn vkCmdSetDepthWriteEnable(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthCompareOp.html>"]
-extern "C" fn vkCmdSetDepthCompareOp(
+extern "stdcall" fn vkCmdSetDepthCompareOp(
     command_buffer: vk::CommandBuffer,
     depth_compare_op: vk::CompareOp,
 ) {
@@ -5326,7 +5326,7 @@ extern "C" fn vkCmdSetDepthCompareOp(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBoundsTestEnable.html>"]
-extern "C" fn vkCmdSetDepthBoundsTestEnable(
+extern "stdcall" fn vkCmdSetDepthBoundsTestEnable(
     command_buffer: vk::CommandBuffer,
     depth_bounds_test_enable: vk::Bool32,
 ) {
@@ -5337,7 +5337,7 @@ extern "C" fn vkCmdSetDepthBoundsTestEnable(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilTestEnable.html>"]
-extern "C" fn vkCmdSetStencilTestEnable(
+extern "stdcall" fn vkCmdSetStencilTestEnable(
     command_buffer: vk::CommandBuffer,
     stencil_test_enable: vk::Bool32,
 ) {
@@ -5348,7 +5348,7 @@ extern "C" fn vkCmdSetStencilTestEnable(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilOp.html>"]
-extern "C" fn vkCmdSetStencilOp(
+extern "stdcall" fn vkCmdSetStencilOp(
     command_buffer: vk::CommandBuffer,
     face_mask: vk::StencilFaceFlags,
     fail_op: vk::StencilOp,
@@ -5363,7 +5363,7 @@ extern "C" fn vkCmdSetStencilOp(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPatchControlPointsEXT.html>"]
-extern "C" fn vkCmdSetPatchControlPointsEXT(
+extern "stdcall" fn vkCmdSetPatchControlPointsEXT(
     command_buffer: vk::CommandBuffer,
     patch_control_points: u32,
 ) {
@@ -5374,7 +5374,7 @@ extern "C" fn vkCmdSetPatchControlPointsEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizerDiscardEnable.html>"]
-extern "C" fn vkCmdSetRasterizerDiscardEnable(
+extern "stdcall" fn vkCmdSetRasterizerDiscardEnable(
     command_buffer: vk::CommandBuffer,
     rasterizer_discard_enable: vk::Bool32,
 ) {
@@ -5385,7 +5385,7 @@ extern "C" fn vkCmdSetRasterizerDiscardEnable(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBiasEnable.html>"]
-extern "C" fn vkCmdSetDepthBiasEnable(
+extern "stdcall" fn vkCmdSetDepthBiasEnable(
     command_buffer: vk::CommandBuffer,
     depth_bias_enable: vk::Bool32,
 ) {
@@ -5396,7 +5396,7 @@ extern "C" fn vkCmdSetDepthBiasEnable(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLogicOpEXT.html>"]
-extern "C" fn vkCmdSetLogicOpEXT(
+extern "stdcall" fn vkCmdSetLogicOpEXT(
     command_buffer: vk::CommandBuffer,
     logic_op: vk::LogicOp,
 ) {
@@ -5407,7 +5407,7 @@ extern "C" fn vkCmdSetLogicOpEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPrimitiveRestartEnable.html>"]
-extern "C" fn vkCmdSetPrimitiveRestartEnable(
+extern "stdcall" fn vkCmdSetPrimitiveRestartEnable(
     command_buffer: vk::CommandBuffer,
     primitive_restart_enable: vk::Bool32,
 ) {
@@ -5418,7 +5418,7 @@ extern "C" fn vkCmdSetPrimitiveRestartEnable(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetTessellationDomainOriginEXT.html>"]
-extern "C" fn vkCmdSetTessellationDomainOriginEXT(
+extern "stdcall" fn vkCmdSetTessellationDomainOriginEXT(
     command_buffer: vk::CommandBuffer,
     domain_origin: vk::TessellationDomainOrigin,
 ) {
@@ -5429,7 +5429,7 @@ extern "C" fn vkCmdSetTessellationDomainOriginEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClampEnableEXT.html>"]
-extern "C" fn vkCmdSetDepthClampEnableEXT(
+extern "stdcall" fn vkCmdSetDepthClampEnableEXT(
     command_buffer: vk::CommandBuffer,
     depth_clamp_enable: vk::Bool32,
 ) {
@@ -5440,7 +5440,7 @@ extern "C" fn vkCmdSetDepthClampEnableEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPolygonModeEXT.html>"]
-extern "C" fn vkCmdSetPolygonModeEXT(
+extern "stdcall" fn vkCmdSetPolygonModeEXT(
     command_buffer: vk::CommandBuffer,
     polygon_mode: vk::PolygonMode,
 ) {
@@ -5451,7 +5451,7 @@ extern "C" fn vkCmdSetPolygonModeEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizationSamplesEXT.html>"]
-extern "C" fn vkCmdSetRasterizationSamplesEXT(
+extern "stdcall" fn vkCmdSetRasterizationSamplesEXT(
     command_buffer: vk::CommandBuffer,
     rasterization_samples: vk::SampleCountFlags,
 ) {
@@ -5462,7 +5462,7 @@ extern "C" fn vkCmdSetRasterizationSamplesEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleMaskEXT.html>"]
-extern "C" fn vkCmdSetSampleMaskEXT(
+extern "stdcall" fn vkCmdSetSampleMaskEXT(
     command_buffer: vk::CommandBuffer,
     samples: vk::SampleCountFlags,
     p_sample_mask: *const vk::SampleMask,
@@ -5474,7 +5474,7 @@ extern "C" fn vkCmdSetSampleMaskEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetAlphaToCoverageEnableEXT.html>"]
-extern "C" fn vkCmdSetAlphaToCoverageEnableEXT(
+extern "stdcall" fn vkCmdSetAlphaToCoverageEnableEXT(
     command_buffer: vk::CommandBuffer,
     alpha_to_coverage_enable: vk::Bool32,
 ) {
@@ -5485,7 +5485,7 @@ extern "C" fn vkCmdSetAlphaToCoverageEnableEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetAlphaToOneEnableEXT.html>"]
-extern "C" fn vkCmdSetAlphaToOneEnableEXT(
+extern "stdcall" fn vkCmdSetAlphaToOneEnableEXT(
     command_buffer: vk::CommandBuffer,
     alpha_to_one_enable: vk::Bool32,
 ) {
@@ -5496,7 +5496,7 @@ extern "C" fn vkCmdSetAlphaToOneEnableEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLogicOpEnableEXT.html>"]
-extern "C" fn vkCmdSetLogicOpEnableEXT(
+extern "stdcall" fn vkCmdSetLogicOpEnableEXT(
     command_buffer: vk::CommandBuffer,
     logic_op_enable: vk::Bool32,
 ) {
@@ -5507,7 +5507,7 @@ extern "C" fn vkCmdSetLogicOpEnableEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendEnableEXT.html>"]
-extern "C" fn vkCmdSetColorBlendEnableEXT(
+extern "stdcall" fn vkCmdSetColorBlendEnableEXT(
     command_buffer: vk::CommandBuffer,
     first_attachment: u32,
     attachment_count: u32,
@@ -5520,7 +5520,7 @@ extern "C" fn vkCmdSetColorBlendEnableEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendEquationEXT.html>"]
-extern "C" fn vkCmdSetColorBlendEquationEXT(
+extern "stdcall" fn vkCmdSetColorBlendEquationEXT(
     command_buffer: vk::CommandBuffer,
     first_attachment: u32,
     attachment_count: u32,
@@ -5533,7 +5533,7 @@ extern "C" fn vkCmdSetColorBlendEquationEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorWriteMaskEXT.html>"]
-extern "C" fn vkCmdSetColorWriteMaskEXT(
+extern "stdcall" fn vkCmdSetColorWriteMaskEXT(
     command_buffer: vk::CommandBuffer,
     first_attachment: u32,
     attachment_count: u32,
@@ -5546,7 +5546,7 @@ extern "C" fn vkCmdSetColorWriteMaskEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizationStreamEXT.html>"]
-extern "C" fn vkCmdSetRasterizationStreamEXT(
+extern "stdcall" fn vkCmdSetRasterizationStreamEXT(
     command_buffer: vk::CommandBuffer,
     rasterization_stream: u32,
 ) {
@@ -5557,7 +5557,7 @@ extern "C" fn vkCmdSetRasterizationStreamEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetConservativeRasterizationModeEXT.html>"]
-extern "C" fn vkCmdSetConservativeRasterizationModeEXT(
+extern "stdcall" fn vkCmdSetConservativeRasterizationModeEXT(
     command_buffer: vk::CommandBuffer,
     conservative_rasterization_mode: vk::ConservativeRasterizationModeEXT,
 ) {
@@ -5568,7 +5568,7 @@ extern "C" fn vkCmdSetConservativeRasterizationModeEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetExtraPrimitiveOverestimationSizeEXT.html>"]
-extern "C" fn vkCmdSetExtraPrimitiveOverestimationSizeEXT(
+extern "stdcall" fn vkCmdSetExtraPrimitiveOverestimationSizeEXT(
     command_buffer: vk::CommandBuffer,
     extra_primitive_overestimation_size: f32,
 ) {
@@ -5579,7 +5579,7 @@ extern "C" fn vkCmdSetExtraPrimitiveOverestimationSizeEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClipEnableEXT.html>"]
-extern "C" fn vkCmdSetDepthClipEnableEXT(
+extern "stdcall" fn vkCmdSetDepthClipEnableEXT(
     command_buffer: vk::CommandBuffer,
     depth_clip_enable: vk::Bool32,
 ) {
@@ -5590,7 +5590,7 @@ extern "C" fn vkCmdSetDepthClipEnableEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleLocationsEnableEXT.html>"]
-extern "C" fn vkCmdSetSampleLocationsEnableEXT(
+extern "stdcall" fn vkCmdSetSampleLocationsEnableEXT(
     command_buffer: vk::CommandBuffer,
     sample_locations_enable: vk::Bool32,
 ) {
@@ -5601,7 +5601,7 @@ extern "C" fn vkCmdSetSampleLocationsEnableEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendAdvancedEXT.html>"]
-extern "C" fn vkCmdSetColorBlendAdvancedEXT(
+extern "stdcall" fn vkCmdSetColorBlendAdvancedEXT(
     command_buffer: vk::CommandBuffer,
     first_attachment: u32,
     attachment_count: u32,
@@ -5614,7 +5614,7 @@ extern "C" fn vkCmdSetColorBlendAdvancedEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetProvokingVertexModeEXT.html>"]
-extern "C" fn vkCmdSetProvokingVertexModeEXT(
+extern "stdcall" fn vkCmdSetProvokingVertexModeEXT(
     command_buffer: vk::CommandBuffer,
     provoking_vertex_mode: vk::ProvokingVertexModeEXT,
 ) {
@@ -5625,7 +5625,7 @@ extern "C" fn vkCmdSetProvokingVertexModeEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineRasterizationModeEXT.html>"]
-extern "C" fn vkCmdSetLineRasterizationModeEXT(
+extern "stdcall" fn vkCmdSetLineRasterizationModeEXT(
     command_buffer: vk::CommandBuffer,
     line_rasterization_mode: vk::LineRasterizationModeEXT,
 ) {
@@ -5636,7 +5636,7 @@ extern "C" fn vkCmdSetLineRasterizationModeEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineStippleEnableEXT.html>"]
-extern "C" fn vkCmdSetLineStippleEnableEXT(
+extern "stdcall" fn vkCmdSetLineStippleEnableEXT(
     command_buffer: vk::CommandBuffer,
     stippled_line_enable: vk::Bool32,
 ) {
@@ -5647,7 +5647,7 @@ extern "C" fn vkCmdSetLineStippleEnableEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClipNegativeOneToOneEXT.html>"]
-extern "C" fn vkCmdSetDepthClipNegativeOneToOneEXT(
+extern "stdcall" fn vkCmdSetDepthClipNegativeOneToOneEXT(
     command_buffer: vk::CommandBuffer,
     negative_one_to_one: vk::Bool32,
 ) {
@@ -5658,7 +5658,7 @@ extern "C" fn vkCmdSetDepthClipNegativeOneToOneEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWScalingEnableNV.html>"]
-extern "C" fn vkCmdSetViewportWScalingEnableNV(
+extern "stdcall" fn vkCmdSetViewportWScalingEnableNV(
     command_buffer: vk::CommandBuffer,
     viewport_w_scaling_enable: vk::Bool32,
 ) {
@@ -5669,7 +5669,7 @@ extern "C" fn vkCmdSetViewportWScalingEnableNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportSwizzleNV.html>"]
-extern "C" fn vkCmdSetViewportSwizzleNV(
+extern "stdcall" fn vkCmdSetViewportSwizzleNV(
     command_buffer: vk::CommandBuffer,
     first_viewport: u32,
     viewport_count: u32,
@@ -5682,7 +5682,7 @@ extern "C" fn vkCmdSetViewportSwizzleNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageToColorEnableNV.html>"]
-extern "C" fn vkCmdSetCoverageToColorEnableNV(
+extern "stdcall" fn vkCmdSetCoverageToColorEnableNV(
     command_buffer: vk::CommandBuffer,
     coverage_to_color_enable: vk::Bool32,
 ) {
@@ -5693,7 +5693,7 @@ extern "C" fn vkCmdSetCoverageToColorEnableNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageToColorLocationNV.html>"]
-extern "C" fn vkCmdSetCoverageToColorLocationNV(
+extern "stdcall" fn vkCmdSetCoverageToColorLocationNV(
     command_buffer: vk::CommandBuffer,
     coverage_to_color_location: u32,
 ) {
@@ -5704,7 +5704,7 @@ extern "C" fn vkCmdSetCoverageToColorLocationNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageModulationModeNV.html>"]
-extern "C" fn vkCmdSetCoverageModulationModeNV(
+extern "stdcall" fn vkCmdSetCoverageModulationModeNV(
     command_buffer: vk::CommandBuffer,
     coverage_modulation_mode: vk::CoverageModulationModeNV,
 ) {
@@ -5715,7 +5715,7 @@ extern "C" fn vkCmdSetCoverageModulationModeNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageModulationTableEnableNV.html>"]
-extern "C" fn vkCmdSetCoverageModulationTableEnableNV(
+extern "stdcall" fn vkCmdSetCoverageModulationTableEnableNV(
     command_buffer: vk::CommandBuffer,
     coverage_modulation_table_enable: vk::Bool32,
 ) {
@@ -5726,7 +5726,7 @@ extern "C" fn vkCmdSetCoverageModulationTableEnableNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageModulationTableNV.html>"]
-extern "C" fn vkCmdSetCoverageModulationTableNV(
+extern "stdcall" fn vkCmdSetCoverageModulationTableNV(
     command_buffer: vk::CommandBuffer,
     coverage_modulation_table_count: u32,
     p_coverage_modulation_table: *const f32,
@@ -5738,7 +5738,7 @@ extern "C" fn vkCmdSetCoverageModulationTableNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetShadingRateImageEnableNV.html>"]
-extern "C" fn vkCmdSetShadingRateImageEnableNV(
+extern "stdcall" fn vkCmdSetShadingRateImageEnableNV(
     command_buffer: vk::CommandBuffer,
     shading_rate_image_enable: vk::Bool32,
 ) {
@@ -5749,7 +5749,7 @@ extern "C" fn vkCmdSetShadingRateImageEnableNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageReductionModeNV.html>"]
-extern "C" fn vkCmdSetCoverageReductionModeNV(
+extern "stdcall" fn vkCmdSetCoverageReductionModeNV(
     command_buffer: vk::CommandBuffer,
     coverage_reduction_mode: vk::CoverageReductionModeNV,
 ) {
@@ -5760,7 +5760,7 @@ extern "C" fn vkCmdSetCoverageReductionModeNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRepresentativeFragmentTestEnableNV.html>"]
-extern "C" fn vkCmdSetRepresentativeFragmentTestEnableNV(
+extern "stdcall" fn vkCmdSetRepresentativeFragmentTestEnableNV(
     command_buffer: vk::CommandBuffer,
     representative_fragment_test_enable: vk::Bool32,
 ) {
@@ -5771,7 +5771,7 @@ extern "C" fn vkCmdSetRepresentativeFragmentTestEnableNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePrivateDataSlot.html>"]
-extern "C" fn vkCreatePrivateDataSlot(
+extern "stdcall" fn vkCreatePrivateDataSlot(
     device: vk::Device,
     p_create_info: *const vk::PrivateDataSlotCreateInfo,
     p_allocator: *const vk::AllocationCallbacks,
@@ -5784,7 +5784,7 @@ extern "C" fn vkCreatePrivateDataSlot(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPrivateDataSlot.html>"]
-extern "C" fn vkDestroyPrivateDataSlot(
+extern "stdcall" fn vkDestroyPrivateDataSlot(
     device: vk::Device,
     private_data_slot: vk::PrivateDataSlot,
     p_allocator: *const vk::AllocationCallbacks,
@@ -5796,7 +5796,7 @@ extern "C" fn vkDestroyPrivateDataSlot(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetPrivateData.html>"]
-extern "C" fn vkSetPrivateData(
+extern "stdcall" fn vkSetPrivateData(
     device: vk::Device,
     object_type: vk::ObjectType,
     object_handle: u64,
@@ -5810,7 +5810,7 @@ extern "C" fn vkSetPrivateData(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPrivateData.html>"]
-extern "C" fn vkGetPrivateData(
+extern "stdcall" fn vkGetPrivateData(
     device: vk::Device,
     object_type: vk::ObjectType,
     object_handle: u64,
@@ -5824,7 +5824,7 @@ extern "C" fn vkGetPrivateData(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBuffer2.html>"]
-extern "C" fn vkCmdCopyBuffer2(
+extern "stdcall" fn vkCmdCopyBuffer2(
     command_buffer: vk::CommandBuffer,
     p_copy_buffer_info: *const vk::CopyBufferInfo2,
 ) {
@@ -5835,7 +5835,7 @@ extern "C" fn vkCmdCopyBuffer2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImage2.html>"]
-extern "C" fn vkCmdCopyImage2(
+extern "stdcall" fn vkCmdCopyImage2(
     command_buffer: vk::CommandBuffer,
     p_copy_image_info: *const vk::CopyImageInfo2,
 ) {
@@ -5846,7 +5846,7 @@ extern "C" fn vkCmdCopyImage2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBlitImage2.html>"]
-extern "C" fn vkCmdBlitImage2(
+extern "stdcall" fn vkCmdBlitImage2(
     command_buffer: vk::CommandBuffer,
     p_blit_image_info: *const vk::BlitImageInfo2,
 ) {
@@ -5857,7 +5857,7 @@ extern "C" fn vkCmdBlitImage2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBufferToImage2.html>"]
-extern "C" fn vkCmdCopyBufferToImage2(
+extern "stdcall" fn vkCmdCopyBufferToImage2(
     command_buffer: vk::CommandBuffer,
     p_copy_buffer_to_image_info: *const vk::CopyBufferToImageInfo2,
 ) {
@@ -5868,7 +5868,7 @@ extern "C" fn vkCmdCopyBufferToImage2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImageToBuffer2.html>"]
-extern "C" fn vkCmdCopyImageToBuffer2(
+extern "stdcall" fn vkCmdCopyImageToBuffer2(
     command_buffer: vk::CommandBuffer,
     p_copy_image_to_buffer_info: *const vk::CopyImageToBufferInfo2,
 ) {
@@ -5879,7 +5879,7 @@ extern "C" fn vkCmdCopyImageToBuffer2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResolveImage2.html>"]
-extern "C" fn vkCmdResolveImage2(
+extern "stdcall" fn vkCmdResolveImage2(
     command_buffer: vk::CommandBuffer,
     p_resolve_image_info: *const vk::ResolveImageInfo2,
 ) {
@@ -5890,7 +5890,7 @@ extern "C" fn vkCmdResolveImage2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetFragmentShadingRateKHR.html>"]
-extern "C" fn vkCmdSetFragmentShadingRateKHR(
+extern "stdcall" fn vkCmdSetFragmentShadingRateKHR(
     command_buffer: vk::CommandBuffer,
     p_fragment_size: *const vk::Extent2D,
     combiner_ops: vk::FragmentShadingRateCombinerOpKHR,
@@ -5902,7 +5902,7 @@ extern "C" fn vkCmdSetFragmentShadingRateKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceFragmentShadingRatesKHR(
+extern "stdcall" fn vkGetPhysicalDeviceFragmentShadingRatesKHR(
     physical_device: vk::PhysicalDevice,
     p_fragment_shading_rate_count: *mut u32,
     p_fragment_shading_rates: *mut vk::PhysicalDeviceFragmentShadingRateKHR,
@@ -5914,7 +5914,7 @@ extern "C" fn vkGetPhysicalDeviceFragmentShadingRatesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetFragmentShadingRateEnumNV.html>"]
-extern "C" fn vkCmdSetFragmentShadingRateEnumNV(
+extern "stdcall" fn vkCmdSetFragmentShadingRateEnumNV(
     command_buffer: vk::CommandBuffer,
     shading_rate: vk::FragmentShadingRateNV,
     combiner_ops: vk::FragmentShadingRateCombinerOpKHR,
@@ -5926,7 +5926,7 @@ extern "C" fn vkCmdSetFragmentShadingRateEnumNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureBuildSizesKHR.html>"]
-extern "C" fn vkGetAccelerationStructureBuildSizesKHR(
+extern "stdcall" fn vkGetAccelerationStructureBuildSizesKHR(
     device: vk::Device,
     build_type: vk::AccelerationStructureBuildTypeKHR,
     p_build_info: *const vk::AccelerationStructureBuildGeometryInfoKHR,
@@ -5940,7 +5940,7 @@ extern "C" fn vkGetAccelerationStructureBuildSizesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetVertexInputEXT.html>"]
-extern "C" fn vkCmdSetVertexInputEXT(
+extern "stdcall" fn vkCmdSetVertexInputEXT(
     command_buffer: vk::CommandBuffer,
     vertex_binding_description_count: u32,
     p_vertex_binding_descriptions: *const vk::VertexInputBindingDescription2EXT,
@@ -5954,7 +5954,7 @@ extern "C" fn vkCmdSetVertexInputEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorWriteEnableEXT.html>"]
-extern "C" fn vkCmdSetColorWriteEnableEXT(
+extern "stdcall" fn vkCmdSetColorWriteEnableEXT(
     command_buffer: vk::CommandBuffer,
     attachment_count: u32,
     p_color_write_enables: *const vk::Bool32,
@@ -5966,7 +5966,7 @@ extern "C" fn vkCmdSetColorWriteEnableEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetEvent2.html>"]
-extern "C" fn vkCmdSetEvent2(
+extern "stdcall" fn vkCmdSetEvent2(
     command_buffer: vk::CommandBuffer,
     event: vk::Event,
     p_dependency_info: *const vk::DependencyInfo,
@@ -5978,7 +5978,7 @@ extern "C" fn vkCmdSetEvent2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetEvent2.html>"]
-extern "C" fn vkCmdResetEvent2(
+extern "stdcall" fn vkCmdResetEvent2(
     command_buffer: vk::CommandBuffer,
     event: vk::Event,
     stage_mask: vk::PipelineStageFlags2,
@@ -5990,7 +5990,7 @@ extern "C" fn vkCmdResetEvent2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents2.html>"]
-extern "C" fn vkCmdWaitEvents2(
+extern "stdcall" fn vkCmdWaitEvents2(
     command_buffer: vk::CommandBuffer,
     event_count: u32,
     p_events: *const vk::Event,
@@ -6003,7 +6003,7 @@ extern "C" fn vkCmdWaitEvents2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPipelineBarrier2.html>"]
-extern "C" fn vkCmdPipelineBarrier2(
+extern "stdcall" fn vkCmdPipelineBarrier2(
     command_buffer: vk::CommandBuffer,
     p_dependency_info: *const vk::DependencyInfo,
 ) {
@@ -6014,7 +6014,7 @@ extern "C" fn vkCmdPipelineBarrier2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSubmit2.html>"]
-extern "C" fn vkQueueSubmit2(
+extern "stdcall" fn vkQueueSubmit2(
     queue: vk::Queue,
     submit_count: u32,
     p_submits: *const vk::SubmitInfo2,
@@ -6027,7 +6027,7 @@ extern "C" fn vkQueueSubmit2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteTimestamp2.html>"]
-extern "C" fn vkCmdWriteTimestamp2(
+extern "stdcall" fn vkCmdWriteTimestamp2(
     command_buffer: vk::CommandBuffer,
     stage: vk::PipelineStageFlags2,
     query_pool: vk::QueryPool,
@@ -6040,7 +6040,7 @@ extern "C" fn vkCmdWriteTimestamp2(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteBufferMarker2AMD.html>"]
-extern "C" fn vkCmdWriteBufferMarker2AMD(
+extern "stdcall" fn vkCmdWriteBufferMarker2AMD(
     command_buffer: vk::CommandBuffer,
     stage: vk::PipelineStageFlags2,
     dst_buffer: vk::Buffer,
@@ -6054,7 +6054,7 @@ extern "C" fn vkCmdWriteBufferMarker2AMD(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetQueueCheckpointData2NV.html>"]
-extern "C" fn vkGetQueueCheckpointData2NV(
+extern "stdcall" fn vkGetQueueCheckpointData2NV(
     queue: vk::Queue,
     p_checkpoint_data_count: *mut u32,
     p_checkpoint_data: *mut vk::CheckpointData2NV,
@@ -6066,7 +6066,7 @@ extern "C" fn vkGetQueueCheckpointData2NV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMemoryToImageEXT.html>"]
-extern "C" fn vkCopyMemoryToImageEXT(
+extern "stdcall" fn vkCopyMemoryToImageEXT(
     device: vk::Device,
     p_copy_memory_to_image_info: *const vk::CopyMemoryToImageInfoEXT,
 ) -> vk::Result {
@@ -6077,7 +6077,7 @@ extern "C" fn vkCopyMemoryToImageEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyImageToMemoryEXT.html>"]
-extern "C" fn vkCopyImageToMemoryEXT(
+extern "stdcall" fn vkCopyImageToMemoryEXT(
     device: vk::Device,
     p_copy_image_to_memory_info: *const vk::CopyImageToMemoryInfoEXT,
 ) -> vk::Result {
@@ -6088,7 +6088,7 @@ extern "C" fn vkCopyImageToMemoryEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyImageToImageEXT.html>"]
-extern "C" fn vkCopyImageToImageEXT(
+extern "stdcall" fn vkCopyImageToImageEXT(
     device: vk::Device,
     p_copy_image_to_image_info: *const vk::CopyImageToImageInfoEXT,
 ) -> vk::Result {
@@ -6099,7 +6099,7 @@ extern "C" fn vkCopyImageToImageEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkTransitionImageLayoutEXT.html>"]
-extern "C" fn vkTransitionImageLayoutEXT(
+extern "stdcall" fn vkTransitionImageLayoutEXT(
     device: vk::Device,
     transition_count: u32,
     p_transitions: *const vk::HostImageLayoutTransitionInfoEXT,
@@ -6111,7 +6111,7 @@ extern "C" fn vkTransitionImageLayoutEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceVideoCapabilitiesKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceVideoCapabilitiesKHR(
+extern "stdcall" fn vkGetPhysicalDeviceVideoCapabilitiesKHR(
     physical_device: vk::PhysicalDevice,
     p_video_profile: *const vk::VideoProfileInfoKHR,
     p_capabilities: *mut vk::VideoCapabilitiesKHR,
@@ -6123,7 +6123,7 @@ extern "C" fn vkGetPhysicalDeviceVideoCapabilitiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceVideoFormatPropertiesKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceVideoFormatPropertiesKHR(
+extern "stdcall" fn vkGetPhysicalDeviceVideoFormatPropertiesKHR(
     physical_device: vk::PhysicalDevice,
     p_video_format_info: *const vk::PhysicalDeviceVideoFormatInfoKHR,
     p_video_format_property_count: *mut u32,
@@ -6136,7 +6136,7 @@ extern "C" fn vkGetPhysicalDeviceVideoFormatPropertiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR(
+extern "stdcall" fn vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR(
     physical_device: vk::PhysicalDevice,
     p_quality_level_info: *const vk::PhysicalDeviceVideoEncodeQualityLevelInfoKHR,
     p_quality_level_properties: *mut vk::VideoEncodeQualityLevelPropertiesKHR,
@@ -6148,7 +6148,7 @@ extern "C" fn vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateVideoSessionKHR.html>"]
-extern "C" fn vkCreateVideoSessionKHR(
+extern "stdcall" fn vkCreateVideoSessionKHR(
     device: vk::Device,
     p_create_info: *const vk::VideoSessionCreateInfoKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6161,7 +6161,7 @@ extern "C" fn vkCreateVideoSessionKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyVideoSessionKHR.html>"]
-extern "C" fn vkDestroyVideoSessionKHR(
+extern "stdcall" fn vkDestroyVideoSessionKHR(
     device: vk::Device,
     video_session: vk::VideoSessionKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6173,7 +6173,7 @@ extern "C" fn vkDestroyVideoSessionKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateVideoSessionParametersKHR.html>"]
-extern "C" fn vkCreateVideoSessionParametersKHR(
+extern "stdcall" fn vkCreateVideoSessionParametersKHR(
     device: vk::Device,
     p_create_info: *const vk::VideoSessionParametersCreateInfoKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6186,7 +6186,7 @@ extern "C" fn vkCreateVideoSessionParametersKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateVideoSessionParametersKHR.html>"]
-extern "C" fn vkUpdateVideoSessionParametersKHR(
+extern "stdcall" fn vkUpdateVideoSessionParametersKHR(
     device: vk::Device,
     video_session_parameters: vk::VideoSessionParametersKHR,
     p_update_info: *const vk::VideoSessionParametersUpdateInfoKHR,
@@ -6198,7 +6198,7 @@ extern "C" fn vkUpdateVideoSessionParametersKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetEncodedVideoSessionParametersKHR.html>"]
-extern "C" fn vkGetEncodedVideoSessionParametersKHR(
+extern "stdcall" fn vkGetEncodedVideoSessionParametersKHR(
     device: vk::Device,
     p_video_session_parameters_info: *const vk::VideoEncodeSessionParametersGetInfoKHR,
     p_feedback_info: *mut vk::VideoEncodeSessionParametersFeedbackInfoKHR,
@@ -6212,7 +6212,7 @@ extern "C" fn vkGetEncodedVideoSessionParametersKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyVideoSessionParametersKHR.html>"]
-extern "C" fn vkDestroyVideoSessionParametersKHR(
+extern "stdcall" fn vkDestroyVideoSessionParametersKHR(
     device: vk::Device,
     video_session_parameters: vk::VideoSessionParametersKHR,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6224,7 +6224,7 @@ extern "C" fn vkDestroyVideoSessionParametersKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetVideoSessionMemoryRequirementsKHR.html>"]
-extern "C" fn vkGetVideoSessionMemoryRequirementsKHR(
+extern "stdcall" fn vkGetVideoSessionMemoryRequirementsKHR(
     device: vk::Device,
     video_session: vk::VideoSessionKHR,
     p_memory_requirements_count: *mut u32,
@@ -6237,7 +6237,7 @@ extern "C" fn vkGetVideoSessionMemoryRequirementsKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindVideoSessionMemoryKHR.html>"]
-extern "C" fn vkBindVideoSessionMemoryKHR(
+extern "stdcall" fn vkBindVideoSessionMemoryKHR(
     device: vk::Device,
     video_session: vk::VideoSessionKHR,
     bind_session_memory_info_count: u32,
@@ -6250,7 +6250,7 @@ extern "C" fn vkBindVideoSessionMemoryKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDecodeVideoKHR.html>"]
-extern "C" fn vkCmdDecodeVideoKHR(
+extern "stdcall" fn vkCmdDecodeVideoKHR(
     command_buffer: vk::CommandBuffer,
     p_decode_info: *const vk::VideoDecodeInfoKHR,
 ) {
@@ -6261,7 +6261,7 @@ extern "C" fn vkCmdDecodeVideoKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginVideoCodingKHR.html>"]
-extern "C" fn vkCmdBeginVideoCodingKHR(
+extern "stdcall" fn vkCmdBeginVideoCodingKHR(
     command_buffer: vk::CommandBuffer,
     p_begin_info: *const vk::VideoBeginCodingInfoKHR,
 ) {
@@ -6272,7 +6272,7 @@ extern "C" fn vkCmdBeginVideoCodingKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdControlVideoCodingKHR.html>"]
-extern "C" fn vkCmdControlVideoCodingKHR(
+extern "stdcall" fn vkCmdControlVideoCodingKHR(
     command_buffer: vk::CommandBuffer,
     p_coding_control_info: *const vk::VideoCodingControlInfoKHR,
 ) {
@@ -6283,7 +6283,7 @@ extern "C" fn vkCmdControlVideoCodingKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndVideoCodingKHR.html>"]
-extern "C" fn vkCmdEndVideoCodingKHR(
+extern "stdcall" fn vkCmdEndVideoCodingKHR(
     command_buffer: vk::CommandBuffer,
     p_end_coding_info: *const vk::VideoEndCodingInfoKHR,
 ) {
@@ -6294,7 +6294,7 @@ extern "C" fn vkCmdEndVideoCodingKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEncodeVideoKHR.html>"]
-extern "C" fn vkCmdEncodeVideoKHR(
+extern "stdcall" fn vkCmdEncodeVideoKHR(
     command_buffer: vk::CommandBuffer,
     p_encode_info: *const vk::VideoEncodeInfoKHR,
 ) {
@@ -6305,7 +6305,7 @@ extern "C" fn vkCmdEncodeVideoKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDecompressMemoryNV.html>"]
-extern "C" fn vkCmdDecompressMemoryNV(
+extern "stdcall" fn vkCmdDecompressMemoryNV(
     command_buffer: vk::CommandBuffer,
     decompress_region_count: u32,
     p_decompress_memory_regions: *const vk::DecompressMemoryRegionNV,
@@ -6317,7 +6317,7 @@ extern "C" fn vkCmdDecompressMemoryNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDecompressMemoryIndirectCountNV.html>"]
-extern "C" fn vkCmdDecompressMemoryIndirectCountNV(
+extern "stdcall" fn vkCmdDecompressMemoryIndirectCountNV(
     command_buffer: vk::CommandBuffer,
     indirect_commands_address: vk::DeviceAddress,
     indirect_commands_count_address: vk::DeviceAddress,
@@ -6330,7 +6330,7 @@ extern "C" fn vkCmdDecompressMemoryIndirectCountNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCuModuleNVX.html>"]
-extern "C" fn vkCreateCuModuleNVX(
+extern "stdcall" fn vkCreateCuModuleNVX(
     device: vk::Device,
     p_create_info: *const vk::CuModuleCreateInfoNVX,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6343,7 +6343,7 @@ extern "C" fn vkCreateCuModuleNVX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCuFunctionNVX.html>"]
-extern "C" fn vkCreateCuFunctionNVX(
+extern "stdcall" fn vkCreateCuFunctionNVX(
     device: vk::Device,
     p_create_info: *const vk::CuFunctionCreateInfoNVX,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6356,7 +6356,7 @@ extern "C" fn vkCreateCuFunctionNVX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCuModuleNVX.html>"]
-extern "C" fn vkDestroyCuModuleNVX(
+extern "stdcall" fn vkDestroyCuModuleNVX(
     device: vk::Device,
     module: vk::CuModuleNVX,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6368,7 +6368,7 @@ extern "C" fn vkDestroyCuModuleNVX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCuFunctionNVX.html>"]
-extern "C" fn vkDestroyCuFunctionNVX(
+extern "stdcall" fn vkDestroyCuFunctionNVX(
     device: vk::Device,
     function: vk::CuFunctionNVX,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6380,7 +6380,7 @@ extern "C" fn vkDestroyCuFunctionNVX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCuLaunchKernelNVX.html>"]
-extern "C" fn vkCmdCuLaunchKernelNVX(
+extern "stdcall" fn vkCmdCuLaunchKernelNVX(
     command_buffer: vk::CommandBuffer,
     p_launch_info: *const vk::CuLaunchInfoNVX,
 ) {
@@ -6391,7 +6391,7 @@ extern "C" fn vkCmdCuLaunchKernelNVX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutSizeEXT.html>"]
-extern "C" fn vkGetDescriptorSetLayoutSizeEXT(
+extern "stdcall" fn vkGetDescriptorSetLayoutSizeEXT(
     device: vk::Device,
     layout: vk::DescriptorSetLayout,
     p_layout_size_in_bytes: *mut vk::DeviceSize,
@@ -6403,7 +6403,7 @@ extern "C" fn vkGetDescriptorSetLayoutSizeEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutBindingOffsetEXT.html>"]
-extern "C" fn vkGetDescriptorSetLayoutBindingOffsetEXT(
+extern "stdcall" fn vkGetDescriptorSetLayoutBindingOffsetEXT(
     device: vk::Device,
     layout: vk::DescriptorSetLayout,
     binding: u32,
@@ -6416,7 +6416,7 @@ extern "C" fn vkGetDescriptorSetLayoutBindingOffsetEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorEXT.html>"]
-extern "C" fn vkGetDescriptorEXT(
+extern "stdcall" fn vkGetDescriptorEXT(
     device: vk::Device,
     p_descriptor_info: *const vk::DescriptorGetInfoEXT,
     data_size: isize,
@@ -6429,7 +6429,7 @@ extern "C" fn vkGetDescriptorEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorBuffersEXT.html>"]
-extern "C" fn vkCmdBindDescriptorBuffersEXT(
+extern "stdcall" fn vkCmdBindDescriptorBuffersEXT(
     command_buffer: vk::CommandBuffer,
     buffer_count: u32,
     p_binding_infos: *const vk::DescriptorBufferBindingInfoEXT,
@@ -6441,7 +6441,7 @@ extern "C" fn vkCmdBindDescriptorBuffersEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDescriptorBufferOffsetsEXT.html>"]
-extern "C" fn vkCmdSetDescriptorBufferOffsetsEXT(
+extern "stdcall" fn vkCmdSetDescriptorBufferOffsetsEXT(
     command_buffer: vk::CommandBuffer,
     pipeline_bind_point: vk::PipelineBindPoint,
     layout: vk::PipelineLayout,
@@ -6457,7 +6457,7 @@ extern "C" fn vkCmdSetDescriptorBufferOffsetsEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorBufferEmbeddedSamplersEXT.html>"]
-extern "C" fn vkCmdBindDescriptorBufferEmbeddedSamplersEXT(
+extern "stdcall" fn vkCmdBindDescriptorBufferEmbeddedSamplersEXT(
     command_buffer: vk::CommandBuffer,
     pipeline_bind_point: vk::PipelineBindPoint,
     layout: vk::PipelineLayout,
@@ -6470,7 +6470,7 @@ extern "C" fn vkCmdBindDescriptorBufferEmbeddedSamplersEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferOpaqueCaptureDescriptorDataEXT.html>"]
-extern "C" fn vkGetBufferOpaqueCaptureDescriptorDataEXT(
+extern "stdcall" fn vkGetBufferOpaqueCaptureDescriptorDataEXT(
     device: vk::Device,
     p_info: *const vk::BufferCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
@@ -6482,7 +6482,7 @@ extern "C" fn vkGetBufferOpaqueCaptureDescriptorDataEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageOpaqueCaptureDescriptorDataEXT.html>"]
-extern "C" fn vkGetImageOpaqueCaptureDescriptorDataEXT(
+extern "stdcall" fn vkGetImageOpaqueCaptureDescriptorDataEXT(
     device: vk::Device,
     p_info: *const vk::ImageCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
@@ -6494,7 +6494,7 @@ extern "C" fn vkGetImageOpaqueCaptureDescriptorDataEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageViewOpaqueCaptureDescriptorDataEXT.html>"]
-extern "C" fn vkGetImageViewOpaqueCaptureDescriptorDataEXT(
+extern "stdcall" fn vkGetImageViewOpaqueCaptureDescriptorDataEXT(
     device: vk::Device,
     p_info: *const vk::ImageViewCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
@@ -6506,7 +6506,7 @@ extern "C" fn vkGetImageViewOpaqueCaptureDescriptorDataEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSamplerOpaqueCaptureDescriptorDataEXT.html>"]
-extern "C" fn vkGetSamplerOpaqueCaptureDescriptorDataEXT(
+extern "stdcall" fn vkGetSamplerOpaqueCaptureDescriptorDataEXT(
     device: vk::Device,
     p_info: *const vk::SamplerCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
@@ -6518,7 +6518,7 @@ extern "C" fn vkGetSamplerOpaqueCaptureDescriptorDataEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html>"]
-extern "C" fn vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(
+extern "stdcall" fn vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(
     device: vk::Device,
     p_info: *const vk::AccelerationStructureCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
@@ -6530,7 +6530,7 @@ extern "C" fn vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetDeviceMemoryPriorityEXT.html>"]
-extern "C" fn vkSetDeviceMemoryPriorityEXT(
+extern "stdcall" fn vkSetDeviceMemoryPriorityEXT(
     device: vk::Device,
     memory: vk::DeviceMemory,
     priority: f32,
@@ -6542,7 +6542,7 @@ extern "C" fn vkSetDeviceMemoryPriorityEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireDrmDisplayEXT.html>"]
-extern "C" fn vkAcquireDrmDisplayEXT(
+extern "stdcall" fn vkAcquireDrmDisplayEXT(
     physical_device: vk::PhysicalDevice,
     drm_fd: i32,
     display: vk::DisplayKHR,
@@ -6554,7 +6554,7 @@ extern "C" fn vkAcquireDrmDisplayEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDrmDisplayEXT.html>"]
-extern "C" fn vkGetDrmDisplayEXT(
+extern "stdcall" fn vkGetDrmDisplayEXT(
     physical_device: vk::PhysicalDevice,
     drm_fd: i32,
     connector_id: u32,
@@ -6567,7 +6567,7 @@ extern "C" fn vkGetDrmDisplayEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWaitForPresentKHR.html>"]
-extern "C" fn vkWaitForPresentKHR(
+extern "stdcall" fn vkWaitForPresentKHR(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
     present_id: u64,
@@ -6580,7 +6580,7 @@ extern "C" fn vkWaitForPresentKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBufferCollectionFUCHSIA.html>"]
-extern "C" fn vkCreateBufferCollectionFUCHSIA(
+extern "stdcall" fn vkCreateBufferCollectionFUCHSIA(
     device: vk::Device,
     p_create_info: *const vk::BufferCollectionCreateInfoFUCHSIA,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6593,7 +6593,7 @@ extern "C" fn vkCreateBufferCollectionFUCHSIA(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetBufferCollectionBufferConstraintsFUCHSIA.html>"]
-extern "C" fn vkSetBufferCollectionBufferConstraintsFUCHSIA(
+extern "stdcall" fn vkSetBufferCollectionBufferConstraintsFUCHSIA(
     device: vk::Device,
     collection: vk::BufferCollectionFUCHSIA,
     p_buffer_constraints_info: *const vk::BufferConstraintsInfoFUCHSIA,
@@ -6605,7 +6605,7 @@ extern "C" fn vkSetBufferCollectionBufferConstraintsFUCHSIA(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetBufferCollectionImageConstraintsFUCHSIA.html>"]
-extern "C" fn vkSetBufferCollectionImageConstraintsFUCHSIA(
+extern "stdcall" fn vkSetBufferCollectionImageConstraintsFUCHSIA(
     device: vk::Device,
     collection: vk::BufferCollectionFUCHSIA,
     p_image_constraints_info: *const vk::ImageConstraintsInfoFUCHSIA,
@@ -6617,7 +6617,7 @@ extern "C" fn vkSetBufferCollectionImageConstraintsFUCHSIA(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBufferCollectionFUCHSIA.html>"]
-extern "C" fn vkDestroyBufferCollectionFUCHSIA(
+extern "stdcall" fn vkDestroyBufferCollectionFUCHSIA(
     device: vk::Device,
     collection: vk::BufferCollectionFUCHSIA,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6629,7 +6629,7 @@ extern "C" fn vkDestroyBufferCollectionFUCHSIA(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferCollectionPropertiesFUCHSIA.html>"]
-extern "C" fn vkGetBufferCollectionPropertiesFUCHSIA(
+extern "stdcall" fn vkGetBufferCollectionPropertiesFUCHSIA(
     device: vk::Device,
     collection: vk::BufferCollectionFUCHSIA,
     p_properties: *mut vk::BufferCollectionPropertiesFUCHSIA,
@@ -6641,7 +6641,7 @@ extern "C" fn vkGetBufferCollectionPropertiesFUCHSIA(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCudaModuleNV.html>"]
-extern "C" fn vkCreateCudaModuleNV(
+extern "stdcall" fn vkCreateCudaModuleNV(
     device: vk::Device,
     p_create_info: *const vk::CudaModuleCreateInfoNV,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6654,7 +6654,7 @@ extern "C" fn vkCreateCudaModuleNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetCudaModuleCacheNV.html>"]
-extern "C" fn vkGetCudaModuleCacheNV(
+extern "stdcall" fn vkGetCudaModuleCacheNV(
     device: vk::Device,
     module: vk::CudaModuleNV,
     p_cache_size: *mut isize,
@@ -6667,7 +6667,7 @@ extern "C" fn vkGetCudaModuleCacheNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCudaFunctionNV.html>"]
-extern "C" fn vkCreateCudaFunctionNV(
+extern "stdcall" fn vkCreateCudaFunctionNV(
     device: vk::Device,
     p_create_info: *const vk::CudaFunctionCreateInfoNV,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6680,7 +6680,7 @@ extern "C" fn vkCreateCudaFunctionNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCudaModuleNV.html>"]
-extern "C" fn vkDestroyCudaModuleNV(
+extern "stdcall" fn vkDestroyCudaModuleNV(
     device: vk::Device,
     module: vk::CudaModuleNV,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6692,7 +6692,7 @@ extern "C" fn vkDestroyCudaModuleNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCudaFunctionNV.html>"]
-extern "C" fn vkDestroyCudaFunctionNV(
+extern "stdcall" fn vkDestroyCudaFunctionNV(
     device: vk::Device,
     function: vk::CudaFunctionNV,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6704,7 +6704,7 @@ extern "C" fn vkDestroyCudaFunctionNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCudaLaunchKernelNV.html>"]
-extern "C" fn vkCmdCudaLaunchKernelNV(
+extern "stdcall" fn vkCmdCudaLaunchKernelNV(
     command_buffer: vk::CommandBuffer,
     p_launch_info: *const vk::CudaLaunchInfoNV,
 ) {
@@ -6715,7 +6715,7 @@ extern "C" fn vkCmdCudaLaunchKernelNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRendering.html>"]
-extern "C" fn vkCmdBeginRendering(
+extern "stdcall" fn vkCmdBeginRendering(
     command_buffer: vk::CommandBuffer,
     p_rendering_info: *const vk::RenderingInfo,
 ) {
@@ -6726,7 +6726,7 @@ extern "C" fn vkCmdBeginRendering(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRendering.html>"]
-extern "C" fn vkCmdEndRendering(
+extern "stdcall" fn vkCmdEndRendering(
     command_buffer: vk::CommandBuffer,
 ) {
     std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndRendering.txt", "whoa").unwrap();
@@ -6736,7 +6736,7 @@ extern "C" fn vkCmdEndRendering(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutHostMappingInfoVALVE.html>"]
-extern "C" fn vkGetDescriptorSetLayoutHostMappingInfoVALVE(
+extern "stdcall" fn vkGetDescriptorSetLayoutHostMappingInfoVALVE(
     device: vk::Device,
     p_binding_reference: *const vk::DescriptorSetBindingReferenceVALVE,
     p_host_mapping: *mut vk::DescriptorSetLayoutHostMappingInfoVALVE,
@@ -6748,7 +6748,7 @@ extern "C" fn vkGetDescriptorSetLayoutHostMappingInfoVALVE(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetHostMappingVALVE.html>"]
-extern "C" fn vkGetDescriptorSetHostMappingVALVE(
+extern "stdcall" fn vkGetDescriptorSetHostMappingVALVE(
     device: vk::Device,
     descriptor_set: vk::DescriptorSet,
     pp_data: *mut *mut std::ffi::c_void,
@@ -6760,7 +6760,7 @@ extern "C" fn vkGetDescriptorSetHostMappingVALVE(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateMicromapEXT.html>"]
-extern "C" fn vkCreateMicromapEXT(
+extern "stdcall" fn vkCreateMicromapEXT(
     device: vk::Device,
     p_create_info: *const vk::MicromapCreateInfoEXT,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6773,7 +6773,7 @@ extern "C" fn vkCreateMicromapEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBuildMicromapsEXT.html>"]
-extern "C" fn vkCmdBuildMicromapsEXT(
+extern "stdcall" fn vkCmdBuildMicromapsEXT(
     command_buffer: vk::CommandBuffer,
     info_count: u32,
     p_infos: *const vk::MicromapBuildInfoEXT,
@@ -6785,7 +6785,7 @@ extern "C" fn vkCmdBuildMicromapsEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBuildMicromapsEXT.html>"]
-extern "C" fn vkBuildMicromapsEXT(
+extern "stdcall" fn vkBuildMicromapsEXT(
     device: vk::Device,
     deferred_operation: vk::DeferredOperationKHR,
     info_count: u32,
@@ -6798,7 +6798,7 @@ extern "C" fn vkBuildMicromapsEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyMicromapEXT.html>"]
-extern "C" fn vkDestroyMicromapEXT(
+extern "stdcall" fn vkDestroyMicromapEXT(
     device: vk::Device,
     micromap: vk::MicromapEXT,
     p_allocator: *const vk::AllocationCallbacks,
@@ -6810,7 +6810,7 @@ extern "C" fn vkDestroyMicromapEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMicromapEXT.html>"]
-extern "C" fn vkCmdCopyMicromapEXT(
+extern "stdcall" fn vkCmdCopyMicromapEXT(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyMicromapInfoEXT,
 ) {
@@ -6821,7 +6821,7 @@ extern "C" fn vkCmdCopyMicromapEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMicromapEXT.html>"]
-extern "C" fn vkCopyMicromapEXT(
+extern "stdcall" fn vkCopyMicromapEXT(
     device: vk::Device,
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyMicromapInfoEXT,
@@ -6833,7 +6833,7 @@ extern "C" fn vkCopyMicromapEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMicromapToMemoryEXT.html>"]
-extern "C" fn vkCmdCopyMicromapToMemoryEXT(
+extern "stdcall" fn vkCmdCopyMicromapToMemoryEXT(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyMicromapToMemoryInfoEXT,
 ) {
@@ -6844,7 +6844,7 @@ extern "C" fn vkCmdCopyMicromapToMemoryEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMicromapToMemoryEXT.html>"]
-extern "C" fn vkCopyMicromapToMemoryEXT(
+extern "stdcall" fn vkCopyMicromapToMemoryEXT(
     device: vk::Device,
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyMicromapToMemoryInfoEXT,
@@ -6856,7 +6856,7 @@ extern "C" fn vkCopyMicromapToMemoryEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryToMicromapEXT.html>"]
-extern "C" fn vkCmdCopyMemoryToMicromapEXT(
+extern "stdcall" fn vkCmdCopyMemoryToMicromapEXT(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyMemoryToMicromapInfoEXT,
 ) {
@@ -6867,7 +6867,7 @@ extern "C" fn vkCmdCopyMemoryToMicromapEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMemoryToMicromapEXT.html>"]
-extern "C" fn vkCopyMemoryToMicromapEXT(
+extern "stdcall" fn vkCopyMemoryToMicromapEXT(
     device: vk::Device,
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyMemoryToMicromapInfoEXT,
@@ -6879,7 +6879,7 @@ extern "C" fn vkCopyMemoryToMicromapEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteMicromapsPropertiesEXT.html>"]
-extern "C" fn vkCmdWriteMicromapsPropertiesEXT(
+extern "stdcall" fn vkCmdWriteMicromapsPropertiesEXT(
     command_buffer: vk::CommandBuffer,
     micromap_count: u32,
     p_micromaps: *const vk::MicromapEXT,
@@ -6894,7 +6894,7 @@ extern "C" fn vkCmdWriteMicromapsPropertiesEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWriteMicromapsPropertiesEXT.html>"]
-extern "C" fn vkWriteMicromapsPropertiesEXT(
+extern "stdcall" fn vkWriteMicromapsPropertiesEXT(
     device: vk::Device,
     micromap_count: u32,
     p_micromaps: *const vk::MicromapEXT,
@@ -6910,7 +6910,7 @@ extern "C" fn vkWriteMicromapsPropertiesEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMicromapCompatibilityEXT.html>"]
-extern "C" fn vkGetDeviceMicromapCompatibilityEXT(
+extern "stdcall" fn vkGetDeviceMicromapCompatibilityEXT(
     device: vk::Device,
     p_version_info: *const vk::MicromapVersionInfoEXT,
     p_compatibility: *mut vk::AccelerationStructureCompatibilityKHR,
@@ -6922,7 +6922,7 @@ extern "C" fn vkGetDeviceMicromapCompatibilityEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMicromapBuildSizesEXT.html>"]
-extern "C" fn vkGetMicromapBuildSizesEXT(
+extern "stdcall" fn vkGetMicromapBuildSizesEXT(
     device: vk::Device,
     build_type: vk::AccelerationStructureBuildTypeKHR,
     p_build_info: *const vk::MicromapBuildInfoEXT,
@@ -6935,7 +6935,7 @@ extern "C" fn vkGetMicromapBuildSizesEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderModuleIdentifierEXT.html>"]
-extern "C" fn vkGetShaderModuleIdentifierEXT(
+extern "stdcall" fn vkGetShaderModuleIdentifierEXT(
     device: vk::Device,
     shader_module: vk::ShaderModule,
     p_identifier: *mut vk::ShaderModuleIdentifierEXT,
@@ -6947,7 +6947,7 @@ extern "C" fn vkGetShaderModuleIdentifierEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderModuleCreateInfoIdentifierEXT.html>"]
-extern "C" fn vkGetShaderModuleCreateInfoIdentifierEXT(
+extern "stdcall" fn vkGetShaderModuleCreateInfoIdentifierEXT(
     device: vk::Device,
     p_create_info: *const vk::ShaderModuleCreateInfo,
     p_identifier: *mut vk::ShaderModuleIdentifierEXT,
@@ -6959,7 +6959,7 @@ extern "C" fn vkGetShaderModuleCreateInfoIdentifierEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSubresourceLayout2KHR.html>"]
-extern "C" fn vkGetImageSubresourceLayout2KHR(
+extern "stdcall" fn vkGetImageSubresourceLayout2KHR(
     device: vk::Device,
     image: vk::Image,
     p_subresource: *const vk::ImageSubresource2KHR,
@@ -6972,7 +6972,7 @@ extern "C" fn vkGetImageSubresourceLayout2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelinePropertiesEXT.html>"]
-extern "C" fn vkGetPipelinePropertiesEXT(
+extern "stdcall" fn vkGetPipelinePropertiesEXT(
     device: vk::Device,
     p_pipeline_info: *const vk::PipelineInfoEXT,
     p_pipeline_properties: *mut vk::BaseOutStructure,
@@ -6984,7 +6984,7 @@ extern "C" fn vkGetPipelinePropertiesEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkExportMetalObjectsEXT.html>"]
-extern "C" fn vkExportMetalObjectsEXT(
+extern "stdcall" fn vkExportMetalObjectsEXT(
     device: vk::Device,
     p_metal_objects_info: *mut vk::ExportMetalObjectsInfoEXT,
 ) {
@@ -6995,7 +6995,7 @@ extern "C" fn vkExportMetalObjectsEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFramebufferTilePropertiesQCOM.html>"]
-extern "C" fn vkGetFramebufferTilePropertiesQCOM(
+extern "stdcall" fn vkGetFramebufferTilePropertiesQCOM(
     device: vk::Device,
     framebuffer: vk::Framebuffer,
     p_properties_count: *mut u32,
@@ -7008,7 +7008,7 @@ extern "C" fn vkGetFramebufferTilePropertiesQCOM(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDynamicRenderingTilePropertiesQCOM.html>"]
-extern "C" fn vkGetDynamicRenderingTilePropertiesQCOM(
+extern "stdcall" fn vkGetDynamicRenderingTilePropertiesQCOM(
     device: vk::Device,
     p_rendering_info: *const vk::RenderingInfo,
     p_properties: *mut vk::TilePropertiesQCOM,
@@ -7020,7 +7020,7 @@ extern "C" fn vkGetDynamicRenderingTilePropertiesQCOM(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceOpticalFlowImageFormatsNV.html>"]
-extern "C" fn vkGetPhysicalDeviceOpticalFlowImageFormatsNV(
+extern "stdcall" fn vkGetPhysicalDeviceOpticalFlowImageFormatsNV(
     physical_device: vk::PhysicalDevice,
     p_optical_flow_image_format_info: *const vk::OpticalFlowImageFormatInfoNV,
     p_format_count: *mut u32,
@@ -7033,7 +7033,7 @@ extern "C" fn vkGetPhysicalDeviceOpticalFlowImageFormatsNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateOpticalFlowSessionNV.html>"]
-extern "C" fn vkCreateOpticalFlowSessionNV(
+extern "stdcall" fn vkCreateOpticalFlowSessionNV(
     device: vk::Device,
     p_create_info: *const vk::OpticalFlowSessionCreateInfoNV,
     p_allocator: *const vk::AllocationCallbacks,
@@ -7046,7 +7046,7 @@ extern "C" fn vkCreateOpticalFlowSessionNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyOpticalFlowSessionNV.html>"]
-extern "C" fn vkDestroyOpticalFlowSessionNV(
+extern "stdcall" fn vkDestroyOpticalFlowSessionNV(
     device: vk::Device,
     session: vk::OpticalFlowSessionNV,
     p_allocator: *const vk::AllocationCallbacks,
@@ -7058,7 +7058,7 @@ extern "C" fn vkDestroyOpticalFlowSessionNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindOpticalFlowSessionImageNV.html>"]
-extern "C" fn vkBindOpticalFlowSessionImageNV(
+extern "stdcall" fn vkBindOpticalFlowSessionImageNV(
     device: vk::Device,
     session: vk::OpticalFlowSessionNV,
     binding_point: vk::OpticalFlowSessionBindingPointNV,
@@ -7072,7 +7072,7 @@ extern "C" fn vkBindOpticalFlowSessionImageNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdOpticalFlowExecuteNV.html>"]
-extern "C" fn vkCmdOpticalFlowExecuteNV(
+extern "stdcall" fn vkCmdOpticalFlowExecuteNV(
     command_buffer: vk::CommandBuffer,
     session: vk::OpticalFlowSessionNV,
     p_execute_info: *const vk::OpticalFlowExecuteInfoNV,
@@ -7084,7 +7084,7 @@ extern "C" fn vkCmdOpticalFlowExecuteNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceFaultInfoEXT.html>"]
-extern "C" fn vkGetDeviceFaultInfoEXT(
+extern "stdcall" fn vkGetDeviceFaultInfoEXT(
     device: vk::Device,
     p_fault_counts: *mut vk::DeviceFaultCountsEXT,
     p_fault_info: *mut vk::DeviceFaultInfoEXT,
@@ -7096,7 +7096,7 @@ extern "C" fn vkGetDeviceFaultInfoEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBias2EXT.html>"]
-extern "C" fn vkCmdSetDepthBias2EXT(
+extern "stdcall" fn vkCmdSetDepthBias2EXT(
     command_buffer: vk::CommandBuffer,
     p_depth_bias_info: *const vk::DepthBiasInfoEXT,
 ) {
@@ -7107,7 +7107,7 @@ extern "C" fn vkCmdSetDepthBias2EXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseSwapchainImagesEXT.html>"]
-extern "C" fn vkReleaseSwapchainImagesEXT(
+extern "stdcall" fn vkReleaseSwapchainImagesEXT(
     device: vk::Device,
     p_release_info: *const vk::ReleaseSwapchainImagesInfoEXT,
 ) -> vk::Result {
@@ -7118,7 +7118,7 @@ extern "C" fn vkReleaseSwapchainImagesEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceImageSubresourceLayoutKHR.html>"]
-extern "C" fn vkGetDeviceImageSubresourceLayoutKHR(
+extern "stdcall" fn vkGetDeviceImageSubresourceLayoutKHR(
     device: vk::Device,
     p_info: *const vk::DeviceImageSubresourceInfoKHR,
     p_layout: *mut vk::SubresourceLayout2KHR,
@@ -7130,7 +7130,7 @@ extern "C" fn vkGetDeviceImageSubresourceLayoutKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMapMemory2KHR.html>"]
-extern "C" fn vkMapMemory2KHR(
+extern "stdcall" fn vkMapMemory2KHR(
     device: vk::Device,
     p_memory_map_info: *const vk::MemoryMapInfoKHR,
     pp_data: *mut *mut std::ffi::c_void,
@@ -7142,7 +7142,7 @@ extern "C" fn vkMapMemory2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUnmapMemory2KHR.html>"]
-extern "C" fn vkUnmapMemory2KHR(
+extern "stdcall" fn vkUnmapMemory2KHR(
     device: vk::Device,
     p_memory_unmap_info: *const vk::MemoryUnmapInfoKHR,
 ) -> vk::Result {
@@ -7153,7 +7153,7 @@ extern "C" fn vkUnmapMemory2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateShadersEXT.html>"]
-extern "C" fn vkCreateShadersEXT(
+extern "stdcall" fn vkCreateShadersEXT(
     device: vk::Device,
     create_info_count: u32,
     p_create_infos: *const vk::ShaderCreateInfoEXT,
@@ -7167,7 +7167,7 @@ extern "C" fn vkCreateShadersEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyShaderEXT.html>"]
-extern "C" fn vkDestroyShaderEXT(
+extern "stdcall" fn vkDestroyShaderEXT(
     device: vk::Device,
     shader: vk::ShaderEXT,
     p_allocator: *const vk::AllocationCallbacks,
@@ -7179,7 +7179,7 @@ extern "C" fn vkDestroyShaderEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderBinaryDataEXT.html>"]
-extern "C" fn vkGetShaderBinaryDataEXT(
+extern "stdcall" fn vkGetShaderBinaryDataEXT(
     device: vk::Device,
     shader: vk::ShaderEXT,
     p_data_size: *mut isize,
@@ -7192,7 +7192,7 @@ extern "C" fn vkGetShaderBinaryDataEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindShadersEXT.html>"]
-extern "C" fn vkCmdBindShadersEXT(
+extern "stdcall" fn vkCmdBindShadersEXT(
     command_buffer: vk::CommandBuffer,
     stage_count: u32,
     p_stages: *const vk::ShaderStageFlags,
@@ -7205,7 +7205,7 @@ extern "C" fn vkCmdBindShadersEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetScreenBufferPropertiesQNX.html>"]
-extern "C" fn vkGetScreenBufferPropertiesQNX(
+extern "stdcall" fn vkGetScreenBufferPropertiesQNX(
     device: vk::Device,
     buffer: *const vk::_screen_buffer,
     p_properties: *mut vk::ScreenBufferPropertiesQNX,
@@ -7217,7 +7217,7 @@ extern "C" fn vkGetScreenBufferPropertiesQNX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR.html>"]
-extern "C" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(
+extern "stdcall" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(
     physical_device: vk::PhysicalDevice,
     p_property_count: *mut u32,
     p_properties: *mut vk::CooperativeMatrixPropertiesKHR,
@@ -7229,7 +7229,7 @@ extern "C" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetExecutionGraphPipelineScratchSizeAMDX.html>"]
-extern "C" fn vkGetExecutionGraphPipelineScratchSizeAMDX(
+extern "stdcall" fn vkGetExecutionGraphPipelineScratchSizeAMDX(
     device: vk::Device,
     execution_graph: vk::Pipeline,
     p_size_info: *mut vk::ExecutionGraphPipelineScratchSizeAMDX,
@@ -7241,7 +7241,7 @@ extern "C" fn vkGetExecutionGraphPipelineScratchSizeAMDX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetExecutionGraphPipelineNodeIndexAMDX.html>"]
-extern "C" fn vkGetExecutionGraphPipelineNodeIndexAMDX(
+extern "stdcall" fn vkGetExecutionGraphPipelineNodeIndexAMDX(
     device: vk::Device,
     execution_graph: vk::Pipeline,
     p_node_info: *const vk::PipelineShaderStageNodeCreateInfoAMDX,
@@ -7254,7 +7254,7 @@ extern "C" fn vkGetExecutionGraphPipelineNodeIndexAMDX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateExecutionGraphPipelinesAMDX.html>"]
-extern "C" fn vkCreateExecutionGraphPipelinesAMDX(
+extern "stdcall" fn vkCreateExecutionGraphPipelinesAMDX(
     device: vk::Device,
     pipeline_cache: vk::PipelineCache,
     create_info_count: u32,
@@ -7269,7 +7269,7 @@ extern "C" fn vkCreateExecutionGraphPipelinesAMDX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdInitializeGraphScratchMemoryAMDX.html>"]
-extern "C" fn vkCmdInitializeGraphScratchMemoryAMDX(
+extern "stdcall" fn vkCmdInitializeGraphScratchMemoryAMDX(
     command_buffer: vk::CommandBuffer,
     scratch: vk::DeviceAddress,
 ) {
@@ -7280,7 +7280,7 @@ extern "C" fn vkCmdInitializeGraphScratchMemoryAMDX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchGraphAMDX.html>"]
-extern "C" fn vkCmdDispatchGraphAMDX(
+extern "stdcall" fn vkCmdDispatchGraphAMDX(
     command_buffer: vk::CommandBuffer,
     scratch: vk::DeviceAddress,
     p_count_info: *const vk::DispatchGraphCountInfoAMDX,
@@ -7292,7 +7292,7 @@ extern "C" fn vkCmdDispatchGraphAMDX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchGraphIndirectAMDX.html>"]
-extern "C" fn vkCmdDispatchGraphIndirectAMDX(
+extern "stdcall" fn vkCmdDispatchGraphIndirectAMDX(
     command_buffer: vk::CommandBuffer,
     scratch: vk::DeviceAddress,
     p_count_info: *const vk::DispatchGraphCountInfoAMDX,
@@ -7304,7 +7304,7 @@ extern "C" fn vkCmdDispatchGraphIndirectAMDX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchGraphIndirectCountAMDX.html>"]
-extern "C" fn vkCmdDispatchGraphIndirectCountAMDX(
+extern "stdcall" fn vkCmdDispatchGraphIndirectCountAMDX(
     command_buffer: vk::CommandBuffer,
     scratch: vk::DeviceAddress,
     count_info: vk::DeviceAddress,
@@ -7316,7 +7316,7 @@ extern "C" fn vkCmdDispatchGraphIndirectCountAMDX(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorSets2KHR.html>"]
-extern "C" fn vkCmdBindDescriptorSets2KHR(
+extern "stdcall" fn vkCmdBindDescriptorSets2KHR(
     command_buffer: vk::CommandBuffer,
     p_bind_descriptor_sets_info: *const vk::BindDescriptorSetsInfoKHR,
 ) {
@@ -7327,7 +7327,7 @@ extern "C" fn vkCmdBindDescriptorSets2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushConstants2KHR.html>"]
-extern "C" fn vkCmdPushConstants2KHR(
+extern "stdcall" fn vkCmdPushConstants2KHR(
     command_buffer: vk::CommandBuffer,
     p_push_constants_info: *const vk::PushConstantsInfoKHR,
 ) {
@@ -7338,7 +7338,7 @@ extern "C" fn vkCmdPushConstants2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSet2KHR.html>"]
-extern "C" fn vkCmdPushDescriptorSet2KHR(
+extern "stdcall" fn vkCmdPushDescriptorSet2KHR(
     command_buffer: vk::CommandBuffer,
     p_push_descriptor_set_info: *const vk::PushDescriptorSetInfoKHR,
 ) {
@@ -7349,7 +7349,7 @@ extern "C" fn vkCmdPushDescriptorSet2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetWithTemplate2KHR.html>"]
-extern "C" fn vkCmdPushDescriptorSetWithTemplate2KHR(
+extern "stdcall" fn vkCmdPushDescriptorSetWithTemplate2KHR(
     command_buffer: vk::CommandBuffer,
     p_push_descriptor_set_with_template_info: *const vk::PushDescriptorSetWithTemplateInfoKHR,
 ) {
@@ -7360,7 +7360,7 @@ extern "C" fn vkCmdPushDescriptorSetWithTemplate2KHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDescriptorBufferOffsets2EXT.html>"]
-extern "C" fn vkCmdSetDescriptorBufferOffsets2EXT(
+extern "stdcall" fn vkCmdSetDescriptorBufferOffsets2EXT(
     command_buffer: vk::CommandBuffer,
     p_set_descriptor_buffer_offsets_info: *const vk::SetDescriptorBufferOffsetsInfoEXT,
 ) {
@@ -7371,7 +7371,7 @@ extern "C" fn vkCmdSetDescriptorBufferOffsets2EXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorBufferEmbeddedSamplers2EXT.html>"]
-extern "C" fn vkCmdBindDescriptorBufferEmbeddedSamplers2EXT(
+extern "stdcall" fn vkCmdBindDescriptorBufferEmbeddedSamplers2EXT(
     command_buffer: vk::CommandBuffer,
     p_bind_descriptor_buffer_embedded_samplers_info: *const vk::BindDescriptorBufferEmbeddedSamplersInfoEXT,
 ) {
@@ -7382,7 +7382,7 @@ extern "C" fn vkCmdBindDescriptorBufferEmbeddedSamplers2EXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetLatencySleepModeNV.html>"]
-extern "C" fn vkSetLatencySleepModeNV(
+extern "stdcall" fn vkSetLatencySleepModeNV(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
     p_sleep_mode_info: *const vk::LatencySleepModeInfoNV,
@@ -7394,7 +7394,7 @@ extern "C" fn vkSetLatencySleepModeNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkLatencySleepNV.html>"]
-extern "C" fn vkLatencySleepNV(
+extern "stdcall" fn vkLatencySleepNV(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
     p_sleep_info: *const vk::LatencySleepInfoNV,
@@ -7406,7 +7406,7 @@ extern "C" fn vkLatencySleepNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetLatencyMarkerNV.html>"]
-extern "C" fn vkSetLatencyMarkerNV(
+extern "stdcall" fn vkSetLatencyMarkerNV(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
     p_latency_marker_info: *const vk::SetLatencyMarkerInfoNV,
@@ -7418,7 +7418,7 @@ extern "C" fn vkSetLatencyMarkerNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetLatencyTimingsNV.html>"]
-extern "C" fn vkGetLatencyTimingsNV(
+extern "stdcall" fn vkGetLatencyTimingsNV(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
     p_latency_marker_info: *mut vk::GetLatencyMarkerInfoNV,
@@ -7430,7 +7430,7 @@ extern "C" fn vkGetLatencyTimingsNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueNotifyOutOfBandNV.html>"]
-extern "C" fn vkQueueNotifyOutOfBandNV(
+extern "stdcall" fn vkQueueNotifyOutOfBandNV(
     queue: vk::Queue,
     p_queue_type_info: *const vk::OutOfBandQueueTypeInfoNV,
 ) {
@@ -7441,7 +7441,7 @@ extern "C" fn vkQueueNotifyOutOfBandNV(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRenderingAttachmentLocationsKHR.html>"]
-extern "C" fn vkCmdSetRenderingAttachmentLocationsKHR(
+extern "stdcall" fn vkCmdSetRenderingAttachmentLocationsKHR(
     command_buffer: vk::CommandBuffer,
     p_location_info: *const vk::RenderingAttachmentLocationInfoKHR,
 ) {
@@ -7452,7 +7452,7 @@ extern "C" fn vkCmdSetRenderingAttachmentLocationsKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRenderingInputAttachmentIndicesKHR.html>"]
-extern "C" fn vkCmdSetRenderingInputAttachmentIndicesKHR(
+extern "stdcall" fn vkCmdSetRenderingInputAttachmentIndicesKHR(
     command_buffer: vk::CommandBuffer,
     p_location_info: *const vk::RenderingInputAttachmentIndexInfoKHR,
 ) {

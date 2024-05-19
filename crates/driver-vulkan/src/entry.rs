@@ -3,7 +3,7 @@ use std::ffi::c_char;
 use ash::vk;
 
 #[no_mangle]
-extern "C" fn vk_icdGetInstanceProcAddr(
+extern "stdcall" fn vk_icdGetInstanceProcAddr(
     _instance: vk::Instance,
     _p_name: *const c_char,
 ) -> vk::PFN_vkVoidFunction {
@@ -18,7 +18,7 @@ extern "C" fn vk_icdGetInstanceProcAddr(
 }
 
 #[no_mangle]
-extern "C" fn vk_icdGetPhysicalDeviceProcAddr(
+extern "stdcall" fn vk_icdGetPhysicalDeviceProcAddr(
     _instance: vk::Instance,
     _p_name: *const c_char,
 ) -> vk::PFN_vkVoidFunction {
@@ -33,7 +33,7 @@ extern "C" fn vk_icdGetPhysicalDeviceProcAddr(
 }
 
 #[no_mangle]
-extern "C" fn vk_icdNegotiateLoaderICDInterfaceVersion(
+extern "stdcall" fn vk_icdNegotiateLoaderICDInterfaceVersion(
     _p_supported_version: *mut u32,
 ) -> vk::Result {
     println!("bao3");
