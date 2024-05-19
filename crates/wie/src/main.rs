@@ -1,6 +1,7 @@
 use std::{
     io::{Read, Write},
     num::NonZeroU32,
+    time::Instant,
 };
 
 use wie_transport_vsock::VsockListener;
@@ -21,7 +22,12 @@ fn main() {
         stream, address.cid.0, address.port
     );
 
-    let len = stream
+    let instant = Instant::now();
+    stream.write_all(&buffer).unwrap();
+    stream.read_exact(&mut buffer).unwrap();
+    dbg!(instant.elapsed());
+
+    /*let len = stream
         .read(&mut buffer)
         .expect("Failed to read from stream");
     println!(
@@ -34,5 +40,5 @@ fn main() {
         .expect("Failed to write to stream");
     if written_bytes == 0 {
         panic!("Failed to write to stream");
-    }
+    }*/
 }

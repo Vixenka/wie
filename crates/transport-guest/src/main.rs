@@ -11,7 +11,10 @@ fn main() {
     })
     .expect("Connection failed");
 
-    let written_bytes = stream
+    stream.read_exact(&mut buffer).unwrap();
+    stream.write_all(&buffer).unwrap();
+
+    /*let written_bytes = stream
         .write(b"Hello from guest")
         .expect("Failed to write to stream");
     if written_bytes == 0 {
@@ -24,5 +27,5 @@ fn main() {
     println!(
         "[Guest] Received: {:?}",
         std::str::from_utf8(&buffer[..len]).unwrap()
-    );
+    );*/
 }
