@@ -122,6 +122,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "wie-driver-vulkan"
+version = "0.1.0"
+
+[[package]]
+name = "wie-driver-vulkan-generator"
+version = "0.1.0"
+
+[[package]]
 name = "wie-transport-guest"
 version = "0.1.0"
 dependencies = [
