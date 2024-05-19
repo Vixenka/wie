@@ -134,9 +134,9 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition) {
     builder.push_str(" {\n");
 
     push_indentation(builder, 1);
-    builder.push_str("std::fs::write(\"C:/Users/Vixen/Desktop/wie-logs/");
+    builder.push_str("std::fs::write(\"C:\\\\Users\\\\Vixen\\\\Desktop\\\\wie-logs\\\\");
     builder.push_str(&definition.proto.name);
-    builder.push_str("\", \"whoa\").unwrap();\n");
+    builder.push_str(".txt\", \"whoa\").unwrap();\n    std::thread::sleep(std::time::Duration::from_millis(1000));\n");
 
     push_indentation(builder, 1);
     builder.push_str("unimplemented!();\n");
