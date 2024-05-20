@@ -1,0 +1,9 @@
+[package]
+name = "wie-transport"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+lockfree.workspace = true
+wie-common.workspace = true
+wie-transport-vsock.workspace = true

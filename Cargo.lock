@@ -49,10 +49,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "lockfree"
+version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "74ee94b5ad113c7cb98c5a040f783d0952ee4fe100993881d1673c2cb002dd23"
+dependencies = [
+ "owned-alloc",
+]
+
+[[package]]
 name = "once_cell"
 version = "1.19.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3fdb12b2476b595f9358c5161aa467c2438859caa136dec86c26fdd2efe17b92"
+
+[[package]]
+name = "owned-alloc"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "30fceb411f9a12ff9222c5f824026be368ff15dc2f13468d850c7d3f502205d6"
 
 [[package]]
 name = "pin-project-lite"
@@ -183,6 +198,15 @@ version = "0.1.0"
 dependencies = [
  "itertools",
  "vk-parse",
+]
+
+[[package]]
+name = "wie-transport"
+version = "0.1.0"
+dependencies = [
+ "lockfree",
+ "wie-common",
+ "wie-transport-vsock",
 ]
 
 [[package]]

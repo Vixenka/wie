@@ -15,6 +15,7 @@ use errors::{VsockConnectionError, VsockCreationError, VsockListenerBindError};
 
 #[cfg(not(target_os = "windows"))]
 use unix as imp;
+use wie_common::stream::{UnsafeRead, UnsafeWrite};
 #[cfg(target_os = "windows")]
 use windows as imp;
 
@@ -74,7 +75,14 @@ impl VsockStream {
 
 impl Read for VsockStream {
     fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
-        let read = imp::recv(&mut self.socket, buf);
+        // SAFETY: Synchronized via &mut
+        unsafe { self.read_unsafe(buf) }
+    }
+}
+
+impl UnsafeRead for VsockStream {
+    unsafe fn read_unsafe(&self, buf: &mut [u8]) -> std::io::Result<usize> {
+        let read = imp::recv(&self.socket, buf);
         match read >= 0 {
             true => Ok(read as usize),
             false => Err(std::io::Error::last_os_error()),
@@ -84,15 +92,22 @@ impl Read for VsockStream {
 
 impl Write for VsockStream {
     fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
-        let read = imp::send(&mut self.socket, buf);
-        match read >= 0 {
-            true => Ok(read as usize),
-            false => Err(std::io::Error::last_os_error()),
-        }
+        // SAFETY: Synchronized via &mut
+        unsafe { self.write_unsafe(buf) }
     }
 
     fn flush(&mut self) -> std::io::Result<()> {
         Ok(())
+    }
+}
+
+impl UnsafeWrite for VsockStream {
+    unsafe fn write_unsafe(&self, buf: &[u8]) -> std::io::Result<usize> {
+        let read = imp::send(&self.socket, buf);
+        match read >= 0 {
+            true => Ok(read as usize),
+            false => Err(std::io::Error::last_os_error()),
+        }
     }
 }
 

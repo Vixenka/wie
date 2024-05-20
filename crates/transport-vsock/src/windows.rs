@@ -99,11 +99,11 @@ pub(crate) fn connect(
     }
 }
 
-pub(crate) fn recv(socket: &mut Vsock, buffer: &mut [u8]) -> isize {
+pub(crate) fn recv(socket: &Vsock, buffer: &mut [u8]) -> isize {
     (unsafe { WinSock::recv(socket.inner, buffer, SEND_RECV_FLAGS(0)) }) as isize
 }
 
-pub(crate) fn send(socket: &mut Vsock, buffer: &[u8]) -> isize {
+pub(crate) fn send(socket: &Vsock, buffer: &[u8]) -> isize {
     (unsafe { WinSock::send(socket.inner, buffer, SEND_RECV_FLAGS(0)) }) as isize
 }
 

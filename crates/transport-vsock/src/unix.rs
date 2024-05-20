@@ -94,7 +94,7 @@ pub(crate) fn connect(
     unimplemented!()
 }
 
-pub(crate) fn recv(socket: &mut Vsock, buffer: &mut [u8]) -> isize {
+pub(crate) fn recv(socket: &Vsock, buffer: &mut [u8]) -> isize {
     unsafe {
         libc::recv(
             socket.inner,
@@ -105,7 +105,7 @@ pub(crate) fn recv(socket: &mut Vsock, buffer: &mut [u8]) -> isize {
     }
 }
 
-pub(crate) fn send(socket: &mut Vsock, buffer: &[u8]) -> isize {
+pub(crate) fn send(socket: &Vsock, buffer: &[u8]) -> isize {
     unsafe {
         libc::send(
             socket.inner,
