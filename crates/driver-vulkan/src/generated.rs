@@ -1,2 +1,2 @@
 #[allow(unused_variables)]
-mod definitions;
+pub(crate) mod definitions;

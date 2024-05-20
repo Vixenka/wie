@@ -2,6 +2,1084 @@
 
 use ash::vk;
 
+pub(crate) fn get_function_address(name: &str) -> *const std::ffi::c_void {
+    match name {
+        "vkCreateInstance" => vkCreateInstance as *const std::ffi::c_void,
+        "vkDestroyInstance" => vkDestroyInstance as *const std::ffi::c_void,
+        "vkEnumeratePhysicalDevices" => vkEnumeratePhysicalDevices as *const std::ffi::c_void,
+        "vkGetDeviceProcAddr" => vkGetDeviceProcAddr as *const std::ffi::c_void,
+        "vkGetInstanceProcAddr" => vkGetInstanceProcAddr as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceProperties" => vkGetPhysicalDeviceProperties as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceQueueFamilyProperties" => {
+            vkGetPhysicalDeviceQueueFamilyProperties as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceMemoryProperties" => {
+            vkGetPhysicalDeviceMemoryProperties as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceFeatures" => vkGetPhysicalDeviceFeatures as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceFormatProperties" => {
+            vkGetPhysicalDeviceFormatProperties as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceImageFormatProperties" => {
+            vkGetPhysicalDeviceImageFormatProperties as *const std::ffi::c_void
+        }
+        "vkCreateDevice" => vkCreateDevice as *const std::ffi::c_void,
+        "vkDestroyDevice" => vkDestroyDevice as *const std::ffi::c_void,
+        "vkEnumerateInstanceVersion" => vkEnumerateInstanceVersion as *const std::ffi::c_void,
+        "vkEnumerateInstanceLayerProperties" => {
+            vkEnumerateInstanceLayerProperties as *const std::ffi::c_void
+        }
+        "vkEnumerateInstanceExtensionProperties" => {
+            vkEnumerateInstanceExtensionProperties as *const std::ffi::c_void
+        }
+        "vkEnumerateDeviceLayerProperties" => {
+            vkEnumerateDeviceLayerProperties as *const std::ffi::c_void
+        }
+        "vkEnumerateDeviceExtensionProperties" => {
+            vkEnumerateDeviceExtensionProperties as *const std::ffi::c_void
+        }
+        "vkGetDeviceQueue" => vkGetDeviceQueue as *const std::ffi::c_void,
+        "vkQueueSubmit" => vkQueueSubmit as *const std::ffi::c_void,
+        "vkQueueWaitIdle" => vkQueueWaitIdle as *const std::ffi::c_void,
+        "vkDeviceWaitIdle" => vkDeviceWaitIdle as *const std::ffi::c_void,
+        "vkAllocateMemory" => vkAllocateMemory as *const std::ffi::c_void,
+        "vkFreeMemory" => vkFreeMemory as *const std::ffi::c_void,
+        "vkMapMemory" => vkMapMemory as *const std::ffi::c_void,
+        "vkUnmapMemory" => vkUnmapMemory as *const std::ffi::c_void,
+        "vkFlushMappedMemoryRanges" => vkFlushMappedMemoryRanges as *const std::ffi::c_void,
+        "vkInvalidateMappedMemoryRanges" => {
+            vkInvalidateMappedMemoryRanges as *const std::ffi::c_void
+        }
+        "vkGetDeviceMemoryCommitment" => vkGetDeviceMemoryCommitment as *const std::ffi::c_void,
+        "vkGetBufferMemoryRequirements" => vkGetBufferMemoryRequirements as *const std::ffi::c_void,
+        "vkBindBufferMemory" => vkBindBufferMemory as *const std::ffi::c_void,
+        "vkGetImageMemoryRequirements" => vkGetImageMemoryRequirements as *const std::ffi::c_void,
+        "vkBindImageMemory" => vkBindImageMemory as *const std::ffi::c_void,
+        "vkGetImageSparseMemoryRequirements" => {
+            vkGetImageSparseMemoryRequirements as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceSparseImageFormatProperties" => {
+            vkGetPhysicalDeviceSparseImageFormatProperties as *const std::ffi::c_void
+        }
+        "vkQueueBindSparse" => vkQueueBindSparse as *const std::ffi::c_void,
+        "vkCreateFence" => vkCreateFence as *const std::ffi::c_void,
+        "vkDestroyFence" => vkDestroyFence as *const std::ffi::c_void,
+        "vkResetFences" => vkResetFences as *const std::ffi::c_void,
+        "vkGetFenceStatus" => vkGetFenceStatus as *const std::ffi::c_void,
+        "vkWaitForFences" => vkWaitForFences as *const std::ffi::c_void,
+        "vkCreateSemaphore" => vkCreateSemaphore as *const std::ffi::c_void,
+        "vkDestroySemaphore" => vkDestroySemaphore as *const std::ffi::c_void,
+        "vkCreateEvent" => vkCreateEvent as *const std::ffi::c_void,
+        "vkDestroyEvent" => vkDestroyEvent as *const std::ffi::c_void,
+        "vkGetEventStatus" => vkGetEventStatus as *const std::ffi::c_void,
+        "vkSetEvent" => vkSetEvent as *const std::ffi::c_void,
+        "vkResetEvent" => vkResetEvent as *const std::ffi::c_void,
+        "vkCreateQueryPool" => vkCreateQueryPool as *const std::ffi::c_void,
+        "vkDestroyQueryPool" => vkDestroyQueryPool as *const std::ffi::c_void,
+        "vkGetQueryPoolResults" => vkGetQueryPoolResults as *const std::ffi::c_void,
+        "vkResetQueryPool" => vkResetQueryPool as *const std::ffi::c_void,
+        "vkCreateBuffer" => vkCreateBuffer as *const std::ffi::c_void,
+        "vkDestroyBuffer" => vkDestroyBuffer as *const std::ffi::c_void,
+        "vkCreateBufferView" => vkCreateBufferView as *const std::ffi::c_void,
+        "vkDestroyBufferView" => vkDestroyBufferView as *const std::ffi::c_void,
+        "vkCreateImage" => vkCreateImage as *const std::ffi::c_void,
+        "vkDestroyImage" => vkDestroyImage as *const std::ffi::c_void,
+        "vkGetImageSubresourceLayout" => vkGetImageSubresourceLayout as *const std::ffi::c_void,
+        "vkCreateImageView" => vkCreateImageView as *const std::ffi::c_void,
+        "vkDestroyImageView" => vkDestroyImageView as *const std::ffi::c_void,
+        "vkCreateShaderModule" => vkCreateShaderModule as *const std::ffi::c_void,
+        "vkDestroyShaderModule" => vkDestroyShaderModule as *const std::ffi::c_void,
+        "vkCreatePipelineCache" => vkCreatePipelineCache as *const std::ffi::c_void,
+        "vkDestroyPipelineCache" => vkDestroyPipelineCache as *const std::ffi::c_void,
+        "vkGetPipelineCacheData" => vkGetPipelineCacheData as *const std::ffi::c_void,
+        "vkMergePipelineCaches" => vkMergePipelineCaches as *const std::ffi::c_void,
+        "vkCreateGraphicsPipelines" => vkCreateGraphicsPipelines as *const std::ffi::c_void,
+        "vkCreateComputePipelines" => vkCreateComputePipelines as *const std::ffi::c_void,
+        "vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI" => {
+            vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI as *const std::ffi::c_void
+        }
+        "vkDestroyPipeline" => vkDestroyPipeline as *const std::ffi::c_void,
+        "vkCreatePipelineLayout" => vkCreatePipelineLayout as *const std::ffi::c_void,
+        "vkDestroyPipelineLayout" => vkDestroyPipelineLayout as *const std::ffi::c_void,
+        "vkCreateSampler" => vkCreateSampler as *const std::ffi::c_void,
+        "vkDestroySampler" => vkDestroySampler as *const std::ffi::c_void,
+        "vkCreateDescriptorSetLayout" => vkCreateDescriptorSetLayout as *const std::ffi::c_void,
+        "vkDestroyDescriptorSetLayout" => vkDestroyDescriptorSetLayout as *const std::ffi::c_void,
+        "vkCreateDescriptorPool" => vkCreateDescriptorPool as *const std::ffi::c_void,
+        "vkDestroyDescriptorPool" => vkDestroyDescriptorPool as *const std::ffi::c_void,
+        "vkResetDescriptorPool" => vkResetDescriptorPool as *const std::ffi::c_void,
+        "vkAllocateDescriptorSets" => vkAllocateDescriptorSets as *const std::ffi::c_void,
+        "vkFreeDescriptorSets" => vkFreeDescriptorSets as *const std::ffi::c_void,
+        "vkUpdateDescriptorSets" => vkUpdateDescriptorSets as *const std::ffi::c_void,
+        "vkCreateFramebuffer" => vkCreateFramebuffer as *const std::ffi::c_void,
+        "vkDestroyFramebuffer" => vkDestroyFramebuffer as *const std::ffi::c_void,
+        "vkCreateRenderPass" => vkCreateRenderPass as *const std::ffi::c_void,
+        "vkDestroyRenderPass" => vkDestroyRenderPass as *const std::ffi::c_void,
+        "vkGetRenderAreaGranularity" => vkGetRenderAreaGranularity as *const std::ffi::c_void,
+        "vkGetRenderingAreaGranularityKHR" => {
+            vkGetRenderingAreaGranularityKHR as *const std::ffi::c_void
+        }
+        "vkCreateCommandPool" => vkCreateCommandPool as *const std::ffi::c_void,
+        "vkDestroyCommandPool" => vkDestroyCommandPool as *const std::ffi::c_void,
+        "vkResetCommandPool" => vkResetCommandPool as *const std::ffi::c_void,
+        "vkAllocateCommandBuffers" => vkAllocateCommandBuffers as *const std::ffi::c_void,
+        "vkFreeCommandBuffers" => vkFreeCommandBuffers as *const std::ffi::c_void,
+        "vkBeginCommandBuffer" => vkBeginCommandBuffer as *const std::ffi::c_void,
+        "vkEndCommandBuffer" => vkEndCommandBuffer as *const std::ffi::c_void,
+        "vkResetCommandBuffer" => vkResetCommandBuffer as *const std::ffi::c_void,
+        "vkCmdBindPipeline" => vkCmdBindPipeline as *const std::ffi::c_void,
+        "vkCmdSetAttachmentFeedbackLoopEnableEXT" => {
+            vkCmdSetAttachmentFeedbackLoopEnableEXT as *const std::ffi::c_void
+        }
+        "vkCmdSetViewport" => vkCmdSetViewport as *const std::ffi::c_void,
+        "vkCmdSetScissor" => vkCmdSetScissor as *const std::ffi::c_void,
+        "vkCmdSetLineWidth" => vkCmdSetLineWidth as *const std::ffi::c_void,
+        "vkCmdSetDepthBias" => vkCmdSetDepthBias as *const std::ffi::c_void,
+        "vkCmdSetBlendConstants" => vkCmdSetBlendConstants as *const std::ffi::c_void,
+        "vkCmdSetDepthBounds" => vkCmdSetDepthBounds as *const std::ffi::c_void,
+        "vkCmdSetStencilCompareMask" => vkCmdSetStencilCompareMask as *const std::ffi::c_void,
+        "vkCmdSetStencilWriteMask" => vkCmdSetStencilWriteMask as *const std::ffi::c_void,
+        "vkCmdSetStencilReference" => vkCmdSetStencilReference as *const std::ffi::c_void,
+        "vkCmdBindDescriptorSets" => vkCmdBindDescriptorSets as *const std::ffi::c_void,
+        "vkCmdBindIndexBuffer" => vkCmdBindIndexBuffer as *const std::ffi::c_void,
+        "vkCmdBindVertexBuffers" => vkCmdBindVertexBuffers as *const std::ffi::c_void,
+        "vkCmdDraw" => vkCmdDraw as *const std::ffi::c_void,
+        "vkCmdDrawIndexed" => vkCmdDrawIndexed as *const std::ffi::c_void,
+        "vkCmdDrawMultiEXT" => vkCmdDrawMultiEXT as *const std::ffi::c_void,
+        "vkCmdDrawMultiIndexedEXT" => vkCmdDrawMultiIndexedEXT as *const std::ffi::c_void,
+        "vkCmdDrawIndirect" => vkCmdDrawIndirect as *const std::ffi::c_void,
+        "vkCmdDrawIndexedIndirect" => vkCmdDrawIndexedIndirect as *const std::ffi::c_void,
+        "vkCmdDispatch" => vkCmdDispatch as *const std::ffi::c_void,
+        "vkCmdDispatchIndirect" => vkCmdDispatchIndirect as *const std::ffi::c_void,
+        "vkCmdSubpassShadingHUAWEI" => vkCmdSubpassShadingHUAWEI as *const std::ffi::c_void,
+        "vkCmdDrawClusterHUAWEI" => vkCmdDrawClusterHUAWEI as *const std::ffi::c_void,
+        "vkCmdDrawClusterIndirectHUAWEI" => {
+            vkCmdDrawClusterIndirectHUAWEI as *const std::ffi::c_void
+        }
+        "vkCmdUpdatePipelineIndirectBufferNV" => {
+            vkCmdUpdatePipelineIndirectBufferNV as *const std::ffi::c_void
+        }
+        "vkCmdCopyBuffer" => vkCmdCopyBuffer as *const std::ffi::c_void,
+        "vkCmdCopyImage" => vkCmdCopyImage as *const std::ffi::c_void,
+        "vkCmdBlitImage" => vkCmdBlitImage as *const std::ffi::c_void,
+        "vkCmdCopyBufferToImage" => vkCmdCopyBufferToImage as *const std::ffi::c_void,
+        "vkCmdCopyImageToBuffer" => vkCmdCopyImageToBuffer as *const std::ffi::c_void,
+        "vkCmdCopyMemoryIndirectNV" => vkCmdCopyMemoryIndirectNV as *const std::ffi::c_void,
+        "vkCmdCopyMemoryToImageIndirectNV" => {
+            vkCmdCopyMemoryToImageIndirectNV as *const std::ffi::c_void
+        }
+        "vkCmdUpdateBuffer" => vkCmdUpdateBuffer as *const std::ffi::c_void,
+        "vkCmdFillBuffer" => vkCmdFillBuffer as *const std::ffi::c_void,
+        "vkCmdClearColorImage" => vkCmdClearColorImage as *const std::ffi::c_void,
+        "vkCmdClearDepthStencilImage" => vkCmdClearDepthStencilImage as *const std::ffi::c_void,
+        "vkCmdClearAttachments" => vkCmdClearAttachments as *const std::ffi::c_void,
+        "vkCmdResolveImage" => vkCmdResolveImage as *const std::ffi::c_void,
+        "vkCmdSetEvent" => vkCmdSetEvent as *const std::ffi::c_void,
+        "vkCmdResetEvent" => vkCmdResetEvent as *const std::ffi::c_void,
+        "vkCmdWaitEvents" => vkCmdWaitEvents as *const std::ffi::c_void,
+        "vkCmdPipelineBarrier" => vkCmdPipelineBarrier as *const std::ffi::c_void,
+        "vkCmdBeginQuery" => vkCmdBeginQuery as *const std::ffi::c_void,
+        "vkCmdEndQuery" => vkCmdEndQuery as *const std::ffi::c_void,
+        "vkCmdBeginConditionalRenderingEXT" => {
+            vkCmdBeginConditionalRenderingEXT as *const std::ffi::c_void
+        }
+        "vkCmdEndConditionalRenderingEXT" => {
+            vkCmdEndConditionalRenderingEXT as *const std::ffi::c_void
+        }
+        "vkCmdResetQueryPool" => vkCmdResetQueryPool as *const std::ffi::c_void,
+        "vkCmdWriteTimestamp" => vkCmdWriteTimestamp as *const std::ffi::c_void,
+        "vkCmdCopyQueryPoolResults" => vkCmdCopyQueryPoolResults as *const std::ffi::c_void,
+        "vkCmdPushConstants" => vkCmdPushConstants as *const std::ffi::c_void,
+        "vkCmdBeginRenderPass" => vkCmdBeginRenderPass as *const std::ffi::c_void,
+        "vkCmdNextSubpass" => vkCmdNextSubpass as *const std::ffi::c_void,
+        "vkCmdEndRenderPass" => vkCmdEndRenderPass as *const std::ffi::c_void,
+        "vkCmdExecuteCommands" => vkCmdExecuteCommands as *const std::ffi::c_void,
+        "vkCreateAndroidSurfaceKHR" => vkCreateAndroidSurfaceKHR as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceDisplayPropertiesKHR" => {
+            vkGetPhysicalDeviceDisplayPropertiesKHR as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceDisplayPlanePropertiesKHR" => {
+            vkGetPhysicalDeviceDisplayPlanePropertiesKHR as *const std::ffi::c_void
+        }
+        "vkGetDisplayPlaneSupportedDisplaysKHR" => {
+            vkGetDisplayPlaneSupportedDisplaysKHR as *const std::ffi::c_void
+        }
+        "vkGetDisplayModePropertiesKHR" => vkGetDisplayModePropertiesKHR as *const std::ffi::c_void,
+        "vkCreateDisplayModeKHR" => vkCreateDisplayModeKHR as *const std::ffi::c_void,
+        "vkGetDisplayPlaneCapabilitiesKHR" => {
+            vkGetDisplayPlaneCapabilitiesKHR as *const std::ffi::c_void
+        }
+        "vkCreateDisplayPlaneSurfaceKHR" => {
+            vkCreateDisplayPlaneSurfaceKHR as *const std::ffi::c_void
+        }
+        "vkCreateSharedSwapchainsKHR" => vkCreateSharedSwapchainsKHR as *const std::ffi::c_void,
+        "vkDestroySurfaceKHR" => vkDestroySurfaceKHR as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceSurfaceSupportKHR" => {
+            vkGetPhysicalDeviceSurfaceSupportKHR as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceSurfaceCapabilitiesKHR" => {
+            vkGetPhysicalDeviceSurfaceCapabilitiesKHR as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceSurfaceFormatsKHR" => {
+            vkGetPhysicalDeviceSurfaceFormatsKHR as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceSurfacePresentModesKHR" => {
+            vkGetPhysicalDeviceSurfacePresentModesKHR as *const std::ffi::c_void
+        }
+        "vkCreateSwapchainKHR" => vkCreateSwapchainKHR as *const std::ffi::c_void,
+        "vkDestroySwapchainKHR" => vkDestroySwapchainKHR as *const std::ffi::c_void,
+        "vkGetSwapchainImagesKHR" => vkGetSwapchainImagesKHR as *const std::ffi::c_void,
+        "vkAcquireNextImageKHR" => vkAcquireNextImageKHR as *const std::ffi::c_void,
+        "vkQueuePresentKHR" => vkQueuePresentKHR as *const std::ffi::c_void,
+        "vkCreateViSurfaceNN" => vkCreateViSurfaceNN as *const std::ffi::c_void,
+        "vkCreateWaylandSurfaceKHR" => vkCreateWaylandSurfaceKHR as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceWaylandPresentationSupportKHR" => {
+            vkGetPhysicalDeviceWaylandPresentationSupportKHR as *const std::ffi::c_void
+        }
+        "vkCreateWin32SurfaceKHR" => vkCreateWin32SurfaceKHR as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceWin32PresentationSupportKHR" => {
+            vkGetPhysicalDeviceWin32PresentationSupportKHR as *const std::ffi::c_void
+        }
+        "vkCreateXlibSurfaceKHR" => vkCreateXlibSurfaceKHR as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceXlibPresentationSupportKHR" => {
+            vkGetPhysicalDeviceXlibPresentationSupportKHR as *const std::ffi::c_void
+        }
+        "vkCreateXcbSurfaceKHR" => vkCreateXcbSurfaceKHR as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceXcbPresentationSupportKHR" => {
+            vkGetPhysicalDeviceXcbPresentationSupportKHR as *const std::ffi::c_void
+        }
+        "vkCreateDirectFBSurfaceEXT" => vkCreateDirectFBSurfaceEXT as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceDirectFBPresentationSupportEXT" => {
+            vkGetPhysicalDeviceDirectFBPresentationSupportEXT as *const std::ffi::c_void
+        }
+        "vkCreateImagePipeSurfaceFUCHSIA" => {
+            vkCreateImagePipeSurfaceFUCHSIA as *const std::ffi::c_void
+        }
+        "vkCreateStreamDescriptorSurfaceGGP" => {
+            vkCreateStreamDescriptorSurfaceGGP as *const std::ffi::c_void
+        }
+        "vkCreateScreenSurfaceQNX" => vkCreateScreenSurfaceQNX as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceScreenPresentationSupportQNX" => {
+            vkGetPhysicalDeviceScreenPresentationSupportQNX as *const std::ffi::c_void
+        }
+        "vkCreateDebugReportCallbackEXT" => {
+            vkCreateDebugReportCallbackEXT as *const std::ffi::c_void
+        }
+        "vkDestroyDebugReportCallbackEXT" => {
+            vkDestroyDebugReportCallbackEXT as *const std::ffi::c_void
+        }
+        "vkDebugReportMessageEXT" => vkDebugReportMessageEXT as *const std::ffi::c_void,
+        "vkDebugMarkerSetObjectNameEXT" => vkDebugMarkerSetObjectNameEXT as *const std::ffi::c_void,
+        "vkDebugMarkerSetObjectTagEXT" => vkDebugMarkerSetObjectTagEXT as *const std::ffi::c_void,
+        "vkCmdDebugMarkerBeginEXT" => vkCmdDebugMarkerBeginEXT as *const std::ffi::c_void,
+        "vkCmdDebugMarkerEndEXT" => vkCmdDebugMarkerEndEXT as *const std::ffi::c_void,
+        "vkCmdDebugMarkerInsertEXT" => vkCmdDebugMarkerInsertEXT as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceExternalImageFormatPropertiesNV" => {
+            vkGetPhysicalDeviceExternalImageFormatPropertiesNV as *const std::ffi::c_void
+        }
+        "vkGetMemoryWin32HandleNV" => vkGetMemoryWin32HandleNV as *const std::ffi::c_void,
+        "vkCmdExecuteGeneratedCommandsNV" => {
+            vkCmdExecuteGeneratedCommandsNV as *const std::ffi::c_void
+        }
+        "vkCmdPreprocessGeneratedCommandsNV" => {
+            vkCmdPreprocessGeneratedCommandsNV as *const std::ffi::c_void
+        }
+        "vkCmdBindPipelineShaderGroupNV" => {
+            vkCmdBindPipelineShaderGroupNV as *const std::ffi::c_void
+        }
+        "vkGetGeneratedCommandsMemoryRequirementsNV" => {
+            vkGetGeneratedCommandsMemoryRequirementsNV as *const std::ffi::c_void
+        }
+        "vkCreateIndirectCommandsLayoutNV" => {
+            vkCreateIndirectCommandsLayoutNV as *const std::ffi::c_void
+        }
+        "vkDestroyIndirectCommandsLayoutNV" => {
+            vkDestroyIndirectCommandsLayoutNV as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceFeatures2" => vkGetPhysicalDeviceFeatures2 as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceProperties2" => {
+            vkGetPhysicalDeviceProperties2 as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceFormatProperties2" => {
+            vkGetPhysicalDeviceFormatProperties2 as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceImageFormatProperties2" => {
+            vkGetPhysicalDeviceImageFormatProperties2 as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceQueueFamilyProperties2" => {
+            vkGetPhysicalDeviceQueueFamilyProperties2 as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceMemoryProperties2" => {
+            vkGetPhysicalDeviceMemoryProperties2 as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceSparseImageFormatProperties2" => {
+            vkGetPhysicalDeviceSparseImageFormatProperties2 as *const std::ffi::c_void
+        }
+        "vkCmdPushDescriptorSetKHR" => vkCmdPushDescriptorSetKHR as *const std::ffi::c_void,
+        "vkTrimCommandPool" => vkTrimCommandPool as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceExternalBufferProperties" => {
+            vkGetPhysicalDeviceExternalBufferProperties as *const std::ffi::c_void
+        }
+        "vkGetMemoryWin32HandleKHR" => vkGetMemoryWin32HandleKHR as *const std::ffi::c_void,
+        "vkGetMemoryWin32HandlePropertiesKHR" => {
+            vkGetMemoryWin32HandlePropertiesKHR as *const std::ffi::c_void
+        }
+        "vkGetMemoryFdKHR" => vkGetMemoryFdKHR as *const std::ffi::c_void,
+        "vkGetMemoryFdPropertiesKHR" => vkGetMemoryFdPropertiesKHR as *const std::ffi::c_void,
+        "vkGetMemoryZirconHandleFUCHSIA" => {
+            vkGetMemoryZirconHandleFUCHSIA as *const std::ffi::c_void
+        }
+        "vkGetMemoryZirconHandlePropertiesFUCHSIA" => {
+            vkGetMemoryZirconHandlePropertiesFUCHSIA as *const std::ffi::c_void
+        }
+        "vkGetMemoryRemoteAddressNV" => vkGetMemoryRemoteAddressNV as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceExternalSemaphoreProperties" => {
+            vkGetPhysicalDeviceExternalSemaphoreProperties as *const std::ffi::c_void
+        }
+        "vkGetSemaphoreWin32HandleKHR" => vkGetSemaphoreWin32HandleKHR as *const std::ffi::c_void,
+        "vkImportSemaphoreWin32HandleKHR" => {
+            vkImportSemaphoreWin32HandleKHR as *const std::ffi::c_void
+        }
+        "vkGetSemaphoreFdKHR" => vkGetSemaphoreFdKHR as *const std::ffi::c_void,
+        "vkImportSemaphoreFdKHR" => vkImportSemaphoreFdKHR as *const std::ffi::c_void,
+        "vkGetSemaphoreZirconHandleFUCHSIA" => {
+            vkGetSemaphoreZirconHandleFUCHSIA as *const std::ffi::c_void
+        }
+        "vkImportSemaphoreZirconHandleFUCHSIA" => {
+            vkImportSemaphoreZirconHandleFUCHSIA as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceExternalFenceProperties" => {
+            vkGetPhysicalDeviceExternalFenceProperties as *const std::ffi::c_void
+        }
+        "vkGetFenceWin32HandleKHR" => vkGetFenceWin32HandleKHR as *const std::ffi::c_void,
+        "vkImportFenceWin32HandleKHR" => vkImportFenceWin32HandleKHR as *const std::ffi::c_void,
+        "vkGetFenceFdKHR" => vkGetFenceFdKHR as *const std::ffi::c_void,
+        "vkImportFenceFdKHR" => vkImportFenceFdKHR as *const std::ffi::c_void,
+        "vkReleaseDisplayEXT" => vkReleaseDisplayEXT as *const std::ffi::c_void,
+        "vkAcquireXlibDisplayEXT" => vkAcquireXlibDisplayEXT as *const std::ffi::c_void,
+        "vkGetRandROutputDisplayEXT" => vkGetRandROutputDisplayEXT as *const std::ffi::c_void,
+        "vkAcquireWinrtDisplayNV" => vkAcquireWinrtDisplayNV as *const std::ffi::c_void,
+        "vkGetWinrtDisplayNV" => vkGetWinrtDisplayNV as *const std::ffi::c_void,
+        "vkDisplayPowerControlEXT" => vkDisplayPowerControlEXT as *const std::ffi::c_void,
+        "vkRegisterDeviceEventEXT" => vkRegisterDeviceEventEXT as *const std::ffi::c_void,
+        "vkRegisterDisplayEventEXT" => vkRegisterDisplayEventEXT as *const std::ffi::c_void,
+        "vkGetSwapchainCounterEXT" => vkGetSwapchainCounterEXT as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceSurfaceCapabilities2EXT" => {
+            vkGetPhysicalDeviceSurfaceCapabilities2EXT as *const std::ffi::c_void
+        }
+        "vkEnumeratePhysicalDeviceGroups" => {
+            vkEnumeratePhysicalDeviceGroups as *const std::ffi::c_void
+        }
+        "vkGetDeviceGroupPeerMemoryFeatures" => {
+            vkGetDeviceGroupPeerMemoryFeatures as *const std::ffi::c_void
+        }
+        "vkBindBufferMemory2" => vkBindBufferMemory2 as *const std::ffi::c_void,
+        "vkBindImageMemory2" => vkBindImageMemory2 as *const std::ffi::c_void,
+        "vkCmdSetDeviceMask" => vkCmdSetDeviceMask as *const std::ffi::c_void,
+        "vkGetDeviceGroupPresentCapabilitiesKHR" => {
+            vkGetDeviceGroupPresentCapabilitiesKHR as *const std::ffi::c_void
+        }
+        "vkGetDeviceGroupSurfacePresentModesKHR" => {
+            vkGetDeviceGroupSurfacePresentModesKHR as *const std::ffi::c_void
+        }
+        "vkAcquireNextImage2KHR" => vkAcquireNextImage2KHR as *const std::ffi::c_void,
+        "vkCmdDispatchBase" => vkCmdDispatchBase as *const std::ffi::c_void,
+        "vkGetPhysicalDevicePresentRectanglesKHR" => {
+            vkGetPhysicalDevicePresentRectanglesKHR as *const std::ffi::c_void
+        }
+        "vkCreateDescriptorUpdateTemplate" => {
+            vkCreateDescriptorUpdateTemplate as *const std::ffi::c_void
+        }
+        "vkDestroyDescriptorUpdateTemplate" => {
+            vkDestroyDescriptorUpdateTemplate as *const std::ffi::c_void
+        }
+        "vkUpdateDescriptorSetWithTemplate" => {
+            vkUpdateDescriptorSetWithTemplate as *const std::ffi::c_void
+        }
+        "vkCmdPushDescriptorSetWithTemplateKHR" => {
+            vkCmdPushDescriptorSetWithTemplateKHR as *const std::ffi::c_void
+        }
+        "vkSetHdrMetadataEXT" => vkSetHdrMetadataEXT as *const std::ffi::c_void,
+        "vkGetSwapchainStatusKHR" => vkGetSwapchainStatusKHR as *const std::ffi::c_void,
+        "vkGetRefreshCycleDurationGOOGLE" => {
+            vkGetRefreshCycleDurationGOOGLE as *const std::ffi::c_void
+        }
+        "vkGetPastPresentationTimingGOOGLE" => {
+            vkGetPastPresentationTimingGOOGLE as *const std::ffi::c_void
+        }
+        "vkCreateIOSSurfaceMVK" => vkCreateIOSSurfaceMVK as *const std::ffi::c_void,
+        "vkCreateMacOSSurfaceMVK" => vkCreateMacOSSurfaceMVK as *const std::ffi::c_void,
+        "vkCreateMetalSurfaceEXT" => vkCreateMetalSurfaceEXT as *const std::ffi::c_void,
+        "vkCmdSetViewportWScalingNV" => vkCmdSetViewportWScalingNV as *const std::ffi::c_void,
+        "vkCmdSetDiscardRectangleEXT" => vkCmdSetDiscardRectangleEXT as *const std::ffi::c_void,
+        "vkCmdSetDiscardRectangleEnableEXT" => {
+            vkCmdSetDiscardRectangleEnableEXT as *const std::ffi::c_void
+        }
+        "vkCmdSetDiscardRectangleModeEXT" => {
+            vkCmdSetDiscardRectangleModeEXT as *const std::ffi::c_void
+        }
+        "vkCmdSetSampleLocationsEXT" => vkCmdSetSampleLocationsEXT as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceMultisamplePropertiesEXT" => {
+            vkGetPhysicalDeviceMultisamplePropertiesEXT as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceSurfaceCapabilities2KHR" => {
+            vkGetPhysicalDeviceSurfaceCapabilities2KHR as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceSurfaceFormats2KHR" => {
+            vkGetPhysicalDeviceSurfaceFormats2KHR as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceDisplayProperties2KHR" => {
+            vkGetPhysicalDeviceDisplayProperties2KHR as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceDisplayPlaneProperties2KHR" => {
+            vkGetPhysicalDeviceDisplayPlaneProperties2KHR as *const std::ffi::c_void
+        }
+        "vkGetDisplayModeProperties2KHR" => {
+            vkGetDisplayModeProperties2KHR as *const std::ffi::c_void
+        }
+        "vkGetDisplayPlaneCapabilities2KHR" => {
+            vkGetDisplayPlaneCapabilities2KHR as *const std::ffi::c_void
+        }
+        "vkGetBufferMemoryRequirements2" => {
+            vkGetBufferMemoryRequirements2 as *const std::ffi::c_void
+        }
+        "vkGetImageMemoryRequirements2" => vkGetImageMemoryRequirements2 as *const std::ffi::c_void,
+        "vkGetImageSparseMemoryRequirements2" => {
+            vkGetImageSparseMemoryRequirements2 as *const std::ffi::c_void
+        }
+        "vkGetDeviceBufferMemoryRequirements" => {
+            vkGetDeviceBufferMemoryRequirements as *const std::ffi::c_void
+        }
+        "vkGetDeviceImageMemoryRequirements" => {
+            vkGetDeviceImageMemoryRequirements as *const std::ffi::c_void
+        }
+        "vkGetDeviceImageSparseMemoryRequirements" => {
+            vkGetDeviceImageSparseMemoryRequirements as *const std::ffi::c_void
+        }
+        "vkCreateSamplerYcbcrConversion" => {
+            vkCreateSamplerYcbcrConversion as *const std::ffi::c_void
+        }
+        "vkDestroySamplerYcbcrConversion" => {
+            vkDestroySamplerYcbcrConversion as *const std::ffi::c_void
+        }
+        "vkGetDeviceQueue2" => vkGetDeviceQueue2 as *const std::ffi::c_void,
+        "vkCreateValidationCacheEXT" => vkCreateValidationCacheEXT as *const std::ffi::c_void,
+        "vkDestroyValidationCacheEXT" => vkDestroyValidationCacheEXT as *const std::ffi::c_void,
+        "vkGetValidationCacheDataEXT" => vkGetValidationCacheDataEXT as *const std::ffi::c_void,
+        "vkMergeValidationCachesEXT" => vkMergeValidationCachesEXT as *const std::ffi::c_void,
+        "vkGetDescriptorSetLayoutSupport" => {
+            vkGetDescriptorSetLayoutSupport as *const std::ffi::c_void
+        }
+        "vkGetSwapchainGrallocUsageANDROID" => {
+            vkGetSwapchainGrallocUsageANDROID as *const std::ffi::c_void
+        }
+        "vkGetSwapchainGrallocUsage2ANDROID" => {
+            vkGetSwapchainGrallocUsage2ANDROID as *const std::ffi::c_void
+        }
+        "vkAcquireImageANDROID" => vkAcquireImageANDROID as *const std::ffi::c_void,
+        "vkQueueSignalReleaseImageANDROID" => {
+            vkQueueSignalReleaseImageANDROID as *const std::ffi::c_void
+        }
+        "vkGetShaderInfoAMD" => vkGetShaderInfoAMD as *const std::ffi::c_void,
+        "vkSetLocalDimmingAMD" => vkSetLocalDimmingAMD as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceCalibrateableTimeDomainsKHR" => {
+            vkGetPhysicalDeviceCalibrateableTimeDomainsKHR as *const std::ffi::c_void
+        }
+        "vkGetCalibratedTimestampsKHR" => vkGetCalibratedTimestampsKHR as *const std::ffi::c_void,
+        "vkSetDebugUtilsObjectNameEXT" => vkSetDebugUtilsObjectNameEXT as *const std::ffi::c_void,
+        "vkSetDebugUtilsObjectTagEXT" => vkSetDebugUtilsObjectTagEXT as *const std::ffi::c_void,
+        "vkQueueBeginDebugUtilsLabelEXT" => {
+            vkQueueBeginDebugUtilsLabelEXT as *const std::ffi::c_void
+        }
+        "vkQueueEndDebugUtilsLabelEXT" => vkQueueEndDebugUtilsLabelEXT as *const std::ffi::c_void,
+        "vkQueueInsertDebugUtilsLabelEXT" => {
+            vkQueueInsertDebugUtilsLabelEXT as *const std::ffi::c_void
+        }
+        "vkCmdBeginDebugUtilsLabelEXT" => vkCmdBeginDebugUtilsLabelEXT as *const std::ffi::c_void,
+        "vkCmdEndDebugUtilsLabelEXT" => vkCmdEndDebugUtilsLabelEXT as *const std::ffi::c_void,
+        "vkCmdInsertDebugUtilsLabelEXT" => vkCmdInsertDebugUtilsLabelEXT as *const std::ffi::c_void,
+        "vkCreateDebugUtilsMessengerEXT" => {
+            vkCreateDebugUtilsMessengerEXT as *const std::ffi::c_void
+        }
+        "vkDestroyDebugUtilsMessengerEXT" => {
+            vkDestroyDebugUtilsMessengerEXT as *const std::ffi::c_void
+        }
+        "vkSubmitDebugUtilsMessageEXT" => vkSubmitDebugUtilsMessageEXT as *const std::ffi::c_void,
+        "vkGetMemoryHostPointerPropertiesEXT" => {
+            vkGetMemoryHostPointerPropertiesEXT as *const std::ffi::c_void
+        }
+        "vkCmdWriteBufferMarkerAMD" => vkCmdWriteBufferMarkerAMD as *const std::ffi::c_void,
+        "vkCreateRenderPass2" => vkCreateRenderPass2 as *const std::ffi::c_void,
+        "vkCmdBeginRenderPass2" => vkCmdBeginRenderPass2 as *const std::ffi::c_void,
+        "vkCmdNextSubpass2" => vkCmdNextSubpass2 as *const std::ffi::c_void,
+        "vkCmdEndRenderPass2" => vkCmdEndRenderPass2 as *const std::ffi::c_void,
+        "vkGetSemaphoreCounterValue" => vkGetSemaphoreCounterValue as *const std::ffi::c_void,
+        "vkWaitSemaphores" => vkWaitSemaphores as *const std::ffi::c_void,
+        "vkSignalSemaphore" => vkSignalSemaphore as *const std::ffi::c_void,
+        "vkGetAndroidHardwareBufferPropertiesANDROID" => {
+            vkGetAndroidHardwareBufferPropertiesANDROID as *const std::ffi::c_void
+        }
+        "vkGetMemoryAndroidHardwareBufferANDROID" => {
+            vkGetMemoryAndroidHardwareBufferANDROID as *const std::ffi::c_void
+        }
+        "vkCmdDrawIndirectCount" => vkCmdDrawIndirectCount as *const std::ffi::c_void,
+        "vkCmdDrawIndexedIndirectCount" => vkCmdDrawIndexedIndirectCount as *const std::ffi::c_void,
+        "vkCmdSetCheckpointNV" => vkCmdSetCheckpointNV as *const std::ffi::c_void,
+        "vkGetQueueCheckpointDataNV" => vkGetQueueCheckpointDataNV as *const std::ffi::c_void,
+        "vkCmdBindTransformFeedbackBuffersEXT" => {
+            vkCmdBindTransformFeedbackBuffersEXT as *const std::ffi::c_void
+        }
+        "vkCmdBeginTransformFeedbackEXT" => {
+            vkCmdBeginTransformFeedbackEXT as *const std::ffi::c_void
+        }
+        "vkCmdEndTransformFeedbackEXT" => vkCmdEndTransformFeedbackEXT as *const std::ffi::c_void,
+        "vkCmdBeginQueryIndexedEXT" => vkCmdBeginQueryIndexedEXT as *const std::ffi::c_void,
+        "vkCmdEndQueryIndexedEXT" => vkCmdEndQueryIndexedEXT as *const std::ffi::c_void,
+        "vkCmdDrawIndirectByteCountEXT" => vkCmdDrawIndirectByteCountEXT as *const std::ffi::c_void,
+        "vkCmdSetExclusiveScissorNV" => vkCmdSetExclusiveScissorNV as *const std::ffi::c_void,
+        "vkCmdSetExclusiveScissorEnableNV" => {
+            vkCmdSetExclusiveScissorEnableNV as *const std::ffi::c_void
+        }
+        "vkCmdBindShadingRateImageNV" => vkCmdBindShadingRateImageNV as *const std::ffi::c_void,
+        "vkCmdSetViewportShadingRatePaletteNV" => {
+            vkCmdSetViewportShadingRatePaletteNV as *const std::ffi::c_void
+        }
+        "vkCmdSetCoarseSampleOrderNV" => vkCmdSetCoarseSampleOrderNV as *const std::ffi::c_void,
+        "vkCmdDrawMeshTasksNV" => vkCmdDrawMeshTasksNV as *const std::ffi::c_void,
+        "vkCmdDrawMeshTasksIndirectNV" => vkCmdDrawMeshTasksIndirectNV as *const std::ffi::c_void,
+        "vkCmdDrawMeshTasksIndirectCountNV" => {
+            vkCmdDrawMeshTasksIndirectCountNV as *const std::ffi::c_void
+        }
+        "vkCmdDrawMeshTasksEXT" => vkCmdDrawMeshTasksEXT as *const std::ffi::c_void,
+        "vkCmdDrawMeshTasksIndirectEXT" => vkCmdDrawMeshTasksIndirectEXT as *const std::ffi::c_void,
+        "vkCmdDrawMeshTasksIndirectCountEXT" => {
+            vkCmdDrawMeshTasksIndirectCountEXT as *const std::ffi::c_void
+        }
+        "vkCompileDeferredNV" => vkCompileDeferredNV as *const std::ffi::c_void,
+        "vkCreateAccelerationStructureNV" => {
+            vkCreateAccelerationStructureNV as *const std::ffi::c_void
+        }
+        "vkCmdBindInvocationMaskHUAWEI" => vkCmdBindInvocationMaskHUAWEI as *const std::ffi::c_void,
+        "vkDestroyAccelerationStructureKHR" => {
+            vkDestroyAccelerationStructureKHR as *const std::ffi::c_void
+        }
+        "vkDestroyAccelerationStructureNV" => {
+            vkDestroyAccelerationStructureNV as *const std::ffi::c_void
+        }
+        "vkGetAccelerationStructureMemoryRequirementsNV" => {
+            vkGetAccelerationStructureMemoryRequirementsNV as *const std::ffi::c_void
+        }
+        "vkBindAccelerationStructureMemoryNV" => {
+            vkBindAccelerationStructureMemoryNV as *const std::ffi::c_void
+        }
+        "vkCmdCopyAccelerationStructureNV" => {
+            vkCmdCopyAccelerationStructureNV as *const std::ffi::c_void
+        }
+        "vkCmdCopyAccelerationStructureKHR" => {
+            vkCmdCopyAccelerationStructureKHR as *const std::ffi::c_void
+        }
+        "vkCopyAccelerationStructureKHR" => {
+            vkCopyAccelerationStructureKHR as *const std::ffi::c_void
+        }
+        "vkCmdCopyAccelerationStructureToMemoryKHR" => {
+            vkCmdCopyAccelerationStructureToMemoryKHR as *const std::ffi::c_void
+        }
+        "vkCopyAccelerationStructureToMemoryKHR" => {
+            vkCopyAccelerationStructureToMemoryKHR as *const std::ffi::c_void
+        }
+        "vkCmdCopyMemoryToAccelerationStructureKHR" => {
+            vkCmdCopyMemoryToAccelerationStructureKHR as *const std::ffi::c_void
+        }
+        "vkCopyMemoryToAccelerationStructureKHR" => {
+            vkCopyMemoryToAccelerationStructureKHR as *const std::ffi::c_void
+        }
+        "vkCmdWriteAccelerationStructuresPropertiesKHR" => {
+            vkCmdWriteAccelerationStructuresPropertiesKHR as *const std::ffi::c_void
+        }
+        "vkCmdWriteAccelerationStructuresPropertiesNV" => {
+            vkCmdWriteAccelerationStructuresPropertiesNV as *const std::ffi::c_void
+        }
+        "vkCmdBuildAccelerationStructureNV" => {
+            vkCmdBuildAccelerationStructureNV as *const std::ffi::c_void
+        }
+        "vkWriteAccelerationStructuresPropertiesKHR" => {
+            vkWriteAccelerationStructuresPropertiesKHR as *const std::ffi::c_void
+        }
+        "vkCmdTraceRaysKHR" => vkCmdTraceRaysKHR as *const std::ffi::c_void,
+        "vkCmdTraceRaysNV" => vkCmdTraceRaysNV as *const std::ffi::c_void,
+        "vkGetRayTracingShaderGroupHandlesKHR" => {
+            vkGetRayTracingShaderGroupHandlesKHR as *const std::ffi::c_void
+        }
+        "vkGetRayTracingCaptureReplayShaderGroupHandlesKHR" => {
+            vkGetRayTracingCaptureReplayShaderGroupHandlesKHR as *const std::ffi::c_void
+        }
+        "vkGetAccelerationStructureHandleNV" => {
+            vkGetAccelerationStructureHandleNV as *const std::ffi::c_void
+        }
+        "vkCreateRayTracingPipelinesNV" => vkCreateRayTracingPipelinesNV as *const std::ffi::c_void,
+        "vkCreateRayTracingPipelinesKHR" => {
+            vkCreateRayTracingPipelinesKHR as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceCooperativeMatrixPropertiesNV" => {
+            vkGetPhysicalDeviceCooperativeMatrixPropertiesNV as *const std::ffi::c_void
+        }
+        "vkCmdTraceRaysIndirectKHR" => vkCmdTraceRaysIndirectKHR as *const std::ffi::c_void,
+        "vkCmdTraceRaysIndirect2KHR" => vkCmdTraceRaysIndirect2KHR as *const std::ffi::c_void,
+        "vkGetDeviceAccelerationStructureCompatibilityKHR" => {
+            vkGetDeviceAccelerationStructureCompatibilityKHR as *const std::ffi::c_void
+        }
+        "vkGetRayTracingShaderGroupStackSizeKHR" => {
+            vkGetRayTracingShaderGroupStackSizeKHR as *const std::ffi::c_void
+        }
+        "vkCmdSetRayTracingPipelineStackSizeKHR" => {
+            vkCmdSetRayTracingPipelineStackSizeKHR as *const std::ffi::c_void
+        }
+        "vkGetImageViewHandleNVX" => vkGetImageViewHandleNVX as *const std::ffi::c_void,
+        "vkGetImageViewAddressNVX" => vkGetImageViewAddressNVX as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceSurfacePresentModes2EXT" => {
+            vkGetPhysicalDeviceSurfacePresentModes2EXT as *const std::ffi::c_void
+        }
+        "vkGetDeviceGroupSurfacePresentModes2EXT" => {
+            vkGetDeviceGroupSurfacePresentModes2EXT as *const std::ffi::c_void
+        }
+        "vkAcquireFullScreenExclusiveModeEXT" => {
+            vkAcquireFullScreenExclusiveModeEXT as *const std::ffi::c_void
+        }
+        "vkReleaseFullScreenExclusiveModeEXT" => {
+            vkReleaseFullScreenExclusiveModeEXT as *const std::ffi::c_void
+        }
+        "vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR" => {
+            vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR
+                as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR" => {
+            vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR as *const std::ffi::c_void
+        }
+        "vkAcquireProfilingLockKHR" => vkAcquireProfilingLockKHR as *const std::ffi::c_void,
+        "vkReleaseProfilingLockKHR" => vkReleaseProfilingLockKHR as *const std::ffi::c_void,
+        "vkGetImageDrmFormatModifierPropertiesEXT" => {
+            vkGetImageDrmFormatModifierPropertiesEXT as *const std::ffi::c_void
+        }
+        "vkGetBufferOpaqueCaptureAddress" => {
+            vkGetBufferOpaqueCaptureAddress as *const std::ffi::c_void
+        }
+        "vkGetBufferDeviceAddress" => vkGetBufferDeviceAddress as *const std::ffi::c_void,
+        "vkCreateHeadlessSurfaceEXT" => vkCreateHeadlessSurfaceEXT as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV" => {
+            vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV
+                as *const std::ffi::c_void
+        }
+        "vkInitializePerformanceApiINTEL" => {
+            vkInitializePerformanceApiINTEL as *const std::ffi::c_void
+        }
+        "vkUninitializePerformanceApiINTEL" => {
+            vkUninitializePerformanceApiINTEL as *const std::ffi::c_void
+        }
+        "vkCmdSetPerformanceMarkerINTEL" => {
+            vkCmdSetPerformanceMarkerINTEL as *const std::ffi::c_void
+        }
+        "vkCmdSetPerformanceStreamMarkerINTEL" => {
+            vkCmdSetPerformanceStreamMarkerINTEL as *const std::ffi::c_void
+        }
+        "vkCmdSetPerformanceOverrideINTEL" => {
+            vkCmdSetPerformanceOverrideINTEL as *const std::ffi::c_void
+        }
+        "vkAcquirePerformanceConfigurationINTEL" => {
+            vkAcquirePerformanceConfigurationINTEL as *const std::ffi::c_void
+        }
+        "vkReleasePerformanceConfigurationINTEL" => {
+            vkReleasePerformanceConfigurationINTEL as *const std::ffi::c_void
+        }
+        "vkQueueSetPerformanceConfigurationINTEL" => {
+            vkQueueSetPerformanceConfigurationINTEL as *const std::ffi::c_void
+        }
+        "vkGetPerformanceParameterINTEL" => {
+            vkGetPerformanceParameterINTEL as *const std::ffi::c_void
+        }
+        "vkGetDeviceMemoryOpaqueCaptureAddress" => {
+            vkGetDeviceMemoryOpaqueCaptureAddress as *const std::ffi::c_void
+        }
+        "vkGetPipelineExecutablePropertiesKHR" => {
+            vkGetPipelineExecutablePropertiesKHR as *const std::ffi::c_void
+        }
+        "vkGetPipelineExecutableStatisticsKHR" => {
+            vkGetPipelineExecutableStatisticsKHR as *const std::ffi::c_void
+        }
+        "vkGetPipelineExecutableInternalRepresentationsKHR" => {
+            vkGetPipelineExecutableInternalRepresentationsKHR as *const std::ffi::c_void
+        }
+        "vkCmdSetLineStippleKHR" => vkCmdSetLineStippleKHR as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceToolProperties" => {
+            vkGetPhysicalDeviceToolProperties as *const std::ffi::c_void
+        }
+        "vkCreateAccelerationStructureKHR" => {
+            vkCreateAccelerationStructureKHR as *const std::ffi::c_void
+        }
+        "vkCmdBuildAccelerationStructuresKHR" => {
+            vkCmdBuildAccelerationStructuresKHR as *const std::ffi::c_void
+        }
+        "vkCmdBuildAccelerationStructuresIndirectKHR" => {
+            vkCmdBuildAccelerationStructuresIndirectKHR as *const std::ffi::c_void
+        }
+        "vkBuildAccelerationStructuresKHR" => {
+            vkBuildAccelerationStructuresKHR as *const std::ffi::c_void
+        }
+        "vkGetAccelerationStructureDeviceAddressKHR" => {
+            vkGetAccelerationStructureDeviceAddressKHR as *const std::ffi::c_void
+        }
+        "vkCreateDeferredOperationKHR" => vkCreateDeferredOperationKHR as *const std::ffi::c_void,
+        "vkDestroyDeferredOperationKHR" => vkDestroyDeferredOperationKHR as *const std::ffi::c_void,
+        "vkGetDeferredOperationMaxConcurrencyKHR" => {
+            vkGetDeferredOperationMaxConcurrencyKHR as *const std::ffi::c_void
+        }
+        "vkGetDeferredOperationResultKHR" => {
+            vkGetDeferredOperationResultKHR as *const std::ffi::c_void
+        }
+        "vkDeferredOperationJoinKHR" => vkDeferredOperationJoinKHR as *const std::ffi::c_void,
+        "vkGetPipelineIndirectMemoryRequirementsNV" => {
+            vkGetPipelineIndirectMemoryRequirementsNV as *const std::ffi::c_void
+        }
+        "vkGetPipelineIndirectDeviceAddressNV" => {
+            vkGetPipelineIndirectDeviceAddressNV as *const std::ffi::c_void
+        }
+        "vkCmdSetCullMode" => vkCmdSetCullMode as *const std::ffi::c_void,
+        "vkCmdSetFrontFace" => vkCmdSetFrontFace as *const std::ffi::c_void,
+        "vkCmdSetPrimitiveTopology" => vkCmdSetPrimitiveTopology as *const std::ffi::c_void,
+        "vkCmdSetViewportWithCount" => vkCmdSetViewportWithCount as *const std::ffi::c_void,
+        "vkCmdSetScissorWithCount" => vkCmdSetScissorWithCount as *const std::ffi::c_void,
+        "vkCmdBindIndexBuffer2KHR" => vkCmdBindIndexBuffer2KHR as *const std::ffi::c_void,
+        "vkCmdBindVertexBuffers2" => vkCmdBindVertexBuffers2 as *const std::ffi::c_void,
+        "vkCmdSetDepthTestEnable" => vkCmdSetDepthTestEnable as *const std::ffi::c_void,
+        "vkCmdSetDepthWriteEnable" => vkCmdSetDepthWriteEnable as *const std::ffi::c_void,
+        "vkCmdSetDepthCompareOp" => vkCmdSetDepthCompareOp as *const std::ffi::c_void,
+        "vkCmdSetDepthBoundsTestEnable" => vkCmdSetDepthBoundsTestEnable as *const std::ffi::c_void,
+        "vkCmdSetStencilTestEnable" => vkCmdSetStencilTestEnable as *const std::ffi::c_void,
+        "vkCmdSetStencilOp" => vkCmdSetStencilOp as *const std::ffi::c_void,
+        "vkCmdSetPatchControlPointsEXT" => vkCmdSetPatchControlPointsEXT as *const std::ffi::c_void,
+        "vkCmdSetRasterizerDiscardEnable" => {
+            vkCmdSetRasterizerDiscardEnable as *const std::ffi::c_void
+        }
+        "vkCmdSetDepthBiasEnable" => vkCmdSetDepthBiasEnable as *const std::ffi::c_void,
+        "vkCmdSetLogicOpEXT" => vkCmdSetLogicOpEXT as *const std::ffi::c_void,
+        "vkCmdSetPrimitiveRestartEnable" => {
+            vkCmdSetPrimitiveRestartEnable as *const std::ffi::c_void
+        }
+        "vkCmdSetTessellationDomainOriginEXT" => {
+            vkCmdSetTessellationDomainOriginEXT as *const std::ffi::c_void
+        }
+        "vkCmdSetDepthClampEnableEXT" => vkCmdSetDepthClampEnableEXT as *const std::ffi::c_void,
+        "vkCmdSetPolygonModeEXT" => vkCmdSetPolygonModeEXT as *const std::ffi::c_void,
+        "vkCmdSetRasterizationSamplesEXT" => {
+            vkCmdSetRasterizationSamplesEXT as *const std::ffi::c_void
+        }
+        "vkCmdSetSampleMaskEXT" => vkCmdSetSampleMaskEXT as *const std::ffi::c_void,
+        "vkCmdSetAlphaToCoverageEnableEXT" => {
+            vkCmdSetAlphaToCoverageEnableEXT as *const std::ffi::c_void
+        }
+        "vkCmdSetAlphaToOneEnableEXT" => vkCmdSetAlphaToOneEnableEXT as *const std::ffi::c_void,
+        "vkCmdSetLogicOpEnableEXT" => vkCmdSetLogicOpEnableEXT as *const std::ffi::c_void,
+        "vkCmdSetColorBlendEnableEXT" => vkCmdSetColorBlendEnableEXT as *const std::ffi::c_void,
+        "vkCmdSetColorBlendEquationEXT" => vkCmdSetColorBlendEquationEXT as *const std::ffi::c_void,
+        "vkCmdSetColorWriteMaskEXT" => vkCmdSetColorWriteMaskEXT as *const std::ffi::c_void,
+        "vkCmdSetRasterizationStreamEXT" => {
+            vkCmdSetRasterizationStreamEXT as *const std::ffi::c_void
+        }
+        "vkCmdSetConservativeRasterizationModeEXT" => {
+            vkCmdSetConservativeRasterizationModeEXT as *const std::ffi::c_void
+        }
+        "vkCmdSetExtraPrimitiveOverestimationSizeEXT" => {
+            vkCmdSetExtraPrimitiveOverestimationSizeEXT as *const std::ffi::c_void
+        }
+        "vkCmdSetDepthClipEnableEXT" => vkCmdSetDepthClipEnableEXT as *const std::ffi::c_void,
+        "vkCmdSetSampleLocationsEnableEXT" => {
+            vkCmdSetSampleLocationsEnableEXT as *const std::ffi::c_void
+        }
+        "vkCmdSetColorBlendAdvancedEXT" => vkCmdSetColorBlendAdvancedEXT as *const std::ffi::c_void,
+        "vkCmdSetProvokingVertexModeEXT" => {
+            vkCmdSetProvokingVertexModeEXT as *const std::ffi::c_void
+        }
+        "vkCmdSetLineRasterizationModeEXT" => {
+            vkCmdSetLineRasterizationModeEXT as *const std::ffi::c_void
+        }
+        "vkCmdSetLineStippleEnableEXT" => vkCmdSetLineStippleEnableEXT as *const std::ffi::c_void,
+        "vkCmdSetDepthClipNegativeOneToOneEXT" => {
+            vkCmdSetDepthClipNegativeOneToOneEXT as *const std::ffi::c_void
+        }
+        "vkCmdSetViewportWScalingEnableNV" => {
+            vkCmdSetViewportWScalingEnableNV as *const std::ffi::c_void
+        }
+        "vkCmdSetViewportSwizzleNV" => vkCmdSetViewportSwizzleNV as *const std::ffi::c_void,
+        "vkCmdSetCoverageToColorEnableNV" => {
+            vkCmdSetCoverageToColorEnableNV as *const std::ffi::c_void
+        }
+        "vkCmdSetCoverageToColorLocationNV" => {
+            vkCmdSetCoverageToColorLocationNV as *const std::ffi::c_void
+        }
+        "vkCmdSetCoverageModulationModeNV" => {
+            vkCmdSetCoverageModulationModeNV as *const std::ffi::c_void
+        }
+        "vkCmdSetCoverageModulationTableEnableNV" => {
+            vkCmdSetCoverageModulationTableEnableNV as *const std::ffi::c_void
+        }
+        "vkCmdSetCoverageModulationTableNV" => {
+            vkCmdSetCoverageModulationTableNV as *const std::ffi::c_void
+        }
+        "vkCmdSetShadingRateImageEnableNV" => {
+            vkCmdSetShadingRateImageEnableNV as *const std::ffi::c_void
+        }
+        "vkCmdSetCoverageReductionModeNV" => {
+            vkCmdSetCoverageReductionModeNV as *const std::ffi::c_void
+        }
+        "vkCmdSetRepresentativeFragmentTestEnableNV" => {
+            vkCmdSetRepresentativeFragmentTestEnableNV as *const std::ffi::c_void
+        }
+        "vkCreatePrivateDataSlot" => vkCreatePrivateDataSlot as *const std::ffi::c_void,
+        "vkDestroyPrivateDataSlot" => vkDestroyPrivateDataSlot as *const std::ffi::c_void,
+        "vkSetPrivateData" => vkSetPrivateData as *const std::ffi::c_void,
+        "vkGetPrivateData" => vkGetPrivateData as *const std::ffi::c_void,
+        "vkCmdCopyBuffer2" => vkCmdCopyBuffer2 as *const std::ffi::c_void,
+        "vkCmdCopyImage2" => vkCmdCopyImage2 as *const std::ffi::c_void,
+        "vkCmdBlitImage2" => vkCmdBlitImage2 as *const std::ffi::c_void,
+        "vkCmdCopyBufferToImage2" => vkCmdCopyBufferToImage2 as *const std::ffi::c_void,
+        "vkCmdCopyImageToBuffer2" => vkCmdCopyImageToBuffer2 as *const std::ffi::c_void,
+        "vkCmdResolveImage2" => vkCmdResolveImage2 as *const std::ffi::c_void,
+        "vkCmdSetFragmentShadingRateKHR" => {
+            vkCmdSetFragmentShadingRateKHR as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceFragmentShadingRatesKHR" => {
+            vkGetPhysicalDeviceFragmentShadingRatesKHR as *const std::ffi::c_void
+        }
+        "vkCmdSetFragmentShadingRateEnumNV" => {
+            vkCmdSetFragmentShadingRateEnumNV as *const std::ffi::c_void
+        }
+        "vkGetAccelerationStructureBuildSizesKHR" => {
+            vkGetAccelerationStructureBuildSizesKHR as *const std::ffi::c_void
+        }
+        "vkCmdSetVertexInputEXT" => vkCmdSetVertexInputEXT as *const std::ffi::c_void,
+        "vkCmdSetColorWriteEnableEXT" => vkCmdSetColorWriteEnableEXT as *const std::ffi::c_void,
+        "vkCmdSetEvent2" => vkCmdSetEvent2 as *const std::ffi::c_void,
+        "vkCmdResetEvent2" => vkCmdResetEvent2 as *const std::ffi::c_void,
+        "vkCmdWaitEvents2" => vkCmdWaitEvents2 as *const std::ffi::c_void,
+        "vkCmdPipelineBarrier2" => vkCmdPipelineBarrier2 as *const std::ffi::c_void,
+        "vkQueueSubmit2" => vkQueueSubmit2 as *const std::ffi::c_void,
+        "vkCmdWriteTimestamp2" => vkCmdWriteTimestamp2 as *const std::ffi::c_void,
+        "vkCmdWriteBufferMarker2AMD" => vkCmdWriteBufferMarker2AMD as *const std::ffi::c_void,
+        "vkGetQueueCheckpointData2NV" => vkGetQueueCheckpointData2NV as *const std::ffi::c_void,
+        "vkCopyMemoryToImageEXT" => vkCopyMemoryToImageEXT as *const std::ffi::c_void,
+        "vkCopyImageToMemoryEXT" => vkCopyImageToMemoryEXT as *const std::ffi::c_void,
+        "vkCopyImageToImageEXT" => vkCopyImageToImageEXT as *const std::ffi::c_void,
+        "vkTransitionImageLayoutEXT" => vkTransitionImageLayoutEXT as *const std::ffi::c_void,
+        "vkGetPhysicalDeviceVideoCapabilitiesKHR" => {
+            vkGetPhysicalDeviceVideoCapabilitiesKHR as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceVideoFormatPropertiesKHR" => {
+            vkGetPhysicalDeviceVideoFormatPropertiesKHR as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR" => {
+            vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR as *const std::ffi::c_void
+        }
+        "vkCreateVideoSessionKHR" => vkCreateVideoSessionKHR as *const std::ffi::c_void,
+        "vkDestroyVideoSessionKHR" => vkDestroyVideoSessionKHR as *const std::ffi::c_void,
+        "vkCreateVideoSessionParametersKHR" => {
+            vkCreateVideoSessionParametersKHR as *const std::ffi::c_void
+        }
+        "vkUpdateVideoSessionParametersKHR" => {
+            vkUpdateVideoSessionParametersKHR as *const std::ffi::c_void
+        }
+        "vkGetEncodedVideoSessionParametersKHR" => {
+            vkGetEncodedVideoSessionParametersKHR as *const std::ffi::c_void
+        }
+        "vkDestroyVideoSessionParametersKHR" => {
+            vkDestroyVideoSessionParametersKHR as *const std::ffi::c_void
+        }
+        "vkGetVideoSessionMemoryRequirementsKHR" => {
+            vkGetVideoSessionMemoryRequirementsKHR as *const std::ffi::c_void
+        }
+        "vkBindVideoSessionMemoryKHR" => vkBindVideoSessionMemoryKHR as *const std::ffi::c_void,
+        "vkCmdDecodeVideoKHR" => vkCmdDecodeVideoKHR as *const std::ffi::c_void,
+        "vkCmdBeginVideoCodingKHR" => vkCmdBeginVideoCodingKHR as *const std::ffi::c_void,
+        "vkCmdControlVideoCodingKHR" => vkCmdControlVideoCodingKHR as *const std::ffi::c_void,
+        "vkCmdEndVideoCodingKHR" => vkCmdEndVideoCodingKHR as *const std::ffi::c_void,
+        "vkCmdEncodeVideoKHR" => vkCmdEncodeVideoKHR as *const std::ffi::c_void,
+        "vkCmdDecompressMemoryNV" => vkCmdDecompressMemoryNV as *const std::ffi::c_void,
+        "vkCmdDecompressMemoryIndirectCountNV" => {
+            vkCmdDecompressMemoryIndirectCountNV as *const std::ffi::c_void
+        }
+        "vkCreateCuModuleNVX" => vkCreateCuModuleNVX as *const std::ffi::c_void,
+        "vkCreateCuFunctionNVX" => vkCreateCuFunctionNVX as *const std::ffi::c_void,
+        "vkDestroyCuModuleNVX" => vkDestroyCuModuleNVX as *const std::ffi::c_void,
+        "vkDestroyCuFunctionNVX" => vkDestroyCuFunctionNVX as *const std::ffi::c_void,
+        "vkCmdCuLaunchKernelNVX" => vkCmdCuLaunchKernelNVX as *const std::ffi::c_void,
+        "vkGetDescriptorSetLayoutSizeEXT" => {
+            vkGetDescriptorSetLayoutSizeEXT as *const std::ffi::c_void
+        }
+        "vkGetDescriptorSetLayoutBindingOffsetEXT" => {
+            vkGetDescriptorSetLayoutBindingOffsetEXT as *const std::ffi::c_void
+        }
+        "vkGetDescriptorEXT" => vkGetDescriptorEXT as *const std::ffi::c_void,
+        "vkCmdBindDescriptorBuffersEXT" => vkCmdBindDescriptorBuffersEXT as *const std::ffi::c_void,
+        "vkCmdSetDescriptorBufferOffsetsEXT" => {
+            vkCmdSetDescriptorBufferOffsetsEXT as *const std::ffi::c_void
+        }
+        "vkCmdBindDescriptorBufferEmbeddedSamplersEXT" => {
+            vkCmdBindDescriptorBufferEmbeddedSamplersEXT as *const std::ffi::c_void
+        }
+        "vkGetBufferOpaqueCaptureDescriptorDataEXT" => {
+            vkGetBufferOpaqueCaptureDescriptorDataEXT as *const std::ffi::c_void
+        }
+        "vkGetImageOpaqueCaptureDescriptorDataEXT" => {
+            vkGetImageOpaqueCaptureDescriptorDataEXT as *const std::ffi::c_void
+        }
+        "vkGetImageViewOpaqueCaptureDescriptorDataEXT" => {
+            vkGetImageViewOpaqueCaptureDescriptorDataEXT as *const std::ffi::c_void
+        }
+        "vkGetSamplerOpaqueCaptureDescriptorDataEXT" => {
+            vkGetSamplerOpaqueCaptureDescriptorDataEXT as *const std::ffi::c_void
+        }
+        "vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT" => {
+            vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT as *const std::ffi::c_void
+        }
+        "vkSetDeviceMemoryPriorityEXT" => vkSetDeviceMemoryPriorityEXT as *const std::ffi::c_void,
+        "vkAcquireDrmDisplayEXT" => vkAcquireDrmDisplayEXT as *const std::ffi::c_void,
+        "vkGetDrmDisplayEXT" => vkGetDrmDisplayEXT as *const std::ffi::c_void,
+        "vkWaitForPresentKHR" => vkWaitForPresentKHR as *const std::ffi::c_void,
+        "vkCreateBufferCollectionFUCHSIA" => {
+            vkCreateBufferCollectionFUCHSIA as *const std::ffi::c_void
+        }
+        "vkSetBufferCollectionBufferConstraintsFUCHSIA" => {
+            vkSetBufferCollectionBufferConstraintsFUCHSIA as *const std::ffi::c_void
+        }
+        "vkSetBufferCollectionImageConstraintsFUCHSIA" => {
+            vkSetBufferCollectionImageConstraintsFUCHSIA as *const std::ffi::c_void
+        }
+        "vkDestroyBufferCollectionFUCHSIA" => {
+            vkDestroyBufferCollectionFUCHSIA as *const std::ffi::c_void
+        }
+        "vkGetBufferCollectionPropertiesFUCHSIA" => {
+            vkGetBufferCollectionPropertiesFUCHSIA as *const std::ffi::c_void
+        }
+        "vkCreateCudaModuleNV" => vkCreateCudaModuleNV as *const std::ffi::c_void,
+        "vkGetCudaModuleCacheNV" => vkGetCudaModuleCacheNV as *const std::ffi::c_void,
+        "vkCreateCudaFunctionNV" => vkCreateCudaFunctionNV as *const std::ffi::c_void,
+        "vkDestroyCudaModuleNV" => vkDestroyCudaModuleNV as *const std::ffi::c_void,
+        "vkDestroyCudaFunctionNV" => vkDestroyCudaFunctionNV as *const std::ffi::c_void,
+        "vkCmdCudaLaunchKernelNV" => vkCmdCudaLaunchKernelNV as *const std::ffi::c_void,
+        "vkCmdBeginRendering" => vkCmdBeginRendering as *const std::ffi::c_void,
+        "vkCmdEndRendering" => vkCmdEndRendering as *const std::ffi::c_void,
+        "vkGetDescriptorSetLayoutHostMappingInfoVALVE" => {
+            vkGetDescriptorSetLayoutHostMappingInfoVALVE as *const std::ffi::c_void
+        }
+        "vkGetDescriptorSetHostMappingVALVE" => {
+            vkGetDescriptorSetHostMappingVALVE as *const std::ffi::c_void
+        }
+        "vkCreateMicromapEXT" => vkCreateMicromapEXT as *const std::ffi::c_void,
+        "vkCmdBuildMicromapsEXT" => vkCmdBuildMicromapsEXT as *const std::ffi::c_void,
+        "vkBuildMicromapsEXT" => vkBuildMicromapsEXT as *const std::ffi::c_void,
+        "vkDestroyMicromapEXT" => vkDestroyMicromapEXT as *const std::ffi::c_void,
+        "vkCmdCopyMicromapEXT" => vkCmdCopyMicromapEXT as *const std::ffi::c_void,
+        "vkCopyMicromapEXT" => vkCopyMicromapEXT as *const std::ffi::c_void,
+        "vkCmdCopyMicromapToMemoryEXT" => vkCmdCopyMicromapToMemoryEXT as *const std::ffi::c_void,
+        "vkCopyMicromapToMemoryEXT" => vkCopyMicromapToMemoryEXT as *const std::ffi::c_void,
+        "vkCmdCopyMemoryToMicromapEXT" => vkCmdCopyMemoryToMicromapEXT as *const std::ffi::c_void,
+        "vkCopyMemoryToMicromapEXT" => vkCopyMemoryToMicromapEXT as *const std::ffi::c_void,
+        "vkCmdWriteMicromapsPropertiesEXT" => {
+            vkCmdWriteMicromapsPropertiesEXT as *const std::ffi::c_void
+        }
+        "vkWriteMicromapsPropertiesEXT" => vkWriteMicromapsPropertiesEXT as *const std::ffi::c_void,
+        "vkGetDeviceMicromapCompatibilityEXT" => {
+            vkGetDeviceMicromapCompatibilityEXT as *const std::ffi::c_void
+        }
+        "vkGetMicromapBuildSizesEXT" => vkGetMicromapBuildSizesEXT as *const std::ffi::c_void,
+        "vkGetShaderModuleIdentifierEXT" => {
+            vkGetShaderModuleIdentifierEXT as *const std::ffi::c_void
+        }
+        "vkGetShaderModuleCreateInfoIdentifierEXT" => {
+            vkGetShaderModuleCreateInfoIdentifierEXT as *const std::ffi::c_void
+        }
+        "vkGetImageSubresourceLayout2KHR" => {
+            vkGetImageSubresourceLayout2KHR as *const std::ffi::c_void
+        }
+        "vkGetPipelinePropertiesEXT" => vkGetPipelinePropertiesEXT as *const std::ffi::c_void,
+        "vkExportMetalObjectsEXT" => vkExportMetalObjectsEXT as *const std::ffi::c_void,
+        "vkGetFramebufferTilePropertiesQCOM" => {
+            vkGetFramebufferTilePropertiesQCOM as *const std::ffi::c_void
+        }
+        "vkGetDynamicRenderingTilePropertiesQCOM" => {
+            vkGetDynamicRenderingTilePropertiesQCOM as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceOpticalFlowImageFormatsNV" => {
+            vkGetPhysicalDeviceOpticalFlowImageFormatsNV as *const std::ffi::c_void
+        }
+        "vkCreateOpticalFlowSessionNV" => vkCreateOpticalFlowSessionNV as *const std::ffi::c_void,
+        "vkDestroyOpticalFlowSessionNV" => vkDestroyOpticalFlowSessionNV as *const std::ffi::c_void,
+        "vkBindOpticalFlowSessionImageNV" => {
+            vkBindOpticalFlowSessionImageNV as *const std::ffi::c_void
+        }
+        "vkCmdOpticalFlowExecuteNV" => vkCmdOpticalFlowExecuteNV as *const std::ffi::c_void,
+        "vkGetDeviceFaultInfoEXT" => vkGetDeviceFaultInfoEXT as *const std::ffi::c_void,
+        "vkCmdSetDepthBias2EXT" => vkCmdSetDepthBias2EXT as *const std::ffi::c_void,
+        "vkReleaseSwapchainImagesEXT" => vkReleaseSwapchainImagesEXT as *const std::ffi::c_void,
+        "vkGetDeviceImageSubresourceLayoutKHR" => {
+            vkGetDeviceImageSubresourceLayoutKHR as *const std::ffi::c_void
+        }
+        "vkMapMemory2KHR" => vkMapMemory2KHR as *const std::ffi::c_void,
+        "vkUnmapMemory2KHR" => vkUnmapMemory2KHR as *const std::ffi::c_void,
+        "vkCreateShadersEXT" => vkCreateShadersEXT as *const std::ffi::c_void,
+        "vkDestroyShaderEXT" => vkDestroyShaderEXT as *const std::ffi::c_void,
+        "vkGetShaderBinaryDataEXT" => vkGetShaderBinaryDataEXT as *const std::ffi::c_void,
+        "vkCmdBindShadersEXT" => vkCmdBindShadersEXT as *const std::ffi::c_void,
+        "vkGetScreenBufferPropertiesQNX" => {
+            vkGetScreenBufferPropertiesQNX as *const std::ffi::c_void
+        }
+        "vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR" => {
+            vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR as *const std::ffi::c_void
+        }
+        "vkGetExecutionGraphPipelineScratchSizeAMDX" => {
+            vkGetExecutionGraphPipelineScratchSizeAMDX as *const std::ffi::c_void
+        }
+        "vkGetExecutionGraphPipelineNodeIndexAMDX" => {
+            vkGetExecutionGraphPipelineNodeIndexAMDX as *const std::ffi::c_void
+        }
+        "vkCreateExecutionGraphPipelinesAMDX" => {
+            vkCreateExecutionGraphPipelinesAMDX as *const std::ffi::c_void
+        }
+        "vkCmdInitializeGraphScratchMemoryAMDX" => {
+            vkCmdInitializeGraphScratchMemoryAMDX as *const std::ffi::c_void
+        }
+        "vkCmdDispatchGraphAMDX" => vkCmdDispatchGraphAMDX as *const std::ffi::c_void,
+        "vkCmdDispatchGraphIndirectAMDX" => {
+            vkCmdDispatchGraphIndirectAMDX as *const std::ffi::c_void
+        }
+        "vkCmdDispatchGraphIndirectCountAMDX" => {
+            vkCmdDispatchGraphIndirectCountAMDX as *const std::ffi::c_void
+        }
+        "vkCmdBindDescriptorSets2KHR" => vkCmdBindDescriptorSets2KHR as *const std::ffi::c_void,
+        "vkCmdPushConstants2KHR" => vkCmdPushConstants2KHR as *const std::ffi::c_void,
+        "vkCmdPushDescriptorSet2KHR" => vkCmdPushDescriptorSet2KHR as *const std::ffi::c_void,
+        "vkCmdPushDescriptorSetWithTemplate2KHR" => {
+            vkCmdPushDescriptorSetWithTemplate2KHR as *const std::ffi::c_void
+        }
+        "vkCmdSetDescriptorBufferOffsets2EXT" => {
+            vkCmdSetDescriptorBufferOffsets2EXT as *const std::ffi::c_void
+        }
+        "vkCmdBindDescriptorBufferEmbeddedSamplers2EXT" => {
+            vkCmdBindDescriptorBufferEmbeddedSamplers2EXT as *const std::ffi::c_void
+        }
+        "vkSetLatencySleepModeNV" => vkSetLatencySleepModeNV as *const std::ffi::c_void,
+        "vkLatencySleepNV" => vkLatencySleepNV as *const std::ffi::c_void,
+        "vkSetLatencyMarkerNV" => vkSetLatencyMarkerNV as *const std::ffi::c_void,
+        "vkGetLatencyTimingsNV" => vkGetLatencyTimingsNV as *const std::ffi::c_void,
+        "vkQueueNotifyOutOfBandNV" => vkQueueNotifyOutOfBandNV as *const std::ffi::c_void,
+        "vkCmdSetRenderingAttachmentLocationsKHR" => {
+            vkCmdSetRenderingAttachmentLocationsKHR as *const std::ffi::c_void
+        }
+        "vkCmdSetRenderingInputAttachmentIndicesKHR" => {
+            vkCmdSetRenderingInputAttachmentIndicesKHR as *const std::ffi::c_void
+        }
+        _ => std::ptr::null(),
+    }
+}
+
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateInstance.html>"]
 extern "stdcall" fn vkCreateInstance(
@@ -9,7 +1087,11 @@ extern "stdcall" fn vkCreateInstance(
     p_allocator: *const vk::AllocationCallbacks,
     p_instance: *mut vk::Instance,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateInstance.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateInstance.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -20,7 +1102,11 @@ extern "stdcall" fn vkDestroyInstance(
     instance: vk::Instance,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyInstance.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyInstance.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -32,7 +1118,11 @@ extern "stdcall" fn vkEnumeratePhysicalDevices(
     p_physical_device_count: *mut u32,
     p_physical_devices: *mut vk::PhysicalDevice,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumeratePhysicalDevices.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumeratePhysicalDevices.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -43,7 +1133,11 @@ extern "stdcall" fn vkGetDeviceProcAddr(
     device: vk::Device,
     p_name: *const char,
 ) -> vk::PFN_vkVoidFunction {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceProcAddr.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceProcAddr.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -54,7 +1148,11 @@ extern "stdcall" fn vkGetInstanceProcAddr(
     instance: vk::Instance,
     p_name: *const char,
 ) -> vk::PFN_vkVoidFunction {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetInstanceProcAddr.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetInstanceProcAddr.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -65,7 +1163,11 @@ extern "stdcall" fn vkGetPhysicalDeviceProperties(
     physical_device: vk::PhysicalDevice,
     p_properties: *mut vk::PhysicalDeviceProperties,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -77,7 +1179,11 @@ extern "stdcall" fn vkGetPhysicalDeviceQueueFamilyProperties(
     p_queue_family_property_count: *mut u32,
     p_queue_family_properties: *mut vk::QueueFamilyProperties,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceQueueFamilyProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceQueueFamilyProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -88,7 +1194,11 @@ extern "stdcall" fn vkGetPhysicalDeviceMemoryProperties(
     physical_device: vk::PhysicalDevice,
     p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceMemoryProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceMemoryProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -99,7 +1209,11 @@ extern "stdcall" fn vkGetPhysicalDeviceFeatures(
     physical_device: vk::PhysicalDevice,
     p_features: *mut vk::PhysicalDeviceFeatures,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceFeatures.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceFeatures.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -111,7 +1225,11 @@ extern "stdcall" fn vkGetPhysicalDeviceFormatProperties(
     format: vk::Format,
     p_format_properties: *mut vk::FormatProperties,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceFormatProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceFormatProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -127,7 +1245,11 @@ extern "stdcall" fn vkGetPhysicalDeviceImageFormatProperties(
     flags: vk::ImageCreateFlags,
     p_image_format_properties: *mut vk::ImageFormatProperties,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceImageFormatProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceImageFormatProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -140,7 +1262,11 @@ extern "stdcall" fn vkCreateDevice(
     p_allocator: *const vk::AllocationCallbacks,
     p_device: *mut vk::Device,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDevice.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDevice.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -151,17 +1277,23 @@ extern "stdcall" fn vkDestroyDevice(
     device: vk::Device,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDevice.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDevice.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceVersion.html>"]
-extern "stdcall" fn vkEnumerateInstanceVersion(
-    p_api_version: *mut u32,
-) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumerateInstanceVersion.txt", "whoa").unwrap();
+extern "stdcall" fn vkEnumerateInstanceVersion(p_api_version: *mut u32) -> vk::Result {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumerateInstanceVersion.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -172,7 +1304,11 @@ extern "stdcall" fn vkEnumerateInstanceLayerProperties(
     p_property_count: *mut u32,
     p_properties: *mut vk::LayerProperties,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumerateInstanceLayerProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumerateInstanceLayerProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -184,7 +1320,11 @@ extern "stdcall" fn vkEnumerateInstanceExtensionProperties(
     p_property_count: *mut u32,
     p_properties: *mut vk::ExtensionProperties,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumerateInstanceExtensionProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumerateInstanceExtensionProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -196,7 +1336,11 @@ extern "stdcall" fn vkEnumerateDeviceLayerProperties(
     p_property_count: *mut u32,
     p_properties: *mut vk::LayerProperties,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumerateDeviceLayerProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumerateDeviceLayerProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -209,7 +1353,11 @@ extern "stdcall" fn vkEnumerateDeviceExtensionProperties(
     p_property_count: *mut u32,
     p_properties: *mut vk::ExtensionProperties,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumerateDeviceExtensionProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumerateDeviceExtensionProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -222,7 +1370,11 @@ extern "stdcall" fn vkGetDeviceQueue(
     queue_index: u32,
     p_queue: *mut vk::Queue,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceQueue.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceQueue.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -235,27 +1387,35 @@ extern "stdcall" fn vkQueueSubmit(
     p_submits: *const vk::SubmitInfo,
     fence: vk::Fence,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueSubmit.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueSubmit.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueWaitIdle.html>"]
-extern "stdcall" fn vkQueueWaitIdle(
-    queue: vk::Queue,
-) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueWaitIdle.txt", "whoa").unwrap();
+extern "stdcall" fn vkQueueWaitIdle(queue: vk::Queue) -> vk::Result {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueWaitIdle.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDeviceWaitIdle.html>"]
-extern "stdcall" fn vkDeviceWaitIdle(
-    device: vk::Device,
-) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDeviceWaitIdle.txt", "whoa").unwrap();
+extern "stdcall" fn vkDeviceWaitIdle(device: vk::Device) -> vk::Result {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDeviceWaitIdle.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -268,7 +1428,11 @@ extern "stdcall" fn vkAllocateMemory(
     p_allocator: *const vk::AllocationCallbacks,
     p_memory: *mut vk::DeviceMemory,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAllocateMemory.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAllocateMemory.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -280,7 +1444,11 @@ extern "stdcall" fn vkFreeMemory(
     memory: vk::DeviceMemory,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkFreeMemory.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkFreeMemory.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -295,18 +1463,23 @@ extern "stdcall" fn vkMapMemory(
     flags: vk::MemoryMapFlags,
     pp_data: *mut *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkMapMemory.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkMapMemory.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUnmapMemory.html>"]
-extern "stdcall" fn vkUnmapMemory(
-    device: vk::Device,
-    memory: vk::DeviceMemory,
-) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkUnmapMemory.txt", "whoa").unwrap();
+extern "stdcall" fn vkUnmapMemory(device: vk::Device, memory: vk::DeviceMemory) {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkUnmapMemory.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -318,7 +1491,11 @@ extern "stdcall" fn vkFlushMappedMemoryRanges(
     memory_range_count: u32,
     p_memory_ranges: *const vk::MappedMemoryRange,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkFlushMappedMemoryRanges.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkFlushMappedMemoryRanges.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -330,7 +1507,11 @@ extern "stdcall" fn vkInvalidateMappedMemoryRanges(
     memory_range_count: u32,
     p_memory_ranges: *const vk::MappedMemoryRange,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkInvalidateMappedMemoryRanges.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkInvalidateMappedMemoryRanges.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -342,7 +1523,11 @@ extern "stdcall" fn vkGetDeviceMemoryCommitment(
     memory: vk::DeviceMemory,
     p_committed_memory_in_bytes: *mut vk::DeviceSize,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceMemoryCommitment.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceMemoryCommitment.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -354,7 +1539,11 @@ extern "stdcall" fn vkGetBufferMemoryRequirements(
     buffer: vk::Buffer,
     p_memory_requirements: *mut vk::MemoryRequirements,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetBufferMemoryRequirements.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetBufferMemoryRequirements.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -367,7 +1556,11 @@ extern "stdcall" fn vkBindBufferMemory(
     memory: vk::DeviceMemory,
     memory_offset: vk::DeviceSize,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindBufferMemory.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindBufferMemory.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -379,7 +1572,11 @@ extern "stdcall" fn vkGetImageMemoryRequirements(
     image: vk::Image,
     p_memory_requirements: *mut vk::MemoryRequirements,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageMemoryRequirements.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageMemoryRequirements.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -392,7 +1589,11 @@ extern "stdcall" fn vkBindImageMemory(
     memory: vk::DeviceMemory,
     memory_offset: vk::DeviceSize,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindImageMemory.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindImageMemory.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -405,7 +1606,11 @@ extern "stdcall" fn vkGetImageSparseMemoryRequirements(
     p_sparse_memory_requirement_count: *mut u32,
     p_sparse_memory_requirements: *mut vk::SparseImageMemoryRequirements,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageSparseMemoryRequirements.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageSparseMemoryRequirements.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -422,7 +1627,11 @@ extern "stdcall" fn vkGetPhysicalDeviceSparseImageFormatProperties(
     p_property_count: *mut u32,
     p_properties: *mut vk::SparseImageFormatProperties,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSparseImageFormatProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSparseImageFormatProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -435,7 +1644,11 @@ extern "stdcall" fn vkQueueBindSparse(
     p_bind_info: *const vk::BindSparseInfo,
     fence: vk::Fence,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueBindSparse.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueBindSparse.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -448,7 +1661,11 @@ extern "stdcall" fn vkCreateFence(
     p_allocator: *const vk::AllocationCallbacks,
     p_fence: *mut vk::Fence,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateFence.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateFence.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -460,7 +1677,11 @@ extern "stdcall" fn vkDestroyFence(
     fence: vk::Fence,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyFence.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyFence.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -472,18 +1693,23 @@ extern "stdcall" fn vkResetFences(
     fence_count: u32,
     p_fences: *const vk::Fence,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkResetFences.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkResetFences.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceStatus.html>"]
-extern "stdcall" fn vkGetFenceStatus(
-    device: vk::Device,
-    fence: vk::Fence,
-) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetFenceStatus.txt", "whoa").unwrap();
+extern "stdcall" fn vkGetFenceStatus(device: vk::Device, fence: vk::Fence) -> vk::Result {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetFenceStatus.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -497,7 +1723,11 @@ extern "stdcall" fn vkWaitForFences(
     wait_all: vk::Bool32,
     timeout: u64,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkWaitForFences.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkWaitForFences.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -510,7 +1740,11 @@ extern "stdcall" fn vkCreateSemaphore(
     p_allocator: *const vk::AllocationCallbacks,
     p_semaphore: *mut vk::Semaphore,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateSemaphore.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateSemaphore.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -522,7 +1756,11 @@ extern "stdcall" fn vkDestroySemaphore(
     semaphore: vk::Semaphore,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroySemaphore.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroySemaphore.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -535,7 +1773,11 @@ extern "stdcall" fn vkCreateEvent(
     p_allocator: *const vk::AllocationCallbacks,
     p_event: *mut vk::Event,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateEvent.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateEvent.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -547,40 +1789,47 @@ extern "stdcall" fn vkDestroyEvent(
     event: vk::Event,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyEvent.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyEvent.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetEventStatus.html>"]
-extern "stdcall" fn vkGetEventStatus(
-    device: vk::Device,
-    event: vk::Event,
-) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetEventStatus.txt", "whoa").unwrap();
+extern "stdcall" fn vkGetEventStatus(device: vk::Device, event: vk::Event) -> vk::Result {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetEventStatus.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetEvent.html>"]
-extern "stdcall" fn vkSetEvent(
-    device: vk::Device,
-    event: vk::Event,
-) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetEvent.txt", "whoa").unwrap();
+extern "stdcall" fn vkSetEvent(device: vk::Device, event: vk::Event) -> vk::Result {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetEvent.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetEvent.html>"]
-extern "stdcall" fn vkResetEvent(
-    device: vk::Device,
-    event: vk::Event,
-) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkResetEvent.txt", "whoa").unwrap();
+extern "stdcall" fn vkResetEvent(device: vk::Device, event: vk::Event) -> vk::Result {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkResetEvent.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -593,7 +1842,11 @@ extern "stdcall" fn vkCreateQueryPool(
     p_allocator: *const vk::AllocationCallbacks,
     p_query_pool: *mut vk::QueryPool,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateQueryPool.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateQueryPool.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -605,7 +1858,11 @@ extern "stdcall" fn vkDestroyQueryPool(
     query_pool: vk::QueryPool,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyQueryPool.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyQueryPool.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -622,7 +1879,11 @@ extern "stdcall" fn vkGetQueryPoolResults(
     stride: vk::DeviceSize,
     flags: vk::QueryResultFlags,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetQueryPoolResults.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetQueryPoolResults.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -635,7 +1896,11 @@ extern "stdcall" fn vkResetQueryPool(
     first_query: u32,
     query_count: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkResetQueryPool.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkResetQueryPool.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -648,7 +1913,11 @@ extern "stdcall" fn vkCreateBuffer(
     p_allocator: *const vk::AllocationCallbacks,
     p_buffer: *mut vk::Buffer,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateBuffer.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateBuffer.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -660,7 +1929,11 @@ extern "stdcall" fn vkDestroyBuffer(
     buffer: vk::Buffer,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyBuffer.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyBuffer.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -673,7 +1946,11 @@ extern "stdcall" fn vkCreateBufferView(
     p_allocator: *const vk::AllocationCallbacks,
     p_view: *mut vk::BufferView,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateBufferView.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateBufferView.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -685,7 +1962,11 @@ extern "stdcall" fn vkDestroyBufferView(
     buffer_view: vk::BufferView,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyBufferView.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyBufferView.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -698,7 +1979,11 @@ extern "stdcall" fn vkCreateImage(
     p_allocator: *const vk::AllocationCallbacks,
     p_image: *mut vk::Image,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateImage.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateImage.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -710,7 +1995,11 @@ extern "stdcall" fn vkDestroyImage(
     image: vk::Image,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyImage.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyImage.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -723,7 +2012,11 @@ extern "stdcall" fn vkGetImageSubresourceLayout(
     p_subresource: *const vk::ImageSubresource,
     p_layout: *mut vk::SubresourceLayout,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageSubresourceLayout.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageSubresourceLayout.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -736,7 +2029,11 @@ extern "stdcall" fn vkCreateImageView(
     p_allocator: *const vk::AllocationCallbacks,
     p_view: *mut vk::ImageView,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateImageView.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateImageView.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -748,7 +2045,11 @@ extern "stdcall" fn vkDestroyImageView(
     image_view: vk::ImageView,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyImageView.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyImageView.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -761,7 +2062,11 @@ extern "stdcall" fn vkCreateShaderModule(
     p_allocator: *const vk::AllocationCallbacks,
     p_shader_module: *mut vk::ShaderModule,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateShaderModule.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateShaderModule.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -773,7 +2078,11 @@ extern "stdcall" fn vkDestroyShaderModule(
     shader_module: vk::ShaderModule,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyShaderModule.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyShaderModule.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -786,7 +2095,11 @@ extern "stdcall" fn vkCreatePipelineCache(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipeline_cache: *mut vk::PipelineCache,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreatePipelineCache.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreatePipelineCache.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -798,7 +2111,11 @@ extern "stdcall" fn vkDestroyPipelineCache(
     pipeline_cache: vk::PipelineCache,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyPipelineCache.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyPipelineCache.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -811,7 +2128,11 @@ extern "stdcall" fn vkGetPipelineCacheData(
     p_data_size: *mut isize,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPipelineCacheData.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPipelineCacheData.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -824,7 +2145,11 @@ extern "stdcall" fn vkMergePipelineCaches(
     src_cache_count: u32,
     p_src_caches: *const vk::PipelineCache,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkMergePipelineCaches.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkMergePipelineCaches.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -839,7 +2164,11 @@ extern "stdcall" fn vkCreateGraphicsPipelines(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipelines: *mut vk::Pipeline,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateGraphicsPipelines.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateGraphicsPipelines.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -854,7 +2183,11 @@ extern "stdcall" fn vkCreateComputePipelines(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipelines: *mut vk::Pipeline,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateComputePipelines.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateComputePipelines.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -866,7 +2199,11 @@ extern "stdcall" fn vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(
     renderpass: vk::RenderPass,
     p_max_workgroup_size: *mut vk::Extent2D,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -878,7 +2215,11 @@ extern "stdcall" fn vkDestroyPipeline(
     pipeline: vk::Pipeline,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyPipeline.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyPipeline.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -891,7 +2232,11 @@ extern "stdcall" fn vkCreatePipelineLayout(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipeline_layout: *mut vk::PipelineLayout,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreatePipelineLayout.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreatePipelineLayout.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -903,7 +2248,11 @@ extern "stdcall" fn vkDestroyPipelineLayout(
     pipeline_layout: vk::PipelineLayout,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyPipelineLayout.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyPipelineLayout.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -916,7 +2265,11 @@ extern "stdcall" fn vkCreateSampler(
     p_allocator: *const vk::AllocationCallbacks,
     p_sampler: *mut vk::Sampler,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateSampler.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateSampler.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -928,7 +2281,11 @@ extern "stdcall" fn vkDestroySampler(
     sampler: vk::Sampler,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroySampler.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroySampler.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -941,7 +2298,11 @@ extern "stdcall" fn vkCreateDescriptorSetLayout(
     p_allocator: *const vk::AllocationCallbacks,
     p_set_layout: *mut vk::DescriptorSetLayout,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDescriptorSetLayout.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDescriptorSetLayout.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -953,7 +2314,11 @@ extern "stdcall" fn vkDestroyDescriptorSetLayout(
     descriptor_set_layout: vk::DescriptorSetLayout,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDescriptorSetLayout.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDescriptorSetLayout.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -966,7 +2331,11 @@ extern "stdcall" fn vkCreateDescriptorPool(
     p_allocator: *const vk::AllocationCallbacks,
     p_descriptor_pool: *mut vk::DescriptorPool,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDescriptorPool.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDescriptorPool.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -978,7 +2347,11 @@ extern "stdcall" fn vkDestroyDescriptorPool(
     descriptor_pool: vk::DescriptorPool,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDescriptorPool.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDescriptorPool.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -990,7 +2363,11 @@ extern "stdcall" fn vkResetDescriptorPool(
     descriptor_pool: vk::DescriptorPool,
     flags: vk::DescriptorPoolResetFlags,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkResetDescriptorPool.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkResetDescriptorPool.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1002,7 +2379,11 @@ extern "stdcall" fn vkAllocateDescriptorSets(
     p_allocate_info: *const vk::DescriptorSetAllocateInfo,
     p_descriptor_sets: *mut vk::DescriptorSet,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAllocateDescriptorSets.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAllocateDescriptorSets.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1015,7 +2396,11 @@ extern "stdcall" fn vkFreeDescriptorSets(
     descriptor_set_count: u32,
     p_descriptor_sets: *const vk::DescriptorSet,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkFreeDescriptorSets.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkFreeDescriptorSets.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1029,7 +2414,11 @@ extern "stdcall" fn vkUpdateDescriptorSets(
     descriptor_copy_count: u32,
     p_descriptor_copies: *const vk::CopyDescriptorSet,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkUpdateDescriptorSets.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkUpdateDescriptorSets.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1042,7 +2431,11 @@ extern "stdcall" fn vkCreateFramebuffer(
     p_allocator: *const vk::AllocationCallbacks,
     p_framebuffer: *mut vk::Framebuffer,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateFramebuffer.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateFramebuffer.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1054,7 +2447,11 @@ extern "stdcall" fn vkDestroyFramebuffer(
     framebuffer: vk::Framebuffer,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyFramebuffer.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyFramebuffer.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1067,7 +2464,11 @@ extern "stdcall" fn vkCreateRenderPass(
     p_allocator: *const vk::AllocationCallbacks,
     p_render_pass: *mut vk::RenderPass,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateRenderPass.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateRenderPass.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1079,7 +2480,11 @@ extern "stdcall" fn vkDestroyRenderPass(
     render_pass: vk::RenderPass,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyRenderPass.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyRenderPass.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1091,7 +2496,11 @@ extern "stdcall" fn vkGetRenderAreaGranularity(
     render_pass: vk::RenderPass,
     p_granularity: *mut vk::Extent2D,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetRenderAreaGranularity.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetRenderAreaGranularity.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1103,7 +2512,11 @@ extern "stdcall" fn vkGetRenderingAreaGranularityKHR(
     p_rendering_area_info: *const vk::RenderingAreaInfoKHR,
     p_granularity: *mut vk::Extent2D,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetRenderingAreaGranularityKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetRenderingAreaGranularityKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1116,7 +2529,11 @@ extern "stdcall" fn vkCreateCommandPool(
     p_allocator: *const vk::AllocationCallbacks,
     p_command_pool: *mut vk::CommandPool,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateCommandPool.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateCommandPool.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1128,7 +2545,11 @@ extern "stdcall" fn vkDestroyCommandPool(
     command_pool: vk::CommandPool,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyCommandPool.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyCommandPool.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1140,7 +2561,11 @@ extern "stdcall" fn vkResetCommandPool(
     command_pool: vk::CommandPool,
     flags: vk::CommandPoolResetFlags,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkResetCommandPool.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkResetCommandPool.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1152,7 +2577,11 @@ extern "stdcall" fn vkAllocateCommandBuffers(
     p_allocate_info: *const vk::CommandBufferAllocateInfo,
     p_command_buffers: *mut vk::CommandBuffer,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAllocateCommandBuffers.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAllocateCommandBuffers.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1165,7 +2594,11 @@ extern "stdcall" fn vkFreeCommandBuffers(
     command_buffer_count: u32,
     p_command_buffers: *const vk::CommandBuffer,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkFreeCommandBuffers.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkFreeCommandBuffers.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1176,17 +2609,23 @@ extern "stdcall" fn vkBeginCommandBuffer(
     command_buffer: vk::CommandBuffer,
     p_begin_info: *const vk::CommandBufferBeginInfo,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBeginCommandBuffer.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBeginCommandBuffer.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEndCommandBuffer.html>"]
-extern "stdcall" fn vkEndCommandBuffer(
-    command_buffer: vk::CommandBuffer,
-) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEndCommandBuffer.txt", "whoa").unwrap();
+extern "stdcall" fn vkEndCommandBuffer(command_buffer: vk::CommandBuffer) -> vk::Result {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEndCommandBuffer.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1197,7 +2636,11 @@ extern "stdcall" fn vkResetCommandBuffer(
     command_buffer: vk::CommandBuffer,
     flags: vk::CommandBufferResetFlags,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkResetCommandBuffer.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkResetCommandBuffer.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1209,7 +2652,11 @@ extern "stdcall" fn vkCmdBindPipeline(
     pipeline_bind_point: vk::PipelineBindPoint,
     pipeline: vk::Pipeline,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindPipeline.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindPipeline.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1220,7 +2667,11 @@ extern "stdcall" fn vkCmdSetAttachmentFeedbackLoopEnableEXT(
     command_buffer: vk::CommandBuffer,
     aspect_mask: vk::ImageAspectFlags,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetAttachmentFeedbackLoopEnableEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetAttachmentFeedbackLoopEnableEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1233,7 +2684,11 @@ extern "stdcall" fn vkCmdSetViewport(
     viewport_count: u32,
     p_viewports: *const vk::Viewport,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetViewport.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetViewport.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1246,18 +2701,23 @@ extern "stdcall" fn vkCmdSetScissor(
     scissor_count: u32,
     p_scissors: *const vk::Rect2D,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetScissor.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetScissor.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineWidth.html>"]
-extern "stdcall" fn vkCmdSetLineWidth(
-    command_buffer: vk::CommandBuffer,
-    line_width: f32,
-) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetLineWidth.txt", "whoa").unwrap();
+extern "stdcall" fn vkCmdSetLineWidth(command_buffer: vk::CommandBuffer, line_width: f32) {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetLineWidth.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1270,7 +2730,11 @@ extern "stdcall" fn vkCmdSetDepthBias(
     depth_bias_clamp: f32,
     depth_bias_slope_factor: f32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthBias.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthBias.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1281,7 +2745,11 @@ extern "stdcall" fn vkCmdSetBlendConstants(
     command_buffer: vk::CommandBuffer,
     blend_constants: f32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetBlendConstants.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetBlendConstants.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1293,7 +2761,11 @@ extern "stdcall" fn vkCmdSetDepthBounds(
     min_depth_bounds: f32,
     max_depth_bounds: f32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthBounds.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthBounds.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1305,7 +2777,11 @@ extern "stdcall" fn vkCmdSetStencilCompareMask(
     face_mask: vk::StencilFaceFlags,
     compare_mask: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetStencilCompareMask.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetStencilCompareMask.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1317,7 +2793,11 @@ extern "stdcall" fn vkCmdSetStencilWriteMask(
     face_mask: vk::StencilFaceFlags,
     write_mask: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetStencilWriteMask.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetStencilWriteMask.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1329,7 +2809,11 @@ extern "stdcall" fn vkCmdSetStencilReference(
     face_mask: vk::StencilFaceFlags,
     reference: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetStencilReference.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetStencilReference.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1346,7 +2830,11 @@ extern "stdcall" fn vkCmdBindDescriptorSets(
     dynamic_offset_count: u32,
     p_dynamic_offsets: *const u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindDescriptorSets.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindDescriptorSets.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1359,7 +2847,11 @@ extern "stdcall" fn vkCmdBindIndexBuffer(
     offset: vk::DeviceSize,
     index_type: vk::IndexType,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindIndexBuffer.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindIndexBuffer.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1373,7 +2865,11 @@ extern "stdcall" fn vkCmdBindVertexBuffers(
     p_buffers: *const vk::Buffer,
     p_offsets: *const vk::DeviceSize,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindVertexBuffers.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindVertexBuffers.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1402,7 +2898,11 @@ extern "stdcall" fn vkCmdDrawIndexed(
     vertex_offset: i32,
     first_instance: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawIndexed.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawIndexed.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1417,7 +2917,11 @@ extern "stdcall" fn vkCmdDrawMultiEXT(
     first_instance: u32,
     stride: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMultiEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMultiEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1433,7 +2937,11 @@ extern "stdcall" fn vkCmdDrawMultiIndexedEXT(
     stride: u32,
     p_vertex_offset: *const i32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMultiIndexedEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMultiIndexedEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1447,7 +2955,11 @@ extern "stdcall" fn vkCmdDrawIndirect(
     draw_count: u32,
     stride: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawIndirect.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawIndirect.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1461,7 +2973,11 @@ extern "stdcall" fn vkCmdDrawIndexedIndirect(
     draw_count: u32,
     stride: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawIndexedIndirect.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawIndexedIndirect.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1474,7 +2990,11 @@ extern "stdcall" fn vkCmdDispatch(
     group_count_y: u32,
     group_count_z: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDispatch.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDispatch.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1486,17 +3006,23 @@ extern "stdcall" fn vkCmdDispatchIndirect(
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDispatchIndirect.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDispatchIndirect.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSubpassShadingHUAWEI.html>"]
-extern "stdcall" fn vkCmdSubpassShadingHUAWEI(
-    command_buffer: vk::CommandBuffer,
-) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSubpassShadingHUAWEI.txt", "whoa").unwrap();
+extern "stdcall" fn vkCmdSubpassShadingHUAWEI(command_buffer: vk::CommandBuffer) {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSubpassShadingHUAWEI.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1509,7 +3035,11 @@ extern "stdcall" fn vkCmdDrawClusterHUAWEI(
     group_count_y: u32,
     group_count_z: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawClusterHUAWEI.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawClusterHUAWEI.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1521,7 +3051,11 @@ extern "stdcall" fn vkCmdDrawClusterIndirectHUAWEI(
     buffer: vk::Buffer,
     offset: vk::DeviceSize,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawClusterIndirectHUAWEI.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawClusterIndirectHUAWEI.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1533,7 +3067,11 @@ extern "stdcall" fn vkCmdUpdatePipelineIndirectBufferNV(
     pipeline_bind_point: vk::PipelineBindPoint,
     pipeline: vk::Pipeline,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdUpdatePipelineIndirectBufferNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdUpdatePipelineIndirectBufferNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1547,7 +3085,11 @@ extern "stdcall" fn vkCmdCopyBuffer(
     region_count: u32,
     p_regions: *const vk::BufferCopy,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyBuffer.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyBuffer.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1563,7 +3105,11 @@ extern "stdcall" fn vkCmdCopyImage(
     region_count: u32,
     p_regions: *const vk::ImageCopy,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyImage.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyImage.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1580,7 +3126,11 @@ extern "stdcall" fn vkCmdBlitImage(
     p_regions: *const vk::ImageBlit,
     filter: vk::Filter,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBlitImage.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBlitImage.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1595,7 +3145,11 @@ extern "stdcall" fn vkCmdCopyBufferToImage(
     region_count: u32,
     p_regions: *const vk::BufferImageCopy,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyBufferToImage.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyBufferToImage.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1610,7 +3164,11 @@ extern "stdcall" fn vkCmdCopyImageToBuffer(
     region_count: u32,
     p_regions: *const vk::BufferImageCopy,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyImageToBuffer.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyImageToBuffer.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1623,7 +3181,11 @@ extern "stdcall" fn vkCmdCopyMemoryIndirectNV(
     copy_count: u32,
     stride: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyMemoryIndirectNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyMemoryIndirectNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1639,7 +3201,11 @@ extern "stdcall" fn vkCmdCopyMemoryToImageIndirectNV(
     dst_image_layout: vk::ImageLayout,
     p_image_subresources: *const vk::ImageSubresourceLayers,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyMemoryToImageIndirectNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyMemoryToImageIndirectNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1653,7 +3219,11 @@ extern "stdcall" fn vkCmdUpdateBuffer(
     data_size: vk::DeviceSize,
     p_data: *const std::ffi::c_void,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdUpdateBuffer.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdUpdateBuffer.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1667,7 +3237,11 @@ extern "stdcall" fn vkCmdFillBuffer(
     size: vk::DeviceSize,
     data: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdFillBuffer.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdFillBuffer.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1682,7 +3256,11 @@ extern "stdcall" fn vkCmdClearColorImage(
     range_count: u32,
     p_ranges: *const vk::ImageSubresourceRange,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdClearColorImage.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdClearColorImage.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1697,7 +3275,11 @@ extern "stdcall" fn vkCmdClearDepthStencilImage(
     range_count: u32,
     p_ranges: *const vk::ImageSubresourceRange,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdClearDepthStencilImage.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdClearDepthStencilImage.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1711,7 +3293,11 @@ extern "stdcall" fn vkCmdClearAttachments(
     rect_count: u32,
     p_rects: *const vk::ClearRect,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdClearAttachments.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdClearAttachments.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1727,7 +3313,11 @@ extern "stdcall" fn vkCmdResolveImage(
     region_count: u32,
     p_regions: *const vk::ImageResolve,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdResolveImage.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdResolveImage.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1739,7 +3329,11 @@ extern "stdcall" fn vkCmdSetEvent(
     event: vk::Event,
     stage_mask: vk::PipelineStageFlags,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetEvent.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetEvent.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1751,7 +3345,11 @@ extern "stdcall" fn vkCmdResetEvent(
     event: vk::Event,
     stage_mask: vk::PipelineStageFlags,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdResetEvent.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdResetEvent.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1771,7 +3369,11 @@ extern "stdcall" fn vkCmdWaitEvents(
     image_memory_barrier_count: u32,
     p_image_memory_barriers: *const vk::ImageMemoryBarrier,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWaitEvents.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWaitEvents.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1790,7 +3392,11 @@ extern "stdcall" fn vkCmdPipelineBarrier(
     image_memory_barrier_count: u32,
     p_image_memory_barriers: *const vk::ImageMemoryBarrier,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPipelineBarrier.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPipelineBarrier.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1803,7 +3409,11 @@ extern "stdcall" fn vkCmdBeginQuery(
     query: u32,
     flags: vk::QueryControlFlags,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginQuery.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginQuery.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1815,7 +3425,11 @@ extern "stdcall" fn vkCmdEndQuery(
     query_pool: vk::QueryPool,
     query: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndQuery.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndQuery.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1826,17 +3440,23 @@ extern "stdcall" fn vkCmdBeginConditionalRenderingEXT(
     command_buffer: vk::CommandBuffer,
     p_conditional_rendering_begin: *const vk::ConditionalRenderingBeginInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginConditionalRenderingEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginConditionalRenderingEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndConditionalRenderingEXT.html>"]
-extern "stdcall" fn vkCmdEndConditionalRenderingEXT(
-    command_buffer: vk::CommandBuffer,
-) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndConditionalRenderingEXT.txt", "whoa").unwrap();
+extern "stdcall" fn vkCmdEndConditionalRenderingEXT(command_buffer: vk::CommandBuffer) {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndConditionalRenderingEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1849,7 +3469,11 @@ extern "stdcall" fn vkCmdResetQueryPool(
     first_query: u32,
     query_count: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdResetQueryPool.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdResetQueryPool.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1862,7 +3486,11 @@ extern "stdcall" fn vkCmdWriteTimestamp(
     query_pool: vk::QueryPool,
     query: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteTimestamp.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteTimestamp.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1879,7 +3507,11 @@ extern "stdcall" fn vkCmdCopyQueryPoolResults(
     stride: vk::DeviceSize,
     flags: vk::QueryResultFlags,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyQueryPoolResults.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyQueryPoolResults.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1894,7 +3526,11 @@ extern "stdcall" fn vkCmdPushConstants(
     size: u32,
     p_values: *const std::ffi::c_void,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPushConstants.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPushConstants.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1906,7 +3542,11 @@ extern "stdcall" fn vkCmdBeginRenderPass(
     p_render_pass_begin: *const vk::RenderPassBeginInfo,
     contents: vk::SubpassContents,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginRenderPass.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginRenderPass.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1917,17 +3557,23 @@ extern "stdcall" fn vkCmdNextSubpass(
     command_buffer: vk::CommandBuffer,
     contents: vk::SubpassContents,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdNextSubpass.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdNextSubpass.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass.html>"]
-extern "stdcall" fn vkCmdEndRenderPass(
-    command_buffer: vk::CommandBuffer,
-) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndRenderPass.txt", "whoa").unwrap();
+extern "stdcall" fn vkCmdEndRenderPass(command_buffer: vk::CommandBuffer) {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndRenderPass.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1939,7 +3585,11 @@ extern "stdcall" fn vkCmdExecuteCommands(
     command_buffer_count: u32,
     p_command_buffers: *const vk::CommandBuffer,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdExecuteCommands.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdExecuteCommands.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1952,7 +3602,11 @@ extern "stdcall" fn vkCreateAndroidSurfaceKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateAndroidSurfaceKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateAndroidSurfaceKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1964,7 +3618,11 @@ extern "stdcall" fn vkGetPhysicalDeviceDisplayPropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayPropertiesKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceDisplayPropertiesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceDisplayPropertiesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1976,7 +3634,11 @@ extern "stdcall" fn vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayPlanePropertiesKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceDisplayPlanePropertiesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceDisplayPlanePropertiesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -1989,7 +3651,11 @@ extern "stdcall" fn vkGetDisplayPlaneSupportedDisplaysKHR(
     p_display_count: *mut u32,
     p_displays: *mut vk::DisplayKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDisplayPlaneSupportedDisplaysKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDisplayPlaneSupportedDisplaysKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2002,7 +3668,11 @@ extern "stdcall" fn vkGetDisplayModePropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayModePropertiesKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDisplayModePropertiesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDisplayModePropertiesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2016,7 +3686,11 @@ extern "stdcall" fn vkCreateDisplayModeKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_mode: *mut vk::DisplayModeKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDisplayModeKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDisplayModeKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2029,7 +3703,11 @@ extern "stdcall" fn vkGetDisplayPlaneCapabilitiesKHR(
     plane_index: u32,
     p_capabilities: *mut vk::DisplayPlaneCapabilitiesKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDisplayPlaneCapabilitiesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDisplayPlaneCapabilitiesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2042,7 +3720,11 @@ extern "stdcall" fn vkCreateDisplayPlaneSurfaceKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDisplayPlaneSurfaceKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDisplayPlaneSurfaceKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2056,7 +3738,11 @@ extern "stdcall" fn vkCreateSharedSwapchainsKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_swapchains: *mut vk::SwapchainKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateSharedSwapchainsKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateSharedSwapchainsKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2068,7 +3754,11 @@ extern "stdcall" fn vkDestroySurfaceKHR(
     surface: vk::SurfaceKHR,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroySurfaceKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroySurfaceKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2081,7 +3771,11 @@ extern "stdcall" fn vkGetPhysicalDeviceSurfaceSupportKHR(
     surface: vk::SurfaceKHR,
     p_supported: *mut vk::Bool32,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfaceSupportKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfaceSupportKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2093,7 +3787,11 @@ extern "stdcall" fn vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
     surface: vk::SurfaceKHR,
     p_surface_capabilities: *mut vk::SurfaceCapabilitiesKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfaceCapabilitiesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfaceCapabilitiesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2106,7 +3804,11 @@ extern "stdcall" fn vkGetPhysicalDeviceSurfaceFormatsKHR(
     p_surface_format_count: *mut u32,
     p_surface_formats: *mut vk::SurfaceFormatKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfaceFormatsKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfaceFormatsKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2119,7 +3821,11 @@ extern "stdcall" fn vkGetPhysicalDeviceSurfacePresentModesKHR(
     p_present_mode_count: *mut u32,
     p_present_modes: *mut vk::PresentModeKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfacePresentModesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfacePresentModesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2132,7 +3838,11 @@ extern "stdcall" fn vkCreateSwapchainKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_swapchain: *mut vk::SwapchainKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateSwapchainKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateSwapchainKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2144,7 +3854,11 @@ extern "stdcall" fn vkDestroySwapchainKHR(
     swapchain: vk::SwapchainKHR,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroySwapchainKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroySwapchainKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2157,7 +3871,11 @@ extern "stdcall" fn vkGetSwapchainImagesKHR(
     p_swapchain_image_count: *mut u32,
     p_swapchain_images: *mut vk::Image,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSwapchainImagesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSwapchainImagesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2172,7 +3890,11 @@ extern "stdcall" fn vkAcquireNextImageKHR(
     fence: vk::Fence,
     p_image_index: *mut u32,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireNextImageKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireNextImageKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2183,7 +3905,11 @@ extern "stdcall" fn vkQueuePresentKHR(
     queue: vk::Queue,
     p_present_info: *const vk::PresentInfoKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueuePresentKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueuePresentKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2196,7 +3922,11 @@ extern "stdcall" fn vkCreateViSurfaceNN(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateViSurfaceNN.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateViSurfaceNN.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2209,7 +3939,11 @@ extern "stdcall" fn vkCreateWaylandSurfaceKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateWaylandSurfaceKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateWaylandSurfaceKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2221,7 +3955,11 @@ extern "stdcall" fn vkGetPhysicalDeviceWaylandPresentationSupportKHR(
     queue_family_index: u32,
     display: *mut vk::wl_display,
 ) -> vk::Bool32 {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceWaylandPresentationSupportKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceWaylandPresentationSupportKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2234,7 +3972,11 @@ extern "stdcall" fn vkCreateWin32SurfaceKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateWin32SurfaceKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateWin32SurfaceKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2245,7 +3987,11 @@ extern "stdcall" fn vkGetPhysicalDeviceWin32PresentationSupportKHR(
     physical_device: vk::PhysicalDevice,
     queue_family_index: u32,
 ) -> vk::Bool32 {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceWin32PresentationSupportKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceWin32PresentationSupportKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2258,7 +4004,11 @@ extern "stdcall" fn vkCreateXlibSurfaceKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateXlibSurfaceKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateXlibSurfaceKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2271,7 +4021,11 @@ extern "stdcall" fn vkGetPhysicalDeviceXlibPresentationSupportKHR(
     dpy: *mut vk::Display,
     visual_i_d: vk::VisualID,
 ) -> vk::Bool32 {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceXlibPresentationSupportKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceXlibPresentationSupportKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2284,7 +4038,11 @@ extern "stdcall" fn vkCreateXcbSurfaceKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateXcbSurfaceKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateXcbSurfaceKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2297,7 +4055,11 @@ extern "stdcall" fn vkGetPhysicalDeviceXcbPresentationSupportKHR(
     connection: *mut vk::xcb_connection_t,
     visual_id: vk::xcb_visualid_t,
 ) -> vk::Bool32 {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceXcbPresentationSupportKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceXcbPresentationSupportKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2310,7 +4072,11 @@ extern "stdcall" fn vkCreateDirectFBSurfaceEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDirectFBSurfaceEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDirectFBSurfaceEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2335,7 +4101,11 @@ extern "stdcall" fn vkCreateImagePipeSurfaceFUCHSIA(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateImagePipeSurfaceFUCHSIA.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateImagePipeSurfaceFUCHSIA.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2348,7 +4118,11 @@ extern "stdcall" fn vkCreateStreamDescriptorSurfaceGGP(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateStreamDescriptorSurfaceGGP.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateStreamDescriptorSurfaceGGP.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2361,7 +4135,11 @@ extern "stdcall" fn vkCreateScreenSurfaceQNX(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateScreenSurfaceQNX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateScreenSurfaceQNX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2373,7 +4151,11 @@ extern "stdcall" fn vkGetPhysicalDeviceScreenPresentationSupportQNX(
     queue_family_index: u32,
     window: *mut vk::_screen_window,
 ) -> vk::Bool32 {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceScreenPresentationSupportQNX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceScreenPresentationSupportQNX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2386,7 +4168,11 @@ extern "stdcall" fn vkCreateDebugReportCallbackEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_callback: *mut vk::DebugReportCallbackEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDebugReportCallbackEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDebugReportCallbackEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2398,7 +4184,11 @@ extern "stdcall" fn vkDestroyDebugReportCallbackEXT(
     callback: vk::DebugReportCallbackEXT,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDebugReportCallbackEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDebugReportCallbackEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2415,7 +4205,11 @@ extern "stdcall" fn vkDebugReportMessageEXT(
     p_layer_prefix: *const char,
     p_message: *const char,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDebugReportMessageEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDebugReportMessageEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2426,7 +4220,11 @@ extern "stdcall" fn vkDebugMarkerSetObjectNameEXT(
     device: vk::Device,
     p_name_info: *const vk::DebugMarkerObjectNameInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDebugMarkerSetObjectNameEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDebugMarkerSetObjectNameEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2437,7 +4235,11 @@ extern "stdcall" fn vkDebugMarkerSetObjectTagEXT(
     device: vk::Device,
     p_tag_info: *const vk::DebugMarkerObjectTagInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDebugMarkerSetObjectTagEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDebugMarkerSetObjectTagEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2448,17 +4250,23 @@ extern "stdcall" fn vkCmdDebugMarkerBeginEXT(
     command_buffer: vk::CommandBuffer,
     p_marker_info: *const vk::DebugMarkerMarkerInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDebugMarkerBeginEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDebugMarkerBeginEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerEndEXT.html>"]
-extern "stdcall" fn vkCmdDebugMarkerEndEXT(
-    command_buffer: vk::CommandBuffer,
-) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDebugMarkerEndEXT.txt", "whoa").unwrap();
+extern "stdcall" fn vkCmdDebugMarkerEndEXT(command_buffer: vk::CommandBuffer) {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDebugMarkerEndEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2469,7 +4277,11 @@ extern "stdcall" fn vkCmdDebugMarkerInsertEXT(
     command_buffer: vk::CommandBuffer,
     p_marker_info: *const vk::DebugMarkerMarkerInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDebugMarkerInsertEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDebugMarkerInsertEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2499,7 +4311,11 @@ extern "stdcall" fn vkGetMemoryWin32HandleNV(
     handle_type: vk::ExternalMemoryHandleTypeFlagsNV,
     p_handle: *mut vk::HANDLE,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryWin32HandleNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryWin32HandleNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2511,7 +4327,11 @@ extern "stdcall" fn vkCmdExecuteGeneratedCommandsNV(
     is_preprocessed: vk::Bool32,
     p_generated_commands_info: *const vk::GeneratedCommandsInfoNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdExecuteGeneratedCommandsNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdExecuteGeneratedCommandsNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2522,7 +4342,11 @@ extern "stdcall" fn vkCmdPreprocessGeneratedCommandsNV(
     command_buffer: vk::CommandBuffer,
     p_generated_commands_info: *const vk::GeneratedCommandsInfoNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPreprocessGeneratedCommandsNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPreprocessGeneratedCommandsNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2535,7 +4359,11 @@ extern "stdcall" fn vkCmdBindPipelineShaderGroupNV(
     pipeline: vk::Pipeline,
     group_index: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindPipelineShaderGroupNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindPipelineShaderGroupNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2547,7 +4375,11 @@ extern "stdcall" fn vkGetGeneratedCommandsMemoryRequirementsNV(
     p_info: *const vk::GeneratedCommandsMemoryRequirementsInfoNV,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetGeneratedCommandsMemoryRequirementsNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetGeneratedCommandsMemoryRequirementsNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2560,7 +4392,11 @@ extern "stdcall" fn vkCreateIndirectCommandsLayoutNV(
     p_allocator: *const vk::AllocationCallbacks,
     p_indirect_commands_layout: *mut vk::IndirectCommandsLayoutNV,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateIndirectCommandsLayoutNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateIndirectCommandsLayoutNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2572,7 +4408,11 @@ extern "stdcall" fn vkDestroyIndirectCommandsLayoutNV(
     indirect_commands_layout: vk::IndirectCommandsLayoutNV,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyIndirectCommandsLayoutNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyIndirectCommandsLayoutNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2583,7 +4423,11 @@ extern "stdcall" fn vkGetPhysicalDeviceFeatures2(
     physical_device: vk::PhysicalDevice,
     p_features: *mut vk::PhysicalDeviceFeatures2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceFeatures2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceFeatures2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2594,7 +4438,11 @@ extern "stdcall" fn vkGetPhysicalDeviceProperties2(
     physical_device: vk::PhysicalDevice,
     p_properties: *mut vk::PhysicalDeviceProperties2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceProperties2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceProperties2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2606,7 +4454,11 @@ extern "stdcall" fn vkGetPhysicalDeviceFormatProperties2(
     format: vk::Format,
     p_format_properties: *mut vk::FormatProperties2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceFormatProperties2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceFormatProperties2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2618,7 +4470,11 @@ extern "stdcall" fn vkGetPhysicalDeviceImageFormatProperties2(
     p_image_format_info: *const vk::PhysicalDeviceImageFormatInfo2,
     p_image_format_properties: *mut vk::ImageFormatProperties2,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceImageFormatProperties2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceImageFormatProperties2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2630,7 +4486,11 @@ extern "stdcall" fn vkGetPhysicalDeviceQueueFamilyProperties2(
     p_queue_family_property_count: *mut u32,
     p_queue_family_properties: *mut vk::QueueFamilyProperties2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceQueueFamilyProperties2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceQueueFamilyProperties2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2641,7 +4501,11 @@ extern "stdcall" fn vkGetPhysicalDeviceMemoryProperties2(
     physical_device: vk::PhysicalDevice,
     p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceMemoryProperties2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceMemoryProperties2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2654,7 +4518,11 @@ extern "stdcall" fn vkGetPhysicalDeviceSparseImageFormatProperties2(
     p_property_count: *mut u32,
     p_properties: *mut vk::SparseImageFormatProperties2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSparseImageFormatProperties2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSparseImageFormatProperties2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2669,7 +4537,11 @@ extern "stdcall" fn vkCmdPushDescriptorSetKHR(
     descriptor_write_count: u32,
     p_descriptor_writes: *const vk::WriteDescriptorSet,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPushDescriptorSetKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPushDescriptorSetKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2681,7 +4553,11 @@ extern "stdcall" fn vkTrimCommandPool(
     command_pool: vk::CommandPool,
     flags: vk::CommandPoolTrimFlags,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkTrimCommandPool.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkTrimCommandPool.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2693,7 +4569,11 @@ extern "stdcall" fn vkGetPhysicalDeviceExternalBufferProperties(
     p_external_buffer_info: *const vk::PhysicalDeviceExternalBufferInfo,
     p_external_buffer_properties: *mut vk::ExternalBufferProperties,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceExternalBufferProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceExternalBufferProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2705,7 +4585,11 @@ extern "stdcall" fn vkGetMemoryWin32HandleKHR(
     p_get_win32_handle_info: *const vk::MemoryGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryWin32HandleKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryWin32HandleKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2718,7 +4602,11 @@ extern "stdcall" fn vkGetMemoryWin32HandlePropertiesKHR(
     handle: vk::HANDLE,
     p_memory_win32_handle_properties: *mut vk::MemoryWin32HandlePropertiesKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryWin32HandlePropertiesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryWin32HandlePropertiesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2730,7 +4618,11 @@ extern "stdcall" fn vkGetMemoryFdKHR(
     p_get_fd_info: *const vk::MemoryGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryFdKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryFdKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2743,7 +4635,11 @@ extern "stdcall" fn vkGetMemoryFdPropertiesKHR(
     fd: std::os::raw::c_int,
     p_memory_fd_properties: *mut vk::MemoryFdPropertiesKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryFdPropertiesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryFdPropertiesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2755,7 +4651,11 @@ extern "stdcall" fn vkGetMemoryZirconHandleFUCHSIA(
     p_get_zircon_handle_info: *const vk::MemoryGetZirconHandleInfoFUCHSIA,
     p_zircon_handle: *mut vk::zx_handle_t,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryZirconHandleFUCHSIA.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryZirconHandleFUCHSIA.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2768,7 +4668,11 @@ extern "stdcall" fn vkGetMemoryZirconHandlePropertiesFUCHSIA(
     zircon_handle: vk::zx_handle_t,
     p_memory_zircon_handle_properties: *mut vk::MemoryZirconHandlePropertiesFUCHSIA,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryZirconHandlePropertiesFUCHSIA.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryZirconHandlePropertiesFUCHSIA.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2780,7 +4684,11 @@ extern "stdcall" fn vkGetMemoryRemoteAddressNV(
     p_memory_get_remote_address_info: *const vk::MemoryGetRemoteAddressInfoNV,
     p_address: *mut vk::RemoteAddressNV,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryRemoteAddressNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryRemoteAddressNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2792,7 +4700,11 @@ extern "stdcall" fn vkGetPhysicalDeviceExternalSemaphoreProperties(
     p_external_semaphore_info: *const vk::PhysicalDeviceExternalSemaphoreInfo,
     p_external_semaphore_properties: *mut vk::ExternalSemaphoreProperties,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceExternalSemaphoreProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceExternalSemaphoreProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2804,7 +4716,11 @@ extern "stdcall" fn vkGetSemaphoreWin32HandleKHR(
     p_get_win32_handle_info: *const vk::SemaphoreGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSemaphoreWin32HandleKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSemaphoreWin32HandleKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2815,7 +4731,11 @@ extern "stdcall" fn vkImportSemaphoreWin32HandleKHR(
     device: vk::Device,
     p_import_semaphore_win32_handle_info: *const vk::ImportSemaphoreWin32HandleInfoKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkImportSemaphoreWin32HandleKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkImportSemaphoreWin32HandleKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2827,7 +4747,11 @@ extern "stdcall" fn vkGetSemaphoreFdKHR(
     p_get_fd_info: *const vk::SemaphoreGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSemaphoreFdKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSemaphoreFdKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2838,7 +4762,11 @@ extern "stdcall" fn vkImportSemaphoreFdKHR(
     device: vk::Device,
     p_import_semaphore_fd_info: *const vk::ImportSemaphoreFdInfoKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkImportSemaphoreFdKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkImportSemaphoreFdKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2850,7 +4778,11 @@ extern "stdcall" fn vkGetSemaphoreZirconHandleFUCHSIA(
     p_get_zircon_handle_info: *const vk::SemaphoreGetZirconHandleInfoFUCHSIA,
     p_zircon_handle: *mut vk::zx_handle_t,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSemaphoreZirconHandleFUCHSIA.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSemaphoreZirconHandleFUCHSIA.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2861,7 +4793,11 @@ extern "stdcall" fn vkImportSemaphoreZirconHandleFUCHSIA(
     device: vk::Device,
     p_import_semaphore_zircon_handle_info: *const vk::ImportSemaphoreZirconHandleInfoFUCHSIA,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkImportSemaphoreZirconHandleFUCHSIA.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkImportSemaphoreZirconHandleFUCHSIA.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2873,7 +4809,11 @@ extern "stdcall" fn vkGetPhysicalDeviceExternalFenceProperties(
     p_external_fence_info: *const vk::PhysicalDeviceExternalFenceInfo,
     p_external_fence_properties: *mut vk::ExternalFenceProperties,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceExternalFenceProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceExternalFenceProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2885,7 +4825,11 @@ extern "stdcall" fn vkGetFenceWin32HandleKHR(
     p_get_win32_handle_info: *const vk::FenceGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetFenceWin32HandleKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetFenceWin32HandleKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2896,7 +4840,11 @@ extern "stdcall" fn vkImportFenceWin32HandleKHR(
     device: vk::Device,
     p_import_fence_win32_handle_info: *const vk::ImportFenceWin32HandleInfoKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkImportFenceWin32HandleKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkImportFenceWin32HandleKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2908,7 +4856,11 @@ extern "stdcall" fn vkGetFenceFdKHR(
     p_get_fd_info: *const vk::FenceGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetFenceFdKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetFenceFdKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2919,7 +4871,11 @@ extern "stdcall" fn vkImportFenceFdKHR(
     device: vk::Device,
     p_import_fence_fd_info: *const vk::ImportFenceFdInfoKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkImportFenceFdKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkImportFenceFdKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2930,7 +4886,11 @@ extern "stdcall" fn vkReleaseDisplayEXT(
     physical_device: vk::PhysicalDevice,
     display: vk::DisplayKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkReleaseDisplayEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkReleaseDisplayEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2942,7 +4902,11 @@ extern "stdcall" fn vkAcquireXlibDisplayEXT(
     dpy: *mut vk::Display,
     display: vk::DisplayKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireXlibDisplayEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireXlibDisplayEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2955,7 +4919,11 @@ extern "stdcall" fn vkGetRandROutputDisplayEXT(
     rr_output: vk::RROutput,
     p_display: *mut vk::DisplayKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetRandROutputDisplayEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetRandROutputDisplayEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2966,7 +4934,11 @@ extern "stdcall" fn vkAcquireWinrtDisplayNV(
     physical_device: vk::PhysicalDevice,
     display: vk::DisplayKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireWinrtDisplayNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireWinrtDisplayNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2978,7 +4950,11 @@ extern "stdcall" fn vkGetWinrtDisplayNV(
     device_relative_id: u32,
     p_display: *mut vk::DisplayKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetWinrtDisplayNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetWinrtDisplayNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -2990,7 +4966,11 @@ extern "stdcall" fn vkDisplayPowerControlEXT(
     display: vk::DisplayKHR,
     p_display_power_info: *const vk::DisplayPowerInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDisplayPowerControlEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDisplayPowerControlEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3003,7 +4983,11 @@ extern "stdcall" fn vkRegisterDeviceEventEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_fence: *mut vk::Fence,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkRegisterDeviceEventEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkRegisterDeviceEventEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3017,7 +5001,11 @@ extern "stdcall" fn vkRegisterDisplayEventEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_fence: *mut vk::Fence,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkRegisterDisplayEventEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkRegisterDisplayEventEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3030,7 +5018,11 @@ extern "stdcall" fn vkGetSwapchainCounterEXT(
     counter: vk::SurfaceCounterFlagsEXT,
     p_counter_value: *mut u64,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSwapchainCounterEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSwapchainCounterEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3042,7 +5034,11 @@ extern "stdcall" fn vkGetPhysicalDeviceSurfaceCapabilities2EXT(
     surface: vk::SurfaceKHR,
     p_surface_capabilities: *mut vk::SurfaceCapabilities2EXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfaceCapabilities2EXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfaceCapabilities2EXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3054,7 +5050,11 @@ extern "stdcall" fn vkEnumeratePhysicalDeviceGroups(
     p_physical_device_group_count: *mut u32,
     p_physical_device_group_properties: *mut vk::PhysicalDeviceGroupProperties,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumeratePhysicalDeviceGroups.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkEnumeratePhysicalDeviceGroups.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3068,7 +5068,11 @@ extern "stdcall" fn vkGetDeviceGroupPeerMemoryFeatures(
     remote_device_index: u32,
     p_peer_memory_features: *mut vk::PeerMemoryFeatureFlags,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceGroupPeerMemoryFeatures.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceGroupPeerMemoryFeatures.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3080,7 +5084,11 @@ extern "stdcall" fn vkBindBufferMemory2(
     bind_info_count: u32,
     p_bind_infos: *const vk::BindBufferMemoryInfo,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindBufferMemory2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindBufferMemory2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3092,18 +5100,23 @@ extern "stdcall" fn vkBindImageMemory2(
     bind_info_count: u32,
     p_bind_infos: *const vk::BindImageMemoryInfo,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindImageMemory2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindImageMemory2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDeviceMask.html>"]
-extern "stdcall" fn vkCmdSetDeviceMask(
-    command_buffer: vk::CommandBuffer,
-    device_mask: u32,
-) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDeviceMask.txt", "whoa").unwrap();
+extern "stdcall" fn vkCmdSetDeviceMask(command_buffer: vk::CommandBuffer, device_mask: u32) {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDeviceMask.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3114,7 +5127,11 @@ extern "stdcall" fn vkGetDeviceGroupPresentCapabilitiesKHR(
     device: vk::Device,
     p_device_group_present_capabilities: *mut vk::DeviceGroupPresentCapabilitiesKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceGroupPresentCapabilitiesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceGroupPresentCapabilitiesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3126,7 +5143,11 @@ extern "stdcall" fn vkGetDeviceGroupSurfacePresentModesKHR(
     surface: vk::SurfaceKHR,
     p_modes: *mut vk::DeviceGroupPresentModeFlagsKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceGroupSurfacePresentModesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceGroupSurfacePresentModesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3138,7 +5159,11 @@ extern "stdcall" fn vkAcquireNextImage2KHR(
     p_acquire_info: *const vk::AcquireNextImageInfoKHR,
     p_image_index: *mut u32,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireNextImage2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireNextImage2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3154,7 +5179,11 @@ extern "stdcall" fn vkCmdDispatchBase(
     group_count_y: u32,
     group_count_z: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDispatchBase.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDispatchBase.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3167,7 +5196,11 @@ extern "stdcall" fn vkGetPhysicalDevicePresentRectanglesKHR(
     p_rect_count: *mut u32,
     p_rects: *mut vk::Rect2D,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDevicePresentRectanglesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDevicePresentRectanglesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3180,7 +5213,11 @@ extern "stdcall" fn vkCreateDescriptorUpdateTemplate(
     p_allocator: *const vk::AllocationCallbacks,
     p_descriptor_update_template: *mut vk::DescriptorUpdateTemplate,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDescriptorUpdateTemplate.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDescriptorUpdateTemplate.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3192,7 +5229,11 @@ extern "stdcall" fn vkDestroyDescriptorUpdateTemplate(
     descriptor_update_template: vk::DescriptorUpdateTemplate,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDescriptorUpdateTemplate.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDescriptorUpdateTemplate.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3205,7 +5246,11 @@ extern "stdcall" fn vkUpdateDescriptorSetWithTemplate(
     descriptor_update_template: vk::DescriptorUpdateTemplate,
     p_data: *const std::ffi::c_void,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkUpdateDescriptorSetWithTemplate.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkUpdateDescriptorSetWithTemplate.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3219,7 +5264,11 @@ extern "stdcall" fn vkCmdPushDescriptorSetWithTemplateKHR(
     set: u32,
     p_data: *const std::ffi::c_void,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPushDescriptorSetWithTemplateKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPushDescriptorSetWithTemplateKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3232,7 +5281,11 @@ extern "stdcall" fn vkSetHdrMetadataEXT(
     p_swapchains: *const vk::SwapchainKHR,
     p_metadata: *const vk::HdrMetadataEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetHdrMetadataEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetHdrMetadataEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3243,7 +5296,11 @@ extern "stdcall" fn vkGetSwapchainStatusKHR(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSwapchainStatusKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSwapchainStatusKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3255,7 +5312,11 @@ extern "stdcall" fn vkGetRefreshCycleDurationGOOGLE(
     swapchain: vk::SwapchainKHR,
     p_display_timing_properties: *mut vk::RefreshCycleDurationGOOGLE,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetRefreshCycleDurationGOOGLE.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetRefreshCycleDurationGOOGLE.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3268,7 +5329,11 @@ extern "stdcall" fn vkGetPastPresentationTimingGOOGLE(
     p_presentation_timing_count: *mut u32,
     p_presentation_timings: *mut vk::PastPresentationTimingGOOGLE,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPastPresentationTimingGOOGLE.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPastPresentationTimingGOOGLE.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3281,7 +5346,11 @@ extern "stdcall" fn vkCreateIOSSurfaceMVK(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateIOSSurfaceMVK.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateIOSSurfaceMVK.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3294,7 +5363,11 @@ extern "stdcall" fn vkCreateMacOSSurfaceMVK(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateMacOSSurfaceMVK.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateMacOSSurfaceMVK.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3307,7 +5380,11 @@ extern "stdcall" fn vkCreateMetalSurfaceEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateMetalSurfaceEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateMetalSurfaceEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3320,7 +5397,11 @@ extern "stdcall" fn vkCmdSetViewportWScalingNV(
     viewport_count: u32,
     p_viewport_w_scalings: *const vk::ViewportWScalingNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetViewportWScalingNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetViewportWScalingNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3333,7 +5414,11 @@ extern "stdcall" fn vkCmdSetDiscardRectangleEXT(
     discard_rectangle_count: u32,
     p_discard_rectangles: *const vk::Rect2D,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDiscardRectangleEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDiscardRectangleEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3344,7 +5429,11 @@ extern "stdcall" fn vkCmdSetDiscardRectangleEnableEXT(
     command_buffer: vk::CommandBuffer,
     discard_rectangle_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDiscardRectangleEnableEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDiscardRectangleEnableEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3355,7 +5444,11 @@ extern "stdcall" fn vkCmdSetDiscardRectangleModeEXT(
     command_buffer: vk::CommandBuffer,
     discard_rectangle_mode: vk::DiscardRectangleModeEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDiscardRectangleModeEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDiscardRectangleModeEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3366,7 +5459,11 @@ extern "stdcall" fn vkCmdSetSampleLocationsEXT(
     command_buffer: vk::CommandBuffer,
     p_sample_locations_info: *const vk::SampleLocationsInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetSampleLocationsEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetSampleLocationsEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3378,7 +5475,11 @@ extern "stdcall" fn vkGetPhysicalDeviceMultisamplePropertiesEXT(
     samples: vk::SampleCountFlags,
     p_multisample_properties: *mut vk::MultisamplePropertiesEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceMultisamplePropertiesEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceMultisamplePropertiesEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3390,7 +5491,11 @@ extern "stdcall" fn vkGetPhysicalDeviceSurfaceCapabilities2KHR(
     p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR,
     p_surface_capabilities: *mut vk::SurfaceCapabilities2KHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfaceCapabilities2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfaceCapabilities2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3403,7 +5508,11 @@ extern "stdcall" fn vkGetPhysicalDeviceSurfaceFormats2KHR(
     p_surface_format_count: *mut u32,
     p_surface_formats: *mut vk::SurfaceFormat2KHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfaceFormats2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfaceFormats2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3415,7 +5524,11 @@ extern "stdcall" fn vkGetPhysicalDeviceDisplayProperties2KHR(
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayProperties2KHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceDisplayProperties2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceDisplayProperties2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3427,7 +5540,11 @@ extern "stdcall" fn vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayPlaneProperties2KHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceDisplayPlaneProperties2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceDisplayPlaneProperties2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3440,7 +5557,11 @@ extern "stdcall" fn vkGetDisplayModeProperties2KHR(
     p_property_count: *mut u32,
     p_properties: *mut vk::DisplayModeProperties2KHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDisplayModeProperties2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDisplayModeProperties2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3452,7 +5573,11 @@ extern "stdcall" fn vkGetDisplayPlaneCapabilities2KHR(
     p_display_plane_info: *const vk::DisplayPlaneInfo2KHR,
     p_capabilities: *mut vk::DisplayPlaneCapabilities2KHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDisplayPlaneCapabilities2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDisplayPlaneCapabilities2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3464,7 +5589,11 @@ extern "stdcall" fn vkGetBufferMemoryRequirements2(
     p_info: *const vk::BufferMemoryRequirementsInfo2,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetBufferMemoryRequirements2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetBufferMemoryRequirements2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3476,7 +5605,11 @@ extern "stdcall" fn vkGetImageMemoryRequirements2(
     p_info: *const vk::ImageMemoryRequirementsInfo2,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageMemoryRequirements2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageMemoryRequirements2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3489,7 +5622,11 @@ extern "stdcall" fn vkGetImageSparseMemoryRequirements2(
     p_sparse_memory_requirement_count: *mut u32,
     p_sparse_memory_requirements: *mut vk::SparseImageMemoryRequirements2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageSparseMemoryRequirements2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageSparseMemoryRequirements2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3501,7 +5638,11 @@ extern "stdcall" fn vkGetDeviceBufferMemoryRequirements(
     p_info: *const vk::DeviceBufferMemoryRequirements,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceBufferMemoryRequirements.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceBufferMemoryRequirements.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3513,7 +5654,11 @@ extern "stdcall" fn vkGetDeviceImageMemoryRequirements(
     p_info: *const vk::DeviceImageMemoryRequirements,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceImageMemoryRequirements.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceImageMemoryRequirements.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3526,7 +5671,11 @@ extern "stdcall" fn vkGetDeviceImageSparseMemoryRequirements(
     p_sparse_memory_requirement_count: *mut u32,
     p_sparse_memory_requirements: *mut vk::SparseImageMemoryRequirements2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceImageSparseMemoryRequirements.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceImageSparseMemoryRequirements.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3539,7 +5688,11 @@ extern "stdcall" fn vkCreateSamplerYcbcrConversion(
     p_allocator: *const vk::AllocationCallbacks,
     p_ycbcr_conversion: *mut vk::SamplerYcbcrConversion,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateSamplerYcbcrConversion.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateSamplerYcbcrConversion.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3551,7 +5704,11 @@ extern "stdcall" fn vkDestroySamplerYcbcrConversion(
     ycbcr_conversion: vk::SamplerYcbcrConversion,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroySamplerYcbcrConversion.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroySamplerYcbcrConversion.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3563,7 +5720,11 @@ extern "stdcall" fn vkGetDeviceQueue2(
     p_queue_info: *const vk::DeviceQueueInfo2,
     p_queue: *mut vk::Queue,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceQueue2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceQueue2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3576,7 +5737,11 @@ extern "stdcall" fn vkCreateValidationCacheEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_validation_cache: *mut vk::ValidationCacheEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateValidationCacheEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateValidationCacheEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3588,7 +5753,11 @@ extern "stdcall" fn vkDestroyValidationCacheEXT(
     validation_cache: vk::ValidationCacheEXT,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyValidationCacheEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyValidationCacheEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3601,7 +5770,11 @@ extern "stdcall" fn vkGetValidationCacheDataEXT(
     p_data_size: *mut isize,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetValidationCacheDataEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetValidationCacheDataEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3614,7 +5787,11 @@ extern "stdcall" fn vkMergeValidationCachesEXT(
     src_cache_count: u32,
     p_src_caches: *const vk::ValidationCacheEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkMergeValidationCachesEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkMergeValidationCachesEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3626,7 +5803,11 @@ extern "stdcall" fn vkGetDescriptorSetLayoutSupport(
     p_create_info: *const vk::DescriptorSetLayoutCreateInfo,
     p_support: *mut vk::DescriptorSetLayoutSupport,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDescriptorSetLayoutSupport.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDescriptorSetLayoutSupport.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3639,7 +5820,11 @@ extern "stdcall" fn vkGetSwapchainGrallocUsageANDROID(
     image_usage: vk::ImageUsageFlags,
     gralloc_usage: *mut std::os::raw::c_int,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSwapchainGrallocUsageANDROID.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSwapchainGrallocUsageANDROID.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3654,7 +5839,11 @@ extern "stdcall" fn vkGetSwapchainGrallocUsage2ANDROID(
     gralloc_consumer_usage: *mut u64,
     gralloc_producer_usage: *mut u64,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSwapchainGrallocUsage2ANDROID.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSwapchainGrallocUsage2ANDROID.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3668,7 +5857,11 @@ extern "stdcall" fn vkAcquireImageANDROID(
     semaphore: vk::Semaphore,
     fence: vk::Fence,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireImageANDROID.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireImageANDROID.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3682,7 +5875,11 @@ extern "stdcall" fn vkQueueSignalReleaseImageANDROID(
     image: vk::Image,
     p_native_fence_fd: *mut std::os::raw::c_int,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueSignalReleaseImageANDROID.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueSignalReleaseImageANDROID.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3697,7 +5894,11 @@ extern "stdcall" fn vkGetShaderInfoAMD(
     p_info_size: *mut isize,
     p_info: *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetShaderInfoAMD.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetShaderInfoAMD.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3709,7 +5910,11 @@ extern "stdcall" fn vkSetLocalDimmingAMD(
     swap_chain: vk::SwapchainKHR,
     local_dimming_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetLocalDimmingAMD.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetLocalDimmingAMD.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3721,7 +5926,11 @@ extern "stdcall" fn vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
     p_time_domain_count: *mut u32,
     p_time_domains: *mut vk::TimeDomainKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3735,7 +5944,11 @@ extern "stdcall" fn vkGetCalibratedTimestampsKHR(
     p_timestamps: *mut u64,
     p_max_deviation: *mut u64,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetCalibratedTimestampsKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetCalibratedTimestampsKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3746,7 +5959,11 @@ extern "stdcall" fn vkSetDebugUtilsObjectNameEXT(
     device: vk::Device,
     p_name_info: *const vk::DebugUtilsObjectNameInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetDebugUtilsObjectNameEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetDebugUtilsObjectNameEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3757,7 +5974,11 @@ extern "stdcall" fn vkSetDebugUtilsObjectTagEXT(
     device: vk::Device,
     p_tag_info: *const vk::DebugUtilsObjectTagInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetDebugUtilsObjectTagEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetDebugUtilsObjectTagEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3768,17 +5989,23 @@ extern "stdcall" fn vkQueueBeginDebugUtilsLabelEXT(
     queue: vk::Queue,
     p_label_info: *const vk::DebugUtilsLabelEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueBeginDebugUtilsLabelEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueBeginDebugUtilsLabelEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueEndDebugUtilsLabelEXT.html>"]
-extern "stdcall" fn vkQueueEndDebugUtilsLabelEXT(
-    queue: vk::Queue,
-) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueEndDebugUtilsLabelEXT.txt", "whoa").unwrap();
+extern "stdcall" fn vkQueueEndDebugUtilsLabelEXT(queue: vk::Queue) {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueEndDebugUtilsLabelEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3789,7 +6016,11 @@ extern "stdcall" fn vkQueueInsertDebugUtilsLabelEXT(
     queue: vk::Queue,
     p_label_info: *const vk::DebugUtilsLabelEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueInsertDebugUtilsLabelEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueInsertDebugUtilsLabelEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3800,17 +6031,23 @@ extern "stdcall" fn vkCmdBeginDebugUtilsLabelEXT(
     command_buffer: vk::CommandBuffer,
     p_label_info: *const vk::DebugUtilsLabelEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginDebugUtilsLabelEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginDebugUtilsLabelEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndDebugUtilsLabelEXT.html>"]
-extern "stdcall" fn vkCmdEndDebugUtilsLabelEXT(
-    command_buffer: vk::CommandBuffer,
-) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndDebugUtilsLabelEXT.txt", "whoa").unwrap();
+extern "stdcall" fn vkCmdEndDebugUtilsLabelEXT(command_buffer: vk::CommandBuffer) {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndDebugUtilsLabelEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3821,7 +6058,11 @@ extern "stdcall" fn vkCmdInsertDebugUtilsLabelEXT(
     command_buffer: vk::CommandBuffer,
     p_label_info: *const vk::DebugUtilsLabelEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdInsertDebugUtilsLabelEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdInsertDebugUtilsLabelEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3834,7 +6075,11 @@ extern "stdcall" fn vkCreateDebugUtilsMessengerEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_messenger: *mut vk::DebugUtilsMessengerEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDebugUtilsMessengerEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDebugUtilsMessengerEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3846,7 +6091,11 @@ extern "stdcall" fn vkDestroyDebugUtilsMessengerEXT(
     messenger: vk::DebugUtilsMessengerEXT,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDebugUtilsMessengerEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDebugUtilsMessengerEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3859,7 +6108,11 @@ extern "stdcall" fn vkSubmitDebugUtilsMessageEXT(
     message_types: vk::DebugUtilsMessageTypeFlagsEXT,
     p_callback_data: *const vk::DebugUtilsMessengerCallbackDataEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSubmitDebugUtilsMessageEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSubmitDebugUtilsMessageEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3872,7 +6125,11 @@ extern "stdcall" fn vkGetMemoryHostPointerPropertiesEXT(
     p_host_pointer: *const std::ffi::c_void,
     p_memory_host_pointer_properties: *mut vk::MemoryHostPointerPropertiesEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryHostPointerPropertiesEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryHostPointerPropertiesEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3886,7 +6143,11 @@ extern "stdcall" fn vkCmdWriteBufferMarkerAMD(
     dst_offset: vk::DeviceSize,
     marker: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteBufferMarkerAMD.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteBufferMarkerAMD.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3899,7 +6160,11 @@ extern "stdcall" fn vkCreateRenderPass2(
     p_allocator: *const vk::AllocationCallbacks,
     p_render_pass: *mut vk::RenderPass,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateRenderPass2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateRenderPass2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3911,7 +6176,11 @@ extern "stdcall" fn vkCmdBeginRenderPass2(
     p_render_pass_begin: *const vk::RenderPassBeginInfo,
     p_subpass_begin_info: *const vk::SubpassBeginInfo,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginRenderPass2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginRenderPass2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3923,7 +6192,11 @@ extern "stdcall" fn vkCmdNextSubpass2(
     p_subpass_begin_info: *const vk::SubpassBeginInfo,
     p_subpass_end_info: *const vk::SubpassEndInfo,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdNextSubpass2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdNextSubpass2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3934,7 +6207,11 @@ extern "stdcall" fn vkCmdEndRenderPass2(
     command_buffer: vk::CommandBuffer,
     p_subpass_end_info: *const vk::SubpassEndInfo,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndRenderPass2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndRenderPass2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3946,7 +6223,11 @@ extern "stdcall" fn vkGetSemaphoreCounterValue(
     semaphore: vk::Semaphore,
     p_value: *mut u64,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSemaphoreCounterValue.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSemaphoreCounterValue.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3958,7 +6239,11 @@ extern "stdcall" fn vkWaitSemaphores(
     p_wait_info: *const vk::SemaphoreWaitInfo,
     timeout: u64,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkWaitSemaphores.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkWaitSemaphores.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3969,7 +6254,11 @@ extern "stdcall" fn vkSignalSemaphore(
     device: vk::Device,
     p_signal_info: *const vk::SemaphoreSignalInfo,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSignalSemaphore.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSignalSemaphore.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3981,7 +6270,11 @@ extern "stdcall" fn vkGetAndroidHardwareBufferPropertiesANDROID(
     buffer: *const vk::AHardwareBuffer,
     p_properties: *mut vk::AndroidHardwareBufferPropertiesANDROID,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetAndroidHardwareBufferPropertiesANDROID.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetAndroidHardwareBufferPropertiesANDROID.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -3993,7 +6286,11 @@ extern "stdcall" fn vkGetMemoryAndroidHardwareBufferANDROID(
     p_info: *const vk::MemoryGetAndroidHardwareBufferInfoANDROID,
     p_buffer: *mut *mut vk::AHardwareBuffer,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryAndroidHardwareBufferANDROID.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMemoryAndroidHardwareBufferANDROID.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4009,7 +6306,11 @@ extern "stdcall" fn vkCmdDrawIndirectCount(
     max_draw_count: u32,
     stride: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawIndirectCount.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawIndirectCount.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4025,7 +6326,11 @@ extern "stdcall" fn vkCmdDrawIndexedIndirectCount(
     max_draw_count: u32,
     stride: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawIndexedIndirectCount.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawIndexedIndirectCount.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4036,7 +6341,11 @@ extern "stdcall" fn vkCmdSetCheckpointNV(
     command_buffer: vk::CommandBuffer,
     p_checkpoint_marker: *const std::ffi::c_void,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCheckpointNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCheckpointNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4048,7 +6357,11 @@ extern "stdcall" fn vkGetQueueCheckpointDataNV(
     p_checkpoint_data_count: *mut u32,
     p_checkpoint_data: *mut vk::CheckpointDataNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetQueueCheckpointDataNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetQueueCheckpointDataNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4063,7 +6376,11 @@ extern "stdcall" fn vkCmdBindTransformFeedbackBuffersEXT(
     p_offsets: *const vk::DeviceSize,
     p_sizes: *const vk::DeviceSize,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindTransformFeedbackBuffersEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindTransformFeedbackBuffersEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4077,7 +6394,11 @@ extern "stdcall" fn vkCmdBeginTransformFeedbackEXT(
     p_counter_buffers: *const vk::Buffer,
     p_counter_buffer_offsets: *const vk::DeviceSize,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginTransformFeedbackEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginTransformFeedbackEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4091,7 +6412,11 @@ extern "stdcall" fn vkCmdEndTransformFeedbackEXT(
     p_counter_buffers: *const vk::Buffer,
     p_counter_buffer_offsets: *const vk::DeviceSize,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndTransformFeedbackEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndTransformFeedbackEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4105,7 +6430,11 @@ extern "stdcall" fn vkCmdBeginQueryIndexedEXT(
     flags: vk::QueryControlFlags,
     index: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginQueryIndexedEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginQueryIndexedEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4118,7 +6447,11 @@ extern "stdcall" fn vkCmdEndQueryIndexedEXT(
     query: u32,
     index: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndQueryIndexedEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndQueryIndexedEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4134,7 +6467,11 @@ extern "stdcall" fn vkCmdDrawIndirectByteCountEXT(
     counter_offset: u32,
     vertex_stride: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawIndirectByteCountEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawIndirectByteCountEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4147,7 +6484,11 @@ extern "stdcall" fn vkCmdSetExclusiveScissorNV(
     exclusive_scissor_count: u32,
     p_exclusive_scissors: *const vk::Rect2D,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetExclusiveScissorNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetExclusiveScissorNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4160,7 +6501,11 @@ extern "stdcall" fn vkCmdSetExclusiveScissorEnableNV(
     exclusive_scissor_count: u32,
     p_exclusive_scissor_enables: *const vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetExclusiveScissorEnableNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetExclusiveScissorEnableNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4172,7 +6517,11 @@ extern "stdcall" fn vkCmdBindShadingRateImageNV(
     image_view: vk::ImageView,
     image_layout: vk::ImageLayout,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindShadingRateImageNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindShadingRateImageNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4185,7 +6534,11 @@ extern "stdcall" fn vkCmdSetViewportShadingRatePaletteNV(
     viewport_count: u32,
     p_shading_rate_palettes: *const vk::ShadingRatePaletteNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetViewportShadingRatePaletteNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetViewportShadingRatePaletteNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4198,7 +6551,11 @@ extern "stdcall" fn vkCmdSetCoarseSampleOrderNV(
     custom_sample_order_count: u32,
     p_custom_sample_orders: *const vk::CoarseSampleOrderCustomNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoarseSampleOrderNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoarseSampleOrderNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4210,7 +6567,11 @@ extern "stdcall" fn vkCmdDrawMeshTasksNV(
     task_count: u32,
     first_task: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMeshTasksNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMeshTasksNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4224,7 +6585,11 @@ extern "stdcall" fn vkCmdDrawMeshTasksIndirectNV(
     draw_count: u32,
     stride: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMeshTasksIndirectNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMeshTasksIndirectNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4240,7 +6605,11 @@ extern "stdcall" fn vkCmdDrawMeshTasksIndirectCountNV(
     max_draw_count: u32,
     stride: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMeshTasksIndirectCountNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMeshTasksIndirectCountNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4253,7 +6622,11 @@ extern "stdcall" fn vkCmdDrawMeshTasksEXT(
     group_count_y: u32,
     group_count_z: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMeshTasksEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMeshTasksEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4267,7 +6640,11 @@ extern "stdcall" fn vkCmdDrawMeshTasksIndirectEXT(
     draw_count: u32,
     stride: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMeshTasksIndirectEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMeshTasksIndirectEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4283,7 +6660,11 @@ extern "stdcall" fn vkCmdDrawMeshTasksIndirectCountEXT(
     max_draw_count: u32,
     stride: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMeshTasksIndirectCountEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDrawMeshTasksIndirectCountEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4295,7 +6676,11 @@ extern "stdcall" fn vkCompileDeferredNV(
     pipeline: vk::Pipeline,
     shader: u32,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCompileDeferredNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCompileDeferredNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4308,7 +6693,11 @@ extern "stdcall" fn vkCreateAccelerationStructureNV(
     p_allocator: *const vk::AllocationCallbacks,
     p_acceleration_structure: *mut vk::AccelerationStructureNV,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateAccelerationStructureNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateAccelerationStructureNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4320,7 +6709,11 @@ extern "stdcall" fn vkCmdBindInvocationMaskHUAWEI(
     image_view: vk::ImageView,
     image_layout: vk::ImageLayout,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindInvocationMaskHUAWEI.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindInvocationMaskHUAWEI.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4332,7 +6725,11 @@ extern "stdcall" fn vkDestroyAccelerationStructureKHR(
     acceleration_structure: vk::AccelerationStructureKHR,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyAccelerationStructureKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyAccelerationStructureKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4344,7 +6741,11 @@ extern "stdcall" fn vkDestroyAccelerationStructureNV(
     acceleration_structure: vk::AccelerationStructureNV,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyAccelerationStructureNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyAccelerationStructureNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4356,7 +6757,11 @@ extern "stdcall" fn vkGetAccelerationStructureMemoryRequirementsNV(
     p_info: *const vk::AccelerationStructureMemoryRequirementsInfoNV,
     p_memory_requirements: *mut vk::MemoryRequirements2KHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetAccelerationStructureMemoryRequirementsNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetAccelerationStructureMemoryRequirementsNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4368,7 +6773,11 @@ extern "stdcall" fn vkBindAccelerationStructureMemoryNV(
     bind_info_count: u32,
     p_bind_infos: *const vk::BindAccelerationStructureMemoryInfoNV,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindAccelerationStructureMemoryNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindAccelerationStructureMemoryNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4381,7 +6790,11 @@ extern "stdcall" fn vkCmdCopyAccelerationStructureNV(
     src: vk::AccelerationStructureNV,
     mode: vk::CopyAccelerationStructureModeKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyAccelerationStructureNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyAccelerationStructureNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4392,7 +6805,11 @@ extern "stdcall" fn vkCmdCopyAccelerationStructureKHR(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyAccelerationStructureInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyAccelerationStructureKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyAccelerationStructureKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4404,7 +6821,11 @@ extern "stdcall" fn vkCopyAccelerationStructureKHR(
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyAccelerationStructureInfoKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyAccelerationStructureKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyAccelerationStructureKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4415,7 +6836,11 @@ extern "stdcall" fn vkCmdCopyAccelerationStructureToMemoryKHR(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyAccelerationStructureToMemoryInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyAccelerationStructureToMemoryKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyAccelerationStructureToMemoryKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4427,7 +6852,11 @@ extern "stdcall" fn vkCopyAccelerationStructureToMemoryKHR(
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyAccelerationStructureToMemoryInfoKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyAccelerationStructureToMemoryKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyAccelerationStructureToMemoryKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4438,7 +6867,11 @@ extern "stdcall" fn vkCmdCopyMemoryToAccelerationStructureKHR(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyMemoryToAccelerationStructureInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyMemoryToAccelerationStructureKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyMemoryToAccelerationStructureKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4450,7 +6883,11 @@ extern "stdcall" fn vkCopyMemoryToAccelerationStructureKHR(
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyMemoryToAccelerationStructureInfoKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyMemoryToAccelerationStructureKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyMemoryToAccelerationStructureKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4465,7 +6902,11 @@ extern "stdcall" fn vkCmdWriteAccelerationStructuresPropertiesKHR(
     query_pool: vk::QueryPool,
     first_query: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteAccelerationStructuresPropertiesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteAccelerationStructuresPropertiesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4480,7 +6921,11 @@ extern "stdcall" fn vkCmdWriteAccelerationStructuresPropertiesNV(
     query_pool: vk::QueryPool,
     first_query: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteAccelerationStructuresPropertiesNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteAccelerationStructuresPropertiesNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4498,7 +6943,11 @@ extern "stdcall" fn vkCmdBuildAccelerationStructureNV(
     scratch: vk::Buffer,
     scratch_offset: vk::DeviceSize,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBuildAccelerationStructureNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBuildAccelerationStructureNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4514,7 +6963,11 @@ extern "stdcall" fn vkWriteAccelerationStructuresPropertiesKHR(
     p_data: *mut std::ffi::c_void,
     stride: isize,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkWriteAccelerationStructuresPropertiesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkWriteAccelerationStructuresPropertiesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4531,7 +6984,11 @@ extern "stdcall" fn vkCmdTraceRaysKHR(
     height: u32,
     depth: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdTraceRaysKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdTraceRaysKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4555,7 +7012,11 @@ extern "stdcall" fn vkCmdTraceRaysNV(
     height: u32,
     depth: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdTraceRaysNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdTraceRaysNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4570,7 +7031,11 @@ extern "stdcall" fn vkGetRayTracingShaderGroupHandlesKHR(
     data_size: isize,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetRayTracingShaderGroupHandlesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetRayTracingShaderGroupHandlesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4598,7 +7063,11 @@ extern "stdcall" fn vkGetAccelerationStructureHandleNV(
     data_size: isize,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetAccelerationStructureHandleNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetAccelerationStructureHandleNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4613,7 +7082,11 @@ extern "stdcall" fn vkCreateRayTracingPipelinesNV(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipelines: *mut vk::Pipeline,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateRayTracingPipelinesNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateRayTracingPipelinesNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4629,7 +7102,11 @@ extern "stdcall" fn vkCreateRayTracingPipelinesKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipelines: *mut vk::Pipeline,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateRayTracingPipelinesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateRayTracingPipelinesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4641,7 +7118,11 @@ extern "stdcall" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
     p_property_count: *mut u32,
     p_properties: *mut vk::CooperativeMatrixPropertiesNV,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4656,7 +7137,11 @@ extern "stdcall" fn vkCmdTraceRaysIndirectKHR(
     p_callable_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR,
     indirect_device_address: vk::DeviceAddress,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdTraceRaysIndirectKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdTraceRaysIndirectKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4667,7 +7152,11 @@ extern "stdcall" fn vkCmdTraceRaysIndirect2KHR(
     command_buffer: vk::CommandBuffer,
     indirect_device_address: vk::DeviceAddress,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdTraceRaysIndirect2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdTraceRaysIndirect2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4679,7 +7168,11 @@ extern "stdcall" fn vkGetDeviceAccelerationStructureCompatibilityKHR(
     p_version_info: *const vk::AccelerationStructureVersionInfoKHR,
     p_compatibility: *mut vk::AccelerationStructureCompatibilityKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceAccelerationStructureCompatibilityKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceAccelerationStructureCompatibilityKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4692,7 +7185,11 @@ extern "stdcall" fn vkGetRayTracingShaderGroupStackSizeKHR(
     group: u32,
     group_shader: vk::ShaderGroupShaderKHR,
 ) -> vk::DeviceSize {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetRayTracingShaderGroupStackSizeKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetRayTracingShaderGroupStackSizeKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4703,7 +7200,11 @@ extern "stdcall" fn vkCmdSetRayTracingPipelineStackSizeKHR(
     command_buffer: vk::CommandBuffer,
     pipeline_stack_size: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRayTracingPipelineStackSizeKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRayTracingPipelineStackSizeKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4714,7 +7215,11 @@ extern "stdcall" fn vkGetImageViewHandleNVX(
     device: vk::Device,
     p_info: *const vk::ImageViewHandleInfoNVX,
 ) -> u32 {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageViewHandleNVX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageViewHandleNVX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4726,7 +7231,11 @@ extern "stdcall" fn vkGetImageViewAddressNVX(
     image_view: vk::ImageView,
     p_properties: *mut vk::ImageViewAddressPropertiesNVX,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageViewAddressNVX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageViewAddressNVX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4739,7 +7248,11 @@ extern "stdcall" fn vkGetPhysicalDeviceSurfacePresentModes2EXT(
     p_present_mode_count: *mut u32,
     p_present_modes: *mut vk::PresentModeKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfacePresentModes2EXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceSurfacePresentModes2EXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4751,7 +7264,11 @@ extern "stdcall" fn vkGetDeviceGroupSurfacePresentModes2EXT(
     p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR,
     p_modes: *mut vk::DeviceGroupPresentModeFlagsKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceGroupSurfacePresentModes2EXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceGroupSurfacePresentModes2EXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4762,7 +7279,11 @@ extern "stdcall" fn vkAcquireFullScreenExclusiveModeEXT(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireFullScreenExclusiveModeEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireFullScreenExclusiveModeEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4773,7 +7294,11 @@ extern "stdcall" fn vkReleaseFullScreenExclusiveModeEXT(
     device: vk::Device,
     swapchain: vk::SwapchainKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkReleaseFullScreenExclusiveModeEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkReleaseFullScreenExclusiveModeEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4810,17 +7335,23 @@ extern "stdcall" fn vkAcquireProfilingLockKHR(
     device: vk::Device,
     p_info: *const vk::AcquireProfilingLockInfoKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireProfilingLockKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireProfilingLockKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseProfilingLockKHR.html>"]
-extern "stdcall" fn vkReleaseProfilingLockKHR(
-    device: vk::Device,
-) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkReleaseProfilingLockKHR.txt", "whoa").unwrap();
+extern "stdcall" fn vkReleaseProfilingLockKHR(device: vk::Device) {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkReleaseProfilingLockKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4832,7 +7363,11 @@ extern "stdcall" fn vkGetImageDrmFormatModifierPropertiesEXT(
     image: vk::Image,
     p_properties: *mut vk::ImageDrmFormatModifierPropertiesEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageDrmFormatModifierPropertiesEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageDrmFormatModifierPropertiesEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4843,7 +7378,11 @@ extern "stdcall" fn vkGetBufferOpaqueCaptureAddress(
     device: vk::Device,
     p_info: *const vk::BufferDeviceAddressInfo,
 ) -> u64 {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetBufferOpaqueCaptureAddress.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetBufferOpaqueCaptureAddress.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4854,7 +7393,11 @@ extern "stdcall" fn vkGetBufferDeviceAddress(
     device: vk::Device,
     p_info: *const vk::BufferDeviceAddressInfo,
 ) -> vk::DeviceAddress {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetBufferDeviceAddress.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetBufferDeviceAddress.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4867,7 +7410,11 @@ extern "stdcall" fn vkCreateHeadlessSurfaceEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_surface: *mut vk::SurfaceKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateHeadlessSurfaceEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateHeadlessSurfaceEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4890,17 +7437,23 @@ extern "stdcall" fn vkInitializePerformanceApiINTEL(
     device: vk::Device,
     p_initialize_info: *const vk::InitializePerformanceApiInfoINTEL,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkInitializePerformanceApiINTEL.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkInitializePerformanceApiINTEL.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUninitializePerformanceApiINTEL.html>"]
-extern "stdcall" fn vkUninitializePerformanceApiINTEL(
-    device: vk::Device,
-) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkUninitializePerformanceApiINTEL.txt", "whoa").unwrap();
+extern "stdcall" fn vkUninitializePerformanceApiINTEL(device: vk::Device) {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkUninitializePerformanceApiINTEL.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4911,7 +7464,11 @@ extern "stdcall" fn vkCmdSetPerformanceMarkerINTEL(
     command_buffer: vk::CommandBuffer,
     p_marker_info: *const vk::PerformanceMarkerInfoINTEL,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPerformanceMarkerINTEL.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPerformanceMarkerINTEL.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4922,7 +7479,11 @@ extern "stdcall" fn vkCmdSetPerformanceStreamMarkerINTEL(
     command_buffer: vk::CommandBuffer,
     p_marker_info: *const vk::PerformanceStreamMarkerInfoINTEL,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPerformanceStreamMarkerINTEL.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPerformanceStreamMarkerINTEL.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4933,7 +7494,11 @@ extern "stdcall" fn vkCmdSetPerformanceOverrideINTEL(
     command_buffer: vk::CommandBuffer,
     p_override_info: *const vk::PerformanceOverrideInfoINTEL,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPerformanceOverrideINTEL.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPerformanceOverrideINTEL.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4945,7 +7510,11 @@ extern "stdcall" fn vkAcquirePerformanceConfigurationINTEL(
     p_acquire_info: *const vk::PerformanceConfigurationAcquireInfoINTEL,
     p_configuration: *mut vk::PerformanceConfigurationINTEL,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquirePerformanceConfigurationINTEL.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquirePerformanceConfigurationINTEL.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4956,7 +7525,11 @@ extern "stdcall" fn vkReleasePerformanceConfigurationINTEL(
     device: vk::Device,
     configuration: vk::PerformanceConfigurationINTEL,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkReleasePerformanceConfigurationINTEL.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkReleasePerformanceConfigurationINTEL.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4967,7 +7540,11 @@ extern "stdcall" fn vkQueueSetPerformanceConfigurationINTEL(
     queue: vk::Queue,
     configuration: vk::PerformanceConfigurationINTEL,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueSetPerformanceConfigurationINTEL.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueSetPerformanceConfigurationINTEL.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4979,7 +7556,11 @@ extern "stdcall" fn vkGetPerformanceParameterINTEL(
     parameter: vk::PerformanceParameterTypeINTEL,
     p_value: *mut vk::PerformanceValueINTEL,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPerformanceParameterINTEL.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPerformanceParameterINTEL.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -4990,7 +7571,11 @@ extern "stdcall" fn vkGetDeviceMemoryOpaqueCaptureAddress(
     device: vk::Device,
     p_info: *const vk::DeviceMemoryOpaqueCaptureAddressInfo,
 ) -> u64 {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceMemoryOpaqueCaptureAddress.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceMemoryOpaqueCaptureAddress.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5003,7 +7588,11 @@ extern "stdcall" fn vkGetPipelineExecutablePropertiesKHR(
     p_executable_count: *mut u32,
     p_properties: *mut vk::PipelineExecutablePropertiesKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPipelineExecutablePropertiesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPipelineExecutablePropertiesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5016,7 +7605,11 @@ extern "stdcall" fn vkGetPipelineExecutableStatisticsKHR(
     p_statistic_count: *mut u32,
     p_statistics: *mut vk::PipelineExecutableStatisticKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPipelineExecutableStatisticsKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPipelineExecutableStatisticsKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5041,7 +7634,11 @@ extern "stdcall" fn vkCmdSetLineStippleKHR(
     line_stipple_factor: u32,
     line_stipple_pattern: u16,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetLineStippleKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetLineStippleKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5053,7 +7650,11 @@ extern "stdcall" fn vkGetPhysicalDeviceToolProperties(
     p_tool_count: *mut u32,
     p_tool_properties: *mut vk::PhysicalDeviceToolProperties,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceToolProperties.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceToolProperties.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5066,7 +7667,11 @@ extern "stdcall" fn vkCreateAccelerationStructureKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_acceleration_structure: *mut vk::AccelerationStructureKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateAccelerationStructureKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateAccelerationStructureKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5079,7 +7684,11 @@ extern "stdcall" fn vkCmdBuildAccelerationStructuresKHR(
     p_infos: *const vk::AccelerationStructureBuildGeometryInfoKHR,
     pp_build_range_infos: *mut *const vk::AccelerationStructureBuildRangeInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBuildAccelerationStructuresKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBuildAccelerationStructuresKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5094,7 +7703,11 @@ extern "stdcall" fn vkCmdBuildAccelerationStructuresIndirectKHR(
     p_indirect_strides: *const u32,
     pp_max_primitive_counts: *mut *const u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBuildAccelerationStructuresIndirectKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBuildAccelerationStructuresIndirectKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5108,7 +7721,11 @@ extern "stdcall" fn vkBuildAccelerationStructuresKHR(
     p_infos: *const vk::AccelerationStructureBuildGeometryInfoKHR,
     pp_build_range_infos: *mut *const vk::AccelerationStructureBuildRangeInfoKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBuildAccelerationStructuresKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBuildAccelerationStructuresKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5119,7 +7736,11 @@ extern "stdcall" fn vkGetAccelerationStructureDeviceAddressKHR(
     device: vk::Device,
     p_info: *const vk::AccelerationStructureDeviceAddressInfoKHR,
 ) -> vk::DeviceAddress {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetAccelerationStructureDeviceAddressKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetAccelerationStructureDeviceAddressKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5131,7 +7752,11 @@ extern "stdcall" fn vkCreateDeferredOperationKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_deferred_operation: *mut vk::DeferredOperationKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDeferredOperationKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateDeferredOperationKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5143,7 +7768,11 @@ extern "stdcall" fn vkDestroyDeferredOperationKHR(
     operation: vk::DeferredOperationKHR,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDeferredOperationKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyDeferredOperationKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5154,7 +7783,11 @@ extern "stdcall" fn vkGetDeferredOperationMaxConcurrencyKHR(
     device: vk::Device,
     operation: vk::DeferredOperationKHR,
 ) -> u32 {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeferredOperationMaxConcurrencyKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeferredOperationMaxConcurrencyKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5165,7 +7798,11 @@ extern "stdcall" fn vkGetDeferredOperationResultKHR(
     device: vk::Device,
     operation: vk::DeferredOperationKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeferredOperationResultKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeferredOperationResultKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5176,7 +7813,11 @@ extern "stdcall" fn vkDeferredOperationJoinKHR(
     device: vk::Device,
     operation: vk::DeferredOperationKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDeferredOperationJoinKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDeferredOperationJoinKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5188,7 +7829,11 @@ extern "stdcall" fn vkGetPipelineIndirectMemoryRequirementsNV(
     p_create_info: *const vk::ComputePipelineCreateInfo,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPipelineIndirectMemoryRequirementsNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPipelineIndirectMemoryRequirementsNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5199,7 +7844,11 @@ extern "stdcall" fn vkGetPipelineIndirectDeviceAddressNV(
     device: vk::Device,
     p_info: *const vk::PipelineIndirectDeviceAddressInfoNV,
 ) -> vk::DeviceAddress {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPipelineIndirectDeviceAddressNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPipelineIndirectDeviceAddressNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5210,7 +7859,11 @@ extern "stdcall" fn vkCmdSetCullMode(
     command_buffer: vk::CommandBuffer,
     cull_mode: vk::CullModeFlags,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCullMode.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCullMode.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5221,7 +7874,11 @@ extern "stdcall" fn vkCmdSetFrontFace(
     command_buffer: vk::CommandBuffer,
     front_face: vk::FrontFace,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetFrontFace.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetFrontFace.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5232,7 +7889,11 @@ extern "stdcall" fn vkCmdSetPrimitiveTopology(
     command_buffer: vk::CommandBuffer,
     primitive_topology: vk::PrimitiveTopology,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPrimitiveTopology.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPrimitiveTopology.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5244,7 +7905,11 @@ extern "stdcall" fn vkCmdSetViewportWithCount(
     viewport_count: u32,
     p_viewports: *const vk::Viewport,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetViewportWithCount.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetViewportWithCount.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5256,7 +7921,11 @@ extern "stdcall" fn vkCmdSetScissorWithCount(
     scissor_count: u32,
     p_scissors: *const vk::Rect2D,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetScissorWithCount.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetScissorWithCount.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5270,7 +7939,11 @@ extern "stdcall" fn vkCmdBindIndexBuffer2KHR(
     size: vk::DeviceSize,
     index_type: vk::IndexType,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindIndexBuffer2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindIndexBuffer2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5286,7 +7959,11 @@ extern "stdcall" fn vkCmdBindVertexBuffers2(
     p_sizes: *const vk::DeviceSize,
     p_strides: *const vk::DeviceSize,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindVertexBuffers2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindVertexBuffers2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5297,7 +7974,11 @@ extern "stdcall" fn vkCmdSetDepthTestEnable(
     command_buffer: vk::CommandBuffer,
     depth_test_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthTestEnable.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthTestEnable.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5308,7 +7989,11 @@ extern "stdcall" fn vkCmdSetDepthWriteEnable(
     command_buffer: vk::CommandBuffer,
     depth_write_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthWriteEnable.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthWriteEnable.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5319,7 +8004,11 @@ extern "stdcall" fn vkCmdSetDepthCompareOp(
     command_buffer: vk::CommandBuffer,
     depth_compare_op: vk::CompareOp,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthCompareOp.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthCompareOp.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5330,7 +8019,11 @@ extern "stdcall" fn vkCmdSetDepthBoundsTestEnable(
     command_buffer: vk::CommandBuffer,
     depth_bounds_test_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthBoundsTestEnable.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthBoundsTestEnable.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5341,7 +8034,11 @@ extern "stdcall" fn vkCmdSetStencilTestEnable(
     command_buffer: vk::CommandBuffer,
     stencil_test_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetStencilTestEnable.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetStencilTestEnable.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5356,7 +8053,11 @@ extern "stdcall" fn vkCmdSetStencilOp(
     depth_fail_op: vk::StencilOp,
     compare_op: vk::CompareOp,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetStencilOp.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetStencilOp.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5367,7 +8068,11 @@ extern "stdcall" fn vkCmdSetPatchControlPointsEXT(
     command_buffer: vk::CommandBuffer,
     patch_control_points: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPatchControlPointsEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPatchControlPointsEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5378,7 +8083,11 @@ extern "stdcall" fn vkCmdSetRasterizerDiscardEnable(
     command_buffer: vk::CommandBuffer,
     rasterizer_discard_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRasterizerDiscardEnable.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRasterizerDiscardEnable.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5389,18 +8098,23 @@ extern "stdcall" fn vkCmdSetDepthBiasEnable(
     command_buffer: vk::CommandBuffer,
     depth_bias_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthBiasEnable.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthBiasEnable.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLogicOpEXT.html>"]
-extern "stdcall" fn vkCmdSetLogicOpEXT(
-    command_buffer: vk::CommandBuffer,
-    logic_op: vk::LogicOp,
-) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetLogicOpEXT.txt", "whoa").unwrap();
+extern "stdcall" fn vkCmdSetLogicOpEXT(command_buffer: vk::CommandBuffer, logic_op: vk::LogicOp) {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetLogicOpEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5411,7 +8125,11 @@ extern "stdcall" fn vkCmdSetPrimitiveRestartEnable(
     command_buffer: vk::CommandBuffer,
     primitive_restart_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPrimitiveRestartEnable.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPrimitiveRestartEnable.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5422,7 +8140,11 @@ extern "stdcall" fn vkCmdSetTessellationDomainOriginEXT(
     command_buffer: vk::CommandBuffer,
     domain_origin: vk::TessellationDomainOrigin,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetTessellationDomainOriginEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetTessellationDomainOriginEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5433,7 +8155,11 @@ extern "stdcall" fn vkCmdSetDepthClampEnableEXT(
     command_buffer: vk::CommandBuffer,
     depth_clamp_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthClampEnableEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthClampEnableEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5444,7 +8170,11 @@ extern "stdcall" fn vkCmdSetPolygonModeEXT(
     command_buffer: vk::CommandBuffer,
     polygon_mode: vk::PolygonMode,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPolygonModeEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetPolygonModeEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5455,7 +8185,11 @@ extern "stdcall" fn vkCmdSetRasterizationSamplesEXT(
     command_buffer: vk::CommandBuffer,
     rasterization_samples: vk::SampleCountFlags,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRasterizationSamplesEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRasterizationSamplesEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5467,7 +8201,11 @@ extern "stdcall" fn vkCmdSetSampleMaskEXT(
     samples: vk::SampleCountFlags,
     p_sample_mask: *const vk::SampleMask,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetSampleMaskEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetSampleMaskEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5478,7 +8216,11 @@ extern "stdcall" fn vkCmdSetAlphaToCoverageEnableEXT(
     command_buffer: vk::CommandBuffer,
     alpha_to_coverage_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetAlphaToCoverageEnableEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetAlphaToCoverageEnableEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5489,7 +8231,11 @@ extern "stdcall" fn vkCmdSetAlphaToOneEnableEXT(
     command_buffer: vk::CommandBuffer,
     alpha_to_one_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetAlphaToOneEnableEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetAlphaToOneEnableEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5500,7 +8246,11 @@ extern "stdcall" fn vkCmdSetLogicOpEnableEXT(
     command_buffer: vk::CommandBuffer,
     logic_op_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetLogicOpEnableEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetLogicOpEnableEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5513,7 +8263,11 @@ extern "stdcall" fn vkCmdSetColorBlendEnableEXT(
     attachment_count: u32,
     p_color_blend_enables: *const vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetColorBlendEnableEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetColorBlendEnableEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5526,7 +8280,11 @@ extern "stdcall" fn vkCmdSetColorBlendEquationEXT(
     attachment_count: u32,
     p_color_blend_equations: *const vk::ColorBlendEquationEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetColorBlendEquationEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetColorBlendEquationEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5539,7 +8297,11 @@ extern "stdcall" fn vkCmdSetColorWriteMaskEXT(
     attachment_count: u32,
     p_color_write_masks: *const vk::ColorComponentFlags,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetColorWriteMaskEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetColorWriteMaskEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5550,7 +8312,11 @@ extern "stdcall" fn vkCmdSetRasterizationStreamEXT(
     command_buffer: vk::CommandBuffer,
     rasterization_stream: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRasterizationStreamEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRasterizationStreamEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5561,7 +8327,11 @@ extern "stdcall" fn vkCmdSetConservativeRasterizationModeEXT(
     command_buffer: vk::CommandBuffer,
     conservative_rasterization_mode: vk::ConservativeRasterizationModeEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetConservativeRasterizationModeEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetConservativeRasterizationModeEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5572,7 +8342,11 @@ extern "stdcall" fn vkCmdSetExtraPrimitiveOverestimationSizeEXT(
     command_buffer: vk::CommandBuffer,
     extra_primitive_overestimation_size: f32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetExtraPrimitiveOverestimationSizeEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetExtraPrimitiveOverestimationSizeEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5583,7 +8357,11 @@ extern "stdcall" fn vkCmdSetDepthClipEnableEXT(
     command_buffer: vk::CommandBuffer,
     depth_clip_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthClipEnableEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthClipEnableEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5594,7 +8372,11 @@ extern "stdcall" fn vkCmdSetSampleLocationsEnableEXT(
     command_buffer: vk::CommandBuffer,
     sample_locations_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetSampleLocationsEnableEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetSampleLocationsEnableEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5607,7 +8389,11 @@ extern "stdcall" fn vkCmdSetColorBlendAdvancedEXT(
     attachment_count: u32,
     p_color_blend_advanced: *const vk::ColorBlendAdvancedEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetColorBlendAdvancedEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetColorBlendAdvancedEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5618,7 +8404,11 @@ extern "stdcall" fn vkCmdSetProvokingVertexModeEXT(
     command_buffer: vk::CommandBuffer,
     provoking_vertex_mode: vk::ProvokingVertexModeEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetProvokingVertexModeEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetProvokingVertexModeEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5629,7 +8419,11 @@ extern "stdcall" fn vkCmdSetLineRasterizationModeEXT(
     command_buffer: vk::CommandBuffer,
     line_rasterization_mode: vk::LineRasterizationModeEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetLineRasterizationModeEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetLineRasterizationModeEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5640,7 +8434,11 @@ extern "stdcall" fn vkCmdSetLineStippleEnableEXT(
     command_buffer: vk::CommandBuffer,
     stippled_line_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetLineStippleEnableEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetLineStippleEnableEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5651,7 +8449,11 @@ extern "stdcall" fn vkCmdSetDepthClipNegativeOneToOneEXT(
     command_buffer: vk::CommandBuffer,
     negative_one_to_one: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthClipNegativeOneToOneEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthClipNegativeOneToOneEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5662,7 +8464,11 @@ extern "stdcall" fn vkCmdSetViewportWScalingEnableNV(
     command_buffer: vk::CommandBuffer,
     viewport_w_scaling_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetViewportWScalingEnableNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetViewportWScalingEnableNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5675,7 +8481,11 @@ extern "stdcall" fn vkCmdSetViewportSwizzleNV(
     viewport_count: u32,
     p_viewport_swizzles: *const vk::ViewportSwizzleNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetViewportSwizzleNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetViewportSwizzleNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5686,7 +8496,11 @@ extern "stdcall" fn vkCmdSetCoverageToColorEnableNV(
     command_buffer: vk::CommandBuffer,
     coverage_to_color_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoverageToColorEnableNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoverageToColorEnableNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5697,7 +8511,11 @@ extern "stdcall" fn vkCmdSetCoverageToColorLocationNV(
     command_buffer: vk::CommandBuffer,
     coverage_to_color_location: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoverageToColorLocationNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoverageToColorLocationNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5708,7 +8526,11 @@ extern "stdcall" fn vkCmdSetCoverageModulationModeNV(
     command_buffer: vk::CommandBuffer,
     coverage_modulation_mode: vk::CoverageModulationModeNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoverageModulationModeNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoverageModulationModeNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5719,7 +8541,11 @@ extern "stdcall" fn vkCmdSetCoverageModulationTableEnableNV(
     command_buffer: vk::CommandBuffer,
     coverage_modulation_table_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoverageModulationTableEnableNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoverageModulationTableEnableNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5731,7 +8557,11 @@ extern "stdcall" fn vkCmdSetCoverageModulationTableNV(
     coverage_modulation_table_count: u32,
     p_coverage_modulation_table: *const f32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoverageModulationTableNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoverageModulationTableNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5742,7 +8572,11 @@ extern "stdcall" fn vkCmdSetShadingRateImageEnableNV(
     command_buffer: vk::CommandBuffer,
     shading_rate_image_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetShadingRateImageEnableNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetShadingRateImageEnableNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5753,7 +8587,11 @@ extern "stdcall" fn vkCmdSetCoverageReductionModeNV(
     command_buffer: vk::CommandBuffer,
     coverage_reduction_mode: vk::CoverageReductionModeNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoverageReductionModeNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetCoverageReductionModeNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5764,7 +8602,11 @@ extern "stdcall" fn vkCmdSetRepresentativeFragmentTestEnableNV(
     command_buffer: vk::CommandBuffer,
     representative_fragment_test_enable: vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRepresentativeFragmentTestEnableNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRepresentativeFragmentTestEnableNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5777,7 +8619,11 @@ extern "stdcall" fn vkCreatePrivateDataSlot(
     p_allocator: *const vk::AllocationCallbacks,
     p_private_data_slot: *mut vk::PrivateDataSlot,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreatePrivateDataSlot.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreatePrivateDataSlot.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5789,7 +8635,11 @@ extern "stdcall" fn vkDestroyPrivateDataSlot(
     private_data_slot: vk::PrivateDataSlot,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyPrivateDataSlot.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyPrivateDataSlot.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5803,7 +8653,11 @@ extern "stdcall" fn vkSetPrivateData(
     private_data_slot: vk::PrivateDataSlot,
     data: u64,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetPrivateData.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetPrivateData.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5817,7 +8671,11 @@ extern "stdcall" fn vkGetPrivateData(
     private_data_slot: vk::PrivateDataSlot,
     p_data: *mut u64,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPrivateData.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPrivateData.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5828,7 +8686,11 @@ extern "stdcall" fn vkCmdCopyBuffer2(
     command_buffer: vk::CommandBuffer,
     p_copy_buffer_info: *const vk::CopyBufferInfo2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyBuffer2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyBuffer2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5839,7 +8701,11 @@ extern "stdcall" fn vkCmdCopyImage2(
     command_buffer: vk::CommandBuffer,
     p_copy_image_info: *const vk::CopyImageInfo2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyImage2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyImage2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5850,7 +8716,11 @@ extern "stdcall" fn vkCmdBlitImage2(
     command_buffer: vk::CommandBuffer,
     p_blit_image_info: *const vk::BlitImageInfo2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBlitImage2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBlitImage2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5861,7 +8731,11 @@ extern "stdcall" fn vkCmdCopyBufferToImage2(
     command_buffer: vk::CommandBuffer,
     p_copy_buffer_to_image_info: *const vk::CopyBufferToImageInfo2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyBufferToImage2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyBufferToImage2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5872,7 +8746,11 @@ extern "stdcall" fn vkCmdCopyImageToBuffer2(
     command_buffer: vk::CommandBuffer,
     p_copy_image_to_buffer_info: *const vk::CopyImageToBufferInfo2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyImageToBuffer2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyImageToBuffer2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5883,7 +8761,11 @@ extern "stdcall" fn vkCmdResolveImage2(
     command_buffer: vk::CommandBuffer,
     p_resolve_image_info: *const vk::ResolveImageInfo2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdResolveImage2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdResolveImage2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5895,7 +8777,11 @@ extern "stdcall" fn vkCmdSetFragmentShadingRateKHR(
     p_fragment_size: *const vk::Extent2D,
     combiner_ops: vk::FragmentShadingRateCombinerOpKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetFragmentShadingRateKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetFragmentShadingRateKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5907,7 +8793,11 @@ extern "stdcall" fn vkGetPhysicalDeviceFragmentShadingRatesKHR(
     p_fragment_shading_rate_count: *mut u32,
     p_fragment_shading_rates: *mut vk::PhysicalDeviceFragmentShadingRateKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceFragmentShadingRatesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceFragmentShadingRatesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5919,7 +8809,11 @@ extern "stdcall" fn vkCmdSetFragmentShadingRateEnumNV(
     shading_rate: vk::FragmentShadingRateNV,
     combiner_ops: vk::FragmentShadingRateCombinerOpKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetFragmentShadingRateEnumNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetFragmentShadingRateEnumNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5933,7 +8827,11 @@ extern "stdcall" fn vkGetAccelerationStructureBuildSizesKHR(
     p_max_primitive_counts: *const u32,
     p_size_info: *mut vk::AccelerationStructureBuildSizesInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetAccelerationStructureBuildSizesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetAccelerationStructureBuildSizesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5947,7 +8845,11 @@ extern "stdcall" fn vkCmdSetVertexInputEXT(
     vertex_attribute_description_count: u32,
     p_vertex_attribute_descriptions: *const vk::VertexInputAttributeDescription2EXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetVertexInputEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetVertexInputEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5959,7 +8861,11 @@ extern "stdcall" fn vkCmdSetColorWriteEnableEXT(
     attachment_count: u32,
     p_color_write_enables: *const vk::Bool32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetColorWriteEnableEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetColorWriteEnableEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5971,7 +8877,11 @@ extern "stdcall" fn vkCmdSetEvent2(
     event: vk::Event,
     p_dependency_info: *const vk::DependencyInfo,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetEvent2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetEvent2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5983,7 +8893,11 @@ extern "stdcall" fn vkCmdResetEvent2(
     event: vk::Event,
     stage_mask: vk::PipelineStageFlags2,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdResetEvent2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdResetEvent2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -5996,7 +8910,11 @@ extern "stdcall" fn vkCmdWaitEvents2(
     p_events: *const vk::Event,
     p_dependency_infos: *const vk::DependencyInfo,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWaitEvents2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWaitEvents2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6007,7 +8925,11 @@ extern "stdcall" fn vkCmdPipelineBarrier2(
     command_buffer: vk::CommandBuffer,
     p_dependency_info: *const vk::DependencyInfo,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPipelineBarrier2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPipelineBarrier2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6020,7 +8942,11 @@ extern "stdcall" fn vkQueueSubmit2(
     p_submits: *const vk::SubmitInfo2,
     fence: vk::Fence,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueSubmit2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueSubmit2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6033,7 +8959,11 @@ extern "stdcall" fn vkCmdWriteTimestamp2(
     query_pool: vk::QueryPool,
     query: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteTimestamp2.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteTimestamp2.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6047,7 +8977,11 @@ extern "stdcall" fn vkCmdWriteBufferMarker2AMD(
     dst_offset: vk::DeviceSize,
     marker: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteBufferMarker2AMD.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteBufferMarker2AMD.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6059,7 +8993,11 @@ extern "stdcall" fn vkGetQueueCheckpointData2NV(
     p_checkpoint_data_count: *mut u32,
     p_checkpoint_data: *mut vk::CheckpointData2NV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetQueueCheckpointData2NV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetQueueCheckpointData2NV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6070,7 +9008,11 @@ extern "stdcall" fn vkCopyMemoryToImageEXT(
     device: vk::Device,
     p_copy_memory_to_image_info: *const vk::CopyMemoryToImageInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyMemoryToImageEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyMemoryToImageEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6081,7 +9023,11 @@ extern "stdcall" fn vkCopyImageToMemoryEXT(
     device: vk::Device,
     p_copy_image_to_memory_info: *const vk::CopyImageToMemoryInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyImageToMemoryEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyImageToMemoryEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6092,7 +9038,11 @@ extern "stdcall" fn vkCopyImageToImageEXT(
     device: vk::Device,
     p_copy_image_to_image_info: *const vk::CopyImageToImageInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyImageToImageEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyImageToImageEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6104,7 +9054,11 @@ extern "stdcall" fn vkTransitionImageLayoutEXT(
     transition_count: u32,
     p_transitions: *const vk::HostImageLayoutTransitionInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkTransitionImageLayoutEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkTransitionImageLayoutEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6116,7 +9070,11 @@ extern "stdcall" fn vkGetPhysicalDeviceVideoCapabilitiesKHR(
     p_video_profile: *const vk::VideoProfileInfoKHR,
     p_capabilities: *mut vk::VideoCapabilitiesKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceVideoCapabilitiesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceVideoCapabilitiesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6129,7 +9087,11 @@ extern "stdcall" fn vkGetPhysicalDeviceVideoFormatPropertiesKHR(
     p_video_format_property_count: *mut u32,
     p_video_format_properties: *mut vk::VideoFormatPropertiesKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceVideoFormatPropertiesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceVideoFormatPropertiesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6154,7 +9116,11 @@ extern "stdcall" fn vkCreateVideoSessionKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_video_session: *mut vk::VideoSessionKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateVideoSessionKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateVideoSessionKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6166,7 +9132,11 @@ extern "stdcall" fn vkDestroyVideoSessionKHR(
     video_session: vk::VideoSessionKHR,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyVideoSessionKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyVideoSessionKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6179,7 +9149,11 @@ extern "stdcall" fn vkCreateVideoSessionParametersKHR(
     p_allocator: *const vk::AllocationCallbacks,
     p_video_session_parameters: *mut vk::VideoSessionParametersKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateVideoSessionParametersKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateVideoSessionParametersKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6191,7 +9165,11 @@ extern "stdcall" fn vkUpdateVideoSessionParametersKHR(
     video_session_parameters: vk::VideoSessionParametersKHR,
     p_update_info: *const vk::VideoSessionParametersUpdateInfoKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkUpdateVideoSessionParametersKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkUpdateVideoSessionParametersKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6205,7 +9183,11 @@ extern "stdcall" fn vkGetEncodedVideoSessionParametersKHR(
     p_data_size: *mut isize,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetEncodedVideoSessionParametersKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetEncodedVideoSessionParametersKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6217,7 +9199,11 @@ extern "stdcall" fn vkDestroyVideoSessionParametersKHR(
     video_session_parameters: vk::VideoSessionParametersKHR,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyVideoSessionParametersKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyVideoSessionParametersKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6230,7 +9216,11 @@ extern "stdcall" fn vkGetVideoSessionMemoryRequirementsKHR(
     p_memory_requirements_count: *mut u32,
     p_memory_requirements: *mut vk::VideoSessionMemoryRequirementsKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetVideoSessionMemoryRequirementsKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetVideoSessionMemoryRequirementsKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6243,7 +9233,11 @@ extern "stdcall" fn vkBindVideoSessionMemoryKHR(
     bind_session_memory_info_count: u32,
     p_bind_session_memory_infos: *const vk::BindVideoSessionMemoryInfoKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindVideoSessionMemoryKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindVideoSessionMemoryKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6254,7 +9248,11 @@ extern "stdcall" fn vkCmdDecodeVideoKHR(
     command_buffer: vk::CommandBuffer,
     p_decode_info: *const vk::VideoDecodeInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDecodeVideoKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDecodeVideoKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6265,7 +9263,11 @@ extern "stdcall" fn vkCmdBeginVideoCodingKHR(
     command_buffer: vk::CommandBuffer,
     p_begin_info: *const vk::VideoBeginCodingInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginVideoCodingKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginVideoCodingKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6276,7 +9278,11 @@ extern "stdcall" fn vkCmdControlVideoCodingKHR(
     command_buffer: vk::CommandBuffer,
     p_coding_control_info: *const vk::VideoCodingControlInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdControlVideoCodingKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdControlVideoCodingKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6287,7 +9293,11 @@ extern "stdcall" fn vkCmdEndVideoCodingKHR(
     command_buffer: vk::CommandBuffer,
     p_end_coding_info: *const vk::VideoEndCodingInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndVideoCodingKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndVideoCodingKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6298,7 +9308,11 @@ extern "stdcall" fn vkCmdEncodeVideoKHR(
     command_buffer: vk::CommandBuffer,
     p_encode_info: *const vk::VideoEncodeInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEncodeVideoKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEncodeVideoKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6310,7 +9324,11 @@ extern "stdcall" fn vkCmdDecompressMemoryNV(
     decompress_region_count: u32,
     p_decompress_memory_regions: *const vk::DecompressMemoryRegionNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDecompressMemoryNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDecompressMemoryNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6323,7 +9341,11 @@ extern "stdcall" fn vkCmdDecompressMemoryIndirectCountNV(
     indirect_commands_count_address: vk::DeviceAddress,
     stride: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDecompressMemoryIndirectCountNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDecompressMemoryIndirectCountNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6336,7 +9358,11 @@ extern "stdcall" fn vkCreateCuModuleNVX(
     p_allocator: *const vk::AllocationCallbacks,
     p_module: *mut vk::CuModuleNVX,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateCuModuleNVX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateCuModuleNVX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6349,7 +9375,11 @@ extern "stdcall" fn vkCreateCuFunctionNVX(
     p_allocator: *const vk::AllocationCallbacks,
     p_function: *mut vk::CuFunctionNVX,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateCuFunctionNVX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateCuFunctionNVX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6361,7 +9391,11 @@ extern "stdcall" fn vkDestroyCuModuleNVX(
     module: vk::CuModuleNVX,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyCuModuleNVX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyCuModuleNVX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6373,7 +9407,11 @@ extern "stdcall" fn vkDestroyCuFunctionNVX(
     function: vk::CuFunctionNVX,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyCuFunctionNVX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyCuFunctionNVX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6384,7 +9422,11 @@ extern "stdcall" fn vkCmdCuLaunchKernelNVX(
     command_buffer: vk::CommandBuffer,
     p_launch_info: *const vk::CuLaunchInfoNVX,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCuLaunchKernelNVX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCuLaunchKernelNVX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6396,7 +9438,11 @@ extern "stdcall" fn vkGetDescriptorSetLayoutSizeEXT(
     layout: vk::DescriptorSetLayout,
     p_layout_size_in_bytes: *mut vk::DeviceSize,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDescriptorSetLayoutSizeEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDescriptorSetLayoutSizeEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6409,7 +9455,11 @@ extern "stdcall" fn vkGetDescriptorSetLayoutBindingOffsetEXT(
     binding: u32,
     p_offset: *mut vk::DeviceSize,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDescriptorSetLayoutBindingOffsetEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDescriptorSetLayoutBindingOffsetEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6422,7 +9472,11 @@ extern "stdcall" fn vkGetDescriptorEXT(
     data_size: isize,
     p_descriptor: *mut std::ffi::c_void,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDescriptorEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDescriptorEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6434,7 +9488,11 @@ extern "stdcall" fn vkCmdBindDescriptorBuffersEXT(
     buffer_count: u32,
     p_binding_infos: *const vk::DescriptorBufferBindingInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindDescriptorBuffersEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindDescriptorBuffersEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6450,7 +9508,11 @@ extern "stdcall" fn vkCmdSetDescriptorBufferOffsetsEXT(
     p_buffer_indices: *const u32,
     p_offsets: *const vk::DeviceSize,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDescriptorBufferOffsetsEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDescriptorBufferOffsetsEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6463,7 +9525,11 @@ extern "stdcall" fn vkCmdBindDescriptorBufferEmbeddedSamplersEXT(
     layout: vk::PipelineLayout,
     set: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindDescriptorBufferEmbeddedSamplersEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindDescriptorBufferEmbeddedSamplersEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6475,7 +9541,11 @@ extern "stdcall" fn vkGetBufferOpaqueCaptureDescriptorDataEXT(
     p_info: *const vk::BufferCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetBufferOpaqueCaptureDescriptorDataEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetBufferOpaqueCaptureDescriptorDataEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6487,7 +9557,11 @@ extern "stdcall" fn vkGetImageOpaqueCaptureDescriptorDataEXT(
     p_info: *const vk::ImageCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageOpaqueCaptureDescriptorDataEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageOpaqueCaptureDescriptorDataEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6499,7 +9573,11 @@ extern "stdcall" fn vkGetImageViewOpaqueCaptureDescriptorDataEXT(
     p_info: *const vk::ImageViewCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageViewOpaqueCaptureDescriptorDataEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageViewOpaqueCaptureDescriptorDataEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6511,7 +9589,11 @@ extern "stdcall" fn vkGetSamplerOpaqueCaptureDescriptorDataEXT(
     p_info: *const vk::SamplerCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSamplerOpaqueCaptureDescriptorDataEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetSamplerOpaqueCaptureDescriptorDataEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6535,7 +9617,11 @@ extern "stdcall" fn vkSetDeviceMemoryPriorityEXT(
     memory: vk::DeviceMemory,
     priority: f32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetDeviceMemoryPriorityEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetDeviceMemoryPriorityEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6547,7 +9633,11 @@ extern "stdcall" fn vkAcquireDrmDisplayEXT(
     drm_fd: i32,
     display: vk::DisplayKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireDrmDisplayEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkAcquireDrmDisplayEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6560,7 +9650,11 @@ extern "stdcall" fn vkGetDrmDisplayEXT(
     connector_id: u32,
     display: *mut vk::DisplayKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDrmDisplayEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDrmDisplayEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6573,7 +9667,11 @@ extern "stdcall" fn vkWaitForPresentKHR(
     present_id: u64,
     timeout: u64,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkWaitForPresentKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkWaitForPresentKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6586,7 +9684,11 @@ extern "stdcall" fn vkCreateBufferCollectionFUCHSIA(
     p_allocator: *const vk::AllocationCallbacks,
     p_collection: *mut vk::BufferCollectionFUCHSIA,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateBufferCollectionFUCHSIA.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateBufferCollectionFUCHSIA.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6598,7 +9700,11 @@ extern "stdcall" fn vkSetBufferCollectionBufferConstraintsFUCHSIA(
     collection: vk::BufferCollectionFUCHSIA,
     p_buffer_constraints_info: *const vk::BufferConstraintsInfoFUCHSIA,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetBufferCollectionBufferConstraintsFUCHSIA.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetBufferCollectionBufferConstraintsFUCHSIA.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6610,7 +9716,11 @@ extern "stdcall" fn vkSetBufferCollectionImageConstraintsFUCHSIA(
     collection: vk::BufferCollectionFUCHSIA,
     p_image_constraints_info: *const vk::ImageConstraintsInfoFUCHSIA,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetBufferCollectionImageConstraintsFUCHSIA.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetBufferCollectionImageConstraintsFUCHSIA.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6622,7 +9732,11 @@ extern "stdcall" fn vkDestroyBufferCollectionFUCHSIA(
     collection: vk::BufferCollectionFUCHSIA,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyBufferCollectionFUCHSIA.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyBufferCollectionFUCHSIA.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6634,7 +9748,11 @@ extern "stdcall" fn vkGetBufferCollectionPropertiesFUCHSIA(
     collection: vk::BufferCollectionFUCHSIA,
     p_properties: *mut vk::BufferCollectionPropertiesFUCHSIA,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetBufferCollectionPropertiesFUCHSIA.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetBufferCollectionPropertiesFUCHSIA.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6647,7 +9765,11 @@ extern "stdcall" fn vkCreateCudaModuleNV(
     p_allocator: *const vk::AllocationCallbacks,
     p_module: *mut vk::CudaModuleNV,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateCudaModuleNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateCudaModuleNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6660,7 +9782,11 @@ extern "stdcall" fn vkGetCudaModuleCacheNV(
     p_cache_size: *mut isize,
     p_cache_data: *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetCudaModuleCacheNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetCudaModuleCacheNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6673,7 +9799,11 @@ extern "stdcall" fn vkCreateCudaFunctionNV(
     p_allocator: *const vk::AllocationCallbacks,
     p_function: *mut vk::CudaFunctionNV,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateCudaFunctionNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateCudaFunctionNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6685,7 +9815,11 @@ extern "stdcall" fn vkDestroyCudaModuleNV(
     module: vk::CudaModuleNV,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyCudaModuleNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyCudaModuleNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6697,7 +9831,11 @@ extern "stdcall" fn vkDestroyCudaFunctionNV(
     function: vk::CudaFunctionNV,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyCudaFunctionNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyCudaFunctionNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6708,7 +9846,11 @@ extern "stdcall" fn vkCmdCudaLaunchKernelNV(
     command_buffer: vk::CommandBuffer,
     p_launch_info: *const vk::CudaLaunchInfoNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCudaLaunchKernelNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCudaLaunchKernelNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6719,17 +9861,23 @@ extern "stdcall" fn vkCmdBeginRendering(
     command_buffer: vk::CommandBuffer,
     p_rendering_info: *const vk::RenderingInfo,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginRendering.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBeginRendering.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRendering.html>"]
-extern "stdcall" fn vkCmdEndRendering(
-    command_buffer: vk::CommandBuffer,
-) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndRendering.txt", "whoa").unwrap();
+extern "stdcall" fn vkCmdEndRendering(command_buffer: vk::CommandBuffer) {
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdEndRendering.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6741,7 +9889,11 @@ extern "stdcall" fn vkGetDescriptorSetLayoutHostMappingInfoVALVE(
     p_binding_reference: *const vk::DescriptorSetBindingReferenceVALVE,
     p_host_mapping: *mut vk::DescriptorSetLayoutHostMappingInfoVALVE,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDescriptorSetLayoutHostMappingInfoVALVE.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDescriptorSetLayoutHostMappingInfoVALVE.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6753,7 +9905,11 @@ extern "stdcall" fn vkGetDescriptorSetHostMappingVALVE(
     descriptor_set: vk::DescriptorSet,
     pp_data: *mut *mut std::ffi::c_void,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDescriptorSetHostMappingVALVE.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDescriptorSetHostMappingVALVE.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6766,7 +9922,11 @@ extern "stdcall" fn vkCreateMicromapEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_micromap: *mut vk::MicromapEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateMicromapEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateMicromapEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6778,7 +9938,11 @@ extern "stdcall" fn vkCmdBuildMicromapsEXT(
     info_count: u32,
     p_infos: *const vk::MicromapBuildInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBuildMicromapsEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBuildMicromapsEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6791,7 +9955,11 @@ extern "stdcall" fn vkBuildMicromapsEXT(
     info_count: u32,
     p_infos: *const vk::MicromapBuildInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBuildMicromapsEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBuildMicromapsEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6803,7 +9971,11 @@ extern "stdcall" fn vkDestroyMicromapEXT(
     micromap: vk::MicromapEXT,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyMicromapEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyMicromapEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6814,7 +9986,11 @@ extern "stdcall" fn vkCmdCopyMicromapEXT(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyMicromapInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyMicromapEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyMicromapEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6826,7 +10002,11 @@ extern "stdcall" fn vkCopyMicromapEXT(
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyMicromapInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyMicromapEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyMicromapEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6837,7 +10017,11 @@ extern "stdcall" fn vkCmdCopyMicromapToMemoryEXT(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyMicromapToMemoryInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyMicromapToMemoryEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyMicromapToMemoryEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6849,7 +10033,11 @@ extern "stdcall" fn vkCopyMicromapToMemoryEXT(
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyMicromapToMemoryInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyMicromapToMemoryEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyMicromapToMemoryEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6860,7 +10048,11 @@ extern "stdcall" fn vkCmdCopyMemoryToMicromapEXT(
     command_buffer: vk::CommandBuffer,
     p_info: *const vk::CopyMemoryToMicromapInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyMemoryToMicromapEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdCopyMemoryToMicromapEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6872,7 +10064,11 @@ extern "stdcall" fn vkCopyMemoryToMicromapEXT(
     deferred_operation: vk::DeferredOperationKHR,
     p_info: *const vk::CopyMemoryToMicromapInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyMemoryToMicromapEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCopyMemoryToMicromapEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6887,7 +10083,11 @@ extern "stdcall" fn vkCmdWriteMicromapsPropertiesEXT(
     query_pool: vk::QueryPool,
     first_query: u32,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteMicromapsPropertiesEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdWriteMicromapsPropertiesEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6903,7 +10103,11 @@ extern "stdcall" fn vkWriteMicromapsPropertiesEXT(
     p_data: *mut std::ffi::c_void,
     stride: isize,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkWriteMicromapsPropertiesEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkWriteMicromapsPropertiesEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6915,7 +10119,11 @@ extern "stdcall" fn vkGetDeviceMicromapCompatibilityEXT(
     p_version_info: *const vk::MicromapVersionInfoEXT,
     p_compatibility: *mut vk::AccelerationStructureCompatibilityKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceMicromapCompatibilityEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceMicromapCompatibilityEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6928,7 +10136,11 @@ extern "stdcall" fn vkGetMicromapBuildSizesEXT(
     p_build_info: *const vk::MicromapBuildInfoEXT,
     p_size_info: *mut vk::MicromapBuildSizesInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMicromapBuildSizesEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetMicromapBuildSizesEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6940,7 +10152,11 @@ extern "stdcall" fn vkGetShaderModuleIdentifierEXT(
     shader_module: vk::ShaderModule,
     p_identifier: *mut vk::ShaderModuleIdentifierEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetShaderModuleIdentifierEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetShaderModuleIdentifierEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6952,7 +10168,11 @@ extern "stdcall" fn vkGetShaderModuleCreateInfoIdentifierEXT(
     p_create_info: *const vk::ShaderModuleCreateInfo,
     p_identifier: *mut vk::ShaderModuleIdentifierEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetShaderModuleCreateInfoIdentifierEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetShaderModuleCreateInfoIdentifierEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6965,7 +10185,11 @@ extern "stdcall" fn vkGetImageSubresourceLayout2KHR(
     p_subresource: *const vk::ImageSubresource2KHR,
     p_layout: *mut vk::SubresourceLayout2KHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageSubresourceLayout2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetImageSubresourceLayout2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6977,7 +10201,11 @@ extern "stdcall" fn vkGetPipelinePropertiesEXT(
     p_pipeline_info: *const vk::PipelineInfoEXT,
     p_pipeline_properties: *mut vk::BaseOutStructure,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPipelinePropertiesEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPipelinePropertiesEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -6988,7 +10216,11 @@ extern "stdcall" fn vkExportMetalObjectsEXT(
     device: vk::Device,
     p_metal_objects_info: *mut vk::ExportMetalObjectsInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkExportMetalObjectsEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkExportMetalObjectsEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7001,7 +10233,11 @@ extern "stdcall" fn vkGetFramebufferTilePropertiesQCOM(
     p_properties_count: *mut u32,
     p_properties: *mut vk::TilePropertiesQCOM,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetFramebufferTilePropertiesQCOM.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetFramebufferTilePropertiesQCOM.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7013,7 +10249,11 @@ extern "stdcall" fn vkGetDynamicRenderingTilePropertiesQCOM(
     p_rendering_info: *const vk::RenderingInfo,
     p_properties: *mut vk::TilePropertiesQCOM,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDynamicRenderingTilePropertiesQCOM.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDynamicRenderingTilePropertiesQCOM.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7026,7 +10266,11 @@ extern "stdcall" fn vkGetPhysicalDeviceOpticalFlowImageFormatsNV(
     p_format_count: *mut u32,
     p_image_format_properties: *mut vk::OpticalFlowImageFormatPropertiesNV,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceOpticalFlowImageFormatsNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetPhysicalDeviceOpticalFlowImageFormatsNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7039,7 +10283,11 @@ extern "stdcall" fn vkCreateOpticalFlowSessionNV(
     p_allocator: *const vk::AllocationCallbacks,
     p_session: *mut vk::OpticalFlowSessionNV,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateOpticalFlowSessionNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateOpticalFlowSessionNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7051,7 +10299,11 @@ extern "stdcall" fn vkDestroyOpticalFlowSessionNV(
     session: vk::OpticalFlowSessionNV,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyOpticalFlowSessionNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyOpticalFlowSessionNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7065,7 +10317,11 @@ extern "stdcall" fn vkBindOpticalFlowSessionImageNV(
     view: vk::ImageView,
     layout: vk::ImageLayout,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindOpticalFlowSessionImageNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkBindOpticalFlowSessionImageNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7077,7 +10333,11 @@ extern "stdcall" fn vkCmdOpticalFlowExecuteNV(
     session: vk::OpticalFlowSessionNV,
     p_execute_info: *const vk::OpticalFlowExecuteInfoNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdOpticalFlowExecuteNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdOpticalFlowExecuteNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7089,7 +10349,11 @@ extern "stdcall" fn vkGetDeviceFaultInfoEXT(
     p_fault_counts: *mut vk::DeviceFaultCountsEXT,
     p_fault_info: *mut vk::DeviceFaultInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceFaultInfoEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceFaultInfoEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7100,7 +10364,11 @@ extern "stdcall" fn vkCmdSetDepthBias2EXT(
     command_buffer: vk::CommandBuffer,
     p_depth_bias_info: *const vk::DepthBiasInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthBias2EXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDepthBias2EXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7111,7 +10379,11 @@ extern "stdcall" fn vkReleaseSwapchainImagesEXT(
     device: vk::Device,
     p_release_info: *const vk::ReleaseSwapchainImagesInfoEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkReleaseSwapchainImagesEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkReleaseSwapchainImagesEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7123,7 +10395,11 @@ extern "stdcall" fn vkGetDeviceImageSubresourceLayoutKHR(
     p_info: *const vk::DeviceImageSubresourceInfoKHR,
     p_layout: *mut vk::SubresourceLayout2KHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceImageSubresourceLayoutKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetDeviceImageSubresourceLayoutKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7135,7 +10411,11 @@ extern "stdcall" fn vkMapMemory2KHR(
     p_memory_map_info: *const vk::MemoryMapInfoKHR,
     pp_data: *mut *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkMapMemory2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkMapMemory2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7146,7 +10426,11 @@ extern "stdcall" fn vkUnmapMemory2KHR(
     device: vk::Device,
     p_memory_unmap_info: *const vk::MemoryUnmapInfoKHR,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkUnmapMemory2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkUnmapMemory2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7160,7 +10444,11 @@ extern "stdcall" fn vkCreateShadersEXT(
     p_allocator: *const vk::AllocationCallbacks,
     p_shaders: *mut vk::ShaderEXT,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateShadersEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateShadersEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7172,7 +10460,11 @@ extern "stdcall" fn vkDestroyShaderEXT(
     shader: vk::ShaderEXT,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyShaderEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkDestroyShaderEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7185,7 +10477,11 @@ extern "stdcall" fn vkGetShaderBinaryDataEXT(
     p_data_size: *mut isize,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetShaderBinaryDataEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetShaderBinaryDataEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7198,7 +10494,11 @@ extern "stdcall" fn vkCmdBindShadersEXT(
     p_stages: *const vk::ShaderStageFlags,
     p_shaders: *const vk::ShaderEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindShadersEXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindShadersEXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7210,7 +10510,11 @@ extern "stdcall" fn vkGetScreenBufferPropertiesQNX(
     buffer: *const vk::_screen_buffer,
     p_properties: *mut vk::ScreenBufferPropertiesQNX,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetScreenBufferPropertiesQNX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetScreenBufferPropertiesQNX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7234,7 +10538,11 @@ extern "stdcall" fn vkGetExecutionGraphPipelineScratchSizeAMDX(
     execution_graph: vk::Pipeline,
     p_size_info: *mut vk::ExecutionGraphPipelineScratchSizeAMDX,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetExecutionGraphPipelineScratchSizeAMDX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetExecutionGraphPipelineScratchSizeAMDX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7247,7 +10555,11 @@ extern "stdcall" fn vkGetExecutionGraphPipelineNodeIndexAMDX(
     p_node_info: *const vk::PipelineShaderStageNodeCreateInfoAMDX,
     p_node_index: *mut u32,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetExecutionGraphPipelineNodeIndexAMDX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetExecutionGraphPipelineNodeIndexAMDX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7262,7 +10574,11 @@ extern "stdcall" fn vkCreateExecutionGraphPipelinesAMDX(
     p_allocator: *const vk::AllocationCallbacks,
     p_pipelines: *mut vk::Pipeline,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateExecutionGraphPipelinesAMDX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCreateExecutionGraphPipelinesAMDX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7273,7 +10589,11 @@ extern "stdcall" fn vkCmdInitializeGraphScratchMemoryAMDX(
     command_buffer: vk::CommandBuffer,
     scratch: vk::DeviceAddress,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdInitializeGraphScratchMemoryAMDX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdInitializeGraphScratchMemoryAMDX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7285,7 +10605,11 @@ extern "stdcall" fn vkCmdDispatchGraphAMDX(
     scratch: vk::DeviceAddress,
     p_count_info: *const vk::DispatchGraphCountInfoAMDX,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDispatchGraphAMDX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDispatchGraphAMDX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7297,7 +10621,11 @@ extern "stdcall" fn vkCmdDispatchGraphIndirectAMDX(
     scratch: vk::DeviceAddress,
     p_count_info: *const vk::DispatchGraphCountInfoAMDX,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDispatchGraphIndirectAMDX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDispatchGraphIndirectAMDX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7309,7 +10637,11 @@ extern "stdcall" fn vkCmdDispatchGraphIndirectCountAMDX(
     scratch: vk::DeviceAddress,
     count_info: vk::DeviceAddress,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDispatchGraphIndirectCountAMDX.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdDispatchGraphIndirectCountAMDX.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7320,7 +10652,11 @@ extern "stdcall" fn vkCmdBindDescriptorSets2KHR(
     command_buffer: vk::CommandBuffer,
     p_bind_descriptor_sets_info: *const vk::BindDescriptorSetsInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindDescriptorSets2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindDescriptorSets2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7331,7 +10667,11 @@ extern "stdcall" fn vkCmdPushConstants2KHR(
     command_buffer: vk::CommandBuffer,
     p_push_constants_info: *const vk::PushConstantsInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPushConstants2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPushConstants2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7342,7 +10682,11 @@ extern "stdcall" fn vkCmdPushDescriptorSet2KHR(
     command_buffer: vk::CommandBuffer,
     p_push_descriptor_set_info: *const vk::PushDescriptorSetInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPushDescriptorSet2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPushDescriptorSet2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7353,7 +10697,11 @@ extern "stdcall" fn vkCmdPushDescriptorSetWithTemplate2KHR(
     command_buffer: vk::CommandBuffer,
     p_push_descriptor_set_with_template_info: *const vk::PushDescriptorSetWithTemplateInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPushDescriptorSetWithTemplate2KHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdPushDescriptorSetWithTemplate2KHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7364,7 +10712,11 @@ extern "stdcall" fn vkCmdSetDescriptorBufferOffsets2EXT(
     command_buffer: vk::CommandBuffer,
     p_set_descriptor_buffer_offsets_info: *const vk::SetDescriptorBufferOffsetsInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDescriptorBufferOffsets2EXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetDescriptorBufferOffsets2EXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7375,7 +10727,11 @@ extern "stdcall" fn vkCmdBindDescriptorBufferEmbeddedSamplers2EXT(
     command_buffer: vk::CommandBuffer,
     p_bind_descriptor_buffer_embedded_samplers_info: *const vk::BindDescriptorBufferEmbeddedSamplersInfoEXT,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindDescriptorBufferEmbeddedSamplers2EXT.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdBindDescriptorBufferEmbeddedSamplers2EXT.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7387,7 +10743,11 @@ extern "stdcall" fn vkSetLatencySleepModeNV(
     swapchain: vk::SwapchainKHR,
     p_sleep_mode_info: *const vk::LatencySleepModeInfoNV,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetLatencySleepModeNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetLatencySleepModeNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7399,7 +10759,11 @@ extern "stdcall" fn vkLatencySleepNV(
     swapchain: vk::SwapchainKHR,
     p_sleep_info: *const vk::LatencySleepInfoNV,
 ) -> vk::Result {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkLatencySleepNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkLatencySleepNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7411,7 +10775,11 @@ extern "stdcall" fn vkSetLatencyMarkerNV(
     swapchain: vk::SwapchainKHR,
     p_latency_marker_info: *const vk::SetLatencyMarkerInfoNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetLatencyMarkerNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkSetLatencyMarkerNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7423,7 +10791,11 @@ extern "stdcall" fn vkGetLatencyTimingsNV(
     swapchain: vk::SwapchainKHR,
     p_latency_marker_info: *mut vk::GetLatencyMarkerInfoNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetLatencyTimingsNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkGetLatencyTimingsNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7434,7 +10806,11 @@ extern "stdcall" fn vkQueueNotifyOutOfBandNV(
     queue: vk::Queue,
     p_queue_type_info: *const vk::OutOfBandQueueTypeInfoNV,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueNotifyOutOfBandNV.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkQueueNotifyOutOfBandNV.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7445,7 +10821,11 @@ extern "stdcall" fn vkCmdSetRenderingAttachmentLocationsKHR(
     command_buffer: vk::CommandBuffer,
     p_location_info: *const vk::RenderingAttachmentLocationInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRenderingAttachmentLocationsKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRenderingAttachmentLocationsKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
@@ -7456,7 +10836,11 @@ extern "stdcall" fn vkCmdSetRenderingInputAttachmentIndicesKHR(
     command_buffer: vk::CommandBuffer,
     p_location_info: *const vk::RenderingInputAttachmentIndexInfoKHR,
 ) {
-    std::fs::write("C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRenderingInputAttachmentIndicesKHR.txt", "whoa").unwrap();
+    std::fs::write(
+        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vkCmdSetRenderingInputAttachmentIndicesKHR.txt",
+        "whoa",
+    )
+    .unwrap();
     std::thread::sleep(std::time::Duration::from_millis(1000));
     unimplemented!();
 }
