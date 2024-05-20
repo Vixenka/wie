@@ -25,30 +25,16 @@ extern "stdcall" fn vk_icdGetInstanceProcAddr(
 }
 
 #[no_mangle]
+extern "stdcall" fn vk_icdNegotiateLoaderICDInterfaceVersion(
+    _p_supported_version: *mut u32,
+) -> vk::Result {
+    unimplemented!("vk_icdNegotiateLoaderICDInterfaceVersion");
+}
+
+#[no_mangle]
 extern "stdcall" fn vk_icdGetPhysicalDeviceProcAddr(
     _instance: vk::Instance,
     _p_name: *const c_char,
 ) -> vk::PFN_vkVoidFunction {
-    println!("bao2");
-    std::fs::write(
-        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vk_icdGetPhysicalDeviceProcAddr.txt",
-        "whoa",
-    )
-    .unwrap();
-    std::thread::sleep(std::time::Duration::from_millis(1000));
-    unimplemented!();
-}
-
-#[no_mangle]
-extern "stdcall" fn vk_icdNegotiateLoaderICDInterfaceVersion(
-    _p_supported_version: *mut u32,
-) -> vk::Result {
-    println!("bao3");
-    std::fs::write(
-        "C:\\Users\\Vixen\\Desktop\\wie-logs\\vk_icdNegotiateLoaderICDInterfaceVersion.txt",
-        "whoa",
-    )
-    .unwrap();
-    std::thread::sleep(std::time::Duration::from_millis(1000));
-    unimplemented!();
+    unimplemented!("vk_icdGetPhysicalDeviceProcAddr");
 }
