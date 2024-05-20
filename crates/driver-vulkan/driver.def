@@ -1,6 +1,7 @@
+; This file looks not necessary, but I archive that for better support. - Vixen 2024.05.20
+
 LIBRARY wie_driver_vulkan
 EXPORTS
     vk_icdGetInstanceProcAddr
     vk_icdNegotiateLoaderICDInterfaceVersion
     vk_icdGetPhysicalDeviceProcAddr
-    vk_icdEnumerateAdapterPhysicalDevices
