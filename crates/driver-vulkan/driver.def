@@ -1,5 +1,6 @@
 LIBRARY wie_driver_vulkan
 EXPORTS
-vk_icdGetInstanceProcAddr
-vk_icdGetPhysicalDeviceProcAddr
-vk_icdNegotiateLoaderICDInterfaceVersion
+    vk_icdGetInstanceProcAddr
+    vk_icdNegotiateLoaderICDInterfaceVersion
+    vk_icdGetPhysicalDeviceProcAddr
+    vk_icdEnumerateAdapterPhysicalDevices
