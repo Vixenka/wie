@@ -7,11 +7,21 @@ use ash::vk;
 
 use crate::generated::definitions;
 
+/// https://github.com/KhronosGroup/Vulkan-Loader/blob/main/docs/LoaderDriverInterface.md
+const SUPPORTED_LOADER_ICD_INTERFACE_VERSION: u32 = 7;
+static mut CURRENT_LOADER_ICD_INTERFACE_VERSION: u32 = 0;
+
 #[no_mangle]
 extern "stdcall" fn vk_icdGetInstanceProcAddr(
     _instance: vk::Instance,
     p_name: *const c_char,
 ) -> vk::PFN_vkVoidFunction {
+    unsafe {
+        if CURRENT_LOADER_ICD_INTERFACE_VERSION == 0 {
+            CURRENT_LOADER_ICD_INTERFACE_VERSION = 1;
+        }
+    }
+
     let name = unsafe { CStr::from_ptr(p_name) };
     let name = name.to_str().expect("UTF-8 valid name");
     let address = definitions::get_function_address(name);
@@ -26,9 +36,15 @@ extern "stdcall" fn vk_icdGetInstanceProcAddr(
 
 #[no_mangle]
 extern "stdcall" fn vk_icdNegotiateLoaderICDInterfaceVersion(
-    _p_supported_version: *mut u32,
+    p_supported_version: *mut u32,
 ) -> vk::Result {
-    unimplemented!("vk_icdNegotiateLoaderICDInterfaceVersion");
+    unsafe {
+        if *p_supported_version > SUPPORTED_LOADER_ICD_INTERFACE_VERSION {
+            *p_supported_version = SUPPORTED_LOADER_ICD_INTERFACE_VERSION;
+        }
+
+        vk::Result::SUCCESS
+    }
 }
 
 #[no_mangle]
