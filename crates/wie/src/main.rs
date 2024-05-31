@@ -12,7 +12,7 @@ fn main() {
     simple_logger::init().unwrap();
     let hook = std::panic::take_hook();
     std::panic::set_hook(Box::new(move |panic_info| {
-        log::error!("{}", panic_info);
+        error!("{}", panic_info);
         hook(panic_info);
     }));
 

@@ -8,5 +8,6 @@ crate-type = ["cdylib"]
 
 [dependencies]
 ash.workspace = true
+log.workspace = true
 wie-transport.workspace = true
 wie-transport-guest.workspace = true

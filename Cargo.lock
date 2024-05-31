@@ -837,6 +837,7 @@ name = "wie-driver-vulkan"
 version = "0.1.0"
 dependencies = [
  "ash",
+ "log",
  "wie-transport",
  "wie-transport-guest",
 ]

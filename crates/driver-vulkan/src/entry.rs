@@ -33,6 +33,8 @@ extern "stdcall" fn vk_icdGetInstanceProcAddr(
         panic!("function `{}` is unsupported in wie-driver-vulkan", name);
     }
 
+    trace!("requested address for function `{}`", name);
+
     unsafe { mem::transmute(address) }
 }
 
@@ -44,6 +46,11 @@ extern "stdcall" fn vk_icdNegotiateLoaderICDInterfaceVersion(
         if *p_supported_version > SUPPORTED_LOADER_ICD_INTERFACE_VERSION {
             *p_supported_version = SUPPORTED_LOADER_ICD_INTERFACE_VERSION;
         }
+
+        trace!(
+            "negotiated loader ICD interface version: {}",
+            *p_supported_version
+        );
 
         vk::Result::SUCCESS
     }

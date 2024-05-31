@@ -42,9 +42,11 @@ where
         },
     };
 
+    info!("Connection established");
+
     CONNECTION
         .set(Connection::new(stream, handlers(), None))
-        .unwrap()
+        .unwrap();
 }
 
 #[inline]
