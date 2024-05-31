@@ -4,5 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+tracing.workspace = true
+tracing-subscriber.workspace = true
+tracing-panic.workspace = true
 wie-transport.workspace = true
 wie-transport-vsock.workspace = true

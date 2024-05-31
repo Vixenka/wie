@@ -782,6 +782,9 @@ dependencies = [
 name = "wie-transport-guest"
 version = "0.1.0"
 dependencies = [
+ "tracing",
+ "tracing-panic",
+ "tracing-subscriber",
  "wie-transport",
  "wie-transport-vsock",
 ]

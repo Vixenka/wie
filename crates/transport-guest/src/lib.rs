@@ -18,6 +18,9 @@ where
         return;
     }
 
+    tracing_subscriber::fmt::init();
+    std::panic::set_hook(Box::new(tracing_panic::panic_hook));
+
     let stream = VsockStream::connect(VsockAddress {
         cid: VsockCid::host(),
         port: 13001,
