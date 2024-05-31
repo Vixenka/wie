@@ -1,11 +1,10 @@
 use std::{fs, path::Path};
 
 use itertools::Itertools;
-use vk_parse::CommandDefinition;
+use vk_parse::{CommandDefinition, CommandParam};
 
 use crate::{
-    push_indentation, push_param_name, to_rust_type, trace, write_packet_param,
-    VULKAN_HANDLERS_BEGIN,
+    push_indentation, push_param_name, to_rust_type, trace, transport, VULKAN_HANDLERS_BEGIN,
 };
 
 pub fn generate(project_directory: &Path, commands: &[&CommandDefinition]) {
@@ -71,7 +70,7 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition, handle
     }
     builder.push_str(" {\n");
 
-    trace(builder, definition);
+    trace(builder, definition, false);
 
     // Packet creation
     push_indentation(builder, 1);
@@ -88,7 +87,7 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition, handle
         last_is_count = param.definition.name.ends_with("Count");
         push_indentation(builder, 1);
         builder.push_str("packet.write");
-        write_packet_param(builder, param, last_is_count);
+        transport::write_packet_param(builder, param, last_is_count);
     }
 
     push_indentation(builder, 1);

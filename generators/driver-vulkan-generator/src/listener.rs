@@ -1,8 +1,12 @@
 use std::{fs, path::Path};
 
-use vk_parse::CommandDefinition;
+use itertools::Itertools;
+use vk_parse::{CommandDefinition, CommandParam};
 
-use crate::{push_indentation, to_snake_case, VULKAN_HANDLERS_BEGIN};
+use crate::{
+    push_indentation, push_param_name, to_rust_type, to_snake_case, trace, transport,
+    VULKAN_HANDLERS_BEGIN,
+};
 
 pub fn generate(project_directory: &Path, commands: &[&CommandDefinition]) {
     let mut builder = String::new();
@@ -46,18 +50,24 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition) {
     to_snake_case(builder, &definition.proto.name);
     builder.push_str("(mut packet: Packet) {\n");
 
-    push_indentation(builder, 1);
-    builder.push_str("trace!(\"called ");
-    builder.push_str(&definition.proto.name);
-    builder.push_str("\");\n");
+    let mut last_is_count = false;
+    for param in definition.params.iter().unique_by(|x| &x.definition.name) {
+        if last_is_count {
+            continue;
+        }
 
-    /*for param in definition.params.iter().unique_by(|x| &x.definition.name) {
+        last_is_count = param.definition.name.ends_with("Count");
+
         push_indentation(builder, 1);
+        builder.push_str("let ");
         push_param_name(builder, param);
         builder.push_str(": ");
         builder.push_str(&to_rust_type(&param.definition));
-        builder.push_str(",\n");
-    }*/
+        builder.push_str("= packet.read");
+        transport::read_packet_param(builder, param, last_is_count);
+    }
+
+    trace(builder, definition, true);
 
     builder.push_str("}\n");
 }

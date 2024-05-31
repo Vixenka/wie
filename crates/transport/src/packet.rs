@@ -73,6 +73,13 @@ where
     }
 
     /// # Safety
+    /// Caller must ensure to pass a valid pointer or null.
+    #[inline]
+    pub unsafe fn write_nullable_raw_ptr_mut<TO>(&mut self, object: *mut TO) {
+        self.write_nullable_raw_ptr(object as *const TO);
+    }
+
+    /// # Safety
     /// This function is unsafe because it writes until null character is found.
     #[inline]
     pub unsafe fn write_null_str(&mut self, str: *const c_char) {
@@ -138,6 +145,7 @@ where
         unsafe { &*(self.buffer.as_ptr() as *const PacketHeader) }
     }
 
+    #[inline]
     pub fn read<TO>(&mut self) -> TO {
         let size = mem::size_of::<TO>();
 
@@ -154,12 +162,41 @@ where
         unsafe { object.assume_init() }
     }
 
+    #[inline]
     pub fn read_to_raw_ptr<TO>(&mut self, ptr: *mut TO) {
         let size = mem::size_of::<TO>();
         unsafe {
             ptr::copy_nonoverlapping(self.buffer[self.read..].as_ptr(), ptr as *mut u8, size);
         }
         self.read += size;
+    }
+
+    #[inline]
+    pub fn read_nullable_raw_ptr<TO>(&mut self) -> *const TO {
+        if self.buffer[self.read] == 0 {
+            self.read += 1;
+            ptr::null()
+        } else {
+            self.read += 1;
+            let ptr = unsafe { self.buffer.as_ptr().add(self.read) } as *const TO;
+            self.read += mem::size_of::<TO>();
+            ptr
+        }
+    }
+
+    #[inline]
+    pub fn read_nullable_raw_ptr_mut<TO>(&mut self) -> *mut TO {
+        self.read_nullable_raw_ptr::<TO>() as *mut TO
+    }
+
+    #[inline]
+    pub fn read_null_str(&mut self) -> *const c_char {
+        let start = self.read;
+        while self.buffer[self.read] != 0 {
+            self.read += 1;
+        }
+
+        self.buffer[start..self.read].as_ptr() as *const c_char
     }
 
     pub fn write_response(mut self, destination: Option<u64>) -> PacketWriter<'c, T> {

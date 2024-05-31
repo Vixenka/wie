@@ -654,7 +654,7 @@ unsafe extern "stdcall" fn vkEnumeratePhysicalDevices(
 
     let mut packet = new_packet(1000001002);
     packet.write(instance);
-    packet.write_nullable_raw_ptr(p_physical_device_count);
+    packet.write_nullable_raw_ptr_mut(p_physical_device_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumeratePhysicalDevices");
 }
@@ -715,7 +715,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceQueueFamilyProperties(
 
     let mut packet = new_packet(1000001006);
     packet.write(physical_device);
-    packet.write_nullable_raw_ptr(p_queue_family_property_count);
+    packet.write_nullable_raw_ptr_mut(p_queue_family_property_count);
     packet.send();
     unimplemented!("vkGetPhysicalDeviceQueueFamilyProperties");
 }
@@ -848,7 +848,7 @@ unsafe extern "stdcall" fn vkEnumerateInstanceLayerProperties(
     trace!("called vkEnumerateInstanceLayerProperties({p_property_count:?}, {p_properties:?})");
 
     let mut packet = new_packet(1000001014);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumerateInstanceLayerProperties");
 }
@@ -864,7 +864,7 @@ unsafe extern "stdcall" fn vkEnumerateInstanceExtensionProperties(
 
     let mut packet = new_packet(1000001015);
     packet.write_null_str(p_layer_name);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumerateInstanceExtensionProperties");
 }
@@ -880,7 +880,7 @@ unsafe extern "stdcall" fn vkEnumerateDeviceLayerProperties(
 
     let mut packet = new_packet(1000001016);
     packet.write(physical_device);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumerateDeviceLayerProperties");
 }
@@ -898,7 +898,7 @@ unsafe extern "stdcall" fn vkEnumerateDeviceExtensionProperties(
     let mut packet = new_packet(1000001017);
     packet.write(physical_device);
     packet.write_null_str(p_layer_name);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumerateDeviceExtensionProperties");
 }
@@ -1173,7 +1173,7 @@ unsafe extern "stdcall" fn vkGetImageSparseMemoryRequirements(
     let mut packet = new_packet(1000001033);
     packet.write(device);
     packet.write(image);
-    packet.write_nullable_raw_ptr(p_sparse_memory_requirement_count);
+    packet.write_nullable_raw_ptr_mut(p_sparse_memory_requirement_count);
     packet.send();
     unimplemented!("vkGetImageSparseMemoryRequirements");
 }
@@ -1199,7 +1199,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSparseImageFormatProperties(
     packet.write(samples);
     packet.write(usage);
     packet.write(tiling);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     packet.send();
     unimplemented!("vkGetPhysicalDeviceSparseImageFormatProperties");
 }
@@ -3366,7 +3366,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceDisplayPropertiesKHR(
 
     let mut packet = new_packet(1000001153);
     packet.write(physical_device);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceDisplayPropertiesKHR");
 }
@@ -3382,7 +3382,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
 
     let mut packet = new_packet(1000001154);
     packet.write(physical_device);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
 }
@@ -3400,7 +3400,7 @@ unsafe extern "stdcall" fn vkGetDisplayPlaneSupportedDisplaysKHR(
     let mut packet = new_packet(1000001155);
     packet.write(physical_device);
     packet.write(plane_index);
-    packet.write_nullable_raw_ptr(p_display_count);
+    packet.write_nullable_raw_ptr_mut(p_display_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetDisplayPlaneSupportedDisplaysKHR");
 }
@@ -3418,7 +3418,7 @@ unsafe extern "stdcall" fn vkGetDisplayModePropertiesKHR(
     let mut packet = new_packet(1000001156);
     packet.write(physical_device);
     packet.write(display);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetDisplayModePropertiesKHR");
 }
@@ -3566,7 +3566,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfaceFormatsKHR(
     let mut packet = new_packet(1000001164);
     packet.write(physical_device);
     packet.write(surface);
-    packet.write_nullable_raw_ptr(p_surface_format_count);
+    packet.write_nullable_raw_ptr_mut(p_surface_format_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfaceFormatsKHR");
 }
@@ -3584,7 +3584,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfacePresentModesKHR(
     let mut packet = new_packet(1000001165);
     packet.write(physical_device);
     packet.write(surface);
-    packet.write_nullable_raw_ptr(p_present_mode_count);
+    packet.write_nullable_raw_ptr_mut(p_present_mode_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfacePresentModesKHR");
 }
@@ -3638,7 +3638,7 @@ unsafe extern "stdcall" fn vkGetSwapchainImagesKHR(
     let mut packet = new_packet(1000001168);
     packet.write(device);
     packet.write(swapchain);
-    packet.write_nullable_raw_ptr(p_swapchain_image_count);
+    packet.write_nullable_raw_ptr_mut(p_swapchain_image_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetSwapchainImagesKHR");
 }
@@ -4317,7 +4317,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceQueueFamilyProperties2(
 
     let mut packet = new_packet(1000001206);
     packet.write(physical_device);
-    packet.write_nullable_raw_ptr(p_queue_family_property_count);
+    packet.write_nullable_raw_ptr_mut(p_queue_family_property_count);
     packet.send();
     unimplemented!("vkGetPhysicalDeviceQueueFamilyProperties2");
 }
@@ -4350,7 +4350,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSparseImageFormatProperties2(
     let mut packet = new_packet(1000001208);
     packet.write(physical_device);
     packet.write(p_format_info);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     packet.send();
     unimplemented!("vkGetPhysicalDeviceSparseImageFormatProperties2");
 }
@@ -4917,7 +4917,7 @@ unsafe extern "stdcall" fn vkEnumeratePhysicalDeviceGroups(
 
     let mut packet = new_packet(1000001241);
     packet.write(instance);
-    packet.write_nullable_raw_ptr(p_physical_device_group_count);
+    packet.write_nullable_raw_ptr_mut(p_physical_device_group_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumeratePhysicalDeviceGroups");
 }
@@ -5077,7 +5077,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDevicePresentRectanglesKHR(
     let mut packet = new_packet(1000001250);
     packet.write(physical_device);
     packet.write(surface);
-    packet.write_nullable_raw_ptr(p_rect_count);
+    packet.write_nullable_raw_ptr_mut(p_rect_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDevicePresentRectanglesKHR");
 }
@@ -5220,7 +5220,7 @@ unsafe extern "stdcall" fn vkGetPastPresentationTimingGOOGLE(
     let mut packet = new_packet(1000001258);
     packet.write(device);
     packet.write(swapchain);
-    packet.write_nullable_raw_ptr(p_presentation_timing_count);
+    packet.write_nullable_raw_ptr_mut(p_presentation_timing_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPastPresentationTimingGOOGLE");
 }
@@ -5410,7 +5410,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfaceFormats2KHR(
     let mut packet = new_packet(1000001269);
     packet.write(physical_device);
     packet.write(p_surface_info);
-    packet.write_nullable_raw_ptr(p_surface_format_count);
+    packet.write_nullable_raw_ptr_mut(p_surface_format_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfaceFormats2KHR");
 }
@@ -5426,7 +5426,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceDisplayProperties2KHR(
 
     let mut packet = new_packet(1000001270);
     packet.write(physical_device);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceDisplayProperties2KHR");
 }
@@ -5442,7 +5442,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
 
     let mut packet = new_packet(1000001271);
     packet.write(physical_device);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
 }
@@ -5460,7 +5460,7 @@ unsafe extern "stdcall" fn vkGetDisplayModeProperties2KHR(
     let mut packet = new_packet(1000001272);
     packet.write(physical_device);
     packet.write(display);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetDisplayModeProperties2KHR");
 }
@@ -5529,7 +5529,7 @@ unsafe extern "stdcall" fn vkGetImageSparseMemoryRequirements2(
     let mut packet = new_packet(1000001276);
     packet.write(device);
     packet.write(p_info);
-    packet.write_nullable_raw_ptr(p_sparse_memory_requirement_count);
+    packet.write_nullable_raw_ptr_mut(p_sparse_memory_requirement_count);
     packet.send();
     unimplemented!("vkGetImageSparseMemoryRequirements2");
 }
@@ -5581,7 +5581,7 @@ unsafe extern "stdcall" fn vkGetDeviceImageSparseMemoryRequirements(
     let mut packet = new_packet(1000001279);
     packet.write(device);
     packet.write(p_info);
-    packet.write_nullable_raw_ptr(p_sparse_memory_requirement_count);
+    packet.write_nullable_raw_ptr_mut(p_sparse_memory_requirement_count);
     packet.send();
     unimplemented!("vkGetDeviceImageSparseMemoryRequirements");
 }
@@ -5861,7 +5861,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
 
     let mut packet = new_packet(1000001294);
     packet.write(physical_device);
-    packet.write_nullable_raw_ptr(p_time_domain_count);
+    packet.write_nullable_raw_ptr_mut(p_time_domain_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceCalibrateableTimeDomainsKHR");
 }
@@ -6320,7 +6320,7 @@ unsafe extern "stdcall" fn vkGetQueueCheckpointDataNV(
 
     let mut packet = new_packet(1000001321);
     packet.write(queue);
-    packet.write_nullable_raw_ptr(p_checkpoint_data_count);
+    packet.write_nullable_raw_ptr_mut(p_checkpoint_data_count);
     packet.send();
     unimplemented!("vkGetQueueCheckpointDataNV");
 }
@@ -7159,7 +7159,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
 
     let mut packet = new_packet(1000001364);
     packet.write(physical_device);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
 }
@@ -7298,7 +7298,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfacePresentModes2EXT(
     let mut packet = new_packet(1000001372);
     packet.write(physical_device);
     packet.write(p_surface_info);
-    packet.write_nullable_raw_ptr(p_present_mode_count);
+    packet.write_nullable_raw_ptr_mut(p_present_mode_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfacePresentModes2EXT");
 }
@@ -7364,7 +7364,7 @@ unsafe extern "stdcall" fn vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryC
     let mut packet = new_packet(1000001376);
     packet.write(physical_device);
     packet.write(queue_family_index);
-    packet.write_nullable_raw_ptr(p_counter_count);
+    packet.write_nullable_raw_ptr_mut(p_counter_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR");
 }
@@ -7491,7 +7491,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCo
 
     let mut packet = new_packet(1000001384);
     packet.write(physical_device);
-    packet.write_nullable_raw_ptr(p_combination_count);
+    packet.write_nullable_raw_ptr_mut(p_combination_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV");
 }
@@ -7661,7 +7661,7 @@ unsafe extern "stdcall" fn vkGetPipelineExecutablePropertiesKHR(
     let mut packet = new_packet(1000001395);
     packet.write(device);
     packet.write(p_pipeline_info);
-    packet.write_nullable_raw_ptr(p_executable_count);
+    packet.write_nullable_raw_ptr_mut(p_executable_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPipelineExecutablePropertiesKHR");
 }
@@ -7679,7 +7679,7 @@ unsafe extern "stdcall" fn vkGetPipelineExecutableStatisticsKHR(
     let mut packet = new_packet(1000001396);
     packet.write(device);
     packet.write(p_executable_info);
-    packet.write_nullable_raw_ptr(p_statistic_count);
+    packet.write_nullable_raw_ptr_mut(p_statistic_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPipelineExecutableStatisticsKHR");
 }
@@ -7697,7 +7697,7 @@ unsafe extern "stdcall" fn vkGetPipelineExecutableInternalRepresentationsKHR(
     let mut packet = new_packet(1000001397);
     packet.write(device);
     packet.write(p_executable_info);
-    packet.write_nullable_raw_ptr(p_internal_representation_count);
+    packet.write_nullable_raw_ptr_mut(p_internal_representation_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPipelineExecutableInternalRepresentationsKHR");
 }
@@ -7730,7 +7730,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceToolProperties(
 
     let mut packet = new_packet(1000001399);
     packet.write(physical_device);
-    packet.write_nullable_raw_ptr(p_tool_count);
+    packet.write_nullable_raw_ptr_mut(p_tool_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceToolProperties");
 }
@@ -8906,7 +8906,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceFragmentShadingRatesKHR(
 
     let mut packet = new_packet(1000001472);
     packet.write(physical_device);
-    packet.write_nullable_raw_ptr(p_fragment_shading_rate_count);
+    packet.write_nullable_raw_ptr_mut(p_fragment_shading_rate_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceFragmentShadingRatesKHR");
 }
@@ -9117,7 +9117,7 @@ unsafe extern "stdcall" fn vkGetQueueCheckpointData2NV(
 
     let mut packet = new_packet(1000001484);
     packet.write(queue);
-    packet.write_nullable_raw_ptr(p_checkpoint_data_count);
+    packet.write_nullable_raw_ptr_mut(p_checkpoint_data_count);
     packet.send();
     unimplemented!("vkGetQueueCheckpointData2NV");
 }
@@ -9213,7 +9213,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceVideoFormatPropertiesKHR(
     let mut packet = new_packet(1000001490);
     packet.write(physical_device);
     packet.write(p_video_format_info);
-    packet.write_nullable_raw_ptr(p_video_format_property_count);
+    packet.write_nullable_raw_ptr_mut(p_video_format_property_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceVideoFormatPropertiesKHR");
 }
@@ -9358,7 +9358,7 @@ unsafe extern "stdcall" fn vkGetVideoSessionMemoryRequirementsKHR(
     let mut packet = new_packet(1000001498);
     packet.write(device);
     packet.write(video_session);
-    packet.write_nullable_raw_ptr(p_memory_requirements_count);
+    packet.write_nullable_raw_ptr_mut(p_memory_requirements_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetVideoSessionMemoryRequirementsKHR");
 }
@@ -10442,7 +10442,7 @@ unsafe extern "stdcall" fn vkGetFramebufferTilePropertiesQCOM(
     let mut packet = new_packet(1000001561);
     packet.write(device);
     packet.write(framebuffer);
-    packet.write_nullable_raw_ptr(p_properties_count);
+    packet.write_nullable_raw_ptr_mut(p_properties_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetFramebufferTilePropertiesQCOM");
 }
@@ -10477,7 +10477,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceOpticalFlowImageFormatsNV(
     let mut packet = new_packet(1000001563);
     packet.write(physical_device);
     packet.write(p_optical_flow_image_format_info);
-    packet.write_nullable_raw_ptr(p_format_count);
+    packet.write_nullable_raw_ptr_mut(p_format_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceOpticalFlowImageFormatsNV");
 }
@@ -10751,7 +10751,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(
 
     let mut packet = new_packet(1000001579);
     packet.write(physical_device);
-    packet.write_nullable_raw_ptr(p_property_count);
+    packet.write_nullable_raw_ptr_mut(p_property_count);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR");
 }

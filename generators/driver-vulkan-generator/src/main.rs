@@ -8,6 +8,7 @@ const INDENTATION: &str = "    ";
 
 mod driver;
 mod listener;
+mod transport;
 
 const VULKAN_HANDLERS_BEGIN: u64 = 1_000_001_000;
 
@@ -101,34 +102,23 @@ fn generate(vk_headers_path: &Path, project_directory: &Path) {
     listener::generate(project_directory, &commands);
 }
 
-fn write_packet_param(builder: &mut String, param: &CommandParam, is_count: bool) {
-    let t = to_rust_type(&param.definition);
-    match t.as_str() {
-        "*const std::os::raw::c_char" => {
-            builder.push_str("_null_str(");
-            push_param_name(builder, param);
-        }
-        _ => {
-            if is_count && t.starts_with("*mut") {
-                builder.push_str("_nullable_raw_ptr(");
-                push_param_name(builder, param);
-            } else {
-                builder.push('(');
-                push_param_name(builder, param);
-            }
-        }
-    }
-    builder.push_str(");\n");
-}
-
-fn trace(builder: &mut String, definition: &CommandDefinition) {
+fn trace(builder: &mut String, definition: &CommandDefinition, check_count: bool) {
     push_indentation(builder, 1);
     builder.push_str("trace!(\"called ");
     builder.push_str(&definition.proto.name);
     builder.push('(');
 
     let mut first = true;
+    let mut last_is_count = false;
     for param in definition.params.iter().unique_by(|x| &x.definition.name) {
+        if check_count {
+            if last_is_count {
+                continue;
+            } else {
+                last_is_count = param.definition.name.ends_with("Count");
+            }
+        }
+
         if !first {
             builder.push_str(", ");
         } else {

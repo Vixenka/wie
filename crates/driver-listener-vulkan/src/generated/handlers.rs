@@ -1068,3000 +1068,4931 @@ pub(crate) fn register_handlers_to(map: &mut crate::HandlerMap) {
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateInstance.html>"]
 fn vk_create_instance(mut packet: Packet) {
-    trace!("called vkCreateInstance");
+    let p_create_info: *const vk::InstanceCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_instance: *mut vk::Instance = packet.read();
+    trace!("called vkCreateInstance({p_create_info:?}, {p_allocator:?}, {p_instance:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyInstance.html>"]
 fn vk_destroy_instance(mut packet: Packet) {
-    trace!("called vkDestroyInstance");
+    let instance: vk::Instance = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyInstance({instance:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDevices.html>"]
 fn vk_enumerate_physical_devices(mut packet: Packet) {
-    trace!("called vkEnumeratePhysicalDevices");
+    let instance: vk::Instance = packet.read();
+    let p_physical_device_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkEnumeratePhysicalDevices({instance:?}, {p_physical_device_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceProcAddr.html>"]
 fn vk_get_device_proc_addr(mut packet: Packet) {
-    trace!("called vkGetDeviceProcAddr");
+    let device: vk::Device = packet.read();
+    let p_name: *const std::os::raw::c_char = packet.read_null_str();
+    trace!("called vkGetDeviceProcAddr({device:?}, {p_name:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html>"]
 fn vk_get_instance_proc_addr(mut packet: Packet) {
-    trace!("called vkGetInstanceProcAddr");
+    let instance: vk::Instance = packet.read();
+    let p_name: *const std::os::raw::c_char = packet.read_null_str();
+    trace!("called vkGetInstanceProcAddr({instance:?}, {p_name:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties.html>"]
 fn vk_get_physical_device_properties(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceProperties");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_properties: *mut vk::PhysicalDeviceProperties = packet.read();
+    trace!("called vkGetPhysicalDeviceProperties({physical_device:?}, {p_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html>"]
 fn vk_get_physical_device_queue_family_properties(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceQueueFamilyProperties");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_queue_family_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceQueueFamilyProperties({physical_device:?}, {p_queue_family_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMemoryProperties.html>"]
 fn vk_get_physical_device_memory_properties(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceMemoryProperties");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties = packet.read();
+    trace!(
+        "called vkGetPhysicalDeviceMemoryProperties({physical_device:?}, {p_memory_properties:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures.html>"]
 fn vk_get_physical_device_features(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceFeatures");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_features: *mut vk::PhysicalDeviceFeatures = packet.read();
+    trace!("called vkGetPhysicalDeviceFeatures({physical_device:?}, {p_features:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFormatProperties.html>"]
 fn vk_get_physical_device_format_properties(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceFormatProperties");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let format: vk::Format = packet.read();
+    let p_format_properties: *mut vk::FormatProperties = packet.read();
+    trace!("called vkGetPhysicalDeviceFormatProperties({physical_device:?}, {format:?}, {p_format_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties.html>"]
 fn vk_get_physical_device_image_format_properties(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceImageFormatProperties");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let format: vk::Format = packet.read();
+    let type_: vk::ImageType = packet.read();
+    let tiling: vk::ImageTiling = packet.read();
+    let usage: vk::ImageUsageFlags = packet.read();
+    let flags: vk::ImageCreateFlags = packet.read();
+    let p_image_format_properties: *mut vk::ImageFormatProperties = packet.read();
+    trace!("called vkGetPhysicalDeviceImageFormatProperties({physical_device:?}, {format:?}, {type_:?}, {tiling:?}, {usage:?}, {flags:?}, {p_image_format_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDevice.html>"]
 fn vk_create_device(mut packet: Packet) {
-    trace!("called vkCreateDevice");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_create_info: *const vk::DeviceCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_device: *mut vk::Device = packet.read();
+    trace!("called vkCreateDevice({physical_device:?}, {p_create_info:?}, {p_allocator:?}, {p_device:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDevice.html>"]
 fn vk_destroy_device(mut packet: Packet) {
-    trace!("called vkDestroyDevice");
+    let device: vk::Device = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyDevice({device:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceVersion.html>"]
 fn vk_enumerate_instance_version(mut packet: Packet) {
-    trace!("called vkEnumerateInstanceVersion");
+    let p_api_version: *mut u32 = packet.read();
+    trace!("called vkEnumerateInstanceVersion({p_api_version:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceLayerProperties.html>"]
 fn vk_enumerate_instance_layer_properties(mut packet: Packet) {
-    trace!("called vkEnumerateInstanceLayerProperties");
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkEnumerateInstanceLayerProperties({p_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceExtensionProperties.html>"]
 fn vk_enumerate_instance_extension_properties(mut packet: Packet) {
-    trace!("called vkEnumerateInstanceExtensionProperties");
+    let p_layer_name: *const std::os::raw::c_char = packet.read_null_str();
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkEnumerateInstanceExtensionProperties({p_layer_name:?}, {p_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceLayerProperties.html>"]
 fn vk_enumerate_device_layer_properties(mut packet: Packet) {
-    trace!("called vkEnumerateDeviceLayerProperties");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkEnumerateDeviceLayerProperties({physical_device:?}, {p_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceExtensionProperties.html>"]
 fn vk_enumerate_device_extension_properties(mut packet: Packet) {
-    trace!("called vkEnumerateDeviceExtensionProperties");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_layer_name: *const std::os::raw::c_char = packet.read_null_str();
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkEnumerateDeviceExtensionProperties({physical_device:?}, {p_layer_name:?}, {p_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceQueue.html>"]
 fn vk_get_device_queue(mut packet: Packet) {
-    trace!("called vkGetDeviceQueue");
+    let device: vk::Device = packet.read();
+    let queue_family_index: u32 = packet.read();
+    let queue_index: u32 = packet.read();
+    let p_queue: *mut vk::Queue = packet.read();
+    trace!(
+        "called vkGetDeviceQueue({device:?}, {queue_family_index:?}, {queue_index:?}, {p_queue:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSubmit.html>"]
 fn vk_queue_submit(mut packet: Packet) {
-    trace!("called vkQueueSubmit");
+    let queue: vk::Queue = packet.read();
+    let submit_count: u32 = packet.read();
+    trace!("called vkQueueSubmit({queue:?}, {submit_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueWaitIdle.html>"]
 fn vk_queue_wait_idle(mut packet: Packet) {
-    trace!("called vkQueueWaitIdle");
+    let queue: vk::Queue = packet.read();
+    trace!("called vkQueueWaitIdle({queue:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDeviceWaitIdle.html>"]
 fn vk_device_wait_idle(mut packet: Packet) {
-    trace!("called vkDeviceWaitIdle");
+    let device: vk::Device = packet.read();
+    trace!("called vkDeviceWaitIdle({device:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateMemory.html>"]
 fn vk_allocate_memory(mut packet: Packet) {
-    trace!("called vkAllocateMemory");
+    let device: vk::Device = packet.read();
+    let p_allocate_info: *const vk::MemoryAllocateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_memory: *mut vk::DeviceMemory = packet.read();
+    trace!(
+        "called vkAllocateMemory({device:?}, {p_allocate_info:?}, {p_allocator:?}, {p_memory:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeMemory.html>"]
 fn vk_free_memory(mut packet: Packet) {
-    trace!("called vkFreeMemory");
+    let device: vk::Device = packet.read();
+    let memory: vk::DeviceMemory = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkFreeMemory({device:?}, {memory:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMapMemory.html>"]
 fn vk_map_memory(mut packet: Packet) {
-    trace!("called vkMapMemory");
+    let device: vk::Device = packet.read();
+    let memory: vk::DeviceMemory = packet.read();
+    let offset: vk::DeviceSize = packet.read();
+    let size: vk::DeviceSize = packet.read();
+    let flags: vk::MemoryMapFlags = packet.read();
+    let pp_data: *mut *mut std::ffi::c_void = packet.read();
+    trace!(
+        "called vkMapMemory({device:?}, {memory:?}, {offset:?}, {size:?}, {flags:?}, {pp_data:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUnmapMemory.html>"]
 fn vk_unmap_memory(mut packet: Packet) {
-    trace!("called vkUnmapMemory");
+    let device: vk::Device = packet.read();
+    let memory: vk::DeviceMemory = packet.read();
+    trace!("called vkUnmapMemory({device:?}, {memory:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFlushMappedMemoryRanges.html>"]
 fn vk_flush_mapped_memory_ranges(mut packet: Packet) {
-    trace!("called vkFlushMappedMemoryRanges");
+    let device: vk::Device = packet.read();
+    let memory_range_count: u32 = packet.read();
+    trace!("called vkFlushMappedMemoryRanges({device:?}, {memory_range_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkInvalidateMappedMemoryRanges.html>"]
 fn vk_invalidate_mapped_memory_ranges(mut packet: Packet) {
-    trace!("called vkInvalidateMappedMemoryRanges");
+    let device: vk::Device = packet.read();
+    let memory_range_count: u32 = packet.read();
+    trace!("called vkInvalidateMappedMemoryRanges({device:?}, {memory_range_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMemoryCommitment.html>"]
 fn vk_get_device_memory_commitment(mut packet: Packet) {
-    trace!("called vkGetDeviceMemoryCommitment");
+    let device: vk::Device = packet.read();
+    let memory: vk::DeviceMemory = packet.read();
+    let p_committed_memory_in_bytes: *mut vk::DeviceSize = packet.read();
+    trace!("called vkGetDeviceMemoryCommitment({device:?}, {memory:?}, {p_committed_memory_in_bytes:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferMemoryRequirements.html>"]
 fn vk_get_buffer_memory_requirements(mut packet: Packet) {
-    trace!("called vkGetBufferMemoryRequirements");
+    let device: vk::Device = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements = packet.read();
+    trace!(
+        "called vkGetBufferMemoryRequirements({device:?}, {buffer:?}, {p_memory_requirements:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindBufferMemory.html>"]
 fn vk_bind_buffer_memory(mut packet: Packet) {
-    trace!("called vkBindBufferMemory");
+    let device: vk::Device = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let memory: vk::DeviceMemory = packet.read();
+    let memory_offset: vk::DeviceSize = packet.read();
+    trace!("called vkBindBufferMemory({device:?}, {buffer:?}, {memory:?}, {memory_offset:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageMemoryRequirements.html>"]
 fn vk_get_image_memory_requirements(mut packet: Packet) {
-    trace!("called vkGetImageMemoryRequirements");
+    let device: vk::Device = packet.read();
+    let image: vk::Image = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements = packet.read();
+    trace!("called vkGetImageMemoryRequirements({device:?}, {image:?}, {p_memory_requirements:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindImageMemory.html>"]
 fn vk_bind_image_memory(mut packet: Packet) {
-    trace!("called vkBindImageMemory");
+    let device: vk::Device = packet.read();
+    let image: vk::Image = packet.read();
+    let memory: vk::DeviceMemory = packet.read();
+    let memory_offset: vk::DeviceSize = packet.read();
+    trace!("called vkBindImageMemory({device:?}, {image:?}, {memory:?}, {memory_offset:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSparseMemoryRequirements.html>"]
 fn vk_get_image_sparse_memory_requirements(mut packet: Packet) {
-    trace!("called vkGetImageSparseMemoryRequirements");
+    let device: vk::Device = packet.read();
+    let image: vk::Image = packet.read();
+    let p_sparse_memory_requirement_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetImageSparseMemoryRequirements({device:?}, {image:?}, {p_sparse_memory_requirement_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html>"]
 fn vk_get_physical_device_sparse_image_format_properties(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceSparseImageFormatProperties");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let format: vk::Format = packet.read();
+    let type_: vk::ImageType = packet.read();
+    let samples: vk::SampleCountFlags = packet.read();
+    let usage: vk::ImageUsageFlags = packet.read();
+    let tiling: vk::ImageTiling = packet.read();
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceSparseImageFormatProperties({physical_device:?}, {format:?}, {type_:?}, {samples:?}, {usage:?}, {tiling:?}, {p_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueBindSparse.html>"]
 fn vk_queue_bind_sparse(mut packet: Packet) {
-    trace!("called vkQueueBindSparse");
+    let queue: vk::Queue = packet.read();
+    let bind_info_count: u32 = packet.read();
+    trace!("called vkQueueBindSparse({queue:?}, {bind_info_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateFence.html>"]
 fn vk_create_fence(mut packet: Packet) {
-    trace!("called vkCreateFence");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::FenceCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_fence: *mut vk::Fence = packet.read();
+    trace!("called vkCreateFence({device:?}, {p_create_info:?}, {p_allocator:?}, {p_fence:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyFence.html>"]
 fn vk_destroy_fence(mut packet: Packet) {
-    trace!("called vkDestroyFence");
+    let device: vk::Device = packet.read();
+    let fence: vk::Fence = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyFence({device:?}, {fence:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetFences.html>"]
 fn vk_reset_fences(mut packet: Packet) {
-    trace!("called vkResetFences");
+    let device: vk::Device = packet.read();
+    let fence_count: u32 = packet.read();
+    trace!("called vkResetFences({device:?}, {fence_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceStatus.html>"]
 fn vk_get_fence_status(mut packet: Packet) {
-    trace!("called vkGetFenceStatus");
+    let device: vk::Device = packet.read();
+    let fence: vk::Fence = packet.read();
+    trace!("called vkGetFenceStatus({device:?}, {fence:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWaitForFences.html>"]
 fn vk_wait_for_fences(mut packet: Packet) {
-    trace!("called vkWaitForFences");
+    let device: vk::Device = packet.read();
+    let fence_count: u32 = packet.read();
+    trace!("called vkWaitForFences({device:?}, {fence_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSemaphore.html>"]
 fn vk_create_semaphore(mut packet: Packet) {
-    trace!("called vkCreateSemaphore");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::SemaphoreCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_semaphore: *mut vk::Semaphore = packet.read();
+    trace!(
+        "called vkCreateSemaphore({device:?}, {p_create_info:?}, {p_allocator:?}, {p_semaphore:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySemaphore.html>"]
 fn vk_destroy_semaphore(mut packet: Packet) {
-    trace!("called vkDestroySemaphore");
+    let device: vk::Device = packet.read();
+    let semaphore: vk::Semaphore = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroySemaphore({device:?}, {semaphore:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateEvent.html>"]
 fn vk_create_event(mut packet: Packet) {
-    trace!("called vkCreateEvent");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::EventCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_event: *mut vk::Event = packet.read();
+    trace!("called vkCreateEvent({device:?}, {p_create_info:?}, {p_allocator:?}, {p_event:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyEvent.html>"]
 fn vk_destroy_event(mut packet: Packet) {
-    trace!("called vkDestroyEvent");
+    let device: vk::Device = packet.read();
+    let event: vk::Event = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyEvent({device:?}, {event:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetEventStatus.html>"]
 fn vk_get_event_status(mut packet: Packet) {
-    trace!("called vkGetEventStatus");
+    let device: vk::Device = packet.read();
+    let event: vk::Event = packet.read();
+    trace!("called vkGetEventStatus({device:?}, {event:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetEvent.html>"]
 fn vk_set_event(mut packet: Packet) {
-    trace!("called vkSetEvent");
+    let device: vk::Device = packet.read();
+    let event: vk::Event = packet.read();
+    trace!("called vkSetEvent({device:?}, {event:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetEvent.html>"]
 fn vk_reset_event(mut packet: Packet) {
-    trace!("called vkResetEvent");
+    let device: vk::Device = packet.read();
+    let event: vk::Event = packet.read();
+    trace!("called vkResetEvent({device:?}, {event:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateQueryPool.html>"]
 fn vk_create_query_pool(mut packet: Packet) {
-    trace!("called vkCreateQueryPool");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::QueryPoolCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_query_pool: *mut vk::QueryPool = packet.read();
+    trace!("called vkCreateQueryPool({device:?}, {p_create_info:?}, {p_allocator:?}, {p_query_pool:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyQueryPool.html>"]
 fn vk_destroy_query_pool(mut packet: Packet) {
-    trace!("called vkDestroyQueryPool");
+    let device: vk::Device = packet.read();
+    let query_pool: vk::QueryPool = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyQueryPool({device:?}, {query_pool:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetQueryPoolResults.html>"]
 fn vk_get_query_pool_results(mut packet: Packet) {
-    trace!("called vkGetQueryPoolResults");
+    let device: vk::Device = packet.read();
+    let query_pool: vk::QueryPool = packet.read();
+    let first_query: u32 = packet.read();
+    let query_count: u32 = packet.read();
+    trace!("called vkGetQueryPoolResults({device:?}, {query_pool:?}, {first_query:?}, {query_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetQueryPool.html>"]
 fn vk_reset_query_pool(mut packet: Packet) {
-    trace!("called vkResetQueryPool");
+    let device: vk::Device = packet.read();
+    let query_pool: vk::QueryPool = packet.read();
+    let first_query: u32 = packet.read();
+    let query_count: u32 = packet.read();
+    trace!("called vkResetQueryPool({device:?}, {query_pool:?}, {first_query:?}, {query_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBuffer.html>"]
 fn vk_create_buffer(mut packet: Packet) {
-    trace!("called vkCreateBuffer");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::BufferCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_buffer: *mut vk::Buffer = packet.read();
+    trace!("called vkCreateBuffer({device:?}, {p_create_info:?}, {p_allocator:?}, {p_buffer:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBuffer.html>"]
 fn vk_destroy_buffer(mut packet: Packet) {
-    trace!("called vkDestroyBuffer");
+    let device: vk::Device = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyBuffer({device:?}, {buffer:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBufferView.html>"]
 fn vk_create_buffer_view(mut packet: Packet) {
-    trace!("called vkCreateBufferView");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::BufferViewCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_view: *mut vk::BufferView = packet.read();
+    trace!("called vkCreateBufferView({device:?}, {p_create_info:?}, {p_allocator:?}, {p_view:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBufferView.html>"]
 fn vk_destroy_buffer_view(mut packet: Packet) {
-    trace!("called vkDestroyBufferView");
+    let device: vk::Device = packet.read();
+    let buffer_view: vk::BufferView = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyBufferView({device:?}, {buffer_view:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImage.html>"]
 fn vk_create_image(mut packet: Packet) {
-    trace!("called vkCreateImage");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::ImageCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_image: *mut vk::Image = packet.read();
+    trace!("called vkCreateImage({device:?}, {p_create_info:?}, {p_allocator:?}, {p_image:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyImage.html>"]
 fn vk_destroy_image(mut packet: Packet) {
-    trace!("called vkDestroyImage");
+    let device: vk::Device = packet.read();
+    let image: vk::Image = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyImage({device:?}, {image:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSubresourceLayout.html>"]
 fn vk_get_image_subresource_layout(mut packet: Packet) {
-    trace!("called vkGetImageSubresourceLayout");
+    let device: vk::Device = packet.read();
+    let image: vk::Image = packet.read();
+    let p_subresource: *const vk::ImageSubresource = packet.read();
+    let p_layout: *mut vk::SubresourceLayout = packet.read();
+    trace!("called vkGetImageSubresourceLayout({device:?}, {image:?}, {p_subresource:?}, {p_layout:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImageView.html>"]
 fn vk_create_image_view(mut packet: Packet) {
-    trace!("called vkCreateImageView");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::ImageViewCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_view: *mut vk::ImageView = packet.read();
+    trace!("called vkCreateImageView({device:?}, {p_create_info:?}, {p_allocator:?}, {p_view:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyImageView.html>"]
 fn vk_destroy_image_view(mut packet: Packet) {
-    trace!("called vkDestroyImageView");
+    let device: vk::Device = packet.read();
+    let image_view: vk::ImageView = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyImageView({device:?}, {image_view:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateShaderModule.html>"]
 fn vk_create_shader_module(mut packet: Packet) {
-    trace!("called vkCreateShaderModule");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::ShaderModuleCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_shader_module: *mut vk::ShaderModule = packet.read();
+    trace!("called vkCreateShaderModule({device:?}, {p_create_info:?}, {p_allocator:?}, {p_shader_module:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyShaderModule.html>"]
 fn vk_destroy_shader_module(mut packet: Packet) {
-    trace!("called vkDestroyShaderModule");
+    let device: vk::Device = packet.read();
+    let shader_module: vk::ShaderModule = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyShaderModule({device:?}, {shader_module:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineCache.html>"]
 fn vk_create_pipeline_cache(mut packet: Packet) {
-    trace!("called vkCreatePipelineCache");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::PipelineCacheCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_pipeline_cache: *mut vk::PipelineCache = packet.read();
+    trace!("called vkCreatePipelineCache({device:?}, {p_create_info:?}, {p_allocator:?}, {p_pipeline_cache:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineCache.html>"]
 fn vk_destroy_pipeline_cache(mut packet: Packet) {
-    trace!("called vkDestroyPipelineCache");
+    let device: vk::Device = packet.read();
+    let pipeline_cache: vk::PipelineCache = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyPipelineCache({device:?}, {pipeline_cache:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineCacheData.html>"]
 fn vk_get_pipeline_cache_data(mut packet: Packet) {
-    trace!("called vkGetPipelineCacheData");
+    let device: vk::Device = packet.read();
+    let pipeline_cache: vk::PipelineCache = packet.read();
+    let p_data_size: *mut isize = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read();
+    trace!("called vkGetPipelineCacheData({device:?}, {pipeline_cache:?}, {p_data_size:?}, {p_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMergePipelineCaches.html>"]
 fn vk_merge_pipeline_caches(mut packet: Packet) {
-    trace!("called vkMergePipelineCaches");
+    let device: vk::Device = packet.read();
+    let dst_cache: vk::PipelineCache = packet.read();
+    let src_cache_count: u32 = packet.read();
+    trace!("called vkMergePipelineCaches({device:?}, {dst_cache:?}, {src_cache_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateGraphicsPipelines.html>"]
 fn vk_create_graphics_pipelines(mut packet: Packet) {
-    trace!("called vkCreateGraphicsPipelines");
+    let device: vk::Device = packet.read();
+    let pipeline_cache: vk::PipelineCache = packet.read();
+    let create_info_count: u32 = packet.read();
+    trace!(
+        "called vkCreateGraphicsPipelines({device:?}, {pipeline_cache:?}, {create_info_count:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateComputePipelines.html>"]
 fn vk_create_compute_pipelines(mut packet: Packet) {
-    trace!("called vkCreateComputePipelines");
+    let device: vk::Device = packet.read();
+    let pipeline_cache: vk::PipelineCache = packet.read();
+    let create_info_count: u32 = packet.read();
+    trace!(
+        "called vkCreateComputePipelines({device:?}, {pipeline_cache:?}, {create_info_count:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html>"]
 fn vk_get_device_subpass_shading_max_workgroup_size_huawei(mut packet: Packet) {
-    trace!("called vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI");
+    let device: vk::Device = packet.read();
+    let renderpass: vk::RenderPass = packet.read();
+    let p_max_workgroup_size: *mut vk::Extent2D = packet.read();
+    trace!("called vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI({device:?}, {renderpass:?}, {p_max_workgroup_size:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipeline.html>"]
 fn vk_destroy_pipeline(mut packet: Packet) {
-    trace!("called vkDestroyPipeline");
+    let device: vk::Device = packet.read();
+    let pipeline: vk::Pipeline = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyPipeline({device:?}, {pipeline:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineLayout.html>"]
 fn vk_create_pipeline_layout(mut packet: Packet) {
-    trace!("called vkCreatePipelineLayout");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::PipelineLayoutCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_pipeline_layout: *mut vk::PipelineLayout = packet.read();
+    trace!("called vkCreatePipelineLayout({device:?}, {p_create_info:?}, {p_allocator:?}, {p_pipeline_layout:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineLayout.html>"]
 fn vk_destroy_pipeline_layout(mut packet: Packet) {
-    trace!("called vkDestroyPipelineLayout");
+    let device: vk::Device = packet.read();
+    let pipeline_layout: vk::PipelineLayout = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyPipelineLayout({device:?}, {pipeline_layout:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSampler.html>"]
 fn vk_create_sampler(mut packet: Packet) {
-    trace!("called vkCreateSampler");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::SamplerCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_sampler: *mut vk::Sampler = packet.read();
+    trace!("called vkCreateSampler({device:?}, {p_create_info:?}, {p_allocator:?}, {p_sampler:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySampler.html>"]
 fn vk_destroy_sampler(mut packet: Packet) {
-    trace!("called vkDestroySampler");
+    let device: vk::Device = packet.read();
+    let sampler: vk::Sampler = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroySampler({device:?}, {sampler:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorSetLayout.html>"]
 fn vk_create_descriptor_set_layout(mut packet: Packet) {
-    trace!("called vkCreateDescriptorSetLayout");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::DescriptorSetLayoutCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_set_layout: *mut vk::DescriptorSetLayout = packet.read();
+    trace!("called vkCreateDescriptorSetLayout({device:?}, {p_create_info:?}, {p_allocator:?}, {p_set_layout:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorSetLayout.html>"]
 fn vk_destroy_descriptor_set_layout(mut packet: Packet) {
-    trace!("called vkDestroyDescriptorSetLayout");
+    let device: vk::Device = packet.read();
+    let descriptor_set_layout: vk::DescriptorSetLayout = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyDescriptorSetLayout({device:?}, {descriptor_set_layout:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorPool.html>"]
 fn vk_create_descriptor_pool(mut packet: Packet) {
-    trace!("called vkCreateDescriptorPool");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::DescriptorPoolCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_descriptor_pool: *mut vk::DescriptorPool = packet.read();
+    trace!("called vkCreateDescriptorPool({device:?}, {p_create_info:?}, {p_allocator:?}, {p_descriptor_pool:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorPool.html>"]
 fn vk_destroy_descriptor_pool(mut packet: Packet) {
-    trace!("called vkDestroyDescriptorPool");
+    let device: vk::Device = packet.read();
+    let descriptor_pool: vk::DescriptorPool = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyDescriptorPool({device:?}, {descriptor_pool:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetDescriptorPool.html>"]
 fn vk_reset_descriptor_pool(mut packet: Packet) {
-    trace!("called vkResetDescriptorPool");
+    let device: vk::Device = packet.read();
+    let descriptor_pool: vk::DescriptorPool = packet.read();
+    let flags: vk::DescriptorPoolResetFlags = packet.read();
+    trace!("called vkResetDescriptorPool({device:?}, {descriptor_pool:?}, {flags:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateDescriptorSets.html>"]
 fn vk_allocate_descriptor_sets(mut packet: Packet) {
-    trace!("called vkAllocateDescriptorSets");
+    let device: vk::Device = packet.read();
+    let p_allocate_info: *const vk::DescriptorSetAllocateInfo = packet.read();
+    let p_descriptor_sets: *mut vk::DescriptorSet = packet.read();
+    trace!(
+        "called vkAllocateDescriptorSets({device:?}, {p_allocate_info:?}, {p_descriptor_sets:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeDescriptorSets.html>"]
 fn vk_free_descriptor_sets(mut packet: Packet) {
-    trace!("called vkFreeDescriptorSets");
+    let device: vk::Device = packet.read();
+    let descriptor_pool: vk::DescriptorPool = packet.read();
+    let descriptor_set_count: u32 = packet.read();
+    trace!(
+        "called vkFreeDescriptorSets({device:?}, {descriptor_pool:?}, {descriptor_set_count:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateDescriptorSets.html>"]
 fn vk_update_descriptor_sets(mut packet: Packet) {
-    trace!("called vkUpdateDescriptorSets");
+    let device: vk::Device = packet.read();
+    let descriptor_write_count: u32 = packet.read();
+    trace!("called vkUpdateDescriptorSets({device:?}, {descriptor_write_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateFramebuffer.html>"]
 fn vk_create_framebuffer(mut packet: Packet) {
-    trace!("called vkCreateFramebuffer");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::FramebufferCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_framebuffer: *mut vk::Framebuffer = packet.read();
+    trace!("called vkCreateFramebuffer({device:?}, {p_create_info:?}, {p_allocator:?}, {p_framebuffer:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyFramebuffer.html>"]
 fn vk_destroy_framebuffer(mut packet: Packet) {
-    trace!("called vkDestroyFramebuffer");
+    let device: vk::Device = packet.read();
+    let framebuffer: vk::Framebuffer = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyFramebuffer({device:?}, {framebuffer:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRenderPass.html>"]
 fn vk_create_render_pass(mut packet: Packet) {
-    trace!("called vkCreateRenderPass");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::RenderPassCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_render_pass: *mut vk::RenderPass = packet.read();
+    trace!("called vkCreateRenderPass({device:?}, {p_create_info:?}, {p_allocator:?}, {p_render_pass:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyRenderPass.html>"]
 fn vk_destroy_render_pass(mut packet: Packet) {
-    trace!("called vkDestroyRenderPass");
+    let device: vk::Device = packet.read();
+    let render_pass: vk::RenderPass = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyRenderPass({device:?}, {render_pass:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRenderAreaGranularity.html>"]
 fn vk_get_render_area_granularity(mut packet: Packet) {
-    trace!("called vkGetRenderAreaGranularity");
+    let device: vk::Device = packet.read();
+    let render_pass: vk::RenderPass = packet.read();
+    let p_granularity: *mut vk::Extent2D = packet.read();
+    trace!("called vkGetRenderAreaGranularity({device:?}, {render_pass:?}, {p_granularity:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRenderingAreaGranularityKHR.html>"]
 fn vk_get_rendering_area_granularity_khr(mut packet: Packet) {
-    trace!("called vkGetRenderingAreaGranularityKHR");
+    let device: vk::Device = packet.read();
+    let p_rendering_area_info: *const vk::RenderingAreaInfoKHR = packet.read();
+    let p_granularity: *mut vk::Extent2D = packet.read();
+    trace!("called vkGetRenderingAreaGranularityKHR({device:?}, {p_rendering_area_info:?}, {p_granularity:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCommandPool.html>"]
 fn vk_create_command_pool(mut packet: Packet) {
-    trace!("called vkCreateCommandPool");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::CommandPoolCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_command_pool: *mut vk::CommandPool = packet.read();
+    trace!("called vkCreateCommandPool({device:?}, {p_create_info:?}, {p_allocator:?}, {p_command_pool:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCommandPool.html>"]
 fn vk_destroy_command_pool(mut packet: Packet) {
-    trace!("called vkDestroyCommandPool");
+    let device: vk::Device = packet.read();
+    let command_pool: vk::CommandPool = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyCommandPool({device:?}, {command_pool:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetCommandPool.html>"]
 fn vk_reset_command_pool(mut packet: Packet) {
-    trace!("called vkResetCommandPool");
+    let device: vk::Device = packet.read();
+    let command_pool: vk::CommandPool = packet.read();
+    let flags: vk::CommandPoolResetFlags = packet.read();
+    trace!("called vkResetCommandPool({device:?}, {command_pool:?}, {flags:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateCommandBuffers.html>"]
 fn vk_allocate_command_buffers(mut packet: Packet) {
-    trace!("called vkAllocateCommandBuffers");
+    let device: vk::Device = packet.read();
+    let p_allocate_info: *const vk::CommandBufferAllocateInfo = packet.read();
+    let p_command_buffers: *mut vk::CommandBuffer = packet.read();
+    trace!(
+        "called vkAllocateCommandBuffers({device:?}, {p_allocate_info:?}, {p_command_buffers:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeCommandBuffers.html>"]
 fn vk_free_command_buffers(mut packet: Packet) {
-    trace!("called vkFreeCommandBuffers");
+    let device: vk::Device = packet.read();
+    let command_pool: vk::CommandPool = packet.read();
+    let command_buffer_count: u32 = packet.read();
+    trace!("called vkFreeCommandBuffers({device:?}, {command_pool:?}, {command_buffer_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBeginCommandBuffer.html>"]
 fn vk_begin_command_buffer(mut packet: Packet) {
-    trace!("called vkBeginCommandBuffer");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_begin_info: *const vk::CommandBufferBeginInfo = packet.read();
+    trace!("called vkBeginCommandBuffer({command_buffer:?}, {p_begin_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEndCommandBuffer.html>"]
 fn vk_end_command_buffer(mut packet: Packet) {
-    trace!("called vkEndCommandBuffer");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    trace!("called vkEndCommandBuffer({command_buffer:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetCommandBuffer.html>"]
 fn vk_reset_command_buffer(mut packet: Packet) {
-    trace!("called vkResetCommandBuffer");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let flags: vk::CommandBufferResetFlags = packet.read();
+    trace!("called vkResetCommandBuffer({command_buffer:?}, {flags:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindPipeline.html>"]
 fn vk_cmd_bind_pipeline(mut packet: Packet) {
-    trace!("called vkCmdBindPipeline");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let pipeline_bind_point: vk::PipelineBindPoint = packet.read();
+    let pipeline: vk::Pipeline = packet.read();
+    trace!("called vkCmdBindPipeline({command_buffer:?}, {pipeline_bind_point:?}, {pipeline:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetAttachmentFeedbackLoopEnableEXT.html>"]
 fn vk_cmd_set_attachment_feedback_loop_enable_ext(mut packet: Packet) {
-    trace!("called vkCmdSetAttachmentFeedbackLoopEnableEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let aspect_mask: vk::ImageAspectFlags = packet.read();
+    trace!("called vkCmdSetAttachmentFeedbackLoopEnableEXT({command_buffer:?}, {aspect_mask:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewport.html>"]
 fn vk_cmd_set_viewport(mut packet: Packet) {
-    trace!("called vkCmdSetViewport");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_viewport: u32 = packet.read();
+    let viewport_count: u32 = packet.read();
+    trace!("called vkCmdSetViewport({command_buffer:?}, {first_viewport:?}, {viewport_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetScissor.html>"]
 fn vk_cmd_set_scissor(mut packet: Packet) {
-    trace!("called vkCmdSetScissor");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_scissor: u32 = packet.read();
+    let scissor_count: u32 = packet.read();
+    trace!("called vkCmdSetScissor({command_buffer:?}, {first_scissor:?}, {scissor_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineWidth.html>"]
 fn vk_cmd_set_line_width(mut packet: Packet) {
-    trace!("called vkCmdSetLineWidth");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let line_width: f32 = packet.read();
+    trace!("called vkCmdSetLineWidth({command_buffer:?}, {line_width:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBias.html>"]
 fn vk_cmd_set_depth_bias(mut packet: Packet) {
-    trace!("called vkCmdSetDepthBias");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let depth_bias_constant_factor: f32 = packet.read();
+    let depth_bias_clamp: f32 = packet.read();
+    let depth_bias_slope_factor: f32 = packet.read();
+    trace!("called vkCmdSetDepthBias({command_buffer:?}, {depth_bias_constant_factor:?}, {depth_bias_clamp:?}, {depth_bias_slope_factor:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetBlendConstants.html>"]
 fn vk_cmd_set_blend_constants(mut packet: Packet) {
-    trace!("called vkCmdSetBlendConstants");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let blend_constants: f32 = packet.read();
+    trace!("called vkCmdSetBlendConstants({command_buffer:?}, {blend_constants:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBounds.html>"]
 fn vk_cmd_set_depth_bounds(mut packet: Packet) {
-    trace!("called vkCmdSetDepthBounds");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let min_depth_bounds: f32 = packet.read();
+    let max_depth_bounds: f32 = packet.read();
+    trace!("called vkCmdSetDepthBounds({command_buffer:?}, {min_depth_bounds:?}, {max_depth_bounds:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilCompareMask.html>"]
 fn vk_cmd_set_stencil_compare_mask(mut packet: Packet) {
-    trace!("called vkCmdSetStencilCompareMask");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let face_mask: vk::StencilFaceFlags = packet.read();
+    let compare_mask: u32 = packet.read();
+    trace!(
+        "called vkCmdSetStencilCompareMask({command_buffer:?}, {face_mask:?}, {compare_mask:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilWriteMask.html>"]
 fn vk_cmd_set_stencil_write_mask(mut packet: Packet) {
-    trace!("called vkCmdSetStencilWriteMask");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let face_mask: vk::StencilFaceFlags = packet.read();
+    let write_mask: u32 = packet.read();
+    trace!("called vkCmdSetStencilWriteMask({command_buffer:?}, {face_mask:?}, {write_mask:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilReference.html>"]
 fn vk_cmd_set_stencil_reference(mut packet: Packet) {
-    trace!("called vkCmdSetStencilReference");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let face_mask: vk::StencilFaceFlags = packet.read();
+    let reference: u32 = packet.read();
+    trace!("called vkCmdSetStencilReference({command_buffer:?}, {face_mask:?}, {reference:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorSets.html>"]
 fn vk_cmd_bind_descriptor_sets(mut packet: Packet) {
-    trace!("called vkCmdBindDescriptorSets");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let pipeline_bind_point: vk::PipelineBindPoint = packet.read();
+    let layout: vk::PipelineLayout = packet.read();
+    let first_set: u32 = packet.read();
+    let descriptor_set_count: u32 = packet.read();
+    trace!("called vkCmdBindDescriptorSets({command_buffer:?}, {pipeline_bind_point:?}, {layout:?}, {first_set:?}, {descriptor_set_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindIndexBuffer.html>"]
 fn vk_cmd_bind_index_buffer(mut packet: Packet) {
-    trace!("called vkCmdBindIndexBuffer");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let offset: vk::DeviceSize = packet.read();
+    let index_type: vk::IndexType = packet.read();
+    trace!(
+        "called vkCmdBindIndexBuffer({command_buffer:?}, {buffer:?}, {offset:?}, {index_type:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindVertexBuffers.html>"]
 fn vk_cmd_bind_vertex_buffers(mut packet: Packet) {
-    trace!("called vkCmdBindVertexBuffers");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_binding: u32 = packet.read();
+    let binding_count: u32 = packet.read();
+    trace!(
+        "called vkCmdBindVertexBuffers({command_buffer:?}, {first_binding:?}, {binding_count:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDraw.html>"]
 fn vk_cmd_draw(mut packet: Packet) {
-    trace!("called vkCmdDraw");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let vertex_count: u32 = packet.read();
+    trace!("called vkCmdDraw({command_buffer:?}, {vertex_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexed.html>"]
 fn vk_cmd_draw_indexed(mut packet: Packet) {
-    trace!("called vkCmdDrawIndexed");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let index_count: u32 = packet.read();
+    trace!("called vkCmdDrawIndexed({command_buffer:?}, {index_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMultiEXT.html>"]
 fn vk_cmd_draw_multi_ext(mut packet: Packet) {
-    trace!("called vkCmdDrawMultiEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let draw_count: u32 = packet.read();
+    trace!("called vkCmdDrawMultiEXT({command_buffer:?}, {draw_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMultiIndexedEXT.html>"]
 fn vk_cmd_draw_multi_indexed_ext(mut packet: Packet) {
-    trace!("called vkCmdDrawMultiIndexedEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let draw_count: u32 = packet.read();
+    trace!("called vkCmdDrawMultiIndexedEXT({command_buffer:?}, {draw_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirect.html>"]
 fn vk_cmd_draw_indirect(mut packet: Packet) {
-    trace!("called vkCmdDrawIndirect");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let offset: vk::DeviceSize = packet.read();
+    let draw_count: u32 = packet.read();
+    trace!("called vkCmdDrawIndirect({command_buffer:?}, {buffer:?}, {offset:?}, {draw_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexedIndirect.html>"]
 fn vk_cmd_draw_indexed_indirect(mut packet: Packet) {
-    trace!("called vkCmdDrawIndexedIndirect");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let offset: vk::DeviceSize = packet.read();
+    let draw_count: u32 = packet.read();
+    trace!("called vkCmdDrawIndexedIndirect({command_buffer:?}, {buffer:?}, {offset:?}, {draw_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatch.html>"]
 fn vk_cmd_dispatch(mut packet: Packet) {
-    trace!("called vkCmdDispatch");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let group_count_x: u32 = packet.read();
+    let group_count_y: u32 = packet.read();
+    let group_count_z: u32 = packet.read();
+    trace!("called vkCmdDispatch({command_buffer:?}, {group_count_x:?}, {group_count_y:?}, {group_count_z:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchIndirect.html>"]
 fn vk_cmd_dispatch_indirect(mut packet: Packet) {
-    trace!("called vkCmdDispatchIndirect");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let offset: vk::DeviceSize = packet.read();
+    trace!("called vkCmdDispatchIndirect({command_buffer:?}, {buffer:?}, {offset:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSubpassShadingHUAWEI.html>"]
 fn vk_cmd_subpass_shading_huawei(mut packet: Packet) {
-    trace!("called vkCmdSubpassShadingHUAWEI");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    trace!("called vkCmdSubpassShadingHUAWEI({command_buffer:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawClusterHUAWEI.html>"]
 fn vk_cmd_draw_cluster_huawei(mut packet: Packet) {
-    trace!("called vkCmdDrawClusterHUAWEI");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let group_count_x: u32 = packet.read();
+    let group_count_y: u32 = packet.read();
+    let group_count_z: u32 = packet.read();
+    trace!("called vkCmdDrawClusterHUAWEI({command_buffer:?}, {group_count_x:?}, {group_count_y:?}, {group_count_z:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawClusterIndirectHUAWEI.html>"]
 fn vk_cmd_draw_cluster_indirect_huawei(mut packet: Packet) {
-    trace!("called vkCmdDrawClusterIndirectHUAWEI");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let offset: vk::DeviceSize = packet.read();
+    trace!("called vkCmdDrawClusterIndirectHUAWEI({command_buffer:?}, {buffer:?}, {offset:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdUpdatePipelineIndirectBufferNV.html>"]
 fn vk_cmd_update_pipeline_indirect_buffer_nv(mut packet: Packet) {
-    trace!("called vkCmdUpdatePipelineIndirectBufferNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let pipeline_bind_point: vk::PipelineBindPoint = packet.read();
+    let pipeline: vk::Pipeline = packet.read();
+    trace!("called vkCmdUpdatePipelineIndirectBufferNV({command_buffer:?}, {pipeline_bind_point:?}, {pipeline:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBuffer.html>"]
 fn vk_cmd_copy_buffer(mut packet: Packet) {
-    trace!("called vkCmdCopyBuffer");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let src_buffer: vk::Buffer = packet.read();
+    let dst_buffer: vk::Buffer = packet.read();
+    let region_count: u32 = packet.read();
+    trace!("called vkCmdCopyBuffer({command_buffer:?}, {src_buffer:?}, {dst_buffer:?}, {region_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImage.html>"]
 fn vk_cmd_copy_image(mut packet: Packet) {
-    trace!("called vkCmdCopyImage");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let src_image: vk::Image = packet.read();
+    let src_image_layout: vk::ImageLayout = packet.read();
+    let dst_image: vk::Image = packet.read();
+    let dst_image_layout: vk::ImageLayout = packet.read();
+    let region_count: u32 = packet.read();
+    trace!("called vkCmdCopyImage({command_buffer:?}, {src_image:?}, {src_image_layout:?}, {dst_image:?}, {dst_image_layout:?}, {region_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBlitImage.html>"]
 fn vk_cmd_blit_image(mut packet: Packet) {
-    trace!("called vkCmdBlitImage");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let src_image: vk::Image = packet.read();
+    let src_image_layout: vk::ImageLayout = packet.read();
+    let dst_image: vk::Image = packet.read();
+    let dst_image_layout: vk::ImageLayout = packet.read();
+    let region_count: u32 = packet.read();
+    trace!("called vkCmdBlitImage({command_buffer:?}, {src_image:?}, {src_image_layout:?}, {dst_image:?}, {dst_image_layout:?}, {region_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBufferToImage.html>"]
 fn vk_cmd_copy_buffer_to_image(mut packet: Packet) {
-    trace!("called vkCmdCopyBufferToImage");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let src_buffer: vk::Buffer = packet.read();
+    let dst_image: vk::Image = packet.read();
+    let dst_image_layout: vk::ImageLayout = packet.read();
+    let region_count: u32 = packet.read();
+    trace!("called vkCmdCopyBufferToImage({command_buffer:?}, {src_buffer:?}, {dst_image:?}, {dst_image_layout:?}, {region_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImageToBuffer.html>"]
 fn vk_cmd_copy_image_to_buffer(mut packet: Packet) {
-    trace!("called vkCmdCopyImageToBuffer");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let src_image: vk::Image = packet.read();
+    let src_image_layout: vk::ImageLayout = packet.read();
+    let dst_buffer: vk::Buffer = packet.read();
+    let region_count: u32 = packet.read();
+    trace!("called vkCmdCopyImageToBuffer({command_buffer:?}, {src_image:?}, {src_image_layout:?}, {dst_buffer:?}, {region_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryIndirectNV.html>"]
 fn vk_cmd_copy_memory_indirect_nv(mut packet: Packet) {
-    trace!("called vkCmdCopyMemoryIndirectNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let copy_buffer_address: vk::DeviceAddress = packet.read();
+    let copy_count: u32 = packet.read();
+    trace!("called vkCmdCopyMemoryIndirectNV({command_buffer:?}, {copy_buffer_address:?}, {copy_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryToImageIndirectNV.html>"]
 fn vk_cmd_copy_memory_to_image_indirect_nv(mut packet: Packet) {
-    trace!("called vkCmdCopyMemoryToImageIndirectNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let copy_buffer_address: vk::DeviceAddress = packet.read();
+    let copy_count: u32 = packet.read();
+    trace!("called vkCmdCopyMemoryToImageIndirectNV({command_buffer:?}, {copy_buffer_address:?}, {copy_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdUpdateBuffer.html>"]
 fn vk_cmd_update_buffer(mut packet: Packet) {
-    trace!("called vkCmdUpdateBuffer");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let dst_buffer: vk::Buffer = packet.read();
+    let dst_offset: vk::DeviceSize = packet.read();
+    let data_size: vk::DeviceSize = packet.read();
+    let p_data: *const std::ffi::c_void = packet.read();
+    trace!("called vkCmdUpdateBuffer({command_buffer:?}, {dst_buffer:?}, {dst_offset:?}, {data_size:?}, {p_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdFillBuffer.html>"]
 fn vk_cmd_fill_buffer(mut packet: Packet) {
-    trace!("called vkCmdFillBuffer");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let dst_buffer: vk::Buffer = packet.read();
+    let dst_offset: vk::DeviceSize = packet.read();
+    let size: vk::DeviceSize = packet.read();
+    let data: u32 = packet.read();
+    trace!("called vkCmdFillBuffer({command_buffer:?}, {dst_buffer:?}, {dst_offset:?}, {size:?}, {data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearColorImage.html>"]
 fn vk_cmd_clear_color_image(mut packet: Packet) {
-    trace!("called vkCmdClearColorImage");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let image: vk::Image = packet.read();
+    let image_layout: vk::ImageLayout = packet.read();
+    let p_color: *const vk::ClearColorValue = packet.read();
+    let range_count: u32 = packet.read();
+    trace!("called vkCmdClearColorImage({command_buffer:?}, {image:?}, {image_layout:?}, {p_color:?}, {range_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearDepthStencilImage.html>"]
 fn vk_cmd_clear_depth_stencil_image(mut packet: Packet) {
-    trace!("called vkCmdClearDepthStencilImage");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let image: vk::Image = packet.read();
+    let image_layout: vk::ImageLayout = packet.read();
+    let p_depth_stencil: *const vk::ClearDepthStencilValue = packet.read();
+    let range_count: u32 = packet.read();
+    trace!("called vkCmdClearDepthStencilImage({command_buffer:?}, {image:?}, {image_layout:?}, {p_depth_stencil:?}, {range_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearAttachments.html>"]
 fn vk_cmd_clear_attachments(mut packet: Packet) {
-    trace!("called vkCmdClearAttachments");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let attachment_count: u32 = packet.read();
+    trace!("called vkCmdClearAttachments({command_buffer:?}, {attachment_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResolveImage.html>"]
 fn vk_cmd_resolve_image(mut packet: Packet) {
-    trace!("called vkCmdResolveImage");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let src_image: vk::Image = packet.read();
+    let src_image_layout: vk::ImageLayout = packet.read();
+    let dst_image: vk::Image = packet.read();
+    let dst_image_layout: vk::ImageLayout = packet.read();
+    let region_count: u32 = packet.read();
+    trace!("called vkCmdResolveImage({command_buffer:?}, {src_image:?}, {src_image_layout:?}, {dst_image:?}, {dst_image_layout:?}, {region_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetEvent.html>"]
 fn vk_cmd_set_event(mut packet: Packet) {
-    trace!("called vkCmdSetEvent");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let event: vk::Event = packet.read();
+    let stage_mask: vk::PipelineStageFlags = packet.read();
+    trace!("called vkCmdSetEvent({command_buffer:?}, {event:?}, {stage_mask:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetEvent.html>"]
 fn vk_cmd_reset_event(mut packet: Packet) {
-    trace!("called vkCmdResetEvent");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let event: vk::Event = packet.read();
+    let stage_mask: vk::PipelineStageFlags = packet.read();
+    trace!("called vkCmdResetEvent({command_buffer:?}, {event:?}, {stage_mask:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents.html>"]
 fn vk_cmd_wait_events(mut packet: Packet) {
-    trace!("called vkCmdWaitEvents");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let event_count: u32 = packet.read();
+    trace!("called vkCmdWaitEvents({command_buffer:?}, {event_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPipelineBarrier.html>"]
 fn vk_cmd_pipeline_barrier(mut packet: Packet) {
-    trace!("called vkCmdPipelineBarrier");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let src_stage_mask: vk::PipelineStageFlags = packet.read();
+    let dst_stage_mask: vk::PipelineStageFlags = packet.read();
+    let dependency_flags: vk::DependencyFlags = packet.read();
+    let memory_barrier_count: u32 = packet.read();
+    trace!("called vkCmdPipelineBarrier({command_buffer:?}, {src_stage_mask:?}, {dst_stage_mask:?}, {dependency_flags:?}, {memory_barrier_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginQuery.html>"]
 fn vk_cmd_begin_query(mut packet: Packet) {
-    trace!("called vkCmdBeginQuery");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let query_pool: vk::QueryPool = packet.read();
+    let query: u32 = packet.read();
+    let flags: vk::QueryControlFlags = packet.read();
+    trace!("called vkCmdBeginQuery({command_buffer:?}, {query_pool:?}, {query:?}, {flags:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndQuery.html>"]
 fn vk_cmd_end_query(mut packet: Packet) {
-    trace!("called vkCmdEndQuery");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let query_pool: vk::QueryPool = packet.read();
+    let query: u32 = packet.read();
+    trace!("called vkCmdEndQuery({command_buffer:?}, {query_pool:?}, {query:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginConditionalRenderingEXT.html>"]
 fn vk_cmd_begin_conditional_rendering_ext(mut packet: Packet) {
-    trace!("called vkCmdBeginConditionalRenderingEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_conditional_rendering_begin: *const vk::ConditionalRenderingBeginInfoEXT = packet.read();
+    trace!("called vkCmdBeginConditionalRenderingEXT({command_buffer:?}, {p_conditional_rendering_begin:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndConditionalRenderingEXT.html>"]
 fn vk_cmd_end_conditional_rendering_ext(mut packet: Packet) {
-    trace!("called vkCmdEndConditionalRenderingEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    trace!("called vkCmdEndConditionalRenderingEXT({command_buffer:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetQueryPool.html>"]
 fn vk_cmd_reset_query_pool(mut packet: Packet) {
-    trace!("called vkCmdResetQueryPool");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let query_pool: vk::QueryPool = packet.read();
+    let first_query: u32 = packet.read();
+    let query_count: u32 = packet.read();
+    trace!("called vkCmdResetQueryPool({command_buffer:?}, {query_pool:?}, {first_query:?}, {query_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteTimestamp.html>"]
 fn vk_cmd_write_timestamp(mut packet: Packet) {
-    trace!("called vkCmdWriteTimestamp");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let pipeline_stage: vk::PipelineStageFlags = packet.read();
+    let query_pool: vk::QueryPool = packet.read();
+    let query: u32 = packet.read();
+    trace!("called vkCmdWriteTimestamp({command_buffer:?}, {pipeline_stage:?}, {query_pool:?}, {query:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyQueryPoolResults.html>"]
 fn vk_cmd_copy_query_pool_results(mut packet: Packet) {
-    trace!("called vkCmdCopyQueryPoolResults");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let query_pool: vk::QueryPool = packet.read();
+    let first_query: u32 = packet.read();
+    let query_count: u32 = packet.read();
+    trace!("called vkCmdCopyQueryPoolResults({command_buffer:?}, {query_pool:?}, {first_query:?}, {query_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushConstants.html>"]
 fn vk_cmd_push_constants(mut packet: Packet) {
-    trace!("called vkCmdPushConstants");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let layout: vk::PipelineLayout = packet.read();
+    let stage_flags: vk::ShaderStageFlags = packet.read();
+    let offset: u32 = packet.read();
+    let size: u32 = packet.read();
+    let p_values: *const std::ffi::c_void = packet.read();
+    trace!("called vkCmdPushConstants({command_buffer:?}, {layout:?}, {stage_flags:?}, {offset:?}, {size:?}, {p_values:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRenderPass.html>"]
 fn vk_cmd_begin_render_pass(mut packet: Packet) {
-    trace!("called vkCmdBeginRenderPass");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_render_pass_begin: *const vk::RenderPassBeginInfo = packet.read();
+    let contents: vk::SubpassContents = packet.read();
+    trace!(
+        "called vkCmdBeginRenderPass({command_buffer:?}, {p_render_pass_begin:?}, {contents:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdNextSubpass.html>"]
 fn vk_cmd_next_subpass(mut packet: Packet) {
-    trace!("called vkCmdNextSubpass");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let contents: vk::SubpassContents = packet.read();
+    trace!("called vkCmdNextSubpass({command_buffer:?}, {contents:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass.html>"]
 fn vk_cmd_end_render_pass(mut packet: Packet) {
-    trace!("called vkCmdEndRenderPass");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    trace!("called vkCmdEndRenderPass({command_buffer:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdExecuteCommands.html>"]
 fn vk_cmd_execute_commands(mut packet: Packet) {
-    trace!("called vkCmdExecuteCommands");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let command_buffer_count: u32 = packet.read();
+    trace!("called vkCmdExecuteCommands({command_buffer:?}, {command_buffer_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateAndroidSurfaceKHR.html>"]
 fn vk_create_android_surface_khr(mut packet: Packet) {
-    trace!("called vkCreateAndroidSurfaceKHR");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::AndroidSurfaceCreateInfoKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateAndroidSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html>"]
 fn vk_get_physical_device_display_properties_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceDisplayPropertiesKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!(
+        "called vkGetPhysicalDeviceDisplayPropertiesKHR({physical_device:?}, {p_property_count:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html>"]
 fn vk_get_physical_device_display_plane_properties_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceDisplayPlanePropertiesKHR({physical_device:?}, {p_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html>"]
 fn vk_get_display_plane_supported_displays_khr(mut packet: Packet) {
-    trace!("called vkGetDisplayPlaneSupportedDisplaysKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let plane_index: u32 = packet.read();
+    let p_display_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetDisplayPlaneSupportedDisplaysKHR({physical_device:?}, {plane_index:?}, {p_display_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayModePropertiesKHR.html>"]
 fn vk_get_display_mode_properties_khr(mut packet: Packet) {
-    trace!("called vkGetDisplayModePropertiesKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let display: vk::DisplayKHR = packet.read();
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetDisplayModePropertiesKHR({physical_device:?}, {display:?}, {p_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDisplayModeKHR.html>"]
 fn vk_create_display_mode_khr(mut packet: Packet) {
-    trace!("called vkCreateDisplayModeKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let display: vk::DisplayKHR = packet.read();
+    let p_create_info: *const vk::DisplayModeCreateInfoKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_mode: *mut vk::DisplayModeKHR = packet.read();
+    trace!("called vkCreateDisplayModeKHR({physical_device:?}, {display:?}, {p_create_info:?}, {p_allocator:?}, {p_mode:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneCapabilitiesKHR.html>"]
 fn vk_get_display_plane_capabilities_khr(mut packet: Packet) {
-    trace!("called vkGetDisplayPlaneCapabilitiesKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let mode: vk::DisplayModeKHR = packet.read();
+    let plane_index: u32 = packet.read();
+    let p_capabilities: *mut vk::DisplayPlaneCapabilitiesKHR = packet.read();
+    trace!("called vkGetDisplayPlaneCapabilitiesKHR({physical_device:?}, {mode:?}, {plane_index:?}, {p_capabilities:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDisplayPlaneSurfaceKHR.html>"]
 fn vk_create_display_plane_surface_khr(mut packet: Packet) {
-    trace!("called vkCreateDisplayPlaneSurfaceKHR");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::DisplaySurfaceCreateInfoKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateDisplayPlaneSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSharedSwapchainsKHR.html>"]
 fn vk_create_shared_swapchains_khr(mut packet: Packet) {
-    trace!("called vkCreateSharedSwapchainsKHR");
+    let device: vk::Device = packet.read();
+    let swapchain_count: u32 = packet.read();
+    trace!("called vkCreateSharedSwapchainsKHR({device:?}, {swapchain_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySurfaceKHR.html>"]
 fn vk_destroy_surface_khr(mut packet: Packet) {
-    trace!("called vkDestroySurfaceKHR");
+    let instance: vk::Instance = packet.read();
+    let surface: vk::SurfaceKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroySurfaceKHR({instance:?}, {surface:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html>"]
 fn vk_get_physical_device_surface_support_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceSurfaceSupportKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let queue_family_index: u32 = packet.read();
+    let surface: vk::SurfaceKHR = packet.read();
+    let p_supported: *mut vk::Bool32 = packet.read();
+    trace!("called vkGetPhysicalDeviceSurfaceSupportKHR({physical_device:?}, {queue_family_index:?}, {surface:?}, {p_supported:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html>"]
 fn vk_get_physical_device_surface_capabilities_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceSurfaceCapabilitiesKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let surface: vk::SurfaceKHR = packet.read();
+    let p_surface_capabilities: *mut vk::SurfaceCapabilitiesKHR = packet.read();
+    trace!("called vkGetPhysicalDeviceSurfaceCapabilitiesKHR({physical_device:?}, {surface:?}, {p_surface_capabilities:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html>"]
 fn vk_get_physical_device_surface_formats_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceSurfaceFormatsKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let surface: vk::SurfaceKHR = packet.read();
+    let p_surface_format_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceSurfaceFormatsKHR({physical_device:?}, {surface:?}, {p_surface_format_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html>"]
 fn vk_get_physical_device_surface_present_modes_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceSurfacePresentModesKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let surface: vk::SurfaceKHR = packet.read();
+    let p_present_mode_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceSurfacePresentModesKHR({physical_device:?}, {surface:?}, {p_present_mode_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSwapchainKHR.html>"]
 fn vk_create_swapchain_khr(mut packet: Packet) {
-    trace!("called vkCreateSwapchainKHR");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::SwapchainCreateInfoKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_swapchain: *mut vk::SwapchainKHR = packet.read();
+    trace!("called vkCreateSwapchainKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_swapchain:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySwapchainKHR.html>"]
 fn vk_destroy_swapchain_khr(mut packet: Packet) {
-    trace!("called vkDestroySwapchainKHR");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroySwapchainKHR({device:?}, {swapchain:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainImagesKHR.html>"]
 fn vk_get_swapchain_images_khr(mut packet: Packet) {
-    trace!("called vkGetSwapchainImagesKHR");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    let p_swapchain_image_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!(
+        "called vkGetSwapchainImagesKHR({device:?}, {swapchain:?}, {p_swapchain_image_count:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireNextImageKHR.html>"]
 fn vk_acquire_next_image_khr(mut packet: Packet) {
-    trace!("called vkAcquireNextImageKHR");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    let timeout: u64 = packet.read();
+    let semaphore: vk::Semaphore = packet.read();
+    let fence: vk::Fence = packet.read();
+    let p_image_index: *mut u32 = packet.read();
+    trace!("called vkAcquireNextImageKHR({device:?}, {swapchain:?}, {timeout:?}, {semaphore:?}, {fence:?}, {p_image_index:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueuePresentKHR.html>"]
 fn vk_queue_present_khr(mut packet: Packet) {
-    trace!("called vkQueuePresentKHR");
+    let queue: vk::Queue = packet.read();
+    let p_present_info: *const vk::PresentInfoKHR = packet.read();
+    trace!("called vkQueuePresentKHR({queue:?}, {p_present_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateViSurfaceNN.html>"]
 fn vk_create_vi_surface_nn(mut packet: Packet) {
-    trace!("called vkCreateViSurfaceNN");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::ViSurfaceCreateInfoNN = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateViSurfaceNN({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateWaylandSurfaceKHR.html>"]
 fn vk_create_wayland_surface_khr(mut packet: Packet) {
-    trace!("called vkCreateWaylandSurfaceKHR");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::WaylandSurfaceCreateInfoKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateWaylandSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html>"]
 fn vk_get_physical_device_wayland_presentation_support_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceWaylandPresentationSupportKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let queue_family_index: u32 = packet.read();
+    let display: *mut vk::wl_display = packet.read();
+    trace!("called vkGetPhysicalDeviceWaylandPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {display:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateWin32SurfaceKHR.html>"]
 fn vk_create_win32_surface_khr(mut packet: Packet) {
-    trace!("called vkCreateWin32SurfaceKHR");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::Win32SurfaceCreateInfoKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateWin32SurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html>"]
 fn vk_get_physical_device_win32_presentation_support_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceWin32PresentationSupportKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let queue_family_index: u32 = packet.read();
+    trace!("called vkGetPhysicalDeviceWin32PresentationSupportKHR({physical_device:?}, {queue_family_index:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateXlibSurfaceKHR.html>"]
 fn vk_create_xlib_surface_khr(mut packet: Packet) {
-    trace!("called vkCreateXlibSurfaceKHR");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::XlibSurfaceCreateInfoKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateXlibSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceXlibPresentationSupportKHR.html>"]
 fn vk_get_physical_device_xlib_presentation_support_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceXlibPresentationSupportKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let queue_family_index: u32 = packet.read();
+    let dpy: *mut vk::Display = packet.read();
+    let visual_id: vk::VisualID = packet.read();
+    trace!("called vkGetPhysicalDeviceXlibPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {dpy:?}, {visual_id:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateXcbSurfaceKHR.html>"]
 fn vk_create_xcb_surface_khr(mut packet: Packet) {
-    trace!("called vkCreateXcbSurfaceKHR");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::XcbSurfaceCreateInfoKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateXcbSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html>"]
 fn vk_get_physical_device_xcb_presentation_support_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceXcbPresentationSupportKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let queue_family_index: u32 = packet.read();
+    let connection: *mut vk::xcb_connection_t = packet.read();
+    let visual_id: vk::xcb_visualid_t = packet.read();
+    trace!("called vkGetPhysicalDeviceXcbPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {connection:?}, {visual_id:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDirectFBSurfaceEXT.html>"]
 fn vk_create_direct_fbsurface_ext(mut packet: Packet) {
-    trace!("called vkCreateDirectFBSurfaceEXT");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::DirectFBSurfaceCreateInfoEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateDirectFBSurfaceEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html>"]
 fn vk_get_physical_device_direct_fbpresentation_support_ext(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceDirectFBPresentationSupportEXT");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let queue_family_index: u32 = packet.read();
+    let dfb: *mut vk::IDirectFB = packet.read();
+    trace!("called vkGetPhysicalDeviceDirectFBPresentationSupportEXT({physical_device:?}, {queue_family_index:?}, {dfb:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImagePipeSurfaceFUCHSIA.html>"]
 fn vk_create_image_pipe_surface_fuchsia(mut packet: Packet) {
-    trace!("called vkCreateImagePipeSurfaceFUCHSIA");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::ImagePipeSurfaceCreateInfoFUCHSIA = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateImagePipeSurfaceFUCHSIA({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateStreamDescriptorSurfaceGGP.html>"]
 fn vk_create_stream_descriptor_surface_ggp(mut packet: Packet) {
-    trace!("called vkCreateStreamDescriptorSurfaceGGP");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::StreamDescriptorSurfaceCreateInfoGGP = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateStreamDescriptorSurfaceGGP({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateScreenSurfaceQNX.html>"]
 fn vk_create_screen_surface_qnx(mut packet: Packet) {
-    trace!("called vkCreateScreenSurfaceQNX");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::ScreenSurfaceCreateInfoQNX = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateScreenSurfaceQNX({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html>"]
 fn vk_get_physical_device_screen_presentation_support_qnx(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceScreenPresentationSupportQNX");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let queue_family_index: u32 = packet.read();
+    let window: *mut vk::_screen_window = packet.read();
+    trace!("called vkGetPhysicalDeviceScreenPresentationSupportQNX({physical_device:?}, {queue_family_index:?}, {window:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDebugReportCallbackEXT.html>"]
 fn vk_create_debug_report_callback_ext(mut packet: Packet) {
-    trace!("called vkCreateDebugReportCallbackEXT");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::DebugReportCallbackCreateInfoEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_callback: *mut vk::DebugReportCallbackEXT = packet.read();
+    trace!("called vkCreateDebugReportCallbackEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_callback:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDebugReportCallbackEXT.html>"]
 fn vk_destroy_debug_report_callback_ext(mut packet: Packet) {
-    trace!("called vkDestroyDebugReportCallbackEXT");
+    let instance: vk::Instance = packet.read();
+    let callback: vk::DebugReportCallbackEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyDebugReportCallbackEXT({instance:?}, {callback:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDebugReportMessageEXT.html>"]
 fn vk_debug_report_message_ext(mut packet: Packet) {
-    trace!("called vkDebugReportMessageEXT");
+    let instance: vk::Instance = packet.read();
+    let flags: vk::DebugReportFlagsEXT = packet.read();
+    let object_type: vk::DebugReportObjectTypeEXT = packet.read();
+    let object: u64 = packet.read();
+    let location: isize = packet.read();
+    let message_code: i32 = packet.read();
+    let p_layer_prefix: *const std::os::raw::c_char = packet.read_null_str();
+    let p_message: *const std::os::raw::c_char = packet.read_null_str();
+    trace!("called vkDebugReportMessageEXT({instance:?}, {flags:?}, {object_type:?}, {object:?}, {location:?}, {message_code:?}, {p_layer_prefix:?}, {p_message:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDebugMarkerSetObjectNameEXT.html>"]
 fn vk_debug_marker_set_object_name_ext(mut packet: Packet) {
-    trace!("called vkDebugMarkerSetObjectNameEXT");
+    let device: vk::Device = packet.read();
+    let p_name_info: *const vk::DebugMarkerObjectNameInfoEXT = packet.read();
+    trace!("called vkDebugMarkerSetObjectNameEXT({device:?}, {p_name_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDebugMarkerSetObjectTagEXT.html>"]
 fn vk_debug_marker_set_object_tag_ext(mut packet: Packet) {
-    trace!("called vkDebugMarkerSetObjectTagEXT");
+    let device: vk::Device = packet.read();
+    let p_tag_info: *const vk::DebugMarkerObjectTagInfoEXT = packet.read();
+    trace!("called vkDebugMarkerSetObjectTagEXT({device:?}, {p_tag_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerBeginEXT.html>"]
 fn vk_cmd_debug_marker_begin_ext(mut packet: Packet) {
-    trace!("called vkCmdDebugMarkerBeginEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_marker_info: *const vk::DebugMarkerMarkerInfoEXT = packet.read();
+    trace!("called vkCmdDebugMarkerBeginEXT({command_buffer:?}, {p_marker_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerEndEXT.html>"]
 fn vk_cmd_debug_marker_end_ext(mut packet: Packet) {
-    trace!("called vkCmdDebugMarkerEndEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    trace!("called vkCmdDebugMarkerEndEXT({command_buffer:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerInsertEXT.html>"]
 fn vk_cmd_debug_marker_insert_ext(mut packet: Packet) {
-    trace!("called vkCmdDebugMarkerInsertEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_marker_info: *const vk::DebugMarkerMarkerInfoEXT = packet.read();
+    trace!("called vkCmdDebugMarkerInsertEXT({command_buffer:?}, {p_marker_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html>"]
 fn vk_get_physical_device_external_image_format_properties_nv(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceExternalImageFormatPropertiesNV");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let format: vk::Format = packet.read();
+    let type_: vk::ImageType = packet.read();
+    let tiling: vk::ImageTiling = packet.read();
+    let usage: vk::ImageUsageFlags = packet.read();
+    let flags: vk::ImageCreateFlags = packet.read();
+    let external_handle_type: vk::ExternalMemoryHandleTypeFlagsNV = packet.read();
+    let p_external_image_format_properties: *mut vk::ExternalImageFormatPropertiesNV =
+        packet.read();
+    trace!("called vkGetPhysicalDeviceExternalImageFormatPropertiesNV({physical_device:?}, {format:?}, {type_:?}, {tiling:?}, {usage:?}, {flags:?}, {external_handle_type:?}, {p_external_image_format_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandleNV.html>"]
 fn vk_get_memory_win32_handle_nv(mut packet: Packet) {
-    trace!("called vkGetMemoryWin32HandleNV");
+    let device: vk::Device = packet.read();
+    let memory: vk::DeviceMemory = packet.read();
+    let handle_type: vk::ExternalMemoryHandleTypeFlagsNV = packet.read();
+    let p_handle: *mut vk::HANDLE = packet.read();
+    trace!(
+        "called vkGetMemoryWin32HandleNV({device:?}, {memory:?}, {handle_type:?}, {p_handle:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdExecuteGeneratedCommandsNV.html>"]
 fn vk_cmd_execute_generated_commands_nv(mut packet: Packet) {
-    trace!("called vkCmdExecuteGeneratedCommandsNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let is_preprocessed: vk::Bool32 = packet.read();
+    let p_generated_commands_info: *const vk::GeneratedCommandsInfoNV = packet.read();
+    trace!("called vkCmdExecuteGeneratedCommandsNV({command_buffer:?}, {is_preprocessed:?}, {p_generated_commands_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPreprocessGeneratedCommandsNV.html>"]
 fn vk_cmd_preprocess_generated_commands_nv(mut packet: Packet) {
-    trace!("called vkCmdPreprocessGeneratedCommandsNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_generated_commands_info: *const vk::GeneratedCommandsInfoNV = packet.read();
+    trace!("called vkCmdPreprocessGeneratedCommandsNV({command_buffer:?}, {p_generated_commands_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindPipelineShaderGroupNV.html>"]
 fn vk_cmd_bind_pipeline_shader_group_nv(mut packet: Packet) {
-    trace!("called vkCmdBindPipelineShaderGroupNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let pipeline_bind_point: vk::PipelineBindPoint = packet.read();
+    let pipeline: vk::Pipeline = packet.read();
+    let group_index: u32 = packet.read();
+    trace!("called vkCmdBindPipelineShaderGroupNV({command_buffer:?}, {pipeline_bind_point:?}, {pipeline:?}, {group_index:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetGeneratedCommandsMemoryRequirementsNV.html>"]
 fn vk_get_generated_commands_memory_requirements_nv(mut packet: Packet) {
-    trace!("called vkGetGeneratedCommandsMemoryRequirementsNV");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::GeneratedCommandsMemoryRequirementsInfoNV = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read();
+    trace!("called vkGetGeneratedCommandsMemoryRequirementsNV({device:?}, {p_info:?}, {p_memory_requirements:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateIndirectCommandsLayoutNV.html>"]
 fn vk_create_indirect_commands_layout_nv(mut packet: Packet) {
-    trace!("called vkCreateIndirectCommandsLayoutNV");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::IndirectCommandsLayoutCreateInfoNV = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_indirect_commands_layout: *mut vk::IndirectCommandsLayoutNV = packet.read();
+    trace!("called vkCreateIndirectCommandsLayoutNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_indirect_commands_layout:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyIndirectCommandsLayoutNV.html>"]
 fn vk_destroy_indirect_commands_layout_nv(mut packet: Packet) {
-    trace!("called vkDestroyIndirectCommandsLayoutNV");
+    let device: vk::Device = packet.read();
+    let indirect_commands_layout: vk::IndirectCommandsLayoutNV = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyIndirectCommandsLayoutNV({device:?}, {indirect_commands_layout:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures2.html>"]
 fn vk_get_physical_device_features2(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceFeatures2");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_features: *mut vk::PhysicalDeviceFeatures2 = packet.read();
+    trace!("called vkGetPhysicalDeviceFeatures2({physical_device:?}, {p_features:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties2.html>"]
 fn vk_get_physical_device_properties2(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceProperties2");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_properties: *mut vk::PhysicalDeviceProperties2 = packet.read();
+    trace!("called vkGetPhysicalDeviceProperties2({physical_device:?}, {p_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFormatProperties2.html>"]
 fn vk_get_physical_device_format_properties2(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceFormatProperties2");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let format: vk::Format = packet.read();
+    let p_format_properties: *mut vk::FormatProperties2 = packet.read();
+    trace!("called vkGetPhysicalDeviceFormatProperties2({physical_device:?}, {format:?}, {p_format_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties2.html>"]
 fn vk_get_physical_device_image_format_properties2(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceImageFormatProperties2");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_image_format_info: *const vk::PhysicalDeviceImageFormatInfo2 = packet.read();
+    let p_image_format_properties: *mut vk::ImageFormatProperties2 = packet.read();
+    trace!("called vkGetPhysicalDeviceImageFormatProperties2({physical_device:?}, {p_image_format_info:?}, {p_image_format_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties2.html>"]
 fn vk_get_physical_device_queue_family_properties2(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceQueueFamilyProperties2");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_queue_family_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceQueueFamilyProperties2({physical_device:?}, {p_queue_family_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMemoryProperties2.html>"]
 fn vk_get_physical_device_memory_properties2(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceMemoryProperties2");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties2 = packet.read();
+    trace!(
+        "called vkGetPhysicalDeviceMemoryProperties2({physical_device:?}, {p_memory_properties:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2.html>"]
 fn vk_get_physical_device_sparse_image_format_properties2(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceSparseImageFormatProperties2");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_format_info: *const vk::PhysicalDeviceSparseImageFormatInfo2 = packet.read();
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceSparseImageFormatProperties2({physical_device:?}, {p_format_info:?}, {p_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetKHR.html>"]
 fn vk_cmd_push_descriptor_set_khr(mut packet: Packet) {
-    trace!("called vkCmdPushDescriptorSetKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let pipeline_bind_point: vk::PipelineBindPoint = packet.read();
+    let layout: vk::PipelineLayout = packet.read();
+    let set: u32 = packet.read();
+    let descriptor_write_count: u32 = packet.read();
+    trace!("called vkCmdPushDescriptorSetKHR({command_buffer:?}, {pipeline_bind_point:?}, {layout:?}, {set:?}, {descriptor_write_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkTrimCommandPool.html>"]
 fn vk_trim_command_pool(mut packet: Packet) {
-    trace!("called vkTrimCommandPool");
+    let device: vk::Device = packet.read();
+    let command_pool: vk::CommandPool = packet.read();
+    let flags: vk::CommandPoolTrimFlags = packet.read();
+    trace!("called vkTrimCommandPool({device:?}, {command_pool:?}, {flags:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalBufferProperties.html>"]
 fn vk_get_physical_device_external_buffer_properties(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceExternalBufferProperties");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_external_buffer_info: *const vk::PhysicalDeviceExternalBufferInfo = packet.read();
+    let p_external_buffer_properties: *mut vk::ExternalBufferProperties = packet.read();
+    trace!("called vkGetPhysicalDeviceExternalBufferProperties({physical_device:?}, {p_external_buffer_info:?}, {p_external_buffer_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandleKHR.html>"]
 fn vk_get_memory_win32_handle_khr(mut packet: Packet) {
-    trace!("called vkGetMemoryWin32HandleKHR");
+    let device: vk::Device = packet.read();
+    let p_get_win32_handle_info: *const vk::MemoryGetWin32HandleInfoKHR = packet.read();
+    let p_handle: *mut vk::HANDLE = packet.read();
+    trace!(
+        "called vkGetMemoryWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandlePropertiesKHR.html>"]
 fn vk_get_memory_win32_handle_properties_khr(mut packet: Packet) {
-    trace!("called vkGetMemoryWin32HandlePropertiesKHR");
+    let device: vk::Device = packet.read();
+    let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read();
+    let handle: vk::HANDLE = packet.read();
+    let p_memory_win32_handle_properties: *mut vk::MemoryWin32HandlePropertiesKHR = packet.read();
+    trace!("called vkGetMemoryWin32HandlePropertiesKHR({device:?}, {handle_type:?}, {handle:?}, {p_memory_win32_handle_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryFdKHR.html>"]
 fn vk_get_memory_fd_khr(mut packet: Packet) {
-    trace!("called vkGetMemoryFdKHR");
+    let device: vk::Device = packet.read();
+    let p_get_fd_info: *const vk::MemoryGetFdInfoKHR = packet.read();
+    let p_fd: *mut std::os::raw::c_int = packet.read();
+    trace!("called vkGetMemoryFdKHR({device:?}, {p_get_fd_info:?}, {p_fd:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryFdPropertiesKHR.html>"]
 fn vk_get_memory_fd_properties_khr(mut packet: Packet) {
-    trace!("called vkGetMemoryFdPropertiesKHR");
+    let device: vk::Device = packet.read();
+    let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read();
+    let fd: std::os::raw::c_int = packet.read();
+    let p_memory_fd_properties: *mut vk::MemoryFdPropertiesKHR = packet.read();
+    trace!("called vkGetMemoryFdPropertiesKHR({device:?}, {handle_type:?}, {fd:?}, {p_memory_fd_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryZirconHandleFUCHSIA.html>"]
 fn vk_get_memory_zircon_handle_fuchsia(mut packet: Packet) {
-    trace!("called vkGetMemoryZirconHandleFUCHSIA");
+    let device: vk::Device = packet.read();
+    let p_get_zircon_handle_info: *const vk::MemoryGetZirconHandleInfoFUCHSIA = packet.read();
+    let p_zircon_handle: *mut vk::zx_handle_t = packet.read();
+    trace!("called vkGetMemoryZirconHandleFUCHSIA({device:?}, {p_get_zircon_handle_info:?}, {p_zircon_handle:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryZirconHandlePropertiesFUCHSIA.html>"]
 fn vk_get_memory_zircon_handle_properties_fuchsia(mut packet: Packet) {
-    trace!("called vkGetMemoryZirconHandlePropertiesFUCHSIA");
+    let device: vk::Device = packet.read();
+    let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read();
+    let zircon_handle: vk::zx_handle_t = packet.read();
+    let p_memory_zircon_handle_properties: *mut vk::MemoryZirconHandlePropertiesFUCHSIA =
+        packet.read();
+    trace!("called vkGetMemoryZirconHandlePropertiesFUCHSIA({device:?}, {handle_type:?}, {zircon_handle:?}, {p_memory_zircon_handle_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryRemoteAddressNV.html>"]
 fn vk_get_memory_remote_address_nv(mut packet: Packet) {
-    trace!("called vkGetMemoryRemoteAddressNV");
+    let device: vk::Device = packet.read();
+    let p_memory_get_remote_address_info: *const vk::MemoryGetRemoteAddressInfoNV = packet.read();
+    let p_address: *mut vk::RemoteAddressNV = packet.read();
+    trace!("called vkGetMemoryRemoteAddressNV({device:?}, {p_memory_get_remote_address_info:?}, {p_address:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalSemaphoreProperties.html>"]
 fn vk_get_physical_device_external_semaphore_properties(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceExternalSemaphoreProperties");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_external_semaphore_info: *const vk::PhysicalDeviceExternalSemaphoreInfo = packet.read();
+    let p_external_semaphore_properties: *mut vk::ExternalSemaphoreProperties = packet.read();
+    trace!("called vkGetPhysicalDeviceExternalSemaphoreProperties({physical_device:?}, {p_external_semaphore_info:?}, {p_external_semaphore_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreWin32HandleKHR.html>"]
 fn vk_get_semaphore_win32_handle_khr(mut packet: Packet) {
-    trace!("called vkGetSemaphoreWin32HandleKHR");
+    let device: vk::Device = packet.read();
+    let p_get_win32_handle_info: *const vk::SemaphoreGetWin32HandleInfoKHR = packet.read();
+    let p_handle: *mut vk::HANDLE = packet.read();
+    trace!("called vkGetSemaphoreWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreWin32HandleKHR.html>"]
 fn vk_import_semaphore_win32_handle_khr(mut packet: Packet) {
-    trace!("called vkImportSemaphoreWin32HandleKHR");
+    let device: vk::Device = packet.read();
+    let p_import_semaphore_win32_handle_info: *const vk::ImportSemaphoreWin32HandleInfoKHR =
+        packet.read();
+    trace!("called vkImportSemaphoreWin32HandleKHR({device:?}, {p_import_semaphore_win32_handle_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreFdKHR.html>"]
 fn vk_get_semaphore_fd_khr(mut packet: Packet) {
-    trace!("called vkGetSemaphoreFdKHR");
+    let device: vk::Device = packet.read();
+    let p_get_fd_info: *const vk::SemaphoreGetFdInfoKHR = packet.read();
+    let p_fd: *mut std::os::raw::c_int = packet.read();
+    trace!("called vkGetSemaphoreFdKHR({device:?}, {p_get_fd_info:?}, {p_fd:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreFdKHR.html>"]
 fn vk_import_semaphore_fd_khr(mut packet: Packet) {
-    trace!("called vkImportSemaphoreFdKHR");
+    let device: vk::Device = packet.read();
+    let p_import_semaphore_fd_info: *const vk::ImportSemaphoreFdInfoKHR = packet.read();
+    trace!("called vkImportSemaphoreFdKHR({device:?}, {p_import_semaphore_fd_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html>"]
 fn vk_get_semaphore_zircon_handle_fuchsia(mut packet: Packet) {
-    trace!("called vkGetSemaphoreZirconHandleFUCHSIA");
+    let device: vk::Device = packet.read();
+    let p_get_zircon_handle_info: *const vk::SemaphoreGetZirconHandleInfoFUCHSIA = packet.read();
+    let p_zircon_handle: *mut vk::zx_handle_t = packet.read();
+    trace!("called vkGetSemaphoreZirconHandleFUCHSIA({device:?}, {p_get_zircon_handle_info:?}, {p_zircon_handle:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html>"]
 fn vk_import_semaphore_zircon_handle_fuchsia(mut packet: Packet) {
-    trace!("called vkImportSemaphoreZirconHandleFUCHSIA");
+    let device: vk::Device = packet.read();
+    let p_import_semaphore_zircon_handle_info: *const vk::ImportSemaphoreZirconHandleInfoFUCHSIA =
+        packet.read();
+    trace!("called vkImportSemaphoreZirconHandleFUCHSIA({device:?}, {p_import_semaphore_zircon_handle_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalFenceProperties.html>"]
 fn vk_get_physical_device_external_fence_properties(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceExternalFenceProperties");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_external_fence_info: *const vk::PhysicalDeviceExternalFenceInfo = packet.read();
+    let p_external_fence_properties: *mut vk::ExternalFenceProperties = packet.read();
+    trace!("called vkGetPhysicalDeviceExternalFenceProperties({physical_device:?}, {p_external_fence_info:?}, {p_external_fence_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceWin32HandleKHR.html>"]
 fn vk_get_fence_win32_handle_khr(mut packet: Packet) {
-    trace!("called vkGetFenceWin32HandleKHR");
+    let device: vk::Device = packet.read();
+    let p_get_win32_handle_info: *const vk::FenceGetWin32HandleInfoKHR = packet.read();
+    let p_handle: *mut vk::HANDLE = packet.read();
+    trace!(
+        "called vkGetFenceWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportFenceWin32HandleKHR.html>"]
 fn vk_import_fence_win32_handle_khr(mut packet: Packet) {
-    trace!("called vkImportFenceWin32HandleKHR");
+    let device: vk::Device = packet.read();
+    let p_import_fence_win32_handle_info: *const vk::ImportFenceWin32HandleInfoKHR = packet.read();
+    trace!("called vkImportFenceWin32HandleKHR({device:?}, {p_import_fence_win32_handle_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceFdKHR.html>"]
 fn vk_get_fence_fd_khr(mut packet: Packet) {
-    trace!("called vkGetFenceFdKHR");
+    let device: vk::Device = packet.read();
+    let p_get_fd_info: *const vk::FenceGetFdInfoKHR = packet.read();
+    let p_fd: *mut std::os::raw::c_int = packet.read();
+    trace!("called vkGetFenceFdKHR({device:?}, {p_get_fd_info:?}, {p_fd:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportFenceFdKHR.html>"]
 fn vk_import_fence_fd_khr(mut packet: Packet) {
-    trace!("called vkImportFenceFdKHR");
+    let device: vk::Device = packet.read();
+    let p_import_fence_fd_info: *const vk::ImportFenceFdInfoKHR = packet.read();
+    trace!("called vkImportFenceFdKHR({device:?}, {p_import_fence_fd_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseDisplayEXT.html>"]
 fn vk_release_display_ext(mut packet: Packet) {
-    trace!("called vkReleaseDisplayEXT");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let display: vk::DisplayKHR = packet.read();
+    trace!("called vkReleaseDisplayEXT({physical_device:?}, {display:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireXlibDisplayEXT.html>"]
 fn vk_acquire_xlib_display_ext(mut packet: Packet) {
-    trace!("called vkAcquireXlibDisplayEXT");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let dpy: *mut vk::Display = packet.read();
+    let display: vk::DisplayKHR = packet.read();
+    trace!("called vkAcquireXlibDisplayEXT({physical_device:?}, {dpy:?}, {display:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRandROutputDisplayEXT.html>"]
 fn vk_get_rand_routput_display_ext(mut packet: Packet) {
-    trace!("called vkGetRandROutputDisplayEXT");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let dpy: *mut vk::Display = packet.read();
+    let rr_output: vk::RROutput = packet.read();
+    let p_display: *mut vk::DisplayKHR = packet.read();
+    trace!("called vkGetRandROutputDisplayEXT({physical_device:?}, {dpy:?}, {rr_output:?}, {p_display:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireWinrtDisplayNV.html>"]
 fn vk_acquire_winrt_display_nv(mut packet: Packet) {
-    trace!("called vkAcquireWinrtDisplayNV");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let display: vk::DisplayKHR = packet.read();
+    trace!("called vkAcquireWinrtDisplayNV({physical_device:?}, {display:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetWinrtDisplayNV.html>"]
 fn vk_get_winrt_display_nv(mut packet: Packet) {
-    trace!("called vkGetWinrtDisplayNV");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let device_relative_id: u32 = packet.read();
+    let p_display: *mut vk::DisplayKHR = packet.read();
+    trace!(
+        "called vkGetWinrtDisplayNV({physical_device:?}, {device_relative_id:?}, {p_display:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDisplayPowerControlEXT.html>"]
 fn vk_display_power_control_ext(mut packet: Packet) {
-    trace!("called vkDisplayPowerControlEXT");
+    let device: vk::Device = packet.read();
+    let display: vk::DisplayKHR = packet.read();
+    let p_display_power_info: *const vk::DisplayPowerInfoEXT = packet.read();
+    trace!("called vkDisplayPowerControlEXT({device:?}, {display:?}, {p_display_power_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkRegisterDeviceEventEXT.html>"]
 fn vk_register_device_event_ext(mut packet: Packet) {
-    trace!("called vkRegisterDeviceEventEXT");
+    let device: vk::Device = packet.read();
+    let p_device_event_info: *const vk::DeviceEventInfoEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_fence: *mut vk::Fence = packet.read();
+    trace!("called vkRegisterDeviceEventEXT({device:?}, {p_device_event_info:?}, {p_allocator:?}, {p_fence:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkRegisterDisplayEventEXT.html>"]
 fn vk_register_display_event_ext(mut packet: Packet) {
-    trace!("called vkRegisterDisplayEventEXT");
+    let device: vk::Device = packet.read();
+    let display: vk::DisplayKHR = packet.read();
+    let p_display_event_info: *const vk::DisplayEventInfoEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_fence: *mut vk::Fence = packet.read();
+    trace!("called vkRegisterDisplayEventEXT({device:?}, {display:?}, {p_display_event_info:?}, {p_allocator:?}, {p_fence:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainCounterEXT.html>"]
 fn vk_get_swapchain_counter_ext(mut packet: Packet) {
-    trace!("called vkGetSwapchainCounterEXT");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    let counter: vk::SurfaceCounterFlagsEXT = packet.read();
+    let p_counter_value: *mut u64 = packet.read();
+    trace!("called vkGetSwapchainCounterEXT({device:?}, {swapchain:?}, {counter:?}, {p_counter_value:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2EXT.html>"]
 fn vk_get_physical_device_surface_capabilities2_ext(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceSurfaceCapabilities2EXT");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let surface: vk::SurfaceKHR = packet.read();
+    let p_surface_capabilities: *mut vk::SurfaceCapabilities2EXT = packet.read();
+    trace!("called vkGetPhysicalDeviceSurfaceCapabilities2EXT({physical_device:?}, {surface:?}, {p_surface_capabilities:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDeviceGroups.html>"]
 fn vk_enumerate_physical_device_groups(mut packet: Packet) {
-    trace!("called vkEnumeratePhysicalDeviceGroups");
+    let instance: vk::Instance = packet.read();
+    let p_physical_device_group_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!(
+        "called vkEnumeratePhysicalDeviceGroups({instance:?}, {p_physical_device_group_count:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupPeerMemoryFeatures.html>"]
 fn vk_get_device_group_peer_memory_features(mut packet: Packet) {
-    trace!("called vkGetDeviceGroupPeerMemoryFeatures");
+    let device: vk::Device = packet.read();
+    let heap_index: u32 = packet.read();
+    let local_device_index: u32 = packet.read();
+    let remote_device_index: u32 = packet.read();
+    let p_peer_memory_features: *mut vk::PeerMemoryFeatureFlags = packet.read();
+    trace!("called vkGetDeviceGroupPeerMemoryFeatures({device:?}, {heap_index:?}, {local_device_index:?}, {remote_device_index:?}, {p_peer_memory_features:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindBufferMemory2.html>"]
 fn vk_bind_buffer_memory2(mut packet: Packet) {
-    trace!("called vkBindBufferMemory2");
+    let device: vk::Device = packet.read();
+    let bind_info_count: u32 = packet.read();
+    trace!("called vkBindBufferMemory2({device:?}, {bind_info_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindImageMemory2.html>"]
 fn vk_bind_image_memory2(mut packet: Packet) {
-    trace!("called vkBindImageMemory2");
+    let device: vk::Device = packet.read();
+    let bind_info_count: u32 = packet.read();
+    trace!("called vkBindImageMemory2({device:?}, {bind_info_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDeviceMask.html>"]
 fn vk_cmd_set_device_mask(mut packet: Packet) {
-    trace!("called vkCmdSetDeviceMask");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let device_mask: u32 = packet.read();
+    trace!("called vkCmdSetDeviceMask({command_buffer:?}, {device_mask:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html>"]
 fn vk_get_device_group_present_capabilities_khr(mut packet: Packet) {
-    trace!("called vkGetDeviceGroupPresentCapabilitiesKHR");
+    let device: vk::Device = packet.read();
+    let p_device_group_present_capabilities: *mut vk::DeviceGroupPresentCapabilitiesKHR =
+        packet.read();
+    trace!("called vkGetDeviceGroupPresentCapabilitiesKHR({device:?}, {p_device_group_present_capabilities:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html>"]
 fn vk_get_device_group_surface_present_modes_khr(mut packet: Packet) {
-    trace!("called vkGetDeviceGroupSurfacePresentModesKHR");
+    let device: vk::Device = packet.read();
+    let surface: vk::SurfaceKHR = packet.read();
+    let p_modes: *mut vk::DeviceGroupPresentModeFlagsKHR = packet.read();
+    trace!("called vkGetDeviceGroupSurfacePresentModesKHR({device:?}, {surface:?}, {p_modes:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireNextImage2KHR.html>"]
 fn vk_acquire_next_image2_khr(mut packet: Packet) {
-    trace!("called vkAcquireNextImage2KHR");
+    let device: vk::Device = packet.read();
+    let p_acquire_info: *const vk::AcquireNextImageInfoKHR = packet.read();
+    let p_image_index: *mut u32 = packet.read();
+    trace!("called vkAcquireNextImage2KHR({device:?}, {p_acquire_info:?}, {p_image_index:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchBase.html>"]
 fn vk_cmd_dispatch_base(mut packet: Packet) {
-    trace!("called vkCmdDispatchBase");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let base_group_x: u32 = packet.read();
+    let base_group_y: u32 = packet.read();
+    let base_group_z: u32 = packet.read();
+    let group_count_x: u32 = packet.read();
+    let group_count_y: u32 = packet.read();
+    let group_count_z: u32 = packet.read();
+    trace!("called vkCmdDispatchBase({command_buffer:?}, {base_group_x:?}, {base_group_y:?}, {base_group_z:?}, {group_count_x:?}, {group_count_y:?}, {group_count_z:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html>"]
 fn vk_get_physical_device_present_rectangles_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDevicePresentRectanglesKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let surface: vk::SurfaceKHR = packet.read();
+    let p_rect_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDevicePresentRectanglesKHR({physical_device:?}, {surface:?}, {p_rect_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorUpdateTemplate.html>"]
 fn vk_create_descriptor_update_template(mut packet: Packet) {
-    trace!("called vkCreateDescriptorUpdateTemplate");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::DescriptorUpdateTemplateCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_descriptor_update_template: *mut vk::DescriptorUpdateTemplate = packet.read();
+    trace!("called vkCreateDescriptorUpdateTemplate({device:?}, {p_create_info:?}, {p_allocator:?}, {p_descriptor_update_template:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorUpdateTemplate.html>"]
 fn vk_destroy_descriptor_update_template(mut packet: Packet) {
-    trace!("called vkDestroyDescriptorUpdateTemplate");
+    let device: vk::Device = packet.read();
+    let descriptor_update_template: vk::DescriptorUpdateTemplate = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyDescriptorUpdateTemplate({device:?}, {descriptor_update_template:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateDescriptorSetWithTemplate.html>"]
 fn vk_update_descriptor_set_with_template(mut packet: Packet) {
-    trace!("called vkUpdateDescriptorSetWithTemplate");
+    let device: vk::Device = packet.read();
+    let descriptor_set: vk::DescriptorSet = packet.read();
+    let descriptor_update_template: vk::DescriptorUpdateTemplate = packet.read();
+    let p_data: *const std::ffi::c_void = packet.read();
+    trace!("called vkUpdateDescriptorSetWithTemplate({device:?}, {descriptor_set:?}, {descriptor_update_template:?}, {p_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html>"]
 fn vk_cmd_push_descriptor_set_with_template_khr(mut packet: Packet) {
-    trace!("called vkCmdPushDescriptorSetWithTemplateKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let descriptor_update_template: vk::DescriptorUpdateTemplate = packet.read();
+    let layout: vk::PipelineLayout = packet.read();
+    let set: u32 = packet.read();
+    let p_data: *const std::ffi::c_void = packet.read();
+    trace!("called vkCmdPushDescriptorSetWithTemplateKHR({command_buffer:?}, {descriptor_update_template:?}, {layout:?}, {set:?}, {p_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetHdrMetadataEXT.html>"]
 fn vk_set_hdr_metadata_ext(mut packet: Packet) {
-    trace!("called vkSetHdrMetadataEXT");
+    let device: vk::Device = packet.read();
+    let swapchain_count: u32 = packet.read();
+    trace!("called vkSetHdrMetadataEXT({device:?}, {swapchain_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainStatusKHR.html>"]
 fn vk_get_swapchain_status_khr(mut packet: Packet) {
-    trace!("called vkGetSwapchainStatusKHR");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    trace!("called vkGetSwapchainStatusKHR({device:?}, {swapchain:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRefreshCycleDurationGOOGLE.html>"]
 fn vk_get_refresh_cycle_duration_google(mut packet: Packet) {
-    trace!("called vkGetRefreshCycleDurationGOOGLE");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    let p_display_timing_properties: *mut vk::RefreshCycleDurationGOOGLE = packet.read();
+    trace!("called vkGetRefreshCycleDurationGOOGLE({device:?}, {swapchain:?}, {p_display_timing_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPastPresentationTimingGOOGLE.html>"]
 fn vk_get_past_presentation_timing_google(mut packet: Packet) {
-    trace!("called vkGetPastPresentationTimingGOOGLE");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    let p_presentation_timing_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPastPresentationTimingGOOGLE({device:?}, {swapchain:?}, {p_presentation_timing_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateIOSSurfaceMVK.html>"]
 fn vk_create_iossurface_mvk(mut packet: Packet) {
-    trace!("called vkCreateIOSSurfaceMVK");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::IOSSurfaceCreateInfoMVK = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateIOSSurfaceMVK({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateMacOSSurfaceMVK.html>"]
 fn vk_create_mac_ossurface_mvk(mut packet: Packet) {
-    trace!("called vkCreateMacOSSurfaceMVK");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::MacOSSurfaceCreateInfoMVK = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateMacOSSurfaceMVK({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateMetalSurfaceEXT.html>"]
 fn vk_create_metal_surface_ext(mut packet: Packet) {
-    trace!("called vkCreateMetalSurfaceEXT");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::MetalSurfaceCreateInfoEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateMetalSurfaceEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWScalingNV.html>"]
 fn vk_cmd_set_viewport_wscaling_nv(mut packet: Packet) {
-    trace!("called vkCmdSetViewportWScalingNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_viewport: u32 = packet.read();
+    let viewport_count: u32 = packet.read();
+    trace!("called vkCmdSetViewportWScalingNV({command_buffer:?}, {first_viewport:?}, {viewport_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleEXT.html>"]
 fn vk_cmd_set_discard_rectangle_ext(mut packet: Packet) {
-    trace!("called vkCmdSetDiscardRectangleEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_discard_rectangle: u32 = packet.read();
+    let discard_rectangle_count: u32 = packet.read();
+    trace!("called vkCmdSetDiscardRectangleEXT({command_buffer:?}, {first_discard_rectangle:?}, {discard_rectangle_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleEnableEXT.html>"]
 fn vk_cmd_set_discard_rectangle_enable_ext(mut packet: Packet) {
-    trace!("called vkCmdSetDiscardRectangleEnableEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let discard_rectangle_enable: vk::Bool32 = packet.read();
+    trace!("called vkCmdSetDiscardRectangleEnableEXT({command_buffer:?}, {discard_rectangle_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleModeEXT.html>"]
 fn vk_cmd_set_discard_rectangle_mode_ext(mut packet: Packet) {
-    trace!("called vkCmdSetDiscardRectangleModeEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let discard_rectangle_mode: vk::DiscardRectangleModeEXT = packet.read();
+    trace!(
+        "called vkCmdSetDiscardRectangleModeEXT({command_buffer:?}, {discard_rectangle_mode:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleLocationsEXT.html>"]
 fn vk_cmd_set_sample_locations_ext(mut packet: Packet) {
-    trace!("called vkCmdSetSampleLocationsEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_sample_locations_info: *const vk::SampleLocationsInfoEXT = packet.read();
+    trace!("called vkCmdSetSampleLocationsEXT({command_buffer:?}, {p_sample_locations_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html>"]
 fn vk_get_physical_device_multisample_properties_ext(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceMultisamplePropertiesEXT");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let samples: vk::SampleCountFlags = packet.read();
+    let p_multisample_properties: *mut vk::MultisamplePropertiesEXT = packet.read();
+    trace!("called vkGetPhysicalDeviceMultisamplePropertiesEXT({physical_device:?}, {samples:?}, {p_multisample_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html>"]
 fn vk_get_physical_device_surface_capabilities2_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceSurfaceCapabilities2KHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR = packet.read();
+    let p_surface_capabilities: *mut vk::SurfaceCapabilities2KHR = packet.read();
+    trace!("called vkGetPhysicalDeviceSurfaceCapabilities2KHR({physical_device:?}, {p_surface_info:?}, {p_surface_capabilities:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html>"]
 fn vk_get_physical_device_surface_formats2_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceSurfaceFormats2KHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR = packet.read();
+    let p_surface_format_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceSurfaceFormats2KHR({physical_device:?}, {p_surface_info:?}, {p_surface_format_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayProperties2KHR.html>"]
 fn vk_get_physical_device_display_properties2_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceDisplayProperties2KHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceDisplayProperties2KHR({physical_device:?}, {p_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html>"]
 fn vk_get_physical_device_display_plane_properties2_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceDisplayPlaneProperties2KHR({physical_device:?}, {p_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayModeProperties2KHR.html>"]
 fn vk_get_display_mode_properties2_khr(mut packet: Packet) {
-    trace!("called vkGetDisplayModeProperties2KHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let display: vk::DisplayKHR = packet.read();
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetDisplayModeProperties2KHR({physical_device:?}, {display:?}, {p_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneCapabilities2KHR.html>"]
 fn vk_get_display_plane_capabilities2_khr(mut packet: Packet) {
-    trace!("called vkGetDisplayPlaneCapabilities2KHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_display_plane_info: *const vk::DisplayPlaneInfo2KHR = packet.read();
+    let p_capabilities: *mut vk::DisplayPlaneCapabilities2KHR = packet.read();
+    trace!("called vkGetDisplayPlaneCapabilities2KHR({physical_device:?}, {p_display_plane_info:?}, {p_capabilities:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferMemoryRequirements2.html>"]
 fn vk_get_buffer_memory_requirements2(mut packet: Packet) {
-    trace!("called vkGetBufferMemoryRequirements2");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::BufferMemoryRequirementsInfo2 = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read();
+    trace!(
+        "called vkGetBufferMemoryRequirements2({device:?}, {p_info:?}, {p_memory_requirements:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageMemoryRequirements2.html>"]
 fn vk_get_image_memory_requirements2(mut packet: Packet) {
-    trace!("called vkGetImageMemoryRequirements2");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::ImageMemoryRequirementsInfo2 = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read();
+    trace!(
+        "called vkGetImageMemoryRequirements2({device:?}, {p_info:?}, {p_memory_requirements:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSparseMemoryRequirements2.html>"]
 fn vk_get_image_sparse_memory_requirements2(mut packet: Packet) {
-    trace!("called vkGetImageSparseMemoryRequirements2");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::ImageSparseMemoryRequirementsInfo2 = packet.read();
+    let p_sparse_memory_requirement_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetImageSparseMemoryRequirements2({device:?}, {p_info:?}, {p_sparse_memory_requirement_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceBufferMemoryRequirements.html>"]
 fn vk_get_device_buffer_memory_requirements(mut packet: Packet) {
-    trace!("called vkGetDeviceBufferMemoryRequirements");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::DeviceBufferMemoryRequirements = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read();
+    trace!("called vkGetDeviceBufferMemoryRequirements({device:?}, {p_info:?}, {p_memory_requirements:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceImageMemoryRequirements.html>"]
 fn vk_get_device_image_memory_requirements(mut packet: Packet) {
-    trace!("called vkGetDeviceImageMemoryRequirements");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::DeviceImageMemoryRequirements = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read();
+    trace!("called vkGetDeviceImageMemoryRequirements({device:?}, {p_info:?}, {p_memory_requirements:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceImageSparseMemoryRequirements.html>"]
 fn vk_get_device_image_sparse_memory_requirements(mut packet: Packet) {
-    trace!("called vkGetDeviceImageSparseMemoryRequirements");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::DeviceImageMemoryRequirements = packet.read();
+    let p_sparse_memory_requirement_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetDeviceImageSparseMemoryRequirements({device:?}, {p_info:?}, {p_sparse_memory_requirement_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSamplerYcbcrConversion.html>"]
 fn vk_create_sampler_ycbcr_conversion(mut packet: Packet) {
-    trace!("called vkCreateSamplerYcbcrConversion");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::SamplerYcbcrConversionCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_ycbcr_conversion: *mut vk::SamplerYcbcrConversion = packet.read();
+    trace!("called vkCreateSamplerYcbcrConversion({device:?}, {p_create_info:?}, {p_allocator:?}, {p_ycbcr_conversion:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySamplerYcbcrConversion.html>"]
 fn vk_destroy_sampler_ycbcr_conversion(mut packet: Packet) {
-    trace!("called vkDestroySamplerYcbcrConversion");
+    let device: vk::Device = packet.read();
+    let ycbcr_conversion: vk::SamplerYcbcrConversion = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!(
+        "called vkDestroySamplerYcbcrConversion({device:?}, {ycbcr_conversion:?}, {p_allocator:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceQueue2.html>"]
 fn vk_get_device_queue2(mut packet: Packet) {
-    trace!("called vkGetDeviceQueue2");
+    let device: vk::Device = packet.read();
+    let p_queue_info: *const vk::DeviceQueueInfo2 = packet.read();
+    let p_queue: *mut vk::Queue = packet.read();
+    trace!("called vkGetDeviceQueue2({device:?}, {p_queue_info:?}, {p_queue:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateValidationCacheEXT.html>"]
 fn vk_create_validation_cache_ext(mut packet: Packet) {
-    trace!("called vkCreateValidationCacheEXT");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::ValidationCacheCreateInfoEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_validation_cache: *mut vk::ValidationCacheEXT = packet.read();
+    trace!("called vkCreateValidationCacheEXT({device:?}, {p_create_info:?}, {p_allocator:?}, {p_validation_cache:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyValidationCacheEXT.html>"]
 fn vk_destroy_validation_cache_ext(mut packet: Packet) {
-    trace!("called vkDestroyValidationCacheEXT");
+    let device: vk::Device = packet.read();
+    let validation_cache: vk::ValidationCacheEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyValidationCacheEXT({device:?}, {validation_cache:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetValidationCacheDataEXT.html>"]
 fn vk_get_validation_cache_data_ext(mut packet: Packet) {
-    trace!("called vkGetValidationCacheDataEXT");
+    let device: vk::Device = packet.read();
+    let validation_cache: vk::ValidationCacheEXT = packet.read();
+    let p_data_size: *mut isize = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read();
+    trace!("called vkGetValidationCacheDataEXT({device:?}, {validation_cache:?}, {p_data_size:?}, {p_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMergeValidationCachesEXT.html>"]
 fn vk_merge_validation_caches_ext(mut packet: Packet) {
-    trace!("called vkMergeValidationCachesEXT");
+    let device: vk::Device = packet.read();
+    let dst_cache: vk::ValidationCacheEXT = packet.read();
+    let src_cache_count: u32 = packet.read();
+    trace!("called vkMergeValidationCachesEXT({device:?}, {dst_cache:?}, {src_cache_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutSupport.html>"]
 fn vk_get_descriptor_set_layout_support(mut packet: Packet) {
-    trace!("called vkGetDescriptorSetLayoutSupport");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::DescriptorSetLayoutCreateInfo = packet.read();
+    let p_support: *mut vk::DescriptorSetLayoutSupport = packet.read();
+    trace!("called vkGetDescriptorSetLayoutSupport({device:?}, {p_create_info:?}, {p_support:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainGrallocUsageANDROID.html>"]
 fn vk_get_swapchain_gralloc_usage_android(mut packet: Packet) {
-    trace!("called vkGetSwapchainGrallocUsageANDROID");
+    let device: vk::Device = packet.read();
+    let format: vk::Format = packet.read();
+    let image_usage: vk::ImageUsageFlags = packet.read();
+    let gralloc_usage: *mut std::os::raw::c_int = packet.read();
+    trace!("called vkGetSwapchainGrallocUsageANDROID({device:?}, {format:?}, {image_usage:?}, {gralloc_usage:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainGrallocUsage2ANDROID.html>"]
 fn vk_get_swapchain_gralloc_usage2_android(mut packet: Packet) {
-    trace!("called vkGetSwapchainGrallocUsage2ANDROID");
+    let device: vk::Device = packet.read();
+    let format: vk::Format = packet.read();
+    let image_usage: vk::ImageUsageFlags = packet.read();
+    let swapchain_image_usage: vk::SwapchainImageUsageFlagsANDROID = packet.read();
+    let gralloc_consumer_usage: *mut u64 = packet.read();
+    let gralloc_producer_usage: *mut u64 = packet.read();
+    trace!("called vkGetSwapchainGrallocUsage2ANDROID({device:?}, {format:?}, {image_usage:?}, {swapchain_image_usage:?}, {gralloc_consumer_usage:?}, {gralloc_producer_usage:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireImageANDROID.html>"]
 fn vk_acquire_image_android(mut packet: Packet) {
-    trace!("called vkAcquireImageANDROID");
+    let device: vk::Device = packet.read();
+    let image: vk::Image = packet.read();
+    let native_fence_fd: std::os::raw::c_int = packet.read();
+    let semaphore: vk::Semaphore = packet.read();
+    let fence: vk::Fence = packet.read();
+    trace!("called vkAcquireImageANDROID({device:?}, {image:?}, {native_fence_fd:?}, {semaphore:?}, {fence:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSignalReleaseImageANDROID.html>"]
 fn vk_queue_signal_release_image_android(mut packet: Packet) {
-    trace!("called vkQueueSignalReleaseImageANDROID");
+    let queue: vk::Queue = packet.read();
+    let wait_semaphore_count: u32 = packet.read();
+    trace!("called vkQueueSignalReleaseImageANDROID({queue:?}, {wait_semaphore_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderInfoAMD.html>"]
 fn vk_get_shader_info_amd(mut packet: Packet) {
-    trace!("called vkGetShaderInfoAMD");
+    let device: vk::Device = packet.read();
+    let pipeline: vk::Pipeline = packet.read();
+    let shader_stage: vk::ShaderStageFlags = packet.read();
+    let info_type: vk::ShaderInfoTypeAMD = packet.read();
+    let p_info_size: *mut isize = packet.read();
+    let p_info: *mut std::ffi::c_void = packet.read();
+    trace!("called vkGetShaderInfoAMD({device:?}, {pipeline:?}, {shader_stage:?}, {info_type:?}, {p_info_size:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetLocalDimmingAMD.html>"]
 fn vk_set_local_dimming_amd(mut packet: Packet) {
-    trace!("called vkSetLocalDimmingAMD");
+    let device: vk::Device = packet.read();
+    let swap_chain: vk::SwapchainKHR = packet.read();
+    let local_dimming_enable: vk::Bool32 = packet.read();
+    trace!("called vkSetLocalDimmingAMD({device:?}, {swap_chain:?}, {local_dimming_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html>"]
 fn vk_get_physical_device_calibrateable_time_domains_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceCalibrateableTimeDomainsKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_time_domain_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceCalibrateableTimeDomainsKHR({physical_device:?}, {p_time_domain_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetCalibratedTimestampsKHR.html>"]
 fn vk_get_calibrated_timestamps_khr(mut packet: Packet) {
-    trace!("called vkGetCalibratedTimestampsKHR");
+    let device: vk::Device = packet.read();
+    let timestamp_count: u32 = packet.read();
+    trace!("called vkGetCalibratedTimestampsKHR({device:?}, {timestamp_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetDebugUtilsObjectNameEXT.html>"]
 fn vk_set_debug_utils_object_name_ext(mut packet: Packet) {
-    trace!("called vkSetDebugUtilsObjectNameEXT");
+    let device: vk::Device = packet.read();
+    let p_name_info: *const vk::DebugUtilsObjectNameInfoEXT = packet.read();
+    trace!("called vkSetDebugUtilsObjectNameEXT({device:?}, {p_name_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetDebugUtilsObjectTagEXT.html>"]
 fn vk_set_debug_utils_object_tag_ext(mut packet: Packet) {
-    trace!("called vkSetDebugUtilsObjectTagEXT");
+    let device: vk::Device = packet.read();
+    let p_tag_info: *const vk::DebugUtilsObjectTagInfoEXT = packet.read();
+    trace!("called vkSetDebugUtilsObjectTagEXT({device:?}, {p_tag_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueBeginDebugUtilsLabelEXT.html>"]
 fn vk_queue_begin_debug_utils_label_ext(mut packet: Packet) {
-    trace!("called vkQueueBeginDebugUtilsLabelEXT");
+    let queue: vk::Queue = packet.read();
+    let p_label_info: *const vk::DebugUtilsLabelEXT = packet.read();
+    trace!("called vkQueueBeginDebugUtilsLabelEXT({queue:?}, {p_label_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueEndDebugUtilsLabelEXT.html>"]
 fn vk_queue_end_debug_utils_label_ext(mut packet: Packet) {
-    trace!("called vkQueueEndDebugUtilsLabelEXT");
+    let queue: vk::Queue = packet.read();
+    trace!("called vkQueueEndDebugUtilsLabelEXT({queue:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueInsertDebugUtilsLabelEXT.html>"]
 fn vk_queue_insert_debug_utils_label_ext(mut packet: Packet) {
-    trace!("called vkQueueInsertDebugUtilsLabelEXT");
+    let queue: vk::Queue = packet.read();
+    let p_label_info: *const vk::DebugUtilsLabelEXT = packet.read();
+    trace!("called vkQueueInsertDebugUtilsLabelEXT({queue:?}, {p_label_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginDebugUtilsLabelEXT.html>"]
 fn vk_cmd_begin_debug_utils_label_ext(mut packet: Packet) {
-    trace!("called vkCmdBeginDebugUtilsLabelEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_label_info: *const vk::DebugUtilsLabelEXT = packet.read();
+    trace!("called vkCmdBeginDebugUtilsLabelEXT({command_buffer:?}, {p_label_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndDebugUtilsLabelEXT.html>"]
 fn vk_cmd_end_debug_utils_label_ext(mut packet: Packet) {
-    trace!("called vkCmdEndDebugUtilsLabelEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    trace!("called vkCmdEndDebugUtilsLabelEXT({command_buffer:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdInsertDebugUtilsLabelEXT.html>"]
 fn vk_cmd_insert_debug_utils_label_ext(mut packet: Packet) {
-    trace!("called vkCmdInsertDebugUtilsLabelEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_label_info: *const vk::DebugUtilsLabelEXT = packet.read();
+    trace!("called vkCmdInsertDebugUtilsLabelEXT({command_buffer:?}, {p_label_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDebugUtilsMessengerEXT.html>"]
 fn vk_create_debug_utils_messenger_ext(mut packet: Packet) {
-    trace!("called vkCreateDebugUtilsMessengerEXT");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::DebugUtilsMessengerCreateInfoEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_messenger: *mut vk::DebugUtilsMessengerEXT = packet.read();
+    trace!("called vkCreateDebugUtilsMessengerEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_messenger:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDebugUtilsMessengerEXT.html>"]
 fn vk_destroy_debug_utils_messenger_ext(mut packet: Packet) {
-    trace!("called vkDestroyDebugUtilsMessengerEXT");
+    let instance: vk::Instance = packet.read();
+    let messenger: vk::DebugUtilsMessengerEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyDebugUtilsMessengerEXT({instance:?}, {messenger:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSubmitDebugUtilsMessageEXT.html>"]
 fn vk_submit_debug_utils_message_ext(mut packet: Packet) {
-    trace!("called vkSubmitDebugUtilsMessageEXT");
+    let instance: vk::Instance = packet.read();
+    let message_severity: vk::DebugUtilsMessageSeverityFlagsEXT = packet.read();
+    let message_types: vk::DebugUtilsMessageTypeFlagsEXT = packet.read();
+    let p_callback_data: *const vk::DebugUtilsMessengerCallbackDataEXT = packet.read();
+    trace!("called vkSubmitDebugUtilsMessageEXT({instance:?}, {message_severity:?}, {message_types:?}, {p_callback_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryHostPointerPropertiesEXT.html>"]
 fn vk_get_memory_host_pointer_properties_ext(mut packet: Packet) {
-    trace!("called vkGetMemoryHostPointerPropertiesEXT");
+    let device: vk::Device = packet.read();
+    let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read();
+    let p_host_pointer: *const std::ffi::c_void = packet.read();
+    let p_memory_host_pointer_properties: *mut vk::MemoryHostPointerPropertiesEXT = packet.read();
+    trace!("called vkGetMemoryHostPointerPropertiesEXT({device:?}, {handle_type:?}, {p_host_pointer:?}, {p_memory_host_pointer_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteBufferMarkerAMD.html>"]
 fn vk_cmd_write_buffer_marker_amd(mut packet: Packet) {
-    trace!("called vkCmdWriteBufferMarkerAMD");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let pipeline_stage: vk::PipelineStageFlags = packet.read();
+    let dst_buffer: vk::Buffer = packet.read();
+    let dst_offset: vk::DeviceSize = packet.read();
+    let marker: u32 = packet.read();
+    trace!("called vkCmdWriteBufferMarkerAMD({command_buffer:?}, {pipeline_stage:?}, {dst_buffer:?}, {dst_offset:?}, {marker:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRenderPass2.html>"]
 fn vk_create_render_pass2(mut packet: Packet) {
-    trace!("called vkCreateRenderPass2");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::RenderPassCreateInfo2 = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_render_pass: *mut vk::RenderPass = packet.read();
+    trace!("called vkCreateRenderPass2({device:?}, {p_create_info:?}, {p_allocator:?}, {p_render_pass:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRenderPass2.html>"]
 fn vk_cmd_begin_render_pass2(mut packet: Packet) {
-    trace!("called vkCmdBeginRenderPass2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_render_pass_begin: *const vk::RenderPassBeginInfo = packet.read();
+    let p_subpass_begin_info: *const vk::SubpassBeginInfo = packet.read();
+    trace!("called vkCmdBeginRenderPass2({command_buffer:?}, {p_render_pass_begin:?}, {p_subpass_begin_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdNextSubpass2.html>"]
 fn vk_cmd_next_subpass2(mut packet: Packet) {
-    trace!("called vkCmdNextSubpass2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_subpass_begin_info: *const vk::SubpassBeginInfo = packet.read();
+    let p_subpass_end_info: *const vk::SubpassEndInfo = packet.read();
+    trace!("called vkCmdNextSubpass2({command_buffer:?}, {p_subpass_begin_info:?}, {p_subpass_end_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass2.html>"]
 fn vk_cmd_end_render_pass2(mut packet: Packet) {
-    trace!("called vkCmdEndRenderPass2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_subpass_end_info: *const vk::SubpassEndInfo = packet.read();
+    trace!("called vkCmdEndRenderPass2({command_buffer:?}, {p_subpass_end_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreCounterValue.html>"]
 fn vk_get_semaphore_counter_value(mut packet: Packet) {
-    trace!("called vkGetSemaphoreCounterValue");
+    let device: vk::Device = packet.read();
+    let semaphore: vk::Semaphore = packet.read();
+    let p_value: *mut u64 = packet.read();
+    trace!("called vkGetSemaphoreCounterValue({device:?}, {semaphore:?}, {p_value:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWaitSemaphores.html>"]
 fn vk_wait_semaphores(mut packet: Packet) {
-    trace!("called vkWaitSemaphores");
+    let device: vk::Device = packet.read();
+    let p_wait_info: *const vk::SemaphoreWaitInfo = packet.read();
+    let timeout: u64 = packet.read();
+    trace!("called vkWaitSemaphores({device:?}, {p_wait_info:?}, {timeout:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSignalSemaphore.html>"]
 fn vk_signal_semaphore(mut packet: Packet) {
-    trace!("called vkSignalSemaphore");
+    let device: vk::Device = packet.read();
+    let p_signal_info: *const vk::SemaphoreSignalInfo = packet.read();
+    trace!("called vkSignalSemaphore({device:?}, {p_signal_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html>"]
 fn vk_get_android_hardware_buffer_properties_android(mut packet: Packet) {
-    trace!("called vkGetAndroidHardwareBufferPropertiesANDROID");
+    let device: vk::Device = packet.read();
+    let buffer: *const vk::AHardwareBuffer = packet.read();
+    let p_properties: *mut vk::AndroidHardwareBufferPropertiesANDROID = packet.read();
+    trace!("called vkGetAndroidHardwareBufferPropertiesANDROID({device:?}, {buffer:?}, {p_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html>"]
 fn vk_get_memory_android_hardware_buffer_android(mut packet: Packet) {
-    trace!("called vkGetMemoryAndroidHardwareBufferANDROID");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::MemoryGetAndroidHardwareBufferInfoANDROID = packet.read();
+    let p_buffer: *mut *mut vk::AHardwareBuffer = packet.read();
+    trace!("called vkGetMemoryAndroidHardwareBufferANDROID({device:?}, {p_info:?}, {p_buffer:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirectCount.html>"]
 fn vk_cmd_draw_indirect_count(mut packet: Packet) {
-    trace!("called vkCmdDrawIndirectCount");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let offset: vk::DeviceSize = packet.read();
+    let count_buffer: vk::Buffer = packet.read();
+    let count_buffer_offset: vk::DeviceSize = packet.read();
+    let max_draw_count: u32 = packet.read();
+    trace!("called vkCmdDrawIndirectCount({command_buffer:?}, {buffer:?}, {offset:?}, {count_buffer:?}, {count_buffer_offset:?}, {max_draw_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexedIndirectCount.html>"]
 fn vk_cmd_draw_indexed_indirect_count(mut packet: Packet) {
-    trace!("called vkCmdDrawIndexedIndirectCount");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let offset: vk::DeviceSize = packet.read();
+    let count_buffer: vk::Buffer = packet.read();
+    let count_buffer_offset: vk::DeviceSize = packet.read();
+    let max_draw_count: u32 = packet.read();
+    trace!("called vkCmdDrawIndexedIndirectCount({command_buffer:?}, {buffer:?}, {offset:?}, {count_buffer:?}, {count_buffer_offset:?}, {max_draw_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCheckpointNV.html>"]
 fn vk_cmd_set_checkpoint_nv(mut packet: Packet) {
-    trace!("called vkCmdSetCheckpointNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_checkpoint_marker: *const std::ffi::c_void = packet.read();
+    trace!("called vkCmdSetCheckpointNV({command_buffer:?}, {p_checkpoint_marker:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetQueueCheckpointDataNV.html>"]
 fn vk_get_queue_checkpoint_data_nv(mut packet: Packet) {
-    trace!("called vkGetQueueCheckpointDataNV");
+    let queue: vk::Queue = packet.read();
+    let p_checkpoint_data_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetQueueCheckpointDataNV({queue:?}, {p_checkpoint_data_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindTransformFeedbackBuffersEXT.html>"]
 fn vk_cmd_bind_transform_feedback_buffers_ext(mut packet: Packet) {
-    trace!("called vkCmdBindTransformFeedbackBuffersEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_binding: u32 = packet.read();
+    let binding_count: u32 = packet.read();
+    trace!("called vkCmdBindTransformFeedbackBuffersEXT({command_buffer:?}, {first_binding:?}, {binding_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginTransformFeedbackEXT.html>"]
 fn vk_cmd_begin_transform_feedback_ext(mut packet: Packet) {
-    trace!("called vkCmdBeginTransformFeedbackEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_counter_buffer: u32 = packet.read();
+    let counter_buffer_count: u32 = packet.read();
+    trace!("called vkCmdBeginTransformFeedbackEXT({command_buffer:?}, {first_counter_buffer:?}, {counter_buffer_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndTransformFeedbackEXT.html>"]
 fn vk_cmd_end_transform_feedback_ext(mut packet: Packet) {
-    trace!("called vkCmdEndTransformFeedbackEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_counter_buffer: u32 = packet.read();
+    let counter_buffer_count: u32 = packet.read();
+    trace!("called vkCmdEndTransformFeedbackEXT({command_buffer:?}, {first_counter_buffer:?}, {counter_buffer_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginQueryIndexedEXT.html>"]
 fn vk_cmd_begin_query_indexed_ext(mut packet: Packet) {
-    trace!("called vkCmdBeginQueryIndexedEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let query_pool: vk::QueryPool = packet.read();
+    let query: u32 = packet.read();
+    let flags: vk::QueryControlFlags = packet.read();
+    let index: u32 = packet.read();
+    trace!("called vkCmdBeginQueryIndexedEXT({command_buffer:?}, {query_pool:?}, {query:?}, {flags:?}, {index:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndQueryIndexedEXT.html>"]
 fn vk_cmd_end_query_indexed_ext(mut packet: Packet) {
-    trace!("called vkCmdEndQueryIndexedEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let query_pool: vk::QueryPool = packet.read();
+    let query: u32 = packet.read();
+    let index: u32 = packet.read();
+    trace!(
+        "called vkCmdEndQueryIndexedEXT({command_buffer:?}, {query_pool:?}, {query:?}, {index:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirectByteCountEXT.html>"]
 fn vk_cmd_draw_indirect_byte_count_ext(mut packet: Packet) {
-    trace!("called vkCmdDrawIndirectByteCountEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let instance_count: u32 = packet.read();
+    trace!("called vkCmdDrawIndirectByteCountEXT({command_buffer:?}, {instance_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetExclusiveScissorNV.html>"]
 fn vk_cmd_set_exclusive_scissor_nv(mut packet: Packet) {
-    trace!("called vkCmdSetExclusiveScissorNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_exclusive_scissor: u32 = packet.read();
+    let exclusive_scissor_count: u32 = packet.read();
+    trace!("called vkCmdSetExclusiveScissorNV({command_buffer:?}, {first_exclusive_scissor:?}, {exclusive_scissor_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetExclusiveScissorEnableNV.html>"]
 fn vk_cmd_set_exclusive_scissor_enable_nv(mut packet: Packet) {
-    trace!("called vkCmdSetExclusiveScissorEnableNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_exclusive_scissor: u32 = packet.read();
+    let exclusive_scissor_count: u32 = packet.read();
+    trace!("called vkCmdSetExclusiveScissorEnableNV({command_buffer:?}, {first_exclusive_scissor:?}, {exclusive_scissor_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindShadingRateImageNV.html>"]
 fn vk_cmd_bind_shading_rate_image_nv(mut packet: Packet) {
-    trace!("called vkCmdBindShadingRateImageNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let image_view: vk::ImageView = packet.read();
+    let image_layout: vk::ImageLayout = packet.read();
+    trace!(
+        "called vkCmdBindShadingRateImageNV({command_buffer:?}, {image_view:?}, {image_layout:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportShadingRatePaletteNV.html>"]
 fn vk_cmd_set_viewport_shading_rate_palette_nv(mut packet: Packet) {
-    trace!("called vkCmdSetViewportShadingRatePaletteNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_viewport: u32 = packet.read();
+    let viewport_count: u32 = packet.read();
+    trace!("called vkCmdSetViewportShadingRatePaletteNV({command_buffer:?}, {first_viewport:?}, {viewport_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoarseSampleOrderNV.html>"]
 fn vk_cmd_set_coarse_sample_order_nv(mut packet: Packet) {
-    trace!("called vkCmdSetCoarseSampleOrderNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let sample_order_type: vk::CoarseSampleOrderTypeNV = packet.read();
+    let custom_sample_order_count: u32 = packet.read();
+    trace!("called vkCmdSetCoarseSampleOrderNV({command_buffer:?}, {sample_order_type:?}, {custom_sample_order_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksNV.html>"]
 fn vk_cmd_draw_mesh_tasks_nv(mut packet: Packet) {
-    trace!("called vkCmdDrawMeshTasksNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let task_count: u32 = packet.read();
+    trace!("called vkCmdDrawMeshTasksNV({command_buffer:?}, {task_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectNV.html>"]
 fn vk_cmd_draw_mesh_tasks_indirect_nv(mut packet: Packet) {
-    trace!("called vkCmdDrawMeshTasksIndirectNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let offset: vk::DeviceSize = packet.read();
+    let draw_count: u32 = packet.read();
+    trace!("called vkCmdDrawMeshTasksIndirectNV({command_buffer:?}, {buffer:?}, {offset:?}, {draw_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectCountNV.html>"]
 fn vk_cmd_draw_mesh_tasks_indirect_count_nv(mut packet: Packet) {
-    trace!("called vkCmdDrawMeshTasksIndirectCountNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let offset: vk::DeviceSize = packet.read();
+    let count_buffer: vk::Buffer = packet.read();
+    let count_buffer_offset: vk::DeviceSize = packet.read();
+    let max_draw_count: u32 = packet.read();
+    trace!("called vkCmdDrawMeshTasksIndirectCountNV({command_buffer:?}, {buffer:?}, {offset:?}, {count_buffer:?}, {count_buffer_offset:?}, {max_draw_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksEXT.html>"]
 fn vk_cmd_draw_mesh_tasks_ext(mut packet: Packet) {
-    trace!("called vkCmdDrawMeshTasksEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let group_count_x: u32 = packet.read();
+    let group_count_y: u32 = packet.read();
+    let group_count_z: u32 = packet.read();
+    trace!("called vkCmdDrawMeshTasksEXT({command_buffer:?}, {group_count_x:?}, {group_count_y:?}, {group_count_z:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectEXT.html>"]
 fn vk_cmd_draw_mesh_tasks_indirect_ext(mut packet: Packet) {
-    trace!("called vkCmdDrawMeshTasksIndirectEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let offset: vk::DeviceSize = packet.read();
+    let draw_count: u32 = packet.read();
+    trace!("called vkCmdDrawMeshTasksIndirectEXT({command_buffer:?}, {buffer:?}, {offset:?}, {draw_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectCountEXT.html>"]
 fn vk_cmd_draw_mesh_tasks_indirect_count_ext(mut packet: Packet) {
-    trace!("called vkCmdDrawMeshTasksIndirectCountEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let offset: vk::DeviceSize = packet.read();
+    let count_buffer: vk::Buffer = packet.read();
+    let count_buffer_offset: vk::DeviceSize = packet.read();
+    let max_draw_count: u32 = packet.read();
+    trace!("called vkCmdDrawMeshTasksIndirectCountEXT({command_buffer:?}, {buffer:?}, {offset:?}, {count_buffer:?}, {count_buffer_offset:?}, {max_draw_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCompileDeferredNV.html>"]
 fn vk_compile_deferred_nv(mut packet: Packet) {
-    trace!("called vkCompileDeferredNV");
+    let device: vk::Device = packet.read();
+    let pipeline: vk::Pipeline = packet.read();
+    let shader: u32 = packet.read();
+    trace!("called vkCompileDeferredNV({device:?}, {pipeline:?}, {shader:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateAccelerationStructureNV.html>"]
 fn vk_create_acceleration_structure_nv(mut packet: Packet) {
-    trace!("called vkCreateAccelerationStructureNV");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::AccelerationStructureCreateInfoNV = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_acceleration_structure: *mut vk::AccelerationStructureNV = packet.read();
+    trace!("called vkCreateAccelerationStructureNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_acceleration_structure:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindInvocationMaskHUAWEI.html>"]
 fn vk_cmd_bind_invocation_mask_huawei(mut packet: Packet) {
-    trace!("called vkCmdBindInvocationMaskHUAWEI");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let image_view: vk::ImageView = packet.read();
+    let image_layout: vk::ImageLayout = packet.read();
+    trace!("called vkCmdBindInvocationMaskHUAWEI({command_buffer:?}, {image_view:?}, {image_layout:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyAccelerationStructureKHR.html>"]
 fn vk_destroy_acceleration_structure_khr(mut packet: Packet) {
-    trace!("called vkDestroyAccelerationStructureKHR");
+    let device: vk::Device = packet.read();
+    let acceleration_structure: vk::AccelerationStructureKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyAccelerationStructureKHR({device:?}, {acceleration_structure:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyAccelerationStructureNV.html>"]
 fn vk_destroy_acceleration_structure_nv(mut packet: Packet) {
-    trace!("called vkDestroyAccelerationStructureNV");
+    let device: vk::Device = packet.read();
+    let acceleration_structure: vk::AccelerationStructureNV = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyAccelerationStructureNV({device:?}, {acceleration_structure:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureMemoryRequirementsNV.html>"]
 fn vk_get_acceleration_structure_memory_requirements_nv(mut packet: Packet) {
-    trace!("called vkGetAccelerationStructureMemoryRequirementsNV");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::AccelerationStructureMemoryRequirementsInfoNV = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2KHR = packet.read();
+    trace!("called vkGetAccelerationStructureMemoryRequirementsNV({device:?}, {p_info:?}, {p_memory_requirements:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindAccelerationStructureMemoryNV.html>"]
 fn vk_bind_acceleration_structure_memory_nv(mut packet: Packet) {
-    trace!("called vkBindAccelerationStructureMemoryNV");
+    let device: vk::Device = packet.read();
+    let bind_info_count: u32 = packet.read();
+    trace!("called vkBindAccelerationStructureMemoryNV({device:?}, {bind_info_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyAccelerationStructureNV.html>"]
 fn vk_cmd_copy_acceleration_structure_nv(mut packet: Packet) {
-    trace!("called vkCmdCopyAccelerationStructureNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let dst: vk::AccelerationStructureNV = packet.read();
+    let src: vk::AccelerationStructureNV = packet.read();
+    let mode: vk::CopyAccelerationStructureModeKHR = packet.read();
+    trace!(
+        "called vkCmdCopyAccelerationStructureNV({command_buffer:?}, {dst:?}, {src:?}, {mode:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyAccelerationStructureKHR.html>"]
 fn vk_cmd_copy_acceleration_structure_khr(mut packet: Packet) {
-    trace!("called vkCmdCopyAccelerationStructureKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_info: *const vk::CopyAccelerationStructureInfoKHR = packet.read();
+    trace!("called vkCmdCopyAccelerationStructureKHR({command_buffer:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyAccelerationStructureKHR.html>"]
 fn vk_copy_acceleration_structure_khr(mut packet: Packet) {
-    trace!("called vkCopyAccelerationStructureKHR");
+    let device: vk::Device = packet.read();
+    let deferred_operation: vk::DeferredOperationKHR = packet.read();
+    let p_info: *const vk::CopyAccelerationStructureInfoKHR = packet.read();
+    trace!("called vkCopyAccelerationStructureKHR({device:?}, {deferred_operation:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyAccelerationStructureToMemoryKHR.html>"]
 fn vk_cmd_copy_acceleration_structure_to_memory_khr(mut packet: Packet) {
-    trace!("called vkCmdCopyAccelerationStructureToMemoryKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_info: *const vk::CopyAccelerationStructureToMemoryInfoKHR = packet.read();
+    trace!("called vkCmdCopyAccelerationStructureToMemoryKHR({command_buffer:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyAccelerationStructureToMemoryKHR.html>"]
 fn vk_copy_acceleration_structure_to_memory_khr(mut packet: Packet) {
-    trace!("called vkCopyAccelerationStructureToMemoryKHR");
+    let device: vk::Device = packet.read();
+    let deferred_operation: vk::DeferredOperationKHR = packet.read();
+    let p_info: *const vk::CopyAccelerationStructureToMemoryInfoKHR = packet.read();
+    trace!("called vkCopyAccelerationStructureToMemoryKHR({device:?}, {deferred_operation:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryToAccelerationStructureKHR.html>"]
 fn vk_cmd_copy_memory_to_acceleration_structure_khr(mut packet: Packet) {
-    trace!("called vkCmdCopyMemoryToAccelerationStructureKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_info: *const vk::CopyMemoryToAccelerationStructureInfoKHR = packet.read();
+    trace!("called vkCmdCopyMemoryToAccelerationStructureKHR({command_buffer:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMemoryToAccelerationStructureKHR.html>"]
 fn vk_copy_memory_to_acceleration_structure_khr(mut packet: Packet) {
-    trace!("called vkCopyMemoryToAccelerationStructureKHR");
+    let device: vk::Device = packet.read();
+    let deferred_operation: vk::DeferredOperationKHR = packet.read();
+    let p_info: *const vk::CopyMemoryToAccelerationStructureInfoKHR = packet.read();
+    trace!("called vkCopyMemoryToAccelerationStructureKHR({device:?}, {deferred_operation:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesKHR.html>"]
 fn vk_cmd_write_acceleration_structures_properties_khr(mut packet: Packet) {
-    trace!("called vkCmdWriteAccelerationStructuresPropertiesKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let acceleration_structure_count: u32 = packet.read();
+    trace!("called vkCmdWriteAccelerationStructuresPropertiesKHR({command_buffer:?}, {acceleration_structure_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesNV.html>"]
 fn vk_cmd_write_acceleration_structures_properties_nv(mut packet: Packet) {
-    trace!("called vkCmdWriteAccelerationStructuresPropertiesNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let acceleration_structure_count: u32 = packet.read();
+    trace!("called vkCmdWriteAccelerationStructuresPropertiesNV({command_buffer:?}, {acceleration_structure_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBuildAccelerationStructureNV.html>"]
 fn vk_cmd_build_acceleration_structure_nv(mut packet: Packet) {
-    trace!("called vkCmdBuildAccelerationStructureNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_info: *const vk::AccelerationStructureInfoNV = packet.read();
+    let instance_data: vk::Buffer = packet.read();
+    let instance_offset: vk::DeviceSize = packet.read();
+    let update: vk::Bool32 = packet.read();
+    let dst: vk::AccelerationStructureNV = packet.read();
+    let src: vk::AccelerationStructureNV = packet.read();
+    let scratch: vk::Buffer = packet.read();
+    let scratch_offset: vk::DeviceSize = packet.read();
+    trace!("called vkCmdBuildAccelerationStructureNV({command_buffer:?}, {p_info:?}, {instance_data:?}, {instance_offset:?}, {update:?}, {dst:?}, {src:?}, {scratch:?}, {scratch_offset:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWriteAccelerationStructuresPropertiesKHR.html>"]
 fn vk_write_acceleration_structures_properties_khr(mut packet: Packet) {
-    trace!("called vkWriteAccelerationStructuresPropertiesKHR");
+    let device: vk::Device = packet.read();
+    let acceleration_structure_count: u32 = packet.read();
+    trace!("called vkWriteAccelerationStructuresPropertiesKHR({device:?}, {acceleration_structure_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysKHR.html>"]
 fn vk_cmd_trace_rays_khr(mut packet: Packet) {
-    trace!("called vkCmdTraceRaysKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_raygen_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR = packet.read();
+    let p_miss_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR = packet.read();
+    let p_hit_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR = packet.read();
+    let p_callable_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR = packet.read();
+    let width: u32 = packet.read();
+    let height: u32 = packet.read();
+    let depth: u32 = packet.read();
+    trace!("called vkCmdTraceRaysKHR({command_buffer:?}, {p_raygen_shader_binding_table:?}, {p_miss_shader_binding_table:?}, {p_hit_shader_binding_table:?}, {p_callable_shader_binding_table:?}, {width:?}, {height:?}, {depth:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysNV.html>"]
 fn vk_cmd_trace_rays_nv(mut packet: Packet) {
-    trace!("called vkCmdTraceRaysNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let raygen_shader_binding_table_buffer: vk::Buffer = packet.read();
+    let raygen_shader_binding_offset: vk::DeviceSize = packet.read();
+    let miss_shader_binding_table_buffer: vk::Buffer = packet.read();
+    let miss_shader_binding_offset: vk::DeviceSize = packet.read();
+    let miss_shader_binding_stride: vk::DeviceSize = packet.read();
+    let hit_shader_binding_table_buffer: vk::Buffer = packet.read();
+    let hit_shader_binding_offset: vk::DeviceSize = packet.read();
+    let hit_shader_binding_stride: vk::DeviceSize = packet.read();
+    let callable_shader_binding_table_buffer: vk::Buffer = packet.read();
+    let callable_shader_binding_offset: vk::DeviceSize = packet.read();
+    let callable_shader_binding_stride: vk::DeviceSize = packet.read();
+    let width: u32 = packet.read();
+    let height: u32 = packet.read();
+    let depth: u32 = packet.read();
+    trace!("called vkCmdTraceRaysNV({command_buffer:?}, {raygen_shader_binding_table_buffer:?}, {raygen_shader_binding_offset:?}, {miss_shader_binding_table_buffer:?}, {miss_shader_binding_offset:?}, {miss_shader_binding_stride:?}, {hit_shader_binding_table_buffer:?}, {hit_shader_binding_offset:?}, {hit_shader_binding_stride:?}, {callable_shader_binding_table_buffer:?}, {callable_shader_binding_offset:?}, {callable_shader_binding_stride:?}, {width:?}, {height:?}, {depth:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRayTracingShaderGroupHandlesKHR.html>"]
 fn vk_get_ray_tracing_shader_group_handles_khr(mut packet: Packet) {
-    trace!("called vkGetRayTracingShaderGroupHandlesKHR");
+    let device: vk::Device = packet.read();
+    let pipeline: vk::Pipeline = packet.read();
+    let first_group: u32 = packet.read();
+    let group_count: u32 = packet.read();
+    trace!("called vkGetRayTracingShaderGroupHandlesKHR({device:?}, {pipeline:?}, {first_group:?}, {group_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html>"]
 fn vk_get_ray_tracing_capture_replay_shader_group_handles_khr(mut packet: Packet) {
-    trace!("called vkGetRayTracingCaptureReplayShaderGroupHandlesKHR");
+    let device: vk::Device = packet.read();
+    let pipeline: vk::Pipeline = packet.read();
+    let first_group: u32 = packet.read();
+    let group_count: u32 = packet.read();
+    trace!("called vkGetRayTracingCaptureReplayShaderGroupHandlesKHR({device:?}, {pipeline:?}, {first_group:?}, {group_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureHandleNV.html>"]
 fn vk_get_acceleration_structure_handle_nv(mut packet: Packet) {
-    trace!("called vkGetAccelerationStructureHandleNV");
+    let device: vk::Device = packet.read();
+    let acceleration_structure: vk::AccelerationStructureNV = packet.read();
+    let data_size: isize = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read();
+    trace!("called vkGetAccelerationStructureHandleNV({device:?}, {acceleration_structure:?}, {data_size:?}, {p_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRayTracingPipelinesNV.html>"]
 fn vk_create_ray_tracing_pipelines_nv(mut packet: Packet) {
-    trace!("called vkCreateRayTracingPipelinesNV");
+    let device: vk::Device = packet.read();
+    let pipeline_cache: vk::PipelineCache = packet.read();
+    let create_info_count: u32 = packet.read();
+    trace!("called vkCreateRayTracingPipelinesNV({device:?}, {pipeline_cache:?}, {create_info_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRayTracingPipelinesKHR.html>"]
 fn vk_create_ray_tracing_pipelines_khr(mut packet: Packet) {
-    trace!("called vkCreateRayTracingPipelinesKHR");
+    let device: vk::Device = packet.read();
+    let deferred_operation: vk::DeferredOperationKHR = packet.read();
+    let pipeline_cache: vk::PipelineCache = packet.read();
+    let create_info_count: u32 = packet.read();
+    trace!("called vkCreateRayTracingPipelinesKHR({device:?}, {deferred_operation:?}, {pipeline_cache:?}, {create_info_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html>"]
 fn vk_get_physical_device_cooperative_matrix_properties_nv(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesNV({physical_device:?}, {p_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysIndirectKHR.html>"]
 fn vk_cmd_trace_rays_indirect_khr(mut packet: Packet) {
-    trace!("called vkCmdTraceRaysIndirectKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_raygen_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR = packet.read();
+    let p_miss_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR = packet.read();
+    let p_hit_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR = packet.read();
+    let p_callable_shader_binding_table: *const vk::StridedDeviceAddressRegionKHR = packet.read();
+    let indirect_device_address: vk::DeviceAddress = packet.read();
+    trace!("called vkCmdTraceRaysIndirectKHR({command_buffer:?}, {p_raygen_shader_binding_table:?}, {p_miss_shader_binding_table:?}, {p_hit_shader_binding_table:?}, {p_callable_shader_binding_table:?}, {indirect_device_address:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysIndirect2KHR.html>"]
 fn vk_cmd_trace_rays_indirect2_khr(mut packet: Packet) {
-    trace!("called vkCmdTraceRaysIndirect2KHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let indirect_device_address: vk::DeviceAddress = packet.read();
+    trace!("called vkCmdTraceRaysIndirect2KHR({command_buffer:?}, {indirect_device_address:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceAccelerationStructureCompatibilityKHR.html>"]
 fn vk_get_device_acceleration_structure_compatibility_khr(mut packet: Packet) {
-    trace!("called vkGetDeviceAccelerationStructureCompatibilityKHR");
+    let device: vk::Device = packet.read();
+    let p_version_info: *const vk::AccelerationStructureVersionInfoKHR = packet.read();
+    let p_compatibility: *mut vk::AccelerationStructureCompatibilityKHR = packet.read();
+    trace!("called vkGetDeviceAccelerationStructureCompatibilityKHR({device:?}, {p_version_info:?}, {p_compatibility:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRayTracingShaderGroupStackSizeKHR.html>"]
 fn vk_get_ray_tracing_shader_group_stack_size_khr(mut packet: Packet) {
-    trace!("called vkGetRayTracingShaderGroupStackSizeKHR");
+    let device: vk::Device = packet.read();
+    let pipeline: vk::Pipeline = packet.read();
+    let group: u32 = packet.read();
+    let group_shader: vk::ShaderGroupShaderKHR = packet.read();
+    trace!("called vkGetRayTracingShaderGroupStackSizeKHR({device:?}, {pipeline:?}, {group:?}, {group_shader:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRayTracingPipelineStackSizeKHR.html>"]
 fn vk_cmd_set_ray_tracing_pipeline_stack_size_khr(mut packet: Packet) {
-    trace!("called vkCmdSetRayTracingPipelineStackSizeKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let pipeline_stack_size: u32 = packet.read();
+    trace!("called vkCmdSetRayTracingPipelineStackSizeKHR({command_buffer:?}, {pipeline_stack_size:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageViewHandleNVX.html>"]
 fn vk_get_image_view_handle_nvx(mut packet: Packet) {
-    trace!("called vkGetImageViewHandleNVX");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::ImageViewHandleInfoNVX = packet.read();
+    trace!("called vkGetImageViewHandleNVX({device:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageViewAddressNVX.html>"]
 fn vk_get_image_view_address_nvx(mut packet: Packet) {
-    trace!("called vkGetImageViewAddressNVX");
+    let device: vk::Device = packet.read();
+    let image_view: vk::ImageView = packet.read();
+    let p_properties: *mut vk::ImageViewAddressPropertiesNVX = packet.read();
+    trace!("called vkGetImageViewAddressNVX({device:?}, {image_view:?}, {p_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModes2EXT.html>"]
 fn vk_get_physical_device_surface_present_modes2_ext(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceSurfacePresentModes2EXT");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR = packet.read();
+    let p_present_mode_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceSurfacePresentModes2EXT({physical_device:?}, {p_surface_info:?}, {p_present_mode_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupSurfacePresentModes2EXT.html>"]
 fn vk_get_device_group_surface_present_modes2_ext(mut packet: Packet) {
-    trace!("called vkGetDeviceGroupSurfacePresentModes2EXT");
+    let device: vk::Device = packet.read();
+    let p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR = packet.read();
+    let p_modes: *mut vk::DeviceGroupPresentModeFlagsKHR = packet.read();
+    trace!("called vkGetDeviceGroupSurfacePresentModes2EXT({device:?}, {p_surface_info:?}, {p_modes:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireFullScreenExclusiveModeEXT.html>"]
 fn vk_acquire_full_screen_exclusive_mode_ext(mut packet: Packet) {
-    trace!("called vkAcquireFullScreenExclusiveModeEXT");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    trace!("called vkAcquireFullScreenExclusiveModeEXT({device:?}, {swapchain:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseFullScreenExclusiveModeEXT.html>"]
 fn vk_release_full_screen_exclusive_mode_ext(mut packet: Packet) {
-    trace!("called vkReleaseFullScreenExclusiveModeEXT");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    trace!("called vkReleaseFullScreenExclusiveModeEXT({device:?}, {swapchain:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html>"]
 fn vk_enumerate_physical_device_queue_family_performance_query_counters_khr(mut packet: Packet) {
-    trace!("called vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let queue_family_index: u32 = packet.read();
+    let p_counter_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR({physical_device:?}, {queue_family_index:?}, {p_counter_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html>"]
 fn vk_get_physical_device_queue_family_performance_query_passes_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_performance_query_create_info: *const vk::QueryPoolPerformanceCreateInfoKHR =
+        packet.read();
+    let p_num_passes: *mut u32 = packet.read();
+    trace!("called vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR({physical_device:?}, {p_performance_query_create_info:?}, {p_num_passes:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireProfilingLockKHR.html>"]
 fn vk_acquire_profiling_lock_khr(mut packet: Packet) {
-    trace!("called vkAcquireProfilingLockKHR");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::AcquireProfilingLockInfoKHR = packet.read();
+    trace!("called vkAcquireProfilingLockKHR({device:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseProfilingLockKHR.html>"]
 fn vk_release_profiling_lock_khr(mut packet: Packet) {
-    trace!("called vkReleaseProfilingLockKHR");
+    let device: vk::Device = packet.read();
+    trace!("called vkReleaseProfilingLockKHR({device:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html>"]
 fn vk_get_image_drm_format_modifier_properties_ext(mut packet: Packet) {
-    trace!("called vkGetImageDrmFormatModifierPropertiesEXT");
+    let device: vk::Device = packet.read();
+    let image: vk::Image = packet.read();
+    let p_properties: *mut vk::ImageDrmFormatModifierPropertiesEXT = packet.read();
+    trace!(
+        "called vkGetImageDrmFormatModifierPropertiesEXT({device:?}, {image:?}, {p_properties:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferOpaqueCaptureAddress.html>"]
 fn vk_get_buffer_opaque_capture_address(mut packet: Packet) {
-    trace!("called vkGetBufferOpaqueCaptureAddress");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::BufferDeviceAddressInfo = packet.read();
+    trace!("called vkGetBufferOpaqueCaptureAddress({device:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferDeviceAddress.html>"]
 fn vk_get_buffer_device_address(mut packet: Packet) {
-    trace!("called vkGetBufferDeviceAddress");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::BufferDeviceAddressInfo = packet.read();
+    trace!("called vkGetBufferDeviceAddress({device:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateHeadlessSurfaceEXT.html>"]
 fn vk_create_headless_surface_ext(mut packet: Packet) {
-    trace!("called vkCreateHeadlessSurfaceEXT");
+    let instance: vk::Instance = packet.read();
+    let p_create_info: *const vk::HeadlessSurfaceCreateInfoEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    trace!("called vkCreateHeadlessSurfaceEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html>"]
 fn vk_get_physical_device_supported_framebuffer_mixed_samples_combinations_nv(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_combination_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV({physical_device:?}, {p_combination_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkInitializePerformanceApiINTEL.html>"]
 fn vk_initialize_performance_api_intel(mut packet: Packet) {
-    trace!("called vkInitializePerformanceApiINTEL");
+    let device: vk::Device = packet.read();
+    let p_initialize_info: *const vk::InitializePerformanceApiInfoINTEL = packet.read();
+    trace!("called vkInitializePerformanceApiINTEL({device:?}, {p_initialize_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUninitializePerformanceApiINTEL.html>"]
 fn vk_uninitialize_performance_api_intel(mut packet: Packet) {
-    trace!("called vkUninitializePerformanceApiINTEL");
+    let device: vk::Device = packet.read();
+    trace!("called vkUninitializePerformanceApiINTEL({device:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPerformanceMarkerINTEL.html>"]
 fn vk_cmd_set_performance_marker_intel(mut packet: Packet) {
-    trace!("called vkCmdSetPerformanceMarkerINTEL");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_marker_info: *const vk::PerformanceMarkerInfoINTEL = packet.read();
+    trace!("called vkCmdSetPerformanceMarkerINTEL({command_buffer:?}, {p_marker_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPerformanceStreamMarkerINTEL.html>"]
 fn vk_cmd_set_performance_stream_marker_intel(mut packet: Packet) {
-    trace!("called vkCmdSetPerformanceStreamMarkerINTEL");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_marker_info: *const vk::PerformanceStreamMarkerInfoINTEL = packet.read();
+    trace!("called vkCmdSetPerformanceStreamMarkerINTEL({command_buffer:?}, {p_marker_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPerformanceOverrideINTEL.html>"]
 fn vk_cmd_set_performance_override_intel(mut packet: Packet) {
-    trace!("called vkCmdSetPerformanceOverrideINTEL");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_override_info: *const vk::PerformanceOverrideInfoINTEL = packet.read();
+    trace!("called vkCmdSetPerformanceOverrideINTEL({command_buffer:?}, {p_override_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquirePerformanceConfigurationINTEL.html>"]
 fn vk_acquire_performance_configuration_intel(mut packet: Packet) {
-    trace!("called vkAcquirePerformanceConfigurationINTEL");
+    let device: vk::Device = packet.read();
+    let p_acquire_info: *const vk::PerformanceConfigurationAcquireInfoINTEL = packet.read();
+    let p_configuration: *mut vk::PerformanceConfigurationINTEL = packet.read();
+    trace!("called vkAcquirePerformanceConfigurationINTEL({device:?}, {p_acquire_info:?}, {p_configuration:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleasePerformanceConfigurationINTEL.html>"]
 fn vk_release_performance_configuration_intel(mut packet: Packet) {
-    trace!("called vkReleasePerformanceConfigurationINTEL");
+    let device: vk::Device = packet.read();
+    let configuration: vk::PerformanceConfigurationINTEL = packet.read();
+    trace!("called vkReleasePerformanceConfigurationINTEL({device:?}, {configuration:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSetPerformanceConfigurationINTEL.html>"]
 fn vk_queue_set_performance_configuration_intel(mut packet: Packet) {
-    trace!("called vkQueueSetPerformanceConfigurationINTEL");
+    let queue: vk::Queue = packet.read();
+    let configuration: vk::PerformanceConfigurationINTEL = packet.read();
+    trace!("called vkQueueSetPerformanceConfigurationINTEL({queue:?}, {configuration:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPerformanceParameterINTEL.html>"]
 fn vk_get_performance_parameter_intel(mut packet: Packet) {
-    trace!("called vkGetPerformanceParameterINTEL");
+    let device: vk::Device = packet.read();
+    let parameter: vk::PerformanceParameterTypeINTEL = packet.read();
+    let p_value: *mut vk::PerformanceValueINTEL = packet.read();
+    trace!("called vkGetPerformanceParameterINTEL({device:?}, {parameter:?}, {p_value:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMemoryOpaqueCaptureAddress.html>"]
 fn vk_get_device_memory_opaque_capture_address(mut packet: Packet) {
-    trace!("called vkGetDeviceMemoryOpaqueCaptureAddress");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::DeviceMemoryOpaqueCaptureAddressInfo = packet.read();
+    trace!("called vkGetDeviceMemoryOpaqueCaptureAddress({device:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineExecutablePropertiesKHR.html>"]
 fn vk_get_pipeline_executable_properties_khr(mut packet: Packet) {
-    trace!("called vkGetPipelineExecutablePropertiesKHR");
+    let device: vk::Device = packet.read();
+    let p_pipeline_info: *const vk::PipelineInfoKHR = packet.read();
+    let p_executable_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPipelineExecutablePropertiesKHR({device:?}, {p_pipeline_info:?}, {p_executable_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineExecutableStatisticsKHR.html>"]
 fn vk_get_pipeline_executable_statistics_khr(mut packet: Packet) {
-    trace!("called vkGetPipelineExecutableStatisticsKHR");
+    let device: vk::Device = packet.read();
+    let p_executable_info: *const vk::PipelineExecutableInfoKHR = packet.read();
+    let p_statistic_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPipelineExecutableStatisticsKHR({device:?}, {p_executable_info:?}, {p_statistic_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineExecutableInternalRepresentationsKHR.html>"]
 fn vk_get_pipeline_executable_internal_representations_khr(mut packet: Packet) {
-    trace!("called vkGetPipelineExecutableInternalRepresentationsKHR");
+    let device: vk::Device = packet.read();
+    let p_executable_info: *const vk::PipelineExecutableInfoKHR = packet.read();
+    let p_internal_representation_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPipelineExecutableInternalRepresentationsKHR({device:?}, {p_executable_info:?}, {p_internal_representation_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineStippleKHR.html>"]
 fn vk_cmd_set_line_stipple_khr(mut packet: Packet) {
-    trace!("called vkCmdSetLineStippleKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let line_stipple_factor: u32 = packet.read();
+    let line_stipple_pattern: u16 = packet.read();
+    trace!("called vkCmdSetLineStippleKHR({command_buffer:?}, {line_stipple_factor:?}, {line_stipple_pattern:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceToolProperties.html>"]
 fn vk_get_physical_device_tool_properties(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceToolProperties");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_tool_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceToolProperties({physical_device:?}, {p_tool_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateAccelerationStructureKHR.html>"]
 fn vk_create_acceleration_structure_khr(mut packet: Packet) {
-    trace!("called vkCreateAccelerationStructureKHR");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::AccelerationStructureCreateInfoKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_acceleration_structure: *mut vk::AccelerationStructureKHR = packet.read();
+    trace!("called vkCreateAccelerationStructureKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_acceleration_structure:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBuildAccelerationStructuresKHR.html>"]
 fn vk_cmd_build_acceleration_structures_khr(mut packet: Packet) {
-    trace!("called vkCmdBuildAccelerationStructuresKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let info_count: u32 = packet.read();
+    trace!("called vkCmdBuildAccelerationStructuresKHR({command_buffer:?}, {info_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBuildAccelerationStructuresIndirectKHR.html>"]
 fn vk_cmd_build_acceleration_structures_indirect_khr(mut packet: Packet) {
-    trace!("called vkCmdBuildAccelerationStructuresIndirectKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let info_count: u32 = packet.read();
+    trace!(
+        "called vkCmdBuildAccelerationStructuresIndirectKHR({command_buffer:?}, {info_count:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBuildAccelerationStructuresKHR.html>"]
 fn vk_build_acceleration_structures_khr(mut packet: Packet) {
-    trace!("called vkBuildAccelerationStructuresKHR");
+    let device: vk::Device = packet.read();
+    let deferred_operation: vk::DeferredOperationKHR = packet.read();
+    let info_count: u32 = packet.read();
+    trace!("called vkBuildAccelerationStructuresKHR({device:?}, {deferred_operation:?}, {info_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureDeviceAddressKHR.html>"]
 fn vk_get_acceleration_structure_device_address_khr(mut packet: Packet) {
-    trace!("called vkGetAccelerationStructureDeviceAddressKHR");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::AccelerationStructureDeviceAddressInfoKHR = packet.read();
+    trace!("called vkGetAccelerationStructureDeviceAddressKHR({device:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDeferredOperationKHR.html>"]
 fn vk_create_deferred_operation_khr(mut packet: Packet) {
-    trace!("called vkCreateDeferredOperationKHR");
+    let device: vk::Device = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_deferred_operation: *mut vk::DeferredOperationKHR = packet.read();
+    trace!("called vkCreateDeferredOperationKHR({device:?}, {p_allocator:?}, {p_deferred_operation:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDeferredOperationKHR.html>"]
 fn vk_destroy_deferred_operation_khr(mut packet: Packet) {
-    trace!("called vkDestroyDeferredOperationKHR");
+    let device: vk::Device = packet.read();
+    let operation: vk::DeferredOperationKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyDeferredOperationKHR({device:?}, {operation:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeferredOperationMaxConcurrencyKHR.html>"]
 fn vk_get_deferred_operation_max_concurrency_khr(mut packet: Packet) {
-    trace!("called vkGetDeferredOperationMaxConcurrencyKHR");
+    let device: vk::Device = packet.read();
+    let operation: vk::DeferredOperationKHR = packet.read();
+    trace!("called vkGetDeferredOperationMaxConcurrencyKHR({device:?}, {operation:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeferredOperationResultKHR.html>"]
 fn vk_get_deferred_operation_result_khr(mut packet: Packet) {
-    trace!("called vkGetDeferredOperationResultKHR");
+    let device: vk::Device = packet.read();
+    let operation: vk::DeferredOperationKHR = packet.read();
+    trace!("called vkGetDeferredOperationResultKHR({device:?}, {operation:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDeferredOperationJoinKHR.html>"]
 fn vk_deferred_operation_join_khr(mut packet: Packet) {
-    trace!("called vkDeferredOperationJoinKHR");
+    let device: vk::Device = packet.read();
+    let operation: vk::DeferredOperationKHR = packet.read();
+    trace!("called vkDeferredOperationJoinKHR({device:?}, {operation:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineIndirectMemoryRequirementsNV.html>"]
 fn vk_get_pipeline_indirect_memory_requirements_nv(mut packet: Packet) {
-    trace!("called vkGetPipelineIndirectMemoryRequirementsNV");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::ComputePipelineCreateInfo = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read();
+    trace!("called vkGetPipelineIndirectMemoryRequirementsNV({device:?}, {p_create_info:?}, {p_memory_requirements:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineIndirectDeviceAddressNV.html>"]
 fn vk_get_pipeline_indirect_device_address_nv(mut packet: Packet) {
-    trace!("called vkGetPipelineIndirectDeviceAddressNV");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::PipelineIndirectDeviceAddressInfoNV = packet.read();
+    trace!("called vkGetPipelineIndirectDeviceAddressNV({device:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCullMode.html>"]
 fn vk_cmd_set_cull_mode(mut packet: Packet) {
-    trace!("called vkCmdSetCullMode");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let cull_mode: vk::CullModeFlags = packet.read();
+    trace!("called vkCmdSetCullMode({command_buffer:?}, {cull_mode:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetFrontFace.html>"]
 fn vk_cmd_set_front_face(mut packet: Packet) {
-    trace!("called vkCmdSetFrontFace");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let front_face: vk::FrontFace = packet.read();
+    trace!("called vkCmdSetFrontFace({command_buffer:?}, {front_face:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPrimitiveTopology.html>"]
 fn vk_cmd_set_primitive_topology(mut packet: Packet) {
-    trace!("called vkCmdSetPrimitiveTopology");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let primitive_topology: vk::PrimitiveTopology = packet.read();
+    trace!("called vkCmdSetPrimitiveTopology({command_buffer:?}, {primitive_topology:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWithCount.html>"]
 fn vk_cmd_set_viewport_with_count(mut packet: Packet) {
-    trace!("called vkCmdSetViewportWithCount");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let viewport_count: u32 = packet.read();
+    trace!("called vkCmdSetViewportWithCount({command_buffer:?}, {viewport_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetScissorWithCount.html>"]
 fn vk_cmd_set_scissor_with_count(mut packet: Packet) {
-    trace!("called vkCmdSetScissorWithCount");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let scissor_count: u32 = packet.read();
+    trace!("called vkCmdSetScissorWithCount({command_buffer:?}, {scissor_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindIndexBuffer2KHR.html>"]
 fn vk_cmd_bind_index_buffer2_khr(mut packet: Packet) {
-    trace!("called vkCmdBindIndexBuffer2KHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let buffer: vk::Buffer = packet.read();
+    let offset: vk::DeviceSize = packet.read();
+    let size: vk::DeviceSize = packet.read();
+    let index_type: vk::IndexType = packet.read();
+    trace!("called vkCmdBindIndexBuffer2KHR({command_buffer:?}, {buffer:?}, {offset:?}, {size:?}, {index_type:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindVertexBuffers2.html>"]
 fn vk_cmd_bind_vertex_buffers2(mut packet: Packet) {
-    trace!("called vkCmdBindVertexBuffers2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_binding: u32 = packet.read();
+    let binding_count: u32 = packet.read();
+    trace!(
+        "called vkCmdBindVertexBuffers2({command_buffer:?}, {first_binding:?}, {binding_count:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthTestEnable.html>"]
 fn vk_cmd_set_depth_test_enable(mut packet: Packet) {
-    trace!("called vkCmdSetDepthTestEnable");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let depth_test_enable: vk::Bool32 = packet.read();
+    trace!("called vkCmdSetDepthTestEnable({command_buffer:?}, {depth_test_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthWriteEnable.html>"]
 fn vk_cmd_set_depth_write_enable(mut packet: Packet) {
-    trace!("called vkCmdSetDepthWriteEnable");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let depth_write_enable: vk::Bool32 = packet.read();
+    trace!("called vkCmdSetDepthWriteEnable({command_buffer:?}, {depth_write_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthCompareOp.html>"]
 fn vk_cmd_set_depth_compare_op(mut packet: Packet) {
-    trace!("called vkCmdSetDepthCompareOp");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let depth_compare_op: vk::CompareOp = packet.read();
+    trace!("called vkCmdSetDepthCompareOp({command_buffer:?}, {depth_compare_op:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBoundsTestEnable.html>"]
 fn vk_cmd_set_depth_bounds_test_enable(mut packet: Packet) {
-    trace!("called vkCmdSetDepthBoundsTestEnable");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let depth_bounds_test_enable: vk::Bool32 = packet.read();
+    trace!(
+        "called vkCmdSetDepthBoundsTestEnable({command_buffer:?}, {depth_bounds_test_enable:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilTestEnable.html>"]
 fn vk_cmd_set_stencil_test_enable(mut packet: Packet) {
-    trace!("called vkCmdSetStencilTestEnable");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let stencil_test_enable: vk::Bool32 = packet.read();
+    trace!("called vkCmdSetStencilTestEnable({command_buffer:?}, {stencil_test_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilOp.html>"]
 fn vk_cmd_set_stencil_op(mut packet: Packet) {
-    trace!("called vkCmdSetStencilOp");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let face_mask: vk::StencilFaceFlags = packet.read();
+    let fail_op: vk::StencilOp = packet.read();
+    let pass_op: vk::StencilOp = packet.read();
+    let depth_fail_op: vk::StencilOp = packet.read();
+    let compare_op: vk::CompareOp = packet.read();
+    trace!("called vkCmdSetStencilOp({command_buffer:?}, {face_mask:?}, {fail_op:?}, {pass_op:?}, {depth_fail_op:?}, {compare_op:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPatchControlPointsEXT.html>"]
 fn vk_cmd_set_patch_control_points_ext(mut packet: Packet) {
-    trace!("called vkCmdSetPatchControlPointsEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let patch_control_points: u32 = packet.read();
+    trace!("called vkCmdSetPatchControlPointsEXT({command_buffer:?}, {patch_control_points:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizerDiscardEnable.html>"]
 fn vk_cmd_set_rasterizer_discard_enable(mut packet: Packet) {
-    trace!("called vkCmdSetRasterizerDiscardEnable");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let rasterizer_discard_enable: vk::Bool32 = packet.read();
+    trace!(
+        "called vkCmdSetRasterizerDiscardEnable({command_buffer:?}, {rasterizer_discard_enable:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBiasEnable.html>"]
 fn vk_cmd_set_depth_bias_enable(mut packet: Packet) {
-    trace!("called vkCmdSetDepthBiasEnable");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let depth_bias_enable: vk::Bool32 = packet.read();
+    trace!("called vkCmdSetDepthBiasEnable({command_buffer:?}, {depth_bias_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLogicOpEXT.html>"]
 fn vk_cmd_set_logic_op_ext(mut packet: Packet) {
-    trace!("called vkCmdSetLogicOpEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let logic_op: vk::LogicOp = packet.read();
+    trace!("called vkCmdSetLogicOpEXT({command_buffer:?}, {logic_op:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPrimitiveRestartEnable.html>"]
 fn vk_cmd_set_primitive_restart_enable(mut packet: Packet) {
-    trace!("called vkCmdSetPrimitiveRestartEnable");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let primitive_restart_enable: vk::Bool32 = packet.read();
+    trace!(
+        "called vkCmdSetPrimitiveRestartEnable({command_buffer:?}, {primitive_restart_enable:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetTessellationDomainOriginEXT.html>"]
 fn vk_cmd_set_tessellation_domain_origin_ext(mut packet: Packet) {
-    trace!("called vkCmdSetTessellationDomainOriginEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let domain_origin: vk::TessellationDomainOrigin = packet.read();
+    trace!("called vkCmdSetTessellationDomainOriginEXT({command_buffer:?}, {domain_origin:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClampEnableEXT.html>"]
 fn vk_cmd_set_depth_clamp_enable_ext(mut packet: Packet) {
-    trace!("called vkCmdSetDepthClampEnableEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let depth_clamp_enable: vk::Bool32 = packet.read();
+    trace!("called vkCmdSetDepthClampEnableEXT({command_buffer:?}, {depth_clamp_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPolygonModeEXT.html>"]
 fn vk_cmd_set_polygon_mode_ext(mut packet: Packet) {
-    trace!("called vkCmdSetPolygonModeEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let polygon_mode: vk::PolygonMode = packet.read();
+    trace!("called vkCmdSetPolygonModeEXT({command_buffer:?}, {polygon_mode:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizationSamplesEXT.html>"]
 fn vk_cmd_set_rasterization_samples_ext(mut packet: Packet) {
-    trace!("called vkCmdSetRasterizationSamplesEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let rasterization_samples: vk::SampleCountFlags = packet.read();
+    trace!("called vkCmdSetRasterizationSamplesEXT({command_buffer:?}, {rasterization_samples:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleMaskEXT.html>"]
 fn vk_cmd_set_sample_mask_ext(mut packet: Packet) {
-    trace!("called vkCmdSetSampleMaskEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let samples: vk::SampleCountFlags = packet.read();
+    let p_sample_mask: *const vk::SampleMask = packet.read();
+    trace!("called vkCmdSetSampleMaskEXT({command_buffer:?}, {samples:?}, {p_sample_mask:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetAlphaToCoverageEnableEXT.html>"]
 fn vk_cmd_set_alpha_to_coverage_enable_ext(mut packet: Packet) {
-    trace!("called vkCmdSetAlphaToCoverageEnableEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let alpha_to_coverage_enable: vk::Bool32 = packet.read();
+    trace!(
+        "called vkCmdSetAlphaToCoverageEnableEXT({command_buffer:?}, {alpha_to_coverage_enable:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetAlphaToOneEnableEXT.html>"]
 fn vk_cmd_set_alpha_to_one_enable_ext(mut packet: Packet) {
-    trace!("called vkCmdSetAlphaToOneEnableEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let alpha_to_one_enable: vk::Bool32 = packet.read();
+    trace!("called vkCmdSetAlphaToOneEnableEXT({command_buffer:?}, {alpha_to_one_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLogicOpEnableEXT.html>"]
 fn vk_cmd_set_logic_op_enable_ext(mut packet: Packet) {
-    trace!("called vkCmdSetLogicOpEnableEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let logic_op_enable: vk::Bool32 = packet.read();
+    trace!("called vkCmdSetLogicOpEnableEXT({command_buffer:?}, {logic_op_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendEnableEXT.html>"]
 fn vk_cmd_set_color_blend_enable_ext(mut packet: Packet) {
-    trace!("called vkCmdSetColorBlendEnableEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_attachment: u32 = packet.read();
+    let attachment_count: u32 = packet.read();
+    trace!("called vkCmdSetColorBlendEnableEXT({command_buffer:?}, {first_attachment:?}, {attachment_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendEquationEXT.html>"]
 fn vk_cmd_set_color_blend_equation_ext(mut packet: Packet) {
-    trace!("called vkCmdSetColorBlendEquationEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_attachment: u32 = packet.read();
+    let attachment_count: u32 = packet.read();
+    trace!("called vkCmdSetColorBlendEquationEXT({command_buffer:?}, {first_attachment:?}, {attachment_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorWriteMaskEXT.html>"]
 fn vk_cmd_set_color_write_mask_ext(mut packet: Packet) {
-    trace!("called vkCmdSetColorWriteMaskEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_attachment: u32 = packet.read();
+    let attachment_count: u32 = packet.read();
+    trace!("called vkCmdSetColorWriteMaskEXT({command_buffer:?}, {first_attachment:?}, {attachment_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizationStreamEXT.html>"]
 fn vk_cmd_set_rasterization_stream_ext(mut packet: Packet) {
-    trace!("called vkCmdSetRasterizationStreamEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let rasterization_stream: u32 = packet.read();
+    trace!("called vkCmdSetRasterizationStreamEXT({command_buffer:?}, {rasterization_stream:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetConservativeRasterizationModeEXT.html>"]
 fn vk_cmd_set_conservative_rasterization_mode_ext(mut packet: Packet) {
-    trace!("called vkCmdSetConservativeRasterizationModeEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let conservative_rasterization_mode: vk::ConservativeRasterizationModeEXT = packet.read();
+    trace!("called vkCmdSetConservativeRasterizationModeEXT({command_buffer:?}, {conservative_rasterization_mode:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetExtraPrimitiveOverestimationSizeEXT.html>"]
 fn vk_cmd_set_extra_primitive_overestimation_size_ext(mut packet: Packet) {
-    trace!("called vkCmdSetExtraPrimitiveOverestimationSizeEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let extra_primitive_overestimation_size: f32 = packet.read();
+    trace!("called vkCmdSetExtraPrimitiveOverestimationSizeEXT({command_buffer:?}, {extra_primitive_overestimation_size:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClipEnableEXT.html>"]
 fn vk_cmd_set_depth_clip_enable_ext(mut packet: Packet) {
-    trace!("called vkCmdSetDepthClipEnableEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let depth_clip_enable: vk::Bool32 = packet.read();
+    trace!("called vkCmdSetDepthClipEnableEXT({command_buffer:?}, {depth_clip_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleLocationsEnableEXT.html>"]
 fn vk_cmd_set_sample_locations_enable_ext(mut packet: Packet) {
-    trace!("called vkCmdSetSampleLocationsEnableEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let sample_locations_enable: vk::Bool32 = packet.read();
+    trace!(
+        "called vkCmdSetSampleLocationsEnableEXT({command_buffer:?}, {sample_locations_enable:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendAdvancedEXT.html>"]
 fn vk_cmd_set_color_blend_advanced_ext(mut packet: Packet) {
-    trace!("called vkCmdSetColorBlendAdvancedEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_attachment: u32 = packet.read();
+    let attachment_count: u32 = packet.read();
+    trace!("called vkCmdSetColorBlendAdvancedEXT({command_buffer:?}, {first_attachment:?}, {attachment_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetProvokingVertexModeEXT.html>"]
 fn vk_cmd_set_provoking_vertex_mode_ext(mut packet: Packet) {
-    trace!("called vkCmdSetProvokingVertexModeEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let provoking_vertex_mode: vk::ProvokingVertexModeEXT = packet.read();
+    trace!("called vkCmdSetProvokingVertexModeEXT({command_buffer:?}, {provoking_vertex_mode:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineRasterizationModeEXT.html>"]
 fn vk_cmd_set_line_rasterization_mode_ext(mut packet: Packet) {
-    trace!("called vkCmdSetLineRasterizationModeEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let line_rasterization_mode: vk::LineRasterizationModeEXT = packet.read();
+    trace!(
+        "called vkCmdSetLineRasterizationModeEXT({command_buffer:?}, {line_rasterization_mode:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineStippleEnableEXT.html>"]
 fn vk_cmd_set_line_stipple_enable_ext(mut packet: Packet) {
-    trace!("called vkCmdSetLineStippleEnableEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let stippled_line_enable: vk::Bool32 = packet.read();
+    trace!("called vkCmdSetLineStippleEnableEXT({command_buffer:?}, {stippled_line_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClipNegativeOneToOneEXT.html>"]
 fn vk_cmd_set_depth_clip_negative_one_to_one_ext(mut packet: Packet) {
-    trace!("called vkCmdSetDepthClipNegativeOneToOneEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let negative_one_to_one: vk::Bool32 = packet.read();
+    trace!(
+        "called vkCmdSetDepthClipNegativeOneToOneEXT({command_buffer:?}, {negative_one_to_one:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWScalingEnableNV.html>"]
 fn vk_cmd_set_viewport_wscaling_enable_nv(mut packet: Packet) {
-    trace!("called vkCmdSetViewportWScalingEnableNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let viewport_wscaling_enable: vk::Bool32 = packet.read();
+    trace!(
+        "called vkCmdSetViewportWScalingEnableNV({command_buffer:?}, {viewport_wscaling_enable:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportSwizzleNV.html>"]
 fn vk_cmd_set_viewport_swizzle_nv(mut packet: Packet) {
-    trace!("called vkCmdSetViewportSwizzleNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let first_viewport: u32 = packet.read();
+    let viewport_count: u32 = packet.read();
+    trace!("called vkCmdSetViewportSwizzleNV({command_buffer:?}, {first_viewport:?}, {viewport_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageToColorEnableNV.html>"]
 fn vk_cmd_set_coverage_to_color_enable_nv(mut packet: Packet) {
-    trace!("called vkCmdSetCoverageToColorEnableNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let coverage_to_color_enable: vk::Bool32 = packet.read();
+    trace!(
+        "called vkCmdSetCoverageToColorEnableNV({command_buffer:?}, {coverage_to_color_enable:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageToColorLocationNV.html>"]
 fn vk_cmd_set_coverage_to_color_location_nv(mut packet: Packet) {
-    trace!("called vkCmdSetCoverageToColorLocationNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let coverage_to_color_location: u32 = packet.read();
+    trace!("called vkCmdSetCoverageToColorLocationNV({command_buffer:?}, {coverage_to_color_location:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageModulationModeNV.html>"]
 fn vk_cmd_set_coverage_modulation_mode_nv(mut packet: Packet) {
-    trace!("called vkCmdSetCoverageModulationModeNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let coverage_modulation_mode: vk::CoverageModulationModeNV = packet.read();
+    trace!(
+        "called vkCmdSetCoverageModulationModeNV({command_buffer:?}, {coverage_modulation_mode:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageModulationTableEnableNV.html>"]
 fn vk_cmd_set_coverage_modulation_table_enable_nv(mut packet: Packet) {
-    trace!("called vkCmdSetCoverageModulationTableEnableNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let coverage_modulation_table_enable: vk::Bool32 = packet.read();
+    trace!("called vkCmdSetCoverageModulationTableEnableNV({command_buffer:?}, {coverage_modulation_table_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageModulationTableNV.html>"]
 fn vk_cmd_set_coverage_modulation_table_nv(mut packet: Packet) {
-    trace!("called vkCmdSetCoverageModulationTableNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let coverage_modulation_table_count: u32 = packet.read();
+    trace!("called vkCmdSetCoverageModulationTableNV({command_buffer:?}, {coverage_modulation_table_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetShadingRateImageEnableNV.html>"]
 fn vk_cmd_set_shading_rate_image_enable_nv(mut packet: Packet) {
-    trace!("called vkCmdSetShadingRateImageEnableNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let shading_rate_image_enable: vk::Bool32 = packet.read();
+    trace!("called vkCmdSetShadingRateImageEnableNV({command_buffer:?}, {shading_rate_image_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageReductionModeNV.html>"]
 fn vk_cmd_set_coverage_reduction_mode_nv(mut packet: Packet) {
-    trace!("called vkCmdSetCoverageReductionModeNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let coverage_reduction_mode: vk::CoverageReductionModeNV = packet.read();
+    trace!(
+        "called vkCmdSetCoverageReductionModeNV({command_buffer:?}, {coverage_reduction_mode:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRepresentativeFragmentTestEnableNV.html>"]
 fn vk_cmd_set_representative_fragment_test_enable_nv(mut packet: Packet) {
-    trace!("called vkCmdSetRepresentativeFragmentTestEnableNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let representative_fragment_test_enable: vk::Bool32 = packet.read();
+    trace!("called vkCmdSetRepresentativeFragmentTestEnableNV({command_buffer:?}, {representative_fragment_test_enable:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePrivateDataSlot.html>"]
 fn vk_create_private_data_slot(mut packet: Packet) {
-    trace!("called vkCreatePrivateDataSlot");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::PrivateDataSlotCreateInfo = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_private_data_slot: *mut vk::PrivateDataSlot = packet.read();
+    trace!("called vkCreatePrivateDataSlot({device:?}, {p_create_info:?}, {p_allocator:?}, {p_private_data_slot:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPrivateDataSlot.html>"]
 fn vk_destroy_private_data_slot(mut packet: Packet) {
-    trace!("called vkDestroyPrivateDataSlot");
+    let device: vk::Device = packet.read();
+    let private_data_slot: vk::PrivateDataSlot = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyPrivateDataSlot({device:?}, {private_data_slot:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetPrivateData.html>"]
 fn vk_set_private_data(mut packet: Packet) {
-    trace!("called vkSetPrivateData");
+    let device: vk::Device = packet.read();
+    let object_type: vk::ObjectType = packet.read();
+    let object_handle: u64 = packet.read();
+    let private_data_slot: vk::PrivateDataSlot = packet.read();
+    let data: u64 = packet.read();
+    trace!("called vkSetPrivateData({device:?}, {object_type:?}, {object_handle:?}, {private_data_slot:?}, {data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPrivateData.html>"]
 fn vk_get_private_data(mut packet: Packet) {
-    trace!("called vkGetPrivateData");
+    let device: vk::Device = packet.read();
+    let object_type: vk::ObjectType = packet.read();
+    let object_handle: u64 = packet.read();
+    let private_data_slot: vk::PrivateDataSlot = packet.read();
+    let p_data: *mut u64 = packet.read();
+    trace!("called vkGetPrivateData({device:?}, {object_type:?}, {object_handle:?}, {private_data_slot:?}, {p_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBuffer2.html>"]
 fn vk_cmd_copy_buffer2(mut packet: Packet) {
-    trace!("called vkCmdCopyBuffer2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_copy_buffer_info: *const vk::CopyBufferInfo2 = packet.read();
+    trace!("called vkCmdCopyBuffer2({command_buffer:?}, {p_copy_buffer_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImage2.html>"]
 fn vk_cmd_copy_image2(mut packet: Packet) {
-    trace!("called vkCmdCopyImage2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_copy_image_info: *const vk::CopyImageInfo2 = packet.read();
+    trace!("called vkCmdCopyImage2({command_buffer:?}, {p_copy_image_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBlitImage2.html>"]
 fn vk_cmd_blit_image2(mut packet: Packet) {
-    trace!("called vkCmdBlitImage2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_blit_image_info: *const vk::BlitImageInfo2 = packet.read();
+    trace!("called vkCmdBlitImage2({command_buffer:?}, {p_blit_image_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBufferToImage2.html>"]
 fn vk_cmd_copy_buffer_to_image2(mut packet: Packet) {
-    trace!("called vkCmdCopyBufferToImage2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_copy_buffer_to_image_info: *const vk::CopyBufferToImageInfo2 = packet.read();
+    trace!("called vkCmdCopyBufferToImage2({command_buffer:?}, {p_copy_buffer_to_image_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImageToBuffer2.html>"]
 fn vk_cmd_copy_image_to_buffer2(mut packet: Packet) {
-    trace!("called vkCmdCopyImageToBuffer2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_copy_image_to_buffer_info: *const vk::CopyImageToBufferInfo2 = packet.read();
+    trace!("called vkCmdCopyImageToBuffer2({command_buffer:?}, {p_copy_image_to_buffer_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResolveImage2.html>"]
 fn vk_cmd_resolve_image2(mut packet: Packet) {
-    trace!("called vkCmdResolveImage2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_resolve_image_info: *const vk::ResolveImageInfo2 = packet.read();
+    trace!("called vkCmdResolveImage2({command_buffer:?}, {p_resolve_image_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetFragmentShadingRateKHR.html>"]
 fn vk_cmd_set_fragment_shading_rate_khr(mut packet: Packet) {
-    trace!("called vkCmdSetFragmentShadingRateKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_fragment_size: *const vk::Extent2D = packet.read();
+    let combiner_ops: vk::FragmentShadingRateCombinerOpKHR = packet.read();
+    trace!("called vkCmdSetFragmentShadingRateKHR({command_buffer:?}, {p_fragment_size:?}, {combiner_ops:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html>"]
 fn vk_get_physical_device_fragment_shading_rates_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceFragmentShadingRatesKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_fragment_shading_rate_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceFragmentShadingRatesKHR({physical_device:?}, {p_fragment_shading_rate_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetFragmentShadingRateEnumNV.html>"]
 fn vk_cmd_set_fragment_shading_rate_enum_nv(mut packet: Packet) {
-    trace!("called vkCmdSetFragmentShadingRateEnumNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let shading_rate: vk::FragmentShadingRateNV = packet.read();
+    let combiner_ops: vk::FragmentShadingRateCombinerOpKHR = packet.read();
+    trace!("called vkCmdSetFragmentShadingRateEnumNV({command_buffer:?}, {shading_rate:?}, {combiner_ops:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureBuildSizesKHR.html>"]
 fn vk_get_acceleration_structure_build_sizes_khr(mut packet: Packet) {
-    trace!("called vkGetAccelerationStructureBuildSizesKHR");
+    let device: vk::Device = packet.read();
+    let build_type: vk::AccelerationStructureBuildTypeKHR = packet.read();
+    let p_build_info: *const vk::AccelerationStructureBuildGeometryInfoKHR = packet.read();
+    let p_max_primitive_counts: *const u32 = packet.read();
+    let p_size_info: *mut vk::AccelerationStructureBuildSizesInfoKHR = packet.read();
+    trace!("called vkGetAccelerationStructureBuildSizesKHR({device:?}, {build_type:?}, {p_build_info:?}, {p_max_primitive_counts:?}, {p_size_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetVertexInputEXT.html>"]
 fn vk_cmd_set_vertex_input_ext(mut packet: Packet) {
-    trace!("called vkCmdSetVertexInputEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let vertex_binding_description_count: u32 = packet.read();
+    trace!(
+        "called vkCmdSetVertexInputEXT({command_buffer:?}, {vertex_binding_description_count:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorWriteEnableEXT.html>"]
 fn vk_cmd_set_color_write_enable_ext(mut packet: Packet) {
-    trace!("called vkCmdSetColorWriteEnableEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let attachment_count: u32 = packet.read();
+    trace!("called vkCmdSetColorWriteEnableEXT({command_buffer:?}, {attachment_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetEvent2.html>"]
 fn vk_cmd_set_event2(mut packet: Packet) {
-    trace!("called vkCmdSetEvent2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let event: vk::Event = packet.read();
+    let p_dependency_info: *const vk::DependencyInfo = packet.read();
+    trace!("called vkCmdSetEvent2({command_buffer:?}, {event:?}, {p_dependency_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetEvent2.html>"]
 fn vk_cmd_reset_event2(mut packet: Packet) {
-    trace!("called vkCmdResetEvent2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let event: vk::Event = packet.read();
+    let stage_mask: vk::PipelineStageFlags2 = packet.read();
+    trace!("called vkCmdResetEvent2({command_buffer:?}, {event:?}, {stage_mask:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents2.html>"]
 fn vk_cmd_wait_events2(mut packet: Packet) {
-    trace!("called vkCmdWaitEvents2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let event_count: u32 = packet.read();
+    trace!("called vkCmdWaitEvents2({command_buffer:?}, {event_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPipelineBarrier2.html>"]
 fn vk_cmd_pipeline_barrier2(mut packet: Packet) {
-    trace!("called vkCmdPipelineBarrier2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_dependency_info: *const vk::DependencyInfo = packet.read();
+    trace!("called vkCmdPipelineBarrier2({command_buffer:?}, {p_dependency_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSubmit2.html>"]
 fn vk_queue_submit2(mut packet: Packet) {
-    trace!("called vkQueueSubmit2");
+    let queue: vk::Queue = packet.read();
+    let submit_count: u32 = packet.read();
+    trace!("called vkQueueSubmit2({queue:?}, {submit_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteTimestamp2.html>"]
 fn vk_cmd_write_timestamp2(mut packet: Packet) {
-    trace!("called vkCmdWriteTimestamp2");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let stage: vk::PipelineStageFlags2 = packet.read();
+    let query_pool: vk::QueryPool = packet.read();
+    let query: u32 = packet.read();
+    trace!("called vkCmdWriteTimestamp2({command_buffer:?}, {stage:?}, {query_pool:?}, {query:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteBufferMarker2AMD.html>"]
 fn vk_cmd_write_buffer_marker2_amd(mut packet: Packet) {
-    trace!("called vkCmdWriteBufferMarker2AMD");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let stage: vk::PipelineStageFlags2 = packet.read();
+    let dst_buffer: vk::Buffer = packet.read();
+    let dst_offset: vk::DeviceSize = packet.read();
+    let marker: u32 = packet.read();
+    trace!("called vkCmdWriteBufferMarker2AMD({command_buffer:?}, {stage:?}, {dst_buffer:?}, {dst_offset:?}, {marker:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetQueueCheckpointData2NV.html>"]
 fn vk_get_queue_checkpoint_data2_nv(mut packet: Packet) {
-    trace!("called vkGetQueueCheckpointData2NV");
+    let queue: vk::Queue = packet.read();
+    let p_checkpoint_data_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetQueueCheckpointData2NV({queue:?}, {p_checkpoint_data_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMemoryToImageEXT.html>"]
 fn vk_copy_memory_to_image_ext(mut packet: Packet) {
-    trace!("called vkCopyMemoryToImageEXT");
+    let device: vk::Device = packet.read();
+    let p_copy_memory_to_image_info: *const vk::CopyMemoryToImageInfoEXT = packet.read();
+    trace!("called vkCopyMemoryToImageEXT({device:?}, {p_copy_memory_to_image_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyImageToMemoryEXT.html>"]
 fn vk_copy_image_to_memory_ext(mut packet: Packet) {
-    trace!("called vkCopyImageToMemoryEXT");
+    let device: vk::Device = packet.read();
+    let p_copy_image_to_memory_info: *const vk::CopyImageToMemoryInfoEXT = packet.read();
+    trace!("called vkCopyImageToMemoryEXT({device:?}, {p_copy_image_to_memory_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyImageToImageEXT.html>"]
 fn vk_copy_image_to_image_ext(mut packet: Packet) {
-    trace!("called vkCopyImageToImageEXT");
+    let device: vk::Device = packet.read();
+    let p_copy_image_to_image_info: *const vk::CopyImageToImageInfoEXT = packet.read();
+    trace!("called vkCopyImageToImageEXT({device:?}, {p_copy_image_to_image_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkTransitionImageLayoutEXT.html>"]
 fn vk_transition_image_layout_ext(mut packet: Packet) {
-    trace!("called vkTransitionImageLayoutEXT");
+    let device: vk::Device = packet.read();
+    let transition_count: u32 = packet.read();
+    trace!("called vkTransitionImageLayoutEXT({device:?}, {transition_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceVideoCapabilitiesKHR.html>"]
 fn vk_get_physical_device_video_capabilities_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceVideoCapabilitiesKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_video_profile: *const vk::VideoProfileInfoKHR = packet.read();
+    let p_capabilities: *mut vk::VideoCapabilitiesKHR = packet.read();
+    trace!("called vkGetPhysicalDeviceVideoCapabilitiesKHR({physical_device:?}, {p_video_profile:?}, {p_capabilities:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceVideoFormatPropertiesKHR.html>"]
 fn vk_get_physical_device_video_format_properties_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceVideoFormatPropertiesKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_video_format_info: *const vk::PhysicalDeviceVideoFormatInfoKHR = packet.read();
+    let p_video_format_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceVideoFormatPropertiesKHR({physical_device:?}, {p_video_format_info:?}, {p_video_format_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR.html>"]
 fn vk_get_physical_device_video_encode_quality_level_properties_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_quality_level_info: *const vk::PhysicalDeviceVideoEncodeQualityLevelInfoKHR =
+        packet.read();
+    let p_quality_level_properties: *mut vk::VideoEncodeQualityLevelPropertiesKHR = packet.read();
+    trace!("called vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR({physical_device:?}, {p_quality_level_info:?}, {p_quality_level_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateVideoSessionKHR.html>"]
 fn vk_create_video_session_khr(mut packet: Packet) {
-    trace!("called vkCreateVideoSessionKHR");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::VideoSessionCreateInfoKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_video_session: *mut vk::VideoSessionKHR = packet.read();
+    trace!("called vkCreateVideoSessionKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_video_session:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyVideoSessionKHR.html>"]
 fn vk_destroy_video_session_khr(mut packet: Packet) {
-    trace!("called vkDestroyVideoSessionKHR");
+    let device: vk::Device = packet.read();
+    let video_session: vk::VideoSessionKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyVideoSessionKHR({device:?}, {video_session:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateVideoSessionParametersKHR.html>"]
 fn vk_create_video_session_parameters_khr(mut packet: Packet) {
-    trace!("called vkCreateVideoSessionParametersKHR");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::VideoSessionParametersCreateInfoKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_video_session_parameters: *mut vk::VideoSessionParametersKHR = packet.read();
+    trace!("called vkCreateVideoSessionParametersKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_video_session_parameters:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateVideoSessionParametersKHR.html>"]
 fn vk_update_video_session_parameters_khr(mut packet: Packet) {
-    trace!("called vkUpdateVideoSessionParametersKHR");
+    let device: vk::Device = packet.read();
+    let video_session_parameters: vk::VideoSessionParametersKHR = packet.read();
+    let p_update_info: *const vk::VideoSessionParametersUpdateInfoKHR = packet.read();
+    trace!("called vkUpdateVideoSessionParametersKHR({device:?}, {video_session_parameters:?}, {p_update_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetEncodedVideoSessionParametersKHR.html>"]
 fn vk_get_encoded_video_session_parameters_khr(mut packet: Packet) {
-    trace!("called vkGetEncodedVideoSessionParametersKHR");
+    let device: vk::Device = packet.read();
+    let p_video_session_parameters_info: *const vk::VideoEncodeSessionParametersGetInfoKHR =
+        packet.read();
+    let p_feedback_info: *mut vk::VideoEncodeSessionParametersFeedbackInfoKHR = packet.read();
+    let p_data_size: *mut isize = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read();
+    trace!("called vkGetEncodedVideoSessionParametersKHR({device:?}, {p_video_session_parameters_info:?}, {p_feedback_info:?}, {p_data_size:?}, {p_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyVideoSessionParametersKHR.html>"]
 fn vk_destroy_video_session_parameters_khr(mut packet: Packet) {
-    trace!("called vkDestroyVideoSessionParametersKHR");
+    let device: vk::Device = packet.read();
+    let video_session_parameters: vk::VideoSessionParametersKHR = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyVideoSessionParametersKHR({device:?}, {video_session_parameters:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetVideoSessionMemoryRequirementsKHR.html>"]
 fn vk_get_video_session_memory_requirements_khr(mut packet: Packet) {
-    trace!("called vkGetVideoSessionMemoryRequirementsKHR");
+    let device: vk::Device = packet.read();
+    let video_session: vk::VideoSessionKHR = packet.read();
+    let p_memory_requirements_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetVideoSessionMemoryRequirementsKHR({device:?}, {video_session:?}, {p_memory_requirements_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindVideoSessionMemoryKHR.html>"]
 fn vk_bind_video_session_memory_khr(mut packet: Packet) {
-    trace!("called vkBindVideoSessionMemoryKHR");
+    let device: vk::Device = packet.read();
+    let video_session: vk::VideoSessionKHR = packet.read();
+    let bind_session_memory_info_count: u32 = packet.read();
+    trace!("called vkBindVideoSessionMemoryKHR({device:?}, {video_session:?}, {bind_session_memory_info_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDecodeVideoKHR.html>"]
 fn vk_cmd_decode_video_khr(mut packet: Packet) {
-    trace!("called vkCmdDecodeVideoKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_decode_info: *const vk::VideoDecodeInfoKHR = packet.read();
+    trace!("called vkCmdDecodeVideoKHR({command_buffer:?}, {p_decode_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginVideoCodingKHR.html>"]
 fn vk_cmd_begin_video_coding_khr(mut packet: Packet) {
-    trace!("called vkCmdBeginVideoCodingKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_begin_info: *const vk::VideoBeginCodingInfoKHR = packet.read();
+    trace!("called vkCmdBeginVideoCodingKHR({command_buffer:?}, {p_begin_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdControlVideoCodingKHR.html>"]
 fn vk_cmd_control_video_coding_khr(mut packet: Packet) {
-    trace!("called vkCmdControlVideoCodingKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_coding_control_info: *const vk::VideoCodingControlInfoKHR = packet.read();
+    trace!("called vkCmdControlVideoCodingKHR({command_buffer:?}, {p_coding_control_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndVideoCodingKHR.html>"]
 fn vk_cmd_end_video_coding_khr(mut packet: Packet) {
-    trace!("called vkCmdEndVideoCodingKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_end_coding_info: *const vk::VideoEndCodingInfoKHR = packet.read();
+    trace!("called vkCmdEndVideoCodingKHR({command_buffer:?}, {p_end_coding_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEncodeVideoKHR.html>"]
 fn vk_cmd_encode_video_khr(mut packet: Packet) {
-    trace!("called vkCmdEncodeVideoKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_encode_info: *const vk::VideoEncodeInfoKHR = packet.read();
+    trace!("called vkCmdEncodeVideoKHR({command_buffer:?}, {p_encode_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDecompressMemoryNV.html>"]
 fn vk_cmd_decompress_memory_nv(mut packet: Packet) {
-    trace!("called vkCmdDecompressMemoryNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let decompress_region_count: u32 = packet.read();
+    trace!("called vkCmdDecompressMemoryNV({command_buffer:?}, {decompress_region_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDecompressMemoryIndirectCountNV.html>"]
 fn vk_cmd_decompress_memory_indirect_count_nv(mut packet: Packet) {
-    trace!("called vkCmdDecompressMemoryIndirectCountNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let indirect_commands_address: vk::DeviceAddress = packet.read();
+    let indirect_commands_count_address: vk::DeviceAddress = packet.read();
+    let stride: u32 = packet.read();
+    trace!("called vkCmdDecompressMemoryIndirectCountNV({command_buffer:?}, {indirect_commands_address:?}, {indirect_commands_count_address:?}, {stride:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCuModuleNVX.html>"]
 fn vk_create_cu_module_nvx(mut packet: Packet) {
-    trace!("called vkCreateCuModuleNVX");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::CuModuleCreateInfoNVX = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_module: *mut vk::CuModuleNVX = packet.read();
+    trace!(
+        "called vkCreateCuModuleNVX({device:?}, {p_create_info:?}, {p_allocator:?}, {p_module:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCuFunctionNVX.html>"]
 fn vk_create_cu_function_nvx(mut packet: Packet) {
-    trace!("called vkCreateCuFunctionNVX");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::CuFunctionCreateInfoNVX = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_function: *mut vk::CuFunctionNVX = packet.read();
+    trace!("called vkCreateCuFunctionNVX({device:?}, {p_create_info:?}, {p_allocator:?}, {p_function:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCuModuleNVX.html>"]
 fn vk_destroy_cu_module_nvx(mut packet: Packet) {
-    trace!("called vkDestroyCuModuleNVX");
+    let device: vk::Device = packet.read();
+    let module: vk::CuModuleNVX = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyCuModuleNVX({device:?}, {module:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCuFunctionNVX.html>"]
 fn vk_destroy_cu_function_nvx(mut packet: Packet) {
-    trace!("called vkDestroyCuFunctionNVX");
+    let device: vk::Device = packet.read();
+    let function: vk::CuFunctionNVX = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyCuFunctionNVX({device:?}, {function:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCuLaunchKernelNVX.html>"]
 fn vk_cmd_cu_launch_kernel_nvx(mut packet: Packet) {
-    trace!("called vkCmdCuLaunchKernelNVX");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_launch_info: *const vk::CuLaunchInfoNVX = packet.read();
+    trace!("called vkCmdCuLaunchKernelNVX({command_buffer:?}, {p_launch_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutSizeEXT.html>"]
 fn vk_get_descriptor_set_layout_size_ext(mut packet: Packet) {
-    trace!("called vkGetDescriptorSetLayoutSizeEXT");
+    let device: vk::Device = packet.read();
+    let layout: vk::DescriptorSetLayout = packet.read();
+    let p_layout_size_in_bytes: *mut vk::DeviceSize = packet.read();
+    trace!("called vkGetDescriptorSetLayoutSizeEXT({device:?}, {layout:?}, {p_layout_size_in_bytes:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutBindingOffsetEXT.html>"]
 fn vk_get_descriptor_set_layout_binding_offset_ext(mut packet: Packet) {
-    trace!("called vkGetDescriptorSetLayoutBindingOffsetEXT");
+    let device: vk::Device = packet.read();
+    let layout: vk::DescriptorSetLayout = packet.read();
+    let binding: u32 = packet.read();
+    let p_offset: *mut vk::DeviceSize = packet.read();
+    trace!("called vkGetDescriptorSetLayoutBindingOffsetEXT({device:?}, {layout:?}, {binding:?}, {p_offset:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorEXT.html>"]
 fn vk_get_descriptor_ext(mut packet: Packet) {
-    trace!("called vkGetDescriptorEXT");
+    let device: vk::Device = packet.read();
+    let p_descriptor_info: *const vk::DescriptorGetInfoEXT = packet.read();
+    let data_size: isize = packet.read();
+    let p_descriptor: *mut std::ffi::c_void = packet.read();
+    trace!("called vkGetDescriptorEXT({device:?}, {p_descriptor_info:?}, {data_size:?}, {p_descriptor:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorBuffersEXT.html>"]
 fn vk_cmd_bind_descriptor_buffers_ext(mut packet: Packet) {
-    trace!("called vkCmdBindDescriptorBuffersEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let buffer_count: u32 = packet.read();
+    trace!("called vkCmdBindDescriptorBuffersEXT({command_buffer:?}, {buffer_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDescriptorBufferOffsetsEXT.html>"]
 fn vk_cmd_set_descriptor_buffer_offsets_ext(mut packet: Packet) {
-    trace!("called vkCmdSetDescriptorBufferOffsetsEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let pipeline_bind_point: vk::PipelineBindPoint = packet.read();
+    let layout: vk::PipelineLayout = packet.read();
+    let first_set: u32 = packet.read();
+    let set_count: u32 = packet.read();
+    trace!("called vkCmdSetDescriptorBufferOffsetsEXT({command_buffer:?}, {pipeline_bind_point:?}, {layout:?}, {first_set:?}, {set_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorBufferEmbeddedSamplersEXT.html>"]
 fn vk_cmd_bind_descriptor_buffer_embedded_samplers_ext(mut packet: Packet) {
-    trace!("called vkCmdBindDescriptorBufferEmbeddedSamplersEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let pipeline_bind_point: vk::PipelineBindPoint = packet.read();
+    let layout: vk::PipelineLayout = packet.read();
+    let set: u32 = packet.read();
+    trace!("called vkCmdBindDescriptorBufferEmbeddedSamplersEXT({command_buffer:?}, {pipeline_bind_point:?}, {layout:?}, {set:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferOpaqueCaptureDescriptorDataEXT.html>"]
 fn vk_get_buffer_opaque_capture_descriptor_data_ext(mut packet: Packet) {
-    trace!("called vkGetBufferOpaqueCaptureDescriptorDataEXT");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::BufferCaptureDescriptorDataInfoEXT = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read();
+    trace!("called vkGetBufferOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageOpaqueCaptureDescriptorDataEXT.html>"]
 fn vk_get_image_opaque_capture_descriptor_data_ext(mut packet: Packet) {
-    trace!("called vkGetImageOpaqueCaptureDescriptorDataEXT");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::ImageCaptureDescriptorDataInfoEXT = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read();
+    trace!("called vkGetImageOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageViewOpaqueCaptureDescriptorDataEXT.html>"]
 fn vk_get_image_view_opaque_capture_descriptor_data_ext(mut packet: Packet) {
-    trace!("called vkGetImageViewOpaqueCaptureDescriptorDataEXT");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::ImageViewCaptureDescriptorDataInfoEXT = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read();
+    trace!(
+        "called vkGetImageViewOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSamplerOpaqueCaptureDescriptorDataEXT.html>"]
 fn vk_get_sampler_opaque_capture_descriptor_data_ext(mut packet: Packet) {
-    trace!("called vkGetSamplerOpaqueCaptureDescriptorDataEXT");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::SamplerCaptureDescriptorDataInfoEXT = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read();
+    trace!("called vkGetSamplerOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html>"]
 fn vk_get_acceleration_structure_opaque_capture_descriptor_data_ext(mut packet: Packet) {
-    trace!("called vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::AccelerationStructureCaptureDescriptorDataInfoEXT = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read();
+    trace!("called vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetDeviceMemoryPriorityEXT.html>"]
 fn vk_set_device_memory_priority_ext(mut packet: Packet) {
-    trace!("called vkSetDeviceMemoryPriorityEXT");
+    let device: vk::Device = packet.read();
+    let memory: vk::DeviceMemory = packet.read();
+    let priority: f32 = packet.read();
+    trace!("called vkSetDeviceMemoryPriorityEXT({device:?}, {memory:?}, {priority:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireDrmDisplayEXT.html>"]
 fn vk_acquire_drm_display_ext(mut packet: Packet) {
-    trace!("called vkAcquireDrmDisplayEXT");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let drm_fd: i32 = packet.read();
+    let display: vk::DisplayKHR = packet.read();
+    trace!("called vkAcquireDrmDisplayEXT({physical_device:?}, {drm_fd:?}, {display:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDrmDisplayEXT.html>"]
 fn vk_get_drm_display_ext(mut packet: Packet) {
-    trace!("called vkGetDrmDisplayEXT");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let drm_fd: i32 = packet.read();
+    let connector_id: u32 = packet.read();
+    let display: *mut vk::DisplayKHR = packet.read();
+    trace!(
+        "called vkGetDrmDisplayEXT({physical_device:?}, {drm_fd:?}, {connector_id:?}, {display:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWaitForPresentKHR.html>"]
 fn vk_wait_for_present_khr(mut packet: Packet) {
-    trace!("called vkWaitForPresentKHR");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    let present_id: u64 = packet.read();
+    let timeout: u64 = packet.read();
+    trace!("called vkWaitForPresentKHR({device:?}, {swapchain:?}, {present_id:?}, {timeout:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBufferCollectionFUCHSIA.html>"]
 fn vk_create_buffer_collection_fuchsia(mut packet: Packet) {
-    trace!("called vkCreateBufferCollectionFUCHSIA");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::BufferCollectionCreateInfoFUCHSIA = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_collection: *mut vk::BufferCollectionFUCHSIA = packet.read();
+    trace!("called vkCreateBufferCollectionFUCHSIA({device:?}, {p_create_info:?}, {p_allocator:?}, {p_collection:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetBufferCollectionBufferConstraintsFUCHSIA.html>"]
 fn vk_set_buffer_collection_buffer_constraints_fuchsia(mut packet: Packet) {
-    trace!("called vkSetBufferCollectionBufferConstraintsFUCHSIA");
+    let device: vk::Device = packet.read();
+    let collection: vk::BufferCollectionFUCHSIA = packet.read();
+    let p_buffer_constraints_info: *const vk::BufferConstraintsInfoFUCHSIA = packet.read();
+    trace!("called vkSetBufferCollectionBufferConstraintsFUCHSIA({device:?}, {collection:?}, {p_buffer_constraints_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetBufferCollectionImageConstraintsFUCHSIA.html>"]
 fn vk_set_buffer_collection_image_constraints_fuchsia(mut packet: Packet) {
-    trace!("called vkSetBufferCollectionImageConstraintsFUCHSIA");
+    let device: vk::Device = packet.read();
+    let collection: vk::BufferCollectionFUCHSIA = packet.read();
+    let p_image_constraints_info: *const vk::ImageConstraintsInfoFUCHSIA = packet.read();
+    trace!("called vkSetBufferCollectionImageConstraintsFUCHSIA({device:?}, {collection:?}, {p_image_constraints_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBufferCollectionFUCHSIA.html>"]
 fn vk_destroy_buffer_collection_fuchsia(mut packet: Packet) {
-    trace!("called vkDestroyBufferCollectionFUCHSIA");
+    let device: vk::Device = packet.read();
+    let collection: vk::BufferCollectionFUCHSIA = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyBufferCollectionFUCHSIA({device:?}, {collection:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferCollectionPropertiesFUCHSIA.html>"]
 fn vk_get_buffer_collection_properties_fuchsia(mut packet: Packet) {
-    trace!("called vkGetBufferCollectionPropertiesFUCHSIA");
+    let device: vk::Device = packet.read();
+    let collection: vk::BufferCollectionFUCHSIA = packet.read();
+    let p_properties: *mut vk::BufferCollectionPropertiesFUCHSIA = packet.read();
+    trace!("called vkGetBufferCollectionPropertiesFUCHSIA({device:?}, {collection:?}, {p_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCudaModuleNV.html>"]
 fn vk_create_cuda_module_nv(mut packet: Packet) {
-    trace!("called vkCreateCudaModuleNV");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::CudaModuleCreateInfoNV = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_module: *mut vk::CudaModuleNV = packet.read();
+    trace!(
+        "called vkCreateCudaModuleNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_module:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetCudaModuleCacheNV.html>"]
 fn vk_get_cuda_module_cache_nv(mut packet: Packet) {
-    trace!("called vkGetCudaModuleCacheNV");
+    let device: vk::Device = packet.read();
+    let module: vk::CudaModuleNV = packet.read();
+    let p_cache_size: *mut isize = packet.read();
+    let p_cache_data: *mut std::ffi::c_void = packet.read();
+    trace!(
+        "called vkGetCudaModuleCacheNV({device:?}, {module:?}, {p_cache_size:?}, {p_cache_data:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCudaFunctionNV.html>"]
 fn vk_create_cuda_function_nv(mut packet: Packet) {
-    trace!("called vkCreateCudaFunctionNV");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::CudaFunctionCreateInfoNV = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_function: *mut vk::CudaFunctionNV = packet.read();
+    trace!("called vkCreateCudaFunctionNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_function:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCudaModuleNV.html>"]
 fn vk_destroy_cuda_module_nv(mut packet: Packet) {
-    trace!("called vkDestroyCudaModuleNV");
+    let device: vk::Device = packet.read();
+    let module: vk::CudaModuleNV = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyCudaModuleNV({device:?}, {module:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCudaFunctionNV.html>"]
 fn vk_destroy_cuda_function_nv(mut packet: Packet) {
-    trace!("called vkDestroyCudaFunctionNV");
+    let device: vk::Device = packet.read();
+    let function: vk::CudaFunctionNV = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyCudaFunctionNV({device:?}, {function:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCudaLaunchKernelNV.html>"]
 fn vk_cmd_cuda_launch_kernel_nv(mut packet: Packet) {
-    trace!("called vkCmdCudaLaunchKernelNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_launch_info: *const vk::CudaLaunchInfoNV = packet.read();
+    trace!("called vkCmdCudaLaunchKernelNV({command_buffer:?}, {p_launch_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRendering.html>"]
 fn vk_cmd_begin_rendering(mut packet: Packet) {
-    trace!("called vkCmdBeginRendering");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_rendering_info: *const vk::RenderingInfo = packet.read();
+    trace!("called vkCmdBeginRendering({command_buffer:?}, {p_rendering_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRendering.html>"]
 fn vk_cmd_end_rendering(mut packet: Packet) {
-    trace!("called vkCmdEndRendering");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    trace!("called vkCmdEndRendering({command_buffer:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutHostMappingInfoVALVE.html>"]
 fn vk_get_descriptor_set_layout_host_mapping_info_valve(mut packet: Packet) {
-    trace!("called vkGetDescriptorSetLayoutHostMappingInfoVALVE");
+    let device: vk::Device = packet.read();
+    let p_binding_reference: *const vk::DescriptorSetBindingReferenceVALVE = packet.read();
+    let p_host_mapping: *mut vk::DescriptorSetLayoutHostMappingInfoVALVE = packet.read();
+    trace!("called vkGetDescriptorSetLayoutHostMappingInfoVALVE({device:?}, {p_binding_reference:?}, {p_host_mapping:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetHostMappingVALVE.html>"]
 fn vk_get_descriptor_set_host_mapping_valve(mut packet: Packet) {
-    trace!("called vkGetDescriptorSetHostMappingVALVE");
+    let device: vk::Device = packet.read();
+    let descriptor_set: vk::DescriptorSet = packet.read();
+    let pp_data: *mut *mut std::ffi::c_void = packet.read();
+    trace!(
+        "called vkGetDescriptorSetHostMappingVALVE({device:?}, {descriptor_set:?}, {pp_data:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateMicromapEXT.html>"]
 fn vk_create_micromap_ext(mut packet: Packet) {
-    trace!("called vkCreateMicromapEXT");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::MicromapCreateInfoEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_micromap: *mut vk::MicromapEXT = packet.read();
+    trace!("called vkCreateMicromapEXT({device:?}, {p_create_info:?}, {p_allocator:?}, {p_micromap:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBuildMicromapsEXT.html>"]
 fn vk_cmd_build_micromaps_ext(mut packet: Packet) {
-    trace!("called vkCmdBuildMicromapsEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let info_count: u32 = packet.read();
+    trace!("called vkCmdBuildMicromapsEXT({command_buffer:?}, {info_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBuildMicromapsEXT.html>"]
 fn vk_build_micromaps_ext(mut packet: Packet) {
-    trace!("called vkBuildMicromapsEXT");
+    let device: vk::Device = packet.read();
+    let deferred_operation: vk::DeferredOperationKHR = packet.read();
+    let info_count: u32 = packet.read();
+    trace!("called vkBuildMicromapsEXT({device:?}, {deferred_operation:?}, {info_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyMicromapEXT.html>"]
 fn vk_destroy_micromap_ext(mut packet: Packet) {
-    trace!("called vkDestroyMicromapEXT");
+    let device: vk::Device = packet.read();
+    let micromap: vk::MicromapEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyMicromapEXT({device:?}, {micromap:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMicromapEXT.html>"]
 fn vk_cmd_copy_micromap_ext(mut packet: Packet) {
-    trace!("called vkCmdCopyMicromapEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_info: *const vk::CopyMicromapInfoEXT = packet.read();
+    trace!("called vkCmdCopyMicromapEXT({command_buffer:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMicromapEXT.html>"]
 fn vk_copy_micromap_ext(mut packet: Packet) {
-    trace!("called vkCopyMicromapEXT");
+    let device: vk::Device = packet.read();
+    let deferred_operation: vk::DeferredOperationKHR = packet.read();
+    let p_info: *const vk::CopyMicromapInfoEXT = packet.read();
+    trace!("called vkCopyMicromapEXT({device:?}, {deferred_operation:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMicromapToMemoryEXT.html>"]
 fn vk_cmd_copy_micromap_to_memory_ext(mut packet: Packet) {
-    trace!("called vkCmdCopyMicromapToMemoryEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_info: *const vk::CopyMicromapToMemoryInfoEXT = packet.read();
+    trace!("called vkCmdCopyMicromapToMemoryEXT({command_buffer:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMicromapToMemoryEXT.html>"]
 fn vk_copy_micromap_to_memory_ext(mut packet: Packet) {
-    trace!("called vkCopyMicromapToMemoryEXT");
+    let device: vk::Device = packet.read();
+    let deferred_operation: vk::DeferredOperationKHR = packet.read();
+    let p_info: *const vk::CopyMicromapToMemoryInfoEXT = packet.read();
+    trace!("called vkCopyMicromapToMemoryEXT({device:?}, {deferred_operation:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryToMicromapEXT.html>"]
 fn vk_cmd_copy_memory_to_micromap_ext(mut packet: Packet) {
-    trace!("called vkCmdCopyMemoryToMicromapEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_info: *const vk::CopyMemoryToMicromapInfoEXT = packet.read();
+    trace!("called vkCmdCopyMemoryToMicromapEXT({command_buffer:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMemoryToMicromapEXT.html>"]
 fn vk_copy_memory_to_micromap_ext(mut packet: Packet) {
-    trace!("called vkCopyMemoryToMicromapEXT");
+    let device: vk::Device = packet.read();
+    let deferred_operation: vk::DeferredOperationKHR = packet.read();
+    let p_info: *const vk::CopyMemoryToMicromapInfoEXT = packet.read();
+    trace!("called vkCopyMemoryToMicromapEXT({device:?}, {deferred_operation:?}, {p_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteMicromapsPropertiesEXT.html>"]
 fn vk_cmd_write_micromaps_properties_ext(mut packet: Packet) {
-    trace!("called vkCmdWriteMicromapsPropertiesEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let micromap_count: u32 = packet.read();
+    trace!("called vkCmdWriteMicromapsPropertiesEXT({command_buffer:?}, {micromap_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWriteMicromapsPropertiesEXT.html>"]
 fn vk_write_micromaps_properties_ext(mut packet: Packet) {
-    trace!("called vkWriteMicromapsPropertiesEXT");
+    let device: vk::Device = packet.read();
+    let micromap_count: u32 = packet.read();
+    trace!("called vkWriteMicromapsPropertiesEXT({device:?}, {micromap_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMicromapCompatibilityEXT.html>"]
 fn vk_get_device_micromap_compatibility_ext(mut packet: Packet) {
-    trace!("called vkGetDeviceMicromapCompatibilityEXT");
+    let device: vk::Device = packet.read();
+    let p_version_info: *const vk::MicromapVersionInfoEXT = packet.read();
+    let p_compatibility: *mut vk::AccelerationStructureCompatibilityKHR = packet.read();
+    trace!("called vkGetDeviceMicromapCompatibilityEXT({device:?}, {p_version_info:?}, {p_compatibility:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMicromapBuildSizesEXT.html>"]
 fn vk_get_micromap_build_sizes_ext(mut packet: Packet) {
-    trace!("called vkGetMicromapBuildSizesEXT");
+    let device: vk::Device = packet.read();
+    let build_type: vk::AccelerationStructureBuildTypeKHR = packet.read();
+    let p_build_info: *const vk::MicromapBuildInfoEXT = packet.read();
+    let p_size_info: *mut vk::MicromapBuildSizesInfoEXT = packet.read();
+    trace!("called vkGetMicromapBuildSizesEXT({device:?}, {build_type:?}, {p_build_info:?}, {p_size_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderModuleIdentifierEXT.html>"]
 fn vk_get_shader_module_identifier_ext(mut packet: Packet) {
-    trace!("called vkGetShaderModuleIdentifierEXT");
+    let device: vk::Device = packet.read();
+    let shader_module: vk::ShaderModule = packet.read();
+    let p_identifier: *mut vk::ShaderModuleIdentifierEXT = packet.read();
+    trace!(
+        "called vkGetShaderModuleIdentifierEXT({device:?}, {shader_module:?}, {p_identifier:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderModuleCreateInfoIdentifierEXT.html>"]
 fn vk_get_shader_module_create_info_identifier_ext(mut packet: Packet) {
-    trace!("called vkGetShaderModuleCreateInfoIdentifierEXT");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::ShaderModuleCreateInfo = packet.read();
+    let p_identifier: *mut vk::ShaderModuleIdentifierEXT = packet.read();
+    trace!("called vkGetShaderModuleCreateInfoIdentifierEXT({device:?}, {p_create_info:?}, {p_identifier:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSubresourceLayout2KHR.html>"]
 fn vk_get_image_subresource_layout2_khr(mut packet: Packet) {
-    trace!("called vkGetImageSubresourceLayout2KHR");
+    let device: vk::Device = packet.read();
+    let image: vk::Image = packet.read();
+    let p_subresource: *const vk::ImageSubresource2KHR = packet.read();
+    let p_layout: *mut vk::SubresourceLayout2KHR = packet.read();
+    trace!("called vkGetImageSubresourceLayout2KHR({device:?}, {image:?}, {p_subresource:?}, {p_layout:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelinePropertiesEXT.html>"]
 fn vk_get_pipeline_properties_ext(mut packet: Packet) {
-    trace!("called vkGetPipelinePropertiesEXT");
+    let device: vk::Device = packet.read();
+    let p_pipeline_info: *const vk::PipelineInfoEXT = packet.read();
+    let p_pipeline_properties: *mut vk::BaseOutStructure = packet.read();
+    trace!("called vkGetPipelinePropertiesEXT({device:?}, {p_pipeline_info:?}, {p_pipeline_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkExportMetalObjectsEXT.html>"]
 fn vk_export_metal_objects_ext(mut packet: Packet) {
-    trace!("called vkExportMetalObjectsEXT");
+    let device: vk::Device = packet.read();
+    let p_metal_objects_info: *mut vk::ExportMetalObjectsInfoEXT = packet.read();
+    trace!("called vkExportMetalObjectsEXT({device:?}, {p_metal_objects_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFramebufferTilePropertiesQCOM.html>"]
 fn vk_get_framebuffer_tile_properties_qcom(mut packet: Packet) {
-    trace!("called vkGetFramebufferTilePropertiesQCOM");
+    let device: vk::Device = packet.read();
+    let framebuffer: vk::Framebuffer = packet.read();
+    let p_properties_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetFramebufferTilePropertiesQCOM({device:?}, {framebuffer:?}, {p_properties_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDynamicRenderingTilePropertiesQCOM.html>"]
 fn vk_get_dynamic_rendering_tile_properties_qcom(mut packet: Packet) {
-    trace!("called vkGetDynamicRenderingTilePropertiesQCOM");
+    let device: vk::Device = packet.read();
+    let p_rendering_info: *const vk::RenderingInfo = packet.read();
+    let p_properties: *mut vk::TilePropertiesQCOM = packet.read();
+    trace!("called vkGetDynamicRenderingTilePropertiesQCOM({device:?}, {p_rendering_info:?}, {p_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceOpticalFlowImageFormatsNV.html>"]
 fn vk_get_physical_device_optical_flow_image_formats_nv(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceOpticalFlowImageFormatsNV");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_optical_flow_image_format_info: *const vk::OpticalFlowImageFormatInfoNV = packet.read();
+    let p_format_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceOpticalFlowImageFormatsNV({physical_device:?}, {p_optical_flow_image_format_info:?}, {p_format_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateOpticalFlowSessionNV.html>"]
 fn vk_create_optical_flow_session_nv(mut packet: Packet) {
-    trace!("called vkCreateOpticalFlowSessionNV");
+    let device: vk::Device = packet.read();
+    let p_create_info: *const vk::OpticalFlowSessionCreateInfoNV = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    let p_session: *mut vk::OpticalFlowSessionNV = packet.read();
+    trace!("called vkCreateOpticalFlowSessionNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_session:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyOpticalFlowSessionNV.html>"]
 fn vk_destroy_optical_flow_session_nv(mut packet: Packet) {
-    trace!("called vkDestroyOpticalFlowSessionNV");
+    let device: vk::Device = packet.read();
+    let session: vk::OpticalFlowSessionNV = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyOpticalFlowSessionNV({device:?}, {session:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindOpticalFlowSessionImageNV.html>"]
 fn vk_bind_optical_flow_session_image_nv(mut packet: Packet) {
-    trace!("called vkBindOpticalFlowSessionImageNV");
+    let device: vk::Device = packet.read();
+    let session: vk::OpticalFlowSessionNV = packet.read();
+    let binding_point: vk::OpticalFlowSessionBindingPointNV = packet.read();
+    let view: vk::ImageView = packet.read();
+    let layout: vk::ImageLayout = packet.read();
+    trace!("called vkBindOpticalFlowSessionImageNV({device:?}, {session:?}, {binding_point:?}, {view:?}, {layout:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdOpticalFlowExecuteNV.html>"]
 fn vk_cmd_optical_flow_execute_nv(mut packet: Packet) {
-    trace!("called vkCmdOpticalFlowExecuteNV");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let session: vk::OpticalFlowSessionNV = packet.read();
+    let p_execute_info: *const vk::OpticalFlowExecuteInfoNV = packet.read();
+    trace!("called vkCmdOpticalFlowExecuteNV({command_buffer:?}, {session:?}, {p_execute_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceFaultInfoEXT.html>"]
 fn vk_get_device_fault_info_ext(mut packet: Packet) {
-    trace!("called vkGetDeviceFaultInfoEXT");
+    let device: vk::Device = packet.read();
+    let p_fault_counts: *mut vk::DeviceFaultCountsEXT = packet.read();
+    let p_fault_info: *mut vk::DeviceFaultInfoEXT = packet.read();
+    trace!("called vkGetDeviceFaultInfoEXT({device:?}, {p_fault_counts:?}, {p_fault_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBias2EXT.html>"]
 fn vk_cmd_set_depth_bias2_ext(mut packet: Packet) {
-    trace!("called vkCmdSetDepthBias2EXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_depth_bias_info: *const vk::DepthBiasInfoEXT = packet.read();
+    trace!("called vkCmdSetDepthBias2EXT({command_buffer:?}, {p_depth_bias_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseSwapchainImagesEXT.html>"]
 fn vk_release_swapchain_images_ext(mut packet: Packet) {
-    trace!("called vkReleaseSwapchainImagesEXT");
+    let device: vk::Device = packet.read();
+    let p_release_info: *const vk::ReleaseSwapchainImagesInfoEXT = packet.read();
+    trace!("called vkReleaseSwapchainImagesEXT({device:?}, {p_release_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceImageSubresourceLayoutKHR.html>"]
 fn vk_get_device_image_subresource_layout_khr(mut packet: Packet) {
-    trace!("called vkGetDeviceImageSubresourceLayoutKHR");
+    let device: vk::Device = packet.read();
+    let p_info: *const vk::DeviceImageSubresourceInfoKHR = packet.read();
+    let p_layout: *mut vk::SubresourceLayout2KHR = packet.read();
+    trace!("called vkGetDeviceImageSubresourceLayoutKHR({device:?}, {p_info:?}, {p_layout:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMapMemory2KHR.html>"]
 fn vk_map_memory2_khr(mut packet: Packet) {
-    trace!("called vkMapMemory2KHR");
+    let device: vk::Device = packet.read();
+    let p_memory_map_info: *const vk::MemoryMapInfoKHR = packet.read();
+    let pp_data: *mut *mut std::ffi::c_void = packet.read();
+    trace!("called vkMapMemory2KHR({device:?}, {p_memory_map_info:?}, {pp_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUnmapMemory2KHR.html>"]
 fn vk_unmap_memory2_khr(mut packet: Packet) {
-    trace!("called vkUnmapMemory2KHR");
+    let device: vk::Device = packet.read();
+    let p_memory_unmap_info: *const vk::MemoryUnmapInfoKHR = packet.read();
+    trace!("called vkUnmapMemory2KHR({device:?}, {p_memory_unmap_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateShadersEXT.html>"]
 fn vk_create_shaders_ext(mut packet: Packet) {
-    trace!("called vkCreateShadersEXT");
+    let device: vk::Device = packet.read();
+    let create_info_count: u32 = packet.read();
+    trace!("called vkCreateShadersEXT({device:?}, {create_info_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyShaderEXT.html>"]
 fn vk_destroy_shader_ext(mut packet: Packet) {
-    trace!("called vkDestroyShaderEXT");
+    let device: vk::Device = packet.read();
+    let shader: vk::ShaderEXT = packet.read();
+    let p_allocator: *const vk::AllocationCallbacks = packet.read();
+    trace!("called vkDestroyShaderEXT({device:?}, {shader:?}, {p_allocator:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderBinaryDataEXT.html>"]
 fn vk_get_shader_binary_data_ext(mut packet: Packet) {
-    trace!("called vkGetShaderBinaryDataEXT");
+    let device: vk::Device = packet.read();
+    let shader: vk::ShaderEXT = packet.read();
+    let p_data_size: *mut isize = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read();
+    trace!("called vkGetShaderBinaryDataEXT({device:?}, {shader:?}, {p_data_size:?}, {p_data:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindShadersEXT.html>"]
 fn vk_cmd_bind_shaders_ext(mut packet: Packet) {
-    trace!("called vkCmdBindShadersEXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let stage_count: u32 = packet.read();
+    trace!("called vkCmdBindShadersEXT({command_buffer:?}, {stage_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetScreenBufferPropertiesQNX.html>"]
 fn vk_get_screen_buffer_properties_qnx(mut packet: Packet) {
-    trace!("called vkGetScreenBufferPropertiesQNX");
+    let device: vk::Device = packet.read();
+    let buffer: *const vk::_screen_buffer = packet.read();
+    let p_properties: *mut vk::ScreenBufferPropertiesQNX = packet.read();
+    trace!("called vkGetScreenBufferPropertiesQNX({device:?}, {buffer:?}, {p_properties:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR.html>"]
 fn vk_get_physical_device_cooperative_matrix_properties_khr(mut packet: Packet) {
-    trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR");
+    let physical_device: vk::PhysicalDevice = packet.read();
+    let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR({physical_device:?}, {p_property_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetExecutionGraphPipelineScratchSizeAMDX.html>"]
 fn vk_get_execution_graph_pipeline_scratch_size_amdx(mut packet: Packet) {
-    trace!("called vkGetExecutionGraphPipelineScratchSizeAMDX");
+    let device: vk::Device = packet.read();
+    let execution_graph: vk::Pipeline = packet.read();
+    let p_size_info: *mut vk::ExecutionGraphPipelineScratchSizeAMDX = packet.read();
+    trace!("called vkGetExecutionGraphPipelineScratchSizeAMDX({device:?}, {execution_graph:?}, {p_size_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetExecutionGraphPipelineNodeIndexAMDX.html>"]
 fn vk_get_execution_graph_pipeline_node_index_amdx(mut packet: Packet) {
-    trace!("called vkGetExecutionGraphPipelineNodeIndexAMDX");
+    let device: vk::Device = packet.read();
+    let execution_graph: vk::Pipeline = packet.read();
+    let p_node_info: *const vk::PipelineShaderStageNodeCreateInfoAMDX = packet.read();
+    let p_node_index: *mut u32 = packet.read();
+    trace!("called vkGetExecutionGraphPipelineNodeIndexAMDX({device:?}, {execution_graph:?}, {p_node_info:?}, {p_node_index:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateExecutionGraphPipelinesAMDX.html>"]
 fn vk_create_execution_graph_pipelines_amdx(mut packet: Packet) {
-    trace!("called vkCreateExecutionGraphPipelinesAMDX");
+    let device: vk::Device = packet.read();
+    let pipeline_cache: vk::PipelineCache = packet.read();
+    let create_info_count: u32 = packet.read();
+    trace!("called vkCreateExecutionGraphPipelinesAMDX({device:?}, {pipeline_cache:?}, {create_info_count:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdInitializeGraphScratchMemoryAMDX.html>"]
 fn vk_cmd_initialize_graph_scratch_memory_amdx(mut packet: Packet) {
-    trace!("called vkCmdInitializeGraphScratchMemoryAMDX");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let scratch: vk::DeviceAddress = packet.read();
+    trace!("called vkCmdInitializeGraphScratchMemoryAMDX({command_buffer:?}, {scratch:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchGraphAMDX.html>"]
 fn vk_cmd_dispatch_graph_amdx(mut packet: Packet) {
-    trace!("called vkCmdDispatchGraphAMDX");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let scratch: vk::DeviceAddress = packet.read();
+    let p_count_info: *const vk::DispatchGraphCountInfoAMDX = packet.read();
+    trace!("called vkCmdDispatchGraphAMDX({command_buffer:?}, {scratch:?}, {p_count_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchGraphIndirectAMDX.html>"]
 fn vk_cmd_dispatch_graph_indirect_amdx(mut packet: Packet) {
-    trace!("called vkCmdDispatchGraphIndirectAMDX");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let scratch: vk::DeviceAddress = packet.read();
+    let p_count_info: *const vk::DispatchGraphCountInfoAMDX = packet.read();
+    trace!(
+        "called vkCmdDispatchGraphIndirectAMDX({command_buffer:?}, {scratch:?}, {p_count_info:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchGraphIndirectCountAMDX.html>"]
 fn vk_cmd_dispatch_graph_indirect_count_amdx(mut packet: Packet) {
-    trace!("called vkCmdDispatchGraphIndirectCountAMDX");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let scratch: vk::DeviceAddress = packet.read();
+    let count_info: vk::DeviceAddress = packet.read();
+    trace!("called vkCmdDispatchGraphIndirectCountAMDX({command_buffer:?}, {scratch:?}, {count_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorSets2KHR.html>"]
 fn vk_cmd_bind_descriptor_sets2_khr(mut packet: Packet) {
-    trace!("called vkCmdBindDescriptorSets2KHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_bind_descriptor_sets_info: *const vk::BindDescriptorSetsInfoKHR = packet.read();
+    trace!(
+        "called vkCmdBindDescriptorSets2KHR({command_buffer:?}, {p_bind_descriptor_sets_info:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushConstants2KHR.html>"]
 fn vk_cmd_push_constants2_khr(mut packet: Packet) {
-    trace!("called vkCmdPushConstants2KHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_push_constants_info: *const vk::PushConstantsInfoKHR = packet.read();
+    trace!("called vkCmdPushConstants2KHR({command_buffer:?}, {p_push_constants_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSet2KHR.html>"]
 fn vk_cmd_push_descriptor_set2_khr(mut packet: Packet) {
-    trace!("called vkCmdPushDescriptorSet2KHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_push_descriptor_set_info: *const vk::PushDescriptorSetInfoKHR = packet.read();
+    trace!("called vkCmdPushDescriptorSet2KHR({command_buffer:?}, {p_push_descriptor_set_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetWithTemplate2KHR.html>"]
 fn vk_cmd_push_descriptor_set_with_template2_khr(mut packet: Packet) {
-    trace!("called vkCmdPushDescriptorSetWithTemplate2KHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_push_descriptor_set_with_template_info: *const vk::PushDescriptorSetWithTemplateInfoKHR =
+        packet.read();
+    trace!("called vkCmdPushDescriptorSetWithTemplate2KHR({command_buffer:?}, {p_push_descriptor_set_with_template_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDescriptorBufferOffsets2EXT.html>"]
 fn vk_cmd_set_descriptor_buffer_offsets2_ext(mut packet: Packet) {
-    trace!("called vkCmdSetDescriptorBufferOffsets2EXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_set_descriptor_buffer_offsets_info: *const vk::SetDescriptorBufferOffsetsInfoEXT =
+        packet.read();
+    trace!("called vkCmdSetDescriptorBufferOffsets2EXT({command_buffer:?}, {p_set_descriptor_buffer_offsets_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorBufferEmbeddedSamplers2EXT.html>"]
 fn vk_cmd_bind_descriptor_buffer_embedded_samplers2_ext(mut packet: Packet) {
-    trace!("called vkCmdBindDescriptorBufferEmbeddedSamplers2EXT");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_bind_descriptor_buffer_embedded_samplers_info: *const vk::BindDescriptorBufferEmbeddedSamplersInfoEXT= packet.read();
+    trace!("called vkCmdBindDescriptorBufferEmbeddedSamplers2EXT({command_buffer:?}, {p_bind_descriptor_buffer_embedded_samplers_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetLatencySleepModeNV.html>"]
 fn vk_set_latency_sleep_mode_nv(mut packet: Packet) {
-    trace!("called vkSetLatencySleepModeNV");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    let p_sleep_mode_info: *const vk::LatencySleepModeInfoNV = packet.read();
+    trace!("called vkSetLatencySleepModeNV({device:?}, {swapchain:?}, {p_sleep_mode_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkLatencySleepNV.html>"]
 fn vk_latency_sleep_nv(mut packet: Packet) {
-    trace!("called vkLatencySleepNV");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    let p_sleep_info: *const vk::LatencySleepInfoNV = packet.read();
+    trace!("called vkLatencySleepNV({device:?}, {swapchain:?}, {p_sleep_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetLatencyMarkerNV.html>"]
 fn vk_set_latency_marker_nv(mut packet: Packet) {
-    trace!("called vkSetLatencyMarkerNV");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    let p_latency_marker_info: *const vk::SetLatencyMarkerInfoNV = packet.read();
+    trace!("called vkSetLatencyMarkerNV({device:?}, {swapchain:?}, {p_latency_marker_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetLatencyTimingsNV.html>"]
 fn vk_get_latency_timings_nv(mut packet: Packet) {
-    trace!("called vkGetLatencyTimingsNV");
+    let device: vk::Device = packet.read();
+    let swapchain: vk::SwapchainKHR = packet.read();
+    let p_latency_marker_info: *mut vk::GetLatencyMarkerInfoNV = packet.read();
+    trace!("called vkGetLatencyTimingsNV({device:?}, {swapchain:?}, {p_latency_marker_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueNotifyOutOfBandNV.html>"]
 fn vk_queue_notify_out_of_band_nv(mut packet: Packet) {
-    trace!("called vkQueueNotifyOutOfBandNV");
+    let queue: vk::Queue = packet.read();
+    let p_queue_type_info: *const vk::OutOfBandQueueTypeInfoNV = packet.read();
+    trace!("called vkQueueNotifyOutOfBandNV({queue:?}, {p_queue_type_info:?})");
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRenderingAttachmentLocationsKHR.html>"]
 fn vk_cmd_set_rendering_attachment_locations_khr(mut packet: Packet) {
-    trace!("called vkCmdSetRenderingAttachmentLocationsKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_location_info: *const vk::RenderingAttachmentLocationInfoKHR = packet.read();
+    trace!(
+        "called vkCmdSetRenderingAttachmentLocationsKHR({command_buffer:?}, {p_location_info:?})"
+    );
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRenderingInputAttachmentIndicesKHR.html>"]
 fn vk_cmd_set_rendering_input_attachment_indices_khr(mut packet: Packet) {
-    trace!("called vkCmdSetRenderingInputAttachmentIndicesKHR");
+    let command_buffer: vk::CommandBuffer = packet.read();
+    let p_location_info: *const vk::RenderingInputAttachmentIndexInfoKHR = packet.read();
+    trace!("called vkCmdSetRenderingInputAttachmentIndicesKHR({command_buffer:?}, {p_location_info:?})");
 }
