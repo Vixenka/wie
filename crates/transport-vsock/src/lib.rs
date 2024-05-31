@@ -109,6 +109,10 @@ impl UnsafeWrite for VsockStream {
             false => Err(std::io::Error::last_os_error()),
         }
     }
+
+    unsafe fn flush_unsafe(&self) -> std::io::Result<()> {
+        Ok(())
+    }
 }
 
 #[derive(Debug)]
