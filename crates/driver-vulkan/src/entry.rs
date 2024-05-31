@@ -26,7 +26,10 @@ extern "stdcall" fn vk_icdGetInstanceProcAddr(
 
     let name = unsafe { CStr::from_ptr(p_name) };
     let name = name.to_str().expect("UTF-8 valid name");
-    let address = definitions::get_function_address(name);
+    let address = match name {
+        "vk_icdGetPhysicalDeviceProcAddr" => vk_icdGetPhysicalDeviceProcAddr as *const _,
+        _ => definitions::get_function_address(name),
+    };
 
     #[cfg(debug_assertions)]
     if address.is_null() {
