@@ -1025,6 +1025,10 @@ unsafe extern "stdcall" fn vkEnumerateInstanceExtensionProperties(
     p_property_count: *mut u32,
     p_properties: *mut vk::ExtensionProperties,
 ) -> vk::Result {
+    warn!(
+        "vkEnumerateInstanceExtensionProperties {:?} {:?} {:?}",
+        p_layer_name, p_property_count, p_properties
+    );
     //let mut packet = wie_transport_guest::new_packet(5);
     //packet.write_null_str(p_layer_name);
     //packet.write(*p_property_count);
