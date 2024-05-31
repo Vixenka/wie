@@ -3,11 +3,13 @@ members = ["crates/*", "generators/*"]
 resolver = "2"
 
 [workspace.dependencies]
-thiserror = "1.0.61"
-tracing = "0.1.40"
-tracing-subscriber = "0.3.18"
-tracing-panic = "0.1.2"
+log = { version = "0.4.21", features = [
+    "max_level_trace",
+    "release_max_level_info",
+] }
+simple_logger = "5.0.0"
 tracy-client = "0.17.0"
+thiserror = "1.0.61"
 profiling = "1.0.15"
 windows = "0.56.0"
 libc = "0.2.155"

@@ -8,9 +8,7 @@ profile = ["profiling/profile-with-tracy", "tracy-client/enable"]
 
 [dependencies]
 lockfree.workspace = true
-tracing.workspace = true
-tracing-subscriber.workspace = true
-tracing-panic.workspace = true
+log.workspace = true
 tracy-client.workspace = true
 profiling.workspace = true
 rsevents.workspace = true

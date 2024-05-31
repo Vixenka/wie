@@ -1,4 +1,7 @@
-use std::{collections::HashMap, num::NonZeroU32};
+#[macro_use]
+extern crate log;
+
+use std::{collections::HashMap, num::NonZeroU32, thread, time::Duration};
 
 use wie_transport::Connection;
 use wie_transport_vsock::VsockListener;
@@ -6,19 +9,24 @@ use wie_transport_vsock::VsockListener;
 const PORT: u32 = 13001;
 
 fn main() {
-    tracing_subscriber::fmt::init();
-    std::panic::set_hook(Box::new(tracing_panic::panic_hook));
+    simple_logger::init().unwrap();
+    let hook = std::panic::take_hook();
+    std::panic::set_hook(Box::new(move |panic_info| {
+        log::error!("{}", panic_info);
+        hook(panic_info);
+    }));
 
-    tracing::info!("Setting up listening socket on port {}", PORT);
+    info!("Setting up listening socket on port {}", PORT);
     let listener = VsockListener::bind(PORT, NonZeroU32::new(1).unwrap())
         .expect("Failed to set up listening port");
 
-    tracing::info!("Waiting for incoming connections...");
+    info!("Waiting for incoming connections...");
     let (stream, _) = listener
         .accept(None)
         .expect("Failed to accept incoming connection");
 
-    tracing::info!("Connection established");
+    info!("Connection established");
 
-    Connection::new(stream, HashMap::new(), None);
+    let _what = Connection::new(stream, HashMap::new(), None);
+    thread::sleep(Duration::from_secs(60));
 }

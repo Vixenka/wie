@@ -271,7 +271,7 @@ where
         }
     }
 
-    tracing::info!("receive worker finished");
+    log::info!("receive worker finished");
 }
 
 #[cfg(all(test, debug_assertions))]

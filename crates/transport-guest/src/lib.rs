@@ -1,3 +1,6 @@
+#[macro_use]
+extern crate log;
+
 use std::{
     collections::HashMap,
     sync::{Arc, OnceLock},
@@ -18,8 +21,12 @@ where
         return;
     }
 
-    tracing_subscriber::fmt::init();
-    std::panic::set_hook(Box::new(tracing_panic::panic_hook));
+    simple_logger::init().unwrap();
+    let hook = std::panic::take_hook();
+    std::panic::set_hook(Box::new(move |panic_info| {
+        log::error!("{}", panic_info);
+        hook(panic_info);
+    }));
 
     let stream = match VsockStream::connect(VsockAddress {
         cid: VsockCid::host(),
@@ -29,7 +36,7 @@ where
         Err(e) => match e {
             VsockConnectionError::Creation(e) => panic!("Failed to create vsock connection: {}", e),
             VsockConnectionError::Connection(e) => {
-                tracing::error!("FAILED TO CONNECT TO VSOCK HOST. MAKE SURE THE HOST IS RUNNING.");
+                error!("FAILED TO CONNECT TO VSOCK HOST. MAKE SURE THE HOST IS RUNNING.");
                 panic!("{}", e)
             }
         },
