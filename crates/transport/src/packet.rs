@@ -61,9 +61,26 @@ where
     }
 
     /// # Safety
+    /// Caller must ensure to pass a valid pointer or null.
+    #[inline]
+    pub unsafe fn write_nullable_raw_ptr<TO>(&mut self, object: *const TO) {
+        if object.is_null() {
+            self.buffer.push(0);
+        } else {
+            self.buffer.push(1);
+            self.write_raw_ptr(object);
+        }
+    }
+
+    /// # Safety
     /// This function is unsafe because it writes until null character is found.
     #[inline]
     pub unsafe fn write_null_str(&mut self, str: *const c_char) {
+        if str.is_null() {
+            self.buffer.push(0);
+            return;
+        }
+
         let mut i = 0;
         while *str.add(i) != 0 {
             self.buffer.push(*str.add(i) as u8);
