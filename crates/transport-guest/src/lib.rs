@@ -4,7 +4,7 @@ use std::{
 };
 
 use wie_transport::{packet::PacketWriter, Connection};
-use wie_transport_vsock::{VsockAddress, VsockCid, VsockStream};
+use wie_transport_vsock::{errors::VsockConnectionError, VsockAddress, VsockCid, VsockStream};
 
 pub type Handler = wie_transport::Handler<VsockStream>;
 
@@ -21,11 +21,21 @@ where
     tracing_subscriber::fmt::init();
     std::panic::set_hook(Box::new(tracing_panic::panic_hook));
 
-    let stream = VsockStream::connect(VsockAddress {
+    let stream = match VsockStream::connect(VsockAddress {
         cid: VsockCid::host(),
         port: 13001,
-    })
-    .unwrap();
+    }) {
+        Ok(stream) => stream,
+        Err(e) => match e {
+            VsockConnectionError::Creation(e) => panic!("Failed to create vsock connection: {}", e),
+            VsockConnectionError::Connection(e) => {
+                panic!(
+                    "FAILED TO CONNECT TO VSOCK HOST. MAKE SURE THE HOST IS RUNNING. {}",
+                    e
+                )
+            }
+        },
+    };
 
     CONNECTION
         .set(Connection::new(stream, handlers(), None))
