@@ -3,7 +3,7 @@
 set batdir=%~dp0
 
 echo "Building wie-driver-vulkan..."
-cargo build || echo "Failed!" && exit 1
+cargo build --release || echo "Failed!" && exit 1
 
 echo "Create directories..."
 mkdir "C:\Program Files\Vixen\wie\Vulkan\"
