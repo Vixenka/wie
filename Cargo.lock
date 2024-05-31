@@ -820,6 +820,7 @@ version = "0.1.0"
 dependencies = [
  "log",
  "simple_logger",
+ "wie-driver-listener-vulkan",
  "wie-transport",
  "wie-transport-vsock",
 ]
@@ -830,6 +831,16 @@ version = "0.1.0"
 dependencies = [
  "thiserror",
  "windows 0.56.0",
+]
+
+[[package]]
+name = "wie-driver-listener-vulkan"
+version = "0.1.0"
+dependencies = [
+ "ash",
+ "log",
+ "wie-transport",
+ "wie-transport-vsock",
 ]
 
 [[package]]
@@ -874,10 +885,6 @@ dependencies = [
  "wie-transport",
  "wie-transport-vsock",
 ]
-
-[[package]]
-name = "wie-transport-host"
-version = "0.1.0"
 
 [[package]]
 name = "wie-transport-vsock"

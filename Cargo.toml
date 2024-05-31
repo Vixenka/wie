@@ -22,6 +22,6 @@ wie-common.path = "crates/common"
 wie-transport.path = "crates/transport"
 wie-transport-vsock.path = "crates/transport-vsock"
 wie-transport-guest.path = "crates/transport-guest"
-wie-transport-host.path = "crates/transport-host"
+wie-driver-listener-vulkan.path = "crates/driver-listener-vulkan"
 
 rstest = "0.20.0"

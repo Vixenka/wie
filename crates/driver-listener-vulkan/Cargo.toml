@@ -1,11 +1,10 @@
 [package]
-name = "wie"
+name = "wie-driver-listener-vulkan"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+ash.workspace = true
 log.workspace = true
-simple_logger.workspace = true
 wie-transport.workspace = true
 wie-transport-vsock.workspace = true
-wie-driver-listener-vulkan.workspace = true

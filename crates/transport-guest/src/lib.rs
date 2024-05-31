@@ -36,7 +36,7 @@ where
         Err(e) => match e {
             VsockConnectionError::Creation(e) => panic!("Failed to create vsock connection: {}", e),
             VsockConnectionError::Connection(e) => {
-                error!("FAILED TO CONNECT TO VSOCK HOST. MAKE SURE THE HOST IS RUNNING.");
+                error!("FAILED TO CONNECT TO VSOCK HOST. MAKE SURE THE HOST LISTENER IS RUNNING.");
                 panic!("{}", e)
             }
         },

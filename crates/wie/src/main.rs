@@ -27,6 +27,8 @@ fn main() {
 
     info!("Connection established");
 
-    let _what = Connection::new(stream, HashMap::new(), None);
-    thread::sleep(Duration::from_secs(60));
+    let mut map = HashMap::new();
+    wie_driver_listener_vulkan::register_handlers_to(&mut map);
+    let _what = Connection::new(stream, map, None);
+    thread::sleep(Duration::from_secs(600));
 }

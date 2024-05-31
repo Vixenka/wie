@@ -620,10 +620,11 @@ unsafe extern "stdcall" fn vkCreateInstance(
 ) -> vk::Result {
     trace!("called vkCreateInstance({p_create_info:?}, {p_allocator:?}, {p_instance:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001000);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_instance);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateInstance");
 }
 
@@ -635,9 +636,10 @@ unsafe extern "stdcall" fn vkDestroyInstance(
 ) {
     trace!("called vkDestroyInstance({instance:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001001);
     packet.write(instance);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyInstance");
 }
 
@@ -650,9 +652,10 @@ unsafe extern "stdcall" fn vkEnumeratePhysicalDevices(
 ) -> vk::Result {
     trace!("called vkEnumeratePhysicalDevices({instance:?}, {p_physical_device_count:?}, {p_physical_devices:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001002);
     packet.write(instance);
     packet.write_nullable_raw_ptr(p_physical_device_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkEnumeratePhysicalDevices");
 }
 
@@ -664,9 +667,10 @@ unsafe extern "stdcall" fn vkGetDeviceProcAddr(
 ) -> vk::PFN_vkVoidFunction {
     trace!("called vkGetDeviceProcAddr({device:?}, {p_name:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001003);
     packet.write(device);
     packet.write_null_str(p_name);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDeviceProcAddr");
 }
 
@@ -678,9 +682,10 @@ unsafe extern "stdcall" fn vkGetInstanceProcAddr(
 ) -> vk::PFN_vkVoidFunction {
     trace!("called vkGetInstanceProcAddr({instance:?}, {p_name:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001004);
     packet.write(instance);
     packet.write_null_str(p_name);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetInstanceProcAddr");
 }
 
@@ -692,9 +697,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceProperties(
 ) {
     trace!("called vkGetPhysicalDeviceProperties({physical_device:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001005);
     packet.write(physical_device);
     packet.write(p_properties);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceProperties");
 }
 
@@ -707,9 +713,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceQueueFamilyProperties(
 ) {
     trace!("called vkGetPhysicalDeviceQueueFamilyProperties({physical_device:?}, {p_queue_family_property_count:?}, {p_queue_family_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001006);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr(p_queue_family_property_count);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceQueueFamilyProperties");
 }
 
@@ -721,9 +728,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceMemoryProperties(
 ) {
     trace!("called vkGetPhysicalDeviceMemoryProperties({physical_device:?}, {p_memory_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001007);
     packet.write(physical_device);
     packet.write(p_memory_properties);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceMemoryProperties");
 }
 
@@ -735,9 +743,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceFeatures(
 ) {
     trace!("called vkGetPhysicalDeviceFeatures({physical_device:?}, {p_features:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001008);
     packet.write(physical_device);
     packet.write(p_features);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceFeatures");
 }
 
@@ -750,10 +759,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceFormatProperties(
 ) {
     trace!("called vkGetPhysicalDeviceFormatProperties({physical_device:?}, {format:?}, {p_format_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001009);
     packet.write(physical_device);
     packet.write(format);
     packet.write(p_format_properties);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceFormatProperties");
 }
 
@@ -770,7 +780,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceImageFormatProperties(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceImageFormatProperties({physical_device:?}, {format:?}, {type_:?}, {tiling:?}, {usage:?}, {flags:?}, {p_image_format_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001010);
     packet.write(physical_device);
     packet.write(format);
     packet.write(type_);
@@ -778,6 +788,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceImageFormatProperties(
     packet.write(usage);
     packet.write(flags);
     packet.write(p_image_format_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceImageFormatProperties");
 }
 
@@ -791,11 +802,12 @@ unsafe extern "stdcall" fn vkCreateDevice(
 ) -> vk::Result {
     trace!("called vkCreateDevice({physical_device:?}, {p_create_info:?}, {p_allocator:?}, {p_device:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001011);
     packet.write(physical_device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_device);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateDevice");
 }
 
@@ -807,9 +819,10 @@ unsafe extern "stdcall" fn vkDestroyDevice(
 ) {
     trace!("called vkDestroyDevice({device:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001012);
     packet.write(device);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyDevice");
 }
 
@@ -820,8 +833,9 @@ unsafe extern "stdcall" fn vkEnumerateInstanceVersion(
 ) -> vk::Result {
     trace!("called vkEnumerateInstanceVersion({p_api_version:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001013);
     packet.write(p_api_version);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkEnumerateInstanceVersion");
 }
 
@@ -833,8 +847,9 @@ unsafe extern "stdcall" fn vkEnumerateInstanceLayerProperties(
 ) -> vk::Result {
     trace!("called vkEnumerateInstanceLayerProperties({p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001014);
     packet.write_nullable_raw_ptr(p_property_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkEnumerateInstanceLayerProperties");
 }
 
@@ -847,9 +862,10 @@ unsafe extern "stdcall" fn vkEnumerateInstanceExtensionProperties(
 ) -> vk::Result {
     trace!("called vkEnumerateInstanceExtensionProperties({p_layer_name:?}, {p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001015);
     packet.write_null_str(p_layer_name);
     packet.write_nullable_raw_ptr(p_property_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkEnumerateInstanceExtensionProperties");
 }
 
@@ -862,9 +878,10 @@ unsafe extern "stdcall" fn vkEnumerateDeviceLayerProperties(
 ) -> vk::Result {
     trace!("called vkEnumerateDeviceLayerProperties({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001016);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr(p_property_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkEnumerateDeviceLayerProperties");
 }
 
@@ -878,10 +895,11 @@ unsafe extern "stdcall" fn vkEnumerateDeviceExtensionProperties(
 ) -> vk::Result {
     trace!("called vkEnumerateDeviceExtensionProperties({physical_device:?}, {p_layer_name:?}, {p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001017);
     packet.write(physical_device);
     packet.write_null_str(p_layer_name);
     packet.write_nullable_raw_ptr(p_property_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkEnumerateDeviceExtensionProperties");
 }
 
@@ -895,11 +913,12 @@ unsafe extern "stdcall" fn vkGetDeviceQueue(
 ) {
     trace!("called vkGetDeviceQueue({device:?}, {queue_family_index:?}, {queue_index:?}, {p_queue:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001018);
     packet.write(device);
     packet.write(queue_family_index);
     packet.write(queue_index);
     packet.write(p_queue);
+    packet.send();
     unimplemented!("vkGetDeviceQueue");
 }
 
@@ -913,9 +932,10 @@ unsafe extern "stdcall" fn vkQueueSubmit(
 ) -> vk::Result {
     trace!("called vkQueueSubmit({queue:?}, {submit_count:?}, {p_submits:?}, {fence:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001019);
     packet.write(queue);
     packet.write(submit_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkQueueSubmit");
 }
 
@@ -926,8 +946,9 @@ unsafe extern "stdcall" fn vkQueueWaitIdle(
 ) -> vk::Result {
     trace!("called vkQueueWaitIdle({queue:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001020);
     packet.write(queue);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkQueueWaitIdle");
 }
 
@@ -938,8 +959,9 @@ unsafe extern "stdcall" fn vkDeviceWaitIdle(
 ) -> vk::Result {
     trace!("called vkDeviceWaitIdle({device:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001021);
     packet.write(device);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkDeviceWaitIdle");
 }
 
@@ -953,11 +975,12 @@ unsafe extern "stdcall" fn vkAllocateMemory(
 ) -> vk::Result {
     trace!("called vkAllocateMemory({device:?}, {p_allocate_info:?}, {p_allocator:?}, {p_memory:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001022);
     packet.write(device);
     packet.write(p_allocate_info);
     packet.write(p_allocator);
     packet.write(p_memory);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkAllocateMemory");
 }
 
@@ -970,10 +993,11 @@ unsafe extern "stdcall" fn vkFreeMemory(
 ) {
     trace!("called vkFreeMemory({device:?}, {memory:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001023);
     packet.write(device);
     packet.write(memory);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkFreeMemory");
 }
 
@@ -989,13 +1013,14 @@ unsafe extern "stdcall" fn vkMapMemory(
 ) -> vk::Result {
     trace!("called vkMapMemory({device:?}, {memory:?}, {offset:?}, {size:?}, {flags:?}, {pp_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001024);
     packet.write(device);
     packet.write(memory);
     packet.write(offset);
     packet.write(size);
     packet.write(flags);
     packet.write(pp_data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkMapMemory");
 }
 
@@ -1007,9 +1032,10 @@ unsafe extern "stdcall" fn vkUnmapMemory(
 ) {
     trace!("called vkUnmapMemory({device:?}, {memory:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001025);
     packet.write(device);
     packet.write(memory);
+    packet.send();
     unimplemented!("vkUnmapMemory");
 }
 
@@ -1022,9 +1048,10 @@ unsafe extern "stdcall" fn vkFlushMappedMemoryRanges(
 ) -> vk::Result {
     trace!("called vkFlushMappedMemoryRanges({device:?}, {memory_range_count:?}, {p_memory_ranges:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001026);
     packet.write(device);
     packet.write(memory_range_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkFlushMappedMemoryRanges");
 }
 
@@ -1037,9 +1064,10 @@ unsafe extern "stdcall" fn vkInvalidateMappedMemoryRanges(
 ) -> vk::Result {
     trace!("called vkInvalidateMappedMemoryRanges({device:?}, {memory_range_count:?}, {p_memory_ranges:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001027);
     packet.write(device);
     packet.write(memory_range_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkInvalidateMappedMemoryRanges");
 }
 
@@ -1052,10 +1080,11 @@ unsafe extern "stdcall" fn vkGetDeviceMemoryCommitment(
 ) {
     trace!("called vkGetDeviceMemoryCommitment({device:?}, {memory:?}, {p_committed_memory_in_bytes:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001028);
     packet.write(device);
     packet.write(memory);
     packet.write(p_committed_memory_in_bytes);
+    packet.send();
     unimplemented!("vkGetDeviceMemoryCommitment");
 }
 
@@ -1068,10 +1097,11 @@ unsafe extern "stdcall" fn vkGetBufferMemoryRequirements(
 ) {
     trace!("called vkGetBufferMemoryRequirements({device:?}, {buffer:?}, {p_memory_requirements:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001029);
     packet.write(device);
     packet.write(buffer);
     packet.write(p_memory_requirements);
+    packet.send();
     unimplemented!("vkGetBufferMemoryRequirements");
 }
 
@@ -1085,11 +1115,12 @@ unsafe extern "stdcall" fn vkBindBufferMemory(
 ) -> vk::Result {
     trace!("called vkBindBufferMemory({device:?}, {buffer:?}, {memory:?}, {memory_offset:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001030);
     packet.write(device);
     packet.write(buffer);
     packet.write(memory);
     packet.write(memory_offset);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkBindBufferMemory");
 }
 
@@ -1102,10 +1133,11 @@ unsafe extern "stdcall" fn vkGetImageMemoryRequirements(
 ) {
     trace!("called vkGetImageMemoryRequirements({device:?}, {image:?}, {p_memory_requirements:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001031);
     packet.write(device);
     packet.write(image);
     packet.write(p_memory_requirements);
+    packet.send();
     unimplemented!("vkGetImageMemoryRequirements");
 }
 
@@ -1119,11 +1151,12 @@ unsafe extern "stdcall" fn vkBindImageMemory(
 ) -> vk::Result {
     trace!("called vkBindImageMemory({device:?}, {image:?}, {memory:?}, {memory_offset:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001032);
     packet.write(device);
     packet.write(image);
     packet.write(memory);
     packet.write(memory_offset);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkBindImageMemory");
 }
 
@@ -1137,10 +1170,11 @@ unsafe extern "stdcall" fn vkGetImageSparseMemoryRequirements(
 ) {
     trace!("called vkGetImageSparseMemoryRequirements({device:?}, {image:?}, {p_sparse_memory_requirement_count:?}, {p_sparse_memory_requirements:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001033);
     packet.write(device);
     packet.write(image);
     packet.write_nullable_raw_ptr(p_sparse_memory_requirement_count);
+    packet.send();
     unimplemented!("vkGetImageSparseMemoryRequirements");
 }
 
@@ -1158,7 +1192,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSparseImageFormatProperties(
 ) {
     trace!("called vkGetPhysicalDeviceSparseImageFormatProperties({physical_device:?}, {format:?}, {type_:?}, {samples:?}, {usage:?}, {tiling:?}, {p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001034);
     packet.write(physical_device);
     packet.write(format);
     packet.write(type_);
@@ -1166,6 +1200,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSparseImageFormatProperties(
     packet.write(usage);
     packet.write(tiling);
     packet.write_nullable_raw_ptr(p_property_count);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceSparseImageFormatProperties");
 }
 
@@ -1179,9 +1214,10 @@ unsafe extern "stdcall" fn vkQueueBindSparse(
 ) -> vk::Result {
     trace!("called vkQueueBindSparse({queue:?}, {bind_info_count:?}, {p_bind_info:?}, {fence:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001035);
     packet.write(queue);
     packet.write(bind_info_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkQueueBindSparse");
 }
 
@@ -1195,11 +1231,12 @@ unsafe extern "stdcall" fn vkCreateFence(
 ) -> vk::Result {
     trace!("called vkCreateFence({device:?}, {p_create_info:?}, {p_allocator:?}, {p_fence:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001036);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_fence);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateFence");
 }
 
@@ -1212,10 +1249,11 @@ unsafe extern "stdcall" fn vkDestroyFence(
 ) {
     trace!("called vkDestroyFence({device:?}, {fence:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001037);
     packet.write(device);
     packet.write(fence);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyFence");
 }
 
@@ -1228,9 +1266,10 @@ unsafe extern "stdcall" fn vkResetFences(
 ) -> vk::Result {
     trace!("called vkResetFences({device:?}, {fence_count:?}, {p_fences:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001038);
     packet.write(device);
     packet.write(fence_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkResetFences");
 }
 
@@ -1242,9 +1281,10 @@ unsafe extern "stdcall" fn vkGetFenceStatus(
 ) -> vk::Result {
     trace!("called vkGetFenceStatus({device:?}, {fence:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001039);
     packet.write(device);
     packet.write(fence);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetFenceStatus");
 }
 
@@ -1259,9 +1299,10 @@ unsafe extern "stdcall" fn vkWaitForFences(
 ) -> vk::Result {
     trace!("called vkWaitForFences({device:?}, {fence_count:?}, {p_fences:?}, {wait_all:?}, {timeout:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001040);
     packet.write(device);
     packet.write(fence_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkWaitForFences");
 }
 
@@ -1275,11 +1316,12 @@ unsafe extern "stdcall" fn vkCreateSemaphore(
 ) -> vk::Result {
     trace!("called vkCreateSemaphore({device:?}, {p_create_info:?}, {p_allocator:?}, {p_semaphore:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001041);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_semaphore);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateSemaphore");
 }
 
@@ -1292,10 +1334,11 @@ unsafe extern "stdcall" fn vkDestroySemaphore(
 ) {
     trace!("called vkDestroySemaphore({device:?}, {semaphore:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001042);
     packet.write(device);
     packet.write(semaphore);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroySemaphore");
 }
 
@@ -1309,11 +1352,12 @@ unsafe extern "stdcall" fn vkCreateEvent(
 ) -> vk::Result {
     trace!("called vkCreateEvent({device:?}, {p_create_info:?}, {p_allocator:?}, {p_event:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001043);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_event);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateEvent");
 }
 
@@ -1326,10 +1370,11 @@ unsafe extern "stdcall" fn vkDestroyEvent(
 ) {
     trace!("called vkDestroyEvent({device:?}, {event:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001044);
     packet.write(device);
     packet.write(event);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyEvent");
 }
 
@@ -1341,9 +1386,10 @@ unsafe extern "stdcall" fn vkGetEventStatus(
 ) -> vk::Result {
     trace!("called vkGetEventStatus({device:?}, {event:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001045);
     packet.write(device);
     packet.write(event);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetEventStatus");
 }
 
@@ -1355,9 +1401,10 @@ unsafe extern "stdcall" fn vkSetEvent(
 ) -> vk::Result {
     trace!("called vkSetEvent({device:?}, {event:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001046);
     packet.write(device);
     packet.write(event);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkSetEvent");
 }
 
@@ -1369,9 +1416,10 @@ unsafe extern "stdcall" fn vkResetEvent(
 ) -> vk::Result {
     trace!("called vkResetEvent({device:?}, {event:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001047);
     packet.write(device);
     packet.write(event);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkResetEvent");
 }
 
@@ -1385,11 +1433,12 @@ unsafe extern "stdcall" fn vkCreateQueryPool(
 ) -> vk::Result {
     trace!("called vkCreateQueryPool({device:?}, {p_create_info:?}, {p_allocator:?}, {p_query_pool:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001048);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_query_pool);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateQueryPool");
 }
 
@@ -1402,10 +1451,11 @@ unsafe extern "stdcall" fn vkDestroyQueryPool(
 ) {
     trace!("called vkDestroyQueryPool({device:?}, {query_pool:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001049);
     packet.write(device);
     packet.write(query_pool);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyQueryPool");
 }
 
@@ -1423,11 +1473,12 @@ unsafe extern "stdcall" fn vkGetQueryPoolResults(
 ) -> vk::Result {
     trace!("called vkGetQueryPoolResults({device:?}, {query_pool:?}, {first_query:?}, {query_count:?}, {data_size:?}, {p_data:?}, {stride:?}, {flags:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001050);
     packet.write(device);
     packet.write(query_pool);
     packet.write(first_query);
     packet.write(query_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetQueryPoolResults");
 }
 
@@ -1441,11 +1492,12 @@ unsafe extern "stdcall" fn vkResetQueryPool(
 ) {
     trace!("called vkResetQueryPool({device:?}, {query_pool:?}, {first_query:?}, {query_count:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001051);
     packet.write(device);
     packet.write(query_pool);
     packet.write(first_query);
     packet.write(query_count);
+    packet.send();
     unimplemented!("vkResetQueryPool");
 }
 
@@ -1459,11 +1511,12 @@ unsafe extern "stdcall" fn vkCreateBuffer(
 ) -> vk::Result {
     trace!("called vkCreateBuffer({device:?}, {p_create_info:?}, {p_allocator:?}, {p_buffer:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001052);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_buffer);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateBuffer");
 }
 
@@ -1476,10 +1529,11 @@ unsafe extern "stdcall" fn vkDestroyBuffer(
 ) {
     trace!("called vkDestroyBuffer({device:?}, {buffer:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001053);
     packet.write(device);
     packet.write(buffer);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyBuffer");
 }
 
@@ -1493,11 +1547,12 @@ unsafe extern "stdcall" fn vkCreateBufferView(
 ) -> vk::Result {
     trace!("called vkCreateBufferView({device:?}, {p_create_info:?}, {p_allocator:?}, {p_view:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001054);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_view);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateBufferView");
 }
 
@@ -1510,10 +1565,11 @@ unsafe extern "stdcall" fn vkDestroyBufferView(
 ) {
     trace!("called vkDestroyBufferView({device:?}, {buffer_view:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001055);
     packet.write(device);
     packet.write(buffer_view);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyBufferView");
 }
 
@@ -1527,11 +1583,12 @@ unsafe extern "stdcall" fn vkCreateImage(
 ) -> vk::Result {
     trace!("called vkCreateImage({device:?}, {p_create_info:?}, {p_allocator:?}, {p_image:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001056);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_image);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateImage");
 }
 
@@ -1544,10 +1601,11 @@ unsafe extern "stdcall" fn vkDestroyImage(
 ) {
     trace!("called vkDestroyImage({device:?}, {image:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001057);
     packet.write(device);
     packet.write(image);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyImage");
 }
 
@@ -1561,11 +1619,12 @@ unsafe extern "stdcall" fn vkGetImageSubresourceLayout(
 ) {
     trace!("called vkGetImageSubresourceLayout({device:?}, {image:?}, {p_subresource:?}, {p_layout:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001058);
     packet.write(device);
     packet.write(image);
     packet.write(p_subresource);
     packet.write(p_layout);
+    packet.send();
     unimplemented!("vkGetImageSubresourceLayout");
 }
 
@@ -1579,11 +1638,12 @@ unsafe extern "stdcall" fn vkCreateImageView(
 ) -> vk::Result {
     trace!("called vkCreateImageView({device:?}, {p_create_info:?}, {p_allocator:?}, {p_view:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001059);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_view);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateImageView");
 }
 
@@ -1596,10 +1656,11 @@ unsafe extern "stdcall" fn vkDestroyImageView(
 ) {
     trace!("called vkDestroyImageView({device:?}, {image_view:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001060);
     packet.write(device);
     packet.write(image_view);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyImageView");
 }
 
@@ -1613,11 +1674,12 @@ unsafe extern "stdcall" fn vkCreateShaderModule(
 ) -> vk::Result {
     trace!("called vkCreateShaderModule({device:?}, {p_create_info:?}, {p_allocator:?}, {p_shader_module:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001061);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_shader_module);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateShaderModule");
 }
 
@@ -1630,10 +1692,11 @@ unsafe extern "stdcall" fn vkDestroyShaderModule(
 ) {
     trace!("called vkDestroyShaderModule({device:?}, {shader_module:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001062);
     packet.write(device);
     packet.write(shader_module);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyShaderModule");
 }
 
@@ -1647,11 +1710,12 @@ unsafe extern "stdcall" fn vkCreatePipelineCache(
 ) -> vk::Result {
     trace!("called vkCreatePipelineCache({device:?}, {p_create_info:?}, {p_allocator:?}, {p_pipeline_cache:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001063);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_pipeline_cache);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreatePipelineCache");
 }
 
@@ -1664,10 +1728,11 @@ unsafe extern "stdcall" fn vkDestroyPipelineCache(
 ) {
     trace!("called vkDestroyPipelineCache({device:?}, {pipeline_cache:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001064);
     packet.write(device);
     packet.write(pipeline_cache);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyPipelineCache");
 }
 
@@ -1681,11 +1746,12 @@ unsafe extern "stdcall" fn vkGetPipelineCacheData(
 ) -> vk::Result {
     trace!("called vkGetPipelineCacheData({device:?}, {pipeline_cache:?}, {p_data_size:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001065);
     packet.write(device);
     packet.write(pipeline_cache);
     packet.write(p_data_size);
     packet.write(p_data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPipelineCacheData");
 }
 
@@ -1699,10 +1765,11 @@ unsafe extern "stdcall" fn vkMergePipelineCaches(
 ) -> vk::Result {
     trace!("called vkMergePipelineCaches({device:?}, {dst_cache:?}, {src_cache_count:?}, {p_src_caches:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001066);
     packet.write(device);
     packet.write(dst_cache);
     packet.write(src_cache_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkMergePipelineCaches");
 }
 
@@ -1718,10 +1785,11 @@ unsafe extern "stdcall" fn vkCreateGraphicsPipelines(
 ) -> vk::Result {
     trace!("called vkCreateGraphicsPipelines({device:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001067);
     packet.write(device);
     packet.write(pipeline_cache);
     packet.write(create_info_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateGraphicsPipelines");
 }
 
@@ -1737,10 +1805,11 @@ unsafe extern "stdcall" fn vkCreateComputePipelines(
 ) -> vk::Result {
     trace!("called vkCreateComputePipelines({device:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001068);
     packet.write(device);
     packet.write(pipeline_cache);
     packet.write(create_info_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateComputePipelines");
 }
 
@@ -1753,10 +1822,11 @@ unsafe extern "stdcall" fn vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(
 ) -> vk::Result {
     trace!("called vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI({device:?}, {renderpass:?}, {p_max_workgroup_size:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001069);
     packet.write(device);
     packet.write(renderpass);
     packet.write(p_max_workgroup_size);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI");
 }
 
@@ -1769,10 +1839,11 @@ unsafe extern "stdcall" fn vkDestroyPipeline(
 ) {
     trace!("called vkDestroyPipeline({device:?}, {pipeline:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001070);
     packet.write(device);
     packet.write(pipeline);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyPipeline");
 }
 
@@ -1786,11 +1857,12 @@ unsafe extern "stdcall" fn vkCreatePipelineLayout(
 ) -> vk::Result {
     trace!("called vkCreatePipelineLayout({device:?}, {p_create_info:?}, {p_allocator:?}, {p_pipeline_layout:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001071);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_pipeline_layout);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreatePipelineLayout");
 }
 
@@ -1803,10 +1875,11 @@ unsafe extern "stdcall" fn vkDestroyPipelineLayout(
 ) {
     trace!("called vkDestroyPipelineLayout({device:?}, {pipeline_layout:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001072);
     packet.write(device);
     packet.write(pipeline_layout);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyPipelineLayout");
 }
 
@@ -1820,11 +1893,12 @@ unsafe extern "stdcall" fn vkCreateSampler(
 ) -> vk::Result {
     trace!("called vkCreateSampler({device:?}, {p_create_info:?}, {p_allocator:?}, {p_sampler:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001073);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_sampler);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateSampler");
 }
 
@@ -1837,10 +1911,11 @@ unsafe extern "stdcall" fn vkDestroySampler(
 ) {
     trace!("called vkDestroySampler({device:?}, {sampler:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001074);
     packet.write(device);
     packet.write(sampler);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroySampler");
 }
 
@@ -1854,11 +1929,12 @@ unsafe extern "stdcall" fn vkCreateDescriptorSetLayout(
 ) -> vk::Result {
     trace!("called vkCreateDescriptorSetLayout({device:?}, {p_create_info:?}, {p_allocator:?}, {p_set_layout:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001075);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_set_layout);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateDescriptorSetLayout");
 }
 
@@ -1871,10 +1947,11 @@ unsafe extern "stdcall" fn vkDestroyDescriptorSetLayout(
 ) {
     trace!("called vkDestroyDescriptorSetLayout({device:?}, {descriptor_set_layout:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001076);
     packet.write(device);
     packet.write(descriptor_set_layout);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyDescriptorSetLayout");
 }
 
@@ -1888,11 +1965,12 @@ unsafe extern "stdcall" fn vkCreateDescriptorPool(
 ) -> vk::Result {
     trace!("called vkCreateDescriptorPool({device:?}, {p_create_info:?}, {p_allocator:?}, {p_descriptor_pool:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001077);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_descriptor_pool);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateDescriptorPool");
 }
 
@@ -1905,10 +1983,11 @@ unsafe extern "stdcall" fn vkDestroyDescriptorPool(
 ) {
     trace!("called vkDestroyDescriptorPool({device:?}, {descriptor_pool:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001078);
     packet.write(device);
     packet.write(descriptor_pool);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyDescriptorPool");
 }
 
@@ -1921,10 +2000,11 @@ unsafe extern "stdcall" fn vkResetDescriptorPool(
 ) -> vk::Result {
     trace!("called vkResetDescriptorPool({device:?}, {descriptor_pool:?}, {flags:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001079);
     packet.write(device);
     packet.write(descriptor_pool);
     packet.write(flags);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkResetDescriptorPool");
 }
 
@@ -1937,10 +2017,11 @@ unsafe extern "stdcall" fn vkAllocateDescriptorSets(
 ) -> vk::Result {
     trace!("called vkAllocateDescriptorSets({device:?}, {p_allocate_info:?}, {p_descriptor_sets:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001080);
     packet.write(device);
     packet.write(p_allocate_info);
     packet.write(p_descriptor_sets);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkAllocateDescriptorSets");
 }
 
@@ -1954,10 +2035,11 @@ unsafe extern "stdcall" fn vkFreeDescriptorSets(
 ) -> vk::Result {
     trace!("called vkFreeDescriptorSets({device:?}, {descriptor_pool:?}, {descriptor_set_count:?}, {p_descriptor_sets:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001081);
     packet.write(device);
     packet.write(descriptor_pool);
     packet.write(descriptor_set_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkFreeDescriptorSets");
 }
 
@@ -1972,9 +2054,10 @@ unsafe extern "stdcall" fn vkUpdateDescriptorSets(
 ) {
     trace!("called vkUpdateDescriptorSets({device:?}, {descriptor_write_count:?}, {p_descriptor_writes:?}, {descriptor_copy_count:?}, {p_descriptor_copies:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001082);
     packet.write(device);
     packet.write(descriptor_write_count);
+    packet.send();
     unimplemented!("vkUpdateDescriptorSets");
 }
 
@@ -1988,11 +2071,12 @@ unsafe extern "stdcall" fn vkCreateFramebuffer(
 ) -> vk::Result {
     trace!("called vkCreateFramebuffer({device:?}, {p_create_info:?}, {p_allocator:?}, {p_framebuffer:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001083);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_framebuffer);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateFramebuffer");
 }
 
@@ -2005,10 +2089,11 @@ unsafe extern "stdcall" fn vkDestroyFramebuffer(
 ) {
     trace!("called vkDestroyFramebuffer({device:?}, {framebuffer:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001084);
     packet.write(device);
     packet.write(framebuffer);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyFramebuffer");
 }
 
@@ -2022,11 +2107,12 @@ unsafe extern "stdcall" fn vkCreateRenderPass(
 ) -> vk::Result {
     trace!("called vkCreateRenderPass({device:?}, {p_create_info:?}, {p_allocator:?}, {p_render_pass:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001085);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_render_pass);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateRenderPass");
 }
 
@@ -2039,10 +2125,11 @@ unsafe extern "stdcall" fn vkDestroyRenderPass(
 ) {
     trace!("called vkDestroyRenderPass({device:?}, {render_pass:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001086);
     packet.write(device);
     packet.write(render_pass);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyRenderPass");
 }
 
@@ -2055,10 +2142,11 @@ unsafe extern "stdcall" fn vkGetRenderAreaGranularity(
 ) {
     trace!("called vkGetRenderAreaGranularity({device:?}, {render_pass:?}, {p_granularity:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001087);
     packet.write(device);
     packet.write(render_pass);
     packet.write(p_granularity);
+    packet.send();
     unimplemented!("vkGetRenderAreaGranularity");
 }
 
@@ -2071,10 +2159,11 @@ unsafe extern "stdcall" fn vkGetRenderingAreaGranularityKHR(
 ) {
     trace!("called vkGetRenderingAreaGranularityKHR({device:?}, {p_rendering_area_info:?}, {p_granularity:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001088);
     packet.write(device);
     packet.write(p_rendering_area_info);
     packet.write(p_granularity);
+    packet.send();
     unimplemented!("vkGetRenderingAreaGranularityKHR");
 }
 
@@ -2088,11 +2177,12 @@ unsafe extern "stdcall" fn vkCreateCommandPool(
 ) -> vk::Result {
     trace!("called vkCreateCommandPool({device:?}, {p_create_info:?}, {p_allocator:?}, {p_command_pool:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001089);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_command_pool);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateCommandPool");
 }
 
@@ -2105,10 +2195,11 @@ unsafe extern "stdcall" fn vkDestroyCommandPool(
 ) {
     trace!("called vkDestroyCommandPool({device:?}, {command_pool:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001090);
     packet.write(device);
     packet.write(command_pool);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyCommandPool");
 }
 
@@ -2121,10 +2212,11 @@ unsafe extern "stdcall" fn vkResetCommandPool(
 ) -> vk::Result {
     trace!("called vkResetCommandPool({device:?}, {command_pool:?}, {flags:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001091);
     packet.write(device);
     packet.write(command_pool);
     packet.write(flags);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkResetCommandPool");
 }
 
@@ -2137,10 +2229,11 @@ unsafe extern "stdcall" fn vkAllocateCommandBuffers(
 ) -> vk::Result {
     trace!("called vkAllocateCommandBuffers({device:?}, {p_allocate_info:?}, {p_command_buffers:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001092);
     packet.write(device);
     packet.write(p_allocate_info);
     packet.write(p_command_buffers);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkAllocateCommandBuffers");
 }
 
@@ -2154,10 +2247,11 @@ unsafe extern "stdcall" fn vkFreeCommandBuffers(
 ) {
     trace!("called vkFreeCommandBuffers({device:?}, {command_pool:?}, {command_buffer_count:?}, {p_command_buffers:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001093);
     packet.write(device);
     packet.write(command_pool);
     packet.write(command_buffer_count);
+    packet.send();
     unimplemented!("vkFreeCommandBuffers");
 }
 
@@ -2169,9 +2263,10 @@ unsafe extern "stdcall" fn vkBeginCommandBuffer(
 ) -> vk::Result {
     trace!("called vkBeginCommandBuffer({command_buffer:?}, {p_begin_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001094);
     packet.write(command_buffer);
     packet.write(p_begin_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkBeginCommandBuffer");
 }
 
@@ -2182,8 +2277,9 @@ unsafe extern "stdcall" fn vkEndCommandBuffer(
 ) -> vk::Result {
     trace!("called vkEndCommandBuffer({command_buffer:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001095);
     packet.write(command_buffer);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkEndCommandBuffer");
 }
 
@@ -2195,9 +2291,10 @@ unsafe extern "stdcall" fn vkResetCommandBuffer(
 ) -> vk::Result {
     trace!("called vkResetCommandBuffer({command_buffer:?}, {flags:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001096);
     packet.write(command_buffer);
     packet.write(flags);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkResetCommandBuffer");
 }
 
@@ -2210,10 +2307,11 @@ unsafe extern "stdcall" fn vkCmdBindPipeline(
 ) {
     trace!("called vkCmdBindPipeline({command_buffer:?}, {pipeline_bind_point:?}, {pipeline:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001097);
     packet.write(command_buffer);
     packet.write(pipeline_bind_point);
     packet.write(pipeline);
+    packet.send();
     unimplemented!("vkCmdBindPipeline");
 }
 
@@ -2225,9 +2323,10 @@ unsafe extern "stdcall" fn vkCmdSetAttachmentFeedbackLoopEnableEXT(
 ) {
     trace!("called vkCmdSetAttachmentFeedbackLoopEnableEXT({command_buffer:?}, {aspect_mask:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001098);
     packet.write(command_buffer);
     packet.write(aspect_mask);
+    packet.send();
     unimplemented!("vkCmdSetAttachmentFeedbackLoopEnableEXT");
 }
 
@@ -2241,10 +2340,11 @@ unsafe extern "stdcall" fn vkCmdSetViewport(
 ) {
     trace!("called vkCmdSetViewport({command_buffer:?}, {first_viewport:?}, {viewport_count:?}, {p_viewports:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001099);
     packet.write(command_buffer);
     packet.write(first_viewport);
     packet.write(viewport_count);
+    packet.send();
     unimplemented!("vkCmdSetViewport");
 }
 
@@ -2258,10 +2358,11 @@ unsafe extern "stdcall" fn vkCmdSetScissor(
 ) {
     trace!("called vkCmdSetScissor({command_buffer:?}, {first_scissor:?}, {scissor_count:?}, {p_scissors:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001100);
     packet.write(command_buffer);
     packet.write(first_scissor);
     packet.write(scissor_count);
+    packet.send();
     unimplemented!("vkCmdSetScissor");
 }
 
@@ -2273,9 +2374,10 @@ unsafe extern "stdcall" fn vkCmdSetLineWidth(
 ) {
     trace!("called vkCmdSetLineWidth({command_buffer:?}, {line_width:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001101);
     packet.write(command_buffer);
     packet.write(line_width);
+    packet.send();
     unimplemented!("vkCmdSetLineWidth");
 }
 
@@ -2289,11 +2391,12 @@ unsafe extern "stdcall" fn vkCmdSetDepthBias(
 ) {
     trace!("called vkCmdSetDepthBias({command_buffer:?}, {depth_bias_constant_factor:?}, {depth_bias_clamp:?}, {depth_bias_slope_factor:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001102);
     packet.write(command_buffer);
     packet.write(depth_bias_constant_factor);
     packet.write(depth_bias_clamp);
     packet.write(depth_bias_slope_factor);
+    packet.send();
     unimplemented!("vkCmdSetDepthBias");
 }
 
@@ -2305,9 +2408,10 @@ unsafe extern "stdcall" fn vkCmdSetBlendConstants(
 ) {
     trace!("called vkCmdSetBlendConstants({command_buffer:?}, {blend_constants:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001103);
     packet.write(command_buffer);
     packet.write(blend_constants);
+    packet.send();
     unimplemented!("vkCmdSetBlendConstants");
 }
 
@@ -2320,10 +2424,11 @@ unsafe extern "stdcall" fn vkCmdSetDepthBounds(
 ) {
     trace!("called vkCmdSetDepthBounds({command_buffer:?}, {min_depth_bounds:?}, {max_depth_bounds:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001104);
     packet.write(command_buffer);
     packet.write(min_depth_bounds);
     packet.write(max_depth_bounds);
+    packet.send();
     unimplemented!("vkCmdSetDepthBounds");
 }
 
@@ -2336,10 +2441,11 @@ unsafe extern "stdcall" fn vkCmdSetStencilCompareMask(
 ) {
     trace!("called vkCmdSetStencilCompareMask({command_buffer:?}, {face_mask:?}, {compare_mask:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001105);
     packet.write(command_buffer);
     packet.write(face_mask);
     packet.write(compare_mask);
+    packet.send();
     unimplemented!("vkCmdSetStencilCompareMask");
 }
 
@@ -2352,10 +2458,11 @@ unsafe extern "stdcall" fn vkCmdSetStencilWriteMask(
 ) {
     trace!("called vkCmdSetStencilWriteMask({command_buffer:?}, {face_mask:?}, {write_mask:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001106);
     packet.write(command_buffer);
     packet.write(face_mask);
     packet.write(write_mask);
+    packet.send();
     unimplemented!("vkCmdSetStencilWriteMask");
 }
 
@@ -2368,10 +2475,11 @@ unsafe extern "stdcall" fn vkCmdSetStencilReference(
 ) {
     trace!("called vkCmdSetStencilReference({command_buffer:?}, {face_mask:?}, {reference:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001107);
     packet.write(command_buffer);
     packet.write(face_mask);
     packet.write(reference);
+    packet.send();
     unimplemented!("vkCmdSetStencilReference");
 }
 
@@ -2389,12 +2497,13 @@ unsafe extern "stdcall" fn vkCmdBindDescriptorSets(
 ) {
     trace!("called vkCmdBindDescriptorSets({command_buffer:?}, {pipeline_bind_point:?}, {layout:?}, {first_set:?}, {descriptor_set_count:?}, {p_descriptor_sets:?}, {dynamic_offset_count:?}, {p_dynamic_offsets:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001108);
     packet.write(command_buffer);
     packet.write(pipeline_bind_point);
     packet.write(layout);
     packet.write(first_set);
     packet.write(descriptor_set_count);
+    packet.send();
     unimplemented!("vkCmdBindDescriptorSets");
 }
 
@@ -2408,11 +2517,12 @@ unsafe extern "stdcall" fn vkCmdBindIndexBuffer(
 ) {
     trace!("called vkCmdBindIndexBuffer({command_buffer:?}, {buffer:?}, {offset:?}, {index_type:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001109);
     packet.write(command_buffer);
     packet.write(buffer);
     packet.write(offset);
     packet.write(index_type);
+    packet.send();
     unimplemented!("vkCmdBindIndexBuffer");
 }
 
@@ -2427,10 +2537,11 @@ unsafe extern "stdcall" fn vkCmdBindVertexBuffers(
 ) {
     trace!("called vkCmdBindVertexBuffers({command_buffer:?}, {first_binding:?}, {binding_count:?}, {p_buffers:?}, {p_offsets:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001110);
     packet.write(command_buffer);
     packet.write(first_binding);
     packet.write(binding_count);
+    packet.send();
     unimplemented!("vkCmdBindVertexBuffers");
 }
 
@@ -2445,9 +2556,10 @@ unsafe extern "stdcall" fn vkCmdDraw(
 ) {
     trace!("called vkCmdDraw({command_buffer:?}, {vertex_count:?}, {instance_count:?}, {first_vertex:?}, {first_instance:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001111);
     packet.write(command_buffer);
     packet.write(vertex_count);
+    packet.send();
     unimplemented!("vkCmdDraw");
 }
 
@@ -2463,9 +2575,10 @@ unsafe extern "stdcall" fn vkCmdDrawIndexed(
 ) {
     trace!("called vkCmdDrawIndexed({command_buffer:?}, {index_count:?}, {instance_count:?}, {first_index:?}, {vertex_offset:?}, {first_instance:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001112);
     packet.write(command_buffer);
     packet.write(index_count);
+    packet.send();
     unimplemented!("vkCmdDrawIndexed");
 }
 
@@ -2481,9 +2594,10 @@ unsafe extern "stdcall" fn vkCmdDrawMultiEXT(
 ) {
     trace!("called vkCmdDrawMultiEXT({command_buffer:?}, {draw_count:?}, {p_vertex_info:?}, {instance_count:?}, {first_instance:?}, {stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001113);
     packet.write(command_buffer);
     packet.write(draw_count);
+    packet.send();
     unimplemented!("vkCmdDrawMultiEXT");
 }
 
@@ -2500,9 +2614,10 @@ unsafe extern "stdcall" fn vkCmdDrawMultiIndexedEXT(
 ) {
     trace!("called vkCmdDrawMultiIndexedEXT({command_buffer:?}, {draw_count:?}, {p_index_info:?}, {instance_count:?}, {first_instance:?}, {stride:?}, {p_vertex_offset:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001114);
     packet.write(command_buffer);
     packet.write(draw_count);
+    packet.send();
     unimplemented!("vkCmdDrawMultiIndexedEXT");
 }
 
@@ -2517,11 +2632,12 @@ unsafe extern "stdcall" fn vkCmdDrawIndirect(
 ) {
     trace!("called vkCmdDrawIndirect({command_buffer:?}, {buffer:?}, {offset:?}, {draw_count:?}, {stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001115);
     packet.write(command_buffer);
     packet.write(buffer);
     packet.write(offset);
     packet.write(draw_count);
+    packet.send();
     unimplemented!("vkCmdDrawIndirect");
 }
 
@@ -2536,11 +2652,12 @@ unsafe extern "stdcall" fn vkCmdDrawIndexedIndirect(
 ) {
     trace!("called vkCmdDrawIndexedIndirect({command_buffer:?}, {buffer:?}, {offset:?}, {draw_count:?}, {stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001116);
     packet.write(command_buffer);
     packet.write(buffer);
     packet.write(offset);
     packet.write(draw_count);
+    packet.send();
     unimplemented!("vkCmdDrawIndexedIndirect");
 }
 
@@ -2554,11 +2671,12 @@ unsafe extern "stdcall" fn vkCmdDispatch(
 ) {
     trace!("called vkCmdDispatch({command_buffer:?}, {group_count_x:?}, {group_count_y:?}, {group_count_z:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001117);
     packet.write(command_buffer);
     packet.write(group_count_x);
     packet.write(group_count_y);
     packet.write(group_count_z);
+    packet.send();
     unimplemented!("vkCmdDispatch");
 }
 
@@ -2571,10 +2689,11 @@ unsafe extern "stdcall" fn vkCmdDispatchIndirect(
 ) {
     trace!("called vkCmdDispatchIndirect({command_buffer:?}, {buffer:?}, {offset:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001118);
     packet.write(command_buffer);
     packet.write(buffer);
     packet.write(offset);
+    packet.send();
     unimplemented!("vkCmdDispatchIndirect");
 }
 
@@ -2585,8 +2704,9 @@ unsafe extern "stdcall" fn vkCmdSubpassShadingHUAWEI(
 ) {
     trace!("called vkCmdSubpassShadingHUAWEI({command_buffer:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001119);
     packet.write(command_buffer);
+    packet.send();
     unimplemented!("vkCmdSubpassShadingHUAWEI");
 }
 
@@ -2600,11 +2720,12 @@ unsafe extern "stdcall" fn vkCmdDrawClusterHUAWEI(
 ) {
     trace!("called vkCmdDrawClusterHUAWEI({command_buffer:?}, {group_count_x:?}, {group_count_y:?}, {group_count_z:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001120);
     packet.write(command_buffer);
     packet.write(group_count_x);
     packet.write(group_count_y);
     packet.write(group_count_z);
+    packet.send();
     unimplemented!("vkCmdDrawClusterHUAWEI");
 }
 
@@ -2617,10 +2738,11 @@ unsafe extern "stdcall" fn vkCmdDrawClusterIndirectHUAWEI(
 ) {
     trace!("called vkCmdDrawClusterIndirectHUAWEI({command_buffer:?}, {buffer:?}, {offset:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001121);
     packet.write(command_buffer);
     packet.write(buffer);
     packet.write(offset);
+    packet.send();
     unimplemented!("vkCmdDrawClusterIndirectHUAWEI");
 }
 
@@ -2633,10 +2755,11 @@ unsafe extern "stdcall" fn vkCmdUpdatePipelineIndirectBufferNV(
 ) {
     trace!("called vkCmdUpdatePipelineIndirectBufferNV({command_buffer:?}, {pipeline_bind_point:?}, {pipeline:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001122);
     packet.write(command_buffer);
     packet.write(pipeline_bind_point);
     packet.write(pipeline);
+    packet.send();
     unimplemented!("vkCmdUpdatePipelineIndirectBufferNV");
 }
 
@@ -2651,11 +2774,12 @@ unsafe extern "stdcall" fn vkCmdCopyBuffer(
 ) {
     trace!("called vkCmdCopyBuffer({command_buffer:?}, {src_buffer:?}, {dst_buffer:?}, {region_count:?}, {p_regions:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001123);
     packet.write(command_buffer);
     packet.write(src_buffer);
     packet.write(dst_buffer);
     packet.write(region_count);
+    packet.send();
     unimplemented!("vkCmdCopyBuffer");
 }
 
@@ -2672,13 +2796,14 @@ unsafe extern "stdcall" fn vkCmdCopyImage(
 ) {
     trace!("called vkCmdCopyImage({command_buffer:?}, {src_image:?}, {src_image_layout:?}, {dst_image:?}, {dst_image_layout:?}, {region_count:?}, {p_regions:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001124);
     packet.write(command_buffer);
     packet.write(src_image);
     packet.write(src_image_layout);
     packet.write(dst_image);
     packet.write(dst_image_layout);
     packet.write(region_count);
+    packet.send();
     unimplemented!("vkCmdCopyImage");
 }
 
@@ -2696,13 +2821,14 @@ unsafe extern "stdcall" fn vkCmdBlitImage(
 ) {
     trace!("called vkCmdBlitImage({command_buffer:?}, {src_image:?}, {src_image_layout:?}, {dst_image:?}, {dst_image_layout:?}, {region_count:?}, {p_regions:?}, {filter:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001125);
     packet.write(command_buffer);
     packet.write(src_image);
     packet.write(src_image_layout);
     packet.write(dst_image);
     packet.write(dst_image_layout);
     packet.write(region_count);
+    packet.send();
     unimplemented!("vkCmdBlitImage");
 }
 
@@ -2718,12 +2844,13 @@ unsafe extern "stdcall" fn vkCmdCopyBufferToImage(
 ) {
     trace!("called vkCmdCopyBufferToImage({command_buffer:?}, {src_buffer:?}, {dst_image:?}, {dst_image_layout:?}, {region_count:?}, {p_regions:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001126);
     packet.write(command_buffer);
     packet.write(src_buffer);
     packet.write(dst_image);
     packet.write(dst_image_layout);
     packet.write(region_count);
+    packet.send();
     unimplemented!("vkCmdCopyBufferToImage");
 }
 
@@ -2739,12 +2866,13 @@ unsafe extern "stdcall" fn vkCmdCopyImageToBuffer(
 ) {
     trace!("called vkCmdCopyImageToBuffer({command_buffer:?}, {src_image:?}, {src_image_layout:?}, {dst_buffer:?}, {region_count:?}, {p_regions:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001127);
     packet.write(command_buffer);
     packet.write(src_image);
     packet.write(src_image_layout);
     packet.write(dst_buffer);
     packet.write(region_count);
+    packet.send();
     unimplemented!("vkCmdCopyImageToBuffer");
 }
 
@@ -2758,10 +2886,11 @@ unsafe extern "stdcall" fn vkCmdCopyMemoryIndirectNV(
 ) {
     trace!("called vkCmdCopyMemoryIndirectNV({command_buffer:?}, {copy_buffer_address:?}, {copy_count:?}, {stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001128);
     packet.write(command_buffer);
     packet.write(copy_buffer_address);
     packet.write(copy_count);
+    packet.send();
     unimplemented!("vkCmdCopyMemoryIndirectNV");
 }
 
@@ -2778,10 +2907,11 @@ unsafe extern "stdcall" fn vkCmdCopyMemoryToImageIndirectNV(
 ) {
     trace!("called vkCmdCopyMemoryToImageIndirectNV({command_buffer:?}, {copy_buffer_address:?}, {copy_count:?}, {stride:?}, {dst_image:?}, {dst_image_layout:?}, {p_image_subresources:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001129);
     packet.write(command_buffer);
     packet.write(copy_buffer_address);
     packet.write(copy_count);
+    packet.send();
     unimplemented!("vkCmdCopyMemoryToImageIndirectNV");
 }
 
@@ -2796,12 +2926,13 @@ unsafe extern "stdcall" fn vkCmdUpdateBuffer(
 ) {
     trace!("called vkCmdUpdateBuffer({command_buffer:?}, {dst_buffer:?}, {dst_offset:?}, {data_size:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001130);
     packet.write(command_buffer);
     packet.write(dst_buffer);
     packet.write(dst_offset);
     packet.write(data_size);
     packet.write(p_data);
+    packet.send();
     unimplemented!("vkCmdUpdateBuffer");
 }
 
@@ -2816,12 +2947,13 @@ unsafe extern "stdcall" fn vkCmdFillBuffer(
 ) {
     trace!("called vkCmdFillBuffer({command_buffer:?}, {dst_buffer:?}, {dst_offset:?}, {size:?}, {data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001131);
     packet.write(command_buffer);
     packet.write(dst_buffer);
     packet.write(dst_offset);
     packet.write(size);
     packet.write(data);
+    packet.send();
     unimplemented!("vkCmdFillBuffer");
 }
 
@@ -2837,12 +2969,13 @@ unsafe extern "stdcall" fn vkCmdClearColorImage(
 ) {
     trace!("called vkCmdClearColorImage({command_buffer:?}, {image:?}, {image_layout:?}, {p_color:?}, {range_count:?}, {p_ranges:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001132);
     packet.write(command_buffer);
     packet.write(image);
     packet.write(image_layout);
     packet.write(p_color);
     packet.write(range_count);
+    packet.send();
     unimplemented!("vkCmdClearColorImage");
 }
 
@@ -2858,12 +2991,13 @@ unsafe extern "stdcall" fn vkCmdClearDepthStencilImage(
 ) {
     trace!("called vkCmdClearDepthStencilImage({command_buffer:?}, {image:?}, {image_layout:?}, {p_depth_stencil:?}, {range_count:?}, {p_ranges:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001133);
     packet.write(command_buffer);
     packet.write(image);
     packet.write(image_layout);
     packet.write(p_depth_stencil);
     packet.write(range_count);
+    packet.send();
     unimplemented!("vkCmdClearDepthStencilImage");
 }
 
@@ -2878,9 +3012,10 @@ unsafe extern "stdcall" fn vkCmdClearAttachments(
 ) {
     trace!("called vkCmdClearAttachments({command_buffer:?}, {attachment_count:?}, {p_attachments:?}, {rect_count:?}, {p_rects:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001134);
     packet.write(command_buffer);
     packet.write(attachment_count);
+    packet.send();
     unimplemented!("vkCmdClearAttachments");
 }
 
@@ -2897,13 +3032,14 @@ unsafe extern "stdcall" fn vkCmdResolveImage(
 ) {
     trace!("called vkCmdResolveImage({command_buffer:?}, {src_image:?}, {src_image_layout:?}, {dst_image:?}, {dst_image_layout:?}, {region_count:?}, {p_regions:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001135);
     packet.write(command_buffer);
     packet.write(src_image);
     packet.write(src_image_layout);
     packet.write(dst_image);
     packet.write(dst_image_layout);
     packet.write(region_count);
+    packet.send();
     unimplemented!("vkCmdResolveImage");
 }
 
@@ -2916,10 +3052,11 @@ unsafe extern "stdcall" fn vkCmdSetEvent(
 ) {
     trace!("called vkCmdSetEvent({command_buffer:?}, {event:?}, {stage_mask:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001136);
     packet.write(command_buffer);
     packet.write(event);
     packet.write(stage_mask);
+    packet.send();
     unimplemented!("vkCmdSetEvent");
 }
 
@@ -2932,10 +3069,11 @@ unsafe extern "stdcall" fn vkCmdResetEvent(
 ) {
     trace!("called vkCmdResetEvent({command_buffer:?}, {event:?}, {stage_mask:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001137);
     packet.write(command_buffer);
     packet.write(event);
     packet.write(stage_mask);
+    packet.send();
     unimplemented!("vkCmdResetEvent");
 }
 
@@ -2956,9 +3094,10 @@ unsafe extern "stdcall" fn vkCmdWaitEvents(
 ) {
     trace!("called vkCmdWaitEvents({command_buffer:?}, {event_count:?}, {p_events:?}, {src_stage_mask:?}, {dst_stage_mask:?}, {memory_barrier_count:?}, {p_memory_barriers:?}, {buffer_memory_barrier_count:?}, {p_buffer_memory_barriers:?}, {image_memory_barrier_count:?}, {p_image_memory_barriers:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001138);
     packet.write(command_buffer);
     packet.write(event_count);
+    packet.send();
     unimplemented!("vkCmdWaitEvents");
 }
 
@@ -2978,12 +3117,13 @@ unsafe extern "stdcall" fn vkCmdPipelineBarrier(
 ) {
     trace!("called vkCmdPipelineBarrier({command_buffer:?}, {src_stage_mask:?}, {dst_stage_mask:?}, {dependency_flags:?}, {memory_barrier_count:?}, {p_memory_barriers:?}, {buffer_memory_barrier_count:?}, {p_buffer_memory_barriers:?}, {image_memory_barrier_count:?}, {p_image_memory_barriers:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001139);
     packet.write(command_buffer);
     packet.write(src_stage_mask);
     packet.write(dst_stage_mask);
     packet.write(dependency_flags);
     packet.write(memory_barrier_count);
+    packet.send();
     unimplemented!("vkCmdPipelineBarrier");
 }
 
@@ -2997,11 +3137,12 @@ unsafe extern "stdcall" fn vkCmdBeginQuery(
 ) {
     trace!("called vkCmdBeginQuery({command_buffer:?}, {query_pool:?}, {query:?}, {flags:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001140);
     packet.write(command_buffer);
     packet.write(query_pool);
     packet.write(query);
     packet.write(flags);
+    packet.send();
     unimplemented!("vkCmdBeginQuery");
 }
 
@@ -3014,10 +3155,11 @@ unsafe extern "stdcall" fn vkCmdEndQuery(
 ) {
     trace!("called vkCmdEndQuery({command_buffer:?}, {query_pool:?}, {query:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001141);
     packet.write(command_buffer);
     packet.write(query_pool);
     packet.write(query);
+    packet.send();
     unimplemented!("vkCmdEndQuery");
 }
 
@@ -3029,9 +3171,10 @@ unsafe extern "stdcall" fn vkCmdBeginConditionalRenderingEXT(
 ) {
     trace!("called vkCmdBeginConditionalRenderingEXT({command_buffer:?}, {p_conditional_rendering_begin:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001142);
     packet.write(command_buffer);
     packet.write(p_conditional_rendering_begin);
+    packet.send();
     unimplemented!("vkCmdBeginConditionalRenderingEXT");
 }
 
@@ -3042,8 +3185,9 @@ unsafe extern "stdcall" fn vkCmdEndConditionalRenderingEXT(
 ) {
     trace!("called vkCmdEndConditionalRenderingEXT({command_buffer:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001143);
     packet.write(command_buffer);
+    packet.send();
     unimplemented!("vkCmdEndConditionalRenderingEXT");
 }
 
@@ -3057,11 +3201,12 @@ unsafe extern "stdcall" fn vkCmdResetQueryPool(
 ) {
     trace!("called vkCmdResetQueryPool({command_buffer:?}, {query_pool:?}, {first_query:?}, {query_count:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001144);
     packet.write(command_buffer);
     packet.write(query_pool);
     packet.write(first_query);
     packet.write(query_count);
+    packet.send();
     unimplemented!("vkCmdResetQueryPool");
 }
 
@@ -3075,11 +3220,12 @@ unsafe extern "stdcall" fn vkCmdWriteTimestamp(
 ) {
     trace!("called vkCmdWriteTimestamp({command_buffer:?}, {pipeline_stage:?}, {query_pool:?}, {query:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001145);
     packet.write(command_buffer);
     packet.write(pipeline_stage);
     packet.write(query_pool);
     packet.write(query);
+    packet.send();
     unimplemented!("vkCmdWriteTimestamp");
 }
 
@@ -3097,11 +3243,12 @@ unsafe extern "stdcall" fn vkCmdCopyQueryPoolResults(
 ) {
     trace!("called vkCmdCopyQueryPoolResults({command_buffer:?}, {query_pool:?}, {first_query:?}, {query_count:?}, {dst_buffer:?}, {dst_offset:?}, {stride:?}, {flags:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001146);
     packet.write(command_buffer);
     packet.write(query_pool);
     packet.write(first_query);
     packet.write(query_count);
+    packet.send();
     unimplemented!("vkCmdCopyQueryPoolResults");
 }
 
@@ -3117,13 +3264,14 @@ unsafe extern "stdcall" fn vkCmdPushConstants(
 ) {
     trace!("called vkCmdPushConstants({command_buffer:?}, {layout:?}, {stage_flags:?}, {offset:?}, {size:?}, {p_values:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001147);
     packet.write(command_buffer);
     packet.write(layout);
     packet.write(stage_flags);
     packet.write(offset);
     packet.write(size);
     packet.write(p_values);
+    packet.send();
     unimplemented!("vkCmdPushConstants");
 }
 
@@ -3136,10 +3284,11 @@ unsafe extern "stdcall" fn vkCmdBeginRenderPass(
 ) {
     trace!("called vkCmdBeginRenderPass({command_buffer:?}, {p_render_pass_begin:?}, {contents:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001148);
     packet.write(command_buffer);
     packet.write(p_render_pass_begin);
     packet.write(contents);
+    packet.send();
     unimplemented!("vkCmdBeginRenderPass");
 }
 
@@ -3151,9 +3300,10 @@ unsafe extern "stdcall" fn vkCmdNextSubpass(
 ) {
     trace!("called vkCmdNextSubpass({command_buffer:?}, {contents:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001149);
     packet.write(command_buffer);
     packet.write(contents);
+    packet.send();
     unimplemented!("vkCmdNextSubpass");
 }
 
@@ -3164,8 +3314,9 @@ unsafe extern "stdcall" fn vkCmdEndRenderPass(
 ) {
     trace!("called vkCmdEndRenderPass({command_buffer:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001150);
     packet.write(command_buffer);
+    packet.send();
     unimplemented!("vkCmdEndRenderPass");
 }
 
@@ -3178,9 +3329,10 @@ unsafe extern "stdcall" fn vkCmdExecuteCommands(
 ) {
     trace!("called vkCmdExecuteCommands({command_buffer:?}, {command_buffer_count:?}, {p_command_buffers:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001151);
     packet.write(command_buffer);
     packet.write(command_buffer_count);
+    packet.send();
     unimplemented!("vkCmdExecuteCommands");
 }
 
@@ -3194,11 +3346,12 @@ unsafe extern "stdcall" fn vkCreateAndroidSurfaceKHR(
 ) -> vk::Result {
     trace!("called vkCreateAndroidSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001152);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateAndroidSurfaceKHR");
 }
 
@@ -3211,9 +3364,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceDisplayPropertiesKHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceDisplayPropertiesKHR({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001153);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr(p_property_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceDisplayPropertiesKHR");
 }
 
@@ -3226,9 +3380,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceDisplayPlanePropertiesKHR({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001154);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr(p_property_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
 }
 
@@ -3242,10 +3397,11 @@ unsafe extern "stdcall" fn vkGetDisplayPlaneSupportedDisplaysKHR(
 ) -> vk::Result {
     trace!("called vkGetDisplayPlaneSupportedDisplaysKHR({physical_device:?}, {plane_index:?}, {p_display_count:?}, {p_displays:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001155);
     packet.write(physical_device);
     packet.write(plane_index);
     packet.write_nullable_raw_ptr(p_display_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDisplayPlaneSupportedDisplaysKHR");
 }
 
@@ -3259,10 +3415,11 @@ unsafe extern "stdcall" fn vkGetDisplayModePropertiesKHR(
 ) -> vk::Result {
     trace!("called vkGetDisplayModePropertiesKHR({physical_device:?}, {display:?}, {p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001156);
     packet.write(physical_device);
     packet.write(display);
     packet.write_nullable_raw_ptr(p_property_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDisplayModePropertiesKHR");
 }
 
@@ -3277,12 +3434,13 @@ unsafe extern "stdcall" fn vkCreateDisplayModeKHR(
 ) -> vk::Result {
     trace!("called vkCreateDisplayModeKHR({physical_device:?}, {display:?}, {p_create_info:?}, {p_allocator:?}, {p_mode:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001157);
     packet.write(physical_device);
     packet.write(display);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_mode);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateDisplayModeKHR");
 }
 
@@ -3296,11 +3454,12 @@ unsafe extern "stdcall" fn vkGetDisplayPlaneCapabilitiesKHR(
 ) -> vk::Result {
     trace!("called vkGetDisplayPlaneCapabilitiesKHR({physical_device:?}, {mode:?}, {plane_index:?}, {p_capabilities:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001158);
     packet.write(physical_device);
     packet.write(mode);
     packet.write(plane_index);
     packet.write(p_capabilities);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDisplayPlaneCapabilitiesKHR");
 }
 
@@ -3314,11 +3473,12 @@ unsafe extern "stdcall" fn vkCreateDisplayPlaneSurfaceKHR(
 ) -> vk::Result {
     trace!("called vkCreateDisplayPlaneSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001159);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateDisplayPlaneSurfaceKHR");
 }
 
@@ -3333,9 +3493,10 @@ unsafe extern "stdcall" fn vkCreateSharedSwapchainsKHR(
 ) -> vk::Result {
     trace!("called vkCreateSharedSwapchainsKHR({device:?}, {swapchain_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_swapchains:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001160);
     packet.write(device);
     packet.write(swapchain_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateSharedSwapchainsKHR");
 }
 
@@ -3348,10 +3509,11 @@ unsafe extern "stdcall" fn vkDestroySurfaceKHR(
 ) {
     trace!("called vkDestroySurfaceKHR({instance:?}, {surface:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001161);
     packet.write(instance);
     packet.write(surface);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroySurfaceKHR");
 }
 
@@ -3365,11 +3527,12 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfaceSupportKHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceSurfaceSupportKHR({physical_device:?}, {queue_family_index:?}, {surface:?}, {p_supported:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001162);
     packet.write(physical_device);
     packet.write(queue_family_index);
     packet.write(surface);
     packet.write(p_supported);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfaceSupportKHR");
 }
 
@@ -3382,10 +3545,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceSurfaceCapabilitiesKHR({physical_device:?}, {surface:?}, {p_surface_capabilities:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001163);
     packet.write(physical_device);
     packet.write(surface);
     packet.write(p_surface_capabilities);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfaceCapabilitiesKHR");
 }
 
@@ -3399,10 +3563,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfaceFormatsKHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceSurfaceFormatsKHR({physical_device:?}, {surface:?}, {p_surface_format_count:?}, {p_surface_formats:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001164);
     packet.write(physical_device);
     packet.write(surface);
     packet.write_nullable_raw_ptr(p_surface_format_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfaceFormatsKHR");
 }
 
@@ -3416,10 +3581,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfacePresentModesKHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceSurfacePresentModesKHR({physical_device:?}, {surface:?}, {p_present_mode_count:?}, {p_present_modes:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001165);
     packet.write(physical_device);
     packet.write(surface);
     packet.write_nullable_raw_ptr(p_present_mode_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfacePresentModesKHR");
 }
 
@@ -3433,11 +3599,12 @@ unsafe extern "stdcall" fn vkCreateSwapchainKHR(
 ) -> vk::Result {
     trace!("called vkCreateSwapchainKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_swapchain:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001166);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_swapchain);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateSwapchainKHR");
 }
 
@@ -3450,10 +3617,11 @@ unsafe extern "stdcall" fn vkDestroySwapchainKHR(
 ) {
     trace!("called vkDestroySwapchainKHR({device:?}, {swapchain:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001167);
     packet.write(device);
     packet.write(swapchain);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroySwapchainKHR");
 }
 
@@ -3467,10 +3635,11 @@ unsafe extern "stdcall" fn vkGetSwapchainImagesKHR(
 ) -> vk::Result {
     trace!("called vkGetSwapchainImagesKHR({device:?}, {swapchain:?}, {p_swapchain_image_count:?}, {p_swapchain_images:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001168);
     packet.write(device);
     packet.write(swapchain);
     packet.write_nullable_raw_ptr(p_swapchain_image_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetSwapchainImagesKHR");
 }
 
@@ -3486,13 +3655,14 @@ unsafe extern "stdcall" fn vkAcquireNextImageKHR(
 ) -> vk::Result {
     trace!("called vkAcquireNextImageKHR({device:?}, {swapchain:?}, {timeout:?}, {semaphore:?}, {fence:?}, {p_image_index:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001169);
     packet.write(device);
     packet.write(swapchain);
     packet.write(timeout);
     packet.write(semaphore);
     packet.write(fence);
     packet.write(p_image_index);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkAcquireNextImageKHR");
 }
 
@@ -3504,9 +3674,10 @@ unsafe extern "stdcall" fn vkQueuePresentKHR(
 ) -> vk::Result {
     trace!("called vkQueuePresentKHR({queue:?}, {p_present_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001170);
     packet.write(queue);
     packet.write(p_present_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkQueuePresentKHR");
 }
 
@@ -3520,11 +3691,12 @@ unsafe extern "stdcall" fn vkCreateViSurfaceNN(
 ) -> vk::Result {
     trace!("called vkCreateViSurfaceNN({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001171);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateViSurfaceNN");
 }
 
@@ -3538,11 +3710,12 @@ unsafe extern "stdcall" fn vkCreateWaylandSurfaceKHR(
 ) -> vk::Result {
     trace!("called vkCreateWaylandSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001172);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateWaylandSurfaceKHR");
 }
 
@@ -3555,10 +3728,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceWaylandPresentationSupportKHR(
 ) -> vk::Bool32 {
     trace!("called vkGetPhysicalDeviceWaylandPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {display:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001173);
     packet.write(physical_device);
     packet.write(queue_family_index);
     packet.write(display);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceWaylandPresentationSupportKHR");
 }
 
@@ -3572,11 +3746,12 @@ unsafe extern "stdcall" fn vkCreateWin32SurfaceKHR(
 ) -> vk::Result {
     trace!("called vkCreateWin32SurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001174);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateWin32SurfaceKHR");
 }
 
@@ -3588,9 +3763,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceWin32PresentationSupportKHR(
 ) -> vk::Bool32 {
     trace!("called vkGetPhysicalDeviceWin32PresentationSupportKHR({physical_device:?}, {queue_family_index:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001175);
     packet.write(physical_device);
     packet.write(queue_family_index);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceWin32PresentationSupportKHR");
 }
 
@@ -3604,11 +3780,12 @@ unsafe extern "stdcall" fn vkCreateXlibSurfaceKHR(
 ) -> vk::Result {
     trace!("called vkCreateXlibSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001176);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateXlibSurfaceKHR");
 }
 
@@ -3618,15 +3795,16 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceXlibPresentationSupportKHR(
     physical_device: vk::PhysicalDevice,
     queue_family_index: u32,
     dpy: *mut vk::Display,
-    visual_i_d: vk::VisualID,
+    visual_id: vk::VisualID,
 ) -> vk::Bool32 {
-    trace!("called vkGetPhysicalDeviceXlibPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {dpy:?}, {visual_i_d:?})");
+    trace!("called vkGetPhysicalDeviceXlibPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {dpy:?}, {visual_id:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001177);
     packet.write(physical_device);
     packet.write(queue_family_index);
     packet.write(dpy);
-    packet.write(visual_i_d);
+    packet.write(visual_id);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceXlibPresentationSupportKHR");
 }
 
@@ -3640,11 +3818,12 @@ unsafe extern "stdcall" fn vkCreateXcbSurfaceKHR(
 ) -> vk::Result {
     trace!("called vkCreateXcbSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001178);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateXcbSurfaceKHR");
 }
 
@@ -3658,11 +3837,12 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceXcbPresentationSupportKHR(
 ) -> vk::Bool32 {
     trace!("called vkGetPhysicalDeviceXcbPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {connection:?}, {visual_id:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001179);
     packet.write(physical_device);
     packet.write(queue_family_index);
     packet.write(connection);
     packet.write(visual_id);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceXcbPresentationSupportKHR");
 }
 
@@ -3676,11 +3856,12 @@ unsafe extern "stdcall" fn vkCreateDirectFBSurfaceEXT(
 ) -> vk::Result {
     trace!("called vkCreateDirectFBSurfaceEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001180);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateDirectFBSurfaceEXT");
 }
 
@@ -3693,10 +3874,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceDirectFBPresentationSupportEXT(
 ) -> vk::Bool32 {
     trace!("called vkGetPhysicalDeviceDirectFBPresentationSupportEXT({physical_device:?}, {queue_family_index:?}, {dfb:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001181);
     packet.write(physical_device);
     packet.write(queue_family_index);
     packet.write(dfb);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceDirectFBPresentationSupportEXT");
 }
 
@@ -3710,11 +3892,12 @@ unsafe extern "stdcall" fn vkCreateImagePipeSurfaceFUCHSIA(
 ) -> vk::Result {
     trace!("called vkCreateImagePipeSurfaceFUCHSIA({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001182);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateImagePipeSurfaceFUCHSIA");
 }
 
@@ -3728,11 +3911,12 @@ unsafe extern "stdcall" fn vkCreateStreamDescriptorSurfaceGGP(
 ) -> vk::Result {
     trace!("called vkCreateStreamDescriptorSurfaceGGP({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001183);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateStreamDescriptorSurfaceGGP");
 }
 
@@ -3746,11 +3930,12 @@ unsafe extern "stdcall" fn vkCreateScreenSurfaceQNX(
 ) -> vk::Result {
     trace!("called vkCreateScreenSurfaceQNX({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001184);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateScreenSurfaceQNX");
 }
 
@@ -3763,10 +3948,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceScreenPresentationSupportQNX(
 ) -> vk::Bool32 {
     trace!("called vkGetPhysicalDeviceScreenPresentationSupportQNX({physical_device:?}, {queue_family_index:?}, {window:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001185);
     packet.write(physical_device);
     packet.write(queue_family_index);
     packet.write(window);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceScreenPresentationSupportQNX");
 }
 
@@ -3780,11 +3966,12 @@ unsafe extern "stdcall" fn vkCreateDebugReportCallbackEXT(
 ) -> vk::Result {
     trace!("called vkCreateDebugReportCallbackEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_callback:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001186);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_callback);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateDebugReportCallbackEXT");
 }
 
@@ -3797,10 +3984,11 @@ unsafe extern "stdcall" fn vkDestroyDebugReportCallbackEXT(
 ) {
     trace!("called vkDestroyDebugReportCallbackEXT({instance:?}, {callback:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001187);
     packet.write(instance);
     packet.write(callback);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyDebugReportCallbackEXT");
 }
 
@@ -3818,7 +4006,7 @@ unsafe extern "stdcall" fn vkDebugReportMessageEXT(
 ) {
     trace!("called vkDebugReportMessageEXT({instance:?}, {flags:?}, {object_type:?}, {object:?}, {location:?}, {message_code:?}, {p_layer_prefix:?}, {p_message:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001188);
     packet.write(instance);
     packet.write(flags);
     packet.write(object_type);
@@ -3827,6 +4015,7 @@ unsafe extern "stdcall" fn vkDebugReportMessageEXT(
     packet.write(message_code);
     packet.write_null_str(p_layer_prefix);
     packet.write_null_str(p_message);
+    packet.send();
     unimplemented!("vkDebugReportMessageEXT");
 }
 
@@ -3838,9 +4027,10 @@ unsafe extern "stdcall" fn vkDebugMarkerSetObjectNameEXT(
 ) -> vk::Result {
     trace!("called vkDebugMarkerSetObjectNameEXT({device:?}, {p_name_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001189);
     packet.write(device);
     packet.write(p_name_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkDebugMarkerSetObjectNameEXT");
 }
 
@@ -3852,9 +4042,10 @@ unsafe extern "stdcall" fn vkDebugMarkerSetObjectTagEXT(
 ) -> vk::Result {
     trace!("called vkDebugMarkerSetObjectTagEXT({device:?}, {p_tag_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001190);
     packet.write(device);
     packet.write(p_tag_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkDebugMarkerSetObjectTagEXT");
 }
 
@@ -3866,9 +4057,10 @@ unsafe extern "stdcall" fn vkCmdDebugMarkerBeginEXT(
 ) {
     trace!("called vkCmdDebugMarkerBeginEXT({command_buffer:?}, {p_marker_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001191);
     packet.write(command_buffer);
     packet.write(p_marker_info);
+    packet.send();
     unimplemented!("vkCmdDebugMarkerBeginEXT");
 }
 
@@ -3879,8 +4071,9 @@ unsafe extern "stdcall" fn vkCmdDebugMarkerEndEXT(
 ) {
     trace!("called vkCmdDebugMarkerEndEXT({command_buffer:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001192);
     packet.write(command_buffer);
+    packet.send();
     unimplemented!("vkCmdDebugMarkerEndEXT");
 }
 
@@ -3892,9 +4085,10 @@ unsafe extern "stdcall" fn vkCmdDebugMarkerInsertEXT(
 ) {
     trace!("called vkCmdDebugMarkerInsertEXT({command_buffer:?}, {p_marker_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001193);
     packet.write(command_buffer);
     packet.write(p_marker_info);
+    packet.send();
     unimplemented!("vkCmdDebugMarkerInsertEXT");
 }
 
@@ -3912,7 +4106,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceExternalImageFormatPropertiesNV(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceExternalImageFormatPropertiesNV({physical_device:?}, {format:?}, {type_:?}, {tiling:?}, {usage:?}, {flags:?}, {external_handle_type:?}, {p_external_image_format_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001194);
     packet.write(physical_device);
     packet.write(format);
     packet.write(type_);
@@ -3921,6 +4115,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceExternalImageFormatPropertiesNV(
     packet.write(flags);
     packet.write(external_handle_type);
     packet.write(p_external_image_format_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceExternalImageFormatPropertiesNV");
 }
 
@@ -3934,11 +4129,12 @@ unsafe extern "stdcall" fn vkGetMemoryWin32HandleNV(
 ) -> vk::Result {
     trace!("called vkGetMemoryWin32HandleNV({device:?}, {memory:?}, {handle_type:?}, {p_handle:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001195);
     packet.write(device);
     packet.write(memory);
     packet.write(handle_type);
     packet.write(p_handle);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetMemoryWin32HandleNV");
 }
 
@@ -3951,10 +4147,11 @@ unsafe extern "stdcall" fn vkCmdExecuteGeneratedCommandsNV(
 ) {
     trace!("called vkCmdExecuteGeneratedCommandsNV({command_buffer:?}, {is_preprocessed:?}, {p_generated_commands_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001196);
     packet.write(command_buffer);
     packet.write(is_preprocessed);
     packet.write(p_generated_commands_info);
+    packet.send();
     unimplemented!("vkCmdExecuteGeneratedCommandsNV");
 }
 
@@ -3966,9 +4163,10 @@ unsafe extern "stdcall" fn vkCmdPreprocessGeneratedCommandsNV(
 ) {
     trace!("called vkCmdPreprocessGeneratedCommandsNV({command_buffer:?}, {p_generated_commands_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001197);
     packet.write(command_buffer);
     packet.write(p_generated_commands_info);
+    packet.send();
     unimplemented!("vkCmdPreprocessGeneratedCommandsNV");
 }
 
@@ -3982,11 +4180,12 @@ unsafe extern "stdcall" fn vkCmdBindPipelineShaderGroupNV(
 ) {
     trace!("called vkCmdBindPipelineShaderGroupNV({command_buffer:?}, {pipeline_bind_point:?}, {pipeline:?}, {group_index:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001198);
     packet.write(command_buffer);
     packet.write(pipeline_bind_point);
     packet.write(pipeline);
     packet.write(group_index);
+    packet.send();
     unimplemented!("vkCmdBindPipelineShaderGroupNV");
 }
 
@@ -3999,10 +4198,11 @@ unsafe extern "stdcall" fn vkGetGeneratedCommandsMemoryRequirementsNV(
 ) {
     trace!("called vkGetGeneratedCommandsMemoryRequirementsNV({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001199);
     packet.write(device);
     packet.write(p_info);
     packet.write(p_memory_requirements);
+    packet.send();
     unimplemented!("vkGetGeneratedCommandsMemoryRequirementsNV");
 }
 
@@ -4016,11 +4216,12 @@ unsafe extern "stdcall" fn vkCreateIndirectCommandsLayoutNV(
 ) -> vk::Result {
     trace!("called vkCreateIndirectCommandsLayoutNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_indirect_commands_layout:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001200);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_indirect_commands_layout);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateIndirectCommandsLayoutNV");
 }
 
@@ -4033,10 +4234,11 @@ unsafe extern "stdcall" fn vkDestroyIndirectCommandsLayoutNV(
 ) {
     trace!("called vkDestroyIndirectCommandsLayoutNV({device:?}, {indirect_commands_layout:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001201);
     packet.write(device);
     packet.write(indirect_commands_layout);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyIndirectCommandsLayoutNV");
 }
 
@@ -4048,9 +4250,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceFeatures2(
 ) {
     trace!("called vkGetPhysicalDeviceFeatures2({physical_device:?}, {p_features:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001202);
     packet.write(physical_device);
     packet.write(p_features);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceFeatures2");
 }
 
@@ -4062,9 +4265,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceProperties2(
 ) {
     trace!("called vkGetPhysicalDeviceProperties2({physical_device:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001203);
     packet.write(physical_device);
     packet.write(p_properties);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceProperties2");
 }
 
@@ -4077,10 +4281,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceFormatProperties2(
 ) {
     trace!("called vkGetPhysicalDeviceFormatProperties2({physical_device:?}, {format:?}, {p_format_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001204);
     packet.write(physical_device);
     packet.write(format);
     packet.write(p_format_properties);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceFormatProperties2");
 }
 
@@ -4093,10 +4298,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceImageFormatProperties2(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceImageFormatProperties2({physical_device:?}, {p_image_format_info:?}, {p_image_format_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001205);
     packet.write(physical_device);
     packet.write(p_image_format_info);
     packet.write(p_image_format_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceImageFormatProperties2");
 }
 
@@ -4109,9 +4315,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceQueueFamilyProperties2(
 ) {
     trace!("called vkGetPhysicalDeviceQueueFamilyProperties2({physical_device:?}, {p_queue_family_property_count:?}, {p_queue_family_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001206);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr(p_queue_family_property_count);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceQueueFamilyProperties2");
 }
 
@@ -4123,9 +4330,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceMemoryProperties2(
 ) {
     trace!("called vkGetPhysicalDeviceMemoryProperties2({physical_device:?}, {p_memory_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001207);
     packet.write(physical_device);
     packet.write(p_memory_properties);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceMemoryProperties2");
 }
 
@@ -4139,10 +4347,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSparseImageFormatProperties2(
 ) {
     trace!("called vkGetPhysicalDeviceSparseImageFormatProperties2({physical_device:?}, {p_format_info:?}, {p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001208);
     packet.write(physical_device);
     packet.write(p_format_info);
     packet.write_nullable_raw_ptr(p_property_count);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceSparseImageFormatProperties2");
 }
 
@@ -4158,12 +4367,13 @@ unsafe extern "stdcall" fn vkCmdPushDescriptorSetKHR(
 ) {
     trace!("called vkCmdPushDescriptorSetKHR({command_buffer:?}, {pipeline_bind_point:?}, {layout:?}, {set:?}, {descriptor_write_count:?}, {p_descriptor_writes:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001209);
     packet.write(command_buffer);
     packet.write(pipeline_bind_point);
     packet.write(layout);
     packet.write(set);
     packet.write(descriptor_write_count);
+    packet.send();
     unimplemented!("vkCmdPushDescriptorSetKHR");
 }
 
@@ -4176,10 +4386,11 @@ unsafe extern "stdcall" fn vkTrimCommandPool(
 ) {
     trace!("called vkTrimCommandPool({device:?}, {command_pool:?}, {flags:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001210);
     packet.write(device);
     packet.write(command_pool);
     packet.write(flags);
+    packet.send();
     unimplemented!("vkTrimCommandPool");
 }
 
@@ -4192,10 +4403,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceExternalBufferProperties(
 ) {
     trace!("called vkGetPhysicalDeviceExternalBufferProperties({physical_device:?}, {p_external_buffer_info:?}, {p_external_buffer_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001211);
     packet.write(physical_device);
     packet.write(p_external_buffer_info);
     packet.write(p_external_buffer_properties);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceExternalBufferProperties");
 }
 
@@ -4208,10 +4420,11 @@ unsafe extern "stdcall" fn vkGetMemoryWin32HandleKHR(
 ) -> vk::Result {
     trace!("called vkGetMemoryWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001212);
     packet.write(device);
     packet.write(p_get_win32_handle_info);
     packet.write(p_handle);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetMemoryWin32HandleKHR");
 }
 
@@ -4225,11 +4438,12 @@ unsafe extern "stdcall" fn vkGetMemoryWin32HandlePropertiesKHR(
 ) -> vk::Result {
     trace!("called vkGetMemoryWin32HandlePropertiesKHR({device:?}, {handle_type:?}, {handle:?}, {p_memory_win32_handle_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001213);
     packet.write(device);
     packet.write(handle_type);
     packet.write(handle);
     packet.write(p_memory_win32_handle_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetMemoryWin32HandlePropertiesKHR");
 }
 
@@ -4242,10 +4456,11 @@ unsafe extern "stdcall" fn vkGetMemoryFdKHR(
 ) -> vk::Result {
     trace!("called vkGetMemoryFdKHR({device:?}, {p_get_fd_info:?}, {p_fd:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001214);
     packet.write(device);
     packet.write(p_get_fd_info);
     packet.write(p_fd);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetMemoryFdKHR");
 }
 
@@ -4259,11 +4474,12 @@ unsafe extern "stdcall" fn vkGetMemoryFdPropertiesKHR(
 ) -> vk::Result {
     trace!("called vkGetMemoryFdPropertiesKHR({device:?}, {handle_type:?}, {fd:?}, {p_memory_fd_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001215);
     packet.write(device);
     packet.write(handle_type);
     packet.write(fd);
     packet.write(p_memory_fd_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetMemoryFdPropertiesKHR");
 }
 
@@ -4276,10 +4492,11 @@ unsafe extern "stdcall" fn vkGetMemoryZirconHandleFUCHSIA(
 ) -> vk::Result {
     trace!("called vkGetMemoryZirconHandleFUCHSIA({device:?}, {p_get_zircon_handle_info:?}, {p_zircon_handle:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001216);
     packet.write(device);
     packet.write(p_get_zircon_handle_info);
     packet.write(p_zircon_handle);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetMemoryZirconHandleFUCHSIA");
 }
 
@@ -4293,11 +4510,12 @@ unsafe extern "stdcall" fn vkGetMemoryZirconHandlePropertiesFUCHSIA(
 ) -> vk::Result {
     trace!("called vkGetMemoryZirconHandlePropertiesFUCHSIA({device:?}, {handle_type:?}, {zircon_handle:?}, {p_memory_zircon_handle_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001217);
     packet.write(device);
     packet.write(handle_type);
     packet.write(zircon_handle);
     packet.write(p_memory_zircon_handle_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetMemoryZirconHandlePropertiesFUCHSIA");
 }
 
@@ -4310,10 +4528,11 @@ unsafe extern "stdcall" fn vkGetMemoryRemoteAddressNV(
 ) -> vk::Result {
     trace!("called vkGetMemoryRemoteAddressNV({device:?}, {p_memory_get_remote_address_info:?}, {p_address:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001218);
     packet.write(device);
     packet.write(p_memory_get_remote_address_info);
     packet.write(p_address);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetMemoryRemoteAddressNV");
 }
 
@@ -4326,10 +4545,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceExternalSemaphoreProperties(
 ) {
     trace!("called vkGetPhysicalDeviceExternalSemaphoreProperties({physical_device:?}, {p_external_semaphore_info:?}, {p_external_semaphore_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001219);
     packet.write(physical_device);
     packet.write(p_external_semaphore_info);
     packet.write(p_external_semaphore_properties);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceExternalSemaphoreProperties");
 }
 
@@ -4342,10 +4562,11 @@ unsafe extern "stdcall" fn vkGetSemaphoreWin32HandleKHR(
 ) -> vk::Result {
     trace!("called vkGetSemaphoreWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001220);
     packet.write(device);
     packet.write(p_get_win32_handle_info);
     packet.write(p_handle);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetSemaphoreWin32HandleKHR");
 }
 
@@ -4357,9 +4578,10 @@ unsafe extern "stdcall" fn vkImportSemaphoreWin32HandleKHR(
 ) -> vk::Result {
     trace!("called vkImportSemaphoreWin32HandleKHR({device:?}, {p_import_semaphore_win32_handle_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001221);
     packet.write(device);
     packet.write(p_import_semaphore_win32_handle_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkImportSemaphoreWin32HandleKHR");
 }
 
@@ -4372,10 +4594,11 @@ unsafe extern "stdcall" fn vkGetSemaphoreFdKHR(
 ) -> vk::Result {
     trace!("called vkGetSemaphoreFdKHR({device:?}, {p_get_fd_info:?}, {p_fd:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001222);
     packet.write(device);
     packet.write(p_get_fd_info);
     packet.write(p_fd);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetSemaphoreFdKHR");
 }
 
@@ -4387,9 +4610,10 @@ unsafe extern "stdcall" fn vkImportSemaphoreFdKHR(
 ) -> vk::Result {
     trace!("called vkImportSemaphoreFdKHR({device:?}, {p_import_semaphore_fd_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001223);
     packet.write(device);
     packet.write(p_import_semaphore_fd_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkImportSemaphoreFdKHR");
 }
 
@@ -4402,10 +4626,11 @@ unsafe extern "stdcall" fn vkGetSemaphoreZirconHandleFUCHSIA(
 ) -> vk::Result {
     trace!("called vkGetSemaphoreZirconHandleFUCHSIA({device:?}, {p_get_zircon_handle_info:?}, {p_zircon_handle:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001224);
     packet.write(device);
     packet.write(p_get_zircon_handle_info);
     packet.write(p_zircon_handle);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetSemaphoreZirconHandleFUCHSIA");
 }
 
@@ -4417,9 +4642,10 @@ unsafe extern "stdcall" fn vkImportSemaphoreZirconHandleFUCHSIA(
 ) -> vk::Result {
     trace!("called vkImportSemaphoreZirconHandleFUCHSIA({device:?}, {p_import_semaphore_zircon_handle_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001225);
     packet.write(device);
     packet.write(p_import_semaphore_zircon_handle_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkImportSemaphoreZirconHandleFUCHSIA");
 }
 
@@ -4432,10 +4658,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceExternalFenceProperties(
 ) {
     trace!("called vkGetPhysicalDeviceExternalFenceProperties({physical_device:?}, {p_external_fence_info:?}, {p_external_fence_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001226);
     packet.write(physical_device);
     packet.write(p_external_fence_info);
     packet.write(p_external_fence_properties);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceExternalFenceProperties");
 }
 
@@ -4448,10 +4675,11 @@ unsafe extern "stdcall" fn vkGetFenceWin32HandleKHR(
 ) -> vk::Result {
     trace!("called vkGetFenceWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001227);
     packet.write(device);
     packet.write(p_get_win32_handle_info);
     packet.write(p_handle);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetFenceWin32HandleKHR");
 }
 
@@ -4463,9 +4691,10 @@ unsafe extern "stdcall" fn vkImportFenceWin32HandleKHR(
 ) -> vk::Result {
     trace!("called vkImportFenceWin32HandleKHR({device:?}, {p_import_fence_win32_handle_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001228);
     packet.write(device);
     packet.write(p_import_fence_win32_handle_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkImportFenceWin32HandleKHR");
 }
 
@@ -4478,10 +4707,11 @@ unsafe extern "stdcall" fn vkGetFenceFdKHR(
 ) -> vk::Result {
     trace!("called vkGetFenceFdKHR({device:?}, {p_get_fd_info:?}, {p_fd:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001229);
     packet.write(device);
     packet.write(p_get_fd_info);
     packet.write(p_fd);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetFenceFdKHR");
 }
 
@@ -4493,9 +4723,10 @@ unsafe extern "stdcall" fn vkImportFenceFdKHR(
 ) -> vk::Result {
     trace!("called vkImportFenceFdKHR({device:?}, {p_import_fence_fd_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001230);
     packet.write(device);
     packet.write(p_import_fence_fd_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkImportFenceFdKHR");
 }
 
@@ -4507,9 +4738,10 @@ unsafe extern "stdcall" fn vkReleaseDisplayEXT(
 ) -> vk::Result {
     trace!("called vkReleaseDisplayEXT({physical_device:?}, {display:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001231);
     packet.write(physical_device);
     packet.write(display);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkReleaseDisplayEXT");
 }
 
@@ -4522,10 +4754,11 @@ unsafe extern "stdcall" fn vkAcquireXlibDisplayEXT(
 ) -> vk::Result {
     trace!("called vkAcquireXlibDisplayEXT({physical_device:?}, {dpy:?}, {display:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001232);
     packet.write(physical_device);
     packet.write(dpy);
     packet.write(display);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkAcquireXlibDisplayEXT");
 }
 
@@ -4539,11 +4772,12 @@ unsafe extern "stdcall" fn vkGetRandROutputDisplayEXT(
 ) -> vk::Result {
     trace!("called vkGetRandROutputDisplayEXT({physical_device:?}, {dpy:?}, {rr_output:?}, {p_display:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001233);
     packet.write(physical_device);
     packet.write(dpy);
     packet.write(rr_output);
     packet.write(p_display);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetRandROutputDisplayEXT");
 }
 
@@ -4555,9 +4789,10 @@ unsafe extern "stdcall" fn vkAcquireWinrtDisplayNV(
 ) -> vk::Result {
     trace!("called vkAcquireWinrtDisplayNV({physical_device:?}, {display:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001234);
     packet.write(physical_device);
     packet.write(display);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkAcquireWinrtDisplayNV");
 }
 
@@ -4570,10 +4805,11 @@ unsafe extern "stdcall" fn vkGetWinrtDisplayNV(
 ) -> vk::Result {
     trace!("called vkGetWinrtDisplayNV({physical_device:?}, {device_relative_id:?}, {p_display:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001235);
     packet.write(physical_device);
     packet.write(device_relative_id);
     packet.write(p_display);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetWinrtDisplayNV");
 }
 
@@ -4586,10 +4822,11 @@ unsafe extern "stdcall" fn vkDisplayPowerControlEXT(
 ) -> vk::Result {
     trace!("called vkDisplayPowerControlEXT({device:?}, {display:?}, {p_display_power_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001236);
     packet.write(device);
     packet.write(display);
     packet.write(p_display_power_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkDisplayPowerControlEXT");
 }
 
@@ -4603,11 +4840,12 @@ unsafe extern "stdcall" fn vkRegisterDeviceEventEXT(
 ) -> vk::Result {
     trace!("called vkRegisterDeviceEventEXT({device:?}, {p_device_event_info:?}, {p_allocator:?}, {p_fence:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001237);
     packet.write(device);
     packet.write(p_device_event_info);
     packet.write(p_allocator);
     packet.write(p_fence);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkRegisterDeviceEventEXT");
 }
 
@@ -4622,12 +4860,13 @@ unsafe extern "stdcall" fn vkRegisterDisplayEventEXT(
 ) -> vk::Result {
     trace!("called vkRegisterDisplayEventEXT({device:?}, {display:?}, {p_display_event_info:?}, {p_allocator:?}, {p_fence:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001238);
     packet.write(device);
     packet.write(display);
     packet.write(p_display_event_info);
     packet.write(p_allocator);
     packet.write(p_fence);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkRegisterDisplayEventEXT");
 }
 
@@ -4641,11 +4880,12 @@ unsafe extern "stdcall" fn vkGetSwapchainCounterEXT(
 ) -> vk::Result {
     trace!("called vkGetSwapchainCounterEXT({device:?}, {swapchain:?}, {counter:?}, {p_counter_value:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001239);
     packet.write(device);
     packet.write(swapchain);
     packet.write(counter);
     packet.write(p_counter_value);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetSwapchainCounterEXT");
 }
 
@@ -4658,10 +4898,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfaceCapabilities2EXT(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceSurfaceCapabilities2EXT({physical_device:?}, {surface:?}, {p_surface_capabilities:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001240);
     packet.write(physical_device);
     packet.write(surface);
     packet.write(p_surface_capabilities);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfaceCapabilities2EXT");
 }
 
@@ -4674,9 +4915,10 @@ unsafe extern "stdcall" fn vkEnumeratePhysicalDeviceGroups(
 ) -> vk::Result {
     trace!("called vkEnumeratePhysicalDeviceGroups({instance:?}, {p_physical_device_group_count:?}, {p_physical_device_group_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001241);
     packet.write(instance);
     packet.write_nullable_raw_ptr(p_physical_device_group_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkEnumeratePhysicalDeviceGroups");
 }
 
@@ -4691,12 +4933,13 @@ unsafe extern "stdcall" fn vkGetDeviceGroupPeerMemoryFeatures(
 ) {
     trace!("called vkGetDeviceGroupPeerMemoryFeatures({device:?}, {heap_index:?}, {local_device_index:?}, {remote_device_index:?}, {p_peer_memory_features:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001242);
     packet.write(device);
     packet.write(heap_index);
     packet.write(local_device_index);
     packet.write(remote_device_index);
     packet.write(p_peer_memory_features);
+    packet.send();
     unimplemented!("vkGetDeviceGroupPeerMemoryFeatures");
 }
 
@@ -4709,9 +4952,10 @@ unsafe extern "stdcall" fn vkBindBufferMemory2(
 ) -> vk::Result {
     trace!("called vkBindBufferMemory2({device:?}, {bind_info_count:?}, {p_bind_infos:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001243);
     packet.write(device);
     packet.write(bind_info_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkBindBufferMemory2");
 }
 
@@ -4724,9 +4968,10 @@ unsafe extern "stdcall" fn vkBindImageMemory2(
 ) -> vk::Result {
     trace!("called vkBindImageMemory2({device:?}, {bind_info_count:?}, {p_bind_infos:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001244);
     packet.write(device);
     packet.write(bind_info_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkBindImageMemory2");
 }
 
@@ -4738,9 +4983,10 @@ unsafe extern "stdcall" fn vkCmdSetDeviceMask(
 ) {
     trace!("called vkCmdSetDeviceMask({command_buffer:?}, {device_mask:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001245);
     packet.write(command_buffer);
     packet.write(device_mask);
+    packet.send();
     unimplemented!("vkCmdSetDeviceMask");
 }
 
@@ -4752,9 +4998,10 @@ unsafe extern "stdcall" fn vkGetDeviceGroupPresentCapabilitiesKHR(
 ) -> vk::Result {
     trace!("called vkGetDeviceGroupPresentCapabilitiesKHR({device:?}, {p_device_group_present_capabilities:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001246);
     packet.write(device);
     packet.write(p_device_group_present_capabilities);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDeviceGroupPresentCapabilitiesKHR");
 }
 
@@ -4767,10 +5014,11 @@ unsafe extern "stdcall" fn vkGetDeviceGroupSurfacePresentModesKHR(
 ) -> vk::Result {
     trace!("called vkGetDeviceGroupSurfacePresentModesKHR({device:?}, {surface:?}, {p_modes:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001247);
     packet.write(device);
     packet.write(surface);
     packet.write(p_modes);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDeviceGroupSurfacePresentModesKHR");
 }
 
@@ -4783,10 +5031,11 @@ unsafe extern "stdcall" fn vkAcquireNextImage2KHR(
 ) -> vk::Result {
     trace!("called vkAcquireNextImage2KHR({device:?}, {p_acquire_info:?}, {p_image_index:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001248);
     packet.write(device);
     packet.write(p_acquire_info);
     packet.write(p_image_index);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkAcquireNextImage2KHR");
 }
 
@@ -4803,7 +5052,7 @@ unsafe extern "stdcall" fn vkCmdDispatchBase(
 ) {
     trace!("called vkCmdDispatchBase({command_buffer:?}, {base_group_x:?}, {base_group_y:?}, {base_group_z:?}, {group_count_x:?}, {group_count_y:?}, {group_count_z:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001249);
     packet.write(command_buffer);
     packet.write(base_group_x);
     packet.write(base_group_y);
@@ -4811,6 +5060,7 @@ unsafe extern "stdcall" fn vkCmdDispatchBase(
     packet.write(group_count_x);
     packet.write(group_count_y);
     packet.write(group_count_z);
+    packet.send();
     unimplemented!("vkCmdDispatchBase");
 }
 
@@ -4824,10 +5074,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDevicePresentRectanglesKHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDevicePresentRectanglesKHR({physical_device:?}, {surface:?}, {p_rect_count:?}, {p_rects:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001250);
     packet.write(physical_device);
     packet.write(surface);
     packet.write_nullable_raw_ptr(p_rect_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDevicePresentRectanglesKHR");
 }
 
@@ -4841,11 +5092,12 @@ unsafe extern "stdcall" fn vkCreateDescriptorUpdateTemplate(
 ) -> vk::Result {
     trace!("called vkCreateDescriptorUpdateTemplate({device:?}, {p_create_info:?}, {p_allocator:?}, {p_descriptor_update_template:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001251);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_descriptor_update_template);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateDescriptorUpdateTemplate");
 }
 
@@ -4858,10 +5110,11 @@ unsafe extern "stdcall" fn vkDestroyDescriptorUpdateTemplate(
 ) {
     trace!("called vkDestroyDescriptorUpdateTemplate({device:?}, {descriptor_update_template:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001252);
     packet.write(device);
     packet.write(descriptor_update_template);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyDescriptorUpdateTemplate");
 }
 
@@ -4875,11 +5128,12 @@ unsafe extern "stdcall" fn vkUpdateDescriptorSetWithTemplate(
 ) {
     trace!("called vkUpdateDescriptorSetWithTemplate({device:?}, {descriptor_set:?}, {descriptor_update_template:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001253);
     packet.write(device);
     packet.write(descriptor_set);
     packet.write(descriptor_update_template);
     packet.write(p_data);
+    packet.send();
     unimplemented!("vkUpdateDescriptorSetWithTemplate");
 }
 
@@ -4894,12 +5148,13 @@ unsafe extern "stdcall" fn vkCmdPushDescriptorSetWithTemplateKHR(
 ) {
     trace!("called vkCmdPushDescriptorSetWithTemplateKHR({command_buffer:?}, {descriptor_update_template:?}, {layout:?}, {set:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001254);
     packet.write(command_buffer);
     packet.write(descriptor_update_template);
     packet.write(layout);
     packet.write(set);
     packet.write(p_data);
+    packet.send();
     unimplemented!("vkCmdPushDescriptorSetWithTemplateKHR");
 }
 
@@ -4913,9 +5168,10 @@ unsafe extern "stdcall" fn vkSetHdrMetadataEXT(
 ) {
     trace!("called vkSetHdrMetadataEXT({device:?}, {swapchain_count:?}, {p_swapchains:?}, {p_metadata:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001255);
     packet.write(device);
     packet.write(swapchain_count);
+    packet.send();
     unimplemented!("vkSetHdrMetadataEXT");
 }
 
@@ -4927,9 +5183,10 @@ unsafe extern "stdcall" fn vkGetSwapchainStatusKHR(
 ) -> vk::Result {
     trace!("called vkGetSwapchainStatusKHR({device:?}, {swapchain:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001256);
     packet.write(device);
     packet.write(swapchain);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetSwapchainStatusKHR");
 }
 
@@ -4942,10 +5199,11 @@ unsafe extern "stdcall" fn vkGetRefreshCycleDurationGOOGLE(
 ) -> vk::Result {
     trace!("called vkGetRefreshCycleDurationGOOGLE({device:?}, {swapchain:?}, {p_display_timing_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001257);
     packet.write(device);
     packet.write(swapchain);
     packet.write(p_display_timing_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetRefreshCycleDurationGOOGLE");
 }
 
@@ -4959,10 +5217,11 @@ unsafe extern "stdcall" fn vkGetPastPresentationTimingGOOGLE(
 ) -> vk::Result {
     trace!("called vkGetPastPresentationTimingGOOGLE({device:?}, {swapchain:?}, {p_presentation_timing_count:?}, {p_presentation_timings:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001258);
     packet.write(device);
     packet.write(swapchain);
     packet.write_nullable_raw_ptr(p_presentation_timing_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPastPresentationTimingGOOGLE");
 }
 
@@ -4976,11 +5235,12 @@ unsafe extern "stdcall" fn vkCreateIOSSurfaceMVK(
 ) -> vk::Result {
     trace!("called vkCreateIOSSurfaceMVK({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001259);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateIOSSurfaceMVK");
 }
 
@@ -4994,11 +5254,12 @@ unsafe extern "stdcall" fn vkCreateMacOSSurfaceMVK(
 ) -> vk::Result {
     trace!("called vkCreateMacOSSurfaceMVK({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001260);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateMacOSSurfaceMVK");
 }
 
@@ -5012,11 +5273,12 @@ unsafe extern "stdcall" fn vkCreateMetalSurfaceEXT(
 ) -> vk::Result {
     trace!("called vkCreateMetalSurfaceEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001261);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateMetalSurfaceEXT");
 }
 
@@ -5026,14 +5288,15 @@ unsafe extern "stdcall" fn vkCmdSetViewportWScalingNV(
     command_buffer: vk::CommandBuffer,
     first_viewport: u32,
     viewport_count: u32,
-    p_viewport_w_scalings: *const vk::ViewportWScalingNV,
+    p_viewport_wscalings: *const vk::ViewportWScalingNV,
 ) {
-    trace!("called vkCmdSetViewportWScalingNV({command_buffer:?}, {first_viewport:?}, {viewport_count:?}, {p_viewport_w_scalings:?})");
+    trace!("called vkCmdSetViewportWScalingNV({command_buffer:?}, {first_viewport:?}, {viewport_count:?}, {p_viewport_wscalings:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001262);
     packet.write(command_buffer);
     packet.write(first_viewport);
     packet.write(viewport_count);
+    packet.send();
     unimplemented!("vkCmdSetViewportWScalingNV");
 }
 
@@ -5047,10 +5310,11 @@ unsafe extern "stdcall" fn vkCmdSetDiscardRectangleEXT(
 ) {
     trace!("called vkCmdSetDiscardRectangleEXT({command_buffer:?}, {first_discard_rectangle:?}, {discard_rectangle_count:?}, {p_discard_rectangles:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001263);
     packet.write(command_buffer);
     packet.write(first_discard_rectangle);
     packet.write(discard_rectangle_count);
+    packet.send();
     unimplemented!("vkCmdSetDiscardRectangleEXT");
 }
 
@@ -5062,9 +5326,10 @@ unsafe extern "stdcall" fn vkCmdSetDiscardRectangleEnableEXT(
 ) {
     trace!("called vkCmdSetDiscardRectangleEnableEXT({command_buffer:?}, {discard_rectangle_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001264);
     packet.write(command_buffer);
     packet.write(discard_rectangle_enable);
+    packet.send();
     unimplemented!("vkCmdSetDiscardRectangleEnableEXT");
 }
 
@@ -5076,9 +5341,10 @@ unsafe extern "stdcall" fn vkCmdSetDiscardRectangleModeEXT(
 ) {
     trace!("called vkCmdSetDiscardRectangleModeEXT({command_buffer:?}, {discard_rectangle_mode:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001265);
     packet.write(command_buffer);
     packet.write(discard_rectangle_mode);
+    packet.send();
     unimplemented!("vkCmdSetDiscardRectangleModeEXT");
 }
 
@@ -5090,9 +5356,10 @@ unsafe extern "stdcall" fn vkCmdSetSampleLocationsEXT(
 ) {
     trace!("called vkCmdSetSampleLocationsEXT({command_buffer:?}, {p_sample_locations_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001266);
     packet.write(command_buffer);
     packet.write(p_sample_locations_info);
+    packet.send();
     unimplemented!("vkCmdSetSampleLocationsEXT");
 }
 
@@ -5105,10 +5372,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceMultisamplePropertiesEXT(
 ) {
     trace!("called vkGetPhysicalDeviceMultisamplePropertiesEXT({physical_device:?}, {samples:?}, {p_multisample_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001267);
     packet.write(physical_device);
     packet.write(samples);
     packet.write(p_multisample_properties);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceMultisamplePropertiesEXT");
 }
 
@@ -5121,10 +5389,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfaceCapabilities2KHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceSurfaceCapabilities2KHR({physical_device:?}, {p_surface_info:?}, {p_surface_capabilities:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001268);
     packet.write(physical_device);
     packet.write(p_surface_info);
     packet.write(p_surface_capabilities);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfaceCapabilities2KHR");
 }
 
@@ -5138,10 +5407,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfaceFormats2KHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceSurfaceFormats2KHR({physical_device:?}, {p_surface_info:?}, {p_surface_format_count:?}, {p_surface_formats:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001269);
     packet.write(physical_device);
     packet.write(p_surface_info);
     packet.write_nullable_raw_ptr(p_surface_format_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfaceFormats2KHR");
 }
 
@@ -5154,9 +5424,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceDisplayProperties2KHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceDisplayProperties2KHR({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001270);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr(p_property_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceDisplayProperties2KHR");
 }
 
@@ -5169,9 +5440,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceDisplayPlaneProperties2KHR({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001271);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr(p_property_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
 }
 
@@ -5185,10 +5457,11 @@ unsafe extern "stdcall" fn vkGetDisplayModeProperties2KHR(
 ) -> vk::Result {
     trace!("called vkGetDisplayModeProperties2KHR({physical_device:?}, {display:?}, {p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001272);
     packet.write(physical_device);
     packet.write(display);
     packet.write_nullable_raw_ptr(p_property_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDisplayModeProperties2KHR");
 }
 
@@ -5201,10 +5474,11 @@ unsafe extern "stdcall" fn vkGetDisplayPlaneCapabilities2KHR(
 ) -> vk::Result {
     trace!("called vkGetDisplayPlaneCapabilities2KHR({physical_device:?}, {p_display_plane_info:?}, {p_capabilities:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001273);
     packet.write(physical_device);
     packet.write(p_display_plane_info);
     packet.write(p_capabilities);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDisplayPlaneCapabilities2KHR");
 }
 
@@ -5217,10 +5491,11 @@ unsafe extern "stdcall" fn vkGetBufferMemoryRequirements2(
 ) {
     trace!("called vkGetBufferMemoryRequirements2({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001274);
     packet.write(device);
     packet.write(p_info);
     packet.write(p_memory_requirements);
+    packet.send();
     unimplemented!("vkGetBufferMemoryRequirements2");
 }
 
@@ -5233,10 +5508,11 @@ unsafe extern "stdcall" fn vkGetImageMemoryRequirements2(
 ) {
     trace!("called vkGetImageMemoryRequirements2({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001275);
     packet.write(device);
     packet.write(p_info);
     packet.write(p_memory_requirements);
+    packet.send();
     unimplemented!("vkGetImageMemoryRequirements2");
 }
 
@@ -5250,10 +5526,11 @@ unsafe extern "stdcall" fn vkGetImageSparseMemoryRequirements2(
 ) {
     trace!("called vkGetImageSparseMemoryRequirements2({device:?}, {p_info:?}, {p_sparse_memory_requirement_count:?}, {p_sparse_memory_requirements:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001276);
     packet.write(device);
     packet.write(p_info);
     packet.write_nullable_raw_ptr(p_sparse_memory_requirement_count);
+    packet.send();
     unimplemented!("vkGetImageSparseMemoryRequirements2");
 }
 
@@ -5266,10 +5543,11 @@ unsafe extern "stdcall" fn vkGetDeviceBufferMemoryRequirements(
 ) {
     trace!("called vkGetDeviceBufferMemoryRequirements({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001277);
     packet.write(device);
     packet.write(p_info);
     packet.write(p_memory_requirements);
+    packet.send();
     unimplemented!("vkGetDeviceBufferMemoryRequirements");
 }
 
@@ -5282,10 +5560,11 @@ unsafe extern "stdcall" fn vkGetDeviceImageMemoryRequirements(
 ) {
     trace!("called vkGetDeviceImageMemoryRequirements({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001278);
     packet.write(device);
     packet.write(p_info);
     packet.write(p_memory_requirements);
+    packet.send();
     unimplemented!("vkGetDeviceImageMemoryRequirements");
 }
 
@@ -5299,10 +5578,11 @@ unsafe extern "stdcall" fn vkGetDeviceImageSparseMemoryRequirements(
 ) {
     trace!("called vkGetDeviceImageSparseMemoryRequirements({device:?}, {p_info:?}, {p_sparse_memory_requirement_count:?}, {p_sparse_memory_requirements:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001279);
     packet.write(device);
     packet.write(p_info);
     packet.write_nullable_raw_ptr(p_sparse_memory_requirement_count);
+    packet.send();
     unimplemented!("vkGetDeviceImageSparseMemoryRequirements");
 }
 
@@ -5316,11 +5596,12 @@ unsafe extern "stdcall" fn vkCreateSamplerYcbcrConversion(
 ) -> vk::Result {
     trace!("called vkCreateSamplerYcbcrConversion({device:?}, {p_create_info:?}, {p_allocator:?}, {p_ycbcr_conversion:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001280);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_ycbcr_conversion);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateSamplerYcbcrConversion");
 }
 
@@ -5333,10 +5614,11 @@ unsafe extern "stdcall" fn vkDestroySamplerYcbcrConversion(
 ) {
     trace!("called vkDestroySamplerYcbcrConversion({device:?}, {ycbcr_conversion:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001281);
     packet.write(device);
     packet.write(ycbcr_conversion);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroySamplerYcbcrConversion");
 }
 
@@ -5349,10 +5631,11 @@ unsafe extern "stdcall" fn vkGetDeviceQueue2(
 ) {
     trace!("called vkGetDeviceQueue2({device:?}, {p_queue_info:?}, {p_queue:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001282);
     packet.write(device);
     packet.write(p_queue_info);
     packet.write(p_queue);
+    packet.send();
     unimplemented!("vkGetDeviceQueue2");
 }
 
@@ -5366,11 +5649,12 @@ unsafe extern "stdcall" fn vkCreateValidationCacheEXT(
 ) -> vk::Result {
     trace!("called vkCreateValidationCacheEXT({device:?}, {p_create_info:?}, {p_allocator:?}, {p_validation_cache:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001283);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_validation_cache);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateValidationCacheEXT");
 }
 
@@ -5383,10 +5667,11 @@ unsafe extern "stdcall" fn vkDestroyValidationCacheEXT(
 ) {
     trace!("called vkDestroyValidationCacheEXT({device:?}, {validation_cache:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001284);
     packet.write(device);
     packet.write(validation_cache);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyValidationCacheEXT");
 }
 
@@ -5400,11 +5685,12 @@ unsafe extern "stdcall" fn vkGetValidationCacheDataEXT(
 ) -> vk::Result {
     trace!("called vkGetValidationCacheDataEXT({device:?}, {validation_cache:?}, {p_data_size:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001285);
     packet.write(device);
     packet.write(validation_cache);
     packet.write(p_data_size);
     packet.write(p_data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetValidationCacheDataEXT");
 }
 
@@ -5418,10 +5704,11 @@ unsafe extern "stdcall" fn vkMergeValidationCachesEXT(
 ) -> vk::Result {
     trace!("called vkMergeValidationCachesEXT({device:?}, {dst_cache:?}, {src_cache_count:?}, {p_src_caches:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001286);
     packet.write(device);
     packet.write(dst_cache);
     packet.write(src_cache_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkMergeValidationCachesEXT");
 }
 
@@ -5434,10 +5721,11 @@ unsafe extern "stdcall" fn vkGetDescriptorSetLayoutSupport(
 ) {
     trace!("called vkGetDescriptorSetLayoutSupport({device:?}, {p_create_info:?}, {p_support:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001287);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_support);
+    packet.send();
     unimplemented!("vkGetDescriptorSetLayoutSupport");
 }
 
@@ -5451,11 +5739,12 @@ unsafe extern "stdcall" fn vkGetSwapchainGrallocUsageANDROID(
 ) -> vk::Result {
     trace!("called vkGetSwapchainGrallocUsageANDROID({device:?}, {format:?}, {image_usage:?}, {gralloc_usage:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001288);
     packet.write(device);
     packet.write(format);
     packet.write(image_usage);
     packet.write(gralloc_usage);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetSwapchainGrallocUsageANDROID");
 }
 
@@ -5471,13 +5760,14 @@ unsafe extern "stdcall" fn vkGetSwapchainGrallocUsage2ANDROID(
 ) -> vk::Result {
     trace!("called vkGetSwapchainGrallocUsage2ANDROID({device:?}, {format:?}, {image_usage:?}, {swapchain_image_usage:?}, {gralloc_consumer_usage:?}, {gralloc_producer_usage:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001289);
     packet.write(device);
     packet.write(format);
     packet.write(image_usage);
     packet.write(swapchain_image_usage);
     packet.write(gralloc_consumer_usage);
     packet.write(gralloc_producer_usage);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetSwapchainGrallocUsage2ANDROID");
 }
 
@@ -5492,12 +5782,13 @@ unsafe extern "stdcall" fn vkAcquireImageANDROID(
 ) -> vk::Result {
     trace!("called vkAcquireImageANDROID({device:?}, {image:?}, {native_fence_fd:?}, {semaphore:?}, {fence:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001290);
     packet.write(device);
     packet.write(image);
     packet.write(native_fence_fd);
     packet.write(semaphore);
     packet.write(fence);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkAcquireImageANDROID");
 }
 
@@ -5512,9 +5803,10 @@ unsafe extern "stdcall" fn vkQueueSignalReleaseImageANDROID(
 ) -> vk::Result {
     trace!("called vkQueueSignalReleaseImageANDROID({queue:?}, {wait_semaphore_count:?}, {p_wait_semaphores:?}, {image:?}, {p_native_fence_fd:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001291);
     packet.write(queue);
     packet.write(wait_semaphore_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkQueueSignalReleaseImageANDROID");
 }
 
@@ -5530,13 +5822,14 @@ unsafe extern "stdcall" fn vkGetShaderInfoAMD(
 ) -> vk::Result {
     trace!("called vkGetShaderInfoAMD({device:?}, {pipeline:?}, {shader_stage:?}, {info_type:?}, {p_info_size:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001292);
     packet.write(device);
     packet.write(pipeline);
     packet.write(shader_stage);
     packet.write(info_type);
     packet.write(p_info_size);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetShaderInfoAMD");
 }
 
@@ -5549,10 +5842,11 @@ unsafe extern "stdcall" fn vkSetLocalDimmingAMD(
 ) {
     trace!("called vkSetLocalDimmingAMD({device:?}, {swap_chain:?}, {local_dimming_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001293);
     packet.write(device);
     packet.write(swap_chain);
     packet.write(local_dimming_enable);
+    packet.send();
     unimplemented!("vkSetLocalDimmingAMD");
 }
 
@@ -5565,9 +5859,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceCalibrateableTimeDomainsKHR({physical_device:?}, {p_time_domain_count:?}, {p_time_domains:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001294);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr(p_time_domain_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceCalibrateableTimeDomainsKHR");
 }
 
@@ -5582,9 +5877,10 @@ unsafe extern "stdcall" fn vkGetCalibratedTimestampsKHR(
 ) -> vk::Result {
     trace!("called vkGetCalibratedTimestampsKHR({device:?}, {timestamp_count:?}, {p_timestamp_infos:?}, {p_timestamps:?}, {p_max_deviation:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001295);
     packet.write(device);
     packet.write(timestamp_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetCalibratedTimestampsKHR");
 }
 
@@ -5596,9 +5892,10 @@ unsafe extern "stdcall" fn vkSetDebugUtilsObjectNameEXT(
 ) -> vk::Result {
     trace!("called vkSetDebugUtilsObjectNameEXT({device:?}, {p_name_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001296);
     packet.write(device);
     packet.write(p_name_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkSetDebugUtilsObjectNameEXT");
 }
 
@@ -5610,9 +5907,10 @@ unsafe extern "stdcall" fn vkSetDebugUtilsObjectTagEXT(
 ) -> vk::Result {
     trace!("called vkSetDebugUtilsObjectTagEXT({device:?}, {p_tag_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001297);
     packet.write(device);
     packet.write(p_tag_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkSetDebugUtilsObjectTagEXT");
 }
 
@@ -5624,9 +5922,10 @@ unsafe extern "stdcall" fn vkQueueBeginDebugUtilsLabelEXT(
 ) {
     trace!("called vkQueueBeginDebugUtilsLabelEXT({queue:?}, {p_label_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001298);
     packet.write(queue);
     packet.write(p_label_info);
+    packet.send();
     unimplemented!("vkQueueBeginDebugUtilsLabelEXT");
 }
 
@@ -5637,8 +5936,9 @@ unsafe extern "stdcall" fn vkQueueEndDebugUtilsLabelEXT(
 ) {
     trace!("called vkQueueEndDebugUtilsLabelEXT({queue:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001299);
     packet.write(queue);
+    packet.send();
     unimplemented!("vkQueueEndDebugUtilsLabelEXT");
 }
 
@@ -5650,9 +5950,10 @@ unsafe extern "stdcall" fn vkQueueInsertDebugUtilsLabelEXT(
 ) {
     trace!("called vkQueueInsertDebugUtilsLabelEXT({queue:?}, {p_label_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001300);
     packet.write(queue);
     packet.write(p_label_info);
+    packet.send();
     unimplemented!("vkQueueInsertDebugUtilsLabelEXT");
 }
 
@@ -5664,9 +5965,10 @@ unsafe extern "stdcall" fn vkCmdBeginDebugUtilsLabelEXT(
 ) {
     trace!("called vkCmdBeginDebugUtilsLabelEXT({command_buffer:?}, {p_label_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001301);
     packet.write(command_buffer);
     packet.write(p_label_info);
+    packet.send();
     unimplemented!("vkCmdBeginDebugUtilsLabelEXT");
 }
 
@@ -5677,8 +5979,9 @@ unsafe extern "stdcall" fn vkCmdEndDebugUtilsLabelEXT(
 ) {
     trace!("called vkCmdEndDebugUtilsLabelEXT({command_buffer:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001302);
     packet.write(command_buffer);
+    packet.send();
     unimplemented!("vkCmdEndDebugUtilsLabelEXT");
 }
 
@@ -5690,9 +5993,10 @@ unsafe extern "stdcall" fn vkCmdInsertDebugUtilsLabelEXT(
 ) {
     trace!("called vkCmdInsertDebugUtilsLabelEXT({command_buffer:?}, {p_label_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001303);
     packet.write(command_buffer);
     packet.write(p_label_info);
+    packet.send();
     unimplemented!("vkCmdInsertDebugUtilsLabelEXT");
 }
 
@@ -5706,11 +6010,12 @@ unsafe extern "stdcall" fn vkCreateDebugUtilsMessengerEXT(
 ) -> vk::Result {
     trace!("called vkCreateDebugUtilsMessengerEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_messenger:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001304);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_messenger);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateDebugUtilsMessengerEXT");
 }
 
@@ -5723,10 +6028,11 @@ unsafe extern "stdcall" fn vkDestroyDebugUtilsMessengerEXT(
 ) {
     trace!("called vkDestroyDebugUtilsMessengerEXT({instance:?}, {messenger:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001305);
     packet.write(instance);
     packet.write(messenger);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyDebugUtilsMessengerEXT");
 }
 
@@ -5740,11 +6046,12 @@ unsafe extern "stdcall" fn vkSubmitDebugUtilsMessageEXT(
 ) {
     trace!("called vkSubmitDebugUtilsMessageEXT({instance:?}, {message_severity:?}, {message_types:?}, {p_callback_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001306);
     packet.write(instance);
     packet.write(message_severity);
     packet.write(message_types);
     packet.write(p_callback_data);
+    packet.send();
     unimplemented!("vkSubmitDebugUtilsMessageEXT");
 }
 
@@ -5758,11 +6065,12 @@ unsafe extern "stdcall" fn vkGetMemoryHostPointerPropertiesEXT(
 ) -> vk::Result {
     trace!("called vkGetMemoryHostPointerPropertiesEXT({device:?}, {handle_type:?}, {p_host_pointer:?}, {p_memory_host_pointer_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001307);
     packet.write(device);
     packet.write(handle_type);
     packet.write(p_host_pointer);
     packet.write(p_memory_host_pointer_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetMemoryHostPointerPropertiesEXT");
 }
 
@@ -5777,12 +6085,13 @@ unsafe extern "stdcall" fn vkCmdWriteBufferMarkerAMD(
 ) {
     trace!("called vkCmdWriteBufferMarkerAMD({command_buffer:?}, {pipeline_stage:?}, {dst_buffer:?}, {dst_offset:?}, {marker:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001308);
     packet.write(command_buffer);
     packet.write(pipeline_stage);
     packet.write(dst_buffer);
     packet.write(dst_offset);
     packet.write(marker);
+    packet.send();
     unimplemented!("vkCmdWriteBufferMarkerAMD");
 }
 
@@ -5796,11 +6105,12 @@ unsafe extern "stdcall" fn vkCreateRenderPass2(
 ) -> vk::Result {
     trace!("called vkCreateRenderPass2({device:?}, {p_create_info:?}, {p_allocator:?}, {p_render_pass:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001309);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_render_pass);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateRenderPass2");
 }
 
@@ -5813,10 +6123,11 @@ unsafe extern "stdcall" fn vkCmdBeginRenderPass2(
 ) {
     trace!("called vkCmdBeginRenderPass2({command_buffer:?}, {p_render_pass_begin:?}, {p_subpass_begin_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001310);
     packet.write(command_buffer);
     packet.write(p_render_pass_begin);
     packet.write(p_subpass_begin_info);
+    packet.send();
     unimplemented!("vkCmdBeginRenderPass2");
 }
 
@@ -5829,10 +6140,11 @@ unsafe extern "stdcall" fn vkCmdNextSubpass2(
 ) {
     trace!("called vkCmdNextSubpass2({command_buffer:?}, {p_subpass_begin_info:?}, {p_subpass_end_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001311);
     packet.write(command_buffer);
     packet.write(p_subpass_begin_info);
     packet.write(p_subpass_end_info);
+    packet.send();
     unimplemented!("vkCmdNextSubpass2");
 }
 
@@ -5844,9 +6156,10 @@ unsafe extern "stdcall" fn vkCmdEndRenderPass2(
 ) {
     trace!("called vkCmdEndRenderPass2({command_buffer:?}, {p_subpass_end_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001312);
     packet.write(command_buffer);
     packet.write(p_subpass_end_info);
+    packet.send();
     unimplemented!("vkCmdEndRenderPass2");
 }
 
@@ -5859,10 +6172,11 @@ unsafe extern "stdcall" fn vkGetSemaphoreCounterValue(
 ) -> vk::Result {
     trace!("called vkGetSemaphoreCounterValue({device:?}, {semaphore:?}, {p_value:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001313);
     packet.write(device);
     packet.write(semaphore);
     packet.write(p_value);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetSemaphoreCounterValue");
 }
 
@@ -5875,10 +6189,11 @@ unsafe extern "stdcall" fn vkWaitSemaphores(
 ) -> vk::Result {
     trace!("called vkWaitSemaphores({device:?}, {p_wait_info:?}, {timeout:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001314);
     packet.write(device);
     packet.write(p_wait_info);
     packet.write(timeout);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkWaitSemaphores");
 }
 
@@ -5890,9 +6205,10 @@ unsafe extern "stdcall" fn vkSignalSemaphore(
 ) -> vk::Result {
     trace!("called vkSignalSemaphore({device:?}, {p_signal_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001315);
     packet.write(device);
     packet.write(p_signal_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkSignalSemaphore");
 }
 
@@ -5905,10 +6221,11 @@ unsafe extern "stdcall" fn vkGetAndroidHardwareBufferPropertiesANDROID(
 ) -> vk::Result {
     trace!("called vkGetAndroidHardwareBufferPropertiesANDROID({device:?}, {buffer:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001316);
     packet.write(device);
     packet.write(buffer);
     packet.write(p_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetAndroidHardwareBufferPropertiesANDROID");
 }
 
@@ -5921,10 +6238,11 @@ unsafe extern "stdcall" fn vkGetMemoryAndroidHardwareBufferANDROID(
 ) -> vk::Result {
     trace!("called vkGetMemoryAndroidHardwareBufferANDROID({device:?}, {p_info:?}, {p_buffer:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001317);
     packet.write(device);
     packet.write(p_info);
     packet.write(p_buffer);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetMemoryAndroidHardwareBufferANDROID");
 }
 
@@ -5941,13 +6259,14 @@ unsafe extern "stdcall" fn vkCmdDrawIndirectCount(
 ) {
     trace!("called vkCmdDrawIndirectCount({command_buffer:?}, {buffer:?}, {offset:?}, {count_buffer:?}, {count_buffer_offset:?}, {max_draw_count:?}, {stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001318);
     packet.write(command_buffer);
     packet.write(buffer);
     packet.write(offset);
     packet.write(count_buffer);
     packet.write(count_buffer_offset);
     packet.write(max_draw_count);
+    packet.send();
     unimplemented!("vkCmdDrawIndirectCount");
 }
 
@@ -5964,13 +6283,14 @@ unsafe extern "stdcall" fn vkCmdDrawIndexedIndirectCount(
 ) {
     trace!("called vkCmdDrawIndexedIndirectCount({command_buffer:?}, {buffer:?}, {offset:?}, {count_buffer:?}, {count_buffer_offset:?}, {max_draw_count:?}, {stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001319);
     packet.write(command_buffer);
     packet.write(buffer);
     packet.write(offset);
     packet.write(count_buffer);
     packet.write(count_buffer_offset);
     packet.write(max_draw_count);
+    packet.send();
     unimplemented!("vkCmdDrawIndexedIndirectCount");
 }
 
@@ -5982,9 +6302,10 @@ unsafe extern "stdcall" fn vkCmdSetCheckpointNV(
 ) {
     trace!("called vkCmdSetCheckpointNV({command_buffer:?}, {p_checkpoint_marker:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001320);
     packet.write(command_buffer);
     packet.write(p_checkpoint_marker);
+    packet.send();
     unimplemented!("vkCmdSetCheckpointNV");
 }
 
@@ -5997,9 +6318,10 @@ unsafe extern "stdcall" fn vkGetQueueCheckpointDataNV(
 ) {
     trace!("called vkGetQueueCheckpointDataNV({queue:?}, {p_checkpoint_data_count:?}, {p_checkpoint_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001321);
     packet.write(queue);
     packet.write_nullable_raw_ptr(p_checkpoint_data_count);
+    packet.send();
     unimplemented!("vkGetQueueCheckpointDataNV");
 }
 
@@ -6015,10 +6337,11 @@ unsafe extern "stdcall" fn vkCmdBindTransformFeedbackBuffersEXT(
 ) {
     trace!("called vkCmdBindTransformFeedbackBuffersEXT({command_buffer:?}, {first_binding:?}, {binding_count:?}, {p_buffers:?}, {p_offsets:?}, {p_sizes:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001322);
     packet.write(command_buffer);
     packet.write(first_binding);
     packet.write(binding_count);
+    packet.send();
     unimplemented!("vkCmdBindTransformFeedbackBuffersEXT");
 }
 
@@ -6033,10 +6356,11 @@ unsafe extern "stdcall" fn vkCmdBeginTransformFeedbackEXT(
 ) {
     trace!("called vkCmdBeginTransformFeedbackEXT({command_buffer:?}, {first_counter_buffer:?}, {counter_buffer_count:?}, {p_counter_buffers:?}, {p_counter_buffer_offsets:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001323);
     packet.write(command_buffer);
     packet.write(first_counter_buffer);
     packet.write(counter_buffer_count);
+    packet.send();
     unimplemented!("vkCmdBeginTransformFeedbackEXT");
 }
 
@@ -6051,10 +6375,11 @@ unsafe extern "stdcall" fn vkCmdEndTransformFeedbackEXT(
 ) {
     trace!("called vkCmdEndTransformFeedbackEXT({command_buffer:?}, {first_counter_buffer:?}, {counter_buffer_count:?}, {p_counter_buffers:?}, {p_counter_buffer_offsets:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001324);
     packet.write(command_buffer);
     packet.write(first_counter_buffer);
     packet.write(counter_buffer_count);
+    packet.send();
     unimplemented!("vkCmdEndTransformFeedbackEXT");
 }
 
@@ -6069,12 +6394,13 @@ unsafe extern "stdcall" fn vkCmdBeginQueryIndexedEXT(
 ) {
     trace!("called vkCmdBeginQueryIndexedEXT({command_buffer:?}, {query_pool:?}, {query:?}, {flags:?}, {index:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001325);
     packet.write(command_buffer);
     packet.write(query_pool);
     packet.write(query);
     packet.write(flags);
     packet.write(index);
+    packet.send();
     unimplemented!("vkCmdBeginQueryIndexedEXT");
 }
 
@@ -6088,11 +6414,12 @@ unsafe extern "stdcall" fn vkCmdEndQueryIndexedEXT(
 ) {
     trace!("called vkCmdEndQueryIndexedEXT({command_buffer:?}, {query_pool:?}, {query:?}, {index:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001326);
     packet.write(command_buffer);
     packet.write(query_pool);
     packet.write(query);
     packet.write(index);
+    packet.send();
     unimplemented!("vkCmdEndQueryIndexedEXT");
 }
 
@@ -6109,9 +6436,10 @@ unsafe extern "stdcall" fn vkCmdDrawIndirectByteCountEXT(
 ) {
     trace!("called vkCmdDrawIndirectByteCountEXT({command_buffer:?}, {instance_count:?}, {first_instance:?}, {counter_buffer:?}, {counter_buffer_offset:?}, {counter_offset:?}, {vertex_stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001327);
     packet.write(command_buffer);
     packet.write(instance_count);
+    packet.send();
     unimplemented!("vkCmdDrawIndirectByteCountEXT");
 }
 
@@ -6125,10 +6453,11 @@ unsafe extern "stdcall" fn vkCmdSetExclusiveScissorNV(
 ) {
     trace!("called vkCmdSetExclusiveScissorNV({command_buffer:?}, {first_exclusive_scissor:?}, {exclusive_scissor_count:?}, {p_exclusive_scissors:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001328);
     packet.write(command_buffer);
     packet.write(first_exclusive_scissor);
     packet.write(exclusive_scissor_count);
+    packet.send();
     unimplemented!("vkCmdSetExclusiveScissorNV");
 }
 
@@ -6142,10 +6471,11 @@ unsafe extern "stdcall" fn vkCmdSetExclusiveScissorEnableNV(
 ) {
     trace!("called vkCmdSetExclusiveScissorEnableNV({command_buffer:?}, {first_exclusive_scissor:?}, {exclusive_scissor_count:?}, {p_exclusive_scissor_enables:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001329);
     packet.write(command_buffer);
     packet.write(first_exclusive_scissor);
     packet.write(exclusive_scissor_count);
+    packet.send();
     unimplemented!("vkCmdSetExclusiveScissorEnableNV");
 }
 
@@ -6158,10 +6488,11 @@ unsafe extern "stdcall" fn vkCmdBindShadingRateImageNV(
 ) {
     trace!("called vkCmdBindShadingRateImageNV({command_buffer:?}, {image_view:?}, {image_layout:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001330);
     packet.write(command_buffer);
     packet.write(image_view);
     packet.write(image_layout);
+    packet.send();
     unimplemented!("vkCmdBindShadingRateImageNV");
 }
 
@@ -6175,10 +6506,11 @@ unsafe extern "stdcall" fn vkCmdSetViewportShadingRatePaletteNV(
 ) {
     trace!("called vkCmdSetViewportShadingRatePaletteNV({command_buffer:?}, {first_viewport:?}, {viewport_count:?}, {p_shading_rate_palettes:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001331);
     packet.write(command_buffer);
     packet.write(first_viewport);
     packet.write(viewport_count);
+    packet.send();
     unimplemented!("vkCmdSetViewportShadingRatePaletteNV");
 }
 
@@ -6192,10 +6524,11 @@ unsafe extern "stdcall" fn vkCmdSetCoarseSampleOrderNV(
 ) {
     trace!("called vkCmdSetCoarseSampleOrderNV({command_buffer:?}, {sample_order_type:?}, {custom_sample_order_count:?}, {p_custom_sample_orders:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001332);
     packet.write(command_buffer);
     packet.write(sample_order_type);
     packet.write(custom_sample_order_count);
+    packet.send();
     unimplemented!("vkCmdSetCoarseSampleOrderNV");
 }
 
@@ -6208,9 +6541,10 @@ unsafe extern "stdcall" fn vkCmdDrawMeshTasksNV(
 ) {
     trace!("called vkCmdDrawMeshTasksNV({command_buffer:?}, {task_count:?}, {first_task:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001333);
     packet.write(command_buffer);
     packet.write(task_count);
+    packet.send();
     unimplemented!("vkCmdDrawMeshTasksNV");
 }
 
@@ -6225,11 +6559,12 @@ unsafe extern "stdcall" fn vkCmdDrawMeshTasksIndirectNV(
 ) {
     trace!("called vkCmdDrawMeshTasksIndirectNV({command_buffer:?}, {buffer:?}, {offset:?}, {draw_count:?}, {stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001334);
     packet.write(command_buffer);
     packet.write(buffer);
     packet.write(offset);
     packet.write(draw_count);
+    packet.send();
     unimplemented!("vkCmdDrawMeshTasksIndirectNV");
 }
 
@@ -6246,13 +6581,14 @@ unsafe extern "stdcall" fn vkCmdDrawMeshTasksIndirectCountNV(
 ) {
     trace!("called vkCmdDrawMeshTasksIndirectCountNV({command_buffer:?}, {buffer:?}, {offset:?}, {count_buffer:?}, {count_buffer_offset:?}, {max_draw_count:?}, {stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001335);
     packet.write(command_buffer);
     packet.write(buffer);
     packet.write(offset);
     packet.write(count_buffer);
     packet.write(count_buffer_offset);
     packet.write(max_draw_count);
+    packet.send();
     unimplemented!("vkCmdDrawMeshTasksIndirectCountNV");
 }
 
@@ -6266,11 +6602,12 @@ unsafe extern "stdcall" fn vkCmdDrawMeshTasksEXT(
 ) {
     trace!("called vkCmdDrawMeshTasksEXT({command_buffer:?}, {group_count_x:?}, {group_count_y:?}, {group_count_z:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001336);
     packet.write(command_buffer);
     packet.write(group_count_x);
     packet.write(group_count_y);
     packet.write(group_count_z);
+    packet.send();
     unimplemented!("vkCmdDrawMeshTasksEXT");
 }
 
@@ -6285,11 +6622,12 @@ unsafe extern "stdcall" fn vkCmdDrawMeshTasksIndirectEXT(
 ) {
     trace!("called vkCmdDrawMeshTasksIndirectEXT({command_buffer:?}, {buffer:?}, {offset:?}, {draw_count:?}, {stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001337);
     packet.write(command_buffer);
     packet.write(buffer);
     packet.write(offset);
     packet.write(draw_count);
+    packet.send();
     unimplemented!("vkCmdDrawMeshTasksIndirectEXT");
 }
 
@@ -6306,13 +6644,14 @@ unsafe extern "stdcall" fn vkCmdDrawMeshTasksIndirectCountEXT(
 ) {
     trace!("called vkCmdDrawMeshTasksIndirectCountEXT({command_buffer:?}, {buffer:?}, {offset:?}, {count_buffer:?}, {count_buffer_offset:?}, {max_draw_count:?}, {stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001338);
     packet.write(command_buffer);
     packet.write(buffer);
     packet.write(offset);
     packet.write(count_buffer);
     packet.write(count_buffer_offset);
     packet.write(max_draw_count);
+    packet.send();
     unimplemented!("vkCmdDrawMeshTasksIndirectCountEXT");
 }
 
@@ -6325,10 +6664,11 @@ unsafe extern "stdcall" fn vkCompileDeferredNV(
 ) -> vk::Result {
     trace!("called vkCompileDeferredNV({device:?}, {pipeline:?}, {shader:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001339);
     packet.write(device);
     packet.write(pipeline);
     packet.write(shader);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCompileDeferredNV");
 }
 
@@ -6342,11 +6682,12 @@ unsafe extern "stdcall" fn vkCreateAccelerationStructureNV(
 ) -> vk::Result {
     trace!("called vkCreateAccelerationStructureNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_acceleration_structure:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001340);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_acceleration_structure);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateAccelerationStructureNV");
 }
 
@@ -6359,10 +6700,11 @@ unsafe extern "stdcall" fn vkCmdBindInvocationMaskHUAWEI(
 ) {
     trace!("called vkCmdBindInvocationMaskHUAWEI({command_buffer:?}, {image_view:?}, {image_layout:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001341);
     packet.write(command_buffer);
     packet.write(image_view);
     packet.write(image_layout);
+    packet.send();
     unimplemented!("vkCmdBindInvocationMaskHUAWEI");
 }
 
@@ -6375,10 +6717,11 @@ unsafe extern "stdcall" fn vkDestroyAccelerationStructureKHR(
 ) {
     trace!("called vkDestroyAccelerationStructureKHR({device:?}, {acceleration_structure:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001342);
     packet.write(device);
     packet.write(acceleration_structure);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyAccelerationStructureKHR");
 }
 
@@ -6391,10 +6734,11 @@ unsafe extern "stdcall" fn vkDestroyAccelerationStructureNV(
 ) {
     trace!("called vkDestroyAccelerationStructureNV({device:?}, {acceleration_structure:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001343);
     packet.write(device);
     packet.write(acceleration_structure);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyAccelerationStructureNV");
 }
 
@@ -6407,10 +6751,11 @@ unsafe extern "stdcall" fn vkGetAccelerationStructureMemoryRequirementsNV(
 ) {
     trace!("called vkGetAccelerationStructureMemoryRequirementsNV({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001344);
     packet.write(device);
     packet.write(p_info);
     packet.write(p_memory_requirements);
+    packet.send();
     unimplemented!("vkGetAccelerationStructureMemoryRequirementsNV");
 }
 
@@ -6423,9 +6768,10 @@ unsafe extern "stdcall" fn vkBindAccelerationStructureMemoryNV(
 ) -> vk::Result {
     trace!("called vkBindAccelerationStructureMemoryNV({device:?}, {bind_info_count:?}, {p_bind_infos:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001345);
     packet.write(device);
     packet.write(bind_info_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkBindAccelerationStructureMemoryNV");
 }
 
@@ -6439,11 +6785,12 @@ unsafe extern "stdcall" fn vkCmdCopyAccelerationStructureNV(
 ) {
     trace!("called vkCmdCopyAccelerationStructureNV({command_buffer:?}, {dst:?}, {src:?}, {mode:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001346);
     packet.write(command_buffer);
     packet.write(dst);
     packet.write(src);
     packet.write(mode);
+    packet.send();
     unimplemented!("vkCmdCopyAccelerationStructureNV");
 }
 
@@ -6455,9 +6802,10 @@ unsafe extern "stdcall" fn vkCmdCopyAccelerationStructureKHR(
 ) {
     trace!("called vkCmdCopyAccelerationStructureKHR({command_buffer:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001347);
     packet.write(command_buffer);
     packet.write(p_info);
+    packet.send();
     unimplemented!("vkCmdCopyAccelerationStructureKHR");
 }
 
@@ -6470,10 +6818,11 @@ unsafe extern "stdcall" fn vkCopyAccelerationStructureKHR(
 ) -> vk::Result {
     trace!("called vkCopyAccelerationStructureKHR({device:?}, {deferred_operation:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001348);
     packet.write(device);
     packet.write(deferred_operation);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCopyAccelerationStructureKHR");
 }
 
@@ -6485,9 +6834,10 @@ unsafe extern "stdcall" fn vkCmdCopyAccelerationStructureToMemoryKHR(
 ) {
     trace!("called vkCmdCopyAccelerationStructureToMemoryKHR({command_buffer:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001349);
     packet.write(command_buffer);
     packet.write(p_info);
+    packet.send();
     unimplemented!("vkCmdCopyAccelerationStructureToMemoryKHR");
 }
 
@@ -6500,10 +6850,11 @@ unsafe extern "stdcall" fn vkCopyAccelerationStructureToMemoryKHR(
 ) -> vk::Result {
     trace!("called vkCopyAccelerationStructureToMemoryKHR({device:?}, {deferred_operation:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001350);
     packet.write(device);
     packet.write(deferred_operation);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCopyAccelerationStructureToMemoryKHR");
 }
 
@@ -6515,9 +6866,10 @@ unsafe extern "stdcall" fn vkCmdCopyMemoryToAccelerationStructureKHR(
 ) {
     trace!("called vkCmdCopyMemoryToAccelerationStructureKHR({command_buffer:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001351);
     packet.write(command_buffer);
     packet.write(p_info);
+    packet.send();
     unimplemented!("vkCmdCopyMemoryToAccelerationStructureKHR");
 }
 
@@ -6530,10 +6882,11 @@ unsafe extern "stdcall" fn vkCopyMemoryToAccelerationStructureKHR(
 ) -> vk::Result {
     trace!("called vkCopyMemoryToAccelerationStructureKHR({device:?}, {deferred_operation:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001352);
     packet.write(device);
     packet.write(deferred_operation);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCopyMemoryToAccelerationStructureKHR");
 }
 
@@ -6549,9 +6902,10 @@ unsafe extern "stdcall" fn vkCmdWriteAccelerationStructuresPropertiesKHR(
 ) {
     trace!("called vkCmdWriteAccelerationStructuresPropertiesKHR({command_buffer:?}, {acceleration_structure_count:?}, {p_acceleration_structures:?}, {query_type:?}, {query_pool:?}, {first_query:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001353);
     packet.write(command_buffer);
     packet.write(acceleration_structure_count);
+    packet.send();
     unimplemented!("vkCmdWriteAccelerationStructuresPropertiesKHR");
 }
 
@@ -6567,9 +6921,10 @@ unsafe extern "stdcall" fn vkCmdWriteAccelerationStructuresPropertiesNV(
 ) {
     trace!("called vkCmdWriteAccelerationStructuresPropertiesNV({command_buffer:?}, {acceleration_structure_count:?}, {p_acceleration_structures:?}, {query_type:?}, {query_pool:?}, {first_query:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001354);
     packet.write(command_buffer);
     packet.write(acceleration_structure_count);
+    packet.send();
     unimplemented!("vkCmdWriteAccelerationStructuresPropertiesNV");
 }
 
@@ -6588,7 +6943,7 @@ unsafe extern "stdcall" fn vkCmdBuildAccelerationStructureNV(
 ) {
     trace!("called vkCmdBuildAccelerationStructureNV({command_buffer:?}, {p_info:?}, {instance_data:?}, {instance_offset:?}, {update:?}, {dst:?}, {src:?}, {scratch:?}, {scratch_offset:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001355);
     packet.write(command_buffer);
     packet.write(p_info);
     packet.write(instance_data);
@@ -6598,6 +6953,7 @@ unsafe extern "stdcall" fn vkCmdBuildAccelerationStructureNV(
     packet.write(src);
     packet.write(scratch);
     packet.write(scratch_offset);
+    packet.send();
     unimplemented!("vkCmdBuildAccelerationStructureNV");
 }
 
@@ -6614,9 +6970,10 @@ unsafe extern "stdcall" fn vkWriteAccelerationStructuresPropertiesKHR(
 ) -> vk::Result {
     trace!("called vkWriteAccelerationStructuresPropertiesKHR({device:?}, {acceleration_structure_count:?}, {p_acceleration_structures:?}, {query_type:?}, {data_size:?}, {p_data:?}, {stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001356);
     packet.write(device);
     packet.write(acceleration_structure_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkWriteAccelerationStructuresPropertiesKHR");
 }
 
@@ -6634,7 +6991,7 @@ unsafe extern "stdcall" fn vkCmdTraceRaysKHR(
 ) {
     trace!("called vkCmdTraceRaysKHR({command_buffer:?}, {p_raygen_shader_binding_table:?}, {p_miss_shader_binding_table:?}, {p_hit_shader_binding_table:?}, {p_callable_shader_binding_table:?}, {width:?}, {height:?}, {depth:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001357);
     packet.write(command_buffer);
     packet.write(p_raygen_shader_binding_table);
     packet.write(p_miss_shader_binding_table);
@@ -6643,6 +7000,7 @@ unsafe extern "stdcall" fn vkCmdTraceRaysKHR(
     packet.write(width);
     packet.write(height);
     packet.write(depth);
+    packet.send();
     unimplemented!("vkCmdTraceRaysKHR");
 }
 
@@ -6667,7 +7025,7 @@ unsafe extern "stdcall" fn vkCmdTraceRaysNV(
 ) {
     trace!("called vkCmdTraceRaysNV({command_buffer:?}, {raygen_shader_binding_table_buffer:?}, {raygen_shader_binding_offset:?}, {miss_shader_binding_table_buffer:?}, {miss_shader_binding_offset:?}, {miss_shader_binding_stride:?}, {hit_shader_binding_table_buffer:?}, {hit_shader_binding_offset:?}, {hit_shader_binding_stride:?}, {callable_shader_binding_table_buffer:?}, {callable_shader_binding_offset:?}, {callable_shader_binding_stride:?}, {width:?}, {height:?}, {depth:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001358);
     packet.write(command_buffer);
     packet.write(raygen_shader_binding_table_buffer);
     packet.write(raygen_shader_binding_offset);
@@ -6683,6 +7041,7 @@ unsafe extern "stdcall" fn vkCmdTraceRaysNV(
     packet.write(width);
     packet.write(height);
     packet.write(depth);
+    packet.send();
     unimplemented!("vkCmdTraceRaysNV");
 }
 
@@ -6698,11 +7057,12 @@ unsafe extern "stdcall" fn vkGetRayTracingShaderGroupHandlesKHR(
 ) -> vk::Result {
     trace!("called vkGetRayTracingShaderGroupHandlesKHR({device:?}, {pipeline:?}, {first_group:?}, {group_count:?}, {data_size:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001359);
     packet.write(device);
     packet.write(pipeline);
     packet.write(first_group);
     packet.write(group_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetRayTracingShaderGroupHandlesKHR");
 }
 
@@ -6718,11 +7078,12 @@ unsafe extern "stdcall" fn vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(
 ) -> vk::Result {
     trace!("called vkGetRayTracingCaptureReplayShaderGroupHandlesKHR({device:?}, {pipeline:?}, {first_group:?}, {group_count:?}, {data_size:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001360);
     packet.write(device);
     packet.write(pipeline);
     packet.write(first_group);
     packet.write(group_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetRayTracingCaptureReplayShaderGroupHandlesKHR");
 }
 
@@ -6736,11 +7097,12 @@ unsafe extern "stdcall" fn vkGetAccelerationStructureHandleNV(
 ) -> vk::Result {
     trace!("called vkGetAccelerationStructureHandleNV({device:?}, {acceleration_structure:?}, {data_size:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001361);
     packet.write(device);
     packet.write(acceleration_structure);
     packet.write(data_size);
     packet.write(p_data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetAccelerationStructureHandleNV");
 }
 
@@ -6756,10 +7118,11 @@ unsafe extern "stdcall" fn vkCreateRayTracingPipelinesNV(
 ) -> vk::Result {
     trace!("called vkCreateRayTracingPipelinesNV({device:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001362);
     packet.write(device);
     packet.write(pipeline_cache);
     packet.write(create_info_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateRayTracingPipelinesNV");
 }
 
@@ -6776,11 +7139,12 @@ unsafe extern "stdcall" fn vkCreateRayTracingPipelinesKHR(
 ) -> vk::Result {
     trace!("called vkCreateRayTracingPipelinesKHR({device:?}, {deferred_operation:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001363);
     packet.write(device);
     packet.write(deferred_operation);
     packet.write(pipeline_cache);
     packet.write(create_info_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateRayTracingPipelinesKHR");
 }
 
@@ -6793,9 +7157,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesNV({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001364);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr(p_property_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
 }
 
@@ -6811,13 +7176,14 @@ unsafe extern "stdcall" fn vkCmdTraceRaysIndirectKHR(
 ) {
     trace!("called vkCmdTraceRaysIndirectKHR({command_buffer:?}, {p_raygen_shader_binding_table:?}, {p_miss_shader_binding_table:?}, {p_hit_shader_binding_table:?}, {p_callable_shader_binding_table:?}, {indirect_device_address:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001365);
     packet.write(command_buffer);
     packet.write(p_raygen_shader_binding_table);
     packet.write(p_miss_shader_binding_table);
     packet.write(p_hit_shader_binding_table);
     packet.write(p_callable_shader_binding_table);
     packet.write(indirect_device_address);
+    packet.send();
     unimplemented!("vkCmdTraceRaysIndirectKHR");
 }
 
@@ -6829,9 +7195,10 @@ unsafe extern "stdcall" fn vkCmdTraceRaysIndirect2KHR(
 ) {
     trace!("called vkCmdTraceRaysIndirect2KHR({command_buffer:?}, {indirect_device_address:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001366);
     packet.write(command_buffer);
     packet.write(indirect_device_address);
+    packet.send();
     unimplemented!("vkCmdTraceRaysIndirect2KHR");
 }
 
@@ -6844,10 +7211,11 @@ unsafe extern "stdcall" fn vkGetDeviceAccelerationStructureCompatibilityKHR(
 ) {
     trace!("called vkGetDeviceAccelerationStructureCompatibilityKHR({device:?}, {p_version_info:?}, {p_compatibility:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001367);
     packet.write(device);
     packet.write(p_version_info);
     packet.write(p_compatibility);
+    packet.send();
     unimplemented!("vkGetDeviceAccelerationStructureCompatibilityKHR");
 }
 
@@ -6861,11 +7229,12 @@ unsafe extern "stdcall" fn vkGetRayTracingShaderGroupStackSizeKHR(
 ) -> vk::DeviceSize {
     trace!("called vkGetRayTracingShaderGroupStackSizeKHR({device:?}, {pipeline:?}, {group:?}, {group_shader:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001368);
     packet.write(device);
     packet.write(pipeline);
     packet.write(group);
     packet.write(group_shader);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetRayTracingShaderGroupStackSizeKHR");
 }
 
@@ -6877,9 +7246,10 @@ unsafe extern "stdcall" fn vkCmdSetRayTracingPipelineStackSizeKHR(
 ) {
     trace!("called vkCmdSetRayTracingPipelineStackSizeKHR({command_buffer:?}, {pipeline_stack_size:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001369);
     packet.write(command_buffer);
     packet.write(pipeline_stack_size);
+    packet.send();
     unimplemented!("vkCmdSetRayTracingPipelineStackSizeKHR");
 }
 
@@ -6891,9 +7261,10 @@ unsafe extern "stdcall" fn vkGetImageViewHandleNVX(
 ) -> u32 {
     trace!("called vkGetImageViewHandleNVX({device:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001370);
     packet.write(device);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetImageViewHandleNVX");
 }
 
@@ -6906,10 +7277,11 @@ unsafe extern "stdcall" fn vkGetImageViewAddressNVX(
 ) -> vk::Result {
     trace!("called vkGetImageViewAddressNVX({device:?}, {image_view:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001371);
     packet.write(device);
     packet.write(image_view);
     packet.write(p_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetImageViewAddressNVX");
 }
 
@@ -6923,10 +7295,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfacePresentModes2EXT(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceSurfacePresentModes2EXT({physical_device:?}, {p_surface_info:?}, {p_present_mode_count:?}, {p_present_modes:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001372);
     packet.write(physical_device);
     packet.write(p_surface_info);
     packet.write_nullable_raw_ptr(p_present_mode_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfacePresentModes2EXT");
 }
 
@@ -6939,10 +7312,11 @@ unsafe extern "stdcall" fn vkGetDeviceGroupSurfacePresentModes2EXT(
 ) -> vk::Result {
     trace!("called vkGetDeviceGroupSurfacePresentModes2EXT({device:?}, {p_surface_info:?}, {p_modes:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001373);
     packet.write(device);
     packet.write(p_surface_info);
     packet.write(p_modes);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDeviceGroupSurfacePresentModes2EXT");
 }
 
@@ -6954,9 +7328,10 @@ unsafe extern "stdcall" fn vkAcquireFullScreenExclusiveModeEXT(
 ) -> vk::Result {
     trace!("called vkAcquireFullScreenExclusiveModeEXT({device:?}, {swapchain:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001374);
     packet.write(device);
     packet.write(swapchain);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkAcquireFullScreenExclusiveModeEXT");
 }
 
@@ -6968,9 +7343,10 @@ unsafe extern "stdcall" fn vkReleaseFullScreenExclusiveModeEXT(
 ) -> vk::Result {
     trace!("called vkReleaseFullScreenExclusiveModeEXT({device:?}, {swapchain:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001375);
     packet.write(device);
     packet.write(swapchain);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkReleaseFullScreenExclusiveModeEXT");
 }
 
@@ -6985,10 +7361,11 @@ unsafe extern "stdcall" fn vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryC
 ) -> vk::Result {
     trace!("called vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR({physical_device:?}, {queue_family_index:?}, {p_counter_count:?}, {p_counters:?}, {p_counter_descriptions:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001376);
     packet.write(physical_device);
     packet.write(queue_family_index);
     packet.write_nullable_raw_ptr(p_counter_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR");
 }
 
@@ -7001,10 +7378,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesK
 ) {
     trace!("called vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR({physical_device:?}, {p_performance_query_create_info:?}, {p_num_passes:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001377);
     packet.write(physical_device);
     packet.write(p_performance_query_create_info);
     packet.write(p_num_passes);
+    packet.send();
     unimplemented!("vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR");
 }
 
@@ -7016,9 +7394,10 @@ unsafe extern "stdcall" fn vkAcquireProfilingLockKHR(
 ) -> vk::Result {
     trace!("called vkAcquireProfilingLockKHR({device:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001378);
     packet.write(device);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkAcquireProfilingLockKHR");
 }
 
@@ -7029,8 +7408,9 @@ unsafe extern "stdcall" fn vkReleaseProfilingLockKHR(
 ) {
     trace!("called vkReleaseProfilingLockKHR({device:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001379);
     packet.write(device);
+    packet.send();
     unimplemented!("vkReleaseProfilingLockKHR");
 }
 
@@ -7043,10 +7423,11 @@ unsafe extern "stdcall" fn vkGetImageDrmFormatModifierPropertiesEXT(
 ) -> vk::Result {
     trace!("called vkGetImageDrmFormatModifierPropertiesEXT({device:?}, {image:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001380);
     packet.write(device);
     packet.write(image);
     packet.write(p_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetImageDrmFormatModifierPropertiesEXT");
 }
 
@@ -7058,9 +7439,10 @@ unsafe extern "stdcall" fn vkGetBufferOpaqueCaptureAddress(
 ) -> u64 {
     trace!("called vkGetBufferOpaqueCaptureAddress({device:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001381);
     packet.write(device);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetBufferOpaqueCaptureAddress");
 }
 
@@ -7072,9 +7454,10 @@ unsafe extern "stdcall" fn vkGetBufferDeviceAddress(
 ) -> vk::DeviceAddress {
     trace!("called vkGetBufferDeviceAddress({device:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001382);
     packet.write(device);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetBufferDeviceAddress");
 }
 
@@ -7088,11 +7471,12 @@ unsafe extern "stdcall" fn vkCreateHeadlessSurfaceEXT(
 ) -> vk::Result {
     trace!("called vkCreateHeadlessSurfaceEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001383);
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_surface);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateHeadlessSurfaceEXT");
 }
 
@@ -7105,9 +7489,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCo
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV({physical_device:?}, {p_combination_count:?}, {p_combinations:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001384);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr(p_combination_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV");
 }
 
@@ -7119,9 +7504,10 @@ unsafe extern "stdcall" fn vkInitializePerformanceApiINTEL(
 ) -> vk::Result {
     trace!("called vkInitializePerformanceApiINTEL({device:?}, {p_initialize_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001385);
     packet.write(device);
     packet.write(p_initialize_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkInitializePerformanceApiINTEL");
 }
 
@@ -7132,8 +7518,9 @@ unsafe extern "stdcall" fn vkUninitializePerformanceApiINTEL(
 ) {
     trace!("called vkUninitializePerformanceApiINTEL({device:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001386);
     packet.write(device);
+    packet.send();
     unimplemented!("vkUninitializePerformanceApiINTEL");
 }
 
@@ -7145,9 +7532,10 @@ unsafe extern "stdcall" fn vkCmdSetPerformanceMarkerINTEL(
 ) -> vk::Result {
     trace!("called vkCmdSetPerformanceMarkerINTEL({command_buffer:?}, {p_marker_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001387);
     packet.write(command_buffer);
     packet.write(p_marker_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCmdSetPerformanceMarkerINTEL");
 }
 
@@ -7159,9 +7547,10 @@ unsafe extern "stdcall" fn vkCmdSetPerformanceStreamMarkerINTEL(
 ) -> vk::Result {
     trace!("called vkCmdSetPerformanceStreamMarkerINTEL({command_buffer:?}, {p_marker_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001388);
     packet.write(command_buffer);
     packet.write(p_marker_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCmdSetPerformanceStreamMarkerINTEL");
 }
 
@@ -7173,9 +7562,10 @@ unsafe extern "stdcall" fn vkCmdSetPerformanceOverrideINTEL(
 ) -> vk::Result {
     trace!("called vkCmdSetPerformanceOverrideINTEL({command_buffer:?}, {p_override_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001389);
     packet.write(command_buffer);
     packet.write(p_override_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCmdSetPerformanceOverrideINTEL");
 }
 
@@ -7188,10 +7578,11 @@ unsafe extern "stdcall" fn vkAcquirePerformanceConfigurationINTEL(
 ) -> vk::Result {
     trace!("called vkAcquirePerformanceConfigurationINTEL({device:?}, {p_acquire_info:?}, {p_configuration:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001390);
     packet.write(device);
     packet.write(p_acquire_info);
     packet.write(p_configuration);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkAcquirePerformanceConfigurationINTEL");
 }
 
@@ -7203,9 +7594,10 @@ unsafe extern "stdcall" fn vkReleasePerformanceConfigurationINTEL(
 ) -> vk::Result {
     trace!("called vkReleasePerformanceConfigurationINTEL({device:?}, {configuration:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001391);
     packet.write(device);
     packet.write(configuration);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkReleasePerformanceConfigurationINTEL");
 }
 
@@ -7217,9 +7609,10 @@ unsafe extern "stdcall" fn vkQueueSetPerformanceConfigurationINTEL(
 ) -> vk::Result {
     trace!("called vkQueueSetPerformanceConfigurationINTEL({queue:?}, {configuration:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001392);
     packet.write(queue);
     packet.write(configuration);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkQueueSetPerformanceConfigurationINTEL");
 }
 
@@ -7232,10 +7625,11 @@ unsafe extern "stdcall" fn vkGetPerformanceParameterINTEL(
 ) -> vk::Result {
     trace!("called vkGetPerformanceParameterINTEL({device:?}, {parameter:?}, {p_value:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001393);
     packet.write(device);
     packet.write(parameter);
     packet.write(p_value);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPerformanceParameterINTEL");
 }
 
@@ -7247,9 +7641,10 @@ unsafe extern "stdcall" fn vkGetDeviceMemoryOpaqueCaptureAddress(
 ) -> u64 {
     trace!("called vkGetDeviceMemoryOpaqueCaptureAddress({device:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001394);
     packet.write(device);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDeviceMemoryOpaqueCaptureAddress");
 }
 
@@ -7263,10 +7658,11 @@ unsafe extern "stdcall" fn vkGetPipelineExecutablePropertiesKHR(
 ) -> vk::Result {
     trace!("called vkGetPipelineExecutablePropertiesKHR({device:?}, {p_pipeline_info:?}, {p_executable_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001395);
     packet.write(device);
     packet.write(p_pipeline_info);
     packet.write_nullable_raw_ptr(p_executable_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPipelineExecutablePropertiesKHR");
 }
 
@@ -7280,10 +7676,11 @@ unsafe extern "stdcall" fn vkGetPipelineExecutableStatisticsKHR(
 ) -> vk::Result {
     trace!("called vkGetPipelineExecutableStatisticsKHR({device:?}, {p_executable_info:?}, {p_statistic_count:?}, {p_statistics:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001396);
     packet.write(device);
     packet.write(p_executable_info);
     packet.write_nullable_raw_ptr(p_statistic_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPipelineExecutableStatisticsKHR");
 }
 
@@ -7297,10 +7694,11 @@ unsafe extern "stdcall" fn vkGetPipelineExecutableInternalRepresentationsKHR(
 ) -> vk::Result {
     trace!("called vkGetPipelineExecutableInternalRepresentationsKHR({device:?}, {p_executable_info:?}, {p_internal_representation_count:?}, {p_internal_representations:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001397);
     packet.write(device);
     packet.write(p_executable_info);
     packet.write_nullable_raw_ptr(p_internal_representation_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPipelineExecutableInternalRepresentationsKHR");
 }
 
@@ -7313,10 +7711,11 @@ unsafe extern "stdcall" fn vkCmdSetLineStippleKHR(
 ) {
     trace!("called vkCmdSetLineStippleKHR({command_buffer:?}, {line_stipple_factor:?}, {line_stipple_pattern:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001398);
     packet.write(command_buffer);
     packet.write(line_stipple_factor);
     packet.write(line_stipple_pattern);
+    packet.send();
     unimplemented!("vkCmdSetLineStippleKHR");
 }
 
@@ -7329,9 +7728,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceToolProperties(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceToolProperties({physical_device:?}, {p_tool_count:?}, {p_tool_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001399);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr(p_tool_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceToolProperties");
 }
 
@@ -7345,11 +7745,12 @@ unsafe extern "stdcall" fn vkCreateAccelerationStructureKHR(
 ) -> vk::Result {
     trace!("called vkCreateAccelerationStructureKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_acceleration_structure:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001400);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_acceleration_structure);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateAccelerationStructureKHR");
 }
 
@@ -7363,9 +7764,10 @@ unsafe extern "stdcall" fn vkCmdBuildAccelerationStructuresKHR(
 ) {
     trace!("called vkCmdBuildAccelerationStructuresKHR({command_buffer:?}, {info_count:?}, {p_infos:?}, {pp_build_range_infos:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001401);
     packet.write(command_buffer);
     packet.write(info_count);
+    packet.send();
     unimplemented!("vkCmdBuildAccelerationStructuresKHR");
 }
 
@@ -7381,9 +7783,10 @@ unsafe extern "stdcall" fn vkCmdBuildAccelerationStructuresIndirectKHR(
 ) {
     trace!("called vkCmdBuildAccelerationStructuresIndirectKHR({command_buffer:?}, {info_count:?}, {p_infos:?}, {p_indirect_device_addresses:?}, {p_indirect_strides:?}, {pp_max_primitive_counts:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001402);
     packet.write(command_buffer);
     packet.write(info_count);
+    packet.send();
     unimplemented!("vkCmdBuildAccelerationStructuresIndirectKHR");
 }
 
@@ -7398,10 +7801,11 @@ unsafe extern "stdcall" fn vkBuildAccelerationStructuresKHR(
 ) -> vk::Result {
     trace!("called vkBuildAccelerationStructuresKHR({device:?}, {deferred_operation:?}, {info_count:?}, {p_infos:?}, {pp_build_range_infos:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001403);
     packet.write(device);
     packet.write(deferred_operation);
     packet.write(info_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkBuildAccelerationStructuresKHR");
 }
 
@@ -7413,9 +7817,10 @@ unsafe extern "stdcall" fn vkGetAccelerationStructureDeviceAddressKHR(
 ) -> vk::DeviceAddress {
     trace!("called vkGetAccelerationStructureDeviceAddressKHR({device:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001404);
     packet.write(device);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetAccelerationStructureDeviceAddressKHR");
 }
 
@@ -7428,10 +7833,11 @@ unsafe extern "stdcall" fn vkCreateDeferredOperationKHR(
 ) -> vk::Result {
     trace!("called vkCreateDeferredOperationKHR({device:?}, {p_allocator:?}, {p_deferred_operation:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001405);
     packet.write(device);
     packet.write(p_allocator);
     packet.write(p_deferred_operation);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateDeferredOperationKHR");
 }
 
@@ -7444,10 +7850,11 @@ unsafe extern "stdcall" fn vkDestroyDeferredOperationKHR(
 ) {
     trace!("called vkDestroyDeferredOperationKHR({device:?}, {operation:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001406);
     packet.write(device);
     packet.write(operation);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyDeferredOperationKHR");
 }
 
@@ -7459,9 +7866,10 @@ unsafe extern "stdcall" fn vkGetDeferredOperationMaxConcurrencyKHR(
 ) -> u32 {
     trace!("called vkGetDeferredOperationMaxConcurrencyKHR({device:?}, {operation:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001407);
     packet.write(device);
     packet.write(operation);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDeferredOperationMaxConcurrencyKHR");
 }
 
@@ -7473,9 +7881,10 @@ unsafe extern "stdcall" fn vkGetDeferredOperationResultKHR(
 ) -> vk::Result {
     trace!("called vkGetDeferredOperationResultKHR({device:?}, {operation:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001408);
     packet.write(device);
     packet.write(operation);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDeferredOperationResultKHR");
 }
 
@@ -7487,9 +7896,10 @@ unsafe extern "stdcall" fn vkDeferredOperationJoinKHR(
 ) -> vk::Result {
     trace!("called vkDeferredOperationJoinKHR({device:?}, {operation:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001409);
     packet.write(device);
     packet.write(operation);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkDeferredOperationJoinKHR");
 }
 
@@ -7502,10 +7912,11 @@ unsafe extern "stdcall" fn vkGetPipelineIndirectMemoryRequirementsNV(
 ) {
     trace!("called vkGetPipelineIndirectMemoryRequirementsNV({device:?}, {p_create_info:?}, {p_memory_requirements:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001410);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_memory_requirements);
+    packet.send();
     unimplemented!("vkGetPipelineIndirectMemoryRequirementsNV");
 }
 
@@ -7517,9 +7928,10 @@ unsafe extern "stdcall" fn vkGetPipelineIndirectDeviceAddressNV(
 ) -> vk::DeviceAddress {
     trace!("called vkGetPipelineIndirectDeviceAddressNV({device:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001411);
     packet.write(device);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPipelineIndirectDeviceAddressNV");
 }
 
@@ -7531,9 +7943,10 @@ unsafe extern "stdcall" fn vkCmdSetCullMode(
 ) {
     trace!("called vkCmdSetCullMode({command_buffer:?}, {cull_mode:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001412);
     packet.write(command_buffer);
     packet.write(cull_mode);
+    packet.send();
     unimplemented!("vkCmdSetCullMode");
 }
 
@@ -7545,9 +7958,10 @@ unsafe extern "stdcall" fn vkCmdSetFrontFace(
 ) {
     trace!("called vkCmdSetFrontFace({command_buffer:?}, {front_face:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001413);
     packet.write(command_buffer);
     packet.write(front_face);
+    packet.send();
     unimplemented!("vkCmdSetFrontFace");
 }
 
@@ -7559,9 +7973,10 @@ unsafe extern "stdcall" fn vkCmdSetPrimitiveTopology(
 ) {
     trace!("called vkCmdSetPrimitiveTopology({command_buffer:?}, {primitive_topology:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001414);
     packet.write(command_buffer);
     packet.write(primitive_topology);
+    packet.send();
     unimplemented!("vkCmdSetPrimitiveTopology");
 }
 
@@ -7574,9 +7989,10 @@ unsafe extern "stdcall" fn vkCmdSetViewportWithCount(
 ) {
     trace!("called vkCmdSetViewportWithCount({command_buffer:?}, {viewport_count:?}, {p_viewports:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001415);
     packet.write(command_buffer);
     packet.write(viewport_count);
+    packet.send();
     unimplemented!("vkCmdSetViewportWithCount");
 }
 
@@ -7589,9 +8005,10 @@ unsafe extern "stdcall" fn vkCmdSetScissorWithCount(
 ) {
     trace!("called vkCmdSetScissorWithCount({command_buffer:?}, {scissor_count:?}, {p_scissors:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001416);
     packet.write(command_buffer);
     packet.write(scissor_count);
+    packet.send();
     unimplemented!("vkCmdSetScissorWithCount");
 }
 
@@ -7606,12 +8023,13 @@ unsafe extern "stdcall" fn vkCmdBindIndexBuffer2KHR(
 ) {
     trace!("called vkCmdBindIndexBuffer2KHR({command_buffer:?}, {buffer:?}, {offset:?}, {size:?}, {index_type:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001417);
     packet.write(command_buffer);
     packet.write(buffer);
     packet.write(offset);
     packet.write(size);
     packet.write(index_type);
+    packet.send();
     unimplemented!("vkCmdBindIndexBuffer2KHR");
 }
 
@@ -7628,10 +8046,11 @@ unsafe extern "stdcall" fn vkCmdBindVertexBuffers2(
 ) {
     trace!("called vkCmdBindVertexBuffers2({command_buffer:?}, {first_binding:?}, {binding_count:?}, {p_buffers:?}, {p_offsets:?}, {p_sizes:?}, {p_strides:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001418);
     packet.write(command_buffer);
     packet.write(first_binding);
     packet.write(binding_count);
+    packet.send();
     unimplemented!("vkCmdBindVertexBuffers2");
 }
 
@@ -7643,9 +8062,10 @@ unsafe extern "stdcall" fn vkCmdSetDepthTestEnable(
 ) {
     trace!("called vkCmdSetDepthTestEnable({command_buffer:?}, {depth_test_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001419);
     packet.write(command_buffer);
     packet.write(depth_test_enable);
+    packet.send();
     unimplemented!("vkCmdSetDepthTestEnable");
 }
 
@@ -7657,9 +8077,10 @@ unsafe extern "stdcall" fn vkCmdSetDepthWriteEnable(
 ) {
     trace!("called vkCmdSetDepthWriteEnable({command_buffer:?}, {depth_write_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001420);
     packet.write(command_buffer);
     packet.write(depth_write_enable);
+    packet.send();
     unimplemented!("vkCmdSetDepthWriteEnable");
 }
 
@@ -7671,9 +8092,10 @@ unsafe extern "stdcall" fn vkCmdSetDepthCompareOp(
 ) {
     trace!("called vkCmdSetDepthCompareOp({command_buffer:?}, {depth_compare_op:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001421);
     packet.write(command_buffer);
     packet.write(depth_compare_op);
+    packet.send();
     unimplemented!("vkCmdSetDepthCompareOp");
 }
 
@@ -7685,9 +8107,10 @@ unsafe extern "stdcall" fn vkCmdSetDepthBoundsTestEnable(
 ) {
     trace!("called vkCmdSetDepthBoundsTestEnable({command_buffer:?}, {depth_bounds_test_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001422);
     packet.write(command_buffer);
     packet.write(depth_bounds_test_enable);
+    packet.send();
     unimplemented!("vkCmdSetDepthBoundsTestEnable");
 }
 
@@ -7699,9 +8122,10 @@ unsafe extern "stdcall" fn vkCmdSetStencilTestEnable(
 ) {
     trace!("called vkCmdSetStencilTestEnable({command_buffer:?}, {stencil_test_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001423);
     packet.write(command_buffer);
     packet.write(stencil_test_enable);
+    packet.send();
     unimplemented!("vkCmdSetStencilTestEnable");
 }
 
@@ -7717,13 +8141,14 @@ unsafe extern "stdcall" fn vkCmdSetStencilOp(
 ) {
     trace!("called vkCmdSetStencilOp({command_buffer:?}, {face_mask:?}, {fail_op:?}, {pass_op:?}, {depth_fail_op:?}, {compare_op:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001424);
     packet.write(command_buffer);
     packet.write(face_mask);
     packet.write(fail_op);
     packet.write(pass_op);
     packet.write(depth_fail_op);
     packet.write(compare_op);
+    packet.send();
     unimplemented!("vkCmdSetStencilOp");
 }
 
@@ -7735,9 +8160,10 @@ unsafe extern "stdcall" fn vkCmdSetPatchControlPointsEXT(
 ) {
     trace!("called vkCmdSetPatchControlPointsEXT({command_buffer:?}, {patch_control_points:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001425);
     packet.write(command_buffer);
     packet.write(patch_control_points);
+    packet.send();
     unimplemented!("vkCmdSetPatchControlPointsEXT");
 }
 
@@ -7749,9 +8175,10 @@ unsafe extern "stdcall" fn vkCmdSetRasterizerDiscardEnable(
 ) {
     trace!("called vkCmdSetRasterizerDiscardEnable({command_buffer:?}, {rasterizer_discard_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001426);
     packet.write(command_buffer);
     packet.write(rasterizer_discard_enable);
+    packet.send();
     unimplemented!("vkCmdSetRasterizerDiscardEnable");
 }
 
@@ -7763,9 +8190,10 @@ unsafe extern "stdcall" fn vkCmdSetDepthBiasEnable(
 ) {
     trace!("called vkCmdSetDepthBiasEnable({command_buffer:?}, {depth_bias_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001427);
     packet.write(command_buffer);
     packet.write(depth_bias_enable);
+    packet.send();
     unimplemented!("vkCmdSetDepthBiasEnable");
 }
 
@@ -7777,9 +8205,10 @@ unsafe extern "stdcall" fn vkCmdSetLogicOpEXT(
 ) {
     trace!("called vkCmdSetLogicOpEXT({command_buffer:?}, {logic_op:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001428);
     packet.write(command_buffer);
     packet.write(logic_op);
+    packet.send();
     unimplemented!("vkCmdSetLogicOpEXT");
 }
 
@@ -7791,9 +8220,10 @@ unsafe extern "stdcall" fn vkCmdSetPrimitiveRestartEnable(
 ) {
     trace!("called vkCmdSetPrimitiveRestartEnable({command_buffer:?}, {primitive_restart_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001429);
     packet.write(command_buffer);
     packet.write(primitive_restart_enable);
+    packet.send();
     unimplemented!("vkCmdSetPrimitiveRestartEnable");
 }
 
@@ -7805,9 +8235,10 @@ unsafe extern "stdcall" fn vkCmdSetTessellationDomainOriginEXT(
 ) {
     trace!("called vkCmdSetTessellationDomainOriginEXT({command_buffer:?}, {domain_origin:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001430);
     packet.write(command_buffer);
     packet.write(domain_origin);
+    packet.send();
     unimplemented!("vkCmdSetTessellationDomainOriginEXT");
 }
 
@@ -7819,9 +8250,10 @@ unsafe extern "stdcall" fn vkCmdSetDepthClampEnableEXT(
 ) {
     trace!("called vkCmdSetDepthClampEnableEXT({command_buffer:?}, {depth_clamp_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001431);
     packet.write(command_buffer);
     packet.write(depth_clamp_enable);
+    packet.send();
     unimplemented!("vkCmdSetDepthClampEnableEXT");
 }
 
@@ -7833,9 +8265,10 @@ unsafe extern "stdcall" fn vkCmdSetPolygonModeEXT(
 ) {
     trace!("called vkCmdSetPolygonModeEXT({command_buffer:?}, {polygon_mode:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001432);
     packet.write(command_buffer);
     packet.write(polygon_mode);
+    packet.send();
     unimplemented!("vkCmdSetPolygonModeEXT");
 }
 
@@ -7847,9 +8280,10 @@ unsafe extern "stdcall" fn vkCmdSetRasterizationSamplesEXT(
 ) {
     trace!("called vkCmdSetRasterizationSamplesEXT({command_buffer:?}, {rasterization_samples:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001433);
     packet.write(command_buffer);
     packet.write(rasterization_samples);
+    packet.send();
     unimplemented!("vkCmdSetRasterizationSamplesEXT");
 }
 
@@ -7862,10 +8296,11 @@ unsafe extern "stdcall" fn vkCmdSetSampleMaskEXT(
 ) {
     trace!("called vkCmdSetSampleMaskEXT({command_buffer:?}, {samples:?}, {p_sample_mask:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001434);
     packet.write(command_buffer);
     packet.write(samples);
     packet.write(p_sample_mask);
+    packet.send();
     unimplemented!("vkCmdSetSampleMaskEXT");
 }
 
@@ -7877,9 +8312,10 @@ unsafe extern "stdcall" fn vkCmdSetAlphaToCoverageEnableEXT(
 ) {
     trace!("called vkCmdSetAlphaToCoverageEnableEXT({command_buffer:?}, {alpha_to_coverage_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001435);
     packet.write(command_buffer);
     packet.write(alpha_to_coverage_enable);
+    packet.send();
     unimplemented!("vkCmdSetAlphaToCoverageEnableEXT");
 }
 
@@ -7891,9 +8327,10 @@ unsafe extern "stdcall" fn vkCmdSetAlphaToOneEnableEXT(
 ) {
     trace!("called vkCmdSetAlphaToOneEnableEXT({command_buffer:?}, {alpha_to_one_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001436);
     packet.write(command_buffer);
     packet.write(alpha_to_one_enable);
+    packet.send();
     unimplemented!("vkCmdSetAlphaToOneEnableEXT");
 }
 
@@ -7905,9 +8342,10 @@ unsafe extern "stdcall" fn vkCmdSetLogicOpEnableEXT(
 ) {
     trace!("called vkCmdSetLogicOpEnableEXT({command_buffer:?}, {logic_op_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001437);
     packet.write(command_buffer);
     packet.write(logic_op_enable);
+    packet.send();
     unimplemented!("vkCmdSetLogicOpEnableEXT");
 }
 
@@ -7921,10 +8359,11 @@ unsafe extern "stdcall" fn vkCmdSetColorBlendEnableEXT(
 ) {
     trace!("called vkCmdSetColorBlendEnableEXT({command_buffer:?}, {first_attachment:?}, {attachment_count:?}, {p_color_blend_enables:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001438);
     packet.write(command_buffer);
     packet.write(first_attachment);
     packet.write(attachment_count);
+    packet.send();
     unimplemented!("vkCmdSetColorBlendEnableEXT");
 }
 
@@ -7938,10 +8377,11 @@ unsafe extern "stdcall" fn vkCmdSetColorBlendEquationEXT(
 ) {
     trace!("called vkCmdSetColorBlendEquationEXT({command_buffer:?}, {first_attachment:?}, {attachment_count:?}, {p_color_blend_equations:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001439);
     packet.write(command_buffer);
     packet.write(first_attachment);
     packet.write(attachment_count);
+    packet.send();
     unimplemented!("vkCmdSetColorBlendEquationEXT");
 }
 
@@ -7955,10 +8395,11 @@ unsafe extern "stdcall" fn vkCmdSetColorWriteMaskEXT(
 ) {
     trace!("called vkCmdSetColorWriteMaskEXT({command_buffer:?}, {first_attachment:?}, {attachment_count:?}, {p_color_write_masks:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001440);
     packet.write(command_buffer);
     packet.write(first_attachment);
     packet.write(attachment_count);
+    packet.send();
     unimplemented!("vkCmdSetColorWriteMaskEXT");
 }
 
@@ -7970,9 +8411,10 @@ unsafe extern "stdcall" fn vkCmdSetRasterizationStreamEXT(
 ) {
     trace!("called vkCmdSetRasterizationStreamEXT({command_buffer:?}, {rasterization_stream:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001441);
     packet.write(command_buffer);
     packet.write(rasterization_stream);
+    packet.send();
     unimplemented!("vkCmdSetRasterizationStreamEXT");
 }
 
@@ -7984,9 +8426,10 @@ unsafe extern "stdcall" fn vkCmdSetConservativeRasterizationModeEXT(
 ) {
     trace!("called vkCmdSetConservativeRasterizationModeEXT({command_buffer:?}, {conservative_rasterization_mode:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001442);
     packet.write(command_buffer);
     packet.write(conservative_rasterization_mode);
+    packet.send();
     unimplemented!("vkCmdSetConservativeRasterizationModeEXT");
 }
 
@@ -7998,9 +8441,10 @@ unsafe extern "stdcall" fn vkCmdSetExtraPrimitiveOverestimationSizeEXT(
 ) {
     trace!("called vkCmdSetExtraPrimitiveOverestimationSizeEXT({command_buffer:?}, {extra_primitive_overestimation_size:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001443);
     packet.write(command_buffer);
     packet.write(extra_primitive_overestimation_size);
+    packet.send();
     unimplemented!("vkCmdSetExtraPrimitiveOverestimationSizeEXT");
 }
 
@@ -8012,9 +8456,10 @@ unsafe extern "stdcall" fn vkCmdSetDepthClipEnableEXT(
 ) {
     trace!("called vkCmdSetDepthClipEnableEXT({command_buffer:?}, {depth_clip_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001444);
     packet.write(command_buffer);
     packet.write(depth_clip_enable);
+    packet.send();
     unimplemented!("vkCmdSetDepthClipEnableEXT");
 }
 
@@ -8026,9 +8471,10 @@ unsafe extern "stdcall" fn vkCmdSetSampleLocationsEnableEXT(
 ) {
     trace!("called vkCmdSetSampleLocationsEnableEXT({command_buffer:?}, {sample_locations_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001445);
     packet.write(command_buffer);
     packet.write(sample_locations_enable);
+    packet.send();
     unimplemented!("vkCmdSetSampleLocationsEnableEXT");
 }
 
@@ -8042,10 +8488,11 @@ unsafe extern "stdcall" fn vkCmdSetColorBlendAdvancedEXT(
 ) {
     trace!("called vkCmdSetColorBlendAdvancedEXT({command_buffer:?}, {first_attachment:?}, {attachment_count:?}, {p_color_blend_advanced:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001446);
     packet.write(command_buffer);
     packet.write(first_attachment);
     packet.write(attachment_count);
+    packet.send();
     unimplemented!("vkCmdSetColorBlendAdvancedEXT");
 }
 
@@ -8057,9 +8504,10 @@ unsafe extern "stdcall" fn vkCmdSetProvokingVertexModeEXT(
 ) {
     trace!("called vkCmdSetProvokingVertexModeEXT({command_buffer:?}, {provoking_vertex_mode:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001447);
     packet.write(command_buffer);
     packet.write(provoking_vertex_mode);
+    packet.send();
     unimplemented!("vkCmdSetProvokingVertexModeEXT");
 }
 
@@ -8071,9 +8519,10 @@ unsafe extern "stdcall" fn vkCmdSetLineRasterizationModeEXT(
 ) {
     trace!("called vkCmdSetLineRasterizationModeEXT({command_buffer:?}, {line_rasterization_mode:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001448);
     packet.write(command_buffer);
     packet.write(line_rasterization_mode);
+    packet.send();
     unimplemented!("vkCmdSetLineRasterizationModeEXT");
 }
 
@@ -8085,9 +8534,10 @@ unsafe extern "stdcall" fn vkCmdSetLineStippleEnableEXT(
 ) {
     trace!("called vkCmdSetLineStippleEnableEXT({command_buffer:?}, {stippled_line_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001449);
     packet.write(command_buffer);
     packet.write(stippled_line_enable);
+    packet.send();
     unimplemented!("vkCmdSetLineStippleEnableEXT");
 }
 
@@ -8099,9 +8549,10 @@ unsafe extern "stdcall" fn vkCmdSetDepthClipNegativeOneToOneEXT(
 ) {
     trace!("called vkCmdSetDepthClipNegativeOneToOneEXT({command_buffer:?}, {negative_one_to_one:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001450);
     packet.write(command_buffer);
     packet.write(negative_one_to_one);
+    packet.send();
     unimplemented!("vkCmdSetDepthClipNegativeOneToOneEXT");
 }
 
@@ -8109,13 +8560,14 @@ unsafe extern "stdcall" fn vkCmdSetDepthClipNegativeOneToOneEXT(
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWScalingEnableNV.html>"]
 unsafe extern "stdcall" fn vkCmdSetViewportWScalingEnableNV(
     command_buffer: vk::CommandBuffer,
-    viewport_w_scaling_enable: vk::Bool32,
+    viewport_wscaling_enable: vk::Bool32,
 ) {
-    trace!("called vkCmdSetViewportWScalingEnableNV({command_buffer:?}, {viewport_w_scaling_enable:?})");
+    trace!("called vkCmdSetViewportWScalingEnableNV({command_buffer:?}, {viewport_wscaling_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001451);
     packet.write(command_buffer);
-    packet.write(viewport_w_scaling_enable);
+    packet.write(viewport_wscaling_enable);
+    packet.send();
     unimplemented!("vkCmdSetViewportWScalingEnableNV");
 }
 
@@ -8129,10 +8581,11 @@ unsafe extern "stdcall" fn vkCmdSetViewportSwizzleNV(
 ) {
     trace!("called vkCmdSetViewportSwizzleNV({command_buffer:?}, {first_viewport:?}, {viewport_count:?}, {p_viewport_swizzles:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001452);
     packet.write(command_buffer);
     packet.write(first_viewport);
     packet.write(viewport_count);
+    packet.send();
     unimplemented!("vkCmdSetViewportSwizzleNV");
 }
 
@@ -8144,9 +8597,10 @@ unsafe extern "stdcall" fn vkCmdSetCoverageToColorEnableNV(
 ) {
     trace!("called vkCmdSetCoverageToColorEnableNV({command_buffer:?}, {coverage_to_color_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001453);
     packet.write(command_buffer);
     packet.write(coverage_to_color_enable);
+    packet.send();
     unimplemented!("vkCmdSetCoverageToColorEnableNV");
 }
 
@@ -8158,9 +8612,10 @@ unsafe extern "stdcall" fn vkCmdSetCoverageToColorLocationNV(
 ) {
     trace!("called vkCmdSetCoverageToColorLocationNV({command_buffer:?}, {coverage_to_color_location:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001454);
     packet.write(command_buffer);
     packet.write(coverage_to_color_location);
+    packet.send();
     unimplemented!("vkCmdSetCoverageToColorLocationNV");
 }
 
@@ -8172,9 +8627,10 @@ unsafe extern "stdcall" fn vkCmdSetCoverageModulationModeNV(
 ) {
     trace!("called vkCmdSetCoverageModulationModeNV({command_buffer:?}, {coverage_modulation_mode:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001455);
     packet.write(command_buffer);
     packet.write(coverage_modulation_mode);
+    packet.send();
     unimplemented!("vkCmdSetCoverageModulationModeNV");
 }
 
@@ -8186,9 +8642,10 @@ unsafe extern "stdcall" fn vkCmdSetCoverageModulationTableEnableNV(
 ) {
     trace!("called vkCmdSetCoverageModulationTableEnableNV({command_buffer:?}, {coverage_modulation_table_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001456);
     packet.write(command_buffer);
     packet.write(coverage_modulation_table_enable);
+    packet.send();
     unimplemented!("vkCmdSetCoverageModulationTableEnableNV");
 }
 
@@ -8201,9 +8658,10 @@ unsafe extern "stdcall" fn vkCmdSetCoverageModulationTableNV(
 ) {
     trace!("called vkCmdSetCoverageModulationTableNV({command_buffer:?}, {coverage_modulation_table_count:?}, {p_coverage_modulation_table:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001457);
     packet.write(command_buffer);
     packet.write(coverage_modulation_table_count);
+    packet.send();
     unimplemented!("vkCmdSetCoverageModulationTableNV");
 }
 
@@ -8215,9 +8673,10 @@ unsafe extern "stdcall" fn vkCmdSetShadingRateImageEnableNV(
 ) {
     trace!("called vkCmdSetShadingRateImageEnableNV({command_buffer:?}, {shading_rate_image_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001458);
     packet.write(command_buffer);
     packet.write(shading_rate_image_enable);
+    packet.send();
     unimplemented!("vkCmdSetShadingRateImageEnableNV");
 }
 
@@ -8229,9 +8688,10 @@ unsafe extern "stdcall" fn vkCmdSetCoverageReductionModeNV(
 ) {
     trace!("called vkCmdSetCoverageReductionModeNV({command_buffer:?}, {coverage_reduction_mode:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001459);
     packet.write(command_buffer);
     packet.write(coverage_reduction_mode);
+    packet.send();
     unimplemented!("vkCmdSetCoverageReductionModeNV");
 }
 
@@ -8243,9 +8703,10 @@ unsafe extern "stdcall" fn vkCmdSetRepresentativeFragmentTestEnableNV(
 ) {
     trace!("called vkCmdSetRepresentativeFragmentTestEnableNV({command_buffer:?}, {representative_fragment_test_enable:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001460);
     packet.write(command_buffer);
     packet.write(representative_fragment_test_enable);
+    packet.send();
     unimplemented!("vkCmdSetRepresentativeFragmentTestEnableNV");
 }
 
@@ -8259,11 +8720,12 @@ unsafe extern "stdcall" fn vkCreatePrivateDataSlot(
 ) -> vk::Result {
     trace!("called vkCreatePrivateDataSlot({device:?}, {p_create_info:?}, {p_allocator:?}, {p_private_data_slot:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001461);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_private_data_slot);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreatePrivateDataSlot");
 }
 
@@ -8276,10 +8738,11 @@ unsafe extern "stdcall" fn vkDestroyPrivateDataSlot(
 ) {
     trace!("called vkDestroyPrivateDataSlot({device:?}, {private_data_slot:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001462);
     packet.write(device);
     packet.write(private_data_slot);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyPrivateDataSlot");
 }
 
@@ -8294,12 +8757,13 @@ unsafe extern "stdcall" fn vkSetPrivateData(
 ) -> vk::Result {
     trace!("called vkSetPrivateData({device:?}, {object_type:?}, {object_handle:?}, {private_data_slot:?}, {data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001463);
     packet.write(device);
     packet.write(object_type);
     packet.write(object_handle);
     packet.write(private_data_slot);
     packet.write(data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkSetPrivateData");
 }
 
@@ -8314,12 +8778,13 @@ unsafe extern "stdcall" fn vkGetPrivateData(
 ) {
     trace!("called vkGetPrivateData({device:?}, {object_type:?}, {object_handle:?}, {private_data_slot:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001464);
     packet.write(device);
     packet.write(object_type);
     packet.write(object_handle);
     packet.write(private_data_slot);
     packet.write(p_data);
+    packet.send();
     unimplemented!("vkGetPrivateData");
 }
 
@@ -8331,9 +8796,10 @@ unsafe extern "stdcall" fn vkCmdCopyBuffer2(
 ) {
     trace!("called vkCmdCopyBuffer2({command_buffer:?}, {p_copy_buffer_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001465);
     packet.write(command_buffer);
     packet.write(p_copy_buffer_info);
+    packet.send();
     unimplemented!("vkCmdCopyBuffer2");
 }
 
@@ -8345,9 +8811,10 @@ unsafe extern "stdcall" fn vkCmdCopyImage2(
 ) {
     trace!("called vkCmdCopyImage2({command_buffer:?}, {p_copy_image_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001466);
     packet.write(command_buffer);
     packet.write(p_copy_image_info);
+    packet.send();
     unimplemented!("vkCmdCopyImage2");
 }
 
@@ -8359,9 +8826,10 @@ unsafe extern "stdcall" fn vkCmdBlitImage2(
 ) {
     trace!("called vkCmdBlitImage2({command_buffer:?}, {p_blit_image_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001467);
     packet.write(command_buffer);
     packet.write(p_blit_image_info);
+    packet.send();
     unimplemented!("vkCmdBlitImage2");
 }
 
@@ -8373,9 +8841,10 @@ unsafe extern "stdcall" fn vkCmdCopyBufferToImage2(
 ) {
     trace!("called vkCmdCopyBufferToImage2({command_buffer:?}, {p_copy_buffer_to_image_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001468);
     packet.write(command_buffer);
     packet.write(p_copy_buffer_to_image_info);
+    packet.send();
     unimplemented!("vkCmdCopyBufferToImage2");
 }
 
@@ -8387,9 +8856,10 @@ unsafe extern "stdcall" fn vkCmdCopyImageToBuffer2(
 ) {
     trace!("called vkCmdCopyImageToBuffer2({command_buffer:?}, {p_copy_image_to_buffer_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001469);
     packet.write(command_buffer);
     packet.write(p_copy_image_to_buffer_info);
+    packet.send();
     unimplemented!("vkCmdCopyImageToBuffer2");
 }
 
@@ -8401,9 +8871,10 @@ unsafe extern "stdcall" fn vkCmdResolveImage2(
 ) {
     trace!("called vkCmdResolveImage2({command_buffer:?}, {p_resolve_image_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001470);
     packet.write(command_buffer);
     packet.write(p_resolve_image_info);
+    packet.send();
     unimplemented!("vkCmdResolveImage2");
 }
 
@@ -8416,10 +8887,11 @@ unsafe extern "stdcall" fn vkCmdSetFragmentShadingRateKHR(
 ) {
     trace!("called vkCmdSetFragmentShadingRateKHR({command_buffer:?}, {p_fragment_size:?}, {combiner_ops:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001471);
     packet.write(command_buffer);
     packet.write(p_fragment_size);
     packet.write(combiner_ops);
+    packet.send();
     unimplemented!("vkCmdSetFragmentShadingRateKHR");
 }
 
@@ -8432,9 +8904,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceFragmentShadingRatesKHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceFragmentShadingRatesKHR({physical_device:?}, {p_fragment_shading_rate_count:?}, {p_fragment_shading_rates:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001472);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr(p_fragment_shading_rate_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceFragmentShadingRatesKHR");
 }
 
@@ -8447,10 +8920,11 @@ unsafe extern "stdcall" fn vkCmdSetFragmentShadingRateEnumNV(
 ) {
     trace!("called vkCmdSetFragmentShadingRateEnumNV({command_buffer:?}, {shading_rate:?}, {combiner_ops:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001473);
     packet.write(command_buffer);
     packet.write(shading_rate);
     packet.write(combiner_ops);
+    packet.send();
     unimplemented!("vkCmdSetFragmentShadingRateEnumNV");
 }
 
@@ -8465,12 +8939,13 @@ unsafe extern "stdcall" fn vkGetAccelerationStructureBuildSizesKHR(
 ) {
     trace!("called vkGetAccelerationStructureBuildSizesKHR({device:?}, {build_type:?}, {p_build_info:?}, {p_max_primitive_counts:?}, {p_size_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001474);
     packet.write(device);
     packet.write(build_type);
     packet.write(p_build_info);
     packet.write(p_max_primitive_counts);
     packet.write(p_size_info);
+    packet.send();
     unimplemented!("vkGetAccelerationStructureBuildSizesKHR");
 }
 
@@ -8485,9 +8960,10 @@ unsafe extern "stdcall" fn vkCmdSetVertexInputEXT(
 ) {
     trace!("called vkCmdSetVertexInputEXT({command_buffer:?}, {vertex_binding_description_count:?}, {p_vertex_binding_descriptions:?}, {vertex_attribute_description_count:?}, {p_vertex_attribute_descriptions:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001475);
     packet.write(command_buffer);
     packet.write(vertex_binding_description_count);
+    packet.send();
     unimplemented!("vkCmdSetVertexInputEXT");
 }
 
@@ -8500,9 +8976,10 @@ unsafe extern "stdcall" fn vkCmdSetColorWriteEnableEXT(
 ) {
     trace!("called vkCmdSetColorWriteEnableEXT({command_buffer:?}, {attachment_count:?}, {p_color_write_enables:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001476);
     packet.write(command_buffer);
     packet.write(attachment_count);
+    packet.send();
     unimplemented!("vkCmdSetColorWriteEnableEXT");
 }
 
@@ -8515,10 +8992,11 @@ unsafe extern "stdcall" fn vkCmdSetEvent2(
 ) {
     trace!("called vkCmdSetEvent2({command_buffer:?}, {event:?}, {p_dependency_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001477);
     packet.write(command_buffer);
     packet.write(event);
     packet.write(p_dependency_info);
+    packet.send();
     unimplemented!("vkCmdSetEvent2");
 }
 
@@ -8531,10 +9009,11 @@ unsafe extern "stdcall" fn vkCmdResetEvent2(
 ) {
     trace!("called vkCmdResetEvent2({command_buffer:?}, {event:?}, {stage_mask:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001478);
     packet.write(command_buffer);
     packet.write(event);
     packet.write(stage_mask);
+    packet.send();
     unimplemented!("vkCmdResetEvent2");
 }
 
@@ -8548,9 +9027,10 @@ unsafe extern "stdcall" fn vkCmdWaitEvents2(
 ) {
     trace!("called vkCmdWaitEvents2({command_buffer:?}, {event_count:?}, {p_events:?}, {p_dependency_infos:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001479);
     packet.write(command_buffer);
     packet.write(event_count);
+    packet.send();
     unimplemented!("vkCmdWaitEvents2");
 }
 
@@ -8562,9 +9042,10 @@ unsafe extern "stdcall" fn vkCmdPipelineBarrier2(
 ) {
     trace!("called vkCmdPipelineBarrier2({command_buffer:?}, {p_dependency_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001480);
     packet.write(command_buffer);
     packet.write(p_dependency_info);
+    packet.send();
     unimplemented!("vkCmdPipelineBarrier2");
 }
 
@@ -8578,9 +9059,10 @@ unsafe extern "stdcall" fn vkQueueSubmit2(
 ) -> vk::Result {
     trace!("called vkQueueSubmit2({queue:?}, {submit_count:?}, {p_submits:?}, {fence:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001481);
     packet.write(queue);
     packet.write(submit_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkQueueSubmit2");
 }
 
@@ -8594,11 +9076,12 @@ unsafe extern "stdcall" fn vkCmdWriteTimestamp2(
 ) {
     trace!("called vkCmdWriteTimestamp2({command_buffer:?}, {stage:?}, {query_pool:?}, {query:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001482);
     packet.write(command_buffer);
     packet.write(stage);
     packet.write(query_pool);
     packet.write(query);
+    packet.send();
     unimplemented!("vkCmdWriteTimestamp2");
 }
 
@@ -8613,12 +9096,13 @@ unsafe extern "stdcall" fn vkCmdWriteBufferMarker2AMD(
 ) {
     trace!("called vkCmdWriteBufferMarker2AMD({command_buffer:?}, {stage:?}, {dst_buffer:?}, {dst_offset:?}, {marker:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001483);
     packet.write(command_buffer);
     packet.write(stage);
     packet.write(dst_buffer);
     packet.write(dst_offset);
     packet.write(marker);
+    packet.send();
     unimplemented!("vkCmdWriteBufferMarker2AMD");
 }
 
@@ -8631,9 +9115,10 @@ unsafe extern "stdcall" fn vkGetQueueCheckpointData2NV(
 ) {
     trace!("called vkGetQueueCheckpointData2NV({queue:?}, {p_checkpoint_data_count:?}, {p_checkpoint_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001484);
     packet.write(queue);
     packet.write_nullable_raw_ptr(p_checkpoint_data_count);
+    packet.send();
     unimplemented!("vkGetQueueCheckpointData2NV");
 }
 
@@ -8645,9 +9130,10 @@ unsafe extern "stdcall" fn vkCopyMemoryToImageEXT(
 ) -> vk::Result {
     trace!("called vkCopyMemoryToImageEXT({device:?}, {p_copy_memory_to_image_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001485);
     packet.write(device);
     packet.write(p_copy_memory_to_image_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCopyMemoryToImageEXT");
 }
 
@@ -8659,9 +9145,10 @@ unsafe extern "stdcall" fn vkCopyImageToMemoryEXT(
 ) -> vk::Result {
     trace!("called vkCopyImageToMemoryEXT({device:?}, {p_copy_image_to_memory_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001486);
     packet.write(device);
     packet.write(p_copy_image_to_memory_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCopyImageToMemoryEXT");
 }
 
@@ -8673,9 +9160,10 @@ unsafe extern "stdcall" fn vkCopyImageToImageEXT(
 ) -> vk::Result {
     trace!("called vkCopyImageToImageEXT({device:?}, {p_copy_image_to_image_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001487);
     packet.write(device);
     packet.write(p_copy_image_to_image_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCopyImageToImageEXT");
 }
 
@@ -8688,9 +9176,10 @@ unsafe extern "stdcall" fn vkTransitionImageLayoutEXT(
 ) -> vk::Result {
     trace!("called vkTransitionImageLayoutEXT({device:?}, {transition_count:?}, {p_transitions:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001488);
     packet.write(device);
     packet.write(transition_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkTransitionImageLayoutEXT");
 }
 
@@ -8703,10 +9192,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceVideoCapabilitiesKHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceVideoCapabilitiesKHR({physical_device:?}, {p_video_profile:?}, {p_capabilities:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001489);
     packet.write(physical_device);
     packet.write(p_video_profile);
     packet.write(p_capabilities);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceVideoCapabilitiesKHR");
 }
 
@@ -8720,10 +9210,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceVideoFormatPropertiesKHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceVideoFormatPropertiesKHR({physical_device:?}, {p_video_format_info:?}, {p_video_format_property_count:?}, {p_video_format_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001490);
     packet.write(physical_device);
     packet.write(p_video_format_info);
     packet.write_nullable_raw_ptr(p_video_format_property_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceVideoFormatPropertiesKHR");
 }
 
@@ -8736,10 +9227,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesK
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR({physical_device:?}, {p_quality_level_info:?}, {p_quality_level_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001491);
     packet.write(physical_device);
     packet.write(p_quality_level_info);
     packet.write(p_quality_level_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR");
 }
 
@@ -8753,11 +9245,12 @@ unsafe extern "stdcall" fn vkCreateVideoSessionKHR(
 ) -> vk::Result {
     trace!("called vkCreateVideoSessionKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_video_session:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001492);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_video_session);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateVideoSessionKHR");
 }
 
@@ -8770,10 +9263,11 @@ unsafe extern "stdcall" fn vkDestroyVideoSessionKHR(
 ) {
     trace!("called vkDestroyVideoSessionKHR({device:?}, {video_session:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001493);
     packet.write(device);
     packet.write(video_session);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyVideoSessionKHR");
 }
 
@@ -8787,11 +9281,12 @@ unsafe extern "stdcall" fn vkCreateVideoSessionParametersKHR(
 ) -> vk::Result {
     trace!("called vkCreateVideoSessionParametersKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_video_session_parameters:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001494);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_video_session_parameters);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateVideoSessionParametersKHR");
 }
 
@@ -8804,10 +9299,11 @@ unsafe extern "stdcall" fn vkUpdateVideoSessionParametersKHR(
 ) -> vk::Result {
     trace!("called vkUpdateVideoSessionParametersKHR({device:?}, {video_session_parameters:?}, {p_update_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001495);
     packet.write(device);
     packet.write(video_session_parameters);
     packet.write(p_update_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkUpdateVideoSessionParametersKHR");
 }
 
@@ -8822,12 +9318,13 @@ unsafe extern "stdcall" fn vkGetEncodedVideoSessionParametersKHR(
 ) -> vk::Result {
     trace!("called vkGetEncodedVideoSessionParametersKHR({device:?}, {p_video_session_parameters_info:?}, {p_feedback_info:?}, {p_data_size:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001496);
     packet.write(device);
     packet.write(p_video_session_parameters_info);
     packet.write(p_feedback_info);
     packet.write(p_data_size);
     packet.write(p_data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetEncodedVideoSessionParametersKHR");
 }
 
@@ -8840,10 +9337,11 @@ unsafe extern "stdcall" fn vkDestroyVideoSessionParametersKHR(
 ) {
     trace!("called vkDestroyVideoSessionParametersKHR({device:?}, {video_session_parameters:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001497);
     packet.write(device);
     packet.write(video_session_parameters);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyVideoSessionParametersKHR");
 }
 
@@ -8857,10 +9355,11 @@ unsafe extern "stdcall" fn vkGetVideoSessionMemoryRequirementsKHR(
 ) -> vk::Result {
     trace!("called vkGetVideoSessionMemoryRequirementsKHR({device:?}, {video_session:?}, {p_memory_requirements_count:?}, {p_memory_requirements:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001498);
     packet.write(device);
     packet.write(video_session);
     packet.write_nullable_raw_ptr(p_memory_requirements_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetVideoSessionMemoryRequirementsKHR");
 }
 
@@ -8874,10 +9373,11 @@ unsafe extern "stdcall" fn vkBindVideoSessionMemoryKHR(
 ) -> vk::Result {
     trace!("called vkBindVideoSessionMemoryKHR({device:?}, {video_session:?}, {bind_session_memory_info_count:?}, {p_bind_session_memory_infos:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001499);
     packet.write(device);
     packet.write(video_session);
     packet.write(bind_session_memory_info_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkBindVideoSessionMemoryKHR");
 }
 
@@ -8889,9 +9389,10 @@ unsafe extern "stdcall" fn vkCmdDecodeVideoKHR(
 ) {
     trace!("called vkCmdDecodeVideoKHR({command_buffer:?}, {p_decode_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001500);
     packet.write(command_buffer);
     packet.write(p_decode_info);
+    packet.send();
     unimplemented!("vkCmdDecodeVideoKHR");
 }
 
@@ -8903,9 +9404,10 @@ unsafe extern "stdcall" fn vkCmdBeginVideoCodingKHR(
 ) {
     trace!("called vkCmdBeginVideoCodingKHR({command_buffer:?}, {p_begin_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001501);
     packet.write(command_buffer);
     packet.write(p_begin_info);
+    packet.send();
     unimplemented!("vkCmdBeginVideoCodingKHR");
 }
 
@@ -8917,9 +9419,10 @@ unsafe extern "stdcall" fn vkCmdControlVideoCodingKHR(
 ) {
     trace!("called vkCmdControlVideoCodingKHR({command_buffer:?}, {p_coding_control_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001502);
     packet.write(command_buffer);
     packet.write(p_coding_control_info);
+    packet.send();
     unimplemented!("vkCmdControlVideoCodingKHR");
 }
 
@@ -8931,9 +9434,10 @@ unsafe extern "stdcall" fn vkCmdEndVideoCodingKHR(
 ) {
     trace!("called vkCmdEndVideoCodingKHR({command_buffer:?}, {p_end_coding_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001503);
     packet.write(command_buffer);
     packet.write(p_end_coding_info);
+    packet.send();
     unimplemented!("vkCmdEndVideoCodingKHR");
 }
 
@@ -8945,9 +9449,10 @@ unsafe extern "stdcall" fn vkCmdEncodeVideoKHR(
 ) {
     trace!("called vkCmdEncodeVideoKHR({command_buffer:?}, {p_encode_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001504);
     packet.write(command_buffer);
     packet.write(p_encode_info);
+    packet.send();
     unimplemented!("vkCmdEncodeVideoKHR");
 }
 
@@ -8960,9 +9465,10 @@ unsafe extern "stdcall" fn vkCmdDecompressMemoryNV(
 ) {
     trace!("called vkCmdDecompressMemoryNV({command_buffer:?}, {decompress_region_count:?}, {p_decompress_memory_regions:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001505);
     packet.write(command_buffer);
     packet.write(decompress_region_count);
+    packet.send();
     unimplemented!("vkCmdDecompressMemoryNV");
 }
 
@@ -8976,11 +9482,12 @@ unsafe extern "stdcall" fn vkCmdDecompressMemoryIndirectCountNV(
 ) {
     trace!("called vkCmdDecompressMemoryIndirectCountNV({command_buffer:?}, {indirect_commands_address:?}, {indirect_commands_count_address:?}, {stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001506);
     packet.write(command_buffer);
     packet.write(indirect_commands_address);
     packet.write(indirect_commands_count_address);
     packet.write(stride);
+    packet.send();
     unimplemented!("vkCmdDecompressMemoryIndirectCountNV");
 }
 
@@ -8994,11 +9501,12 @@ unsafe extern "stdcall" fn vkCreateCuModuleNVX(
 ) -> vk::Result {
     trace!("called vkCreateCuModuleNVX({device:?}, {p_create_info:?}, {p_allocator:?}, {p_module:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001507);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_module);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateCuModuleNVX");
 }
 
@@ -9012,11 +9520,12 @@ unsafe extern "stdcall" fn vkCreateCuFunctionNVX(
 ) -> vk::Result {
     trace!("called vkCreateCuFunctionNVX({device:?}, {p_create_info:?}, {p_allocator:?}, {p_function:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001508);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_function);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateCuFunctionNVX");
 }
 
@@ -9029,10 +9538,11 @@ unsafe extern "stdcall" fn vkDestroyCuModuleNVX(
 ) {
     trace!("called vkDestroyCuModuleNVX({device:?}, {module:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001509);
     packet.write(device);
     packet.write(module);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyCuModuleNVX");
 }
 
@@ -9045,10 +9555,11 @@ unsafe extern "stdcall" fn vkDestroyCuFunctionNVX(
 ) {
     trace!("called vkDestroyCuFunctionNVX({device:?}, {function:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001510);
     packet.write(device);
     packet.write(function);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyCuFunctionNVX");
 }
 
@@ -9060,9 +9571,10 @@ unsafe extern "stdcall" fn vkCmdCuLaunchKernelNVX(
 ) {
     trace!("called vkCmdCuLaunchKernelNVX({command_buffer:?}, {p_launch_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001511);
     packet.write(command_buffer);
     packet.write(p_launch_info);
+    packet.send();
     unimplemented!("vkCmdCuLaunchKernelNVX");
 }
 
@@ -9075,10 +9587,11 @@ unsafe extern "stdcall" fn vkGetDescriptorSetLayoutSizeEXT(
 ) {
     trace!("called vkGetDescriptorSetLayoutSizeEXT({device:?}, {layout:?}, {p_layout_size_in_bytes:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001512);
     packet.write(device);
     packet.write(layout);
     packet.write(p_layout_size_in_bytes);
+    packet.send();
     unimplemented!("vkGetDescriptorSetLayoutSizeEXT");
 }
 
@@ -9092,11 +9605,12 @@ unsafe extern "stdcall" fn vkGetDescriptorSetLayoutBindingOffsetEXT(
 ) {
     trace!("called vkGetDescriptorSetLayoutBindingOffsetEXT({device:?}, {layout:?}, {binding:?}, {p_offset:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001513);
     packet.write(device);
     packet.write(layout);
     packet.write(binding);
     packet.write(p_offset);
+    packet.send();
     unimplemented!("vkGetDescriptorSetLayoutBindingOffsetEXT");
 }
 
@@ -9110,11 +9624,12 @@ unsafe extern "stdcall" fn vkGetDescriptorEXT(
 ) {
     trace!("called vkGetDescriptorEXT({device:?}, {p_descriptor_info:?}, {data_size:?}, {p_descriptor:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001514);
     packet.write(device);
     packet.write(p_descriptor_info);
     packet.write(data_size);
     packet.write(p_descriptor);
+    packet.send();
     unimplemented!("vkGetDescriptorEXT");
 }
 
@@ -9127,9 +9642,10 @@ unsafe extern "stdcall" fn vkCmdBindDescriptorBuffersEXT(
 ) {
     trace!("called vkCmdBindDescriptorBuffersEXT({command_buffer:?}, {buffer_count:?}, {p_binding_infos:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001515);
     packet.write(command_buffer);
     packet.write(buffer_count);
+    packet.send();
     unimplemented!("vkCmdBindDescriptorBuffersEXT");
 }
 
@@ -9146,12 +9662,13 @@ unsafe extern "stdcall" fn vkCmdSetDescriptorBufferOffsetsEXT(
 ) {
     trace!("called vkCmdSetDescriptorBufferOffsetsEXT({command_buffer:?}, {pipeline_bind_point:?}, {layout:?}, {first_set:?}, {set_count:?}, {p_buffer_indices:?}, {p_offsets:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001516);
     packet.write(command_buffer);
     packet.write(pipeline_bind_point);
     packet.write(layout);
     packet.write(first_set);
     packet.write(set_count);
+    packet.send();
     unimplemented!("vkCmdSetDescriptorBufferOffsetsEXT");
 }
 
@@ -9165,11 +9682,12 @@ unsafe extern "stdcall" fn vkCmdBindDescriptorBufferEmbeddedSamplersEXT(
 ) {
     trace!("called vkCmdBindDescriptorBufferEmbeddedSamplersEXT({command_buffer:?}, {pipeline_bind_point:?}, {layout:?}, {set:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001517);
     packet.write(command_buffer);
     packet.write(pipeline_bind_point);
     packet.write(layout);
     packet.write(set);
+    packet.send();
     unimplemented!("vkCmdBindDescriptorBufferEmbeddedSamplersEXT");
 }
 
@@ -9182,10 +9700,11 @@ unsafe extern "stdcall" fn vkGetBufferOpaqueCaptureDescriptorDataEXT(
 ) -> vk::Result {
     trace!("called vkGetBufferOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001518);
     packet.write(device);
     packet.write(p_info);
     packet.write(p_data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetBufferOpaqueCaptureDescriptorDataEXT");
 }
 
@@ -9198,10 +9717,11 @@ unsafe extern "stdcall" fn vkGetImageOpaqueCaptureDescriptorDataEXT(
 ) -> vk::Result {
     trace!("called vkGetImageOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001519);
     packet.write(device);
     packet.write(p_info);
     packet.write(p_data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetImageOpaqueCaptureDescriptorDataEXT");
 }
 
@@ -9214,10 +9734,11 @@ unsafe extern "stdcall" fn vkGetImageViewOpaqueCaptureDescriptorDataEXT(
 ) -> vk::Result {
     trace!("called vkGetImageViewOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001520);
     packet.write(device);
     packet.write(p_info);
     packet.write(p_data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetImageViewOpaqueCaptureDescriptorDataEXT");
 }
 
@@ -9230,10 +9751,11 @@ unsafe extern "stdcall" fn vkGetSamplerOpaqueCaptureDescriptorDataEXT(
 ) -> vk::Result {
     trace!("called vkGetSamplerOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001521);
     packet.write(device);
     packet.write(p_info);
     packet.write(p_data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetSamplerOpaqueCaptureDescriptorDataEXT");
 }
 
@@ -9246,10 +9768,11 @@ unsafe extern "stdcall" fn vkGetAccelerationStructureOpaqueCaptureDescriptorData
 ) -> vk::Result {
     trace!("called vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001522);
     packet.write(device);
     packet.write(p_info);
     packet.write(p_data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT");
 }
 
@@ -9262,10 +9785,11 @@ unsafe extern "stdcall" fn vkSetDeviceMemoryPriorityEXT(
 ) {
     trace!("called vkSetDeviceMemoryPriorityEXT({device:?}, {memory:?}, {priority:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001523);
     packet.write(device);
     packet.write(memory);
     packet.write(priority);
+    packet.send();
     unimplemented!("vkSetDeviceMemoryPriorityEXT");
 }
 
@@ -9278,10 +9802,11 @@ unsafe extern "stdcall" fn vkAcquireDrmDisplayEXT(
 ) -> vk::Result {
     trace!("called vkAcquireDrmDisplayEXT({physical_device:?}, {drm_fd:?}, {display:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001524);
     packet.write(physical_device);
     packet.write(drm_fd);
     packet.write(display);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkAcquireDrmDisplayEXT");
 }
 
@@ -9295,11 +9820,12 @@ unsafe extern "stdcall" fn vkGetDrmDisplayEXT(
 ) -> vk::Result {
     trace!("called vkGetDrmDisplayEXT({physical_device:?}, {drm_fd:?}, {connector_id:?}, {display:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001525);
     packet.write(physical_device);
     packet.write(drm_fd);
     packet.write(connector_id);
     packet.write(display);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDrmDisplayEXT");
 }
 
@@ -9313,11 +9839,12 @@ unsafe extern "stdcall" fn vkWaitForPresentKHR(
 ) -> vk::Result {
     trace!("called vkWaitForPresentKHR({device:?}, {swapchain:?}, {present_id:?}, {timeout:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001526);
     packet.write(device);
     packet.write(swapchain);
     packet.write(present_id);
     packet.write(timeout);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkWaitForPresentKHR");
 }
 
@@ -9331,11 +9858,12 @@ unsafe extern "stdcall" fn vkCreateBufferCollectionFUCHSIA(
 ) -> vk::Result {
     trace!("called vkCreateBufferCollectionFUCHSIA({device:?}, {p_create_info:?}, {p_allocator:?}, {p_collection:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001527);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_collection);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateBufferCollectionFUCHSIA");
 }
 
@@ -9348,10 +9876,11 @@ unsafe extern "stdcall" fn vkSetBufferCollectionBufferConstraintsFUCHSIA(
 ) -> vk::Result {
     trace!("called vkSetBufferCollectionBufferConstraintsFUCHSIA({device:?}, {collection:?}, {p_buffer_constraints_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001528);
     packet.write(device);
     packet.write(collection);
     packet.write(p_buffer_constraints_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkSetBufferCollectionBufferConstraintsFUCHSIA");
 }
 
@@ -9364,10 +9893,11 @@ unsafe extern "stdcall" fn vkSetBufferCollectionImageConstraintsFUCHSIA(
 ) -> vk::Result {
     trace!("called vkSetBufferCollectionImageConstraintsFUCHSIA({device:?}, {collection:?}, {p_image_constraints_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001529);
     packet.write(device);
     packet.write(collection);
     packet.write(p_image_constraints_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkSetBufferCollectionImageConstraintsFUCHSIA");
 }
 
@@ -9380,10 +9910,11 @@ unsafe extern "stdcall" fn vkDestroyBufferCollectionFUCHSIA(
 ) {
     trace!("called vkDestroyBufferCollectionFUCHSIA({device:?}, {collection:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001530);
     packet.write(device);
     packet.write(collection);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyBufferCollectionFUCHSIA");
 }
 
@@ -9396,10 +9927,11 @@ unsafe extern "stdcall" fn vkGetBufferCollectionPropertiesFUCHSIA(
 ) -> vk::Result {
     trace!("called vkGetBufferCollectionPropertiesFUCHSIA({device:?}, {collection:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001531);
     packet.write(device);
     packet.write(collection);
     packet.write(p_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetBufferCollectionPropertiesFUCHSIA");
 }
 
@@ -9413,11 +9945,12 @@ unsafe extern "stdcall" fn vkCreateCudaModuleNV(
 ) -> vk::Result {
     trace!("called vkCreateCudaModuleNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_module:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001532);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_module);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateCudaModuleNV");
 }
 
@@ -9431,11 +9964,12 @@ unsafe extern "stdcall" fn vkGetCudaModuleCacheNV(
 ) -> vk::Result {
     trace!("called vkGetCudaModuleCacheNV({device:?}, {module:?}, {p_cache_size:?}, {p_cache_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001533);
     packet.write(device);
     packet.write(module);
     packet.write(p_cache_size);
     packet.write(p_cache_data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetCudaModuleCacheNV");
 }
 
@@ -9449,11 +9983,12 @@ unsafe extern "stdcall" fn vkCreateCudaFunctionNV(
 ) -> vk::Result {
     trace!("called vkCreateCudaFunctionNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_function:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001534);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_function);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateCudaFunctionNV");
 }
 
@@ -9466,10 +10001,11 @@ unsafe extern "stdcall" fn vkDestroyCudaModuleNV(
 ) {
     trace!("called vkDestroyCudaModuleNV({device:?}, {module:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001535);
     packet.write(device);
     packet.write(module);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyCudaModuleNV");
 }
 
@@ -9482,10 +10018,11 @@ unsafe extern "stdcall" fn vkDestroyCudaFunctionNV(
 ) {
     trace!("called vkDestroyCudaFunctionNV({device:?}, {function:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001536);
     packet.write(device);
     packet.write(function);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyCudaFunctionNV");
 }
 
@@ -9497,9 +10034,10 @@ unsafe extern "stdcall" fn vkCmdCudaLaunchKernelNV(
 ) {
     trace!("called vkCmdCudaLaunchKernelNV({command_buffer:?}, {p_launch_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001537);
     packet.write(command_buffer);
     packet.write(p_launch_info);
+    packet.send();
     unimplemented!("vkCmdCudaLaunchKernelNV");
 }
 
@@ -9511,9 +10049,10 @@ unsafe extern "stdcall" fn vkCmdBeginRendering(
 ) {
     trace!("called vkCmdBeginRendering({command_buffer:?}, {p_rendering_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001538);
     packet.write(command_buffer);
     packet.write(p_rendering_info);
+    packet.send();
     unimplemented!("vkCmdBeginRendering");
 }
 
@@ -9524,8 +10063,9 @@ unsafe extern "stdcall" fn vkCmdEndRendering(
 ) {
     trace!("called vkCmdEndRendering({command_buffer:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001539);
     packet.write(command_buffer);
+    packet.send();
     unimplemented!("vkCmdEndRendering");
 }
 
@@ -9538,10 +10078,11 @@ unsafe extern "stdcall" fn vkGetDescriptorSetLayoutHostMappingInfoVALVE(
 ) {
     trace!("called vkGetDescriptorSetLayoutHostMappingInfoVALVE({device:?}, {p_binding_reference:?}, {p_host_mapping:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001540);
     packet.write(device);
     packet.write(p_binding_reference);
     packet.write(p_host_mapping);
+    packet.send();
     unimplemented!("vkGetDescriptorSetLayoutHostMappingInfoVALVE");
 }
 
@@ -9554,10 +10095,11 @@ unsafe extern "stdcall" fn vkGetDescriptorSetHostMappingVALVE(
 ) {
     trace!("called vkGetDescriptorSetHostMappingVALVE({device:?}, {descriptor_set:?}, {pp_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001541);
     packet.write(device);
     packet.write(descriptor_set);
     packet.write(pp_data);
+    packet.send();
     unimplemented!("vkGetDescriptorSetHostMappingVALVE");
 }
 
@@ -9571,11 +10113,12 @@ unsafe extern "stdcall" fn vkCreateMicromapEXT(
 ) -> vk::Result {
     trace!("called vkCreateMicromapEXT({device:?}, {p_create_info:?}, {p_allocator:?}, {p_micromap:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001542);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_micromap);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateMicromapEXT");
 }
 
@@ -9588,9 +10131,10 @@ unsafe extern "stdcall" fn vkCmdBuildMicromapsEXT(
 ) {
     trace!("called vkCmdBuildMicromapsEXT({command_buffer:?}, {info_count:?}, {p_infos:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001543);
     packet.write(command_buffer);
     packet.write(info_count);
+    packet.send();
     unimplemented!("vkCmdBuildMicromapsEXT");
 }
 
@@ -9604,10 +10148,11 @@ unsafe extern "stdcall" fn vkBuildMicromapsEXT(
 ) -> vk::Result {
     trace!("called vkBuildMicromapsEXT({device:?}, {deferred_operation:?}, {info_count:?}, {p_infos:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001544);
     packet.write(device);
     packet.write(deferred_operation);
     packet.write(info_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkBuildMicromapsEXT");
 }
 
@@ -9620,10 +10165,11 @@ unsafe extern "stdcall" fn vkDestroyMicromapEXT(
 ) {
     trace!("called vkDestroyMicromapEXT({device:?}, {micromap:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001545);
     packet.write(device);
     packet.write(micromap);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyMicromapEXT");
 }
 
@@ -9635,9 +10181,10 @@ unsafe extern "stdcall" fn vkCmdCopyMicromapEXT(
 ) {
     trace!("called vkCmdCopyMicromapEXT({command_buffer:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001546);
     packet.write(command_buffer);
     packet.write(p_info);
+    packet.send();
     unimplemented!("vkCmdCopyMicromapEXT");
 }
 
@@ -9650,10 +10197,11 @@ unsafe extern "stdcall" fn vkCopyMicromapEXT(
 ) -> vk::Result {
     trace!("called vkCopyMicromapEXT({device:?}, {deferred_operation:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001547);
     packet.write(device);
     packet.write(deferred_operation);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCopyMicromapEXT");
 }
 
@@ -9665,9 +10213,10 @@ unsafe extern "stdcall" fn vkCmdCopyMicromapToMemoryEXT(
 ) {
     trace!("called vkCmdCopyMicromapToMemoryEXT({command_buffer:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001548);
     packet.write(command_buffer);
     packet.write(p_info);
+    packet.send();
     unimplemented!("vkCmdCopyMicromapToMemoryEXT");
 }
 
@@ -9680,10 +10229,11 @@ unsafe extern "stdcall" fn vkCopyMicromapToMemoryEXT(
 ) -> vk::Result {
     trace!("called vkCopyMicromapToMemoryEXT({device:?}, {deferred_operation:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001549);
     packet.write(device);
     packet.write(deferred_operation);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCopyMicromapToMemoryEXT");
 }
 
@@ -9695,9 +10245,10 @@ unsafe extern "stdcall" fn vkCmdCopyMemoryToMicromapEXT(
 ) {
     trace!("called vkCmdCopyMemoryToMicromapEXT({command_buffer:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001550);
     packet.write(command_buffer);
     packet.write(p_info);
+    packet.send();
     unimplemented!("vkCmdCopyMemoryToMicromapEXT");
 }
 
@@ -9710,10 +10261,11 @@ unsafe extern "stdcall" fn vkCopyMemoryToMicromapEXT(
 ) -> vk::Result {
     trace!("called vkCopyMemoryToMicromapEXT({device:?}, {deferred_operation:?}, {p_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001551);
     packet.write(device);
     packet.write(deferred_operation);
     packet.write(p_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCopyMemoryToMicromapEXT");
 }
 
@@ -9729,9 +10281,10 @@ unsafe extern "stdcall" fn vkCmdWriteMicromapsPropertiesEXT(
 ) {
     trace!("called vkCmdWriteMicromapsPropertiesEXT({command_buffer:?}, {micromap_count:?}, {p_micromaps:?}, {query_type:?}, {query_pool:?}, {first_query:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001552);
     packet.write(command_buffer);
     packet.write(micromap_count);
+    packet.send();
     unimplemented!("vkCmdWriteMicromapsPropertiesEXT");
 }
 
@@ -9748,9 +10301,10 @@ unsafe extern "stdcall" fn vkWriteMicromapsPropertiesEXT(
 ) -> vk::Result {
     trace!("called vkWriteMicromapsPropertiesEXT({device:?}, {micromap_count:?}, {p_micromaps:?}, {query_type:?}, {data_size:?}, {p_data:?}, {stride:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001553);
     packet.write(device);
     packet.write(micromap_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkWriteMicromapsPropertiesEXT");
 }
 
@@ -9763,10 +10317,11 @@ unsafe extern "stdcall" fn vkGetDeviceMicromapCompatibilityEXT(
 ) {
     trace!("called vkGetDeviceMicromapCompatibilityEXT({device:?}, {p_version_info:?}, {p_compatibility:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001554);
     packet.write(device);
     packet.write(p_version_info);
     packet.write(p_compatibility);
+    packet.send();
     unimplemented!("vkGetDeviceMicromapCompatibilityEXT");
 }
 
@@ -9780,11 +10335,12 @@ unsafe extern "stdcall" fn vkGetMicromapBuildSizesEXT(
 ) {
     trace!("called vkGetMicromapBuildSizesEXT({device:?}, {build_type:?}, {p_build_info:?}, {p_size_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001555);
     packet.write(device);
     packet.write(build_type);
     packet.write(p_build_info);
     packet.write(p_size_info);
+    packet.send();
     unimplemented!("vkGetMicromapBuildSizesEXT");
 }
 
@@ -9797,10 +10353,11 @@ unsafe extern "stdcall" fn vkGetShaderModuleIdentifierEXT(
 ) {
     trace!("called vkGetShaderModuleIdentifierEXT({device:?}, {shader_module:?}, {p_identifier:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001556);
     packet.write(device);
     packet.write(shader_module);
     packet.write(p_identifier);
+    packet.send();
     unimplemented!("vkGetShaderModuleIdentifierEXT");
 }
 
@@ -9813,10 +10370,11 @@ unsafe extern "stdcall" fn vkGetShaderModuleCreateInfoIdentifierEXT(
 ) {
     trace!("called vkGetShaderModuleCreateInfoIdentifierEXT({device:?}, {p_create_info:?}, {p_identifier:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001557);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_identifier);
+    packet.send();
     unimplemented!("vkGetShaderModuleCreateInfoIdentifierEXT");
 }
 
@@ -9830,11 +10388,12 @@ unsafe extern "stdcall" fn vkGetImageSubresourceLayout2KHR(
 ) {
     trace!("called vkGetImageSubresourceLayout2KHR({device:?}, {image:?}, {p_subresource:?}, {p_layout:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001558);
     packet.write(device);
     packet.write(image);
     packet.write(p_subresource);
     packet.write(p_layout);
+    packet.send();
     unimplemented!("vkGetImageSubresourceLayout2KHR");
 }
 
@@ -9847,10 +10406,11 @@ unsafe extern "stdcall" fn vkGetPipelinePropertiesEXT(
 ) -> vk::Result {
     trace!("called vkGetPipelinePropertiesEXT({device:?}, {p_pipeline_info:?}, {p_pipeline_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001559);
     packet.write(device);
     packet.write(p_pipeline_info);
     packet.write(p_pipeline_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPipelinePropertiesEXT");
 }
 
@@ -9862,9 +10422,10 @@ unsafe extern "stdcall" fn vkExportMetalObjectsEXT(
 ) {
     trace!("called vkExportMetalObjectsEXT({device:?}, {p_metal_objects_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001560);
     packet.write(device);
     packet.write(p_metal_objects_info);
+    packet.send();
     unimplemented!("vkExportMetalObjectsEXT");
 }
 
@@ -9878,10 +10439,11 @@ unsafe extern "stdcall" fn vkGetFramebufferTilePropertiesQCOM(
 ) -> vk::Result {
     trace!("called vkGetFramebufferTilePropertiesQCOM({device:?}, {framebuffer:?}, {p_properties_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001561);
     packet.write(device);
     packet.write(framebuffer);
     packet.write_nullable_raw_ptr(p_properties_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetFramebufferTilePropertiesQCOM");
 }
 
@@ -9894,10 +10456,11 @@ unsafe extern "stdcall" fn vkGetDynamicRenderingTilePropertiesQCOM(
 ) -> vk::Result {
     trace!("called vkGetDynamicRenderingTilePropertiesQCOM({device:?}, {p_rendering_info:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001562);
     packet.write(device);
     packet.write(p_rendering_info);
     packet.write(p_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDynamicRenderingTilePropertiesQCOM");
 }
 
@@ -9911,10 +10474,11 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceOpticalFlowImageFormatsNV(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceOpticalFlowImageFormatsNV({physical_device:?}, {p_optical_flow_image_format_info:?}, {p_format_count:?}, {p_image_format_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001563);
     packet.write(physical_device);
     packet.write(p_optical_flow_image_format_info);
     packet.write_nullable_raw_ptr(p_format_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceOpticalFlowImageFormatsNV");
 }
 
@@ -9928,11 +10492,12 @@ unsafe extern "stdcall" fn vkCreateOpticalFlowSessionNV(
 ) -> vk::Result {
     trace!("called vkCreateOpticalFlowSessionNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_session:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001564);
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
     packet.write(p_session);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateOpticalFlowSessionNV");
 }
 
@@ -9945,10 +10510,11 @@ unsafe extern "stdcall" fn vkDestroyOpticalFlowSessionNV(
 ) {
     trace!("called vkDestroyOpticalFlowSessionNV({device:?}, {session:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001565);
     packet.write(device);
     packet.write(session);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyOpticalFlowSessionNV");
 }
 
@@ -9963,12 +10529,13 @@ unsafe extern "stdcall" fn vkBindOpticalFlowSessionImageNV(
 ) -> vk::Result {
     trace!("called vkBindOpticalFlowSessionImageNV({device:?}, {session:?}, {binding_point:?}, {view:?}, {layout:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001566);
     packet.write(device);
     packet.write(session);
     packet.write(binding_point);
     packet.write(view);
     packet.write(layout);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkBindOpticalFlowSessionImageNV");
 }
 
@@ -9981,10 +10548,11 @@ unsafe extern "stdcall" fn vkCmdOpticalFlowExecuteNV(
 ) {
     trace!("called vkCmdOpticalFlowExecuteNV({command_buffer:?}, {session:?}, {p_execute_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001567);
     packet.write(command_buffer);
     packet.write(session);
     packet.write(p_execute_info);
+    packet.send();
     unimplemented!("vkCmdOpticalFlowExecuteNV");
 }
 
@@ -9997,10 +10565,11 @@ unsafe extern "stdcall" fn vkGetDeviceFaultInfoEXT(
 ) -> vk::Result {
     trace!("called vkGetDeviceFaultInfoEXT({device:?}, {p_fault_counts:?}, {p_fault_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001568);
     packet.write(device);
     packet.write(p_fault_counts);
     packet.write(p_fault_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetDeviceFaultInfoEXT");
 }
 
@@ -10012,9 +10581,10 @@ unsafe extern "stdcall" fn vkCmdSetDepthBias2EXT(
 ) {
     trace!("called vkCmdSetDepthBias2EXT({command_buffer:?}, {p_depth_bias_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001569);
     packet.write(command_buffer);
     packet.write(p_depth_bias_info);
+    packet.send();
     unimplemented!("vkCmdSetDepthBias2EXT");
 }
 
@@ -10026,9 +10596,10 @@ unsafe extern "stdcall" fn vkReleaseSwapchainImagesEXT(
 ) -> vk::Result {
     trace!("called vkReleaseSwapchainImagesEXT({device:?}, {p_release_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001570);
     packet.write(device);
     packet.write(p_release_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkReleaseSwapchainImagesEXT");
 }
 
@@ -10041,10 +10612,11 @@ unsafe extern "stdcall" fn vkGetDeviceImageSubresourceLayoutKHR(
 ) {
     trace!("called vkGetDeviceImageSubresourceLayoutKHR({device:?}, {p_info:?}, {p_layout:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001571);
     packet.write(device);
     packet.write(p_info);
     packet.write(p_layout);
+    packet.send();
     unimplemented!("vkGetDeviceImageSubresourceLayoutKHR");
 }
 
@@ -10057,10 +10629,11 @@ unsafe extern "stdcall" fn vkMapMemory2KHR(
 ) -> vk::Result {
     trace!("called vkMapMemory2KHR({device:?}, {p_memory_map_info:?}, {pp_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001572);
     packet.write(device);
     packet.write(p_memory_map_info);
     packet.write(pp_data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkMapMemory2KHR");
 }
 
@@ -10072,9 +10645,10 @@ unsafe extern "stdcall" fn vkUnmapMemory2KHR(
 ) -> vk::Result {
     trace!("called vkUnmapMemory2KHR({device:?}, {p_memory_unmap_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001573);
     packet.write(device);
     packet.write(p_memory_unmap_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkUnmapMemory2KHR");
 }
 
@@ -10089,9 +10663,10 @@ unsafe extern "stdcall" fn vkCreateShadersEXT(
 ) -> vk::Result {
     trace!("called vkCreateShadersEXT({device:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_shaders:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001574);
     packet.write(device);
     packet.write(create_info_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateShadersEXT");
 }
 
@@ -10104,10 +10679,11 @@ unsafe extern "stdcall" fn vkDestroyShaderEXT(
 ) {
     trace!("called vkDestroyShaderEXT({device:?}, {shader:?}, {p_allocator:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001575);
     packet.write(device);
     packet.write(shader);
     packet.write(p_allocator);
+    packet.send();
     unimplemented!("vkDestroyShaderEXT");
 }
 
@@ -10121,11 +10697,12 @@ unsafe extern "stdcall" fn vkGetShaderBinaryDataEXT(
 ) -> vk::Result {
     trace!("called vkGetShaderBinaryDataEXT({device:?}, {shader:?}, {p_data_size:?}, {p_data:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001576);
     packet.write(device);
     packet.write(shader);
     packet.write(p_data_size);
     packet.write(p_data);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetShaderBinaryDataEXT");
 }
 
@@ -10139,9 +10716,10 @@ unsafe extern "stdcall" fn vkCmdBindShadersEXT(
 ) {
     trace!("called vkCmdBindShadersEXT({command_buffer:?}, {stage_count:?}, {p_stages:?}, {p_shaders:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001577);
     packet.write(command_buffer);
     packet.write(stage_count);
+    packet.send();
     unimplemented!("vkCmdBindShadersEXT");
 }
 
@@ -10154,10 +10732,11 @@ unsafe extern "stdcall" fn vkGetScreenBufferPropertiesQNX(
 ) -> vk::Result {
     trace!("called vkGetScreenBufferPropertiesQNX({device:?}, {buffer:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001578);
     packet.write(device);
     packet.write(buffer);
     packet.write(p_properties);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetScreenBufferPropertiesQNX");
 }
 
@@ -10170,9 +10749,10 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(
 ) -> vk::Result {
     trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001579);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr(p_property_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR");
 }
 
@@ -10185,10 +10765,11 @@ unsafe extern "stdcall" fn vkGetExecutionGraphPipelineScratchSizeAMDX(
 ) -> vk::Result {
     trace!("called vkGetExecutionGraphPipelineScratchSizeAMDX({device:?}, {execution_graph:?}, {p_size_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001580);
     packet.write(device);
     packet.write(execution_graph);
     packet.write(p_size_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetExecutionGraphPipelineScratchSizeAMDX");
 }
 
@@ -10202,11 +10783,12 @@ unsafe extern "stdcall" fn vkGetExecutionGraphPipelineNodeIndexAMDX(
 ) -> vk::Result {
     trace!("called vkGetExecutionGraphPipelineNodeIndexAMDX({device:?}, {execution_graph:?}, {p_node_info:?}, {p_node_index:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001581);
     packet.write(device);
     packet.write(execution_graph);
     packet.write(p_node_info);
     packet.write(p_node_index);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkGetExecutionGraphPipelineNodeIndexAMDX");
 }
 
@@ -10222,10 +10804,11 @@ unsafe extern "stdcall" fn vkCreateExecutionGraphPipelinesAMDX(
 ) -> vk::Result {
     trace!("called vkCreateExecutionGraphPipelinesAMDX({device:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001582);
     packet.write(device);
     packet.write(pipeline_cache);
     packet.write(create_info_count);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkCreateExecutionGraphPipelinesAMDX");
 }
 
@@ -10237,9 +10820,10 @@ unsafe extern "stdcall" fn vkCmdInitializeGraphScratchMemoryAMDX(
 ) {
     trace!("called vkCmdInitializeGraphScratchMemoryAMDX({command_buffer:?}, {scratch:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001583);
     packet.write(command_buffer);
     packet.write(scratch);
+    packet.send();
     unimplemented!("vkCmdInitializeGraphScratchMemoryAMDX");
 }
 
@@ -10252,10 +10836,11 @@ unsafe extern "stdcall" fn vkCmdDispatchGraphAMDX(
 ) {
     trace!("called vkCmdDispatchGraphAMDX({command_buffer:?}, {scratch:?}, {p_count_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001584);
     packet.write(command_buffer);
     packet.write(scratch);
     packet.write(p_count_info);
+    packet.send();
     unimplemented!("vkCmdDispatchGraphAMDX");
 }
 
@@ -10268,10 +10853,11 @@ unsafe extern "stdcall" fn vkCmdDispatchGraphIndirectAMDX(
 ) {
     trace!("called vkCmdDispatchGraphIndirectAMDX({command_buffer:?}, {scratch:?}, {p_count_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001585);
     packet.write(command_buffer);
     packet.write(scratch);
     packet.write(p_count_info);
+    packet.send();
     unimplemented!("vkCmdDispatchGraphIndirectAMDX");
 }
 
@@ -10284,10 +10870,11 @@ unsafe extern "stdcall" fn vkCmdDispatchGraphIndirectCountAMDX(
 ) {
     trace!("called vkCmdDispatchGraphIndirectCountAMDX({command_buffer:?}, {scratch:?}, {count_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001586);
     packet.write(command_buffer);
     packet.write(scratch);
     packet.write(count_info);
+    packet.send();
     unimplemented!("vkCmdDispatchGraphIndirectCountAMDX");
 }
 
@@ -10299,9 +10886,10 @@ unsafe extern "stdcall" fn vkCmdBindDescriptorSets2KHR(
 ) {
     trace!("called vkCmdBindDescriptorSets2KHR({command_buffer:?}, {p_bind_descriptor_sets_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001587);
     packet.write(command_buffer);
     packet.write(p_bind_descriptor_sets_info);
+    packet.send();
     unimplemented!("vkCmdBindDescriptorSets2KHR");
 }
 
@@ -10313,9 +10901,10 @@ unsafe extern "stdcall" fn vkCmdPushConstants2KHR(
 ) {
     trace!("called vkCmdPushConstants2KHR({command_buffer:?}, {p_push_constants_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001588);
     packet.write(command_buffer);
     packet.write(p_push_constants_info);
+    packet.send();
     unimplemented!("vkCmdPushConstants2KHR");
 }
 
@@ -10327,9 +10916,10 @@ unsafe extern "stdcall" fn vkCmdPushDescriptorSet2KHR(
 ) {
     trace!("called vkCmdPushDescriptorSet2KHR({command_buffer:?}, {p_push_descriptor_set_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001589);
     packet.write(command_buffer);
     packet.write(p_push_descriptor_set_info);
+    packet.send();
     unimplemented!("vkCmdPushDescriptorSet2KHR");
 }
 
@@ -10341,9 +10931,10 @@ unsafe extern "stdcall" fn vkCmdPushDescriptorSetWithTemplate2KHR(
 ) {
     trace!("called vkCmdPushDescriptorSetWithTemplate2KHR({command_buffer:?}, {p_push_descriptor_set_with_template_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001590);
     packet.write(command_buffer);
     packet.write(p_push_descriptor_set_with_template_info);
+    packet.send();
     unimplemented!("vkCmdPushDescriptorSetWithTemplate2KHR");
 }
 
@@ -10355,9 +10946,10 @@ unsafe extern "stdcall" fn vkCmdSetDescriptorBufferOffsets2EXT(
 ) {
     trace!("called vkCmdSetDescriptorBufferOffsets2EXT({command_buffer:?}, {p_set_descriptor_buffer_offsets_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001591);
     packet.write(command_buffer);
     packet.write(p_set_descriptor_buffer_offsets_info);
+    packet.send();
     unimplemented!("vkCmdSetDescriptorBufferOffsets2EXT");
 }
 
@@ -10369,9 +10961,10 @@ unsafe extern "stdcall" fn vkCmdBindDescriptorBufferEmbeddedSamplers2EXT(
 ) {
     trace!("called vkCmdBindDescriptorBufferEmbeddedSamplers2EXT({command_buffer:?}, {p_bind_descriptor_buffer_embedded_samplers_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001592);
     packet.write(command_buffer);
     packet.write(p_bind_descriptor_buffer_embedded_samplers_info);
+    packet.send();
     unimplemented!("vkCmdBindDescriptorBufferEmbeddedSamplers2EXT");
 }
 
@@ -10384,10 +10977,11 @@ unsafe extern "stdcall" fn vkSetLatencySleepModeNV(
 ) -> vk::Result {
     trace!("called vkSetLatencySleepModeNV({device:?}, {swapchain:?}, {p_sleep_mode_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001593);
     packet.write(device);
     packet.write(swapchain);
     packet.write(p_sleep_mode_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkSetLatencySleepModeNV");
 }
 
@@ -10400,10 +10994,11 @@ unsafe extern "stdcall" fn vkLatencySleepNV(
 ) -> vk::Result {
     trace!("called vkLatencySleepNV({device:?}, {swapchain:?}, {p_sleep_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001594);
     packet.write(device);
     packet.write(swapchain);
     packet.write(p_sleep_info);
+    let mut _response = packet.send_with_response();
     unimplemented!("vkLatencySleepNV");
 }
 
@@ -10416,10 +11011,11 @@ unsafe extern "stdcall" fn vkSetLatencyMarkerNV(
 ) {
     trace!("called vkSetLatencyMarkerNV({device:?}, {swapchain:?}, {p_latency_marker_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001595);
     packet.write(device);
     packet.write(swapchain);
     packet.write(p_latency_marker_info);
+    packet.send();
     unimplemented!("vkSetLatencyMarkerNV");
 }
 
@@ -10432,10 +11028,11 @@ unsafe extern "stdcall" fn vkGetLatencyTimingsNV(
 ) {
     trace!("called vkGetLatencyTimingsNV({device:?}, {swapchain:?}, {p_latency_marker_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001596);
     packet.write(device);
     packet.write(swapchain);
     packet.write(p_latency_marker_info);
+    packet.send();
     unimplemented!("vkGetLatencyTimingsNV");
 }
 
@@ -10447,9 +11044,10 @@ unsafe extern "stdcall" fn vkQueueNotifyOutOfBandNV(
 ) {
     trace!("called vkQueueNotifyOutOfBandNV({queue:?}, {p_queue_type_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001597);
     packet.write(queue);
     packet.write(p_queue_type_info);
+    packet.send();
     unimplemented!("vkQueueNotifyOutOfBandNV");
 }
 
@@ -10461,9 +11059,10 @@ unsafe extern "stdcall" fn vkCmdSetRenderingAttachmentLocationsKHR(
 ) {
     trace!("called vkCmdSetRenderingAttachmentLocationsKHR({command_buffer:?}, {p_location_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001598);
     packet.write(command_buffer);
     packet.write(p_location_info);
+    packet.send();
     unimplemented!("vkCmdSetRenderingAttachmentLocationsKHR");
 }
 
@@ -10475,8 +11074,9 @@ unsafe extern "stdcall" fn vkCmdSetRenderingInputAttachmentIndicesKHR(
 ) {
     trace!("called vkCmdSetRenderingInputAttachmentIndicesKHR({command_buffer:?}, {p_location_info:?})");
 
-    let mut packet = new_packet(1);
+    let mut packet = new_packet(1000001599);
     packet.write(command_buffer);
     packet.write(p_location_info);
+    packet.send();
     unimplemented!("vkCmdSetRenderingInputAttachmentIndicesKHR");
 }
