@@ -2,3 +2,4 @@
 
 mod entry;
 pub(crate) mod generated;
+pub(crate) mod transport_handlers;

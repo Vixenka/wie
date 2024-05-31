@@ -16,6 +16,8 @@ extern "stdcall" fn vk_icdGetInstanceProcAddr(
     _instance: vk::Instance,
     p_name: *const c_char,
 ) -> vk::PFN_vkVoidFunction {
+    wie_transport_guest::start_connection(crate::transport_handlers::get);
+
     unsafe {
         if CURRENT_LOADER_ICD_INTERFACE_VERSION == 0 {
             CURRENT_LOADER_ICD_INTERFACE_VERSION = 1;

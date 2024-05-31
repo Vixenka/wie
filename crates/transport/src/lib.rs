@@ -1,6 +1,6 @@
 use std::{
     collections::HashMap,
-    mem,
+    fmt, mem,
     sync::{
         mpsc::{self, Sender},
         Arc, Mutex, Weak,
@@ -19,10 +19,6 @@ mod unsafe_receiver;
 
 const DEFAULT_PART_SIZE: usize = 4096;
 
-//type StaticStream = wie_transport_vsock::VsockStream;
-
-//static CONNECTION: OnceLock<Connection<StaticStream>> = OnceLock::new();
-
 pub struct Connection<T>
 where
     T: UnsafeWrite + UnsafeRead + Send + Sync + 'static,
@@ -36,7 +32,7 @@ where
     handlers: HashMap<u64, Handler<T>>,
 }
 
-type Handler<T> = Box<dyn Fn(Packet<T>) + Send + Sync>;
+pub type Handler<T> = Box<dyn Fn(Packet<T>) + Send + Sync>;
 
 impl<T> Connection<T>
 where
@@ -162,6 +158,17 @@ where
         let header = unsafe { &mut *(buffer.as_mut_ptr() as *mut PacketHeader) };
         header.length = buffer.len();
         header.sender_thread_id = sender_thread_id;
+    }
+}
+
+impl<T> fmt::Debug for Connection<T>
+where
+    T: fmt::Debug + UnsafeWrite + UnsafeRead + Send + Sync + 'static,
+{
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("Connection")
+            .field("stream", &self.stream)
+            .finish()
     }
 }
 

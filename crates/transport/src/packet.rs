@@ -1,4 +1,5 @@
 use std::{
+    ffi::c_char,
     mem::{self, MaybeUninit},
     ptr, slice,
     thread::ThreadId,
@@ -57,6 +58,17 @@ where
     pub fn write_raw_ptr<TO>(&mut self, object: *const TO) {
         let slice = unsafe { slice::from_raw_parts(object as *const u8, mem::size_of::<TO>()) };
         self.buffer.extend_from_slice(slice);
+    }
+
+    /// # Safety
+    /// This function is unsafe because it writes until null character is found.
+    #[inline]
+    pub unsafe fn write_null_str(&mut self, str: *const c_char) {
+        let mut i = 0;
+        while *str.add(i) != 0 {
+            self.buffer.push(*str.add(i) as u8);
+            i += 1;
+        }
     }
 
     #[inline]
