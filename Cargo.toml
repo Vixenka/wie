@@ -3,10 +3,7 @@ members = ["crates/*", "generators/*"]
 resolver = "2"
 
 [workspace.dependencies]
-log = { version = "0.4.21", features = [
-    "max_level_trace",
-    "release_max_level_info",
-] }
+log = { version = "0.4.21", features = ["release_max_level_info"] }
 simple_logger = "5.0.0"
 tracy-client = "0.17.0"
 thiserror = "1.0.61"
