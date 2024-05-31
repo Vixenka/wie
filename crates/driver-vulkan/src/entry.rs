@@ -28,6 +28,9 @@ extern "stdcall" fn vk_icdGetInstanceProcAddr(
     let name = name.to_str().expect("UTF-8 valid name");
     let address = match name {
         "vk_icdGetPhysicalDeviceProcAddr" => vk_icdGetPhysicalDeviceProcAddr as *const _,
+        "vk_icdEnumerateAdapterPhysicalDevices" => {
+            vk_icdEnumerateAdapterPhysicalDevices as *const _
+        }
         _ => definitions::get_function_address(name),
     };
 
@@ -65,4 +68,20 @@ extern "stdcall" fn vk_icdGetPhysicalDeviceProcAddr(
     _p_name: *const c_char,
 ) -> vk::PFN_vkVoidFunction {
     unimplemented!("vk_icdGetPhysicalDeviceProcAddr");
+}
+
+#[repr(C)]
+struct Luid {
+    data: [u8; vk::LUID_SIZE],
+}
+
+/// https://github.com/KhronosGroup/Vulkan-Loader/blob/main/docs/LoaderDriverInterface.md#physical-device-sorting
+#[no_mangle]
+unsafe extern "stdcall" fn vk_icdEnumerateAdapterPhysicalDevices(
+    _instance: vk::Instance,
+    _adapter_luid: Luid,
+    _p_physical_device_count: *mut u32,
+    _p_physical_devices: *mut vk::PhysicalDevice,
+) -> vk::Result {
+    unimplemented!("vk_icdEnumerateAdapterPhysicalDevices");
 }
