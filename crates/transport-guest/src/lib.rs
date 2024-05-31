@@ -29,10 +29,8 @@ where
         Err(e) => match e {
             VsockConnectionError::Creation(e) => panic!("Failed to create vsock connection: {}", e),
             VsockConnectionError::Connection(e) => {
-                panic!(
-                    "FAILED TO CONNECT TO VSOCK HOST. MAKE SURE THE HOST IS RUNNING. {}",
-                    e
-                )
+                tracing::error!("FAILED TO CONNECT TO VSOCK HOST. MAKE SURE THE HOST IS RUNNING.");
+                panic!("{}", e)
             }
         },
     };
