@@ -1185,6 +1185,8 @@ fn vk_enumerate_instance_extension_properties(mut packet: Packet) {
     let p_layer_name: *const std::os::raw::c_char = packet.read_null_str();
     let p_property_count: *mut u32 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkEnumerateInstanceExtensionProperties({p_layer_name:?}, {p_property_count:?})");
+
+    ash::vk::enumerate_instance_extension_properties(p_layer_name, p_property_count);
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceLayerProperties.html>"]

@@ -191,6 +191,11 @@ where
 
     #[inline]
     pub fn read_null_str(&mut self) -> *const c_char {
+        if self.buffer[self.read] == 0 {
+            self.read += 1;
+            return ptr::null();
+        }
+
         let start = self.read;
         while self.buffer[self.read] != 0 {
             self.read += 1;
