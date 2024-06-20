@@ -4,7 +4,8 @@ use itertools::Itertools;
 use vk_parse::CommandDefinition;
 
 use crate::{
-    push_indentation, push_param_name, to_rust_type, to_snake_case, trace,
+    push_indentation, push_param_name, to_rust_type, to_rust_type_without_ptr, to_snake_case,
+    trace,
     transport::{self, check_if_count_ptr},
     VULKAN_HANDLERS_BEGIN,
 };
@@ -53,25 +54,34 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition) {
 
     let mut last_is_count = false;
     for param in definition.params.iter().unique_by(|x| &x.definition.name) {
-        let last_is_count_cache = last_is_count;
-        last_is_count = check_if_count_ptr(param);
+        let is_count = check_if_count_ptr(param);
 
-        push_indentation(builder, 1);
-        builder.push_str("let ");
-
-        push_param_name(builder, param);
-        if last_is_count_cache {
-            builder.push_str("_is_null ");
+        if last_is_count {
+            push_param_name(builder, param);
+            builder.push_str(") = packet.read_and_allocate_vk_array_count::<");
+            builder.push_str(&to_rust_type_without_ptr(&param.definition));
+            builder.push_str(">();\n");
         } else {
-            builder.push_str(": ");
-            builder.push_str(&to_rust_type(&param.definition));
+            push_indentation(builder, 1);
+            builder.push_str("let ");
+
+            if is_count {
+                builder.push('(');
+                push_param_name(builder, param);
+                builder.push_str(", ");
+            } else {
+                push_param_name(builder, param);
+                builder.push_str(": ");
+                builder.push_str(&to_rust_type(&param.definition));
+                builder.push_str(" = packet.read");
+                transport::read_packet_param(builder, param, last_is_count, is_count);
+            }
         }
 
-        builder.push_str("= packet.read");
-        transport::read_packet_param(builder, param, last_is_count_cache, last_is_count);
+        last_is_count = is_count;
     }
 
-    trace(builder, definition, true);
+    trace(builder, definition);
 
     builder.push_str("}\n");
 }

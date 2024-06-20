@@ -72,7 +72,7 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition, handle
     }
     builder.push_str(" {\n");
 
-    trace(builder, definition, false);
+    trace(builder, definition);
 
     // Packet creation
     push_indentation(builder, 1);
@@ -82,12 +82,22 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition, handle
 
     let mut last_is_count = false;
     for param in definition.params.iter().unique_by(|x| &x.definition.name) {
-        push_indentation(builder, 1);
-        builder.push_str("packet.write");
+        let is_count = check_if_count_ptr(param);
+        if is_count {
+            push_indentation(builder, 1);
+            builder.push_str("packet.write_vk_array_count(");
+            push_param_name(builder, param);
+            builder.push_str(", ");
+        } else if last_is_count {
+            push_param_name(builder, param);
+            builder.push_str(");\n");
+        } else {
+            push_indentation(builder, 1);
+            builder.push_str("packet.write");
+            transport::write_packet_param(builder, param, last_is_count, is_count);
+        }
 
-        let last_is_count_cache = last_is_count;
-        last_is_count = check_if_count_ptr(param);
-        transport::write_packet_param(builder, param, last_is_count_cache, last_is_count);
+        last_is_count = is_count;
     }
 
     push_indentation(builder, 1);

@@ -102,14 +102,13 @@ fn generate(vk_headers_path: &Path, project_directory: &Path) {
     listener::generate(project_directory, &commands);
 }
 
-fn trace(builder: &mut String, definition: &CommandDefinition, check_count: bool) {
+fn trace(builder: &mut String, definition: &CommandDefinition) {
     push_indentation(builder, 1);
     builder.push_str("trace!(\"called ");
     builder.push_str(&definition.proto.name);
     builder.push('(');
 
     let mut first = true;
-    let mut last_is_count = false;
     for param in definition.params.iter().unique_by(|x| &x.definition.name) {
         if !first {
             builder.push_str(", ");
@@ -119,14 +118,6 @@ fn trace(builder: &mut String, definition: &CommandDefinition, check_count: bool
 
         builder.push('{');
         push_param_name(builder, param);
-
-        if check_count {
-            if last_is_count {
-                builder.push_str("_is_null");
-            }
-
-            last_is_count = transport::check_if_count_ptr(param);
-        }
 
         builder.push_str(":?}");
     }

@@ -100,6 +100,16 @@ where
         self.buffer.push(ptr.is_null().into())
     }
 
+    /// # Safety
+    /// Caller must ensure to pass a valid pointer to count, and valid pointer or null to a buffer.
+    #[inline]
+    pub unsafe fn write_vk_array_count<TO>(&mut self, count: *const u32, buffer: *const TO) {
+        self.write(match buffer.is_null() {
+            true => 0,
+            false => *count,
+        });
+    }
+
     #[inline]
     pub fn send(mut self) {
         let buffer = mem::take(&mut self.buffer);
@@ -214,6 +224,15 @@ where
         let is_null = self.buffer[self.read] == 1;
         self.read += 1;
         is_null
+    }
+
+    #[inline]
+    pub fn read_and_allocate_vk_array_count<TA>(&mut self) -> (u32, *mut TA) {
+        let count = self.read::<u32>();
+        match count == 0 {
+            true => (0, ptr::null_mut()),
+            false => (count, Vec::with_capacity(count as usize).as_mut_ptr()),
+        }
     }
 
     pub fn write_response(mut self, destination: Option<u64>) -> PacketWriter<'c, T> {
