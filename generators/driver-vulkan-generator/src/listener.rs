@@ -1,10 +1,11 @@
 use std::{fs, path::Path};
 
 use itertools::Itertools;
-use vk_parse::{CommandDefinition, CommandParam};
+use vk_parse::CommandDefinition;
 
 use crate::{
-    push_indentation, push_param_name, to_rust_type, to_snake_case, trace, transport,
+    push_indentation, push_param_name, to_rust_type, to_snake_case, trace,
+    transport::{self, check_if_count_ptr},
     VULKAN_HANDLERS_BEGIN,
 };
 
@@ -52,19 +53,22 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition) {
 
     let mut last_is_count = false;
     for param in definition.params.iter().unique_by(|x| &x.definition.name) {
-        if last_is_count {
-            continue;
-        }
-
-        last_is_count = param.definition.name.ends_with("Count");
+        let last_is_count_cache = last_is_count;
+        last_is_count = check_if_count_ptr(param);
 
         push_indentation(builder, 1);
         builder.push_str("let ");
+
         push_param_name(builder, param);
-        builder.push_str(": ");
-        builder.push_str(&to_rust_type(&param.definition));
+        if last_is_count_cache {
+            builder.push_str("_is_null ");
+        } else {
+            builder.push_str(": ");
+            builder.push_str(&to_rust_type(&param.definition));
+        }
+
         builder.push_str("= packet.read");
-        transport::read_packet_param(builder, param, last_is_count);
+        transport::read_packet_param(builder, param, last_is_count_cache, last_is_count);
     }
 
     trace(builder, definition, true);

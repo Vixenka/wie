@@ -1,10 +1,12 @@
 use std::{fs, path::Path};
 
 use itertools::Itertools;
-use vk_parse::{CommandDefinition, CommandParam};
+use vk_parse::CommandDefinition;
 
 use crate::{
-    push_indentation, push_param_name, to_rust_type, trace, transport, VULKAN_HANDLERS_BEGIN,
+    push_indentation, push_param_name, to_rust_type, trace,
+    transport::{self, check_if_count_ptr},
+    VULKAN_HANDLERS_BEGIN,
 };
 
 pub fn generate(project_directory: &Path, commands: &[&CommandDefinition]) {
@@ -80,14 +82,12 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition, handle
 
     let mut last_is_count = false;
     for param in definition.params.iter().unique_by(|x| &x.definition.name) {
-        if last_is_count {
-            continue;
-        }
-
-        last_is_count = param.definition.name.ends_with("Count");
         push_indentation(builder, 1);
         builder.push_str("packet.write");
-        transport::write_packet_param(builder, param, last_is_count);
+
+        let last_is_count_cache = last_is_count;
+        last_is_count = check_if_count_ptr(param);
+        transport::write_packet_param(builder, param, last_is_count_cache, last_is_count);
     }
 
     push_indentation(builder, 1);

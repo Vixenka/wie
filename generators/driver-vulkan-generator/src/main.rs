@@ -111,14 +111,6 @@ fn trace(builder: &mut String, definition: &CommandDefinition, check_count: bool
     let mut first = true;
     let mut last_is_count = false;
     for param in definition.params.iter().unique_by(|x| &x.definition.name) {
-        if check_count {
-            if last_is_count {
-                continue;
-            } else {
-                last_is_count = param.definition.name.ends_with("Count");
-            }
-        }
-
         if !first {
             builder.push_str(", ");
         } else {
@@ -127,6 +119,15 @@ fn trace(builder: &mut String, definition: &CommandDefinition, check_count: bool
 
         builder.push('{');
         push_param_name(builder, param);
+
+        if check_count {
+            if last_is_count {
+                builder.push_str("_is_null");
+            }
+
+            last_is_count = transport::check_if_count_ptr(param);
+        }
+
         builder.push_str(":?}");
     }
 

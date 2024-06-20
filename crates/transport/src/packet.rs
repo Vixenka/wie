@@ -96,6 +96,11 @@ where
     }
 
     #[inline]
+    pub fn write_is_null_ptr<TO>(&mut self, ptr: *const TO) {
+        self.buffer.push(ptr.is_null().into())
+    }
+
+    #[inline]
     pub fn send(mut self) {
         let buffer = mem::take(&mut self.buffer);
         self.connection.send(buffer);
@@ -202,6 +207,13 @@ where
         }
 
         self.buffer[start..self.read].as_ptr() as *const c_char
+    }
+
+    #[inline]
+    pub fn read_is_null_ptr(&mut self) -> bool {
+        let is_null = self.buffer[self.read] == 1;
+        self.read += 1;
+        is_null
     }
 
     pub fn write_response(mut self, destination: Option<u64>) -> PacketWriter<'c, T> {

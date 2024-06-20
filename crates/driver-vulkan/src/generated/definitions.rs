@@ -12,18 +12,30 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkGetDeviceProcAddr" => vkGetDeviceProcAddr as *const c_void,
         "vkGetInstanceProcAddr" => vkGetInstanceProcAddr as *const c_void,
         "vkGetPhysicalDeviceProperties" => vkGetPhysicalDeviceProperties as *const c_void,
-        "vkGetPhysicalDeviceQueueFamilyProperties" => vkGetPhysicalDeviceQueueFamilyProperties as *const c_void,
-        "vkGetPhysicalDeviceMemoryProperties" => vkGetPhysicalDeviceMemoryProperties as *const c_void,
+        "vkGetPhysicalDeviceQueueFamilyProperties" => {
+            vkGetPhysicalDeviceQueueFamilyProperties as *const c_void
+        }
+        "vkGetPhysicalDeviceMemoryProperties" => {
+            vkGetPhysicalDeviceMemoryProperties as *const c_void
+        }
         "vkGetPhysicalDeviceFeatures" => vkGetPhysicalDeviceFeatures as *const c_void,
-        "vkGetPhysicalDeviceFormatProperties" => vkGetPhysicalDeviceFormatProperties as *const c_void,
-        "vkGetPhysicalDeviceImageFormatProperties" => vkGetPhysicalDeviceImageFormatProperties as *const c_void,
+        "vkGetPhysicalDeviceFormatProperties" => {
+            vkGetPhysicalDeviceFormatProperties as *const c_void
+        }
+        "vkGetPhysicalDeviceImageFormatProperties" => {
+            vkGetPhysicalDeviceImageFormatProperties as *const c_void
+        }
         "vkCreateDevice" => vkCreateDevice as *const c_void,
         "vkDestroyDevice" => vkDestroyDevice as *const c_void,
         "vkEnumerateInstanceVersion" => vkEnumerateInstanceVersion as *const c_void,
         "vkEnumerateInstanceLayerProperties" => vkEnumerateInstanceLayerProperties as *const c_void,
-        "vkEnumerateInstanceExtensionProperties" => vkEnumerateInstanceExtensionProperties as *const c_void,
+        "vkEnumerateInstanceExtensionProperties" => {
+            vkEnumerateInstanceExtensionProperties as *const c_void
+        }
         "vkEnumerateDeviceLayerProperties" => vkEnumerateDeviceLayerProperties as *const c_void,
-        "vkEnumerateDeviceExtensionProperties" => vkEnumerateDeviceExtensionProperties as *const c_void,
+        "vkEnumerateDeviceExtensionProperties" => {
+            vkEnumerateDeviceExtensionProperties as *const c_void
+        }
         "vkGetDeviceQueue" => vkGetDeviceQueue as *const c_void,
         "vkQueueSubmit" => vkQueueSubmit as *const c_void,
         "vkQueueWaitIdle" => vkQueueWaitIdle as *const c_void,
@@ -40,7 +52,9 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkGetImageMemoryRequirements" => vkGetImageMemoryRequirements as *const c_void,
         "vkBindImageMemory" => vkBindImageMemory as *const c_void,
         "vkGetImageSparseMemoryRequirements" => vkGetImageSparseMemoryRequirements as *const c_void,
-        "vkGetPhysicalDeviceSparseImageFormatProperties" => vkGetPhysicalDeviceSparseImageFormatProperties as *const c_void,
+        "vkGetPhysicalDeviceSparseImageFormatProperties" => {
+            vkGetPhysicalDeviceSparseImageFormatProperties as *const c_void
+        }
         "vkQueueBindSparse" => vkQueueBindSparse as *const c_void,
         "vkCreateFence" => vkCreateFence as *const c_void,
         "vkDestroyFence" => vkDestroyFence as *const c_void,
@@ -75,7 +89,9 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkMergePipelineCaches" => vkMergePipelineCaches as *const c_void,
         "vkCreateGraphicsPipelines" => vkCreateGraphicsPipelines as *const c_void,
         "vkCreateComputePipelines" => vkCreateComputePipelines as *const c_void,
-        "vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI" => vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI as *const c_void,
+        "vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI" => {
+            vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI as *const c_void
+        }
         "vkDestroyPipeline" => vkDestroyPipeline as *const c_void,
         "vkCreatePipelineLayout" => vkCreatePipelineLayout as *const c_void,
         "vkDestroyPipelineLayout" => vkDestroyPipelineLayout as *const c_void,
@@ -104,7 +120,9 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkEndCommandBuffer" => vkEndCommandBuffer as *const c_void,
         "vkResetCommandBuffer" => vkResetCommandBuffer as *const c_void,
         "vkCmdBindPipeline" => vkCmdBindPipeline as *const c_void,
-        "vkCmdSetAttachmentFeedbackLoopEnableEXT" => vkCmdSetAttachmentFeedbackLoopEnableEXT as *const c_void,
+        "vkCmdSetAttachmentFeedbackLoopEnableEXT" => {
+            vkCmdSetAttachmentFeedbackLoopEnableEXT as *const c_void
+        }
         "vkCmdSetViewport" => vkCmdSetViewport as *const c_void,
         "vkCmdSetScissor" => vkCmdSetScissor as *const c_void,
         "vkCmdSetLineWidth" => vkCmdSetLineWidth as *const c_void,
@@ -128,7 +146,9 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCmdSubpassShadingHUAWEI" => vkCmdSubpassShadingHUAWEI as *const c_void,
         "vkCmdDrawClusterHUAWEI" => vkCmdDrawClusterHUAWEI as *const c_void,
         "vkCmdDrawClusterIndirectHUAWEI" => vkCmdDrawClusterIndirectHUAWEI as *const c_void,
-        "vkCmdUpdatePipelineIndirectBufferNV" => vkCmdUpdatePipelineIndirectBufferNV as *const c_void,
+        "vkCmdUpdatePipelineIndirectBufferNV" => {
+            vkCmdUpdatePipelineIndirectBufferNV as *const c_void
+        }
         "vkCmdCopyBuffer" => vkCmdCopyBuffer as *const c_void,
         "vkCmdCopyImage" => vkCmdCopyImage as *const c_void,
         "vkCmdBlitImage" => vkCmdBlitImage as *const c_void,
@@ -159,19 +179,33 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCmdEndRenderPass" => vkCmdEndRenderPass as *const c_void,
         "vkCmdExecuteCommands" => vkCmdExecuteCommands as *const c_void,
         "vkCreateAndroidSurfaceKHR" => vkCreateAndroidSurfaceKHR as *const c_void,
-        "vkGetPhysicalDeviceDisplayPropertiesKHR" => vkGetPhysicalDeviceDisplayPropertiesKHR as *const c_void,
-        "vkGetPhysicalDeviceDisplayPlanePropertiesKHR" => vkGetPhysicalDeviceDisplayPlanePropertiesKHR as *const c_void,
-        "vkGetDisplayPlaneSupportedDisplaysKHR" => vkGetDisplayPlaneSupportedDisplaysKHR as *const c_void,
+        "vkGetPhysicalDeviceDisplayPropertiesKHR" => {
+            vkGetPhysicalDeviceDisplayPropertiesKHR as *const c_void
+        }
+        "vkGetPhysicalDeviceDisplayPlanePropertiesKHR" => {
+            vkGetPhysicalDeviceDisplayPlanePropertiesKHR as *const c_void
+        }
+        "vkGetDisplayPlaneSupportedDisplaysKHR" => {
+            vkGetDisplayPlaneSupportedDisplaysKHR as *const c_void
+        }
         "vkGetDisplayModePropertiesKHR" => vkGetDisplayModePropertiesKHR as *const c_void,
         "vkCreateDisplayModeKHR" => vkCreateDisplayModeKHR as *const c_void,
         "vkGetDisplayPlaneCapabilitiesKHR" => vkGetDisplayPlaneCapabilitiesKHR as *const c_void,
         "vkCreateDisplayPlaneSurfaceKHR" => vkCreateDisplayPlaneSurfaceKHR as *const c_void,
         "vkCreateSharedSwapchainsKHR" => vkCreateSharedSwapchainsKHR as *const c_void,
         "vkDestroySurfaceKHR" => vkDestroySurfaceKHR as *const c_void,
-        "vkGetPhysicalDeviceSurfaceSupportKHR" => vkGetPhysicalDeviceSurfaceSupportKHR as *const c_void,
-        "vkGetPhysicalDeviceSurfaceCapabilitiesKHR" => vkGetPhysicalDeviceSurfaceCapabilitiesKHR as *const c_void,
-        "vkGetPhysicalDeviceSurfaceFormatsKHR" => vkGetPhysicalDeviceSurfaceFormatsKHR as *const c_void,
-        "vkGetPhysicalDeviceSurfacePresentModesKHR" => vkGetPhysicalDeviceSurfacePresentModesKHR as *const c_void,
+        "vkGetPhysicalDeviceSurfaceSupportKHR" => {
+            vkGetPhysicalDeviceSurfaceSupportKHR as *const c_void
+        }
+        "vkGetPhysicalDeviceSurfaceCapabilitiesKHR" => {
+            vkGetPhysicalDeviceSurfaceCapabilitiesKHR as *const c_void
+        }
+        "vkGetPhysicalDeviceSurfaceFormatsKHR" => {
+            vkGetPhysicalDeviceSurfaceFormatsKHR as *const c_void
+        }
+        "vkGetPhysicalDeviceSurfacePresentModesKHR" => {
+            vkGetPhysicalDeviceSurfacePresentModesKHR as *const c_void
+        }
         "vkCreateSwapchainKHR" => vkCreateSwapchainKHR as *const c_void,
         "vkDestroySwapchainKHR" => vkDestroySwapchainKHR as *const c_void,
         "vkGetSwapchainImagesKHR" => vkGetSwapchainImagesKHR as *const c_void,
@@ -179,19 +213,31 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkQueuePresentKHR" => vkQueuePresentKHR as *const c_void,
         "vkCreateViSurfaceNN" => vkCreateViSurfaceNN as *const c_void,
         "vkCreateWaylandSurfaceKHR" => vkCreateWaylandSurfaceKHR as *const c_void,
-        "vkGetPhysicalDeviceWaylandPresentationSupportKHR" => vkGetPhysicalDeviceWaylandPresentationSupportKHR as *const c_void,
+        "vkGetPhysicalDeviceWaylandPresentationSupportKHR" => {
+            vkGetPhysicalDeviceWaylandPresentationSupportKHR as *const c_void
+        }
         "vkCreateWin32SurfaceKHR" => vkCreateWin32SurfaceKHR as *const c_void,
-        "vkGetPhysicalDeviceWin32PresentationSupportKHR" => vkGetPhysicalDeviceWin32PresentationSupportKHR as *const c_void,
+        "vkGetPhysicalDeviceWin32PresentationSupportKHR" => {
+            vkGetPhysicalDeviceWin32PresentationSupportKHR as *const c_void
+        }
         "vkCreateXlibSurfaceKHR" => vkCreateXlibSurfaceKHR as *const c_void,
-        "vkGetPhysicalDeviceXlibPresentationSupportKHR" => vkGetPhysicalDeviceXlibPresentationSupportKHR as *const c_void,
+        "vkGetPhysicalDeviceXlibPresentationSupportKHR" => {
+            vkGetPhysicalDeviceXlibPresentationSupportKHR as *const c_void
+        }
         "vkCreateXcbSurfaceKHR" => vkCreateXcbSurfaceKHR as *const c_void,
-        "vkGetPhysicalDeviceXcbPresentationSupportKHR" => vkGetPhysicalDeviceXcbPresentationSupportKHR as *const c_void,
+        "vkGetPhysicalDeviceXcbPresentationSupportKHR" => {
+            vkGetPhysicalDeviceXcbPresentationSupportKHR as *const c_void
+        }
         "vkCreateDirectFBSurfaceEXT" => vkCreateDirectFBSurfaceEXT as *const c_void,
-        "vkGetPhysicalDeviceDirectFBPresentationSupportEXT" => vkGetPhysicalDeviceDirectFBPresentationSupportEXT as *const c_void,
+        "vkGetPhysicalDeviceDirectFBPresentationSupportEXT" => {
+            vkGetPhysicalDeviceDirectFBPresentationSupportEXT as *const c_void
+        }
         "vkCreateImagePipeSurfaceFUCHSIA" => vkCreateImagePipeSurfaceFUCHSIA as *const c_void,
         "vkCreateStreamDescriptorSurfaceGGP" => vkCreateStreamDescriptorSurfaceGGP as *const c_void,
         "vkCreateScreenSurfaceQNX" => vkCreateScreenSurfaceQNX as *const c_void,
-        "vkGetPhysicalDeviceScreenPresentationSupportQNX" => vkGetPhysicalDeviceScreenPresentationSupportQNX as *const c_void,
+        "vkGetPhysicalDeviceScreenPresentationSupportQNX" => {
+            vkGetPhysicalDeviceScreenPresentationSupportQNX as *const c_void
+        }
         "vkCreateDebugReportCallbackEXT" => vkCreateDebugReportCallbackEXT as *const c_void,
         "vkDestroyDebugReportCallbackEXT" => vkDestroyDebugReportCallbackEXT as *const c_void,
         "vkDebugReportMessageEXT" => vkDebugReportMessageEXT as *const c_void,
@@ -200,39 +246,65 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCmdDebugMarkerBeginEXT" => vkCmdDebugMarkerBeginEXT as *const c_void,
         "vkCmdDebugMarkerEndEXT" => vkCmdDebugMarkerEndEXT as *const c_void,
         "vkCmdDebugMarkerInsertEXT" => vkCmdDebugMarkerInsertEXT as *const c_void,
-        "vkGetPhysicalDeviceExternalImageFormatPropertiesNV" => vkGetPhysicalDeviceExternalImageFormatPropertiesNV as *const c_void,
+        "vkGetPhysicalDeviceExternalImageFormatPropertiesNV" => {
+            vkGetPhysicalDeviceExternalImageFormatPropertiesNV as *const c_void
+        }
         "vkGetMemoryWin32HandleNV" => vkGetMemoryWin32HandleNV as *const c_void,
         "vkCmdExecuteGeneratedCommandsNV" => vkCmdExecuteGeneratedCommandsNV as *const c_void,
         "vkCmdPreprocessGeneratedCommandsNV" => vkCmdPreprocessGeneratedCommandsNV as *const c_void,
         "vkCmdBindPipelineShaderGroupNV" => vkCmdBindPipelineShaderGroupNV as *const c_void,
-        "vkGetGeneratedCommandsMemoryRequirementsNV" => vkGetGeneratedCommandsMemoryRequirementsNV as *const c_void,
+        "vkGetGeneratedCommandsMemoryRequirementsNV" => {
+            vkGetGeneratedCommandsMemoryRequirementsNV as *const c_void
+        }
         "vkCreateIndirectCommandsLayoutNV" => vkCreateIndirectCommandsLayoutNV as *const c_void,
         "vkDestroyIndirectCommandsLayoutNV" => vkDestroyIndirectCommandsLayoutNV as *const c_void,
         "vkGetPhysicalDeviceFeatures2" => vkGetPhysicalDeviceFeatures2 as *const c_void,
         "vkGetPhysicalDeviceProperties2" => vkGetPhysicalDeviceProperties2 as *const c_void,
-        "vkGetPhysicalDeviceFormatProperties2" => vkGetPhysicalDeviceFormatProperties2 as *const c_void,
-        "vkGetPhysicalDeviceImageFormatProperties2" => vkGetPhysicalDeviceImageFormatProperties2 as *const c_void,
-        "vkGetPhysicalDeviceQueueFamilyProperties2" => vkGetPhysicalDeviceQueueFamilyProperties2 as *const c_void,
-        "vkGetPhysicalDeviceMemoryProperties2" => vkGetPhysicalDeviceMemoryProperties2 as *const c_void,
-        "vkGetPhysicalDeviceSparseImageFormatProperties2" => vkGetPhysicalDeviceSparseImageFormatProperties2 as *const c_void,
+        "vkGetPhysicalDeviceFormatProperties2" => {
+            vkGetPhysicalDeviceFormatProperties2 as *const c_void
+        }
+        "vkGetPhysicalDeviceImageFormatProperties2" => {
+            vkGetPhysicalDeviceImageFormatProperties2 as *const c_void
+        }
+        "vkGetPhysicalDeviceQueueFamilyProperties2" => {
+            vkGetPhysicalDeviceQueueFamilyProperties2 as *const c_void
+        }
+        "vkGetPhysicalDeviceMemoryProperties2" => {
+            vkGetPhysicalDeviceMemoryProperties2 as *const c_void
+        }
+        "vkGetPhysicalDeviceSparseImageFormatProperties2" => {
+            vkGetPhysicalDeviceSparseImageFormatProperties2 as *const c_void
+        }
         "vkCmdPushDescriptorSetKHR" => vkCmdPushDescriptorSetKHR as *const c_void,
         "vkTrimCommandPool" => vkTrimCommandPool as *const c_void,
-        "vkGetPhysicalDeviceExternalBufferProperties" => vkGetPhysicalDeviceExternalBufferProperties as *const c_void,
+        "vkGetPhysicalDeviceExternalBufferProperties" => {
+            vkGetPhysicalDeviceExternalBufferProperties as *const c_void
+        }
         "vkGetMemoryWin32HandleKHR" => vkGetMemoryWin32HandleKHR as *const c_void,
-        "vkGetMemoryWin32HandlePropertiesKHR" => vkGetMemoryWin32HandlePropertiesKHR as *const c_void,
+        "vkGetMemoryWin32HandlePropertiesKHR" => {
+            vkGetMemoryWin32HandlePropertiesKHR as *const c_void
+        }
         "vkGetMemoryFdKHR" => vkGetMemoryFdKHR as *const c_void,
         "vkGetMemoryFdPropertiesKHR" => vkGetMemoryFdPropertiesKHR as *const c_void,
         "vkGetMemoryZirconHandleFUCHSIA" => vkGetMemoryZirconHandleFUCHSIA as *const c_void,
-        "vkGetMemoryZirconHandlePropertiesFUCHSIA" => vkGetMemoryZirconHandlePropertiesFUCHSIA as *const c_void,
+        "vkGetMemoryZirconHandlePropertiesFUCHSIA" => {
+            vkGetMemoryZirconHandlePropertiesFUCHSIA as *const c_void
+        }
         "vkGetMemoryRemoteAddressNV" => vkGetMemoryRemoteAddressNV as *const c_void,
-        "vkGetPhysicalDeviceExternalSemaphoreProperties" => vkGetPhysicalDeviceExternalSemaphoreProperties as *const c_void,
+        "vkGetPhysicalDeviceExternalSemaphoreProperties" => {
+            vkGetPhysicalDeviceExternalSemaphoreProperties as *const c_void
+        }
         "vkGetSemaphoreWin32HandleKHR" => vkGetSemaphoreWin32HandleKHR as *const c_void,
         "vkImportSemaphoreWin32HandleKHR" => vkImportSemaphoreWin32HandleKHR as *const c_void,
         "vkGetSemaphoreFdKHR" => vkGetSemaphoreFdKHR as *const c_void,
         "vkImportSemaphoreFdKHR" => vkImportSemaphoreFdKHR as *const c_void,
         "vkGetSemaphoreZirconHandleFUCHSIA" => vkGetSemaphoreZirconHandleFUCHSIA as *const c_void,
-        "vkImportSemaphoreZirconHandleFUCHSIA" => vkImportSemaphoreZirconHandleFUCHSIA as *const c_void,
-        "vkGetPhysicalDeviceExternalFenceProperties" => vkGetPhysicalDeviceExternalFenceProperties as *const c_void,
+        "vkImportSemaphoreZirconHandleFUCHSIA" => {
+            vkImportSemaphoreZirconHandleFUCHSIA as *const c_void
+        }
+        "vkGetPhysicalDeviceExternalFenceProperties" => {
+            vkGetPhysicalDeviceExternalFenceProperties as *const c_void
+        }
         "vkGetFenceWin32HandleKHR" => vkGetFenceWin32HandleKHR as *const c_void,
         "vkImportFenceWin32HandleKHR" => vkImportFenceWin32HandleKHR as *const c_void,
         "vkGetFenceFdKHR" => vkGetFenceFdKHR as *const c_void,
@@ -246,21 +318,31 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkRegisterDeviceEventEXT" => vkRegisterDeviceEventEXT as *const c_void,
         "vkRegisterDisplayEventEXT" => vkRegisterDisplayEventEXT as *const c_void,
         "vkGetSwapchainCounterEXT" => vkGetSwapchainCounterEXT as *const c_void,
-        "vkGetPhysicalDeviceSurfaceCapabilities2EXT" => vkGetPhysicalDeviceSurfaceCapabilities2EXT as *const c_void,
+        "vkGetPhysicalDeviceSurfaceCapabilities2EXT" => {
+            vkGetPhysicalDeviceSurfaceCapabilities2EXT as *const c_void
+        }
         "vkEnumeratePhysicalDeviceGroups" => vkEnumeratePhysicalDeviceGroups as *const c_void,
         "vkGetDeviceGroupPeerMemoryFeatures" => vkGetDeviceGroupPeerMemoryFeatures as *const c_void,
         "vkBindBufferMemory2" => vkBindBufferMemory2 as *const c_void,
         "vkBindImageMemory2" => vkBindImageMemory2 as *const c_void,
         "vkCmdSetDeviceMask" => vkCmdSetDeviceMask as *const c_void,
-        "vkGetDeviceGroupPresentCapabilitiesKHR" => vkGetDeviceGroupPresentCapabilitiesKHR as *const c_void,
-        "vkGetDeviceGroupSurfacePresentModesKHR" => vkGetDeviceGroupSurfacePresentModesKHR as *const c_void,
+        "vkGetDeviceGroupPresentCapabilitiesKHR" => {
+            vkGetDeviceGroupPresentCapabilitiesKHR as *const c_void
+        }
+        "vkGetDeviceGroupSurfacePresentModesKHR" => {
+            vkGetDeviceGroupSurfacePresentModesKHR as *const c_void
+        }
         "vkAcquireNextImage2KHR" => vkAcquireNextImage2KHR as *const c_void,
         "vkCmdDispatchBase" => vkCmdDispatchBase as *const c_void,
-        "vkGetPhysicalDevicePresentRectanglesKHR" => vkGetPhysicalDevicePresentRectanglesKHR as *const c_void,
+        "vkGetPhysicalDevicePresentRectanglesKHR" => {
+            vkGetPhysicalDevicePresentRectanglesKHR as *const c_void
+        }
         "vkCreateDescriptorUpdateTemplate" => vkCreateDescriptorUpdateTemplate as *const c_void,
         "vkDestroyDescriptorUpdateTemplate" => vkDestroyDescriptorUpdateTemplate as *const c_void,
         "vkUpdateDescriptorSetWithTemplate" => vkUpdateDescriptorSetWithTemplate as *const c_void,
-        "vkCmdPushDescriptorSetWithTemplateKHR" => vkCmdPushDescriptorSetWithTemplateKHR as *const c_void,
+        "vkCmdPushDescriptorSetWithTemplateKHR" => {
+            vkCmdPushDescriptorSetWithTemplateKHR as *const c_void
+        }
         "vkSetHdrMetadataEXT" => vkSetHdrMetadataEXT as *const c_void,
         "vkGetSwapchainStatusKHR" => vkGetSwapchainStatusKHR as *const c_void,
         "vkGetRefreshCycleDurationGOOGLE" => vkGetRefreshCycleDurationGOOGLE as *const c_void,
@@ -273,19 +355,35 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCmdSetDiscardRectangleEnableEXT" => vkCmdSetDiscardRectangleEnableEXT as *const c_void,
         "vkCmdSetDiscardRectangleModeEXT" => vkCmdSetDiscardRectangleModeEXT as *const c_void,
         "vkCmdSetSampleLocationsEXT" => vkCmdSetSampleLocationsEXT as *const c_void,
-        "vkGetPhysicalDeviceMultisamplePropertiesEXT" => vkGetPhysicalDeviceMultisamplePropertiesEXT as *const c_void,
-        "vkGetPhysicalDeviceSurfaceCapabilities2KHR" => vkGetPhysicalDeviceSurfaceCapabilities2KHR as *const c_void,
-        "vkGetPhysicalDeviceSurfaceFormats2KHR" => vkGetPhysicalDeviceSurfaceFormats2KHR as *const c_void,
-        "vkGetPhysicalDeviceDisplayProperties2KHR" => vkGetPhysicalDeviceDisplayProperties2KHR as *const c_void,
-        "vkGetPhysicalDeviceDisplayPlaneProperties2KHR" => vkGetPhysicalDeviceDisplayPlaneProperties2KHR as *const c_void,
+        "vkGetPhysicalDeviceMultisamplePropertiesEXT" => {
+            vkGetPhysicalDeviceMultisamplePropertiesEXT as *const c_void
+        }
+        "vkGetPhysicalDeviceSurfaceCapabilities2KHR" => {
+            vkGetPhysicalDeviceSurfaceCapabilities2KHR as *const c_void
+        }
+        "vkGetPhysicalDeviceSurfaceFormats2KHR" => {
+            vkGetPhysicalDeviceSurfaceFormats2KHR as *const c_void
+        }
+        "vkGetPhysicalDeviceDisplayProperties2KHR" => {
+            vkGetPhysicalDeviceDisplayProperties2KHR as *const c_void
+        }
+        "vkGetPhysicalDeviceDisplayPlaneProperties2KHR" => {
+            vkGetPhysicalDeviceDisplayPlaneProperties2KHR as *const c_void
+        }
         "vkGetDisplayModeProperties2KHR" => vkGetDisplayModeProperties2KHR as *const c_void,
         "vkGetDisplayPlaneCapabilities2KHR" => vkGetDisplayPlaneCapabilities2KHR as *const c_void,
         "vkGetBufferMemoryRequirements2" => vkGetBufferMemoryRequirements2 as *const c_void,
         "vkGetImageMemoryRequirements2" => vkGetImageMemoryRequirements2 as *const c_void,
-        "vkGetImageSparseMemoryRequirements2" => vkGetImageSparseMemoryRequirements2 as *const c_void,
-        "vkGetDeviceBufferMemoryRequirements" => vkGetDeviceBufferMemoryRequirements as *const c_void,
+        "vkGetImageSparseMemoryRequirements2" => {
+            vkGetImageSparseMemoryRequirements2 as *const c_void
+        }
+        "vkGetDeviceBufferMemoryRequirements" => {
+            vkGetDeviceBufferMemoryRequirements as *const c_void
+        }
         "vkGetDeviceImageMemoryRequirements" => vkGetDeviceImageMemoryRequirements as *const c_void,
-        "vkGetDeviceImageSparseMemoryRequirements" => vkGetDeviceImageSparseMemoryRequirements as *const c_void,
+        "vkGetDeviceImageSparseMemoryRequirements" => {
+            vkGetDeviceImageSparseMemoryRequirements as *const c_void
+        }
         "vkCreateSamplerYcbcrConversion" => vkCreateSamplerYcbcrConversion as *const c_void,
         "vkDestroySamplerYcbcrConversion" => vkDestroySamplerYcbcrConversion as *const c_void,
         "vkGetDeviceQueue2" => vkGetDeviceQueue2 as *const c_void,
@@ -300,7 +398,9 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkQueueSignalReleaseImageANDROID" => vkQueueSignalReleaseImageANDROID as *const c_void,
         "vkGetShaderInfoAMD" => vkGetShaderInfoAMD as *const c_void,
         "vkSetLocalDimmingAMD" => vkSetLocalDimmingAMD as *const c_void,
-        "vkGetPhysicalDeviceCalibrateableTimeDomainsKHR" => vkGetPhysicalDeviceCalibrateableTimeDomainsKHR as *const c_void,
+        "vkGetPhysicalDeviceCalibrateableTimeDomainsKHR" => {
+            vkGetPhysicalDeviceCalibrateableTimeDomainsKHR as *const c_void
+        }
         "vkGetCalibratedTimestampsKHR" => vkGetCalibratedTimestampsKHR as *const c_void,
         "vkSetDebugUtilsObjectNameEXT" => vkSetDebugUtilsObjectNameEXT as *const c_void,
         "vkSetDebugUtilsObjectTagEXT" => vkSetDebugUtilsObjectTagEXT as *const c_void,
@@ -313,7 +413,9 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCreateDebugUtilsMessengerEXT" => vkCreateDebugUtilsMessengerEXT as *const c_void,
         "vkDestroyDebugUtilsMessengerEXT" => vkDestroyDebugUtilsMessengerEXT as *const c_void,
         "vkSubmitDebugUtilsMessageEXT" => vkSubmitDebugUtilsMessageEXT as *const c_void,
-        "vkGetMemoryHostPointerPropertiesEXT" => vkGetMemoryHostPointerPropertiesEXT as *const c_void,
+        "vkGetMemoryHostPointerPropertiesEXT" => {
+            vkGetMemoryHostPointerPropertiesEXT as *const c_void
+        }
         "vkCmdWriteBufferMarkerAMD" => vkCmdWriteBufferMarkerAMD as *const c_void,
         "vkCreateRenderPass2" => vkCreateRenderPass2 as *const c_void,
         "vkCmdBeginRenderPass2" => vkCmdBeginRenderPass2 as *const c_void,
@@ -322,13 +424,19 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkGetSemaphoreCounterValue" => vkGetSemaphoreCounterValue as *const c_void,
         "vkWaitSemaphores" => vkWaitSemaphores as *const c_void,
         "vkSignalSemaphore" => vkSignalSemaphore as *const c_void,
-        "vkGetAndroidHardwareBufferPropertiesANDROID" => vkGetAndroidHardwareBufferPropertiesANDROID as *const c_void,
-        "vkGetMemoryAndroidHardwareBufferANDROID" => vkGetMemoryAndroidHardwareBufferANDROID as *const c_void,
+        "vkGetAndroidHardwareBufferPropertiesANDROID" => {
+            vkGetAndroidHardwareBufferPropertiesANDROID as *const c_void
+        }
+        "vkGetMemoryAndroidHardwareBufferANDROID" => {
+            vkGetMemoryAndroidHardwareBufferANDROID as *const c_void
+        }
         "vkCmdDrawIndirectCount" => vkCmdDrawIndirectCount as *const c_void,
         "vkCmdDrawIndexedIndirectCount" => vkCmdDrawIndexedIndirectCount as *const c_void,
         "vkCmdSetCheckpointNV" => vkCmdSetCheckpointNV as *const c_void,
         "vkGetQueueCheckpointDataNV" => vkGetQueueCheckpointDataNV as *const c_void,
-        "vkCmdBindTransformFeedbackBuffersEXT" => vkCmdBindTransformFeedbackBuffersEXT as *const c_void,
+        "vkCmdBindTransformFeedbackBuffersEXT" => {
+            vkCmdBindTransformFeedbackBuffersEXT as *const c_void
+        }
         "vkCmdBeginTransformFeedbackEXT" => vkCmdBeginTransformFeedbackEXT as *const c_void,
         "vkCmdEndTransformFeedbackEXT" => vkCmdEndTransformFeedbackEXT as *const c_void,
         "vkCmdBeginQueryIndexedEXT" => vkCmdBeginQueryIndexedEXT as *const c_void,
@@ -337,7 +445,9 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCmdSetExclusiveScissorNV" => vkCmdSetExclusiveScissorNV as *const c_void,
         "vkCmdSetExclusiveScissorEnableNV" => vkCmdSetExclusiveScissorEnableNV as *const c_void,
         "vkCmdBindShadingRateImageNV" => vkCmdBindShadingRateImageNV as *const c_void,
-        "vkCmdSetViewportShadingRatePaletteNV" => vkCmdSetViewportShadingRatePaletteNV as *const c_void,
+        "vkCmdSetViewportShadingRatePaletteNV" => {
+            vkCmdSetViewportShadingRatePaletteNV as *const c_void
+        }
         "vkCmdSetCoarseSampleOrderNV" => vkCmdSetCoarseSampleOrderNV as *const c_void,
         "vkCmdDrawMeshTasksNV" => vkCmdDrawMeshTasksNV as *const c_void,
         "vkCmdDrawMeshTasksIndirectNV" => vkCmdDrawMeshTasksIndirectNV as *const c_void,
@@ -350,74 +460,148 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCmdBindInvocationMaskHUAWEI" => vkCmdBindInvocationMaskHUAWEI as *const c_void,
         "vkDestroyAccelerationStructureKHR" => vkDestroyAccelerationStructureKHR as *const c_void,
         "vkDestroyAccelerationStructureNV" => vkDestroyAccelerationStructureNV as *const c_void,
-        "vkGetAccelerationStructureMemoryRequirementsNV" => vkGetAccelerationStructureMemoryRequirementsNV as *const c_void,
-        "vkBindAccelerationStructureMemoryNV" => vkBindAccelerationStructureMemoryNV as *const c_void,
+        "vkGetAccelerationStructureMemoryRequirementsNV" => {
+            vkGetAccelerationStructureMemoryRequirementsNV as *const c_void
+        }
+        "vkBindAccelerationStructureMemoryNV" => {
+            vkBindAccelerationStructureMemoryNV as *const c_void
+        }
         "vkCmdCopyAccelerationStructureNV" => vkCmdCopyAccelerationStructureNV as *const c_void,
         "vkCmdCopyAccelerationStructureKHR" => vkCmdCopyAccelerationStructureKHR as *const c_void,
         "vkCopyAccelerationStructureKHR" => vkCopyAccelerationStructureKHR as *const c_void,
-        "vkCmdCopyAccelerationStructureToMemoryKHR" => vkCmdCopyAccelerationStructureToMemoryKHR as *const c_void,
-        "vkCopyAccelerationStructureToMemoryKHR" => vkCopyAccelerationStructureToMemoryKHR as *const c_void,
-        "vkCmdCopyMemoryToAccelerationStructureKHR" => vkCmdCopyMemoryToAccelerationStructureKHR as *const c_void,
-        "vkCopyMemoryToAccelerationStructureKHR" => vkCopyMemoryToAccelerationStructureKHR as *const c_void,
-        "vkCmdWriteAccelerationStructuresPropertiesKHR" => vkCmdWriteAccelerationStructuresPropertiesKHR as *const c_void,
-        "vkCmdWriteAccelerationStructuresPropertiesNV" => vkCmdWriteAccelerationStructuresPropertiesNV as *const c_void,
+        "vkCmdCopyAccelerationStructureToMemoryKHR" => {
+            vkCmdCopyAccelerationStructureToMemoryKHR as *const c_void
+        }
+        "vkCopyAccelerationStructureToMemoryKHR" => {
+            vkCopyAccelerationStructureToMemoryKHR as *const c_void
+        }
+        "vkCmdCopyMemoryToAccelerationStructureKHR" => {
+            vkCmdCopyMemoryToAccelerationStructureKHR as *const c_void
+        }
+        "vkCopyMemoryToAccelerationStructureKHR" => {
+            vkCopyMemoryToAccelerationStructureKHR as *const c_void
+        }
+        "vkCmdWriteAccelerationStructuresPropertiesKHR" => {
+            vkCmdWriteAccelerationStructuresPropertiesKHR as *const c_void
+        }
+        "vkCmdWriteAccelerationStructuresPropertiesNV" => {
+            vkCmdWriteAccelerationStructuresPropertiesNV as *const c_void
+        }
         "vkCmdBuildAccelerationStructureNV" => vkCmdBuildAccelerationStructureNV as *const c_void,
-        "vkWriteAccelerationStructuresPropertiesKHR" => vkWriteAccelerationStructuresPropertiesKHR as *const c_void,
+        "vkWriteAccelerationStructuresPropertiesKHR" => {
+            vkWriteAccelerationStructuresPropertiesKHR as *const c_void
+        }
         "vkCmdTraceRaysKHR" => vkCmdTraceRaysKHR as *const c_void,
         "vkCmdTraceRaysNV" => vkCmdTraceRaysNV as *const c_void,
-        "vkGetRayTracingShaderGroupHandlesKHR" => vkGetRayTracingShaderGroupHandlesKHR as *const c_void,
-        "vkGetRayTracingCaptureReplayShaderGroupHandlesKHR" => vkGetRayTracingCaptureReplayShaderGroupHandlesKHR as *const c_void,
+        "vkGetRayTracingShaderGroupHandlesKHR" => {
+            vkGetRayTracingShaderGroupHandlesKHR as *const c_void
+        }
+        "vkGetRayTracingCaptureReplayShaderGroupHandlesKHR" => {
+            vkGetRayTracingCaptureReplayShaderGroupHandlesKHR as *const c_void
+        }
         "vkGetAccelerationStructureHandleNV" => vkGetAccelerationStructureHandleNV as *const c_void,
         "vkCreateRayTracingPipelinesNV" => vkCreateRayTracingPipelinesNV as *const c_void,
         "vkCreateRayTracingPipelinesKHR" => vkCreateRayTracingPipelinesKHR as *const c_void,
-        "vkGetPhysicalDeviceCooperativeMatrixPropertiesNV" => vkGetPhysicalDeviceCooperativeMatrixPropertiesNV as *const c_void,
+        "vkGetPhysicalDeviceCooperativeMatrixPropertiesNV" => {
+            vkGetPhysicalDeviceCooperativeMatrixPropertiesNV as *const c_void
+        }
         "vkCmdTraceRaysIndirectKHR" => vkCmdTraceRaysIndirectKHR as *const c_void,
         "vkCmdTraceRaysIndirect2KHR" => vkCmdTraceRaysIndirect2KHR as *const c_void,
-        "vkGetDeviceAccelerationStructureCompatibilityKHR" => vkGetDeviceAccelerationStructureCompatibilityKHR as *const c_void,
-        "vkGetRayTracingShaderGroupStackSizeKHR" => vkGetRayTracingShaderGroupStackSizeKHR as *const c_void,
-        "vkCmdSetRayTracingPipelineStackSizeKHR" => vkCmdSetRayTracingPipelineStackSizeKHR as *const c_void,
+        "vkGetDeviceAccelerationStructureCompatibilityKHR" => {
+            vkGetDeviceAccelerationStructureCompatibilityKHR as *const c_void
+        }
+        "vkGetRayTracingShaderGroupStackSizeKHR" => {
+            vkGetRayTracingShaderGroupStackSizeKHR as *const c_void
+        }
+        "vkCmdSetRayTracingPipelineStackSizeKHR" => {
+            vkCmdSetRayTracingPipelineStackSizeKHR as *const c_void
+        }
         "vkGetImageViewHandleNVX" => vkGetImageViewHandleNVX as *const c_void,
         "vkGetImageViewAddressNVX" => vkGetImageViewAddressNVX as *const c_void,
-        "vkGetPhysicalDeviceSurfacePresentModes2EXT" => vkGetPhysicalDeviceSurfacePresentModes2EXT as *const c_void,
-        "vkGetDeviceGroupSurfacePresentModes2EXT" => vkGetDeviceGroupSurfacePresentModes2EXT as *const c_void,
-        "vkAcquireFullScreenExclusiveModeEXT" => vkAcquireFullScreenExclusiveModeEXT as *const c_void,
-        "vkReleaseFullScreenExclusiveModeEXT" => vkReleaseFullScreenExclusiveModeEXT as *const c_void,
-        "vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR" => vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR as *const c_void,
-        "vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR" => vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR as *const c_void,
+        "vkGetPhysicalDeviceSurfacePresentModes2EXT" => {
+            vkGetPhysicalDeviceSurfacePresentModes2EXT as *const c_void
+        }
+        "vkGetDeviceGroupSurfacePresentModes2EXT" => {
+            vkGetDeviceGroupSurfacePresentModes2EXT as *const c_void
+        }
+        "vkAcquireFullScreenExclusiveModeEXT" => {
+            vkAcquireFullScreenExclusiveModeEXT as *const c_void
+        }
+        "vkReleaseFullScreenExclusiveModeEXT" => {
+            vkReleaseFullScreenExclusiveModeEXT as *const c_void
+        }
+        "vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR" => {
+            vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR as *const c_void
+        }
+        "vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR" => {
+            vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR as *const c_void
+        }
         "vkAcquireProfilingLockKHR" => vkAcquireProfilingLockKHR as *const c_void,
         "vkReleaseProfilingLockKHR" => vkReleaseProfilingLockKHR as *const c_void,
-        "vkGetImageDrmFormatModifierPropertiesEXT" => vkGetImageDrmFormatModifierPropertiesEXT as *const c_void,
+        "vkGetImageDrmFormatModifierPropertiesEXT" => {
+            vkGetImageDrmFormatModifierPropertiesEXT as *const c_void
+        }
         "vkGetBufferOpaqueCaptureAddress" => vkGetBufferOpaqueCaptureAddress as *const c_void,
         "vkGetBufferDeviceAddress" => vkGetBufferDeviceAddress as *const c_void,
         "vkCreateHeadlessSurfaceEXT" => vkCreateHeadlessSurfaceEXT as *const c_void,
-        "vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV" => vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV as *const c_void,
+        "vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV" => {
+            vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV as *const c_void
+        }
         "vkInitializePerformanceApiINTEL" => vkInitializePerformanceApiINTEL as *const c_void,
         "vkUninitializePerformanceApiINTEL" => vkUninitializePerformanceApiINTEL as *const c_void,
         "vkCmdSetPerformanceMarkerINTEL" => vkCmdSetPerformanceMarkerINTEL as *const c_void,
-        "vkCmdSetPerformanceStreamMarkerINTEL" => vkCmdSetPerformanceStreamMarkerINTEL as *const c_void,
+        "vkCmdSetPerformanceStreamMarkerINTEL" => {
+            vkCmdSetPerformanceStreamMarkerINTEL as *const c_void
+        }
         "vkCmdSetPerformanceOverrideINTEL" => vkCmdSetPerformanceOverrideINTEL as *const c_void,
-        "vkAcquirePerformanceConfigurationINTEL" => vkAcquirePerformanceConfigurationINTEL as *const c_void,
-        "vkReleasePerformanceConfigurationINTEL" => vkReleasePerformanceConfigurationINTEL as *const c_void,
-        "vkQueueSetPerformanceConfigurationINTEL" => vkQueueSetPerformanceConfigurationINTEL as *const c_void,
+        "vkAcquirePerformanceConfigurationINTEL" => {
+            vkAcquirePerformanceConfigurationINTEL as *const c_void
+        }
+        "vkReleasePerformanceConfigurationINTEL" => {
+            vkReleasePerformanceConfigurationINTEL as *const c_void
+        }
+        "vkQueueSetPerformanceConfigurationINTEL" => {
+            vkQueueSetPerformanceConfigurationINTEL as *const c_void
+        }
         "vkGetPerformanceParameterINTEL" => vkGetPerformanceParameterINTEL as *const c_void,
-        "vkGetDeviceMemoryOpaqueCaptureAddress" => vkGetDeviceMemoryOpaqueCaptureAddress as *const c_void,
-        "vkGetPipelineExecutablePropertiesKHR" => vkGetPipelineExecutablePropertiesKHR as *const c_void,
-        "vkGetPipelineExecutableStatisticsKHR" => vkGetPipelineExecutableStatisticsKHR as *const c_void,
-        "vkGetPipelineExecutableInternalRepresentationsKHR" => vkGetPipelineExecutableInternalRepresentationsKHR as *const c_void,
+        "vkGetDeviceMemoryOpaqueCaptureAddress" => {
+            vkGetDeviceMemoryOpaqueCaptureAddress as *const c_void
+        }
+        "vkGetPipelineExecutablePropertiesKHR" => {
+            vkGetPipelineExecutablePropertiesKHR as *const c_void
+        }
+        "vkGetPipelineExecutableStatisticsKHR" => {
+            vkGetPipelineExecutableStatisticsKHR as *const c_void
+        }
+        "vkGetPipelineExecutableInternalRepresentationsKHR" => {
+            vkGetPipelineExecutableInternalRepresentationsKHR as *const c_void
+        }
         "vkCmdSetLineStippleKHR" => vkCmdSetLineStippleKHR as *const c_void,
         "vkGetPhysicalDeviceToolProperties" => vkGetPhysicalDeviceToolProperties as *const c_void,
         "vkCreateAccelerationStructureKHR" => vkCreateAccelerationStructureKHR as *const c_void,
-        "vkCmdBuildAccelerationStructuresKHR" => vkCmdBuildAccelerationStructuresKHR as *const c_void,
-        "vkCmdBuildAccelerationStructuresIndirectKHR" => vkCmdBuildAccelerationStructuresIndirectKHR as *const c_void,
+        "vkCmdBuildAccelerationStructuresKHR" => {
+            vkCmdBuildAccelerationStructuresKHR as *const c_void
+        }
+        "vkCmdBuildAccelerationStructuresIndirectKHR" => {
+            vkCmdBuildAccelerationStructuresIndirectKHR as *const c_void
+        }
         "vkBuildAccelerationStructuresKHR" => vkBuildAccelerationStructuresKHR as *const c_void,
-        "vkGetAccelerationStructureDeviceAddressKHR" => vkGetAccelerationStructureDeviceAddressKHR as *const c_void,
+        "vkGetAccelerationStructureDeviceAddressKHR" => {
+            vkGetAccelerationStructureDeviceAddressKHR as *const c_void
+        }
         "vkCreateDeferredOperationKHR" => vkCreateDeferredOperationKHR as *const c_void,
         "vkDestroyDeferredOperationKHR" => vkDestroyDeferredOperationKHR as *const c_void,
-        "vkGetDeferredOperationMaxConcurrencyKHR" => vkGetDeferredOperationMaxConcurrencyKHR as *const c_void,
+        "vkGetDeferredOperationMaxConcurrencyKHR" => {
+            vkGetDeferredOperationMaxConcurrencyKHR as *const c_void
+        }
         "vkGetDeferredOperationResultKHR" => vkGetDeferredOperationResultKHR as *const c_void,
         "vkDeferredOperationJoinKHR" => vkDeferredOperationJoinKHR as *const c_void,
-        "vkGetPipelineIndirectMemoryRequirementsNV" => vkGetPipelineIndirectMemoryRequirementsNV as *const c_void,
-        "vkGetPipelineIndirectDeviceAddressNV" => vkGetPipelineIndirectDeviceAddressNV as *const c_void,
+        "vkGetPipelineIndirectMemoryRequirementsNV" => {
+            vkGetPipelineIndirectMemoryRequirementsNV as *const c_void
+        }
+        "vkGetPipelineIndirectDeviceAddressNV" => {
+            vkGetPipelineIndirectDeviceAddressNV as *const c_void
+        }
         "vkCmdSetCullMode" => vkCmdSetCullMode as *const c_void,
         "vkCmdSetFrontFace" => vkCmdSetFrontFace as *const c_void,
         "vkCmdSetPrimitiveTopology" => vkCmdSetPrimitiveTopology as *const c_void,
@@ -436,7 +620,9 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCmdSetDepthBiasEnable" => vkCmdSetDepthBiasEnable as *const c_void,
         "vkCmdSetLogicOpEXT" => vkCmdSetLogicOpEXT as *const c_void,
         "vkCmdSetPrimitiveRestartEnable" => vkCmdSetPrimitiveRestartEnable as *const c_void,
-        "vkCmdSetTessellationDomainOriginEXT" => vkCmdSetTessellationDomainOriginEXT as *const c_void,
+        "vkCmdSetTessellationDomainOriginEXT" => {
+            vkCmdSetTessellationDomainOriginEXT as *const c_void
+        }
         "vkCmdSetDepthClampEnableEXT" => vkCmdSetDepthClampEnableEXT as *const c_void,
         "vkCmdSetPolygonModeEXT" => vkCmdSetPolygonModeEXT as *const c_void,
         "vkCmdSetRasterizationSamplesEXT" => vkCmdSetRasterizationSamplesEXT as *const c_void,
@@ -448,25 +634,35 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCmdSetColorBlendEquationEXT" => vkCmdSetColorBlendEquationEXT as *const c_void,
         "vkCmdSetColorWriteMaskEXT" => vkCmdSetColorWriteMaskEXT as *const c_void,
         "vkCmdSetRasterizationStreamEXT" => vkCmdSetRasterizationStreamEXT as *const c_void,
-        "vkCmdSetConservativeRasterizationModeEXT" => vkCmdSetConservativeRasterizationModeEXT as *const c_void,
-        "vkCmdSetExtraPrimitiveOverestimationSizeEXT" => vkCmdSetExtraPrimitiveOverestimationSizeEXT as *const c_void,
+        "vkCmdSetConservativeRasterizationModeEXT" => {
+            vkCmdSetConservativeRasterizationModeEXT as *const c_void
+        }
+        "vkCmdSetExtraPrimitiveOverestimationSizeEXT" => {
+            vkCmdSetExtraPrimitiveOverestimationSizeEXT as *const c_void
+        }
         "vkCmdSetDepthClipEnableEXT" => vkCmdSetDepthClipEnableEXT as *const c_void,
         "vkCmdSetSampleLocationsEnableEXT" => vkCmdSetSampleLocationsEnableEXT as *const c_void,
         "vkCmdSetColorBlendAdvancedEXT" => vkCmdSetColorBlendAdvancedEXT as *const c_void,
         "vkCmdSetProvokingVertexModeEXT" => vkCmdSetProvokingVertexModeEXT as *const c_void,
         "vkCmdSetLineRasterizationModeEXT" => vkCmdSetLineRasterizationModeEXT as *const c_void,
         "vkCmdSetLineStippleEnableEXT" => vkCmdSetLineStippleEnableEXT as *const c_void,
-        "vkCmdSetDepthClipNegativeOneToOneEXT" => vkCmdSetDepthClipNegativeOneToOneEXT as *const c_void,
+        "vkCmdSetDepthClipNegativeOneToOneEXT" => {
+            vkCmdSetDepthClipNegativeOneToOneEXT as *const c_void
+        }
         "vkCmdSetViewportWScalingEnableNV" => vkCmdSetViewportWScalingEnableNV as *const c_void,
         "vkCmdSetViewportSwizzleNV" => vkCmdSetViewportSwizzleNV as *const c_void,
         "vkCmdSetCoverageToColorEnableNV" => vkCmdSetCoverageToColorEnableNV as *const c_void,
         "vkCmdSetCoverageToColorLocationNV" => vkCmdSetCoverageToColorLocationNV as *const c_void,
         "vkCmdSetCoverageModulationModeNV" => vkCmdSetCoverageModulationModeNV as *const c_void,
-        "vkCmdSetCoverageModulationTableEnableNV" => vkCmdSetCoverageModulationTableEnableNV as *const c_void,
+        "vkCmdSetCoverageModulationTableEnableNV" => {
+            vkCmdSetCoverageModulationTableEnableNV as *const c_void
+        }
         "vkCmdSetCoverageModulationTableNV" => vkCmdSetCoverageModulationTableNV as *const c_void,
         "vkCmdSetShadingRateImageEnableNV" => vkCmdSetShadingRateImageEnableNV as *const c_void,
         "vkCmdSetCoverageReductionModeNV" => vkCmdSetCoverageReductionModeNV as *const c_void,
-        "vkCmdSetRepresentativeFragmentTestEnableNV" => vkCmdSetRepresentativeFragmentTestEnableNV as *const c_void,
+        "vkCmdSetRepresentativeFragmentTestEnableNV" => {
+            vkCmdSetRepresentativeFragmentTestEnableNV as *const c_void
+        }
         "vkCreatePrivateDataSlot" => vkCreatePrivateDataSlot as *const c_void,
         "vkDestroyPrivateDataSlot" => vkDestroyPrivateDataSlot as *const c_void,
         "vkSetPrivateData" => vkSetPrivateData as *const c_void,
@@ -478,9 +674,13 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCmdCopyImageToBuffer2" => vkCmdCopyImageToBuffer2 as *const c_void,
         "vkCmdResolveImage2" => vkCmdResolveImage2 as *const c_void,
         "vkCmdSetFragmentShadingRateKHR" => vkCmdSetFragmentShadingRateKHR as *const c_void,
-        "vkGetPhysicalDeviceFragmentShadingRatesKHR" => vkGetPhysicalDeviceFragmentShadingRatesKHR as *const c_void,
+        "vkGetPhysicalDeviceFragmentShadingRatesKHR" => {
+            vkGetPhysicalDeviceFragmentShadingRatesKHR as *const c_void
+        }
         "vkCmdSetFragmentShadingRateEnumNV" => vkCmdSetFragmentShadingRateEnumNV as *const c_void,
-        "vkGetAccelerationStructureBuildSizesKHR" => vkGetAccelerationStructureBuildSizesKHR as *const c_void,
+        "vkGetAccelerationStructureBuildSizesKHR" => {
+            vkGetAccelerationStructureBuildSizesKHR as *const c_void
+        }
         "vkCmdSetVertexInputEXT" => vkCmdSetVertexInputEXT as *const c_void,
         "vkCmdSetColorWriteEnableEXT" => vkCmdSetColorWriteEnableEXT as *const c_void,
         "vkCmdSetEvent2" => vkCmdSetEvent2 as *const c_void,
@@ -495,16 +695,26 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCopyImageToMemoryEXT" => vkCopyImageToMemoryEXT as *const c_void,
         "vkCopyImageToImageEXT" => vkCopyImageToImageEXT as *const c_void,
         "vkTransitionImageLayoutEXT" => vkTransitionImageLayoutEXT as *const c_void,
-        "vkGetPhysicalDeviceVideoCapabilitiesKHR" => vkGetPhysicalDeviceVideoCapabilitiesKHR as *const c_void,
-        "vkGetPhysicalDeviceVideoFormatPropertiesKHR" => vkGetPhysicalDeviceVideoFormatPropertiesKHR as *const c_void,
-        "vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR" => vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR as *const c_void,
+        "vkGetPhysicalDeviceVideoCapabilitiesKHR" => {
+            vkGetPhysicalDeviceVideoCapabilitiesKHR as *const c_void
+        }
+        "vkGetPhysicalDeviceVideoFormatPropertiesKHR" => {
+            vkGetPhysicalDeviceVideoFormatPropertiesKHR as *const c_void
+        }
+        "vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR" => {
+            vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR as *const c_void
+        }
         "vkCreateVideoSessionKHR" => vkCreateVideoSessionKHR as *const c_void,
         "vkDestroyVideoSessionKHR" => vkDestroyVideoSessionKHR as *const c_void,
         "vkCreateVideoSessionParametersKHR" => vkCreateVideoSessionParametersKHR as *const c_void,
         "vkUpdateVideoSessionParametersKHR" => vkUpdateVideoSessionParametersKHR as *const c_void,
-        "vkGetEncodedVideoSessionParametersKHR" => vkGetEncodedVideoSessionParametersKHR as *const c_void,
+        "vkGetEncodedVideoSessionParametersKHR" => {
+            vkGetEncodedVideoSessionParametersKHR as *const c_void
+        }
         "vkDestroyVideoSessionParametersKHR" => vkDestroyVideoSessionParametersKHR as *const c_void,
-        "vkGetVideoSessionMemoryRequirementsKHR" => vkGetVideoSessionMemoryRequirementsKHR as *const c_void,
+        "vkGetVideoSessionMemoryRequirementsKHR" => {
+            vkGetVideoSessionMemoryRequirementsKHR as *const c_void
+        }
         "vkBindVideoSessionMemoryKHR" => vkBindVideoSessionMemoryKHR as *const c_void,
         "vkCmdDecodeVideoKHR" => vkCmdDecodeVideoKHR as *const c_void,
         "vkCmdBeginVideoCodingKHR" => vkCmdBeginVideoCodingKHR as *const c_void,
@@ -512,32 +722,54 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCmdEndVideoCodingKHR" => vkCmdEndVideoCodingKHR as *const c_void,
         "vkCmdEncodeVideoKHR" => vkCmdEncodeVideoKHR as *const c_void,
         "vkCmdDecompressMemoryNV" => vkCmdDecompressMemoryNV as *const c_void,
-        "vkCmdDecompressMemoryIndirectCountNV" => vkCmdDecompressMemoryIndirectCountNV as *const c_void,
+        "vkCmdDecompressMemoryIndirectCountNV" => {
+            vkCmdDecompressMemoryIndirectCountNV as *const c_void
+        }
         "vkCreateCuModuleNVX" => vkCreateCuModuleNVX as *const c_void,
         "vkCreateCuFunctionNVX" => vkCreateCuFunctionNVX as *const c_void,
         "vkDestroyCuModuleNVX" => vkDestroyCuModuleNVX as *const c_void,
         "vkDestroyCuFunctionNVX" => vkDestroyCuFunctionNVX as *const c_void,
         "vkCmdCuLaunchKernelNVX" => vkCmdCuLaunchKernelNVX as *const c_void,
         "vkGetDescriptorSetLayoutSizeEXT" => vkGetDescriptorSetLayoutSizeEXT as *const c_void,
-        "vkGetDescriptorSetLayoutBindingOffsetEXT" => vkGetDescriptorSetLayoutBindingOffsetEXT as *const c_void,
+        "vkGetDescriptorSetLayoutBindingOffsetEXT" => {
+            vkGetDescriptorSetLayoutBindingOffsetEXT as *const c_void
+        }
         "vkGetDescriptorEXT" => vkGetDescriptorEXT as *const c_void,
         "vkCmdBindDescriptorBuffersEXT" => vkCmdBindDescriptorBuffersEXT as *const c_void,
         "vkCmdSetDescriptorBufferOffsetsEXT" => vkCmdSetDescriptorBufferOffsetsEXT as *const c_void,
-        "vkCmdBindDescriptorBufferEmbeddedSamplersEXT" => vkCmdBindDescriptorBufferEmbeddedSamplersEXT as *const c_void,
-        "vkGetBufferOpaqueCaptureDescriptorDataEXT" => vkGetBufferOpaqueCaptureDescriptorDataEXT as *const c_void,
-        "vkGetImageOpaqueCaptureDescriptorDataEXT" => vkGetImageOpaqueCaptureDescriptorDataEXT as *const c_void,
-        "vkGetImageViewOpaqueCaptureDescriptorDataEXT" => vkGetImageViewOpaqueCaptureDescriptorDataEXT as *const c_void,
-        "vkGetSamplerOpaqueCaptureDescriptorDataEXT" => vkGetSamplerOpaqueCaptureDescriptorDataEXT as *const c_void,
-        "vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT" => vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT as *const c_void,
+        "vkCmdBindDescriptorBufferEmbeddedSamplersEXT" => {
+            vkCmdBindDescriptorBufferEmbeddedSamplersEXT as *const c_void
+        }
+        "vkGetBufferOpaqueCaptureDescriptorDataEXT" => {
+            vkGetBufferOpaqueCaptureDescriptorDataEXT as *const c_void
+        }
+        "vkGetImageOpaqueCaptureDescriptorDataEXT" => {
+            vkGetImageOpaqueCaptureDescriptorDataEXT as *const c_void
+        }
+        "vkGetImageViewOpaqueCaptureDescriptorDataEXT" => {
+            vkGetImageViewOpaqueCaptureDescriptorDataEXT as *const c_void
+        }
+        "vkGetSamplerOpaqueCaptureDescriptorDataEXT" => {
+            vkGetSamplerOpaqueCaptureDescriptorDataEXT as *const c_void
+        }
+        "vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT" => {
+            vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT as *const c_void
+        }
         "vkSetDeviceMemoryPriorityEXT" => vkSetDeviceMemoryPriorityEXT as *const c_void,
         "vkAcquireDrmDisplayEXT" => vkAcquireDrmDisplayEXT as *const c_void,
         "vkGetDrmDisplayEXT" => vkGetDrmDisplayEXT as *const c_void,
         "vkWaitForPresentKHR" => vkWaitForPresentKHR as *const c_void,
         "vkCreateBufferCollectionFUCHSIA" => vkCreateBufferCollectionFUCHSIA as *const c_void,
-        "vkSetBufferCollectionBufferConstraintsFUCHSIA" => vkSetBufferCollectionBufferConstraintsFUCHSIA as *const c_void,
-        "vkSetBufferCollectionImageConstraintsFUCHSIA" => vkSetBufferCollectionImageConstraintsFUCHSIA as *const c_void,
+        "vkSetBufferCollectionBufferConstraintsFUCHSIA" => {
+            vkSetBufferCollectionBufferConstraintsFUCHSIA as *const c_void
+        }
+        "vkSetBufferCollectionImageConstraintsFUCHSIA" => {
+            vkSetBufferCollectionImageConstraintsFUCHSIA as *const c_void
+        }
         "vkDestroyBufferCollectionFUCHSIA" => vkDestroyBufferCollectionFUCHSIA as *const c_void,
-        "vkGetBufferCollectionPropertiesFUCHSIA" => vkGetBufferCollectionPropertiesFUCHSIA as *const c_void,
+        "vkGetBufferCollectionPropertiesFUCHSIA" => {
+            vkGetBufferCollectionPropertiesFUCHSIA as *const c_void
+        }
         "vkCreateCudaModuleNV" => vkCreateCudaModuleNV as *const c_void,
         "vkGetCudaModuleCacheNV" => vkGetCudaModuleCacheNV as *const c_void,
         "vkCreateCudaFunctionNV" => vkCreateCudaFunctionNV as *const c_void,
@@ -546,7 +778,9 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCmdCudaLaunchKernelNV" => vkCmdCudaLaunchKernelNV as *const c_void,
         "vkCmdBeginRendering" => vkCmdBeginRendering as *const c_void,
         "vkCmdEndRendering" => vkCmdEndRendering as *const c_void,
-        "vkGetDescriptorSetLayoutHostMappingInfoVALVE" => vkGetDescriptorSetLayoutHostMappingInfoVALVE as *const c_void,
+        "vkGetDescriptorSetLayoutHostMappingInfoVALVE" => {
+            vkGetDescriptorSetLayoutHostMappingInfoVALVE as *const c_void
+        }
         "vkGetDescriptorSetHostMappingVALVE" => vkGetDescriptorSetHostMappingVALVE as *const c_void,
         "vkCreateMicromapEXT" => vkCreateMicromapEXT as *const c_void,
         "vkCmdBuildMicromapsEXT" => vkCmdBuildMicromapsEXT as *const c_void,
@@ -560,16 +794,24 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkCopyMemoryToMicromapEXT" => vkCopyMemoryToMicromapEXT as *const c_void,
         "vkCmdWriteMicromapsPropertiesEXT" => vkCmdWriteMicromapsPropertiesEXT as *const c_void,
         "vkWriteMicromapsPropertiesEXT" => vkWriteMicromapsPropertiesEXT as *const c_void,
-        "vkGetDeviceMicromapCompatibilityEXT" => vkGetDeviceMicromapCompatibilityEXT as *const c_void,
+        "vkGetDeviceMicromapCompatibilityEXT" => {
+            vkGetDeviceMicromapCompatibilityEXT as *const c_void
+        }
         "vkGetMicromapBuildSizesEXT" => vkGetMicromapBuildSizesEXT as *const c_void,
         "vkGetShaderModuleIdentifierEXT" => vkGetShaderModuleIdentifierEXT as *const c_void,
-        "vkGetShaderModuleCreateInfoIdentifierEXT" => vkGetShaderModuleCreateInfoIdentifierEXT as *const c_void,
+        "vkGetShaderModuleCreateInfoIdentifierEXT" => {
+            vkGetShaderModuleCreateInfoIdentifierEXT as *const c_void
+        }
         "vkGetImageSubresourceLayout2KHR" => vkGetImageSubresourceLayout2KHR as *const c_void,
         "vkGetPipelinePropertiesEXT" => vkGetPipelinePropertiesEXT as *const c_void,
         "vkExportMetalObjectsEXT" => vkExportMetalObjectsEXT as *const c_void,
         "vkGetFramebufferTilePropertiesQCOM" => vkGetFramebufferTilePropertiesQCOM as *const c_void,
-        "vkGetDynamicRenderingTilePropertiesQCOM" => vkGetDynamicRenderingTilePropertiesQCOM as *const c_void,
-        "vkGetPhysicalDeviceOpticalFlowImageFormatsNV" => vkGetPhysicalDeviceOpticalFlowImageFormatsNV as *const c_void,
+        "vkGetDynamicRenderingTilePropertiesQCOM" => {
+            vkGetDynamicRenderingTilePropertiesQCOM as *const c_void
+        }
+        "vkGetPhysicalDeviceOpticalFlowImageFormatsNV" => {
+            vkGetPhysicalDeviceOpticalFlowImageFormatsNV as *const c_void
+        }
         "vkCreateOpticalFlowSessionNV" => vkCreateOpticalFlowSessionNV as *const c_void,
         "vkDestroyOpticalFlowSessionNV" => vkDestroyOpticalFlowSessionNV as *const c_void,
         "vkBindOpticalFlowSessionImageNV" => vkBindOpticalFlowSessionImageNV as *const c_void,
@@ -577,7 +819,9 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkGetDeviceFaultInfoEXT" => vkGetDeviceFaultInfoEXT as *const c_void,
         "vkCmdSetDepthBias2EXT" => vkCmdSetDepthBias2EXT as *const c_void,
         "vkReleaseSwapchainImagesEXT" => vkReleaseSwapchainImagesEXT as *const c_void,
-        "vkGetDeviceImageSubresourceLayoutKHR" => vkGetDeviceImageSubresourceLayoutKHR as *const c_void,
+        "vkGetDeviceImageSubresourceLayoutKHR" => {
+            vkGetDeviceImageSubresourceLayoutKHR as *const c_void
+        }
         "vkMapMemory2KHR" => vkMapMemory2KHR as *const c_void,
         "vkUnmapMemory2KHR" => vkUnmapMemory2KHR as *const c_void,
         "vkCreateShadersEXT" => vkCreateShadersEXT as *const c_void,
@@ -585,31 +829,52 @@ pub(crate) fn get_function_address(name: &str) -> *const c_void {
         "vkGetShaderBinaryDataEXT" => vkGetShaderBinaryDataEXT as *const c_void,
         "vkCmdBindShadersEXT" => vkCmdBindShadersEXT as *const c_void,
         "vkGetScreenBufferPropertiesQNX" => vkGetScreenBufferPropertiesQNX as *const c_void,
-        "vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR" => vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR as *const c_void,
-        "vkGetExecutionGraphPipelineScratchSizeAMDX" => vkGetExecutionGraphPipelineScratchSizeAMDX as *const c_void,
-        "vkGetExecutionGraphPipelineNodeIndexAMDX" => vkGetExecutionGraphPipelineNodeIndexAMDX as *const c_void,
-        "vkCreateExecutionGraphPipelinesAMDX" => vkCreateExecutionGraphPipelinesAMDX as *const c_void,
-        "vkCmdInitializeGraphScratchMemoryAMDX" => vkCmdInitializeGraphScratchMemoryAMDX as *const c_void,
+        "vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR" => {
+            vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR as *const c_void
+        }
+        "vkGetExecutionGraphPipelineScratchSizeAMDX" => {
+            vkGetExecutionGraphPipelineScratchSizeAMDX as *const c_void
+        }
+        "vkGetExecutionGraphPipelineNodeIndexAMDX" => {
+            vkGetExecutionGraphPipelineNodeIndexAMDX as *const c_void
+        }
+        "vkCreateExecutionGraphPipelinesAMDX" => {
+            vkCreateExecutionGraphPipelinesAMDX as *const c_void
+        }
+        "vkCmdInitializeGraphScratchMemoryAMDX" => {
+            vkCmdInitializeGraphScratchMemoryAMDX as *const c_void
+        }
         "vkCmdDispatchGraphAMDX" => vkCmdDispatchGraphAMDX as *const c_void,
         "vkCmdDispatchGraphIndirectAMDX" => vkCmdDispatchGraphIndirectAMDX as *const c_void,
-        "vkCmdDispatchGraphIndirectCountAMDX" => vkCmdDispatchGraphIndirectCountAMDX as *const c_void,
+        "vkCmdDispatchGraphIndirectCountAMDX" => {
+            vkCmdDispatchGraphIndirectCountAMDX as *const c_void
+        }
         "vkCmdBindDescriptorSets2KHR" => vkCmdBindDescriptorSets2KHR as *const c_void,
         "vkCmdPushConstants2KHR" => vkCmdPushConstants2KHR as *const c_void,
         "vkCmdPushDescriptorSet2KHR" => vkCmdPushDescriptorSet2KHR as *const c_void,
-        "vkCmdPushDescriptorSetWithTemplate2KHR" => vkCmdPushDescriptorSetWithTemplate2KHR as *const c_void,
-        "vkCmdSetDescriptorBufferOffsets2EXT" => vkCmdSetDescriptorBufferOffsets2EXT as *const c_void,
-        "vkCmdBindDescriptorBufferEmbeddedSamplers2EXT" => vkCmdBindDescriptorBufferEmbeddedSamplers2EXT as *const c_void,
+        "vkCmdPushDescriptorSetWithTemplate2KHR" => {
+            vkCmdPushDescriptorSetWithTemplate2KHR as *const c_void
+        }
+        "vkCmdSetDescriptorBufferOffsets2EXT" => {
+            vkCmdSetDescriptorBufferOffsets2EXT as *const c_void
+        }
+        "vkCmdBindDescriptorBufferEmbeddedSamplers2EXT" => {
+            vkCmdBindDescriptorBufferEmbeddedSamplers2EXT as *const c_void
+        }
         "vkSetLatencySleepModeNV" => vkSetLatencySleepModeNV as *const c_void,
         "vkLatencySleepNV" => vkLatencySleepNV as *const c_void,
         "vkSetLatencyMarkerNV" => vkSetLatencyMarkerNV as *const c_void,
         "vkGetLatencyTimingsNV" => vkGetLatencyTimingsNV as *const c_void,
         "vkQueueNotifyOutOfBandNV" => vkQueueNotifyOutOfBandNV as *const c_void,
-        "vkCmdSetRenderingAttachmentLocationsKHR" => vkCmdSetRenderingAttachmentLocationsKHR as *const c_void,
-        "vkCmdSetRenderingInputAttachmentIndicesKHR" => vkCmdSetRenderingInputAttachmentIndicesKHR as *const c_void,
+        "vkCmdSetRenderingAttachmentLocationsKHR" => {
+            vkCmdSetRenderingAttachmentLocationsKHR as *const c_void
+        }
+        "vkCmdSetRenderingInputAttachmentIndicesKHR" => {
+            vkCmdSetRenderingInputAttachmentIndicesKHR as *const c_void
+        }
         _ => std::ptr::null(),
     }
 }
-
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateInstance.html>"]
@@ -655,6 +920,7 @@ unsafe extern "stdcall" fn vkEnumeratePhysicalDevices(
     let mut packet = new_packet(1000001002);
     packet.write(instance);
     packet.write_nullable_raw_ptr_mut(p_physical_device_count);
+    packet.write_is_null_ptr(p_physical_devices);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumeratePhysicalDevices");
 }
@@ -716,6 +982,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceQueueFamilyProperties(
     let mut packet = new_packet(1000001006);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr_mut(p_queue_family_property_count);
+    packet.write_is_null_ptr(p_queue_family_properties);
     packet.send();
     unimplemented!("vkGetPhysicalDeviceQueueFamilyProperties");
 }
@@ -726,7 +993,9 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceMemoryProperties(
     physical_device: vk::PhysicalDevice,
     p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties,
 ) {
-    trace!("called vkGetPhysicalDeviceMemoryProperties({physical_device:?}, {p_memory_properties:?})");
+    trace!(
+        "called vkGetPhysicalDeviceMemoryProperties({physical_device:?}, {p_memory_properties:?})"
+    );
 
     let mut packet = new_packet(1000001007);
     packet.write(physical_device);
@@ -828,9 +1097,7 @@ unsafe extern "stdcall" fn vkDestroyDevice(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceVersion.html>"]
-unsafe extern "stdcall" fn vkEnumerateInstanceVersion(
-    p_api_version: *mut u32,
-) -> vk::Result {
+unsafe extern "stdcall" fn vkEnumerateInstanceVersion(p_api_version: *mut u32) -> vk::Result {
     trace!("called vkEnumerateInstanceVersion({p_api_version:?})");
 
     let mut packet = new_packet(1000001013);
@@ -849,6 +1116,7 @@ unsafe extern "stdcall" fn vkEnumerateInstanceLayerProperties(
 
     let mut packet = new_packet(1000001014);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumerateInstanceLayerProperties");
 }
@@ -865,6 +1133,7 @@ unsafe extern "stdcall" fn vkEnumerateInstanceExtensionProperties(
     let mut packet = new_packet(1000001015);
     packet.write_null_str(p_layer_name);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumerateInstanceExtensionProperties");
 }
@@ -881,6 +1150,7 @@ unsafe extern "stdcall" fn vkEnumerateDeviceLayerProperties(
     let mut packet = new_packet(1000001016);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumerateDeviceLayerProperties");
 }
@@ -899,6 +1169,7 @@ unsafe extern "stdcall" fn vkEnumerateDeviceExtensionProperties(
     packet.write(physical_device);
     packet.write_null_str(p_layer_name);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumerateDeviceExtensionProperties");
 }
@@ -911,7 +1182,9 @@ unsafe extern "stdcall" fn vkGetDeviceQueue(
     queue_index: u32,
     p_queue: *mut vk::Queue,
 ) {
-    trace!("called vkGetDeviceQueue({device:?}, {queue_family_index:?}, {queue_index:?}, {p_queue:?})");
+    trace!(
+        "called vkGetDeviceQueue({device:?}, {queue_family_index:?}, {queue_index:?}, {p_queue:?})"
+    );
 
     let mut packet = new_packet(1000001018);
     packet.write(device);
@@ -935,15 +1208,15 @@ unsafe extern "stdcall" fn vkQueueSubmit(
     let mut packet = new_packet(1000001019);
     packet.write(queue);
     packet.write(submit_count);
+    packet.write(p_submits);
+    packet.write(fence);
     let mut _response = packet.send_with_response();
     unimplemented!("vkQueueSubmit");
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueWaitIdle.html>"]
-unsafe extern "stdcall" fn vkQueueWaitIdle(
-    queue: vk::Queue,
-) -> vk::Result {
+unsafe extern "stdcall" fn vkQueueWaitIdle(queue: vk::Queue) -> vk::Result {
     trace!("called vkQueueWaitIdle({queue:?})");
 
     let mut packet = new_packet(1000001020);
@@ -954,9 +1227,7 @@ unsafe extern "stdcall" fn vkQueueWaitIdle(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDeviceWaitIdle.html>"]
-unsafe extern "stdcall" fn vkDeviceWaitIdle(
-    device: vk::Device,
-) -> vk::Result {
+unsafe extern "stdcall" fn vkDeviceWaitIdle(device: vk::Device) -> vk::Result {
     trace!("called vkDeviceWaitIdle({device:?})");
 
     let mut packet = new_packet(1000001021);
@@ -973,7 +1244,9 @@ unsafe extern "stdcall" fn vkAllocateMemory(
     p_allocator: *const vk::AllocationCallbacks,
     p_memory: *mut vk::DeviceMemory,
 ) -> vk::Result {
-    trace!("called vkAllocateMemory({device:?}, {p_allocate_info:?}, {p_allocator:?}, {p_memory:?})");
+    trace!(
+        "called vkAllocateMemory({device:?}, {p_allocate_info:?}, {p_allocator:?}, {p_memory:?})"
+    );
 
     let mut packet = new_packet(1000001022);
     packet.write(device);
@@ -1011,7 +1284,9 @@ unsafe extern "stdcall" fn vkMapMemory(
     flags: vk::MemoryMapFlags,
     pp_data: *mut *mut std::ffi::c_void,
 ) -> vk::Result {
-    trace!("called vkMapMemory({device:?}, {memory:?}, {offset:?}, {size:?}, {flags:?}, {pp_data:?})");
+    trace!(
+        "called vkMapMemory({device:?}, {memory:?}, {offset:?}, {size:?}, {flags:?}, {pp_data:?})"
+    );
 
     let mut packet = new_packet(1000001024);
     packet.write(device);
@@ -1026,10 +1301,7 @@ unsafe extern "stdcall" fn vkMapMemory(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUnmapMemory.html>"]
-unsafe extern "stdcall" fn vkUnmapMemory(
-    device: vk::Device,
-    memory: vk::DeviceMemory,
-) {
+unsafe extern "stdcall" fn vkUnmapMemory(device: vk::Device, memory: vk::DeviceMemory) {
     trace!("called vkUnmapMemory({device:?}, {memory:?})");
 
     let mut packet = new_packet(1000001025);
@@ -1046,11 +1318,14 @@ unsafe extern "stdcall" fn vkFlushMappedMemoryRanges(
     memory_range_count: u32,
     p_memory_ranges: *const vk::MappedMemoryRange,
 ) -> vk::Result {
-    trace!("called vkFlushMappedMemoryRanges({device:?}, {memory_range_count:?}, {p_memory_ranges:?})");
+    trace!(
+        "called vkFlushMappedMemoryRanges({device:?}, {memory_range_count:?}, {p_memory_ranges:?})"
+    );
 
     let mut packet = new_packet(1000001026);
     packet.write(device);
     packet.write(memory_range_count);
+    packet.write(p_memory_ranges);
     let mut _response = packet.send_with_response();
     unimplemented!("vkFlushMappedMemoryRanges");
 }
@@ -1067,6 +1342,7 @@ unsafe extern "stdcall" fn vkInvalidateMappedMemoryRanges(
     let mut packet = new_packet(1000001027);
     packet.write(device);
     packet.write(memory_range_count);
+    packet.write(p_memory_ranges);
     let mut _response = packet.send_with_response();
     unimplemented!("vkInvalidateMappedMemoryRanges");
 }
@@ -1095,7 +1371,9 @@ unsafe extern "stdcall" fn vkGetBufferMemoryRequirements(
     buffer: vk::Buffer,
     p_memory_requirements: *mut vk::MemoryRequirements,
 ) {
-    trace!("called vkGetBufferMemoryRequirements({device:?}, {buffer:?}, {p_memory_requirements:?})");
+    trace!(
+        "called vkGetBufferMemoryRequirements({device:?}, {buffer:?}, {p_memory_requirements:?})"
+    );
 
     let mut packet = new_packet(1000001029);
     packet.write(device);
@@ -1174,6 +1452,7 @@ unsafe extern "stdcall" fn vkGetImageSparseMemoryRequirements(
     packet.write(device);
     packet.write(image);
     packet.write_nullable_raw_ptr_mut(p_sparse_memory_requirement_count);
+    packet.write_is_null_ptr(p_sparse_memory_requirements);
     packet.send();
     unimplemented!("vkGetImageSparseMemoryRequirements");
 }
@@ -1200,6 +1479,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSparseImageFormatProperties(
     packet.write(usage);
     packet.write(tiling);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     packet.send();
     unimplemented!("vkGetPhysicalDeviceSparseImageFormatProperties");
 }
@@ -1217,6 +1497,8 @@ unsafe extern "stdcall" fn vkQueueBindSparse(
     let mut packet = new_packet(1000001035);
     packet.write(queue);
     packet.write(bind_info_count);
+    packet.write(p_bind_info);
+    packet.write(fence);
     let mut _response = packet.send_with_response();
     unimplemented!("vkQueueBindSparse");
 }
@@ -1269,16 +1551,14 @@ unsafe extern "stdcall" fn vkResetFences(
     let mut packet = new_packet(1000001038);
     packet.write(device);
     packet.write(fence_count);
+    packet.write(p_fences);
     let mut _response = packet.send_with_response();
     unimplemented!("vkResetFences");
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceStatus.html>"]
-unsafe extern "stdcall" fn vkGetFenceStatus(
-    device: vk::Device,
-    fence: vk::Fence,
-) -> vk::Result {
+unsafe extern "stdcall" fn vkGetFenceStatus(device: vk::Device, fence: vk::Fence) -> vk::Result {
     trace!("called vkGetFenceStatus({device:?}, {fence:?})");
 
     let mut packet = new_packet(1000001039);
@@ -1302,6 +1582,9 @@ unsafe extern "stdcall" fn vkWaitForFences(
     let mut packet = new_packet(1000001040);
     packet.write(device);
     packet.write(fence_count);
+    packet.write(p_fences);
+    packet.write(wait_all);
+    packet.write(timeout);
     let mut _response = packet.send_with_response();
     unimplemented!("vkWaitForFences");
 }
@@ -1314,7 +1597,9 @@ unsafe extern "stdcall" fn vkCreateSemaphore(
     p_allocator: *const vk::AllocationCallbacks,
     p_semaphore: *mut vk::Semaphore,
 ) -> vk::Result {
-    trace!("called vkCreateSemaphore({device:?}, {p_create_info:?}, {p_allocator:?}, {p_semaphore:?})");
+    trace!(
+        "called vkCreateSemaphore({device:?}, {p_create_info:?}, {p_allocator:?}, {p_semaphore:?})"
+    );
 
     let mut packet = new_packet(1000001041);
     packet.write(device);
@@ -1380,10 +1665,7 @@ unsafe extern "stdcall" fn vkDestroyEvent(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetEventStatus.html>"]
-unsafe extern "stdcall" fn vkGetEventStatus(
-    device: vk::Device,
-    event: vk::Event,
-) -> vk::Result {
+unsafe extern "stdcall" fn vkGetEventStatus(device: vk::Device, event: vk::Event) -> vk::Result {
     trace!("called vkGetEventStatus({device:?}, {event:?})");
 
     let mut packet = new_packet(1000001045);
@@ -1395,10 +1677,7 @@ unsafe extern "stdcall" fn vkGetEventStatus(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetEvent.html>"]
-unsafe extern "stdcall" fn vkSetEvent(
-    device: vk::Device,
-    event: vk::Event,
-) -> vk::Result {
+unsafe extern "stdcall" fn vkSetEvent(device: vk::Device, event: vk::Event) -> vk::Result {
     trace!("called vkSetEvent({device:?}, {event:?})");
 
     let mut packet = new_packet(1000001046);
@@ -1410,10 +1689,7 @@ unsafe extern "stdcall" fn vkSetEvent(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetEvent.html>"]
-unsafe extern "stdcall" fn vkResetEvent(
-    device: vk::Device,
-    event: vk::Event,
-) -> vk::Result {
+unsafe extern "stdcall" fn vkResetEvent(device: vk::Device, event: vk::Event) -> vk::Result {
     trace!("called vkResetEvent({device:?}, {event:?})");
 
     let mut packet = new_packet(1000001047);
@@ -1478,6 +1754,10 @@ unsafe extern "stdcall" fn vkGetQueryPoolResults(
     packet.write(query_pool);
     packet.write(first_query);
     packet.write(query_count);
+    packet.write(data_size);
+    packet.write(p_data);
+    packet.write(stride);
+    packet.write(flags);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetQueryPoolResults");
 }
@@ -1769,6 +2049,7 @@ unsafe extern "stdcall" fn vkMergePipelineCaches(
     packet.write(device);
     packet.write(dst_cache);
     packet.write(src_cache_count);
+    packet.write(p_src_caches);
     let mut _response = packet.send_with_response();
     unimplemented!("vkMergePipelineCaches");
 }
@@ -1789,6 +2070,9 @@ unsafe extern "stdcall" fn vkCreateGraphicsPipelines(
     packet.write(device);
     packet.write(pipeline_cache);
     packet.write(create_info_count);
+    packet.write(p_create_infos);
+    packet.write(p_allocator);
+    packet.write(p_pipelines);
     let mut _response = packet.send_with_response();
     unimplemented!("vkCreateGraphicsPipelines");
 }
@@ -1809,6 +2093,9 @@ unsafe extern "stdcall" fn vkCreateComputePipelines(
     packet.write(device);
     packet.write(pipeline_cache);
     packet.write(create_info_count);
+    packet.write(p_create_infos);
+    packet.write(p_allocator);
+    packet.write(p_pipelines);
     let mut _response = packet.send_with_response();
     unimplemented!("vkCreateComputePipelines");
 }
@@ -2015,7 +2302,9 @@ unsafe extern "stdcall" fn vkAllocateDescriptorSets(
     p_allocate_info: *const vk::DescriptorSetAllocateInfo,
     p_descriptor_sets: *mut vk::DescriptorSet,
 ) -> vk::Result {
-    trace!("called vkAllocateDescriptorSets({device:?}, {p_allocate_info:?}, {p_descriptor_sets:?})");
+    trace!(
+        "called vkAllocateDescriptorSets({device:?}, {p_allocate_info:?}, {p_descriptor_sets:?})"
+    );
 
     let mut packet = new_packet(1000001080);
     packet.write(device);
@@ -2039,6 +2328,7 @@ unsafe extern "stdcall" fn vkFreeDescriptorSets(
     packet.write(device);
     packet.write(descriptor_pool);
     packet.write(descriptor_set_count);
+    packet.write(p_descriptor_sets);
     let mut _response = packet.send_with_response();
     unimplemented!("vkFreeDescriptorSets");
 }
@@ -2057,6 +2347,9 @@ unsafe extern "stdcall" fn vkUpdateDescriptorSets(
     let mut packet = new_packet(1000001082);
     packet.write(device);
     packet.write(descriptor_write_count);
+    packet.write(p_descriptor_writes);
+    packet.write(descriptor_copy_count);
+    packet.write(p_descriptor_copies);
     packet.send();
     unimplemented!("vkUpdateDescriptorSets");
 }
@@ -2227,7 +2520,9 @@ unsafe extern "stdcall" fn vkAllocateCommandBuffers(
     p_allocate_info: *const vk::CommandBufferAllocateInfo,
     p_command_buffers: *mut vk::CommandBuffer,
 ) -> vk::Result {
-    trace!("called vkAllocateCommandBuffers({device:?}, {p_allocate_info:?}, {p_command_buffers:?})");
+    trace!(
+        "called vkAllocateCommandBuffers({device:?}, {p_allocate_info:?}, {p_command_buffers:?})"
+    );
 
     let mut packet = new_packet(1000001092);
     packet.write(device);
@@ -2251,6 +2546,7 @@ unsafe extern "stdcall" fn vkFreeCommandBuffers(
     packet.write(device);
     packet.write(command_pool);
     packet.write(command_buffer_count);
+    packet.write(p_command_buffers);
     packet.send();
     unimplemented!("vkFreeCommandBuffers");
 }
@@ -2272,9 +2568,7 @@ unsafe extern "stdcall" fn vkBeginCommandBuffer(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEndCommandBuffer.html>"]
-unsafe extern "stdcall" fn vkEndCommandBuffer(
-    command_buffer: vk::CommandBuffer,
-) -> vk::Result {
+unsafe extern "stdcall" fn vkEndCommandBuffer(command_buffer: vk::CommandBuffer) -> vk::Result {
     trace!("called vkEndCommandBuffer({command_buffer:?})");
 
     let mut packet = new_packet(1000001095);
@@ -2344,6 +2638,7 @@ unsafe extern "stdcall" fn vkCmdSetViewport(
     packet.write(command_buffer);
     packet.write(first_viewport);
     packet.write(viewport_count);
+    packet.write(p_viewports);
     packet.send();
     unimplemented!("vkCmdSetViewport");
 }
@@ -2362,16 +2657,14 @@ unsafe extern "stdcall" fn vkCmdSetScissor(
     packet.write(command_buffer);
     packet.write(first_scissor);
     packet.write(scissor_count);
+    packet.write(p_scissors);
     packet.send();
     unimplemented!("vkCmdSetScissor");
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineWidth.html>"]
-unsafe extern "stdcall" fn vkCmdSetLineWidth(
-    command_buffer: vk::CommandBuffer,
-    line_width: f32,
-) {
+unsafe extern "stdcall" fn vkCmdSetLineWidth(command_buffer: vk::CommandBuffer, line_width: f32) {
     trace!("called vkCmdSetLineWidth({command_buffer:?}, {line_width:?})");
 
     let mut packet = new_packet(1000001101);
@@ -2439,7 +2732,9 @@ unsafe extern "stdcall" fn vkCmdSetStencilCompareMask(
     face_mask: vk::StencilFaceFlags,
     compare_mask: u32,
 ) {
-    trace!("called vkCmdSetStencilCompareMask({command_buffer:?}, {face_mask:?}, {compare_mask:?})");
+    trace!(
+        "called vkCmdSetStencilCompareMask({command_buffer:?}, {face_mask:?}, {compare_mask:?})"
+    );
 
     let mut packet = new_packet(1000001105);
     packet.write(command_buffer);
@@ -2503,6 +2798,9 @@ unsafe extern "stdcall" fn vkCmdBindDescriptorSets(
     packet.write(layout);
     packet.write(first_set);
     packet.write(descriptor_set_count);
+    packet.write(p_descriptor_sets);
+    packet.write(dynamic_offset_count);
+    packet.write(p_dynamic_offsets);
     packet.send();
     unimplemented!("vkCmdBindDescriptorSets");
 }
@@ -2515,7 +2813,9 @@ unsafe extern "stdcall" fn vkCmdBindIndexBuffer(
     offset: vk::DeviceSize,
     index_type: vk::IndexType,
 ) {
-    trace!("called vkCmdBindIndexBuffer({command_buffer:?}, {buffer:?}, {offset:?}, {index_type:?})");
+    trace!(
+        "called vkCmdBindIndexBuffer({command_buffer:?}, {buffer:?}, {offset:?}, {index_type:?})"
+    );
 
     let mut packet = new_packet(1000001109);
     packet.write(command_buffer);
@@ -2541,6 +2841,8 @@ unsafe extern "stdcall" fn vkCmdBindVertexBuffers(
     packet.write(command_buffer);
     packet.write(first_binding);
     packet.write(binding_count);
+    packet.write(p_buffers);
+    packet.write(p_offsets);
     packet.send();
     unimplemented!("vkCmdBindVertexBuffers");
 }
@@ -2559,6 +2861,9 @@ unsafe extern "stdcall" fn vkCmdDraw(
     let mut packet = new_packet(1000001111);
     packet.write(command_buffer);
     packet.write(vertex_count);
+    packet.write(instance_count);
+    packet.write(first_vertex);
+    packet.write(first_instance);
     packet.send();
     unimplemented!("vkCmdDraw");
 }
@@ -2578,6 +2883,10 @@ unsafe extern "stdcall" fn vkCmdDrawIndexed(
     let mut packet = new_packet(1000001112);
     packet.write(command_buffer);
     packet.write(index_count);
+    packet.write(instance_count);
+    packet.write(first_index);
+    packet.write(vertex_offset);
+    packet.write(first_instance);
     packet.send();
     unimplemented!("vkCmdDrawIndexed");
 }
@@ -2597,6 +2906,10 @@ unsafe extern "stdcall" fn vkCmdDrawMultiEXT(
     let mut packet = new_packet(1000001113);
     packet.write(command_buffer);
     packet.write(draw_count);
+    packet.write(p_vertex_info);
+    packet.write(instance_count);
+    packet.write(first_instance);
+    packet.write(stride);
     packet.send();
     unimplemented!("vkCmdDrawMultiEXT");
 }
@@ -2617,6 +2930,11 @@ unsafe extern "stdcall" fn vkCmdDrawMultiIndexedEXT(
     let mut packet = new_packet(1000001114);
     packet.write(command_buffer);
     packet.write(draw_count);
+    packet.write(p_index_info);
+    packet.write(instance_count);
+    packet.write(first_instance);
+    packet.write(stride);
+    packet.write(p_vertex_offset);
     packet.send();
     unimplemented!("vkCmdDrawMultiIndexedEXT");
 }
@@ -2637,6 +2955,7 @@ unsafe extern "stdcall" fn vkCmdDrawIndirect(
     packet.write(buffer);
     packet.write(offset);
     packet.write(draw_count);
+    packet.write(stride);
     packet.send();
     unimplemented!("vkCmdDrawIndirect");
 }
@@ -2657,6 +2976,7 @@ unsafe extern "stdcall" fn vkCmdDrawIndexedIndirect(
     packet.write(buffer);
     packet.write(offset);
     packet.write(draw_count);
+    packet.write(stride);
     packet.send();
     unimplemented!("vkCmdDrawIndexedIndirect");
 }
@@ -2699,9 +3019,7 @@ unsafe extern "stdcall" fn vkCmdDispatchIndirect(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSubpassShadingHUAWEI.html>"]
-unsafe extern "stdcall" fn vkCmdSubpassShadingHUAWEI(
-    command_buffer: vk::CommandBuffer,
-) {
+unsafe extern "stdcall" fn vkCmdSubpassShadingHUAWEI(command_buffer: vk::CommandBuffer) {
     trace!("called vkCmdSubpassShadingHUAWEI({command_buffer:?})");
 
     let mut packet = new_packet(1000001119);
@@ -2779,6 +3097,7 @@ unsafe extern "stdcall" fn vkCmdCopyBuffer(
     packet.write(src_buffer);
     packet.write(dst_buffer);
     packet.write(region_count);
+    packet.write(p_regions);
     packet.send();
     unimplemented!("vkCmdCopyBuffer");
 }
@@ -2803,6 +3122,7 @@ unsafe extern "stdcall" fn vkCmdCopyImage(
     packet.write(dst_image);
     packet.write(dst_image_layout);
     packet.write(region_count);
+    packet.write(p_regions);
     packet.send();
     unimplemented!("vkCmdCopyImage");
 }
@@ -2828,6 +3148,8 @@ unsafe extern "stdcall" fn vkCmdBlitImage(
     packet.write(dst_image);
     packet.write(dst_image_layout);
     packet.write(region_count);
+    packet.write(p_regions);
+    packet.write(filter);
     packet.send();
     unimplemented!("vkCmdBlitImage");
 }
@@ -2850,6 +3172,7 @@ unsafe extern "stdcall" fn vkCmdCopyBufferToImage(
     packet.write(dst_image);
     packet.write(dst_image_layout);
     packet.write(region_count);
+    packet.write(p_regions);
     packet.send();
     unimplemented!("vkCmdCopyBufferToImage");
 }
@@ -2872,6 +3195,7 @@ unsafe extern "stdcall" fn vkCmdCopyImageToBuffer(
     packet.write(src_image_layout);
     packet.write(dst_buffer);
     packet.write(region_count);
+    packet.write(p_regions);
     packet.send();
     unimplemented!("vkCmdCopyImageToBuffer");
 }
@@ -2890,6 +3214,7 @@ unsafe extern "stdcall" fn vkCmdCopyMemoryIndirectNV(
     packet.write(command_buffer);
     packet.write(copy_buffer_address);
     packet.write(copy_count);
+    packet.write(stride);
     packet.send();
     unimplemented!("vkCmdCopyMemoryIndirectNV");
 }
@@ -2911,6 +3236,10 @@ unsafe extern "stdcall" fn vkCmdCopyMemoryToImageIndirectNV(
     packet.write(command_buffer);
     packet.write(copy_buffer_address);
     packet.write(copy_count);
+    packet.write(stride);
+    packet.write(dst_image);
+    packet.write(dst_image_layout);
+    packet.write(p_image_subresources);
     packet.send();
     unimplemented!("vkCmdCopyMemoryToImageIndirectNV");
 }
@@ -2975,6 +3304,7 @@ unsafe extern "stdcall" fn vkCmdClearColorImage(
     packet.write(image_layout);
     packet.write(p_color);
     packet.write(range_count);
+    packet.write(p_ranges);
     packet.send();
     unimplemented!("vkCmdClearColorImage");
 }
@@ -2997,6 +3327,7 @@ unsafe extern "stdcall" fn vkCmdClearDepthStencilImage(
     packet.write(image_layout);
     packet.write(p_depth_stencil);
     packet.write(range_count);
+    packet.write(p_ranges);
     packet.send();
     unimplemented!("vkCmdClearDepthStencilImage");
 }
@@ -3015,6 +3346,9 @@ unsafe extern "stdcall" fn vkCmdClearAttachments(
     let mut packet = new_packet(1000001134);
     packet.write(command_buffer);
     packet.write(attachment_count);
+    packet.write(p_attachments);
+    packet.write(rect_count);
+    packet.write(p_rects);
     packet.send();
     unimplemented!("vkCmdClearAttachments");
 }
@@ -3039,6 +3373,7 @@ unsafe extern "stdcall" fn vkCmdResolveImage(
     packet.write(dst_image);
     packet.write(dst_image_layout);
     packet.write(region_count);
+    packet.write(p_regions);
     packet.send();
     unimplemented!("vkCmdResolveImage");
 }
@@ -3097,6 +3432,15 @@ unsafe extern "stdcall" fn vkCmdWaitEvents(
     let mut packet = new_packet(1000001138);
     packet.write(command_buffer);
     packet.write(event_count);
+    packet.write(p_events);
+    packet.write(src_stage_mask);
+    packet.write(dst_stage_mask);
+    packet.write(memory_barrier_count);
+    packet.write(p_memory_barriers);
+    packet.write(buffer_memory_barrier_count);
+    packet.write(p_buffer_memory_barriers);
+    packet.write(image_memory_barrier_count);
+    packet.write(p_image_memory_barriers);
     packet.send();
     unimplemented!("vkCmdWaitEvents");
 }
@@ -3123,6 +3467,11 @@ unsafe extern "stdcall" fn vkCmdPipelineBarrier(
     packet.write(dst_stage_mask);
     packet.write(dependency_flags);
     packet.write(memory_barrier_count);
+    packet.write(p_memory_barriers);
+    packet.write(buffer_memory_barrier_count);
+    packet.write(p_buffer_memory_barriers);
+    packet.write(image_memory_barrier_count);
+    packet.write(p_image_memory_barriers);
     packet.send();
     unimplemented!("vkCmdPipelineBarrier");
 }
@@ -3180,9 +3529,7 @@ unsafe extern "stdcall" fn vkCmdBeginConditionalRenderingEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndConditionalRenderingEXT.html>"]
-unsafe extern "stdcall" fn vkCmdEndConditionalRenderingEXT(
-    command_buffer: vk::CommandBuffer,
-) {
+unsafe extern "stdcall" fn vkCmdEndConditionalRenderingEXT(command_buffer: vk::CommandBuffer) {
     trace!("called vkCmdEndConditionalRenderingEXT({command_buffer:?})");
 
     let mut packet = new_packet(1000001143);
@@ -3248,6 +3595,10 @@ unsafe extern "stdcall" fn vkCmdCopyQueryPoolResults(
     packet.write(query_pool);
     packet.write(first_query);
     packet.write(query_count);
+    packet.write(dst_buffer);
+    packet.write(dst_offset);
+    packet.write(stride);
+    packet.write(flags);
     packet.send();
     unimplemented!("vkCmdCopyQueryPoolResults");
 }
@@ -3282,7 +3633,9 @@ unsafe extern "stdcall" fn vkCmdBeginRenderPass(
     p_render_pass_begin: *const vk::RenderPassBeginInfo,
     contents: vk::SubpassContents,
 ) {
-    trace!("called vkCmdBeginRenderPass({command_buffer:?}, {p_render_pass_begin:?}, {contents:?})");
+    trace!(
+        "called vkCmdBeginRenderPass({command_buffer:?}, {p_render_pass_begin:?}, {contents:?})"
+    );
 
     let mut packet = new_packet(1000001148);
     packet.write(command_buffer);
@@ -3309,9 +3662,7 @@ unsafe extern "stdcall" fn vkCmdNextSubpass(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass.html>"]
-unsafe extern "stdcall" fn vkCmdEndRenderPass(
-    command_buffer: vk::CommandBuffer,
-) {
+unsafe extern "stdcall" fn vkCmdEndRenderPass(command_buffer: vk::CommandBuffer) {
     trace!("called vkCmdEndRenderPass({command_buffer:?})");
 
     let mut packet = new_packet(1000001150);
@@ -3332,6 +3683,7 @@ unsafe extern "stdcall" fn vkCmdExecuteCommands(
     let mut packet = new_packet(1000001151);
     packet.write(command_buffer);
     packet.write(command_buffer_count);
+    packet.write(p_command_buffers);
     packet.send();
     unimplemented!("vkCmdExecuteCommands");
 }
@@ -3367,6 +3719,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceDisplayPropertiesKHR(
     let mut packet = new_packet(1000001153);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceDisplayPropertiesKHR");
 }
@@ -3383,6 +3736,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
     let mut packet = new_packet(1000001154);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
 }
@@ -3401,6 +3755,7 @@ unsafe extern "stdcall" fn vkGetDisplayPlaneSupportedDisplaysKHR(
     packet.write(physical_device);
     packet.write(plane_index);
     packet.write_nullable_raw_ptr_mut(p_display_count);
+    packet.write_is_null_ptr(p_displays);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetDisplayPlaneSupportedDisplaysKHR");
 }
@@ -3419,6 +3774,7 @@ unsafe extern "stdcall" fn vkGetDisplayModePropertiesKHR(
     packet.write(physical_device);
     packet.write(display);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetDisplayModePropertiesKHR");
 }
@@ -3496,6 +3852,9 @@ unsafe extern "stdcall" fn vkCreateSharedSwapchainsKHR(
     let mut packet = new_packet(1000001160);
     packet.write(device);
     packet.write(swapchain_count);
+    packet.write(p_create_infos);
+    packet.write(p_allocator);
+    packet.write(p_swapchains);
     let mut _response = packet.send_with_response();
     unimplemented!("vkCreateSharedSwapchainsKHR");
 }
@@ -3567,6 +3926,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfaceFormatsKHR(
     packet.write(physical_device);
     packet.write(surface);
     packet.write_nullable_raw_ptr_mut(p_surface_format_count);
+    packet.write_is_null_ptr(p_surface_formats);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfaceFormatsKHR");
 }
@@ -3585,6 +3945,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfacePresentModesKHR(
     packet.write(physical_device);
     packet.write(surface);
     packet.write_nullable_raw_ptr_mut(p_present_mode_count);
+    packet.write_is_null_ptr(p_present_modes);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfacePresentModesKHR");
 }
@@ -3639,6 +4000,7 @@ unsafe extern "stdcall" fn vkGetSwapchainImagesKHR(
     packet.write(device);
     packet.write(swapchain);
     packet.write_nullable_raw_ptr_mut(p_swapchain_image_count);
+    packet.write_is_null_ptr(p_swapchain_images);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetSwapchainImagesKHR");
 }
@@ -4066,9 +4428,7 @@ unsafe extern "stdcall" fn vkCmdDebugMarkerBeginEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerEndEXT.html>"]
-unsafe extern "stdcall" fn vkCmdDebugMarkerEndEXT(
-    command_buffer: vk::CommandBuffer,
-) {
+unsafe extern "stdcall" fn vkCmdDebugMarkerEndEXT(command_buffer: vk::CommandBuffer) {
     trace!("called vkCmdDebugMarkerEndEXT({command_buffer:?})");
 
     let mut packet = new_packet(1000001192);
@@ -4127,7 +4487,9 @@ unsafe extern "stdcall" fn vkGetMemoryWin32HandleNV(
     handle_type: vk::ExternalMemoryHandleTypeFlagsNV,
     p_handle: *mut vk::HANDLE,
 ) -> vk::Result {
-    trace!("called vkGetMemoryWin32HandleNV({device:?}, {memory:?}, {handle_type:?}, {p_handle:?})");
+    trace!(
+        "called vkGetMemoryWin32HandleNV({device:?}, {memory:?}, {handle_type:?}, {p_handle:?})"
+    );
 
     let mut packet = new_packet(1000001195);
     packet.write(device);
@@ -4318,6 +4680,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceQueueFamilyProperties2(
     let mut packet = new_packet(1000001206);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr_mut(p_queue_family_property_count);
+    packet.write_is_null_ptr(p_queue_family_properties);
     packet.send();
     unimplemented!("vkGetPhysicalDeviceQueueFamilyProperties2");
 }
@@ -4328,7 +4691,9 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceMemoryProperties2(
     physical_device: vk::PhysicalDevice,
     p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties2,
 ) {
-    trace!("called vkGetPhysicalDeviceMemoryProperties2({physical_device:?}, {p_memory_properties:?})");
+    trace!(
+        "called vkGetPhysicalDeviceMemoryProperties2({physical_device:?}, {p_memory_properties:?})"
+    );
 
     let mut packet = new_packet(1000001207);
     packet.write(physical_device);
@@ -4351,6 +4716,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSparseImageFormatProperties2(
     packet.write(physical_device);
     packet.write(p_format_info);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     packet.send();
     unimplemented!("vkGetPhysicalDeviceSparseImageFormatProperties2");
 }
@@ -4373,6 +4739,7 @@ unsafe extern "stdcall" fn vkCmdPushDescriptorSetKHR(
     packet.write(layout);
     packet.write(set);
     packet.write(descriptor_write_count);
+    packet.write(p_descriptor_writes);
     packet.send();
     unimplemented!("vkCmdPushDescriptorSetKHR");
 }
@@ -4418,7 +4785,9 @@ unsafe extern "stdcall" fn vkGetMemoryWin32HandleKHR(
     p_get_win32_handle_info: *const vk::MemoryGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> vk::Result {
-    trace!("called vkGetMemoryWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})");
+    trace!(
+        "called vkGetMemoryWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})"
+    );
 
     let mut packet = new_packet(1000001212);
     packet.write(device);
@@ -4673,7 +5042,9 @@ unsafe extern "stdcall" fn vkGetFenceWin32HandleKHR(
     p_get_win32_handle_info: *const vk::FenceGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> vk::Result {
-    trace!("called vkGetFenceWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})");
+    trace!(
+        "called vkGetFenceWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})"
+    );
 
     let mut packet = new_packet(1000001227);
     packet.write(device);
@@ -4803,7 +5174,9 @@ unsafe extern "stdcall" fn vkGetWinrtDisplayNV(
     device_relative_id: u32,
     p_display: *mut vk::DisplayKHR,
 ) -> vk::Result {
-    trace!("called vkGetWinrtDisplayNV({physical_device:?}, {device_relative_id:?}, {p_display:?})");
+    trace!(
+        "called vkGetWinrtDisplayNV({physical_device:?}, {device_relative_id:?}, {p_display:?})"
+    );
 
     let mut packet = new_packet(1000001235);
     packet.write(physical_device);
@@ -4918,6 +5291,7 @@ unsafe extern "stdcall" fn vkEnumeratePhysicalDeviceGroups(
     let mut packet = new_packet(1000001241);
     packet.write(instance);
     packet.write_nullable_raw_ptr_mut(p_physical_device_group_count);
+    packet.write_is_null_ptr(p_physical_device_group_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumeratePhysicalDeviceGroups");
 }
@@ -4955,6 +5329,7 @@ unsafe extern "stdcall" fn vkBindBufferMemory2(
     let mut packet = new_packet(1000001243);
     packet.write(device);
     packet.write(bind_info_count);
+    packet.write(p_bind_infos);
     let mut _response = packet.send_with_response();
     unimplemented!("vkBindBufferMemory2");
 }
@@ -4971,16 +5346,14 @@ unsafe extern "stdcall" fn vkBindImageMemory2(
     let mut packet = new_packet(1000001244);
     packet.write(device);
     packet.write(bind_info_count);
+    packet.write(p_bind_infos);
     let mut _response = packet.send_with_response();
     unimplemented!("vkBindImageMemory2");
 }
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDeviceMask.html>"]
-unsafe extern "stdcall" fn vkCmdSetDeviceMask(
-    command_buffer: vk::CommandBuffer,
-    device_mask: u32,
-) {
+unsafe extern "stdcall" fn vkCmdSetDeviceMask(command_buffer: vk::CommandBuffer, device_mask: u32) {
     trace!("called vkCmdSetDeviceMask({command_buffer:?}, {device_mask:?})");
 
     let mut packet = new_packet(1000001245);
@@ -5078,6 +5451,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDevicePresentRectanglesKHR(
     packet.write(physical_device);
     packet.write(surface);
     packet.write_nullable_raw_ptr_mut(p_rect_count);
+    packet.write_is_null_ptr(p_rects);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDevicePresentRectanglesKHR");
 }
@@ -5171,6 +5545,8 @@ unsafe extern "stdcall" fn vkSetHdrMetadataEXT(
     let mut packet = new_packet(1000001255);
     packet.write(device);
     packet.write(swapchain_count);
+    packet.write(p_swapchains);
+    packet.write(p_metadata);
     packet.send();
     unimplemented!("vkSetHdrMetadataEXT");
 }
@@ -5221,6 +5597,7 @@ unsafe extern "stdcall" fn vkGetPastPresentationTimingGOOGLE(
     packet.write(device);
     packet.write(swapchain);
     packet.write_nullable_raw_ptr_mut(p_presentation_timing_count);
+    packet.write_is_null_ptr(p_presentation_timings);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPastPresentationTimingGOOGLE");
 }
@@ -5296,6 +5673,7 @@ unsafe extern "stdcall" fn vkCmdSetViewportWScalingNV(
     packet.write(command_buffer);
     packet.write(first_viewport);
     packet.write(viewport_count);
+    packet.write(p_viewport_wscalings);
     packet.send();
     unimplemented!("vkCmdSetViewportWScalingNV");
 }
@@ -5314,6 +5692,7 @@ unsafe extern "stdcall" fn vkCmdSetDiscardRectangleEXT(
     packet.write(command_buffer);
     packet.write(first_discard_rectangle);
     packet.write(discard_rectangle_count);
+    packet.write(p_discard_rectangles);
     packet.send();
     unimplemented!("vkCmdSetDiscardRectangleEXT");
 }
@@ -5339,7 +5718,9 @@ unsafe extern "stdcall" fn vkCmdSetDiscardRectangleModeEXT(
     command_buffer: vk::CommandBuffer,
     discard_rectangle_mode: vk::DiscardRectangleModeEXT,
 ) {
-    trace!("called vkCmdSetDiscardRectangleModeEXT({command_buffer:?}, {discard_rectangle_mode:?})");
+    trace!(
+        "called vkCmdSetDiscardRectangleModeEXT({command_buffer:?}, {discard_rectangle_mode:?})"
+    );
 
     let mut packet = new_packet(1000001265);
     packet.write(command_buffer);
@@ -5411,6 +5792,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfaceFormats2KHR(
     packet.write(physical_device);
     packet.write(p_surface_info);
     packet.write_nullable_raw_ptr_mut(p_surface_format_count);
+    packet.write_is_null_ptr(p_surface_formats);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfaceFormats2KHR");
 }
@@ -5427,6 +5809,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceDisplayProperties2KHR(
     let mut packet = new_packet(1000001270);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceDisplayProperties2KHR");
 }
@@ -5443,6 +5826,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
     let mut packet = new_packet(1000001271);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
 }
@@ -5461,6 +5845,7 @@ unsafe extern "stdcall" fn vkGetDisplayModeProperties2KHR(
     packet.write(physical_device);
     packet.write(display);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetDisplayModeProperties2KHR");
 }
@@ -5489,7 +5874,9 @@ unsafe extern "stdcall" fn vkGetBufferMemoryRequirements2(
     p_info: *const vk::BufferMemoryRequirementsInfo2,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
-    trace!("called vkGetBufferMemoryRequirements2({device:?}, {p_info:?}, {p_memory_requirements:?})");
+    trace!(
+        "called vkGetBufferMemoryRequirements2({device:?}, {p_info:?}, {p_memory_requirements:?})"
+    );
 
     let mut packet = new_packet(1000001274);
     packet.write(device);
@@ -5506,7 +5893,9 @@ unsafe extern "stdcall" fn vkGetImageMemoryRequirements2(
     p_info: *const vk::ImageMemoryRequirementsInfo2,
     p_memory_requirements: *mut vk::MemoryRequirements2,
 ) {
-    trace!("called vkGetImageMemoryRequirements2({device:?}, {p_info:?}, {p_memory_requirements:?})");
+    trace!(
+        "called vkGetImageMemoryRequirements2({device:?}, {p_info:?}, {p_memory_requirements:?})"
+    );
 
     let mut packet = new_packet(1000001275);
     packet.write(device);
@@ -5530,6 +5919,7 @@ unsafe extern "stdcall" fn vkGetImageSparseMemoryRequirements2(
     packet.write(device);
     packet.write(p_info);
     packet.write_nullable_raw_ptr_mut(p_sparse_memory_requirement_count);
+    packet.write_is_null_ptr(p_sparse_memory_requirements);
     packet.send();
     unimplemented!("vkGetImageSparseMemoryRequirements2");
 }
@@ -5582,6 +5972,7 @@ unsafe extern "stdcall" fn vkGetDeviceImageSparseMemoryRequirements(
     packet.write(device);
     packet.write(p_info);
     packet.write_nullable_raw_ptr_mut(p_sparse_memory_requirement_count);
+    packet.write_is_null_ptr(p_sparse_memory_requirements);
     packet.send();
     unimplemented!("vkGetDeviceImageSparseMemoryRequirements");
 }
@@ -5612,7 +6003,9 @@ unsafe extern "stdcall" fn vkDestroySamplerYcbcrConversion(
     ycbcr_conversion: vk::SamplerYcbcrConversion,
     p_allocator: *const vk::AllocationCallbacks,
 ) {
-    trace!("called vkDestroySamplerYcbcrConversion({device:?}, {ycbcr_conversion:?}, {p_allocator:?})");
+    trace!(
+        "called vkDestroySamplerYcbcrConversion({device:?}, {ycbcr_conversion:?}, {p_allocator:?})"
+    );
 
     let mut packet = new_packet(1000001281);
     packet.write(device);
@@ -5708,6 +6101,7 @@ unsafe extern "stdcall" fn vkMergeValidationCachesEXT(
     packet.write(device);
     packet.write(dst_cache);
     packet.write(src_cache_count);
+    packet.write(p_src_caches);
     let mut _response = packet.send_with_response();
     unimplemented!("vkMergeValidationCachesEXT");
 }
@@ -5806,6 +6200,9 @@ unsafe extern "stdcall" fn vkQueueSignalReleaseImageANDROID(
     let mut packet = new_packet(1000001291);
     packet.write(queue);
     packet.write(wait_semaphore_count);
+    packet.write(p_wait_semaphores);
+    packet.write(image);
+    packet.write(p_native_fence_fd);
     let mut _response = packet.send_with_response();
     unimplemented!("vkQueueSignalReleaseImageANDROID");
 }
@@ -5862,6 +6259,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
     let mut packet = new_packet(1000001294);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr_mut(p_time_domain_count);
+    packet.write_is_null_ptr(p_time_domains);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceCalibrateableTimeDomainsKHR");
 }
@@ -5880,6 +6278,9 @@ unsafe extern "stdcall" fn vkGetCalibratedTimestampsKHR(
     let mut packet = new_packet(1000001295);
     packet.write(device);
     packet.write(timestamp_count);
+    packet.write(p_timestamp_infos);
+    packet.write(p_timestamps);
+    packet.write(p_max_deviation);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetCalibratedTimestampsKHR");
 }
@@ -5931,9 +6332,7 @@ unsafe extern "stdcall" fn vkQueueBeginDebugUtilsLabelEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueEndDebugUtilsLabelEXT.html>"]
-unsafe extern "stdcall" fn vkQueueEndDebugUtilsLabelEXT(
-    queue: vk::Queue,
-) {
+unsafe extern "stdcall" fn vkQueueEndDebugUtilsLabelEXT(queue: vk::Queue) {
     trace!("called vkQueueEndDebugUtilsLabelEXT({queue:?})");
 
     let mut packet = new_packet(1000001299);
@@ -5974,9 +6373,7 @@ unsafe extern "stdcall" fn vkCmdBeginDebugUtilsLabelEXT(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndDebugUtilsLabelEXT.html>"]
-unsafe extern "stdcall" fn vkCmdEndDebugUtilsLabelEXT(
-    command_buffer: vk::CommandBuffer,
-) {
+unsafe extern "stdcall" fn vkCmdEndDebugUtilsLabelEXT(command_buffer: vk::CommandBuffer) {
     trace!("called vkCmdEndDebugUtilsLabelEXT({command_buffer:?})");
 
     let mut packet = new_packet(1000001302);
@@ -6266,6 +6663,7 @@ unsafe extern "stdcall" fn vkCmdDrawIndirectCount(
     packet.write(count_buffer);
     packet.write(count_buffer_offset);
     packet.write(max_draw_count);
+    packet.write(stride);
     packet.send();
     unimplemented!("vkCmdDrawIndirectCount");
 }
@@ -6290,6 +6688,7 @@ unsafe extern "stdcall" fn vkCmdDrawIndexedIndirectCount(
     packet.write(count_buffer);
     packet.write(count_buffer_offset);
     packet.write(max_draw_count);
+    packet.write(stride);
     packet.send();
     unimplemented!("vkCmdDrawIndexedIndirectCount");
 }
@@ -6321,6 +6720,7 @@ unsafe extern "stdcall" fn vkGetQueueCheckpointDataNV(
     let mut packet = new_packet(1000001321);
     packet.write(queue);
     packet.write_nullable_raw_ptr_mut(p_checkpoint_data_count);
+    packet.write_is_null_ptr(p_checkpoint_data);
     packet.send();
     unimplemented!("vkGetQueueCheckpointDataNV");
 }
@@ -6341,6 +6741,9 @@ unsafe extern "stdcall" fn vkCmdBindTransformFeedbackBuffersEXT(
     packet.write(command_buffer);
     packet.write(first_binding);
     packet.write(binding_count);
+    packet.write(p_buffers);
+    packet.write(p_offsets);
+    packet.write(p_sizes);
     packet.send();
     unimplemented!("vkCmdBindTransformFeedbackBuffersEXT");
 }
@@ -6360,6 +6763,8 @@ unsafe extern "stdcall" fn vkCmdBeginTransformFeedbackEXT(
     packet.write(command_buffer);
     packet.write(first_counter_buffer);
     packet.write(counter_buffer_count);
+    packet.write(p_counter_buffers);
+    packet.write(p_counter_buffer_offsets);
     packet.send();
     unimplemented!("vkCmdBeginTransformFeedbackEXT");
 }
@@ -6379,6 +6784,8 @@ unsafe extern "stdcall" fn vkCmdEndTransformFeedbackEXT(
     packet.write(command_buffer);
     packet.write(first_counter_buffer);
     packet.write(counter_buffer_count);
+    packet.write(p_counter_buffers);
+    packet.write(p_counter_buffer_offsets);
     packet.send();
     unimplemented!("vkCmdEndTransformFeedbackEXT");
 }
@@ -6412,7 +6819,9 @@ unsafe extern "stdcall" fn vkCmdEndQueryIndexedEXT(
     query: u32,
     index: u32,
 ) {
-    trace!("called vkCmdEndQueryIndexedEXT({command_buffer:?}, {query_pool:?}, {query:?}, {index:?})");
+    trace!(
+        "called vkCmdEndQueryIndexedEXT({command_buffer:?}, {query_pool:?}, {query:?}, {index:?})"
+    );
 
     let mut packet = new_packet(1000001326);
     packet.write(command_buffer);
@@ -6439,6 +6848,11 @@ unsafe extern "stdcall" fn vkCmdDrawIndirectByteCountEXT(
     let mut packet = new_packet(1000001327);
     packet.write(command_buffer);
     packet.write(instance_count);
+    packet.write(first_instance);
+    packet.write(counter_buffer);
+    packet.write(counter_buffer_offset);
+    packet.write(counter_offset);
+    packet.write(vertex_stride);
     packet.send();
     unimplemented!("vkCmdDrawIndirectByteCountEXT");
 }
@@ -6457,6 +6871,7 @@ unsafe extern "stdcall" fn vkCmdSetExclusiveScissorNV(
     packet.write(command_buffer);
     packet.write(first_exclusive_scissor);
     packet.write(exclusive_scissor_count);
+    packet.write(p_exclusive_scissors);
     packet.send();
     unimplemented!("vkCmdSetExclusiveScissorNV");
 }
@@ -6475,6 +6890,7 @@ unsafe extern "stdcall" fn vkCmdSetExclusiveScissorEnableNV(
     packet.write(command_buffer);
     packet.write(first_exclusive_scissor);
     packet.write(exclusive_scissor_count);
+    packet.write(p_exclusive_scissor_enables);
     packet.send();
     unimplemented!("vkCmdSetExclusiveScissorEnableNV");
 }
@@ -6486,7 +6902,9 @@ unsafe extern "stdcall" fn vkCmdBindShadingRateImageNV(
     image_view: vk::ImageView,
     image_layout: vk::ImageLayout,
 ) {
-    trace!("called vkCmdBindShadingRateImageNV({command_buffer:?}, {image_view:?}, {image_layout:?})");
+    trace!(
+        "called vkCmdBindShadingRateImageNV({command_buffer:?}, {image_view:?}, {image_layout:?})"
+    );
 
     let mut packet = new_packet(1000001330);
     packet.write(command_buffer);
@@ -6510,6 +6928,7 @@ unsafe extern "stdcall" fn vkCmdSetViewportShadingRatePaletteNV(
     packet.write(command_buffer);
     packet.write(first_viewport);
     packet.write(viewport_count);
+    packet.write(p_shading_rate_palettes);
     packet.send();
     unimplemented!("vkCmdSetViewportShadingRatePaletteNV");
 }
@@ -6528,6 +6947,7 @@ unsafe extern "stdcall" fn vkCmdSetCoarseSampleOrderNV(
     packet.write(command_buffer);
     packet.write(sample_order_type);
     packet.write(custom_sample_order_count);
+    packet.write(p_custom_sample_orders);
     packet.send();
     unimplemented!("vkCmdSetCoarseSampleOrderNV");
 }
@@ -6544,6 +6964,7 @@ unsafe extern "stdcall" fn vkCmdDrawMeshTasksNV(
     let mut packet = new_packet(1000001333);
     packet.write(command_buffer);
     packet.write(task_count);
+    packet.write(first_task);
     packet.send();
     unimplemented!("vkCmdDrawMeshTasksNV");
 }
@@ -6564,6 +6985,7 @@ unsafe extern "stdcall" fn vkCmdDrawMeshTasksIndirectNV(
     packet.write(buffer);
     packet.write(offset);
     packet.write(draw_count);
+    packet.write(stride);
     packet.send();
     unimplemented!("vkCmdDrawMeshTasksIndirectNV");
 }
@@ -6588,6 +7010,7 @@ unsafe extern "stdcall" fn vkCmdDrawMeshTasksIndirectCountNV(
     packet.write(count_buffer);
     packet.write(count_buffer_offset);
     packet.write(max_draw_count);
+    packet.write(stride);
     packet.send();
     unimplemented!("vkCmdDrawMeshTasksIndirectCountNV");
 }
@@ -6627,6 +7050,7 @@ unsafe extern "stdcall" fn vkCmdDrawMeshTasksIndirectEXT(
     packet.write(buffer);
     packet.write(offset);
     packet.write(draw_count);
+    packet.write(stride);
     packet.send();
     unimplemented!("vkCmdDrawMeshTasksIndirectEXT");
 }
@@ -6651,6 +7075,7 @@ unsafe extern "stdcall" fn vkCmdDrawMeshTasksIndirectCountEXT(
     packet.write(count_buffer);
     packet.write(count_buffer_offset);
     packet.write(max_draw_count);
+    packet.write(stride);
     packet.send();
     unimplemented!("vkCmdDrawMeshTasksIndirectCountEXT");
 }
@@ -6771,6 +7196,7 @@ unsafe extern "stdcall" fn vkBindAccelerationStructureMemoryNV(
     let mut packet = new_packet(1000001345);
     packet.write(device);
     packet.write(bind_info_count);
+    packet.write(p_bind_infos);
     let mut _response = packet.send_with_response();
     unimplemented!("vkBindAccelerationStructureMemoryNV");
 }
@@ -6783,7 +7209,9 @@ unsafe extern "stdcall" fn vkCmdCopyAccelerationStructureNV(
     src: vk::AccelerationStructureNV,
     mode: vk::CopyAccelerationStructureModeKHR,
 ) {
-    trace!("called vkCmdCopyAccelerationStructureNV({command_buffer:?}, {dst:?}, {src:?}, {mode:?})");
+    trace!(
+        "called vkCmdCopyAccelerationStructureNV({command_buffer:?}, {dst:?}, {src:?}, {mode:?})"
+    );
 
     let mut packet = new_packet(1000001346);
     packet.write(command_buffer);
@@ -6905,6 +7333,10 @@ unsafe extern "stdcall" fn vkCmdWriteAccelerationStructuresPropertiesKHR(
     let mut packet = new_packet(1000001353);
     packet.write(command_buffer);
     packet.write(acceleration_structure_count);
+    packet.write(p_acceleration_structures);
+    packet.write(query_type);
+    packet.write(query_pool);
+    packet.write(first_query);
     packet.send();
     unimplemented!("vkCmdWriteAccelerationStructuresPropertiesKHR");
 }
@@ -6924,6 +7356,10 @@ unsafe extern "stdcall" fn vkCmdWriteAccelerationStructuresPropertiesNV(
     let mut packet = new_packet(1000001354);
     packet.write(command_buffer);
     packet.write(acceleration_structure_count);
+    packet.write(p_acceleration_structures);
+    packet.write(query_type);
+    packet.write(query_pool);
+    packet.write(first_query);
     packet.send();
     unimplemented!("vkCmdWriteAccelerationStructuresPropertiesNV");
 }
@@ -6973,6 +7409,11 @@ unsafe extern "stdcall" fn vkWriteAccelerationStructuresPropertiesKHR(
     let mut packet = new_packet(1000001356);
     packet.write(device);
     packet.write(acceleration_structure_count);
+    packet.write(p_acceleration_structures);
+    packet.write(query_type);
+    packet.write(data_size);
+    packet.write(p_data);
+    packet.write(stride);
     let mut _response = packet.send_with_response();
     unimplemented!("vkWriteAccelerationStructuresPropertiesKHR");
 }
@@ -7062,6 +7503,8 @@ unsafe extern "stdcall" fn vkGetRayTracingShaderGroupHandlesKHR(
     packet.write(pipeline);
     packet.write(first_group);
     packet.write(group_count);
+    packet.write(data_size);
+    packet.write(p_data);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetRayTracingShaderGroupHandlesKHR");
 }
@@ -7083,6 +7526,8 @@ unsafe extern "stdcall" fn vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(
     packet.write(pipeline);
     packet.write(first_group);
     packet.write(group_count);
+    packet.write(data_size);
+    packet.write(p_data);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetRayTracingCaptureReplayShaderGroupHandlesKHR");
 }
@@ -7122,6 +7567,9 @@ unsafe extern "stdcall" fn vkCreateRayTracingPipelinesNV(
     packet.write(device);
     packet.write(pipeline_cache);
     packet.write(create_info_count);
+    packet.write(p_create_infos);
+    packet.write(p_allocator);
+    packet.write(p_pipelines);
     let mut _response = packet.send_with_response();
     unimplemented!("vkCreateRayTracingPipelinesNV");
 }
@@ -7144,6 +7592,9 @@ unsafe extern "stdcall" fn vkCreateRayTracingPipelinesKHR(
     packet.write(deferred_operation);
     packet.write(pipeline_cache);
     packet.write(create_info_count);
+    packet.write(p_create_infos);
+    packet.write(p_allocator);
+    packet.write(p_pipelines);
     let mut _response = packet.send_with_response();
     unimplemented!("vkCreateRayTracingPipelinesKHR");
 }
@@ -7160,6 +7611,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
     let mut packet = new_packet(1000001364);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
 }
@@ -7299,6 +7751,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSurfacePresentModes2EXT(
     packet.write(physical_device);
     packet.write(p_surface_info);
     packet.write_nullable_raw_ptr_mut(p_present_mode_count);
+    packet.write_is_null_ptr(p_present_modes);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSurfacePresentModes2EXT");
 }
@@ -7365,6 +7818,8 @@ unsafe extern "stdcall" fn vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryC
     packet.write(physical_device);
     packet.write(queue_family_index);
     packet.write_nullable_raw_ptr_mut(p_counter_count);
+    packet.write_is_null_ptr(p_counters);
+    packet.write(p_counter_descriptions);
     let mut _response = packet.send_with_response();
     unimplemented!("vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR");
 }
@@ -7403,9 +7858,7 @@ unsafe extern "stdcall" fn vkAcquireProfilingLockKHR(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseProfilingLockKHR.html>"]
-unsafe extern "stdcall" fn vkReleaseProfilingLockKHR(
-    device: vk::Device,
-) {
+unsafe extern "stdcall" fn vkReleaseProfilingLockKHR(device: vk::Device) {
     trace!("called vkReleaseProfilingLockKHR({device:?})");
 
     let mut packet = new_packet(1000001379);
@@ -7421,7 +7874,9 @@ unsafe extern "stdcall" fn vkGetImageDrmFormatModifierPropertiesEXT(
     image: vk::Image,
     p_properties: *mut vk::ImageDrmFormatModifierPropertiesEXT,
 ) -> vk::Result {
-    trace!("called vkGetImageDrmFormatModifierPropertiesEXT({device:?}, {image:?}, {p_properties:?})");
+    trace!(
+        "called vkGetImageDrmFormatModifierPropertiesEXT({device:?}, {image:?}, {p_properties:?})"
+    );
 
     let mut packet = new_packet(1000001380);
     packet.write(device);
@@ -7492,6 +7947,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCo
     let mut packet = new_packet(1000001384);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr_mut(p_combination_count);
+    packet.write_is_null_ptr(p_combinations);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV");
 }
@@ -7513,9 +7969,7 @@ unsafe extern "stdcall" fn vkInitializePerformanceApiINTEL(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUninitializePerformanceApiINTEL.html>"]
-unsafe extern "stdcall" fn vkUninitializePerformanceApiINTEL(
-    device: vk::Device,
-) {
+unsafe extern "stdcall" fn vkUninitializePerformanceApiINTEL(device: vk::Device) {
     trace!("called vkUninitializePerformanceApiINTEL({device:?})");
 
     let mut packet = new_packet(1000001386);
@@ -7662,6 +8116,7 @@ unsafe extern "stdcall" fn vkGetPipelineExecutablePropertiesKHR(
     packet.write(device);
     packet.write(p_pipeline_info);
     packet.write_nullable_raw_ptr_mut(p_executable_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPipelineExecutablePropertiesKHR");
 }
@@ -7680,6 +8135,7 @@ unsafe extern "stdcall" fn vkGetPipelineExecutableStatisticsKHR(
     packet.write(device);
     packet.write(p_executable_info);
     packet.write_nullable_raw_ptr_mut(p_statistic_count);
+    packet.write_is_null_ptr(p_statistics);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPipelineExecutableStatisticsKHR");
 }
@@ -7698,6 +8154,7 @@ unsafe extern "stdcall" fn vkGetPipelineExecutableInternalRepresentationsKHR(
     packet.write(device);
     packet.write(p_executable_info);
     packet.write_nullable_raw_ptr_mut(p_internal_representation_count);
+    packet.write_is_null_ptr(p_internal_representations);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPipelineExecutableInternalRepresentationsKHR");
 }
@@ -7731,6 +8188,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceToolProperties(
     let mut packet = new_packet(1000001399);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr_mut(p_tool_count);
+    packet.write_is_null_ptr(p_tool_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceToolProperties");
 }
@@ -7767,6 +8225,8 @@ unsafe extern "stdcall" fn vkCmdBuildAccelerationStructuresKHR(
     let mut packet = new_packet(1000001401);
     packet.write(command_buffer);
     packet.write(info_count);
+    packet.write(p_infos);
+    packet.write(pp_build_range_infos);
     packet.send();
     unimplemented!("vkCmdBuildAccelerationStructuresKHR");
 }
@@ -7786,6 +8246,10 @@ unsafe extern "stdcall" fn vkCmdBuildAccelerationStructuresIndirectKHR(
     let mut packet = new_packet(1000001402);
     packet.write(command_buffer);
     packet.write(info_count);
+    packet.write(p_infos);
+    packet.write(p_indirect_device_addresses);
+    packet.write(p_indirect_strides);
+    packet.write(pp_max_primitive_counts);
     packet.send();
     unimplemented!("vkCmdBuildAccelerationStructuresIndirectKHR");
 }
@@ -7805,6 +8269,8 @@ unsafe extern "stdcall" fn vkBuildAccelerationStructuresKHR(
     packet.write(device);
     packet.write(deferred_operation);
     packet.write(info_count);
+    packet.write(p_infos);
+    packet.write(pp_build_range_infos);
     let mut _response = packet.send_with_response();
     unimplemented!("vkBuildAccelerationStructuresKHR");
 }
@@ -7987,11 +8453,14 @@ unsafe extern "stdcall" fn vkCmdSetViewportWithCount(
     viewport_count: u32,
     p_viewports: *const vk::Viewport,
 ) {
-    trace!("called vkCmdSetViewportWithCount({command_buffer:?}, {viewport_count:?}, {p_viewports:?})");
+    trace!(
+        "called vkCmdSetViewportWithCount({command_buffer:?}, {viewport_count:?}, {p_viewports:?})"
+    );
 
     let mut packet = new_packet(1000001415);
     packet.write(command_buffer);
     packet.write(viewport_count);
+    packet.write(p_viewports);
     packet.send();
     unimplemented!("vkCmdSetViewportWithCount");
 }
@@ -8003,11 +8472,14 @@ unsafe extern "stdcall" fn vkCmdSetScissorWithCount(
     scissor_count: u32,
     p_scissors: *const vk::Rect2D,
 ) {
-    trace!("called vkCmdSetScissorWithCount({command_buffer:?}, {scissor_count:?}, {p_scissors:?})");
+    trace!(
+        "called vkCmdSetScissorWithCount({command_buffer:?}, {scissor_count:?}, {p_scissors:?})"
+    );
 
     let mut packet = new_packet(1000001416);
     packet.write(command_buffer);
     packet.write(scissor_count);
+    packet.write(p_scissors);
     packet.send();
     unimplemented!("vkCmdSetScissorWithCount");
 }
@@ -8050,6 +8522,10 @@ unsafe extern "stdcall" fn vkCmdBindVertexBuffers2(
     packet.write(command_buffer);
     packet.write(first_binding);
     packet.write(binding_count);
+    packet.write(p_buffers);
+    packet.write(p_offsets);
+    packet.write(p_sizes);
+    packet.write(p_strides);
     packet.send();
     unimplemented!("vkCmdBindVertexBuffers2");
 }
@@ -8105,7 +8581,9 @@ unsafe extern "stdcall" fn vkCmdSetDepthBoundsTestEnable(
     command_buffer: vk::CommandBuffer,
     depth_bounds_test_enable: vk::Bool32,
 ) {
-    trace!("called vkCmdSetDepthBoundsTestEnable({command_buffer:?}, {depth_bounds_test_enable:?})");
+    trace!(
+        "called vkCmdSetDepthBoundsTestEnable({command_buffer:?}, {depth_bounds_test_enable:?})"
+    );
 
     let mut packet = new_packet(1000001422);
     packet.write(command_buffer);
@@ -8173,7 +8651,9 @@ unsafe extern "stdcall" fn vkCmdSetRasterizerDiscardEnable(
     command_buffer: vk::CommandBuffer,
     rasterizer_discard_enable: vk::Bool32,
 ) {
-    trace!("called vkCmdSetRasterizerDiscardEnable({command_buffer:?}, {rasterizer_discard_enable:?})");
+    trace!(
+        "called vkCmdSetRasterizerDiscardEnable({command_buffer:?}, {rasterizer_discard_enable:?})"
+    );
 
     let mut packet = new_packet(1000001426);
     packet.write(command_buffer);
@@ -8218,7 +8698,9 @@ unsafe extern "stdcall" fn vkCmdSetPrimitiveRestartEnable(
     command_buffer: vk::CommandBuffer,
     primitive_restart_enable: vk::Bool32,
 ) {
-    trace!("called vkCmdSetPrimitiveRestartEnable({command_buffer:?}, {primitive_restart_enable:?})");
+    trace!(
+        "called vkCmdSetPrimitiveRestartEnable({command_buffer:?}, {primitive_restart_enable:?})"
+    );
 
     let mut packet = new_packet(1000001429);
     packet.write(command_buffer);
@@ -8310,7 +8792,9 @@ unsafe extern "stdcall" fn vkCmdSetAlphaToCoverageEnableEXT(
     command_buffer: vk::CommandBuffer,
     alpha_to_coverage_enable: vk::Bool32,
 ) {
-    trace!("called vkCmdSetAlphaToCoverageEnableEXT({command_buffer:?}, {alpha_to_coverage_enable:?})");
+    trace!(
+        "called vkCmdSetAlphaToCoverageEnableEXT({command_buffer:?}, {alpha_to_coverage_enable:?})"
+    );
 
     let mut packet = new_packet(1000001435);
     packet.write(command_buffer);
@@ -8363,6 +8847,7 @@ unsafe extern "stdcall" fn vkCmdSetColorBlendEnableEXT(
     packet.write(command_buffer);
     packet.write(first_attachment);
     packet.write(attachment_count);
+    packet.write(p_color_blend_enables);
     packet.send();
     unimplemented!("vkCmdSetColorBlendEnableEXT");
 }
@@ -8381,6 +8866,7 @@ unsafe extern "stdcall" fn vkCmdSetColorBlendEquationEXT(
     packet.write(command_buffer);
     packet.write(first_attachment);
     packet.write(attachment_count);
+    packet.write(p_color_blend_equations);
     packet.send();
     unimplemented!("vkCmdSetColorBlendEquationEXT");
 }
@@ -8399,6 +8885,7 @@ unsafe extern "stdcall" fn vkCmdSetColorWriteMaskEXT(
     packet.write(command_buffer);
     packet.write(first_attachment);
     packet.write(attachment_count);
+    packet.write(p_color_write_masks);
     packet.send();
     unimplemented!("vkCmdSetColorWriteMaskEXT");
 }
@@ -8469,7 +8956,9 @@ unsafe extern "stdcall" fn vkCmdSetSampleLocationsEnableEXT(
     command_buffer: vk::CommandBuffer,
     sample_locations_enable: vk::Bool32,
 ) {
-    trace!("called vkCmdSetSampleLocationsEnableEXT({command_buffer:?}, {sample_locations_enable:?})");
+    trace!(
+        "called vkCmdSetSampleLocationsEnableEXT({command_buffer:?}, {sample_locations_enable:?})"
+    );
 
     let mut packet = new_packet(1000001445);
     packet.write(command_buffer);
@@ -8492,6 +8981,7 @@ unsafe extern "stdcall" fn vkCmdSetColorBlendAdvancedEXT(
     packet.write(command_buffer);
     packet.write(first_attachment);
     packet.write(attachment_count);
+    packet.write(p_color_blend_advanced);
     packet.send();
     unimplemented!("vkCmdSetColorBlendAdvancedEXT");
 }
@@ -8517,7 +9007,9 @@ unsafe extern "stdcall" fn vkCmdSetLineRasterizationModeEXT(
     command_buffer: vk::CommandBuffer,
     line_rasterization_mode: vk::LineRasterizationModeEXT,
 ) {
-    trace!("called vkCmdSetLineRasterizationModeEXT({command_buffer:?}, {line_rasterization_mode:?})");
+    trace!(
+        "called vkCmdSetLineRasterizationModeEXT({command_buffer:?}, {line_rasterization_mode:?})"
+    );
 
     let mut packet = new_packet(1000001448);
     packet.write(command_buffer);
@@ -8547,7 +9039,9 @@ unsafe extern "stdcall" fn vkCmdSetDepthClipNegativeOneToOneEXT(
     command_buffer: vk::CommandBuffer,
     negative_one_to_one: vk::Bool32,
 ) {
-    trace!("called vkCmdSetDepthClipNegativeOneToOneEXT({command_buffer:?}, {negative_one_to_one:?})");
+    trace!(
+        "called vkCmdSetDepthClipNegativeOneToOneEXT({command_buffer:?}, {negative_one_to_one:?})"
+    );
 
     let mut packet = new_packet(1000001450);
     packet.write(command_buffer);
@@ -8562,7 +9056,9 @@ unsafe extern "stdcall" fn vkCmdSetViewportWScalingEnableNV(
     command_buffer: vk::CommandBuffer,
     viewport_wscaling_enable: vk::Bool32,
 ) {
-    trace!("called vkCmdSetViewportWScalingEnableNV({command_buffer:?}, {viewport_wscaling_enable:?})");
+    trace!(
+        "called vkCmdSetViewportWScalingEnableNV({command_buffer:?}, {viewport_wscaling_enable:?})"
+    );
 
     let mut packet = new_packet(1000001451);
     packet.write(command_buffer);
@@ -8585,6 +9081,7 @@ unsafe extern "stdcall" fn vkCmdSetViewportSwizzleNV(
     packet.write(command_buffer);
     packet.write(first_viewport);
     packet.write(viewport_count);
+    packet.write(p_viewport_swizzles);
     packet.send();
     unimplemented!("vkCmdSetViewportSwizzleNV");
 }
@@ -8595,7 +9092,9 @@ unsafe extern "stdcall" fn vkCmdSetCoverageToColorEnableNV(
     command_buffer: vk::CommandBuffer,
     coverage_to_color_enable: vk::Bool32,
 ) {
-    trace!("called vkCmdSetCoverageToColorEnableNV({command_buffer:?}, {coverage_to_color_enable:?})");
+    trace!(
+        "called vkCmdSetCoverageToColorEnableNV({command_buffer:?}, {coverage_to_color_enable:?})"
+    );
 
     let mut packet = new_packet(1000001453);
     packet.write(command_buffer);
@@ -8625,7 +9124,9 @@ unsafe extern "stdcall" fn vkCmdSetCoverageModulationModeNV(
     command_buffer: vk::CommandBuffer,
     coverage_modulation_mode: vk::CoverageModulationModeNV,
 ) {
-    trace!("called vkCmdSetCoverageModulationModeNV({command_buffer:?}, {coverage_modulation_mode:?})");
+    trace!(
+        "called vkCmdSetCoverageModulationModeNV({command_buffer:?}, {coverage_modulation_mode:?})"
+    );
 
     let mut packet = new_packet(1000001455);
     packet.write(command_buffer);
@@ -8661,6 +9162,7 @@ unsafe extern "stdcall" fn vkCmdSetCoverageModulationTableNV(
     let mut packet = new_packet(1000001457);
     packet.write(command_buffer);
     packet.write(coverage_modulation_table_count);
+    packet.write(p_coverage_modulation_table);
     packet.send();
     unimplemented!("vkCmdSetCoverageModulationTableNV");
 }
@@ -8686,7 +9188,9 @@ unsafe extern "stdcall" fn vkCmdSetCoverageReductionModeNV(
     command_buffer: vk::CommandBuffer,
     coverage_reduction_mode: vk::CoverageReductionModeNV,
 ) {
-    trace!("called vkCmdSetCoverageReductionModeNV({command_buffer:?}, {coverage_reduction_mode:?})");
+    trace!(
+        "called vkCmdSetCoverageReductionModeNV({command_buffer:?}, {coverage_reduction_mode:?})"
+    );
 
     let mut packet = new_packet(1000001459);
     packet.write(command_buffer);
@@ -8907,6 +9411,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceFragmentShadingRatesKHR(
     let mut packet = new_packet(1000001472);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr_mut(p_fragment_shading_rate_count);
+    packet.write_is_null_ptr(p_fragment_shading_rates);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceFragmentShadingRatesKHR");
 }
@@ -8963,6 +9468,9 @@ unsafe extern "stdcall" fn vkCmdSetVertexInputEXT(
     let mut packet = new_packet(1000001475);
     packet.write(command_buffer);
     packet.write(vertex_binding_description_count);
+    packet.write(p_vertex_binding_descriptions);
+    packet.write(vertex_attribute_description_count);
+    packet.write(p_vertex_attribute_descriptions);
     packet.send();
     unimplemented!("vkCmdSetVertexInputEXT");
 }
@@ -8979,6 +9487,7 @@ unsafe extern "stdcall" fn vkCmdSetColorWriteEnableEXT(
     let mut packet = new_packet(1000001476);
     packet.write(command_buffer);
     packet.write(attachment_count);
+    packet.write(p_color_write_enables);
     packet.send();
     unimplemented!("vkCmdSetColorWriteEnableEXT");
 }
@@ -9030,6 +9539,8 @@ unsafe extern "stdcall" fn vkCmdWaitEvents2(
     let mut packet = new_packet(1000001479);
     packet.write(command_buffer);
     packet.write(event_count);
+    packet.write(p_events);
+    packet.write(p_dependency_infos);
     packet.send();
     unimplemented!("vkCmdWaitEvents2");
 }
@@ -9062,6 +9573,8 @@ unsafe extern "stdcall" fn vkQueueSubmit2(
     let mut packet = new_packet(1000001481);
     packet.write(queue);
     packet.write(submit_count);
+    packet.write(p_submits);
+    packet.write(fence);
     let mut _response = packet.send_with_response();
     unimplemented!("vkQueueSubmit2");
 }
@@ -9118,6 +9631,7 @@ unsafe extern "stdcall" fn vkGetQueueCheckpointData2NV(
     let mut packet = new_packet(1000001484);
     packet.write(queue);
     packet.write_nullable_raw_ptr_mut(p_checkpoint_data_count);
+    packet.write_is_null_ptr(p_checkpoint_data);
     packet.send();
     unimplemented!("vkGetQueueCheckpointData2NV");
 }
@@ -9174,11 +9688,14 @@ unsafe extern "stdcall" fn vkTransitionImageLayoutEXT(
     transition_count: u32,
     p_transitions: *const vk::HostImageLayoutTransitionInfoEXT,
 ) -> vk::Result {
-    trace!("called vkTransitionImageLayoutEXT({device:?}, {transition_count:?}, {p_transitions:?})");
+    trace!(
+        "called vkTransitionImageLayoutEXT({device:?}, {transition_count:?}, {p_transitions:?})"
+    );
 
     let mut packet = new_packet(1000001488);
     packet.write(device);
     packet.write(transition_count);
+    packet.write(p_transitions);
     let mut _response = packet.send_with_response();
     unimplemented!("vkTransitionImageLayoutEXT");
 }
@@ -9214,6 +9731,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceVideoFormatPropertiesKHR(
     packet.write(physical_device);
     packet.write(p_video_format_info);
     packet.write_nullable_raw_ptr_mut(p_video_format_property_count);
+    packet.write_is_null_ptr(p_video_format_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceVideoFormatPropertiesKHR");
 }
@@ -9359,6 +9877,7 @@ unsafe extern "stdcall" fn vkGetVideoSessionMemoryRequirementsKHR(
     packet.write(device);
     packet.write(video_session);
     packet.write_nullable_raw_ptr_mut(p_memory_requirements_count);
+    packet.write_is_null_ptr(p_memory_requirements);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetVideoSessionMemoryRequirementsKHR");
 }
@@ -9377,6 +9896,7 @@ unsafe extern "stdcall" fn vkBindVideoSessionMemoryKHR(
     packet.write(device);
     packet.write(video_session);
     packet.write(bind_session_memory_info_count);
+    packet.write(p_bind_session_memory_infos);
     let mut _response = packet.send_with_response();
     unimplemented!("vkBindVideoSessionMemoryKHR");
 }
@@ -9468,6 +9988,7 @@ unsafe extern "stdcall" fn vkCmdDecompressMemoryNV(
     let mut packet = new_packet(1000001505);
     packet.write(command_buffer);
     packet.write(decompress_region_count);
+    packet.write(p_decompress_memory_regions);
     packet.send();
     unimplemented!("vkCmdDecompressMemoryNV");
 }
@@ -9499,7 +10020,9 @@ unsafe extern "stdcall" fn vkCreateCuModuleNVX(
     p_allocator: *const vk::AllocationCallbacks,
     p_module: *mut vk::CuModuleNVX,
 ) -> vk::Result {
-    trace!("called vkCreateCuModuleNVX({device:?}, {p_create_info:?}, {p_allocator:?}, {p_module:?})");
+    trace!(
+        "called vkCreateCuModuleNVX({device:?}, {p_create_info:?}, {p_allocator:?}, {p_module:?})"
+    );
 
     let mut packet = new_packet(1000001507);
     packet.write(device);
@@ -9645,6 +10168,7 @@ unsafe extern "stdcall" fn vkCmdBindDescriptorBuffersEXT(
     let mut packet = new_packet(1000001515);
     packet.write(command_buffer);
     packet.write(buffer_count);
+    packet.write(p_binding_infos);
     packet.send();
     unimplemented!("vkCmdBindDescriptorBuffersEXT");
 }
@@ -9668,6 +10192,8 @@ unsafe extern "stdcall" fn vkCmdSetDescriptorBufferOffsetsEXT(
     packet.write(layout);
     packet.write(first_set);
     packet.write(set_count);
+    packet.write(p_buffer_indices);
+    packet.write(p_offsets);
     packet.send();
     unimplemented!("vkCmdSetDescriptorBufferOffsetsEXT");
 }
@@ -9732,7 +10258,9 @@ unsafe extern "stdcall" fn vkGetImageViewOpaqueCaptureDescriptorDataEXT(
     p_info: *const vk::ImageViewCaptureDescriptorDataInfoEXT,
     p_data: *mut std::ffi::c_void,
 ) -> vk::Result {
-    trace!("called vkGetImageViewOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
+    trace!(
+        "called vkGetImageViewOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})"
+    );
 
     let mut packet = new_packet(1000001520);
     packet.write(device);
@@ -9818,7 +10346,9 @@ unsafe extern "stdcall" fn vkGetDrmDisplayEXT(
     connector_id: u32,
     display: *mut vk::DisplayKHR,
 ) -> vk::Result {
-    trace!("called vkGetDrmDisplayEXT({physical_device:?}, {drm_fd:?}, {connector_id:?}, {display:?})");
+    trace!(
+        "called vkGetDrmDisplayEXT({physical_device:?}, {drm_fd:?}, {connector_id:?}, {display:?})"
+    );
 
     let mut packet = new_packet(1000001525);
     packet.write(physical_device);
@@ -9943,7 +10473,9 @@ unsafe extern "stdcall" fn vkCreateCudaModuleNV(
     p_allocator: *const vk::AllocationCallbacks,
     p_module: *mut vk::CudaModuleNV,
 ) -> vk::Result {
-    trace!("called vkCreateCudaModuleNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_module:?})");
+    trace!(
+        "called vkCreateCudaModuleNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_module:?})"
+    );
 
     let mut packet = new_packet(1000001532);
     packet.write(device);
@@ -9962,7 +10494,9 @@ unsafe extern "stdcall" fn vkGetCudaModuleCacheNV(
     p_cache_size: *mut isize,
     p_cache_data: *mut std::ffi::c_void,
 ) -> vk::Result {
-    trace!("called vkGetCudaModuleCacheNV({device:?}, {module:?}, {p_cache_size:?}, {p_cache_data:?})");
+    trace!(
+        "called vkGetCudaModuleCacheNV({device:?}, {module:?}, {p_cache_size:?}, {p_cache_data:?})"
+    );
 
     let mut packet = new_packet(1000001533);
     packet.write(device);
@@ -10058,9 +10592,7 @@ unsafe extern "stdcall" fn vkCmdBeginRendering(
 
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRendering.html>"]
-unsafe extern "stdcall" fn vkCmdEndRendering(
-    command_buffer: vk::CommandBuffer,
-) {
+unsafe extern "stdcall" fn vkCmdEndRendering(command_buffer: vk::CommandBuffer) {
     trace!("called vkCmdEndRendering({command_buffer:?})");
 
     let mut packet = new_packet(1000001539);
@@ -10093,7 +10625,9 @@ unsafe extern "stdcall" fn vkGetDescriptorSetHostMappingVALVE(
     descriptor_set: vk::DescriptorSet,
     pp_data: *mut *mut std::ffi::c_void,
 ) {
-    trace!("called vkGetDescriptorSetHostMappingVALVE({device:?}, {descriptor_set:?}, {pp_data:?})");
+    trace!(
+        "called vkGetDescriptorSetHostMappingVALVE({device:?}, {descriptor_set:?}, {pp_data:?})"
+    );
 
     let mut packet = new_packet(1000001541);
     packet.write(device);
@@ -10134,6 +10668,7 @@ unsafe extern "stdcall" fn vkCmdBuildMicromapsEXT(
     let mut packet = new_packet(1000001543);
     packet.write(command_buffer);
     packet.write(info_count);
+    packet.write(p_infos);
     packet.send();
     unimplemented!("vkCmdBuildMicromapsEXT");
 }
@@ -10152,6 +10687,7 @@ unsafe extern "stdcall" fn vkBuildMicromapsEXT(
     packet.write(device);
     packet.write(deferred_operation);
     packet.write(info_count);
+    packet.write(p_infos);
     let mut _response = packet.send_with_response();
     unimplemented!("vkBuildMicromapsEXT");
 }
@@ -10284,6 +10820,10 @@ unsafe extern "stdcall" fn vkCmdWriteMicromapsPropertiesEXT(
     let mut packet = new_packet(1000001552);
     packet.write(command_buffer);
     packet.write(micromap_count);
+    packet.write(p_micromaps);
+    packet.write(query_type);
+    packet.write(query_pool);
+    packet.write(first_query);
     packet.send();
     unimplemented!("vkCmdWriteMicromapsPropertiesEXT");
 }
@@ -10304,6 +10844,11 @@ unsafe extern "stdcall" fn vkWriteMicromapsPropertiesEXT(
     let mut packet = new_packet(1000001553);
     packet.write(device);
     packet.write(micromap_count);
+    packet.write(p_micromaps);
+    packet.write(query_type);
+    packet.write(data_size);
+    packet.write(p_data);
+    packet.write(stride);
     let mut _response = packet.send_with_response();
     unimplemented!("vkWriteMicromapsPropertiesEXT");
 }
@@ -10351,7 +10896,9 @@ unsafe extern "stdcall" fn vkGetShaderModuleIdentifierEXT(
     shader_module: vk::ShaderModule,
     p_identifier: *mut vk::ShaderModuleIdentifierEXT,
 ) {
-    trace!("called vkGetShaderModuleIdentifierEXT({device:?}, {shader_module:?}, {p_identifier:?})");
+    trace!(
+        "called vkGetShaderModuleIdentifierEXT({device:?}, {shader_module:?}, {p_identifier:?})"
+    );
 
     let mut packet = new_packet(1000001556);
     packet.write(device);
@@ -10443,6 +10990,7 @@ unsafe extern "stdcall" fn vkGetFramebufferTilePropertiesQCOM(
     packet.write(device);
     packet.write(framebuffer);
     packet.write_nullable_raw_ptr_mut(p_properties_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetFramebufferTilePropertiesQCOM");
 }
@@ -10478,6 +11026,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceOpticalFlowImageFormatsNV(
     packet.write(physical_device);
     packet.write(p_optical_flow_image_format_info);
     packet.write_nullable_raw_ptr_mut(p_format_count);
+    packet.write_is_null_ptr(p_image_format_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceOpticalFlowImageFormatsNV");
 }
@@ -10666,6 +11215,9 @@ unsafe extern "stdcall" fn vkCreateShadersEXT(
     let mut packet = new_packet(1000001574);
     packet.write(device);
     packet.write(create_info_count);
+    packet.write(p_create_infos);
+    packet.write(p_allocator);
+    packet.write(p_shaders);
     let mut _response = packet.send_with_response();
     unimplemented!("vkCreateShadersEXT");
 }
@@ -10719,6 +11271,8 @@ unsafe extern "stdcall" fn vkCmdBindShadersEXT(
     let mut packet = new_packet(1000001577);
     packet.write(command_buffer);
     packet.write(stage_count);
+    packet.write(p_stages);
+    packet.write(p_shaders);
     packet.send();
     unimplemented!("vkCmdBindShadersEXT");
 }
@@ -10752,6 +11306,7 @@ unsafe extern "stdcall" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(
     let mut packet = new_packet(1000001579);
     packet.write(physical_device);
     packet.write_nullable_raw_ptr_mut(p_property_count);
+    packet.write_is_null_ptr(p_properties);
     let mut _response = packet.send_with_response();
     unimplemented!("vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR");
 }
@@ -10808,6 +11363,9 @@ unsafe extern "stdcall" fn vkCreateExecutionGraphPipelinesAMDX(
     packet.write(device);
     packet.write(pipeline_cache);
     packet.write(create_info_count);
+    packet.write(p_create_infos);
+    packet.write(p_allocator);
+    packet.write(p_pipelines);
     let mut _response = packet.send_with_response();
     unimplemented!("vkCreateExecutionGraphPipelinesAMDX");
 }
@@ -10851,7 +11409,9 @@ unsafe extern "stdcall" fn vkCmdDispatchGraphIndirectAMDX(
     scratch: vk::DeviceAddress,
     p_count_info: *const vk::DispatchGraphCountInfoAMDX,
 ) {
-    trace!("called vkCmdDispatchGraphIndirectAMDX({command_buffer:?}, {scratch:?}, {p_count_info:?})");
+    trace!(
+        "called vkCmdDispatchGraphIndirectAMDX({command_buffer:?}, {scratch:?}, {p_count_info:?})"
+    );
 
     let mut packet = new_packet(1000001585);
     packet.write(command_buffer);
@@ -10884,7 +11444,9 @@ unsafe extern "stdcall" fn vkCmdBindDescriptorSets2KHR(
     command_buffer: vk::CommandBuffer,
     p_bind_descriptor_sets_info: *const vk::BindDescriptorSetsInfoKHR,
 ) {
-    trace!("called vkCmdBindDescriptorSets2KHR({command_buffer:?}, {p_bind_descriptor_sets_info:?})");
+    trace!(
+        "called vkCmdBindDescriptorSets2KHR({command_buffer:?}, {p_bind_descriptor_sets_info:?})"
+    );
 
     let mut packet = new_packet(1000001587);
     packet.write(command_buffer);
@@ -11057,7 +11619,9 @@ unsafe extern "stdcall" fn vkCmdSetRenderingAttachmentLocationsKHR(
     command_buffer: vk::CommandBuffer,
     p_location_info: *const vk::RenderingAttachmentLocationInfoKHR,
 ) {
-    trace!("called vkCmdSetRenderingAttachmentLocationsKHR({command_buffer:?}, {p_location_info:?})");
+    trace!(
+        "called vkCmdSetRenderingAttachmentLocationsKHR({command_buffer:?}, {p_location_info:?})"
+    );
 
     let mut packet = new_packet(1000001598);
     packet.write(command_buffer);
