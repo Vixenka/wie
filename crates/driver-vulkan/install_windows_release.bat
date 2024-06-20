@@ -13,6 +13,6 @@ echo "Copying driver file..."
 copy "%batdir%..\..\target\release\wie_driver_vulkan.dll" "C:\Program Files\Vixen\wie\Vulkan\" || echo "Failed!" && exit 1
 
 echo "Update registry..."
-regedit.exe "%batdir%driver.reg" || echo "Failed!" && exit 1
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Khronos\Vulkan\Drivers" /v "C:\Program Files\Vixen\wie\Vulkan\vk_wie_icd.json" /t REG_DWORD /d 0 /f
 
 echo "Vulkan driver successfully installed."
