@@ -13,6 +13,6 @@ echo "Copying driver file..."
 copy "%batdir%..\..\target\release\wie_driver_vulkan.dll" "C:\Program Files\Vixen\wie\Vulkan\" || echo "Failed!" && exit 1
 
 echo "Update registry..."
-regedit.exe /S "%batdir%driver.reg" || echo "Failed!" && exit 1
+regedit.exe "%batdir%driver.reg" || echo "Failed!" && exit 1
 
 echo "Vulkan driver successfully installed."
