@@ -1,5 +1,6 @@
 use std::{collections::HashMap, sync::OnceLock};
 
+use generated::function_address_table::FunctionAddressTable;
 use wie_transport::Handler;
 use wie_transport_vsock::VsockStream;
 
@@ -9,6 +10,7 @@ extern crate log;
 pub(crate) mod entry;
 pub(crate) mod generated;
 
+pub(crate) static mut FUNCTION_ADDRESS_TABLE: FunctionAddressTable = FunctionAddressTable::new();
 static ENTRY: OnceLock<ash::Entry> = OnceLock::new();
 
 type HandlerMap = HashMap<u64, Handler<VsockStream>>;

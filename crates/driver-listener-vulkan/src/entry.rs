@@ -7,14 +7,22 @@ pub fn register_handlers_to(map: &mut HandlerMap) {
 }
 
 fn vk_icd_get_instance_proc_addr(mut packet: Packet) {
-    trace!(
-        "requested address for function `{}`",
-        unsafe { CStr::from_ptr(packet.read_null_str()) }
-            .to_str()
-            .expect("UTF-8 valid name")
-    );
+    let p_name = packet.read_null_str();
+    let name = unsafe { CStr::from_ptr(p_name) }
+        .to_str()
+        .expect("UTF-8 valid name");
+
+    trace!("requested address for function `{name}`",);
+
+    // TODO: Use Instance parameter to be more accurate.
+    let address = unsafe {
+        crate::get_or_init_entry().get_instance_proc_addr(ash::vk::Instance::null(), p_name)
+    };
+    if address.is_some() {
+        unsafe { crate::FUNCTION_ADDRESS_TABLE.set_address(name, address) }
+    }
 
     let mut response = packet.write_response(None);
-    response.write(true);
+    response.write(address.is_some());
     response.send();
 }

@@ -1,6 +1,5 @@
 use std::{fs, path::Path};
 
-use crate::function_data::CommandExt;
 use itertools::Itertools;
 use vk_parse::CommandDefinition;
 

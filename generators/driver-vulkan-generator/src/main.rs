@@ -1,7 +1,7 @@
 use std::{collections::HashSet, path::Path};
 
 use itertools::Itertools;
-use vk_parse::{CommandDefinition, CommandParam, Extension, Feature, NameWithType, Registry};
+use vk_parse::{CommandDefinition, CommandParam, Extension, NameWithType};
 
 const DESIRED_API: &str = "vulkan";
 const INDENTATION: &str = "    ";
@@ -170,7 +170,7 @@ fn to_rust_type_without_ptr(name_with_type: &NameWithType) -> String {
         "uint64_t" => "u64".into(),
         "uint32_t" => "u32".into(),
         "uint16_t" => "u16".into(),
-        "size_t" => "isize".into(),
+        "size_t" => "usize".into(),
         "int" => "std::os::raw::c_int".into(),
         "int32_t" => "i32".into(),
         "float" => "f32".into(),
@@ -193,11 +193,22 @@ fn to_rust_type(name_with_type: &NameWithType) -> String {
 
     let mut i = 0;
     while let Some(p) = name_with_type.code[i..].chars().position(|x| x == '*') {
-        match name_with_type.code[i..].contains("const ") {
+        match name_with_type.code[i..].contains("const") {
             true => n.insert_str(0, "*const "),
             false => n.insert_str(0, "*mut "),
         }
         i += p + 1;
+    }
+
+    // Array
+    if let Some(p) = name_with_type.code.chars().position(|x| x == '[') {
+        n.insert_str(0, "*const [");
+        n.push_str("; ");
+        n.push_str(
+            &name_with_type.code
+                [p + 1..name_with_type.code.chars().position(|x| x == ']').unwrap()],
+        );
+        n.push(']');
     }
 
     n
@@ -205,44 +216,4 @@ fn to_rust_type(name_with_type: &NameWithType) -> String {
 
 fn contains_desired_api(api: &str) -> bool {
     api.split(',').any(|n| n == DESIRED_API)
-}
-
-struct Features<'a> {
-    features: Vec<&'a Feature>,
-}
-
-impl<'a> Features<'a> {
-    fn new(spec: &'a Registry) -> Self {
-        let features: Vec<&Feature> = spec
-            .0
-            .iter()
-            .filter_map(|x| match x {
-                vk_parse::RegistryChild::Feature(f) => Some(f),
-                _ => None,
-            })
-            .collect();
-
-        Self { features }
-    }
-
-    pub fn get_feature_name_from_command(&self, command: &CommandDefinition) -> Option<&Feature> {
-        self.features
-            .iter()
-            .find(|feature| {
-                feature
-                    .children
-                    .iter()
-                    .filter_map(|child| match child {
-                        vk_parse::ExtensionChild::Require { items, .. } => Some(items),
-                        _ => None,
-                    })
-                    .flatten()
-                    .filter_map(|item| match item {
-                        vk_parse::InterfaceItem::Command { name, .. } => Some(name),
-                        _ => None,
-                    })
-                    .any(|name| name == &command.proto.name)
-            })
-            .copied()
-    }
 }

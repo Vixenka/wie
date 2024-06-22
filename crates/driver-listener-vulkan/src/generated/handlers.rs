@@ -1062,7 +1062,7 @@ fn vk_get_query_pool_results(mut packet: Packet) {
     let query_pool: vk::QueryPool = packet.read();
     let first_query: u32 = packet.read();
     let query_count: u32 = packet.read();
-    let data_size: isize = packet.read();
+    let data_size: usize = packet.read();
     let p_data: *mut std::ffi::c_void = packet.read();
     let stride: vk::DeviceSize = packet.read();
     let flags: vk::QueryResultFlags = packet.read();
@@ -1208,7 +1208,7 @@ fn vk_destroy_pipeline_cache(mut packet: Packet) {
 fn vk_get_pipeline_cache_data(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let pipeline_cache: vk::PipelineCache = packet.read();
-    let p_data_size: *mut isize = packet.read();
+    let p_data_size: *mut usize = packet.read();
     let p_data: *mut std::ffi::c_void = packet.read();
     trace!("called vkGetPipelineCacheData({device:?}, {pipeline_cache:?}, {p_data_size:?}, {p_data:?})");
 
@@ -1565,7 +1565,7 @@ fn vk_cmd_set_depth_bias(mut packet: Packet) {
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetBlendConstants.html>"]
 fn vk_cmd_set_blend_constants(mut packet: Packet) {
     let command_buffer: vk::CommandBuffer = packet.read();
-    let blend_constants: f32 = packet.read();
+    let blend_constants: *const [f32; 4] = packet.read();
     trace!("called vkCmdSetBlendConstants({command_buffer:?}, {blend_constants:?})");
 
 }
@@ -2434,7 +2434,7 @@ fn vk_debug_report_message_ext(mut packet: Packet) {
     let flags: vk::DebugReportFlagsEXT = packet.read();
     let object_type: vk::DebugReportObjectTypeEXT = packet.read();
     let object: u64 = packet.read();
-    let location: isize = packet.read();
+    let location: usize = packet.read();
     let message_code: i32 = packet.read();
     let p_layer_prefix: *const std::os::raw::c_char = packet.read_null_str();
     let p_message: *const std::os::raw::c_char = packet.read_null_str();
@@ -3320,7 +3320,7 @@ fn vk_destroy_validation_cache_ext(mut packet: Packet) {
 fn vk_get_validation_cache_data_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let validation_cache: vk::ValidationCacheEXT = packet.read();
-    let p_data_size: *mut isize = packet.read();
+    let p_data_size: *mut usize = packet.read();
     let p_data: *mut std::ffi::c_void = packet.read();
     trace!("called vkGetValidationCacheDataEXT({device:?}, {validation_cache:?}, {p_data_size:?}, {p_data:?})");
 
@@ -3395,7 +3395,7 @@ fn vk_get_shader_info_amd(mut packet: Packet) {
     let pipeline: vk::Pipeline = packet.read();
     let shader_stage: vk::ShaderStageFlags = packet.read();
     let info_type: vk::ShaderInfoTypeAMD = packet.read();
-    let p_info_size: *mut isize = packet.read();
+    let p_info_size: *mut usize = packet.read();
     let p_info: *mut std::ffi::c_void = packet.read();
     trace!("called vkGetShaderInfoAMD({device:?}, {pipeline:?}, {shader_stage:?}, {info_type:?}, {p_info_size:?}, {p_info:?})");
 
@@ -4017,9 +4017,9 @@ fn vk_write_acceleration_structures_properties_khr(mut packet: Packet) {
     let acceleration_structure_count: u32 = packet.read();
     let p_acceleration_structures: *const vk::AccelerationStructureKHR = packet.read();
     let query_type: vk::QueryType = packet.read();
-    let data_size: isize = packet.read();
+    let data_size: usize = packet.read();
     let p_data: *mut std::ffi::c_void = packet.read();
-    let stride: isize = packet.read();
+    let stride: usize = packet.read();
     trace!("called vkWriteAccelerationStructuresPropertiesKHR({device:?}, {acceleration_structure_count:?}, {p_acceleration_structures:?}, {query_type:?}, {data_size:?}, {p_data:?}, {stride:?})");
 
 }
@@ -4065,7 +4065,7 @@ fn vk_get_ray_tracing_shader_group_handles_khr(mut packet: Packet) {
     let pipeline: vk::Pipeline = packet.read();
     let first_group: u32 = packet.read();
     let group_count: u32 = packet.read();
-    let data_size: isize = packet.read();
+    let data_size: usize = packet.read();
     let p_data: *mut std::ffi::c_void = packet.read();
     trace!("called vkGetRayTracingShaderGroupHandlesKHR({device:?}, {pipeline:?}, {first_group:?}, {group_count:?}, {data_size:?}, {p_data:?})");
 
@@ -4077,7 +4077,7 @@ fn vk_get_ray_tracing_capture_replay_shader_group_handles_khr(mut packet: Packet
     let pipeline: vk::Pipeline = packet.read();
     let first_group: u32 = packet.read();
     let group_count: u32 = packet.read();
-    let data_size: isize = packet.read();
+    let data_size: usize = packet.read();
     let p_data: *mut std::ffi::c_void = packet.read();
     trace!("called vkGetRayTracingCaptureReplayShaderGroupHandlesKHR({device:?}, {pipeline:?}, {first_group:?}, {group_count:?}, {data_size:?}, {p_data:?})");
 
@@ -4087,7 +4087,7 @@ fn vk_get_ray_tracing_capture_replay_shader_group_handles_khr(mut packet: Packet
 fn vk_get_acceleration_structure_handle_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let acceleration_structure: vk::AccelerationStructureNV = packet.read();
-    let data_size: isize = packet.read();
+    let data_size: usize = packet.read();
     let p_data: *mut std::ffi::c_void = packet.read();
     trace!("called vkGetAccelerationStructureHandleNV({device:?}, {acceleration_structure:?}, {data_size:?}, {p_data:?})");
 
@@ -4441,7 +4441,7 @@ fn vk_cmd_build_acceleration_structures_khr(mut packet: Packet) {
     let command_buffer: vk::CommandBuffer = packet.read();
     let info_count: u32 = packet.read();
     let p_infos: *const vk::AccelerationStructureBuildGeometryInfoKHR = packet.read();
-    let pp_build_range_infos: *mut *const vk::AccelerationStructureBuildRangeInfoKHR = packet.read();
+    let pp_build_range_infos: *const *const vk::AccelerationStructureBuildRangeInfoKHR = packet.read();
     trace!("called vkCmdBuildAccelerationStructuresKHR({command_buffer:?}, {info_count:?}, {p_infos:?}, {pp_build_range_infos:?})");
 
 }
@@ -4453,7 +4453,7 @@ fn vk_cmd_build_acceleration_structures_indirect_khr(mut packet: Packet) {
     let p_infos: *const vk::AccelerationStructureBuildGeometryInfoKHR = packet.read();
     let p_indirect_device_addresses: *const vk::DeviceAddress = packet.read();
     let p_indirect_strides: *const u32 = packet.read();
-    let pp_max_primitive_counts: *mut *const u32 = packet.read();
+    let pp_max_primitive_counts: *const *const u32 = packet.read();
     trace!("called vkCmdBuildAccelerationStructuresIndirectKHR({command_buffer:?}, {info_count:?}, {p_infos:?}, {p_indirect_device_addresses:?}, {p_indirect_strides:?}, {pp_max_primitive_counts:?})");
 
 }
@@ -4464,7 +4464,7 @@ fn vk_build_acceleration_structures_khr(mut packet: Packet) {
     let deferred_operation: vk::DeferredOperationKHR = packet.read();
     let info_count: u32 = packet.read();
     let p_infos: *const vk::AccelerationStructureBuildGeometryInfoKHR = packet.read();
-    let pp_build_range_infos: *mut *const vk::AccelerationStructureBuildRangeInfoKHR = packet.read();
+    let pp_build_range_infos: *const *const vk::AccelerationStructureBuildRangeInfoKHR = packet.read();
     trace!("called vkBuildAccelerationStructuresKHR({device:?}, {deferred_operation:?}, {info_count:?}, {p_infos:?}, {pp_build_range_infos:?})");
 
 }
@@ -5047,7 +5047,7 @@ fn vk_cmd_resolve_image2(mut packet: Packet) {
 fn vk_cmd_set_fragment_shading_rate_khr(mut packet: Packet) {
     let command_buffer: vk::CommandBuffer = packet.read();
     let p_fragment_size: *const vk::Extent2D = packet.read();
-    let combiner_ops: vk::FragmentShadingRateCombinerOpKHR = packet.read();
+    let combiner_ops: *const [vk::FragmentShadingRateCombinerOpKHR; 2] = packet.read();
     trace!("called vkCmdSetFragmentShadingRateKHR({command_buffer:?}, {p_fragment_size:?}, {combiner_ops:?})");
 
 }
@@ -5064,7 +5064,7 @@ fn vk_get_physical_device_fragment_shading_rates_khr(mut packet: Packet) {
 fn vk_cmd_set_fragment_shading_rate_enum_nv(mut packet: Packet) {
     let command_buffer: vk::CommandBuffer = packet.read();
     let shading_rate: vk::FragmentShadingRateNV = packet.read();
-    let combiner_ops: vk::FragmentShadingRateCombinerOpKHR = packet.read();
+    let combiner_ops: *const [vk::FragmentShadingRateCombinerOpKHR; 2] = packet.read();
     trace!("called vkCmdSetFragmentShadingRateEnumNV({command_buffer:?}, {shading_rate:?}, {combiner_ops:?})");
 
 }
@@ -5278,7 +5278,7 @@ fn vk_get_encoded_video_session_parameters_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_video_session_parameters_info: *const vk::VideoEncodeSessionParametersGetInfoKHR = packet.read();
     let p_feedback_info: *mut vk::VideoEncodeSessionParametersFeedbackInfoKHR = packet.read();
-    let p_data_size: *mut isize = packet.read();
+    let p_data_size: *mut usize = packet.read();
     let p_data: *mut std::ffi::c_void = packet.read();
     trace!("called vkGetEncodedVideoSessionParametersKHR({device:?}, {p_video_session_parameters_info:?}, {p_feedback_info:?}, {p_data_size:?}, {p_data:?})");
 
@@ -5440,7 +5440,7 @@ fn vk_get_descriptor_set_layout_binding_offset_ext(mut packet: Packet) {
 fn vk_get_descriptor_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_descriptor_info: *const vk::DescriptorGetInfoEXT = packet.read();
-    let data_size: isize = packet.read();
+    let data_size: usize = packet.read();
     let p_descriptor: *mut std::ffi::c_void = packet.read();
     trace!("called vkGetDescriptorEXT({device:?}, {p_descriptor_info:?}, {data_size:?}, {p_descriptor:?})");
 
@@ -5621,7 +5621,7 @@ fn vk_create_cuda_module_nv(mut packet: Packet) {
 fn vk_get_cuda_module_cache_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let module: vk::CudaModuleNV = packet.read();
-    let p_cache_size: *mut isize = packet.read();
+    let p_cache_size: *mut usize = packet.read();
     let p_cache_data: *mut std::ffi::c_void = packet.read();
     trace!("called vkGetCudaModuleCacheNV({device:?}, {module:?}, {p_cache_size:?}, {p_cache_data:?})");
 
@@ -5803,9 +5803,9 @@ fn vk_write_micromaps_properties_ext(mut packet: Packet) {
     let micromap_count: u32 = packet.read();
     let p_micromaps: *const vk::MicromapEXT = packet.read();
     let query_type: vk::QueryType = packet.read();
-    let data_size: isize = packet.read();
+    let data_size: usize = packet.read();
     let p_data: *mut std::ffi::c_void = packet.read();
-    let stride: isize = packet.read();
+    let stride: usize = packet.read();
     trace!("called vkWriteMicromapsPropertiesEXT({device:?}, {micromap_count:?}, {p_micromaps:?}, {query_type:?}, {data_size:?}, {p_data:?}, {stride:?})");
 
 }
@@ -6015,7 +6015,7 @@ fn vk_destroy_shader_ext(mut packet: Packet) {
 fn vk_get_shader_binary_data_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let shader: vk::ShaderEXT = packet.read();
-    let p_data_size: *mut isize = packet.read();
+    let p_data_size: *mut usize = packet.read();
     let p_data: *mut std::ffi::c_void = packet.read();
     trace!("called vkGetShaderBinaryDataEXT({device:?}, {shader:?}, {p_data_size:?}, {p_data:?})");
 
