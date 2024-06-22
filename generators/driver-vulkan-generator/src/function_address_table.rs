@@ -2,11 +2,7 @@ use std::{fs, path::Path};
 
 use vk_parse::CommandDefinition;
 
-use crate::{
-    driver::generate_function_header,
-    function_data::{CommandExt, FunctionType},
-    push_indentation, to_snake_case,
-};
+use crate::{driver::generate_function_header, push_indentation, to_snake_case};
 
 pub fn generate(project_directory: &Path, commands: &[&CommandDefinition]) {
     let mut builder = String::new();
@@ -25,10 +21,6 @@ fn generate_struct(builder: &mut String, commands: &[&CommandDefinition]) {
     builder.push_str("\npub struct FunctionAddressTable {\n");
 
     for command in commands {
-        if command.function_type() == FunctionType::Entry {
-            continue;
-        }
-
         push_indentation(builder, 1);
         builder.push_str("pub ");
         to_snake_case(builder, &command.proto.name);
@@ -58,10 +50,6 @@ fn generate_new(builder: &mut String, commands: &[&CommandDefinition]) {
     builder.push_str("Self {\n");
 
     for command in commands {
-        if command.function_type() == FunctionType::Entry {
-            continue;
-        }
-
         push_indentation(builder, 3);
         to_snake_case(builder, &command.proto.name);
         builder.push_str(": {");
@@ -98,10 +86,6 @@ fn generate_set_address(builder: &mut String, commands: &[&CommandDefinition]) {
     builder.push_str("match name {\n");
 
     for command in commands {
-        if command.function_type() == FunctionType::Entry {
-            continue;
-        }
-
         push_indentation(builder, 3);
         builder.push('"');
         builder.push_str(&command.proto.name);

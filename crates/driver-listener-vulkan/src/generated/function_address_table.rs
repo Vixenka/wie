@@ -3,6 +3,7 @@
 use ash::vk;
 
 pub struct FunctionAddressTable {
+    pub vk_create_instance: vk::PFN_vkCreateInstance,
     pub vk_destroy_instance: vk::PFN_vkDestroyInstance,
     pub vk_enumerate_physical_devices: vk::PFN_vkEnumeratePhysicalDevices,
     pub vk_get_device_proc_addr: vk::PFN_vkGetDeviceProcAddr,
@@ -15,6 +16,9 @@ pub struct FunctionAddressTable {
     pub vk_get_physical_device_image_format_properties: vk::PFN_vkGetPhysicalDeviceImageFormatProperties,
     pub vk_create_device: vk::PFN_vkCreateDevice,
     pub vk_destroy_device: vk::PFN_vkDestroyDevice,
+    pub vk_enumerate_instance_version: vk::PFN_vkEnumerateInstanceVersion,
+    pub vk_enumerate_instance_layer_properties: vk::PFN_vkEnumerateInstanceLayerProperties,
+    pub vk_enumerate_instance_extension_properties: vk::PFN_vkEnumerateInstanceExtensionProperties,
     pub vk_enumerate_device_layer_properties: vk::PFN_vkEnumerateDeviceLayerProperties,
     pub vk_enumerate_device_extension_properties: vk::PFN_vkEnumerateDeviceExtensionProperties,
     pub vk_get_device_queue: vk::PFN_vkGetDeviceQueue,
@@ -604,6 +608,16 @@ pub struct FunctionAddressTable {
 impl FunctionAddressTable {
     pub const fn new() -> Self {
         Self {
+            vk_create_instance: {
+                unsafe extern "system" fn vkCreateInstance(
+                    p_create_info: *const vk::InstanceCreateInfo,
+                    p_allocator: *const vk::AllocationCallbacks,
+                    p_instance: *mut vk::Instance,
+                ) -> vk::Result {
+                    panic!("attempted to invoke not initialized function `{}`", stringify!(vkCreateInstance))
+                }
+                vkCreateInstance
+            },
             vk_destroy_instance: {
                 unsafe extern "system" fn vkDestroyInstance(
                     instance: vk::Instance,
@@ -721,6 +735,33 @@ impl FunctionAddressTable {
                     panic!("attempted to invoke not initialized function `{}`", stringify!(vkDestroyDevice))
                 }
                 vkDestroyDevice
+            },
+            vk_enumerate_instance_version: {
+                unsafe extern "system" fn vkEnumerateInstanceVersion(
+                    p_api_version: *mut u32,
+                ) -> vk::Result {
+                    panic!("attempted to invoke not initialized function `{}`", stringify!(vkEnumerateInstanceVersion))
+                }
+                vkEnumerateInstanceVersion
+            },
+            vk_enumerate_instance_layer_properties: {
+                unsafe extern "system" fn vkEnumerateInstanceLayerProperties(
+                    p_property_count: *mut u32,
+                    p_properties: *mut vk::LayerProperties,
+                ) -> vk::Result {
+                    panic!("attempted to invoke not initialized function `{}`", stringify!(vkEnumerateInstanceLayerProperties))
+                }
+                vkEnumerateInstanceLayerProperties
+            },
+            vk_enumerate_instance_extension_properties: {
+                unsafe extern "system" fn vkEnumerateInstanceExtensionProperties(
+                    p_layer_name: *const std::os::raw::c_char,
+                    p_property_count: *mut u32,
+                    p_properties: *mut vk::ExtensionProperties,
+                ) -> vk::Result {
+                    panic!("attempted to invoke not initialized function `{}`", stringify!(vkEnumerateInstanceExtensionProperties))
+                }
+                vkEnumerateInstanceExtensionProperties
             },
             vk_enumerate_device_layer_properties: {
                 unsafe extern "system" fn vkEnumerateDeviceLayerProperties(
@@ -6831,6 +6872,7 @@ impl FunctionAddressTable {
 
     pub fn set_address(&mut self, name: &str, address: vk::PFN_vkVoidFunction) {
         match name {
+            "vkCreateInstance" => self.vk_create_instance = unsafe { std::mem::transmute(address) },
             "vkDestroyInstance" => self.vk_destroy_instance = unsafe { std::mem::transmute(address) },
             "vkEnumeratePhysicalDevices" => self.vk_enumerate_physical_devices = unsafe { std::mem::transmute(address) },
             "vkGetDeviceProcAddr" => self.vk_get_device_proc_addr = unsafe { std::mem::transmute(address) },
@@ -6843,6 +6885,9 @@ impl FunctionAddressTable {
             "vkGetPhysicalDeviceImageFormatProperties" => self.vk_get_physical_device_image_format_properties = unsafe { std::mem::transmute(address) },
             "vkCreateDevice" => self.vk_create_device = unsafe { std::mem::transmute(address) },
             "vkDestroyDevice" => self.vk_destroy_device = unsafe { std::mem::transmute(address) },
+            "vkEnumerateInstanceVersion" => self.vk_enumerate_instance_version = unsafe { std::mem::transmute(address) },
+            "vkEnumerateInstanceLayerProperties" => self.vk_enumerate_instance_layer_properties = unsafe { std::mem::transmute(address) },
+            "vkEnumerateInstanceExtensionProperties" => self.vk_enumerate_instance_extension_properties = unsafe { std::mem::transmute(address) },
             "vkEnumerateDeviceLayerProperties" => self.vk_enumerate_device_layer_properties = unsafe { std::mem::transmute(address) },
             "vkEnumerateDeviceExtensionProperties" => self.vk_enumerate_device_extension_properties = unsafe { std::mem::transmute(address) },
             "vkGetDeviceQueue" => self.vk_get_device_queue = unsafe { std::mem::transmute(address) },
