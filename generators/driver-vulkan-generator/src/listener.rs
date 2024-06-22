@@ -85,13 +85,29 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition) {
 
     trace(builder, definition);
 
-    /*builder.push('\n');
     push_indentation(builder, 1);
     builder.push_str("unsafe {\n");
 
-    builder.push_str(&format!("{:?}", definition.function_type()));
+    push_indentation(builder, 2);
+    builder.push_str("(crate::FUNCTION_ADDRESS_TABLE.");
+    to_snake_case(builder, &definition.proto.name);
+    builder.push_str(")(\n");
+
+    for param in definition.params.iter().unique_by(|x| &x.definition.name) {
+        push_indentation(builder, 3);
+        push_param_name(builder, param);
+
+        if check_if_count_ptr(param) {
+            builder.push_str(" as *mut _");
+        }
+
+        builder.push_str(",\n");
+    }
+    push_indentation(builder, 2);
+    builder.push_str(");\n");
+
     push_indentation(builder, 1);
-    builder.push_str("}\n");*/
+    builder.push_str("}\n");
 
     builder.push_str("}\n");
 }
