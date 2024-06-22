@@ -93,6 +93,8 @@ where
             self.buffer.push(*str.add(i) as u8);
             i += 1;
         }
+
+        self.buffer.push(0);
     }
 
     #[inline]
@@ -216,6 +218,7 @@ where
             self.read += 1;
         }
 
+        self.read += 1;
         self.buffer[start..self.read].as_ptr() as *const c_char
     }
 
