@@ -1,12 +1,14 @@
 use std::{collections::HashSet, path::Path};
 
 use itertools::Itertools;
-use vk_parse::{CommandDefinition, CommandParam, Extension, NameWithType};
+use vk_parse::{CommandDefinition, CommandParam, Extension, Feature, NameWithType, Registry};
 
 const DESIRED_API: &str = "vulkan";
 const INDENTATION: &str = "    ";
 
 mod driver;
+mod function_address_table;
+pub mod function_data;
 mod listener;
 mod transport;
 
@@ -99,6 +101,9 @@ fn generate(vk_headers_path: &Path, project_directory: &Path) {
     println!("Generating driver...");
     driver::generate(project_directory, &commands);
     println!("Generating listener...");
+    println!("Generating function address table...");
+    function_address_table::generate(project_directory, &commands);
+    println!("Generating transport...");
     listener::generate(project_directory, &commands);
 }
 
@@ -200,4 +205,44 @@ fn to_rust_type(name_with_type: &NameWithType) -> String {
 
 fn contains_desired_api(api: &str) -> bool {
     api.split(',').any(|n| n == DESIRED_API)
+}
+
+struct Features<'a> {
+    features: Vec<&'a Feature>,
+}
+
+impl<'a> Features<'a> {
+    fn new(spec: &'a Registry) -> Self {
+        let features: Vec<&Feature> = spec
+            .0
+            .iter()
+            .filter_map(|x| match x {
+                vk_parse::RegistryChild::Feature(f) => Some(f),
+                _ => None,
+            })
+            .collect();
+
+        Self { features }
+    }
+
+    pub fn get_feature_name_from_command(&self, command: &CommandDefinition) -> Option<&Feature> {
+        self.features
+            .iter()
+            .find(|feature| {
+                feature
+                    .children
+                    .iter()
+                    .filter_map(|child| match child {
+                        vk_parse::ExtensionChild::Require { items, .. } => Some(items),
+                        _ => None,
+                    })
+                    .flatten()
+                    .filter_map(|item| match item {
+                        vk_parse::InterfaceItem::Command { name, .. } => Some(name),
+                        _ => None,
+                    })
+                    .any(|name| name == &command.proto.name)
+            })
+            .copied()
+    }
 }

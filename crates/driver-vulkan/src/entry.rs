@@ -4,6 +4,7 @@ use std::{
 };
 
 use ash::vk;
+use wie_transport_guest::new_packet;
 
 use crate::generated::definitions;
 
@@ -40,6 +41,13 @@ extern "stdcall" fn vk_icdGetInstanceProcAddr(
     }
 
     trace!("requested address for function `{}`", name);
+
+    let mut packet = new_packet(1000000000);
+    unsafe { packet.write_null_str(p_name) };
+    let mut response = packet.send_with_response();
+    if !response.read::<bool>() {
+        return None;
+    }
 
     unsafe { mem::transmute(address) }
 }
