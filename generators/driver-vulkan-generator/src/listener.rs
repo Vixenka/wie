@@ -68,7 +68,7 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition) {
             builder.push_str("let ");
 
             if is_count {
-                builder.push('(');
+                builder.push_str("(mut ");
                 push_param_name(builder, param);
                 builder.push_str(", ");
             } else {
@@ -86,7 +86,7 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition) {
     trace(builder, definition);
 
     push_indentation(builder, 1);
-    builder.push_str("unsafe {\n");
+    builder.push_str("_ = dbg!(unsafe {\n");
 
     push_indentation(builder, 2);
     builder.push_str("(crate::FUNCTION_ADDRESS_TABLE.");
@@ -95,19 +95,19 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition) {
 
     for param in definition.params.iter().unique_by(|x| &x.definition.name) {
         push_indentation(builder, 3);
-        push_param_name(builder, param);
 
         if check_if_count_ptr(param) {
-            builder.push_str(" as *mut _");
+            builder.push_str("&mut ");
         }
 
+        push_param_name(builder, param);
         builder.push_str(",\n");
     }
     push_indentation(builder, 2);
-    builder.push_str(");\n");
+    builder.push_str(")\n");
 
     push_indentation(builder, 1);
-    builder.push_str("}\n");
+    builder.push_str("});\n");
 
     builder.push_str("}\n");
 }
