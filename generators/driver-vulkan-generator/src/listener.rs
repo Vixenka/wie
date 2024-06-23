@@ -4,6 +4,7 @@ use itertools::Itertools;
 use vk_parse::CommandDefinition;
 
 use crate::{
+    function_data::{CommandExt, CommandParamExt},
     push_indentation, push_param_name, to_rust_type, to_rust_type_without_ptr, to_snake_case,
     trace,
     transport::{self, check_if_count_ptr},
@@ -54,6 +55,21 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition) {
     to_snake_case(builder, &definition.proto.name);
     builder.push_str("(mut packet: Packet) {\n");
 
+    unpack_packet(builder, definition);
+    trace(builder, definition);
+
+    let return_type = to_rust_type(&definition.proto);
+    let is_void = return_type == "std::ffi::c_void";
+
+    call_vulkan_function(builder, definition, is_void);
+    if definition.is_return_data() {
+        write_response(builder, definition, is_void);
+    }
+
+    builder.push_str("}\n");
+}
+
+fn unpack_packet(builder: &mut String, definition: &CommandDefinition) {
     let mut last_is_count = false;
     for param in definition.params.iter().unique_by(|x| &x.definition.name) {
         let is_count = check_if_count_ptr(param);
@@ -82,11 +98,14 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition) {
 
         last_is_count = is_count;
     }
+}
 
-    trace(builder, definition);
-
+fn call_vulkan_function(builder: &mut String, definition: &CommandDefinition, is_void: bool) {
     push_indentation(builder, 1);
-    builder.push_str("_ = dbg!(unsafe {\n");
+    if !is_void {
+        builder.push_str("let result = ");
+    }
+    builder.push_str("unsafe {\n");
 
     push_indentation(builder, 2);
     builder.push_str("(crate::FUNCTION_ADDRESS_TABLE.");
@@ -107,7 +126,44 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition) {
     builder.push_str(")\n");
 
     push_indentation(builder, 1);
-    builder.push_str("});\n");
+    builder.push_str("};\n");
+}
 
-    builder.push_str("}\n");
+fn write_response(builder: &mut String, definition: &CommandDefinition, is_void: bool) {
+    builder.push('\n');
+    push_indentation(builder, 1);
+    builder.push_str("let mut response = packet.write_response(None);\n");
+
+    let mut last_is_count = false;
+    for param in definition.params.iter().filter(|x| x.is_return_data()) {
+        let is_count = check_if_count_ptr(param);
+
+        if !last_is_count {
+            push_indentation(builder, 1);
+            builder.push_str("response.write");
+
+            if is_count {
+                builder.push_str("_vk_array(");
+                push_param_name(builder, param);
+                builder.push_str(", ");
+                last_is_count = true;
+                continue;
+            } else {
+                builder.push('(');
+            }
+        }
+
+        push_param_name(builder, param);
+        builder.push_str(");\n");
+
+        last_is_count = is_count;
+    }
+
+    if !is_void {
+        push_indentation(builder, 1);
+        builder.push_str("response.write(result);\n");
+    }
+
+    push_indentation(builder, 1);
+    builder.push_str("response.send();\n");
 }

@@ -1,3 +1,5 @@
+use crate::to_rust_type;
+
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum FunctionType {
     Static,
@@ -8,6 +10,7 @@ pub enum FunctionType {
 
 pub trait CommandExt {
     fn function_type(&self) -> FunctionType;
+    fn is_return_data(&self) -> bool;
 }
 
 impl CommandExt for vk_parse::CommandDefinition {
@@ -29,5 +32,28 @@ impl CommandExt for vk_parse::CommandDefinition {
             _ if is_first_param_device => FunctionType::Device,
             _ => FunctionType::Instance,
         }
+    }
+
+    fn is_return_data(&self) -> bool {
+        if to_rust_type(&self.proto) != "std::ffi::c_void" {
+            return true;
+        }
+
+        for param in self.params.iter() {
+            if param.is_return_data() {
+                return true;
+            }
+        }
+        false
+    }
+}
+
+pub trait CommandParamExt {
+    fn is_return_data(&self) -> bool;
+}
+
+impl CommandParamExt for vk_parse::CommandParam {
+    fn is_return_data(&self) -> bool {
+        to_rust_type(&self.definition).contains("*mut")
     }
 }

@@ -113,6 +113,17 @@ where
     }
 
     #[inline]
+    pub fn write_vk_array<TO>(&mut self, count: u32, buffer: *const TO) {
+        self.write(count);
+        if !buffer.is_null() {
+            let slice = unsafe {
+                slice::from_raw_parts(buffer as *mut u8, count as usize * mem::size_of::<TO>())
+            };
+            self.buffer.extend_from_slice(slice);
+        }
+    }
+
+    #[inline]
     pub fn send(mut self) {
         let buffer = mem::take(&mut self.buffer);
         self.connection.send(buffer);
@@ -234,7 +245,11 @@ where
         let count = self.read::<u32>();
         match count == 0 {
             true => (0, ptr::null_mut()),
-            false => (count, Vec::with_capacity(count as usize).as_mut_ptr()),
+            // TODO: fix memleak here
+            false => (
+                count,
+                Vec::with_capacity(count as usize).leak() as *mut [TA] as *mut TA,
+            ),
         }
     }
 
