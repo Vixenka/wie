@@ -265,6 +265,7 @@ where
                 destination,
                 c as usize,
             );
+            self.read += c as usize * mem::size_of::<TO>();
         }
     }
 
