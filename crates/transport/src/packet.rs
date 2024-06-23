@@ -215,6 +215,7 @@ where
             ptr::null()
         } else {
             self.read += 1;
+            self.align::<TO>();
             let ptr = unsafe { self.buffer.as_ptr().add(self.read) } as *const TO;
             self.read += mem::size_of::<TO>();
             ptr
