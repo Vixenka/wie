@@ -56,6 +56,7 @@ where
 
     #[inline]
     pub fn write_raw_ptr<TO>(&mut self, object: *const TO) {
+        self.align::<TO>();
         let slice = unsafe { slice::from_raw_parts(object as *const u8, mem::size_of::<TO>()) };
         self.buffer.extend_from_slice(slice);
     }
@@ -133,6 +134,17 @@ where
         mem::forget(self);
         packet
     }
+
+    #[inline]
+    fn align<TO>(&mut self) {
+        let m = self.buffer.len() % mem::align_of::<TO>();
+        unsafe {
+            self.buffer
+                .set_len(self.buffer.len() + mem::align_of::<TO>() - m);
+        }
+
+        debug_assert_eq!(0, self.buffer.len() % mem::align_of::<TO>());
+    }
 }
 
 impl<T> Drop for PacketWriter<'_, T>
@@ -188,6 +200,7 @@ where
 
     #[inline]
     pub fn read_to_raw_ptr<TO>(&mut self, ptr: *mut TO) {
+        self.align::<TO>();
         let size = mem::size_of::<TO>();
         unsafe {
             ptr::copy_nonoverlapping(self.buffer[self.read..].as_ptr(), ptr as *mut u8, size);
@@ -281,6 +294,13 @@ where
         let mut buffer = mem::take(&mut self.buffer);
         unsafe { buffer.set_len(mem::size_of::<PacketHeader>()) };
         PacketWriter::new(self.connection, buffer, destination)
+    }
+
+    #[inline]
+    fn align<TO>(&mut self) {
+        let m = self.read % mem::align_of::<TO>();
+        self.read += mem::align_of::<TO>() - m;
+        debug_assert_eq!(0, self.read % mem::align_of::<TO>());
     }
 }
 
