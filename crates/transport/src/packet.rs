@@ -253,6 +253,21 @@ where
         }
     }
 
+    /// # Safety
+    /// Caller must ensure to pass a valid pointer to count, and valid pointer or null to a destination.
+    #[inline]
+    pub unsafe fn read_vk_array<TO>(&mut self, count: *mut u32, destination: *mut TO) {
+        let c = self.read::<u32>();
+        *count = c;
+        if !destination.is_null() {
+            ptr::copy_nonoverlapping(
+                self.buffer[self.read..].as_ptr() as *const TO,
+                destination,
+                c as usize,
+            );
+        }
+    }
+
     pub fn write_response(mut self, destination: Option<u64>) -> PacketWriter<'c, T> {
         if self.buffer.len() != self.read {
             panic!("Packet buffer is not fully read.");

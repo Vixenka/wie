@@ -4,6 +4,7 @@ use itertools::Itertools;
 use vk_parse::CommandDefinition;
 
 use crate::{
+    function_data::{CommandExt, CommandParamExt},
     push_indentation, push_param_name, to_rust_type, trace,
     transport::{self, check_if_count_ptr},
     VULKAN_HANDLERS_BEGIN,
@@ -13,7 +14,7 @@ pub fn generate_function_header(
     builder: &mut String,
     definition: &CommandDefinition,
     start_indentation: usize,
-) -> String {
+) {
     builder.push('\n');
     push_indentation(builder, start_indentation);
     builder.push_str("unsafe extern \"system\" fn ");
@@ -40,7 +41,6 @@ pub fn generate_function_header(
     }
 
     builder.push_str(" {\n");
-    return_type
 }
 
 pub fn generate(project_directory: &Path, commands: &[&CommandDefinition]) {
@@ -85,7 +85,7 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition, handle
     builder.push_str(&definition.proto.name);
     builder.push_str(".html>\"]");
 
-    let return_type = generate_function_header(builder, definition, 0);
+    generate_function_header(builder, definition, 0);
     trace(builder, definition);
 
     // Packet creation
@@ -114,17 +114,59 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition, handle
         last_is_count = is_count;
     }
 
+    builder.push('\n');
     push_indentation(builder, 1);
-    if return_type == "std::ffi::c_void" {
-        builder.push_str("packet.send();\n");
+    if definition.is_return_data() {
+        builder.push_str("let mut response = packet.send_with_response();\n");
+        unpack_response(builder, definition);
+
+        /*push_indentation(builder, 1);
+        builder.push_str("unimplemented!(\"");
+        builder.push_str(&definition.proto.name);
+        builder.push_str("\");\n");*/
     } else {
-        builder.push_str("let mut _response = packet.send_with_response();\n");
+        builder.push_str("packet.send();\n");
+    }
+
+    builder.push_str("}\n");
+}
+
+fn unpack_response(builder: &mut String, definition: &CommandDefinition) {
+    let mut last_is_count = false;
+    for param in definition
+        .params
+        .iter()
+        .unique_by(|x| &x.definition.name)
+        .filter(|x| x.is_return_data())
+    {
+        let is_count = check_if_count_ptr(param);
+
+        if last_is_count {
+            push_param_name(builder, param);
+            builder.push_str(");\n");
+        } else {
+            push_indentation(builder, 1);
+            if !is_count {
+                builder.push('*');
+                push_param_name(builder, param);
+                builder.push_str(" = ");
+            }
+
+            builder.push_str("response.read");
+
+            if is_count {
+                builder.push_str("_vk_array(");
+                push_param_name(builder, param);
+                builder.push_str(", ");
+            } else {
+                transport::read_packet_param(builder, param, last_is_count, is_count);
+                builder.push_str(";\n");
+            }
+        }
+
+        last_is_count = is_count;
     }
 
     push_indentation(builder, 1);
-    builder.push_str("unimplemented!(\"");
-    builder.push_str(&definition.proto.name);
-    builder.push_str("\");\n");
-
-    builder.push_str("}\n");
+    builder.push_str("response.read()\n");
 }

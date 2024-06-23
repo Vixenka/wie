@@ -135,7 +135,12 @@ fn write_response(builder: &mut String, definition: &CommandDefinition, is_void:
     builder.push_str("let mut response = packet.write_response(None);\n");
 
     let mut last_is_count = false;
-    for param in definition.params.iter().filter(|x| x.is_return_data()) {
+    for param in definition
+        .params
+        .iter()
+        .unique_by(|x| &x.definition.name)
+        .filter(|x| x.is_return_data())
+    {
         let is_count = check_if_count_ptr(param);
 
         if !last_is_count {
