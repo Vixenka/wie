@@ -610,7 +610,7 @@ pub(crate) fn register_handlers_to(map: &mut crate::HandlerMap) {
 fn vk_create_instance(mut packet: Packet) {
     let p_create_info: *const vk::InstanceCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_instance: *mut vk::Instance = packet.read();
+    let p_instance: *mut vk::Instance = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateInstance({p_create_info:?}, {p_allocator:?}, {p_instance:?})");
 
     let result = unsafe {
@@ -622,7 +622,7 @@ fn vk_create_instance(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_instance);
+    response.write_raw_ptr(p_instance);
     response.write(result);
     response.send();
 }
@@ -700,7 +700,7 @@ fn vk_get_instance_proc_addr(mut packet: Packet) {
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties.html>"]
 fn vk_get_physical_device_properties(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
-    let p_properties: *mut vk::PhysicalDeviceProperties = packet.read();
+    let p_properties: *mut vk::PhysicalDeviceProperties = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceProperties({physical_device:?}, {p_properties:?})");
 
     unsafe {
@@ -711,7 +711,7 @@ fn vk_get_physical_device_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_properties);
+    response.write_raw_ptr(p_properties);
     response.send();
 }
 
@@ -737,7 +737,7 @@ fn vk_get_physical_device_queue_family_properties(mut packet: Packet) {
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMemoryProperties.html>"]
 fn vk_get_physical_device_memory_properties(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
-    let p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties = packet.read();
+    let p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceMemoryProperties({physical_device:?}, {p_memory_properties:?})");
 
     unsafe {
@@ -748,14 +748,14 @@ fn vk_get_physical_device_memory_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_properties);
+    response.write_raw_ptr(p_memory_properties);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures.html>"]
 fn vk_get_physical_device_features(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
-    let p_features: *mut vk::PhysicalDeviceFeatures = packet.read();
+    let p_features: *mut vk::PhysicalDeviceFeatures = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceFeatures({physical_device:?}, {p_features:?})");
 
     unsafe {
@@ -766,7 +766,7 @@ fn vk_get_physical_device_features(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_features);
+    response.write_raw_ptr(p_features);
     response.send();
 }
 
@@ -774,7 +774,7 @@ fn vk_get_physical_device_features(mut packet: Packet) {
 fn vk_get_physical_device_format_properties(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let format: vk::Format = packet.read();
-    let p_format_properties: *mut vk::FormatProperties = packet.read();
+    let p_format_properties: *mut vk::FormatProperties = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceFormatProperties({physical_device:?}, {format:?}, {p_format_properties:?})");
 
     unsafe {
@@ -786,7 +786,7 @@ fn vk_get_physical_device_format_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_format_properties);
+    response.write_raw_ptr(p_format_properties);
     response.send();
 }
 
@@ -798,7 +798,7 @@ fn vk_get_physical_device_image_format_properties(mut packet: Packet) {
     let tiling: vk::ImageTiling = packet.read();
     let usage: vk::ImageUsageFlags = packet.read();
     let flags: vk::ImageCreateFlags = packet.read();
-    let p_image_format_properties: *mut vk::ImageFormatProperties = packet.read();
+    let p_image_format_properties: *mut vk::ImageFormatProperties = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceImageFormatProperties({physical_device:?}, {format:?}, {type_:?}, {tiling:?}, {usage:?}, {flags:?}, {p_image_format_properties:?})");
 
     let result = unsafe {
@@ -814,7 +814,7 @@ fn vk_get_physical_device_image_format_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_image_format_properties);
+    response.write_raw_ptr(p_image_format_properties);
     response.write(result);
     response.send();
 }
@@ -824,7 +824,7 @@ fn vk_create_device(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let p_create_info: *const vk::DeviceCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_device: *mut vk::Device = packet.read();
+    let p_device: *mut vk::Device = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateDevice({physical_device:?}, {p_create_info:?}, {p_allocator:?}, {p_device:?})");
 
     let result = unsafe {
@@ -837,7 +837,7 @@ fn vk_create_device(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_device);
+    response.write_raw_ptr(p_device);
     response.write(result);
     response.send();
 }
@@ -858,7 +858,7 @@ fn vk_destroy_device(mut packet: Packet) {
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceVersion.html>"]
 fn vk_enumerate_instance_version(mut packet: Packet) {
-    let p_api_version: *mut u32 = packet.read();
+    let p_api_version: *mut u32 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkEnumerateInstanceVersion({p_api_version:?})");
 
     let result = unsafe {
@@ -868,7 +868,7 @@ fn vk_enumerate_instance_version(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_api_version);
+    response.write_raw_ptr(p_api_version);
     response.write(result);
     response.send();
 }
@@ -958,7 +958,7 @@ fn vk_get_device_queue(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let queue_family_index: u32 = packet.read();
     let queue_index: u32 = packet.read();
-    let p_queue: *mut vk::Queue = packet.read();
+    let p_queue: *mut vk::Queue = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceQueue({device:?}, {queue_family_index:?}, {queue_index:?}, {p_queue:?})");
 
     unsafe {
@@ -971,7 +971,7 @@ fn vk_get_device_queue(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_queue);
+    response.write_raw_ptr(p_queue);
     response.send();
 }
 
@@ -1034,7 +1034,7 @@ fn vk_allocate_memory(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_allocate_info: *const vk::MemoryAllocateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_memory: *mut vk::DeviceMemory = packet.read();
+    let p_memory: *mut vk::DeviceMemory = packet.read_nullable_raw_ptr_mut();
     trace!("called vkAllocateMemory({device:?}, {p_allocate_info:?}, {p_allocator:?}, {p_memory:?})");
 
     let result = unsafe {
@@ -1047,7 +1047,7 @@ fn vk_allocate_memory(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory);
+    response.write_raw_ptr(p_memory);
     response.write(result);
     response.send();
 }
@@ -1075,7 +1075,7 @@ fn vk_map_memory(mut packet: Packet) {
     let offset: vk::DeviceSize = packet.read();
     let size: vk::DeviceSize = packet.read();
     let flags: vk::MemoryMapFlags = packet.read();
-    let pp_data: *mut *mut std::ffi::c_void = packet.read();
+    let pp_data: *mut *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkMapMemory({device:?}, {memory:?}, {offset:?}, {size:?}, {flags:?}, {pp_data:?})");
 
     let result = unsafe {
@@ -1090,7 +1090,7 @@ fn vk_map_memory(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(pp_data);
+    response.write_raw_ptr(pp_data);
     response.write(result);
     response.send();
 }
@@ -1153,7 +1153,7 @@ fn vk_invalidate_mapped_memory_ranges(mut packet: Packet) {
 fn vk_get_device_memory_commitment(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let memory: vk::DeviceMemory = packet.read();
-    let p_committed_memory_in_bytes: *mut vk::DeviceSize = packet.read();
+    let p_committed_memory_in_bytes: *mut vk::DeviceSize = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceMemoryCommitment({device:?}, {memory:?}, {p_committed_memory_in_bytes:?})");
 
     unsafe {
@@ -1165,7 +1165,7 @@ fn vk_get_device_memory_commitment(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_committed_memory_in_bytes);
+    response.write_raw_ptr(p_committed_memory_in_bytes);
     response.send();
 }
 
@@ -1173,7 +1173,7 @@ fn vk_get_device_memory_commitment(mut packet: Packet) {
 fn vk_get_buffer_memory_requirements(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let buffer: vk::Buffer = packet.read();
-    let p_memory_requirements: *mut vk::MemoryRequirements = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetBufferMemoryRequirements({device:?}, {buffer:?}, {p_memory_requirements:?})");
 
     unsafe {
@@ -1185,7 +1185,7 @@ fn vk_get_buffer_memory_requirements(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_requirements);
+    response.write_raw_ptr(p_memory_requirements);
     response.send();
 }
 
@@ -1215,7 +1215,7 @@ fn vk_bind_buffer_memory(mut packet: Packet) {
 fn vk_get_image_memory_requirements(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let image: vk::Image = packet.read();
-    let p_memory_requirements: *mut vk::MemoryRequirements = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetImageMemoryRequirements({device:?}, {image:?}, {p_memory_requirements:?})");
 
     unsafe {
@@ -1227,7 +1227,7 @@ fn vk_get_image_memory_requirements(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_requirements);
+    response.write_raw_ptr(p_memory_requirements);
     response.send();
 }
 
@@ -1330,7 +1330,7 @@ fn vk_create_fence(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::FenceCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_fence: *mut vk::Fence = packet.read();
+    let p_fence: *mut vk::Fence = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateFence({device:?}, {p_create_info:?}, {p_allocator:?}, {p_fence:?})");
 
     let result = unsafe {
@@ -1343,7 +1343,7 @@ fn vk_create_fence(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_fence);
+    response.write_raw_ptr(p_fence);
     response.write(result);
     response.send();
 }
@@ -1431,7 +1431,7 @@ fn vk_create_semaphore(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::SemaphoreCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_semaphore: *mut vk::Semaphore = packet.read();
+    let p_semaphore: *mut vk::Semaphore = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateSemaphore({device:?}, {p_create_info:?}, {p_allocator:?}, {p_semaphore:?})");
 
     let result = unsafe {
@@ -1444,7 +1444,7 @@ fn vk_create_semaphore(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_semaphore);
+    response.write_raw_ptr(p_semaphore);
     response.write(result);
     response.send();
 }
@@ -1470,7 +1470,7 @@ fn vk_create_event(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::EventCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_event: *mut vk::Event = packet.read();
+    let p_event: *mut vk::Event = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateEvent({device:?}, {p_create_info:?}, {p_allocator:?}, {p_event:?})");
 
     let result = unsafe {
@@ -1483,7 +1483,7 @@ fn vk_create_event(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_event);
+    response.write_raw_ptr(p_event);
     response.write(result);
     response.send();
 }
@@ -1563,7 +1563,7 @@ fn vk_create_query_pool(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::QueryPoolCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_query_pool: *mut vk::QueryPool = packet.read();
+    let p_query_pool: *mut vk::QueryPool = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateQueryPool({device:?}, {p_create_info:?}, {p_allocator:?}, {p_query_pool:?})");
 
     let result = unsafe {
@@ -1576,7 +1576,7 @@ fn vk_create_query_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_query_pool);
+    response.write_raw_ptr(p_query_pool);
     response.write(result);
     response.send();
 }
@@ -1604,7 +1604,7 @@ fn vk_get_query_pool_results(mut packet: Packet) {
     let first_query: u32 = packet.read();
     let query_count: u32 = packet.read();
     let data_size: usize = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     let stride: vk::DeviceSize = packet.read();
     let flags: vk::QueryResultFlags = packet.read();
     trace!("called vkGetQueryPoolResults({device:?}, {query_pool:?}, {first_query:?}, {query_count:?}, {data_size:?}, {p_data:?}, {stride:?}, {flags:?})");
@@ -1623,7 +1623,7 @@ fn vk_get_query_pool_results(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -1651,7 +1651,7 @@ fn vk_create_buffer(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::BufferCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_buffer: *mut vk::Buffer = packet.read();
+    let p_buffer: *mut vk::Buffer = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateBuffer({device:?}, {p_create_info:?}, {p_allocator:?}, {p_buffer:?})");
 
     let result = unsafe {
@@ -1664,7 +1664,7 @@ fn vk_create_buffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_buffer);
+    response.write_raw_ptr(p_buffer);
     response.write(result);
     response.send();
 }
@@ -1690,7 +1690,7 @@ fn vk_create_buffer_view(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::BufferViewCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_view: *mut vk::BufferView = packet.read();
+    let p_view: *mut vk::BufferView = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateBufferView({device:?}, {p_create_info:?}, {p_allocator:?}, {p_view:?})");
 
     let result = unsafe {
@@ -1703,7 +1703,7 @@ fn vk_create_buffer_view(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_view);
+    response.write_raw_ptr(p_view);
     response.write(result);
     response.send();
 }
@@ -1729,7 +1729,7 @@ fn vk_create_image(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::ImageCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_image: *mut vk::Image = packet.read();
+    let p_image: *mut vk::Image = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateImage({device:?}, {p_create_info:?}, {p_allocator:?}, {p_image:?})");
 
     let result = unsafe {
@@ -1742,7 +1742,7 @@ fn vk_create_image(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_image);
+    response.write_raw_ptr(p_image);
     response.write(result);
     response.send();
 }
@@ -1768,7 +1768,7 @@ fn vk_get_image_subresource_layout(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let image: vk::Image = packet.read();
     let p_subresource: *const vk::ImageSubresource = packet.read();
-    let p_layout: *mut vk::SubresourceLayout = packet.read();
+    let p_layout: *mut vk::SubresourceLayout = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetImageSubresourceLayout({device:?}, {image:?}, {p_subresource:?}, {p_layout:?})");
 
     unsafe {
@@ -1781,7 +1781,7 @@ fn vk_get_image_subresource_layout(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_layout);
+    response.write_raw_ptr(p_layout);
     response.send();
 }
 
@@ -1790,7 +1790,7 @@ fn vk_create_image_view(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::ImageViewCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_view: *mut vk::ImageView = packet.read();
+    let p_view: *mut vk::ImageView = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateImageView({device:?}, {p_create_info:?}, {p_allocator:?}, {p_view:?})");
 
     let result = unsafe {
@@ -1803,7 +1803,7 @@ fn vk_create_image_view(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_view);
+    response.write_raw_ptr(p_view);
     response.write(result);
     response.send();
 }
@@ -1829,7 +1829,7 @@ fn vk_create_shader_module(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::ShaderModuleCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_shader_module: *mut vk::ShaderModule = packet.read();
+    let p_shader_module: *mut vk::ShaderModule = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateShaderModule({device:?}, {p_create_info:?}, {p_allocator:?}, {p_shader_module:?})");
 
     let result = unsafe {
@@ -1842,7 +1842,7 @@ fn vk_create_shader_module(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_shader_module);
+    response.write_raw_ptr(p_shader_module);
     response.write(result);
     response.send();
 }
@@ -1868,7 +1868,7 @@ fn vk_create_pipeline_cache(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::PipelineCacheCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_pipeline_cache: *mut vk::PipelineCache = packet.read();
+    let p_pipeline_cache: *mut vk::PipelineCache = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreatePipelineCache({device:?}, {p_create_info:?}, {p_allocator:?}, {p_pipeline_cache:?})");
 
     let result = unsafe {
@@ -1881,7 +1881,7 @@ fn vk_create_pipeline_cache(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_pipeline_cache);
+    response.write_raw_ptr(p_pipeline_cache);
     response.write(result);
     response.send();
 }
@@ -1906,8 +1906,8 @@ fn vk_destroy_pipeline_cache(mut packet: Packet) {
 fn vk_get_pipeline_cache_data(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let pipeline_cache: vk::PipelineCache = packet.read();
-    let p_data_size: *mut usize = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data_size: *mut usize = packet.read_nullable_raw_ptr_mut();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPipelineCacheData({device:?}, {pipeline_cache:?}, {p_data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -1920,8 +1920,8 @@ fn vk_get_pipeline_cache_data(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data_size);
-    response.write(p_data);
+    response.write_raw_ptr(p_data_size);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -1955,7 +1955,7 @@ fn vk_create_graphics_pipelines(mut packet: Packet) {
     let create_info_count: u32 = packet.read();
     let p_create_infos: *const vk::GraphicsPipelineCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_pipelines: *mut vk::Pipeline = packet.read();
+    let p_pipelines: *mut vk::Pipeline = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateGraphicsPipelines({device:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
     let result = unsafe {
@@ -1970,7 +1970,7 @@ fn vk_create_graphics_pipelines(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_pipelines);
+    response.write_raw_ptr(p_pipelines);
     response.write(result);
     response.send();
 }
@@ -1982,7 +1982,7 @@ fn vk_create_compute_pipelines(mut packet: Packet) {
     let create_info_count: u32 = packet.read();
     let p_create_infos: *const vk::ComputePipelineCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_pipelines: *mut vk::Pipeline = packet.read();
+    let p_pipelines: *mut vk::Pipeline = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateComputePipelines({device:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
     let result = unsafe {
@@ -1997,7 +1997,7 @@ fn vk_create_compute_pipelines(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_pipelines);
+    response.write_raw_ptr(p_pipelines);
     response.write(result);
     response.send();
 }
@@ -2006,7 +2006,7 @@ fn vk_create_compute_pipelines(mut packet: Packet) {
 fn vk_get_device_subpass_shading_max_workgroup_size_huawei(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let renderpass: vk::RenderPass = packet.read();
-    let p_max_workgroup_size: *mut vk::Extent2D = packet.read();
+    let p_max_workgroup_size: *mut vk::Extent2D = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI({device:?}, {renderpass:?}, {p_max_workgroup_size:?})");
 
     let result = unsafe {
@@ -2018,7 +2018,7 @@ fn vk_get_device_subpass_shading_max_workgroup_size_huawei(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_max_workgroup_size);
+    response.write_raw_ptr(p_max_workgroup_size);
     response.write(result);
     response.send();
 }
@@ -2044,7 +2044,7 @@ fn vk_create_pipeline_layout(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::PipelineLayoutCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_pipeline_layout: *mut vk::PipelineLayout = packet.read();
+    let p_pipeline_layout: *mut vk::PipelineLayout = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreatePipelineLayout({device:?}, {p_create_info:?}, {p_allocator:?}, {p_pipeline_layout:?})");
 
     let result = unsafe {
@@ -2057,7 +2057,7 @@ fn vk_create_pipeline_layout(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_pipeline_layout);
+    response.write_raw_ptr(p_pipeline_layout);
     response.write(result);
     response.send();
 }
@@ -2083,7 +2083,7 @@ fn vk_create_sampler(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::SamplerCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_sampler: *mut vk::Sampler = packet.read();
+    let p_sampler: *mut vk::Sampler = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateSampler({device:?}, {p_create_info:?}, {p_allocator:?}, {p_sampler:?})");
 
     let result = unsafe {
@@ -2096,7 +2096,7 @@ fn vk_create_sampler(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_sampler);
+    response.write_raw_ptr(p_sampler);
     response.write(result);
     response.send();
 }
@@ -2122,7 +2122,7 @@ fn vk_create_descriptor_set_layout(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::DescriptorSetLayoutCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_set_layout: *mut vk::DescriptorSetLayout = packet.read();
+    let p_set_layout: *mut vk::DescriptorSetLayout = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateDescriptorSetLayout({device:?}, {p_create_info:?}, {p_allocator:?}, {p_set_layout:?})");
 
     let result = unsafe {
@@ -2135,7 +2135,7 @@ fn vk_create_descriptor_set_layout(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_set_layout);
+    response.write_raw_ptr(p_set_layout);
     response.write(result);
     response.send();
 }
@@ -2161,7 +2161,7 @@ fn vk_create_descriptor_pool(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::DescriptorPoolCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_descriptor_pool: *mut vk::DescriptorPool = packet.read();
+    let p_descriptor_pool: *mut vk::DescriptorPool = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateDescriptorPool({device:?}, {p_create_info:?}, {p_allocator:?}, {p_descriptor_pool:?})");
 
     let result = unsafe {
@@ -2174,7 +2174,7 @@ fn vk_create_descriptor_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_descriptor_pool);
+    response.write_raw_ptr(p_descriptor_pool);
     response.write(result);
     response.send();
 }
@@ -2219,7 +2219,7 @@ fn vk_reset_descriptor_pool(mut packet: Packet) {
 fn vk_allocate_descriptor_sets(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_allocate_info: *const vk::DescriptorSetAllocateInfo = packet.read();
-    let p_descriptor_sets: *mut vk::DescriptorSet = packet.read();
+    let p_descriptor_sets: *mut vk::DescriptorSet = packet.read_nullable_raw_ptr_mut();
     trace!("called vkAllocateDescriptorSets({device:?}, {p_allocate_info:?}, {p_descriptor_sets:?})");
 
     let result = unsafe {
@@ -2231,7 +2231,7 @@ fn vk_allocate_descriptor_sets(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_descriptor_sets);
+    response.write_raw_ptr(p_descriptor_sets);
     response.write(result);
     response.send();
 }
@@ -2283,7 +2283,7 @@ fn vk_create_framebuffer(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::FramebufferCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_framebuffer: *mut vk::Framebuffer = packet.read();
+    let p_framebuffer: *mut vk::Framebuffer = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateFramebuffer({device:?}, {p_create_info:?}, {p_allocator:?}, {p_framebuffer:?})");
 
     let result = unsafe {
@@ -2296,7 +2296,7 @@ fn vk_create_framebuffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_framebuffer);
+    response.write_raw_ptr(p_framebuffer);
     response.write(result);
     response.send();
 }
@@ -2322,7 +2322,7 @@ fn vk_create_render_pass(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::RenderPassCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_render_pass: *mut vk::RenderPass = packet.read();
+    let p_render_pass: *mut vk::RenderPass = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateRenderPass({device:?}, {p_create_info:?}, {p_allocator:?}, {p_render_pass:?})");
 
     let result = unsafe {
@@ -2335,7 +2335,7 @@ fn vk_create_render_pass(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_render_pass);
+    response.write_raw_ptr(p_render_pass);
     response.write(result);
     response.send();
 }
@@ -2360,7 +2360,7 @@ fn vk_destroy_render_pass(mut packet: Packet) {
 fn vk_get_render_area_granularity(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let render_pass: vk::RenderPass = packet.read();
-    let p_granularity: *mut vk::Extent2D = packet.read();
+    let p_granularity: *mut vk::Extent2D = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetRenderAreaGranularity({device:?}, {render_pass:?}, {p_granularity:?})");
 
     unsafe {
@@ -2372,7 +2372,7 @@ fn vk_get_render_area_granularity(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_granularity);
+    response.write_raw_ptr(p_granularity);
     response.send();
 }
 
@@ -2380,7 +2380,7 @@ fn vk_get_render_area_granularity(mut packet: Packet) {
 fn vk_get_rendering_area_granularity_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_rendering_area_info: *const vk::RenderingAreaInfoKHR = packet.read();
-    let p_granularity: *mut vk::Extent2D = packet.read();
+    let p_granularity: *mut vk::Extent2D = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetRenderingAreaGranularityKHR({device:?}, {p_rendering_area_info:?}, {p_granularity:?})");
 
     unsafe {
@@ -2392,7 +2392,7 @@ fn vk_get_rendering_area_granularity_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_granularity);
+    response.write_raw_ptr(p_granularity);
     response.send();
 }
 
@@ -2401,7 +2401,7 @@ fn vk_create_command_pool(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::CommandPoolCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_command_pool: *mut vk::CommandPool = packet.read();
+    let p_command_pool: *mut vk::CommandPool = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateCommandPool({device:?}, {p_create_info:?}, {p_allocator:?}, {p_command_pool:?})");
 
     let result = unsafe {
@@ -2414,7 +2414,7 @@ fn vk_create_command_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_command_pool);
+    response.write_raw_ptr(p_command_pool);
     response.write(result);
     response.send();
 }
@@ -2459,7 +2459,7 @@ fn vk_reset_command_pool(mut packet: Packet) {
 fn vk_allocate_command_buffers(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_allocate_info: *const vk::CommandBufferAllocateInfo = packet.read();
-    let p_command_buffers: *mut vk::CommandBuffer = packet.read();
+    let p_command_buffers: *mut vk::CommandBuffer = packet.read_nullable_raw_ptr_mut();
     trace!("called vkAllocateCommandBuffers({device:?}, {p_allocate_info:?}, {p_command_buffers:?})");
 
     let result = unsafe {
@@ -2471,7 +2471,7 @@ fn vk_allocate_command_buffers(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_command_buffers);
+    response.write_raw_ptr(p_command_buffers);
     response.write(result);
     response.send();
 }
@@ -3595,7 +3595,7 @@ fn vk_create_android_surface_khr(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::AndroidSurfaceCreateInfoKHR = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateAndroidSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -3608,7 +3608,7 @@ fn vk_create_android_surface_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -3703,7 +3703,7 @@ fn vk_create_display_mode_khr(mut packet: Packet) {
     let display: vk::DisplayKHR = packet.read();
     let p_create_info: *const vk::DisplayModeCreateInfoKHR = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_mode: *mut vk::DisplayModeKHR = packet.read();
+    let p_mode: *mut vk::DisplayModeKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateDisplayModeKHR({physical_device:?}, {display:?}, {p_create_info:?}, {p_allocator:?}, {p_mode:?})");
 
     let result = unsafe {
@@ -3717,7 +3717,7 @@ fn vk_create_display_mode_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_mode);
+    response.write_raw_ptr(p_mode);
     response.write(result);
     response.send();
 }
@@ -3727,7 +3727,7 @@ fn vk_get_display_plane_capabilities_khr(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let mode: vk::DisplayModeKHR = packet.read();
     let plane_index: u32 = packet.read();
-    let p_capabilities: *mut vk::DisplayPlaneCapabilitiesKHR = packet.read();
+    let p_capabilities: *mut vk::DisplayPlaneCapabilitiesKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDisplayPlaneCapabilitiesKHR({physical_device:?}, {mode:?}, {plane_index:?}, {p_capabilities:?})");
 
     let result = unsafe {
@@ -3740,7 +3740,7 @@ fn vk_get_display_plane_capabilities_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_capabilities);
+    response.write_raw_ptr(p_capabilities);
     response.write(result);
     response.send();
 }
@@ -3750,7 +3750,7 @@ fn vk_create_display_plane_surface_khr(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::DisplaySurfaceCreateInfoKHR = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateDisplayPlaneSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -3763,7 +3763,7 @@ fn vk_create_display_plane_surface_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -3774,7 +3774,7 @@ fn vk_create_shared_swapchains_khr(mut packet: Packet) {
     let swapchain_count: u32 = packet.read();
     let p_create_infos: *const vk::SwapchainCreateInfoKHR = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_swapchains: *mut vk::SwapchainKHR = packet.read();
+    let p_swapchains: *mut vk::SwapchainKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateSharedSwapchainsKHR({device:?}, {swapchain_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_swapchains:?})");
 
     let result = unsafe {
@@ -3788,7 +3788,7 @@ fn vk_create_shared_swapchains_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_swapchains);
+    response.write_raw_ptr(p_swapchains);
     response.write(result);
     response.send();
 }
@@ -3814,7 +3814,7 @@ fn vk_get_physical_device_surface_support_khr(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let queue_family_index: u32 = packet.read();
     let surface: vk::SurfaceKHR = packet.read();
-    let p_supported: *mut vk::Bool32 = packet.read();
+    let p_supported: *mut vk::Bool32 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceSurfaceSupportKHR({physical_device:?}, {queue_family_index:?}, {surface:?}, {p_supported:?})");
 
     let result = unsafe {
@@ -3827,7 +3827,7 @@ fn vk_get_physical_device_surface_support_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_supported);
+    response.write_raw_ptr(p_supported);
     response.write(result);
     response.send();
 }
@@ -3836,7 +3836,7 @@ fn vk_get_physical_device_surface_support_khr(mut packet: Packet) {
 fn vk_get_physical_device_surface_capabilities_khr(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let surface: vk::SurfaceKHR = packet.read();
-    let p_surface_capabilities: *mut vk::SurfaceCapabilitiesKHR = packet.read();
+    let p_surface_capabilities: *mut vk::SurfaceCapabilitiesKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceSurfaceCapabilitiesKHR({physical_device:?}, {surface:?}, {p_surface_capabilities:?})");
 
     let result = unsafe {
@@ -3848,7 +3848,7 @@ fn vk_get_physical_device_surface_capabilities_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface_capabilities);
+    response.write_raw_ptr(p_surface_capabilities);
     response.write(result);
     response.send();
 }
@@ -3902,7 +3902,7 @@ fn vk_create_swapchain_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::SwapchainCreateInfoKHR = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_swapchain: *mut vk::SwapchainKHR = packet.read();
+    let p_swapchain: *mut vk::SwapchainKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateSwapchainKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_swapchain:?})");
 
     let result = unsafe {
@@ -3915,7 +3915,7 @@ fn vk_create_swapchain_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_swapchain);
+    response.write_raw_ptr(p_swapchain);
     response.write(result);
     response.send();
 }
@@ -3965,7 +3965,7 @@ fn vk_acquire_next_image_khr(mut packet: Packet) {
     let timeout: u64 = packet.read();
     let semaphore: vk::Semaphore = packet.read();
     let fence: vk::Fence = packet.read();
-    let p_image_index: *mut u32 = packet.read();
+    let p_image_index: *mut u32 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkAcquireNextImageKHR({device:?}, {swapchain:?}, {timeout:?}, {semaphore:?}, {fence:?}, {p_image_index:?})");
 
     let result = unsafe {
@@ -3980,7 +3980,7 @@ fn vk_acquire_next_image_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_image_index);
+    response.write_raw_ptr(p_image_index);
     response.write(result);
     response.send();
 }
@@ -4008,7 +4008,7 @@ fn vk_create_vi_surface_nn(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::ViSurfaceCreateInfoNN = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateViSurfaceNN({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4021,7 +4021,7 @@ fn vk_create_vi_surface_nn(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -4031,7 +4031,7 @@ fn vk_create_wayland_surface_khr(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::WaylandSurfaceCreateInfoKHR = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateWaylandSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4044,7 +4044,7 @@ fn vk_create_wayland_surface_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -4053,7 +4053,7 @@ fn vk_create_wayland_surface_khr(mut packet: Packet) {
 fn vk_get_physical_device_wayland_presentation_support_khr(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let queue_family_index: u32 = packet.read();
-    let display: *mut vk::wl_display = packet.read();
+    let display: *mut vk::wl_display = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceWaylandPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {display:?})");
 
     let result = unsafe {
@@ -4065,7 +4065,7 @@ fn vk_get_physical_device_wayland_presentation_support_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(display);
+    response.write_raw_ptr(display);
     response.write(result);
     response.send();
 }
@@ -4075,7 +4075,7 @@ fn vk_create_win32_surface_khr(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::Win32SurfaceCreateInfoKHR = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateWin32SurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4088,7 +4088,7 @@ fn vk_create_win32_surface_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -4116,7 +4116,7 @@ fn vk_create_xlib_surface_khr(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::XlibSurfaceCreateInfoKHR = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateXlibSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4129,7 +4129,7 @@ fn vk_create_xlib_surface_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -4138,7 +4138,7 @@ fn vk_create_xlib_surface_khr(mut packet: Packet) {
 fn vk_get_physical_device_xlib_presentation_support_khr(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let queue_family_index: u32 = packet.read();
-    let dpy: *mut vk::Display = packet.read();
+    let dpy: *mut vk::Display = packet.read_nullable_raw_ptr_mut();
     let visual_id: vk::VisualID = packet.read();
     trace!("called vkGetPhysicalDeviceXlibPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {dpy:?}, {visual_id:?})");
 
@@ -4152,7 +4152,7 @@ fn vk_get_physical_device_xlib_presentation_support_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(dpy);
+    response.write_raw_ptr(dpy);
     response.write(result);
     response.send();
 }
@@ -4162,7 +4162,7 @@ fn vk_create_xcb_surface_khr(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::XcbSurfaceCreateInfoKHR = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateXcbSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4175,7 +4175,7 @@ fn vk_create_xcb_surface_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -4184,7 +4184,7 @@ fn vk_create_xcb_surface_khr(mut packet: Packet) {
 fn vk_get_physical_device_xcb_presentation_support_khr(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let queue_family_index: u32 = packet.read();
-    let connection: *mut vk::xcb_connection_t = packet.read();
+    let connection: *mut vk::xcb_connection_t = packet.read_nullable_raw_ptr_mut();
     let visual_id: vk::xcb_visualid_t = packet.read();
     trace!("called vkGetPhysicalDeviceXcbPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {connection:?}, {visual_id:?})");
 
@@ -4198,7 +4198,7 @@ fn vk_get_physical_device_xcb_presentation_support_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(connection);
+    response.write_raw_ptr(connection);
     response.write(result);
     response.send();
 }
@@ -4208,7 +4208,7 @@ fn vk_create_direct_fbsurface_ext(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::DirectFBSurfaceCreateInfoEXT = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateDirectFBSurfaceEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4221,7 +4221,7 @@ fn vk_create_direct_fbsurface_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -4230,7 +4230,7 @@ fn vk_create_direct_fbsurface_ext(mut packet: Packet) {
 fn vk_get_physical_device_direct_fbpresentation_support_ext(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let queue_family_index: u32 = packet.read();
-    let dfb: *mut vk::IDirectFB = packet.read();
+    let dfb: *mut vk::IDirectFB = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceDirectFBPresentationSupportEXT({physical_device:?}, {queue_family_index:?}, {dfb:?})");
 
     let result = unsafe {
@@ -4242,7 +4242,7 @@ fn vk_get_physical_device_direct_fbpresentation_support_ext(mut packet: Packet) 
     };
 
     let mut response = packet.write_response(None);
-    response.write(dfb);
+    response.write_raw_ptr(dfb);
     response.write(result);
     response.send();
 }
@@ -4252,7 +4252,7 @@ fn vk_create_image_pipe_surface_fuchsia(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::ImagePipeSurfaceCreateInfoFUCHSIA = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateImagePipeSurfaceFUCHSIA({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4265,7 +4265,7 @@ fn vk_create_image_pipe_surface_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -4275,7 +4275,7 @@ fn vk_create_stream_descriptor_surface_ggp(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::StreamDescriptorSurfaceCreateInfoGGP = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateStreamDescriptorSurfaceGGP({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4288,7 +4288,7 @@ fn vk_create_stream_descriptor_surface_ggp(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -4298,7 +4298,7 @@ fn vk_create_screen_surface_qnx(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::ScreenSurfaceCreateInfoQNX = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateScreenSurfaceQNX({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4311,7 +4311,7 @@ fn vk_create_screen_surface_qnx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -4320,7 +4320,7 @@ fn vk_create_screen_surface_qnx(mut packet: Packet) {
 fn vk_get_physical_device_screen_presentation_support_qnx(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let queue_family_index: u32 = packet.read();
-    let window: *mut vk::_screen_window = packet.read();
+    let window: *mut vk::_screen_window = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceScreenPresentationSupportQNX({physical_device:?}, {queue_family_index:?}, {window:?})");
 
     let result = unsafe {
@@ -4332,7 +4332,7 @@ fn vk_get_physical_device_screen_presentation_support_qnx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(window);
+    response.write_raw_ptr(window);
     response.write(result);
     response.send();
 }
@@ -4342,7 +4342,7 @@ fn vk_create_debug_report_callback_ext(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::DebugReportCallbackCreateInfoEXT = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_callback: *mut vk::DebugReportCallbackEXT = packet.read();
+    let p_callback: *mut vk::DebugReportCallbackEXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateDebugReportCallbackEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_callback:?})");
 
     let result = unsafe {
@@ -4355,7 +4355,7 @@ fn vk_create_debug_report_callback_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_callback);
+    response.write_raw_ptr(p_callback);
     response.write(result);
     response.send();
 }
@@ -4487,7 +4487,7 @@ fn vk_get_physical_device_external_image_format_properties_nv(mut packet: Packet
     let usage: vk::ImageUsageFlags = packet.read();
     let flags: vk::ImageCreateFlags = packet.read();
     let external_handle_type: vk::ExternalMemoryHandleTypeFlagsNV = packet.read();
-    let p_external_image_format_properties: *mut vk::ExternalImageFormatPropertiesNV = packet.read();
+    let p_external_image_format_properties: *mut vk::ExternalImageFormatPropertiesNV = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceExternalImageFormatPropertiesNV({physical_device:?}, {format:?}, {type_:?}, {tiling:?}, {usage:?}, {flags:?}, {external_handle_type:?}, {p_external_image_format_properties:?})");
 
     let result = unsafe {
@@ -4504,7 +4504,7 @@ fn vk_get_physical_device_external_image_format_properties_nv(mut packet: Packet
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_external_image_format_properties);
+    response.write_raw_ptr(p_external_image_format_properties);
     response.write(result);
     response.send();
 }
@@ -4514,7 +4514,7 @@ fn vk_get_memory_win32_handle_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let memory: vk::DeviceMemory = packet.read();
     let handle_type: vk::ExternalMemoryHandleTypeFlagsNV = packet.read();
-    let p_handle: *mut vk::HANDLE = packet.read();
+    let p_handle: *mut vk::HANDLE = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetMemoryWin32HandleNV({device:?}, {memory:?}, {handle_type:?}, {p_handle:?})");
 
     let result = unsafe {
@@ -4527,7 +4527,7 @@ fn vk_get_memory_win32_handle_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_handle);
+    response.write_raw_ptr(p_handle);
     response.write(result);
     response.send();
 }
@@ -4584,7 +4584,7 @@ fn vk_cmd_bind_pipeline_shader_group_nv(mut packet: Packet) {
 fn vk_get_generated_commands_memory_requirements_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_info: *const vk::GeneratedCommandsMemoryRequirementsInfoNV = packet.read();
-    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetGeneratedCommandsMemoryRequirementsNV({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
     unsafe {
@@ -4596,7 +4596,7 @@ fn vk_get_generated_commands_memory_requirements_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_requirements);
+    response.write_raw_ptr(p_memory_requirements);
     response.send();
 }
 
@@ -4605,7 +4605,7 @@ fn vk_create_indirect_commands_layout_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::IndirectCommandsLayoutCreateInfoNV = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_indirect_commands_layout: *mut vk::IndirectCommandsLayoutNV = packet.read();
+    let p_indirect_commands_layout: *mut vk::IndirectCommandsLayoutNV = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateIndirectCommandsLayoutNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_indirect_commands_layout:?})");
 
     let result = unsafe {
@@ -4618,7 +4618,7 @@ fn vk_create_indirect_commands_layout_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_indirect_commands_layout);
+    response.write_raw_ptr(p_indirect_commands_layout);
     response.write(result);
     response.send();
 }
@@ -4642,7 +4642,7 @@ fn vk_destroy_indirect_commands_layout_nv(mut packet: Packet) {
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures2.html>"]
 fn vk_get_physical_device_features2(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
-    let p_features: *mut vk::PhysicalDeviceFeatures2 = packet.read();
+    let p_features: *mut vk::PhysicalDeviceFeatures2 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceFeatures2({physical_device:?}, {p_features:?})");
 
     unsafe {
@@ -4653,14 +4653,14 @@ fn vk_get_physical_device_features2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_features);
+    response.write_raw_ptr(p_features);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties2.html>"]
 fn vk_get_physical_device_properties2(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
-    let p_properties: *mut vk::PhysicalDeviceProperties2 = packet.read();
+    let p_properties: *mut vk::PhysicalDeviceProperties2 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceProperties2({physical_device:?}, {p_properties:?})");
 
     unsafe {
@@ -4671,7 +4671,7 @@ fn vk_get_physical_device_properties2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_properties);
+    response.write_raw_ptr(p_properties);
     response.send();
 }
 
@@ -4679,7 +4679,7 @@ fn vk_get_physical_device_properties2(mut packet: Packet) {
 fn vk_get_physical_device_format_properties2(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let format: vk::Format = packet.read();
-    let p_format_properties: *mut vk::FormatProperties2 = packet.read();
+    let p_format_properties: *mut vk::FormatProperties2 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceFormatProperties2({physical_device:?}, {format:?}, {p_format_properties:?})");
 
     unsafe {
@@ -4691,7 +4691,7 @@ fn vk_get_physical_device_format_properties2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_format_properties);
+    response.write_raw_ptr(p_format_properties);
     response.send();
 }
 
@@ -4699,7 +4699,7 @@ fn vk_get_physical_device_format_properties2(mut packet: Packet) {
 fn vk_get_physical_device_image_format_properties2(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let p_image_format_info: *const vk::PhysicalDeviceImageFormatInfo2 = packet.read();
-    let p_image_format_properties: *mut vk::ImageFormatProperties2 = packet.read();
+    let p_image_format_properties: *mut vk::ImageFormatProperties2 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceImageFormatProperties2({physical_device:?}, {p_image_format_info:?}, {p_image_format_properties:?})");
 
     let result = unsafe {
@@ -4711,7 +4711,7 @@ fn vk_get_physical_device_image_format_properties2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_image_format_properties);
+    response.write_raw_ptr(p_image_format_properties);
     response.write(result);
     response.send();
 }
@@ -4738,7 +4738,7 @@ fn vk_get_physical_device_queue_family_properties2(mut packet: Packet) {
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMemoryProperties2.html>"]
 fn vk_get_physical_device_memory_properties2(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
-    let p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties2 = packet.read();
+    let p_memory_properties: *mut vk::PhysicalDeviceMemoryProperties2 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceMemoryProperties2({physical_device:?}, {p_memory_properties:?})");
 
     unsafe {
@@ -4749,7 +4749,7 @@ fn vk_get_physical_device_memory_properties2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_properties);
+    response.write_raw_ptr(p_memory_properties);
     response.send();
 }
 
@@ -4816,7 +4816,7 @@ fn vk_trim_command_pool(mut packet: Packet) {
 fn vk_get_physical_device_external_buffer_properties(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let p_external_buffer_info: *const vk::PhysicalDeviceExternalBufferInfo = packet.read();
-    let p_external_buffer_properties: *mut vk::ExternalBufferProperties = packet.read();
+    let p_external_buffer_properties: *mut vk::ExternalBufferProperties = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceExternalBufferProperties({physical_device:?}, {p_external_buffer_info:?}, {p_external_buffer_properties:?})");
 
     unsafe {
@@ -4828,7 +4828,7 @@ fn vk_get_physical_device_external_buffer_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_external_buffer_properties);
+    response.write_raw_ptr(p_external_buffer_properties);
     response.send();
 }
 
@@ -4836,7 +4836,7 @@ fn vk_get_physical_device_external_buffer_properties(mut packet: Packet) {
 fn vk_get_memory_win32_handle_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_get_win32_handle_info: *const vk::MemoryGetWin32HandleInfoKHR = packet.read();
-    let p_handle: *mut vk::HANDLE = packet.read();
+    let p_handle: *mut vk::HANDLE = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetMemoryWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})");
 
     let result = unsafe {
@@ -4848,7 +4848,7 @@ fn vk_get_memory_win32_handle_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_handle);
+    response.write_raw_ptr(p_handle);
     response.write(result);
     response.send();
 }
@@ -4858,7 +4858,7 @@ fn vk_get_memory_win32_handle_properties_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read();
     let handle: vk::HANDLE = packet.read();
-    let p_memory_win32_handle_properties: *mut vk::MemoryWin32HandlePropertiesKHR = packet.read();
+    let p_memory_win32_handle_properties: *mut vk::MemoryWin32HandlePropertiesKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetMemoryWin32HandlePropertiesKHR({device:?}, {handle_type:?}, {handle:?}, {p_memory_win32_handle_properties:?})");
 
     let result = unsafe {
@@ -4871,7 +4871,7 @@ fn vk_get_memory_win32_handle_properties_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_win32_handle_properties);
+    response.write_raw_ptr(p_memory_win32_handle_properties);
     response.write(result);
     response.send();
 }
@@ -4880,7 +4880,7 @@ fn vk_get_memory_win32_handle_properties_khr(mut packet: Packet) {
 fn vk_get_memory_fd_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_get_fd_info: *const vk::MemoryGetFdInfoKHR = packet.read();
-    let p_fd: *mut std::os::raw::c_int = packet.read();
+    let p_fd: *mut std::os::raw::c_int = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetMemoryFdKHR({device:?}, {p_get_fd_info:?}, {p_fd:?})");
 
     let result = unsafe {
@@ -4892,7 +4892,7 @@ fn vk_get_memory_fd_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_fd);
+    response.write_raw_ptr(p_fd);
     response.write(result);
     response.send();
 }
@@ -4902,7 +4902,7 @@ fn vk_get_memory_fd_properties_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read();
     let fd: std::os::raw::c_int = packet.read();
-    let p_memory_fd_properties: *mut vk::MemoryFdPropertiesKHR = packet.read();
+    let p_memory_fd_properties: *mut vk::MemoryFdPropertiesKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetMemoryFdPropertiesKHR({device:?}, {handle_type:?}, {fd:?}, {p_memory_fd_properties:?})");
 
     let result = unsafe {
@@ -4915,7 +4915,7 @@ fn vk_get_memory_fd_properties_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_fd_properties);
+    response.write_raw_ptr(p_memory_fd_properties);
     response.write(result);
     response.send();
 }
@@ -4924,7 +4924,7 @@ fn vk_get_memory_fd_properties_khr(mut packet: Packet) {
 fn vk_get_memory_zircon_handle_fuchsia(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_get_zircon_handle_info: *const vk::MemoryGetZirconHandleInfoFUCHSIA = packet.read();
-    let p_zircon_handle: *mut vk::zx_handle_t = packet.read();
+    let p_zircon_handle: *mut vk::zx_handle_t = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetMemoryZirconHandleFUCHSIA({device:?}, {p_get_zircon_handle_info:?}, {p_zircon_handle:?})");
 
     let result = unsafe {
@@ -4936,7 +4936,7 @@ fn vk_get_memory_zircon_handle_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_zircon_handle);
+    response.write_raw_ptr(p_zircon_handle);
     response.write(result);
     response.send();
 }
@@ -4946,7 +4946,7 @@ fn vk_get_memory_zircon_handle_properties_fuchsia(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read();
     let zircon_handle: vk::zx_handle_t = packet.read();
-    let p_memory_zircon_handle_properties: *mut vk::MemoryZirconHandlePropertiesFUCHSIA = packet.read();
+    let p_memory_zircon_handle_properties: *mut vk::MemoryZirconHandlePropertiesFUCHSIA = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetMemoryZirconHandlePropertiesFUCHSIA({device:?}, {handle_type:?}, {zircon_handle:?}, {p_memory_zircon_handle_properties:?})");
 
     let result = unsafe {
@@ -4959,7 +4959,7 @@ fn vk_get_memory_zircon_handle_properties_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_zircon_handle_properties);
+    response.write_raw_ptr(p_memory_zircon_handle_properties);
     response.write(result);
     response.send();
 }
@@ -4968,7 +4968,7 @@ fn vk_get_memory_zircon_handle_properties_fuchsia(mut packet: Packet) {
 fn vk_get_memory_remote_address_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_memory_get_remote_address_info: *const vk::MemoryGetRemoteAddressInfoNV = packet.read();
-    let p_address: *mut vk::RemoteAddressNV = packet.read();
+    let p_address: *mut vk::RemoteAddressNV = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetMemoryRemoteAddressNV({device:?}, {p_memory_get_remote_address_info:?}, {p_address:?})");
 
     let result = unsafe {
@@ -4980,7 +4980,7 @@ fn vk_get_memory_remote_address_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_address);
+    response.write_raw_ptr(p_address);
     response.write(result);
     response.send();
 }
@@ -4989,7 +4989,7 @@ fn vk_get_memory_remote_address_nv(mut packet: Packet) {
 fn vk_get_physical_device_external_semaphore_properties(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let p_external_semaphore_info: *const vk::PhysicalDeviceExternalSemaphoreInfo = packet.read();
-    let p_external_semaphore_properties: *mut vk::ExternalSemaphoreProperties = packet.read();
+    let p_external_semaphore_properties: *mut vk::ExternalSemaphoreProperties = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceExternalSemaphoreProperties({physical_device:?}, {p_external_semaphore_info:?}, {p_external_semaphore_properties:?})");
 
     unsafe {
@@ -5001,7 +5001,7 @@ fn vk_get_physical_device_external_semaphore_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_external_semaphore_properties);
+    response.write_raw_ptr(p_external_semaphore_properties);
     response.send();
 }
 
@@ -5009,7 +5009,7 @@ fn vk_get_physical_device_external_semaphore_properties(mut packet: Packet) {
 fn vk_get_semaphore_win32_handle_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_get_win32_handle_info: *const vk::SemaphoreGetWin32HandleInfoKHR = packet.read();
-    let p_handle: *mut vk::HANDLE = packet.read();
+    let p_handle: *mut vk::HANDLE = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetSemaphoreWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})");
 
     let result = unsafe {
@@ -5021,7 +5021,7 @@ fn vk_get_semaphore_win32_handle_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_handle);
+    response.write_raw_ptr(p_handle);
     response.write(result);
     response.send();
 }
@@ -5048,7 +5048,7 @@ fn vk_import_semaphore_win32_handle_khr(mut packet: Packet) {
 fn vk_get_semaphore_fd_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_get_fd_info: *const vk::SemaphoreGetFdInfoKHR = packet.read();
-    let p_fd: *mut std::os::raw::c_int = packet.read();
+    let p_fd: *mut std::os::raw::c_int = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetSemaphoreFdKHR({device:?}, {p_get_fd_info:?}, {p_fd:?})");
 
     let result = unsafe {
@@ -5060,7 +5060,7 @@ fn vk_get_semaphore_fd_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_fd);
+    response.write_raw_ptr(p_fd);
     response.write(result);
     response.send();
 }
@@ -5087,7 +5087,7 @@ fn vk_import_semaphore_fd_khr(mut packet: Packet) {
 fn vk_get_semaphore_zircon_handle_fuchsia(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_get_zircon_handle_info: *const vk::SemaphoreGetZirconHandleInfoFUCHSIA = packet.read();
-    let p_zircon_handle: *mut vk::zx_handle_t = packet.read();
+    let p_zircon_handle: *mut vk::zx_handle_t = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetSemaphoreZirconHandleFUCHSIA({device:?}, {p_get_zircon_handle_info:?}, {p_zircon_handle:?})");
 
     let result = unsafe {
@@ -5099,7 +5099,7 @@ fn vk_get_semaphore_zircon_handle_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_zircon_handle);
+    response.write_raw_ptr(p_zircon_handle);
     response.write(result);
     response.send();
 }
@@ -5126,7 +5126,7 @@ fn vk_import_semaphore_zircon_handle_fuchsia(mut packet: Packet) {
 fn vk_get_physical_device_external_fence_properties(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let p_external_fence_info: *const vk::PhysicalDeviceExternalFenceInfo = packet.read();
-    let p_external_fence_properties: *mut vk::ExternalFenceProperties = packet.read();
+    let p_external_fence_properties: *mut vk::ExternalFenceProperties = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceExternalFenceProperties({physical_device:?}, {p_external_fence_info:?}, {p_external_fence_properties:?})");
 
     unsafe {
@@ -5138,7 +5138,7 @@ fn vk_get_physical_device_external_fence_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_external_fence_properties);
+    response.write_raw_ptr(p_external_fence_properties);
     response.send();
 }
 
@@ -5146,7 +5146,7 @@ fn vk_get_physical_device_external_fence_properties(mut packet: Packet) {
 fn vk_get_fence_win32_handle_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_get_win32_handle_info: *const vk::FenceGetWin32HandleInfoKHR = packet.read();
-    let p_handle: *mut vk::HANDLE = packet.read();
+    let p_handle: *mut vk::HANDLE = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetFenceWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})");
 
     let result = unsafe {
@@ -5158,7 +5158,7 @@ fn vk_get_fence_win32_handle_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_handle);
+    response.write_raw_ptr(p_handle);
     response.write(result);
     response.send();
 }
@@ -5185,7 +5185,7 @@ fn vk_import_fence_win32_handle_khr(mut packet: Packet) {
 fn vk_get_fence_fd_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_get_fd_info: *const vk::FenceGetFdInfoKHR = packet.read();
-    let p_fd: *mut std::os::raw::c_int = packet.read();
+    let p_fd: *mut std::os::raw::c_int = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetFenceFdKHR({device:?}, {p_get_fd_info:?}, {p_fd:?})");
 
     let result = unsafe {
@@ -5197,7 +5197,7 @@ fn vk_get_fence_fd_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_fd);
+    response.write_raw_ptr(p_fd);
     response.write(result);
     response.send();
 }
@@ -5241,7 +5241,7 @@ fn vk_release_display_ext(mut packet: Packet) {
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireXlibDisplayEXT.html>"]
 fn vk_acquire_xlib_display_ext(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
-    let dpy: *mut vk::Display = packet.read();
+    let dpy: *mut vk::Display = packet.read_nullable_raw_ptr_mut();
     let display: vk::DisplayKHR = packet.read();
     trace!("called vkAcquireXlibDisplayEXT({physical_device:?}, {dpy:?}, {display:?})");
 
@@ -5254,7 +5254,7 @@ fn vk_acquire_xlib_display_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(dpy);
+    response.write_raw_ptr(dpy);
     response.write(result);
     response.send();
 }
@@ -5262,9 +5262,9 @@ fn vk_acquire_xlib_display_ext(mut packet: Packet) {
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRandROutputDisplayEXT.html>"]
 fn vk_get_rand_routput_display_ext(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
-    let dpy: *mut vk::Display = packet.read();
+    let dpy: *mut vk::Display = packet.read_nullable_raw_ptr_mut();
     let rr_output: vk::RROutput = packet.read();
-    let p_display: *mut vk::DisplayKHR = packet.read();
+    let p_display: *mut vk::DisplayKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetRandROutputDisplayEXT({physical_device:?}, {dpy:?}, {rr_output:?}, {p_display:?})");
 
     let result = unsafe {
@@ -5277,8 +5277,8 @@ fn vk_get_rand_routput_display_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(dpy);
-    response.write(p_display);
+    response.write_raw_ptr(dpy);
+    response.write_raw_ptr(p_display);
     response.write(result);
     response.send();
 }
@@ -5305,7 +5305,7 @@ fn vk_acquire_winrt_display_nv(mut packet: Packet) {
 fn vk_get_winrt_display_nv(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let device_relative_id: u32 = packet.read();
-    let p_display: *mut vk::DisplayKHR = packet.read();
+    let p_display: *mut vk::DisplayKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetWinrtDisplayNV({physical_device:?}, {device_relative_id:?}, {p_display:?})");
 
     let result = unsafe {
@@ -5317,7 +5317,7 @@ fn vk_get_winrt_display_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_display);
+    response.write_raw_ptr(p_display);
     response.write(result);
     response.send();
 }
@@ -5347,7 +5347,7 @@ fn vk_register_device_event_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_device_event_info: *const vk::DeviceEventInfoEXT = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_fence: *mut vk::Fence = packet.read();
+    let p_fence: *mut vk::Fence = packet.read_nullable_raw_ptr_mut();
     trace!("called vkRegisterDeviceEventEXT({device:?}, {p_device_event_info:?}, {p_allocator:?}, {p_fence:?})");
 
     let result = unsafe {
@@ -5360,7 +5360,7 @@ fn vk_register_device_event_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_fence);
+    response.write_raw_ptr(p_fence);
     response.write(result);
     response.send();
 }
@@ -5371,7 +5371,7 @@ fn vk_register_display_event_ext(mut packet: Packet) {
     let display: vk::DisplayKHR = packet.read();
     let p_display_event_info: *const vk::DisplayEventInfoEXT = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_fence: *mut vk::Fence = packet.read();
+    let p_fence: *mut vk::Fence = packet.read_nullable_raw_ptr_mut();
     trace!("called vkRegisterDisplayEventEXT({device:?}, {display:?}, {p_display_event_info:?}, {p_allocator:?}, {p_fence:?})");
 
     let result = unsafe {
@@ -5385,7 +5385,7 @@ fn vk_register_display_event_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_fence);
+    response.write_raw_ptr(p_fence);
     response.write(result);
     response.send();
 }
@@ -5395,7 +5395,7 @@ fn vk_get_swapchain_counter_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let swapchain: vk::SwapchainKHR = packet.read();
     let counter: vk::SurfaceCounterFlagsEXT = packet.read();
-    let p_counter_value: *mut u64 = packet.read();
+    let p_counter_value: *mut u64 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetSwapchainCounterEXT({device:?}, {swapchain:?}, {counter:?}, {p_counter_value:?})");
 
     let result = unsafe {
@@ -5408,7 +5408,7 @@ fn vk_get_swapchain_counter_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_counter_value);
+    response.write_raw_ptr(p_counter_value);
     response.write(result);
     response.send();
 }
@@ -5417,7 +5417,7 @@ fn vk_get_swapchain_counter_ext(mut packet: Packet) {
 fn vk_get_physical_device_surface_capabilities2_ext(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let surface: vk::SurfaceKHR = packet.read();
-    let p_surface_capabilities: *mut vk::SurfaceCapabilities2EXT = packet.read();
+    let p_surface_capabilities: *mut vk::SurfaceCapabilities2EXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceSurfaceCapabilities2EXT({physical_device:?}, {surface:?}, {p_surface_capabilities:?})");
 
     let result = unsafe {
@@ -5429,7 +5429,7 @@ fn vk_get_physical_device_surface_capabilities2_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface_capabilities);
+    response.write_raw_ptr(p_surface_capabilities);
     response.write(result);
     response.send();
 }
@@ -5460,7 +5460,7 @@ fn vk_get_device_group_peer_memory_features(mut packet: Packet) {
     let heap_index: u32 = packet.read();
     let local_device_index: u32 = packet.read();
     let remote_device_index: u32 = packet.read();
-    let p_peer_memory_features: *mut vk::PeerMemoryFeatureFlags = packet.read();
+    let p_peer_memory_features: *mut vk::PeerMemoryFeatureFlags = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceGroupPeerMemoryFeatures({device:?}, {heap_index:?}, {local_device_index:?}, {remote_device_index:?}, {p_peer_memory_features:?})");
 
     unsafe {
@@ -5474,7 +5474,7 @@ fn vk_get_device_group_peer_memory_features(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_peer_memory_features);
+    response.write_raw_ptr(p_peer_memory_features);
     response.send();
 }
 
@@ -5535,7 +5535,7 @@ fn vk_cmd_set_device_mask(mut packet: Packet) {
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html>"]
 fn vk_get_device_group_present_capabilities_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
-    let p_device_group_present_capabilities: *mut vk::DeviceGroupPresentCapabilitiesKHR = packet.read();
+    let p_device_group_present_capabilities: *mut vk::DeviceGroupPresentCapabilitiesKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceGroupPresentCapabilitiesKHR({device:?}, {p_device_group_present_capabilities:?})");
 
     let result = unsafe {
@@ -5546,7 +5546,7 @@ fn vk_get_device_group_present_capabilities_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_device_group_present_capabilities);
+    response.write_raw_ptr(p_device_group_present_capabilities);
     response.write(result);
     response.send();
 }
@@ -5555,7 +5555,7 @@ fn vk_get_device_group_present_capabilities_khr(mut packet: Packet) {
 fn vk_get_device_group_surface_present_modes_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let surface: vk::SurfaceKHR = packet.read();
-    let p_modes: *mut vk::DeviceGroupPresentModeFlagsKHR = packet.read();
+    let p_modes: *mut vk::DeviceGroupPresentModeFlagsKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceGroupSurfacePresentModesKHR({device:?}, {surface:?}, {p_modes:?})");
 
     let result = unsafe {
@@ -5567,7 +5567,7 @@ fn vk_get_device_group_surface_present_modes_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_modes);
+    response.write_raw_ptr(p_modes);
     response.write(result);
     response.send();
 }
@@ -5576,7 +5576,7 @@ fn vk_get_device_group_surface_present_modes_khr(mut packet: Packet) {
 fn vk_acquire_next_image2_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_acquire_info: *const vk::AcquireNextImageInfoKHR = packet.read();
-    let p_image_index: *mut u32 = packet.read();
+    let p_image_index: *mut u32 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkAcquireNextImage2KHR({device:?}, {p_acquire_info:?}, {p_image_index:?})");
 
     let result = unsafe {
@@ -5588,7 +5588,7 @@ fn vk_acquire_next_image2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_image_index);
+    response.write_raw_ptr(p_image_index);
     response.write(result);
     response.send();
 }
@@ -5644,7 +5644,7 @@ fn vk_create_descriptor_update_template(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::DescriptorUpdateTemplateCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_descriptor_update_template: *mut vk::DescriptorUpdateTemplate = packet.read();
+    let p_descriptor_update_template: *mut vk::DescriptorUpdateTemplate = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateDescriptorUpdateTemplate({device:?}, {p_create_info:?}, {p_allocator:?}, {p_descriptor_update_template:?})");
 
     let result = unsafe {
@@ -5657,7 +5657,7 @@ fn vk_create_descriptor_update_template(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_descriptor_update_template);
+    response.write_raw_ptr(p_descriptor_update_template);
     response.write(result);
     response.send();
 }
@@ -5756,7 +5756,7 @@ fn vk_get_swapchain_status_khr(mut packet: Packet) {
 fn vk_get_refresh_cycle_duration_google(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let swapchain: vk::SwapchainKHR = packet.read();
-    let p_display_timing_properties: *mut vk::RefreshCycleDurationGOOGLE = packet.read();
+    let p_display_timing_properties: *mut vk::RefreshCycleDurationGOOGLE = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetRefreshCycleDurationGOOGLE({device:?}, {swapchain:?}, {p_display_timing_properties:?})");
 
     let result = unsafe {
@@ -5768,7 +5768,7 @@ fn vk_get_refresh_cycle_duration_google(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_display_timing_properties);
+    response.write_raw_ptr(p_display_timing_properties);
     response.write(result);
     response.send();
 }
@@ -5800,7 +5800,7 @@ fn vk_create_iossurface_mvk(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::IOSSurfaceCreateInfoMVK = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateIOSSurfaceMVK({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -5813,7 +5813,7 @@ fn vk_create_iossurface_mvk(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -5823,7 +5823,7 @@ fn vk_create_mac_ossurface_mvk(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::MacOSSurfaceCreateInfoMVK = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateMacOSSurfaceMVK({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -5836,7 +5836,7 @@ fn vk_create_mac_ossurface_mvk(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -5846,7 +5846,7 @@ fn vk_create_metal_surface_ext(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::MetalSurfaceCreateInfoEXT = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateMetalSurfaceEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -5859,7 +5859,7 @@ fn vk_create_metal_surface_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -5946,7 +5946,7 @@ fn vk_cmd_set_sample_locations_ext(mut packet: Packet) {
 fn vk_get_physical_device_multisample_properties_ext(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let samples: vk::SampleCountFlags = packet.read();
-    let p_multisample_properties: *mut vk::MultisamplePropertiesEXT = packet.read();
+    let p_multisample_properties: *mut vk::MultisamplePropertiesEXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceMultisamplePropertiesEXT({physical_device:?}, {samples:?}, {p_multisample_properties:?})");
 
     unsafe {
@@ -5958,7 +5958,7 @@ fn vk_get_physical_device_multisample_properties_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_multisample_properties);
+    response.write_raw_ptr(p_multisample_properties);
     response.send();
 }
 
@@ -5966,7 +5966,7 @@ fn vk_get_physical_device_multisample_properties_ext(mut packet: Packet) {
 fn vk_get_physical_device_surface_capabilities2_khr(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR = packet.read();
-    let p_surface_capabilities: *mut vk::SurfaceCapabilities2KHR = packet.read();
+    let p_surface_capabilities: *mut vk::SurfaceCapabilities2KHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceSurfaceCapabilities2KHR({physical_device:?}, {p_surface_info:?}, {p_surface_capabilities:?})");
 
     let result = unsafe {
@@ -5978,7 +5978,7 @@ fn vk_get_physical_device_surface_capabilities2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface_capabilities);
+    response.write_raw_ptr(p_surface_capabilities);
     response.write(result);
     response.send();
 }
@@ -6071,7 +6071,7 @@ fn vk_get_display_mode_properties2_khr(mut packet: Packet) {
 fn vk_get_display_plane_capabilities2_khr(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let p_display_plane_info: *const vk::DisplayPlaneInfo2KHR = packet.read();
-    let p_capabilities: *mut vk::DisplayPlaneCapabilities2KHR = packet.read();
+    let p_capabilities: *mut vk::DisplayPlaneCapabilities2KHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDisplayPlaneCapabilities2KHR({physical_device:?}, {p_display_plane_info:?}, {p_capabilities:?})");
 
     let result = unsafe {
@@ -6083,7 +6083,7 @@ fn vk_get_display_plane_capabilities2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_capabilities);
+    response.write_raw_ptr(p_capabilities);
     response.write(result);
     response.send();
 }
@@ -6092,7 +6092,7 @@ fn vk_get_display_plane_capabilities2_khr(mut packet: Packet) {
 fn vk_get_buffer_memory_requirements2(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_info: *const vk::BufferMemoryRequirementsInfo2 = packet.read();
-    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetBufferMemoryRequirements2({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
     unsafe {
@@ -6104,7 +6104,7 @@ fn vk_get_buffer_memory_requirements2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_requirements);
+    response.write_raw_ptr(p_memory_requirements);
     response.send();
 }
 
@@ -6112,7 +6112,7 @@ fn vk_get_buffer_memory_requirements2(mut packet: Packet) {
 fn vk_get_image_memory_requirements2(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_info: *const vk::ImageMemoryRequirementsInfo2 = packet.read();
-    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetImageMemoryRequirements2({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
     unsafe {
@@ -6124,7 +6124,7 @@ fn vk_get_image_memory_requirements2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_requirements);
+    response.write_raw_ptr(p_memory_requirements);
     response.send();
 }
 
@@ -6153,7 +6153,7 @@ fn vk_get_image_sparse_memory_requirements2(mut packet: Packet) {
 fn vk_get_device_buffer_memory_requirements(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_info: *const vk::DeviceBufferMemoryRequirements = packet.read();
-    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceBufferMemoryRequirements({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
     unsafe {
@@ -6165,7 +6165,7 @@ fn vk_get_device_buffer_memory_requirements(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_requirements);
+    response.write_raw_ptr(p_memory_requirements);
     response.send();
 }
 
@@ -6173,7 +6173,7 @@ fn vk_get_device_buffer_memory_requirements(mut packet: Packet) {
 fn vk_get_device_image_memory_requirements(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_info: *const vk::DeviceImageMemoryRequirements = packet.read();
-    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceImageMemoryRequirements({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
     unsafe {
@@ -6185,7 +6185,7 @@ fn vk_get_device_image_memory_requirements(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_requirements);
+    response.write_raw_ptr(p_memory_requirements);
     response.send();
 }
 
@@ -6215,7 +6215,7 @@ fn vk_create_sampler_ycbcr_conversion(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::SamplerYcbcrConversionCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_ycbcr_conversion: *mut vk::SamplerYcbcrConversion = packet.read();
+    let p_ycbcr_conversion: *mut vk::SamplerYcbcrConversion = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateSamplerYcbcrConversion({device:?}, {p_create_info:?}, {p_allocator:?}, {p_ycbcr_conversion:?})");
 
     let result = unsafe {
@@ -6228,7 +6228,7 @@ fn vk_create_sampler_ycbcr_conversion(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_ycbcr_conversion);
+    response.write_raw_ptr(p_ycbcr_conversion);
     response.write(result);
     response.send();
 }
@@ -6253,7 +6253,7 @@ fn vk_destroy_sampler_ycbcr_conversion(mut packet: Packet) {
 fn vk_get_device_queue2(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_queue_info: *const vk::DeviceQueueInfo2 = packet.read();
-    let p_queue: *mut vk::Queue = packet.read();
+    let p_queue: *mut vk::Queue = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceQueue2({device:?}, {p_queue_info:?}, {p_queue:?})");
 
     unsafe {
@@ -6265,7 +6265,7 @@ fn vk_get_device_queue2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_queue);
+    response.write_raw_ptr(p_queue);
     response.send();
 }
 
@@ -6274,7 +6274,7 @@ fn vk_create_validation_cache_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::ValidationCacheCreateInfoEXT = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_validation_cache: *mut vk::ValidationCacheEXT = packet.read();
+    let p_validation_cache: *mut vk::ValidationCacheEXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateValidationCacheEXT({device:?}, {p_create_info:?}, {p_allocator:?}, {p_validation_cache:?})");
 
     let result = unsafe {
@@ -6287,7 +6287,7 @@ fn vk_create_validation_cache_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_validation_cache);
+    response.write_raw_ptr(p_validation_cache);
     response.write(result);
     response.send();
 }
@@ -6312,8 +6312,8 @@ fn vk_destroy_validation_cache_ext(mut packet: Packet) {
 fn vk_get_validation_cache_data_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let validation_cache: vk::ValidationCacheEXT = packet.read();
-    let p_data_size: *mut usize = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data_size: *mut usize = packet.read_nullable_raw_ptr_mut();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetValidationCacheDataEXT({device:?}, {validation_cache:?}, {p_data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -6326,8 +6326,8 @@ fn vk_get_validation_cache_data_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data_size);
-    response.write(p_data);
+    response.write_raw_ptr(p_data_size);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -6358,7 +6358,7 @@ fn vk_merge_validation_caches_ext(mut packet: Packet) {
 fn vk_get_descriptor_set_layout_support(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::DescriptorSetLayoutCreateInfo = packet.read();
-    let p_support: *mut vk::DescriptorSetLayoutSupport = packet.read();
+    let p_support: *mut vk::DescriptorSetLayoutSupport = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDescriptorSetLayoutSupport({device:?}, {p_create_info:?}, {p_support:?})");
 
     unsafe {
@@ -6370,7 +6370,7 @@ fn vk_get_descriptor_set_layout_support(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_support);
+    response.write_raw_ptr(p_support);
     response.send();
 }
 
@@ -6379,7 +6379,7 @@ fn vk_get_swapchain_gralloc_usage_android(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let format: vk::Format = packet.read();
     let image_usage: vk::ImageUsageFlags = packet.read();
-    let gralloc_usage: *mut std::os::raw::c_int = packet.read();
+    let gralloc_usage: *mut std::os::raw::c_int = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetSwapchainGrallocUsageANDROID({device:?}, {format:?}, {image_usage:?}, {gralloc_usage:?})");
 
     let result = unsafe {
@@ -6392,7 +6392,7 @@ fn vk_get_swapchain_gralloc_usage_android(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(gralloc_usage);
+    response.write_raw_ptr(gralloc_usage);
     response.write(result);
     response.send();
 }
@@ -6403,8 +6403,8 @@ fn vk_get_swapchain_gralloc_usage2_android(mut packet: Packet) {
     let format: vk::Format = packet.read();
     let image_usage: vk::ImageUsageFlags = packet.read();
     let swapchain_image_usage: vk::SwapchainImageUsageFlagsANDROID = packet.read();
-    let gralloc_consumer_usage: *mut u64 = packet.read();
-    let gralloc_producer_usage: *mut u64 = packet.read();
+    let gralloc_consumer_usage: *mut u64 = packet.read_nullable_raw_ptr_mut();
+    let gralloc_producer_usage: *mut u64 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetSwapchainGrallocUsage2ANDROID({device:?}, {format:?}, {image_usage:?}, {swapchain_image_usage:?}, {gralloc_consumer_usage:?}, {gralloc_producer_usage:?})");
 
     let result = unsafe {
@@ -6419,8 +6419,8 @@ fn vk_get_swapchain_gralloc_usage2_android(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(gralloc_consumer_usage);
-    response.write(gralloc_producer_usage);
+    response.write_raw_ptr(gralloc_consumer_usage);
+    response.write_raw_ptr(gralloc_producer_usage);
     response.write(result);
     response.send();
 }
@@ -6455,7 +6455,7 @@ fn vk_queue_signal_release_image_android(mut packet: Packet) {
     let wait_semaphore_count: u32 = packet.read();
     let p_wait_semaphores: *const vk::Semaphore = packet.read();
     let image: vk::Image = packet.read();
-    let p_native_fence_fd: *mut std::os::raw::c_int = packet.read();
+    let p_native_fence_fd: *mut std::os::raw::c_int = packet.read_nullable_raw_ptr_mut();
     trace!("called vkQueueSignalReleaseImageANDROID({queue:?}, {wait_semaphore_count:?}, {p_wait_semaphores:?}, {image:?}, {p_native_fence_fd:?})");
 
     let result = unsafe {
@@ -6469,7 +6469,7 @@ fn vk_queue_signal_release_image_android(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_native_fence_fd);
+    response.write_raw_ptr(p_native_fence_fd);
     response.write(result);
     response.send();
 }
@@ -6480,8 +6480,8 @@ fn vk_get_shader_info_amd(mut packet: Packet) {
     let pipeline: vk::Pipeline = packet.read();
     let shader_stage: vk::ShaderStageFlags = packet.read();
     let info_type: vk::ShaderInfoTypeAMD = packet.read();
-    let p_info_size: *mut usize = packet.read();
-    let p_info: *mut std::ffi::c_void = packet.read();
+    let p_info_size: *mut usize = packet.read_nullable_raw_ptr_mut();
+    let p_info: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetShaderInfoAMD({device:?}, {pipeline:?}, {shader_stage:?}, {info_type:?}, {p_info_size:?}, {p_info:?})");
 
     let result = unsafe {
@@ -6496,8 +6496,8 @@ fn vk_get_shader_info_amd(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_info_size);
-    response.write(p_info);
+    response.write_raw_ptr(p_info_size);
+    response.write_raw_ptr(p_info);
     response.write(result);
     response.send();
 }
@@ -6543,8 +6543,8 @@ fn vk_get_calibrated_timestamps_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let timestamp_count: u32 = packet.read();
     let p_timestamp_infos: *const vk::CalibratedTimestampInfoKHR = packet.read();
-    let p_timestamps: *mut u64 = packet.read();
-    let p_max_deviation: *mut u64 = packet.read();
+    let p_timestamps: *mut u64 = packet.read_nullable_raw_ptr_mut();
+    let p_max_deviation: *mut u64 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetCalibratedTimestampsKHR({device:?}, {timestamp_count:?}, {p_timestamp_infos:?}, {p_timestamps:?}, {p_max_deviation:?})");
 
     let result = unsafe {
@@ -6558,8 +6558,8 @@ fn vk_get_calibrated_timestamps_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_timestamps);
-    response.write(p_max_deviation);
+    response.write_raw_ptr(p_timestamps);
+    response.write_raw_ptr(p_max_deviation);
     response.write(result);
     response.send();
 }
@@ -6685,7 +6685,7 @@ fn vk_create_debug_utils_messenger_ext(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::DebugUtilsMessengerCreateInfoEXT = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_messenger: *mut vk::DebugUtilsMessengerEXT = packet.read();
+    let p_messenger: *mut vk::DebugUtilsMessengerEXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateDebugUtilsMessengerEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_messenger:?})");
 
     let result = unsafe {
@@ -6698,7 +6698,7 @@ fn vk_create_debug_utils_messenger_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_messenger);
+    response.write_raw_ptr(p_messenger);
     response.write(result);
     response.send();
 }
@@ -6742,7 +6742,7 @@ fn vk_get_memory_host_pointer_properties_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read();
     let p_host_pointer: *const std::ffi::c_void = packet.read();
-    let p_memory_host_pointer_properties: *mut vk::MemoryHostPointerPropertiesEXT = packet.read();
+    let p_memory_host_pointer_properties: *mut vk::MemoryHostPointerPropertiesEXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetMemoryHostPointerPropertiesEXT({device:?}, {handle_type:?}, {p_host_pointer:?}, {p_memory_host_pointer_properties:?})");
 
     let result = unsafe {
@@ -6755,7 +6755,7 @@ fn vk_get_memory_host_pointer_properties_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_host_pointer_properties);
+    response.write_raw_ptr(p_memory_host_pointer_properties);
     response.write(result);
     response.send();
 }
@@ -6785,7 +6785,7 @@ fn vk_create_render_pass2(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::RenderPassCreateInfo2 = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_render_pass: *mut vk::RenderPass = packet.read();
+    let p_render_pass: *mut vk::RenderPass = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateRenderPass2({device:?}, {p_create_info:?}, {p_allocator:?}, {p_render_pass:?})");
 
     let result = unsafe {
@@ -6798,7 +6798,7 @@ fn vk_create_render_pass2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_render_pass);
+    response.write_raw_ptr(p_render_pass);
     response.write(result);
     response.send();
 }
@@ -6853,7 +6853,7 @@ fn vk_cmd_end_render_pass2(mut packet: Packet) {
 fn vk_get_semaphore_counter_value(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let semaphore: vk::Semaphore = packet.read();
-    let p_value: *mut u64 = packet.read();
+    let p_value: *mut u64 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetSemaphoreCounterValue({device:?}, {semaphore:?}, {p_value:?})");
 
     let result = unsafe {
@@ -6865,7 +6865,7 @@ fn vk_get_semaphore_counter_value(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_value);
+    response.write_raw_ptr(p_value);
     response.write(result);
     response.send();
 }
@@ -6912,7 +6912,7 @@ fn vk_signal_semaphore(mut packet: Packet) {
 fn vk_get_android_hardware_buffer_properties_android(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let buffer: *const vk::AHardwareBuffer = packet.read();
-    let p_properties: *mut vk::AndroidHardwareBufferPropertiesANDROID = packet.read();
+    let p_properties: *mut vk::AndroidHardwareBufferPropertiesANDROID = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetAndroidHardwareBufferPropertiesANDROID({device:?}, {buffer:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -6924,7 +6924,7 @@ fn vk_get_android_hardware_buffer_properties_android(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_properties);
+    response.write_raw_ptr(p_properties);
     response.write(result);
     response.send();
 }
@@ -6933,7 +6933,7 @@ fn vk_get_android_hardware_buffer_properties_android(mut packet: Packet) {
 fn vk_get_memory_android_hardware_buffer_android(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_info: *const vk::MemoryGetAndroidHardwareBufferInfoANDROID = packet.read();
-    let p_buffer: *mut *mut vk::AHardwareBuffer = packet.read();
+    let p_buffer: *mut *mut vk::AHardwareBuffer = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetMemoryAndroidHardwareBufferANDROID({device:?}, {p_info:?}, {p_buffer:?})");
 
     let result = unsafe {
@@ -6945,7 +6945,7 @@ fn vk_get_memory_android_hardware_buffer_android(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_buffer);
+    response.write_raw_ptr(p_buffer);
     response.write(result);
     response.send();
 }
@@ -7390,7 +7390,7 @@ fn vk_create_acceleration_structure_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::AccelerationStructureCreateInfoNV = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_acceleration_structure: *mut vk::AccelerationStructureNV = packet.read();
+    let p_acceleration_structure: *mut vk::AccelerationStructureNV = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateAccelerationStructureNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_acceleration_structure:?})");
 
     let result = unsafe {
@@ -7403,7 +7403,7 @@ fn vk_create_acceleration_structure_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_acceleration_structure);
+    response.write_raw_ptr(p_acceleration_structure);
     response.write(result);
     response.send();
 }
@@ -7460,7 +7460,7 @@ fn vk_destroy_acceleration_structure_nv(mut packet: Packet) {
 fn vk_get_acceleration_structure_memory_requirements_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_info: *const vk::AccelerationStructureMemoryRequirementsInfoNV = packet.read();
-    let p_memory_requirements: *mut vk::MemoryRequirements2KHR = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2KHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetAccelerationStructureMemoryRequirementsNV({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
     unsafe {
@@ -7472,7 +7472,7 @@ fn vk_get_acceleration_structure_memory_requirements_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_requirements);
+    response.write_raw_ptr(p_memory_requirements);
     response.send();
 }
 
@@ -7695,7 +7695,7 @@ fn vk_write_acceleration_structures_properties_khr(mut packet: Packet) {
     let p_acceleration_structures: *const vk::AccelerationStructureKHR = packet.read();
     let query_type: vk::QueryType = packet.read();
     let data_size: usize = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     let stride: usize = packet.read();
     trace!("called vkWriteAccelerationStructuresPropertiesKHR({device:?}, {acceleration_structure_count:?}, {p_acceleration_structures:?}, {query_type:?}, {data_size:?}, {p_data:?}, {stride:?})");
 
@@ -7712,7 +7712,7 @@ fn vk_write_acceleration_structures_properties_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -7790,7 +7790,7 @@ fn vk_get_ray_tracing_shader_group_handles_khr(mut packet: Packet) {
     let first_group: u32 = packet.read();
     let group_count: u32 = packet.read();
     let data_size: usize = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetRayTracingShaderGroupHandlesKHR({device:?}, {pipeline:?}, {first_group:?}, {group_count:?}, {data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -7805,7 +7805,7 @@ fn vk_get_ray_tracing_shader_group_handles_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -7817,7 +7817,7 @@ fn vk_get_ray_tracing_capture_replay_shader_group_handles_khr(mut packet: Packet
     let first_group: u32 = packet.read();
     let group_count: u32 = packet.read();
     let data_size: usize = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetRayTracingCaptureReplayShaderGroupHandlesKHR({device:?}, {pipeline:?}, {first_group:?}, {group_count:?}, {data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -7832,7 +7832,7 @@ fn vk_get_ray_tracing_capture_replay_shader_group_handles_khr(mut packet: Packet
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -7842,7 +7842,7 @@ fn vk_get_acceleration_structure_handle_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let acceleration_structure: vk::AccelerationStructureNV = packet.read();
     let data_size: usize = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetAccelerationStructureHandleNV({device:?}, {acceleration_structure:?}, {data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -7855,7 +7855,7 @@ fn vk_get_acceleration_structure_handle_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -7867,7 +7867,7 @@ fn vk_create_ray_tracing_pipelines_nv(mut packet: Packet) {
     let create_info_count: u32 = packet.read();
     let p_create_infos: *const vk::RayTracingPipelineCreateInfoNV = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_pipelines: *mut vk::Pipeline = packet.read();
+    let p_pipelines: *mut vk::Pipeline = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateRayTracingPipelinesNV({device:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
     let result = unsafe {
@@ -7882,7 +7882,7 @@ fn vk_create_ray_tracing_pipelines_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_pipelines);
+    response.write_raw_ptr(p_pipelines);
     response.write(result);
     response.send();
 }
@@ -7895,7 +7895,7 @@ fn vk_create_ray_tracing_pipelines_khr(mut packet: Packet) {
     let create_info_count: u32 = packet.read();
     let p_create_infos: *const vk::RayTracingPipelineCreateInfoKHR = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_pipelines: *mut vk::Pipeline = packet.read();
+    let p_pipelines: *mut vk::Pipeline = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateRayTracingPipelinesKHR({device:?}, {deferred_operation:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
     let result = unsafe {
@@ -7911,7 +7911,7 @@ fn vk_create_ray_tracing_pipelines_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_pipelines);
+    response.write_raw_ptr(p_pipelines);
     response.write(result);
     response.send();
 }
@@ -7976,7 +7976,7 @@ fn vk_cmd_trace_rays_indirect2_khr(mut packet: Packet) {
 fn vk_get_device_acceleration_structure_compatibility_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_version_info: *const vk::AccelerationStructureVersionInfoKHR = packet.read();
-    let p_compatibility: *mut vk::AccelerationStructureCompatibilityKHR = packet.read();
+    let p_compatibility: *mut vk::AccelerationStructureCompatibilityKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceAccelerationStructureCompatibilityKHR({device:?}, {p_version_info:?}, {p_compatibility:?})");
 
     unsafe {
@@ -7988,7 +7988,7 @@ fn vk_get_device_acceleration_structure_compatibility_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_compatibility);
+    response.write_raw_ptr(p_compatibility);
     response.send();
 }
 
@@ -8050,7 +8050,7 @@ fn vk_get_image_view_handle_nvx(mut packet: Packet) {
 fn vk_get_image_view_address_nvx(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let image_view: vk::ImageView = packet.read();
-    let p_properties: *mut vk::ImageViewAddressPropertiesNVX = packet.read();
+    let p_properties: *mut vk::ImageViewAddressPropertiesNVX = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetImageViewAddressNVX({device:?}, {image_view:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -8062,7 +8062,7 @@ fn vk_get_image_view_address_nvx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_properties);
+    response.write_raw_ptr(p_properties);
     response.write(result);
     response.send();
 }
@@ -8093,7 +8093,7 @@ fn vk_get_physical_device_surface_present_modes2_ext(mut packet: Packet) {
 fn vk_get_device_group_surface_present_modes2_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_surface_info: *const vk::PhysicalDeviceSurfaceInfo2KHR = packet.read();
-    let p_modes: *mut vk::DeviceGroupPresentModeFlagsKHR = packet.read();
+    let p_modes: *mut vk::DeviceGroupPresentModeFlagsKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceGroupSurfacePresentModes2EXT({device:?}, {p_surface_info:?}, {p_modes:?})");
 
     let result = unsafe {
@@ -8105,7 +8105,7 @@ fn vk_get_device_group_surface_present_modes2_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_modes);
+    response.write_raw_ptr(p_modes);
     response.write(result);
     response.send();
 }
@@ -8151,7 +8151,7 @@ fn vk_enumerate_physical_device_queue_family_performance_query_counters_khr(mut 
     let physical_device: vk::PhysicalDevice = packet.read();
     let queue_family_index: u32 = packet.read();
     let (mut p_counter_count, p_counters) = packet.read_and_allocate_vk_array_count::<vk::PerformanceCounterKHR>();
-    let p_counter_descriptions: *mut vk::PerformanceCounterDescriptionKHR = packet.read();
+    let p_counter_descriptions: *mut vk::PerformanceCounterDescriptionKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR({physical_device:?}, {queue_family_index:?}, {p_counter_count:?}, {p_counters:?}, {p_counter_descriptions:?})");
 
     let result = unsafe {
@@ -8166,7 +8166,7 @@ fn vk_enumerate_physical_device_queue_family_performance_query_counters_khr(mut 
 
     let mut response = packet.write_response(None);
     response.write_vk_array(p_counter_count, p_counters);
-    response.write(p_counter_descriptions);
+    response.write_raw_ptr(p_counter_descriptions);
     response.write(result);
     response.send();
 }
@@ -8175,7 +8175,7 @@ fn vk_enumerate_physical_device_queue_family_performance_query_counters_khr(mut 
 fn vk_get_physical_device_queue_family_performance_query_passes_khr(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let p_performance_query_create_info: *const vk::QueryPoolPerformanceCreateInfoKHR = packet.read();
-    let p_num_passes: *mut u32 = packet.read();
+    let p_num_passes: *mut u32 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR({physical_device:?}, {p_performance_query_create_info:?}, {p_num_passes:?})");
 
     unsafe {
@@ -8187,7 +8187,7 @@ fn vk_get_physical_device_queue_family_performance_query_passes_khr(mut packet: 
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_num_passes);
+    response.write_raw_ptr(p_num_passes);
     response.send();
 }
 
@@ -8225,7 +8225,7 @@ fn vk_release_profiling_lock_khr(mut packet: Packet) {
 fn vk_get_image_drm_format_modifier_properties_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let image: vk::Image = packet.read();
-    let p_properties: *mut vk::ImageDrmFormatModifierPropertiesEXT = packet.read();
+    let p_properties: *mut vk::ImageDrmFormatModifierPropertiesEXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetImageDrmFormatModifierPropertiesEXT({device:?}, {image:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -8237,7 +8237,7 @@ fn vk_get_image_drm_format_modifier_properties_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_properties);
+    response.write_raw_ptr(p_properties);
     response.write(result);
     response.send();
 }
@@ -8283,7 +8283,7 @@ fn vk_create_headless_surface_ext(mut packet: Packet) {
     let instance: vk::Instance = packet.read();
     let p_create_info: *const vk::HeadlessSurfaceCreateInfoEXT = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_surface: *mut vk::SurfaceKHR = packet.read();
+    let p_surface: *mut vk::SurfaceKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateHeadlessSurfaceEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -8296,7 +8296,7 @@ fn vk_create_headless_surface_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_surface);
+    response.write_raw_ptr(p_surface);
     response.write(result);
     response.send();
 }
@@ -8409,7 +8409,7 @@ fn vk_cmd_set_performance_override_intel(mut packet: Packet) {
 fn vk_acquire_performance_configuration_intel(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_acquire_info: *const vk::PerformanceConfigurationAcquireInfoINTEL = packet.read();
-    let p_configuration: *mut vk::PerformanceConfigurationINTEL = packet.read();
+    let p_configuration: *mut vk::PerformanceConfigurationINTEL = packet.read_nullable_raw_ptr_mut();
     trace!("called vkAcquirePerformanceConfigurationINTEL({device:?}, {p_acquire_info:?}, {p_configuration:?})");
 
     let result = unsafe {
@@ -8421,7 +8421,7 @@ fn vk_acquire_performance_configuration_intel(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_configuration);
+    response.write_raw_ptr(p_configuration);
     response.write(result);
     response.send();
 }
@@ -8466,7 +8466,7 @@ fn vk_queue_set_performance_configuration_intel(mut packet: Packet) {
 fn vk_get_performance_parameter_intel(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let parameter: vk::PerformanceParameterTypeINTEL = packet.read();
-    let p_value: *mut vk::PerformanceValueINTEL = packet.read();
+    let p_value: *mut vk::PerformanceValueINTEL = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPerformanceParameterINTEL({device:?}, {parameter:?}, {p_value:?})");
 
     let result = unsafe {
@@ -8478,7 +8478,7 @@ fn vk_get_performance_parameter_intel(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_value);
+    response.write_raw_ptr(p_value);
     response.write(result);
     response.send();
 }
@@ -8608,7 +8608,7 @@ fn vk_create_acceleration_structure_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::AccelerationStructureCreateInfoKHR = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_acceleration_structure: *mut vk::AccelerationStructureKHR = packet.read();
+    let p_acceleration_structure: *mut vk::AccelerationStructureKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateAccelerationStructureKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_acceleration_structure:?})");
 
     let result = unsafe {
@@ -8621,7 +8621,7 @@ fn vk_create_acceleration_structure_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_acceleration_structure);
+    response.write_raw_ptr(p_acceleration_structure);
     response.write(result);
     response.send();
 }
@@ -8712,7 +8712,7 @@ fn vk_get_acceleration_structure_device_address_khr(mut packet: Packet) {
 fn vk_create_deferred_operation_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_deferred_operation: *mut vk::DeferredOperationKHR = packet.read();
+    let p_deferred_operation: *mut vk::DeferredOperationKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateDeferredOperationKHR({device:?}, {p_allocator:?}, {p_deferred_operation:?})");
 
     let result = unsafe {
@@ -8724,7 +8724,7 @@ fn vk_create_deferred_operation_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_deferred_operation);
+    response.write_raw_ptr(p_deferred_operation);
     response.write(result);
     response.send();
 }
@@ -8803,7 +8803,7 @@ fn vk_deferred_operation_join_khr(mut packet: Packet) {
 fn vk_get_pipeline_indirect_memory_requirements_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::ComputePipelineCreateInfo = packet.read();
-    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read();
+    let p_memory_requirements: *mut vk::MemoryRequirements2 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPipelineIndirectMemoryRequirementsNV({device:?}, {p_create_info:?}, {p_memory_requirements:?})");
 
     unsafe {
@@ -8815,7 +8815,7 @@ fn vk_get_pipeline_indirect_memory_requirements_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_memory_requirements);
+    response.write_raw_ptr(p_memory_requirements);
     response.send();
 }
 
@@ -9580,7 +9580,7 @@ fn vk_create_private_data_slot(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::PrivateDataSlotCreateInfo = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_private_data_slot: *mut vk::PrivateDataSlot = packet.read();
+    let p_private_data_slot: *mut vk::PrivateDataSlot = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreatePrivateDataSlot({device:?}, {p_create_info:?}, {p_allocator:?}, {p_private_data_slot:?})");
 
     let result = unsafe {
@@ -9593,7 +9593,7 @@ fn vk_create_private_data_slot(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_private_data_slot);
+    response.write_raw_ptr(p_private_data_slot);
     response.write(result);
     response.send();
 }
@@ -9644,7 +9644,7 @@ fn vk_get_private_data(mut packet: Packet) {
     let object_type: vk::ObjectType = packet.read();
     let object_handle: u64 = packet.read();
     let private_data_slot: vk::PrivateDataSlot = packet.read();
-    let p_data: *mut u64 = packet.read();
+    let p_data: *mut u64 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPrivateData({device:?}, {object_type:?}, {object_handle:?}, {private_data_slot:?}, {p_data:?})");
 
     unsafe {
@@ -9658,7 +9658,7 @@ fn vk_get_private_data(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data);
+    response.write_raw_ptr(p_data);
     response.send();
 }
 
@@ -9804,7 +9804,7 @@ fn vk_get_acceleration_structure_build_sizes_khr(mut packet: Packet) {
     let build_type: vk::AccelerationStructureBuildTypeKHR = packet.read();
     let p_build_info: *const vk::AccelerationStructureBuildGeometryInfoKHR = packet.read();
     let p_max_primitive_counts: *const u32 = packet.read();
-    let p_size_info: *mut vk::AccelerationStructureBuildSizesInfoKHR = packet.read();
+    let p_size_info: *mut vk::AccelerationStructureBuildSizesInfoKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetAccelerationStructureBuildSizesKHR({device:?}, {build_type:?}, {p_build_info:?}, {p_max_primitive_counts:?}, {p_size_info:?})");
 
     unsafe {
@@ -9818,7 +9818,7 @@ fn vk_get_acceleration_structure_build_sizes_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_size_info);
+    response.write_raw_ptr(p_size_info);
     response.send();
 }
 
@@ -10079,7 +10079,7 @@ fn vk_transition_image_layout_ext(mut packet: Packet) {
 fn vk_get_physical_device_video_capabilities_khr(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let p_video_profile: *const vk::VideoProfileInfoKHR = packet.read();
-    let p_capabilities: *mut vk::VideoCapabilitiesKHR = packet.read();
+    let p_capabilities: *mut vk::VideoCapabilitiesKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceVideoCapabilitiesKHR({physical_device:?}, {p_video_profile:?}, {p_capabilities:?})");
 
     let result = unsafe {
@@ -10091,7 +10091,7 @@ fn vk_get_physical_device_video_capabilities_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_capabilities);
+    response.write_raw_ptr(p_capabilities);
     response.write(result);
     response.send();
 }
@@ -10122,7 +10122,7 @@ fn vk_get_physical_device_video_format_properties_khr(mut packet: Packet) {
 fn vk_get_physical_device_video_encode_quality_level_properties_khr(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let p_quality_level_info: *const vk::PhysicalDeviceVideoEncodeQualityLevelInfoKHR = packet.read();
-    let p_quality_level_properties: *mut vk::VideoEncodeQualityLevelPropertiesKHR = packet.read();
+    let p_quality_level_properties: *mut vk::VideoEncodeQualityLevelPropertiesKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR({physical_device:?}, {p_quality_level_info:?}, {p_quality_level_properties:?})");
 
     let result = unsafe {
@@ -10134,7 +10134,7 @@ fn vk_get_physical_device_video_encode_quality_level_properties_khr(mut packet: 
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_quality_level_properties);
+    response.write_raw_ptr(p_quality_level_properties);
     response.write(result);
     response.send();
 }
@@ -10144,7 +10144,7 @@ fn vk_create_video_session_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::VideoSessionCreateInfoKHR = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_video_session: *mut vk::VideoSessionKHR = packet.read();
+    let p_video_session: *mut vk::VideoSessionKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateVideoSessionKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_video_session:?})");
 
     let result = unsafe {
@@ -10157,7 +10157,7 @@ fn vk_create_video_session_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_video_session);
+    response.write_raw_ptr(p_video_session);
     response.write(result);
     response.send();
 }
@@ -10183,7 +10183,7 @@ fn vk_create_video_session_parameters_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::VideoSessionParametersCreateInfoKHR = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_video_session_parameters: *mut vk::VideoSessionParametersKHR = packet.read();
+    let p_video_session_parameters: *mut vk::VideoSessionParametersKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateVideoSessionParametersKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_video_session_parameters:?})");
 
     let result = unsafe {
@@ -10196,7 +10196,7 @@ fn vk_create_video_session_parameters_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_video_session_parameters);
+    response.write_raw_ptr(p_video_session_parameters);
     response.write(result);
     response.send();
 }
@@ -10225,9 +10225,9 @@ fn vk_update_video_session_parameters_khr(mut packet: Packet) {
 fn vk_get_encoded_video_session_parameters_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_video_session_parameters_info: *const vk::VideoEncodeSessionParametersGetInfoKHR = packet.read();
-    let p_feedback_info: *mut vk::VideoEncodeSessionParametersFeedbackInfoKHR = packet.read();
-    let p_data_size: *mut usize = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_feedback_info: *mut vk::VideoEncodeSessionParametersFeedbackInfoKHR = packet.read_nullable_raw_ptr_mut();
+    let p_data_size: *mut usize = packet.read_nullable_raw_ptr_mut();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetEncodedVideoSessionParametersKHR({device:?}, {p_video_session_parameters_info:?}, {p_feedback_info:?}, {p_data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -10241,9 +10241,9 @@ fn vk_get_encoded_video_session_parameters_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_feedback_info);
-    response.write(p_data_size);
-    response.write(p_data);
+    response.write_raw_ptr(p_feedback_info);
+    response.write_raw_ptr(p_data_size);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -10417,7 +10417,7 @@ fn vk_create_cu_module_nvx(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::CuModuleCreateInfoNVX = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_module: *mut vk::CuModuleNVX = packet.read();
+    let p_module: *mut vk::CuModuleNVX = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateCuModuleNVX({device:?}, {p_create_info:?}, {p_allocator:?}, {p_module:?})");
 
     let result = unsafe {
@@ -10430,7 +10430,7 @@ fn vk_create_cu_module_nvx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_module);
+    response.write_raw_ptr(p_module);
     response.write(result);
     response.send();
 }
@@ -10440,7 +10440,7 @@ fn vk_create_cu_function_nvx(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::CuFunctionCreateInfoNVX = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_function: *mut vk::CuFunctionNVX = packet.read();
+    let p_function: *mut vk::CuFunctionNVX = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateCuFunctionNVX({device:?}, {p_create_info:?}, {p_allocator:?}, {p_function:?})");
 
     let result = unsafe {
@@ -10453,7 +10453,7 @@ fn vk_create_cu_function_nvx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_function);
+    response.write_raw_ptr(p_function);
     response.write(result);
     response.send();
 }
@@ -10508,7 +10508,7 @@ fn vk_cmd_cu_launch_kernel_nvx(mut packet: Packet) {
 fn vk_get_descriptor_set_layout_size_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let layout: vk::DescriptorSetLayout = packet.read();
-    let p_layout_size_in_bytes: *mut vk::DeviceSize = packet.read();
+    let p_layout_size_in_bytes: *mut vk::DeviceSize = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDescriptorSetLayoutSizeEXT({device:?}, {layout:?}, {p_layout_size_in_bytes:?})");
 
     unsafe {
@@ -10520,7 +10520,7 @@ fn vk_get_descriptor_set_layout_size_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_layout_size_in_bytes);
+    response.write_raw_ptr(p_layout_size_in_bytes);
     response.send();
 }
 
@@ -10529,7 +10529,7 @@ fn vk_get_descriptor_set_layout_binding_offset_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let layout: vk::DescriptorSetLayout = packet.read();
     let binding: u32 = packet.read();
-    let p_offset: *mut vk::DeviceSize = packet.read();
+    let p_offset: *mut vk::DeviceSize = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDescriptorSetLayoutBindingOffsetEXT({device:?}, {layout:?}, {binding:?}, {p_offset:?})");
 
     unsafe {
@@ -10542,7 +10542,7 @@ fn vk_get_descriptor_set_layout_binding_offset_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_offset);
+    response.write_raw_ptr(p_offset);
     response.send();
 }
 
@@ -10551,7 +10551,7 @@ fn vk_get_descriptor_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_descriptor_info: *const vk::DescriptorGetInfoEXT = packet.read();
     let data_size: usize = packet.read();
-    let p_descriptor: *mut std::ffi::c_void = packet.read();
+    let p_descriptor: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDescriptorEXT({device:?}, {p_descriptor_info:?}, {data_size:?}, {p_descriptor:?})");
 
     unsafe {
@@ -10564,7 +10564,7 @@ fn vk_get_descriptor_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_descriptor);
+    response.write_raw_ptr(p_descriptor);
     response.send();
 }
 
@@ -10630,7 +10630,7 @@ fn vk_cmd_bind_descriptor_buffer_embedded_samplers_ext(mut packet: Packet) {
 fn vk_get_buffer_opaque_capture_descriptor_data_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_info: *const vk::BufferCaptureDescriptorDataInfoEXT = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetBufferOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
     let result = unsafe {
@@ -10642,7 +10642,7 @@ fn vk_get_buffer_opaque_capture_descriptor_data_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -10651,7 +10651,7 @@ fn vk_get_buffer_opaque_capture_descriptor_data_ext(mut packet: Packet) {
 fn vk_get_image_opaque_capture_descriptor_data_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_info: *const vk::ImageCaptureDescriptorDataInfoEXT = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetImageOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
     let result = unsafe {
@@ -10663,7 +10663,7 @@ fn vk_get_image_opaque_capture_descriptor_data_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -10672,7 +10672,7 @@ fn vk_get_image_opaque_capture_descriptor_data_ext(mut packet: Packet) {
 fn vk_get_image_view_opaque_capture_descriptor_data_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_info: *const vk::ImageViewCaptureDescriptorDataInfoEXT = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetImageViewOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
     let result = unsafe {
@@ -10684,7 +10684,7 @@ fn vk_get_image_view_opaque_capture_descriptor_data_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -10693,7 +10693,7 @@ fn vk_get_image_view_opaque_capture_descriptor_data_ext(mut packet: Packet) {
 fn vk_get_sampler_opaque_capture_descriptor_data_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_info: *const vk::SamplerCaptureDescriptorDataInfoEXT = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetSamplerOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
     let result = unsafe {
@@ -10705,7 +10705,7 @@ fn vk_get_sampler_opaque_capture_descriptor_data_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -10714,7 +10714,7 @@ fn vk_get_sampler_opaque_capture_descriptor_data_ext(mut packet: Packet) {
 fn vk_get_acceleration_structure_opaque_capture_descriptor_data_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_info: *const vk::AccelerationStructureCaptureDescriptorDataInfoEXT = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
     let result = unsafe {
@@ -10726,7 +10726,7 @@ fn vk_get_acceleration_structure_opaque_capture_descriptor_data_ext(mut packet: 
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -10772,7 +10772,7 @@ fn vk_get_drm_display_ext(mut packet: Packet) {
     let physical_device: vk::PhysicalDevice = packet.read();
     let drm_fd: i32 = packet.read();
     let connector_id: u32 = packet.read();
-    let display: *mut vk::DisplayKHR = packet.read();
+    let display: *mut vk::DisplayKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDrmDisplayEXT({physical_device:?}, {drm_fd:?}, {connector_id:?}, {display:?})");
 
     let result = unsafe {
@@ -10785,7 +10785,7 @@ fn vk_get_drm_display_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(display);
+    response.write_raw_ptr(display);
     response.write(result);
     response.send();
 }
@@ -10817,7 +10817,7 @@ fn vk_create_buffer_collection_fuchsia(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::BufferCollectionCreateInfoFUCHSIA = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_collection: *mut vk::BufferCollectionFUCHSIA = packet.read();
+    let p_collection: *mut vk::BufferCollectionFUCHSIA = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateBufferCollectionFUCHSIA({device:?}, {p_create_info:?}, {p_allocator:?}, {p_collection:?})");
 
     let result = unsafe {
@@ -10830,7 +10830,7 @@ fn vk_create_buffer_collection_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_collection);
+    response.write_raw_ptr(p_collection);
     response.write(result);
     response.send();
 }
@@ -10895,7 +10895,7 @@ fn vk_destroy_buffer_collection_fuchsia(mut packet: Packet) {
 fn vk_get_buffer_collection_properties_fuchsia(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let collection: vk::BufferCollectionFUCHSIA = packet.read();
-    let p_properties: *mut vk::BufferCollectionPropertiesFUCHSIA = packet.read();
+    let p_properties: *mut vk::BufferCollectionPropertiesFUCHSIA = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetBufferCollectionPropertiesFUCHSIA({device:?}, {collection:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -10907,7 +10907,7 @@ fn vk_get_buffer_collection_properties_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_properties);
+    response.write_raw_ptr(p_properties);
     response.write(result);
     response.send();
 }
@@ -10917,7 +10917,7 @@ fn vk_create_cuda_module_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::CudaModuleCreateInfoNV = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_module: *mut vk::CudaModuleNV = packet.read();
+    let p_module: *mut vk::CudaModuleNV = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateCudaModuleNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_module:?})");
 
     let result = unsafe {
@@ -10930,7 +10930,7 @@ fn vk_create_cuda_module_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_module);
+    response.write_raw_ptr(p_module);
     response.write(result);
     response.send();
 }
@@ -10939,8 +10939,8 @@ fn vk_create_cuda_module_nv(mut packet: Packet) {
 fn vk_get_cuda_module_cache_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let module: vk::CudaModuleNV = packet.read();
-    let p_cache_size: *mut usize = packet.read();
-    let p_cache_data: *mut std::ffi::c_void = packet.read();
+    let p_cache_size: *mut usize = packet.read_nullable_raw_ptr_mut();
+    let p_cache_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetCudaModuleCacheNV({device:?}, {module:?}, {p_cache_size:?}, {p_cache_data:?})");
 
     let result = unsafe {
@@ -10953,8 +10953,8 @@ fn vk_get_cuda_module_cache_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_cache_size);
-    response.write(p_cache_data);
+    response.write_raw_ptr(p_cache_size);
+    response.write_raw_ptr(p_cache_data);
     response.write(result);
     response.send();
 }
@@ -10964,7 +10964,7 @@ fn vk_create_cuda_function_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::CudaFunctionCreateInfoNV = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_function: *mut vk::CudaFunctionNV = packet.read();
+    let p_function: *mut vk::CudaFunctionNV = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateCudaFunctionNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_function:?})");
 
     let result = unsafe {
@@ -10977,7 +10977,7 @@ fn vk_create_cuda_function_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_function);
+    response.write_raw_ptr(p_function);
     response.write(result);
     response.send();
 }
@@ -11058,7 +11058,7 @@ fn vk_cmd_end_rendering(mut packet: Packet) {
 fn vk_get_descriptor_set_layout_host_mapping_info_valve(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_binding_reference: *const vk::DescriptorSetBindingReferenceVALVE = packet.read();
-    let p_host_mapping: *mut vk::DescriptorSetLayoutHostMappingInfoVALVE = packet.read();
+    let p_host_mapping: *mut vk::DescriptorSetLayoutHostMappingInfoVALVE = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDescriptorSetLayoutHostMappingInfoVALVE({device:?}, {p_binding_reference:?}, {p_host_mapping:?})");
 
     unsafe {
@@ -11070,7 +11070,7 @@ fn vk_get_descriptor_set_layout_host_mapping_info_valve(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_host_mapping);
+    response.write_raw_ptr(p_host_mapping);
     response.send();
 }
 
@@ -11078,7 +11078,7 @@ fn vk_get_descriptor_set_layout_host_mapping_info_valve(mut packet: Packet) {
 fn vk_get_descriptor_set_host_mapping_valve(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let descriptor_set: vk::DescriptorSet = packet.read();
-    let pp_data: *mut *mut std::ffi::c_void = packet.read();
+    let pp_data: *mut *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDescriptorSetHostMappingVALVE({device:?}, {descriptor_set:?}, {pp_data:?})");
 
     unsafe {
@@ -11090,7 +11090,7 @@ fn vk_get_descriptor_set_host_mapping_valve(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(pp_data);
+    response.write_raw_ptr(pp_data);
     response.send();
 }
 
@@ -11099,7 +11099,7 @@ fn vk_create_micromap_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::MicromapCreateInfoEXT = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_micromap: *mut vk::MicromapEXT = packet.read();
+    let p_micromap: *mut vk::MicromapEXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateMicromapEXT({device:?}, {p_create_info:?}, {p_allocator:?}, {p_micromap:?})");
 
     let result = unsafe {
@@ -11112,7 +11112,7 @@ fn vk_create_micromap_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_micromap);
+    response.write_raw_ptr(p_micromap);
     response.write(result);
     response.send();
 }
@@ -11302,7 +11302,7 @@ fn vk_write_micromaps_properties_ext(mut packet: Packet) {
     let p_micromaps: *const vk::MicromapEXT = packet.read();
     let query_type: vk::QueryType = packet.read();
     let data_size: usize = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     let stride: usize = packet.read();
     trace!("called vkWriteMicromapsPropertiesEXT({device:?}, {micromap_count:?}, {p_micromaps:?}, {query_type:?}, {data_size:?}, {p_data:?}, {stride:?})");
 
@@ -11319,7 +11319,7 @@ fn vk_write_micromaps_properties_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -11328,7 +11328,7 @@ fn vk_write_micromaps_properties_ext(mut packet: Packet) {
 fn vk_get_device_micromap_compatibility_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_version_info: *const vk::MicromapVersionInfoEXT = packet.read();
-    let p_compatibility: *mut vk::AccelerationStructureCompatibilityKHR = packet.read();
+    let p_compatibility: *mut vk::AccelerationStructureCompatibilityKHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceMicromapCompatibilityEXT({device:?}, {p_version_info:?}, {p_compatibility:?})");
 
     unsafe {
@@ -11340,7 +11340,7 @@ fn vk_get_device_micromap_compatibility_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_compatibility);
+    response.write_raw_ptr(p_compatibility);
     response.send();
 }
 
@@ -11349,7 +11349,7 @@ fn vk_get_micromap_build_sizes_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let build_type: vk::AccelerationStructureBuildTypeKHR = packet.read();
     let p_build_info: *const vk::MicromapBuildInfoEXT = packet.read();
-    let p_size_info: *mut vk::MicromapBuildSizesInfoEXT = packet.read();
+    let p_size_info: *mut vk::MicromapBuildSizesInfoEXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetMicromapBuildSizesEXT({device:?}, {build_type:?}, {p_build_info:?}, {p_size_info:?})");
 
     unsafe {
@@ -11362,7 +11362,7 @@ fn vk_get_micromap_build_sizes_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_size_info);
+    response.write_raw_ptr(p_size_info);
     response.send();
 }
 
@@ -11370,7 +11370,7 @@ fn vk_get_micromap_build_sizes_ext(mut packet: Packet) {
 fn vk_get_shader_module_identifier_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let shader_module: vk::ShaderModule = packet.read();
-    let p_identifier: *mut vk::ShaderModuleIdentifierEXT = packet.read();
+    let p_identifier: *mut vk::ShaderModuleIdentifierEXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetShaderModuleIdentifierEXT({device:?}, {shader_module:?}, {p_identifier:?})");
 
     unsafe {
@@ -11382,7 +11382,7 @@ fn vk_get_shader_module_identifier_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_identifier);
+    response.write_raw_ptr(p_identifier);
     response.send();
 }
 
@@ -11390,7 +11390,7 @@ fn vk_get_shader_module_identifier_ext(mut packet: Packet) {
 fn vk_get_shader_module_create_info_identifier_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::ShaderModuleCreateInfo = packet.read();
-    let p_identifier: *mut vk::ShaderModuleIdentifierEXT = packet.read();
+    let p_identifier: *mut vk::ShaderModuleIdentifierEXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetShaderModuleCreateInfoIdentifierEXT({device:?}, {p_create_info:?}, {p_identifier:?})");
 
     unsafe {
@@ -11402,7 +11402,7 @@ fn vk_get_shader_module_create_info_identifier_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_identifier);
+    response.write_raw_ptr(p_identifier);
     response.send();
 }
 
@@ -11411,7 +11411,7 @@ fn vk_get_image_subresource_layout2_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let image: vk::Image = packet.read();
     let p_subresource: *const vk::ImageSubresource2KHR = packet.read();
-    let p_layout: *mut vk::SubresourceLayout2KHR = packet.read();
+    let p_layout: *mut vk::SubresourceLayout2KHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetImageSubresourceLayout2KHR({device:?}, {image:?}, {p_subresource:?}, {p_layout:?})");
 
     unsafe {
@@ -11424,7 +11424,7 @@ fn vk_get_image_subresource_layout2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_layout);
+    response.write_raw_ptr(p_layout);
     response.send();
 }
 
@@ -11432,7 +11432,7 @@ fn vk_get_image_subresource_layout2_khr(mut packet: Packet) {
 fn vk_get_pipeline_properties_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_pipeline_info: *const vk::PipelineInfoEXT = packet.read();
-    let p_pipeline_properties: *mut vk::BaseOutStructure = packet.read();
+    let p_pipeline_properties: *mut vk::BaseOutStructure = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetPipelinePropertiesEXT({device:?}, {p_pipeline_info:?}, {p_pipeline_properties:?})");
 
     let result = unsafe {
@@ -11444,7 +11444,7 @@ fn vk_get_pipeline_properties_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_pipeline_properties);
+    response.write_raw_ptr(p_pipeline_properties);
     response.write(result);
     response.send();
 }
@@ -11452,7 +11452,7 @@ fn vk_get_pipeline_properties_ext(mut packet: Packet) {
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkExportMetalObjectsEXT.html>"]
 fn vk_export_metal_objects_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
-    let p_metal_objects_info: *mut vk::ExportMetalObjectsInfoEXT = packet.read();
+    let p_metal_objects_info: *mut vk::ExportMetalObjectsInfoEXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkExportMetalObjectsEXT({device:?}, {p_metal_objects_info:?})");
 
     unsafe {
@@ -11463,7 +11463,7 @@ fn vk_export_metal_objects_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_metal_objects_info);
+    response.write_raw_ptr(p_metal_objects_info);
     response.send();
 }
 
@@ -11493,7 +11493,7 @@ fn vk_get_framebuffer_tile_properties_qcom(mut packet: Packet) {
 fn vk_get_dynamic_rendering_tile_properties_qcom(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_rendering_info: *const vk::RenderingInfo = packet.read();
-    let p_properties: *mut vk::TilePropertiesQCOM = packet.read();
+    let p_properties: *mut vk::TilePropertiesQCOM = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDynamicRenderingTilePropertiesQCOM({device:?}, {p_rendering_info:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -11505,7 +11505,7 @@ fn vk_get_dynamic_rendering_tile_properties_qcom(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_properties);
+    response.write_raw_ptr(p_properties);
     response.write(result);
     response.send();
 }
@@ -11537,7 +11537,7 @@ fn vk_create_optical_flow_session_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_create_info: *const vk::OpticalFlowSessionCreateInfoNV = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_session: *mut vk::OpticalFlowSessionNV = packet.read();
+    let p_session: *mut vk::OpticalFlowSessionNV = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateOpticalFlowSessionNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_session:?})");
 
     let result = unsafe {
@@ -11550,7 +11550,7 @@ fn vk_create_optical_flow_session_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_session);
+    response.write_raw_ptr(p_session);
     response.write(result);
     response.send();
 }
@@ -11614,8 +11614,8 @@ fn vk_cmd_optical_flow_execute_nv(mut packet: Packet) {
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceFaultInfoEXT.html>"]
 fn vk_get_device_fault_info_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
-    let p_fault_counts: *mut vk::DeviceFaultCountsEXT = packet.read();
-    let p_fault_info: *mut vk::DeviceFaultInfoEXT = packet.read();
+    let p_fault_counts: *mut vk::DeviceFaultCountsEXT = packet.read_nullable_raw_ptr_mut();
+    let p_fault_info: *mut vk::DeviceFaultInfoEXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceFaultInfoEXT({device:?}, {p_fault_counts:?}, {p_fault_info:?})");
 
     let result = unsafe {
@@ -11627,8 +11627,8 @@ fn vk_get_device_fault_info_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_fault_counts);
-    response.write(p_fault_info);
+    response.write_raw_ptr(p_fault_counts);
+    response.write_raw_ptr(p_fault_info);
     response.write(result);
     response.send();
 }
@@ -11669,7 +11669,7 @@ fn vk_release_swapchain_images_ext(mut packet: Packet) {
 fn vk_get_device_image_subresource_layout_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_info: *const vk::DeviceImageSubresourceInfoKHR = packet.read();
-    let p_layout: *mut vk::SubresourceLayout2KHR = packet.read();
+    let p_layout: *mut vk::SubresourceLayout2KHR = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetDeviceImageSubresourceLayoutKHR({device:?}, {p_info:?}, {p_layout:?})");
 
     unsafe {
@@ -11681,7 +11681,7 @@ fn vk_get_device_image_subresource_layout_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_layout);
+    response.write_raw_ptr(p_layout);
     response.send();
 }
 
@@ -11689,7 +11689,7 @@ fn vk_get_device_image_subresource_layout_khr(mut packet: Packet) {
 fn vk_map_memory2_khr(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let p_memory_map_info: *const vk::MemoryMapInfoKHR = packet.read();
-    let pp_data: *mut *mut std::ffi::c_void = packet.read();
+    let pp_data: *mut *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkMapMemory2KHR({device:?}, {p_memory_map_info:?}, {pp_data:?})");
 
     let result = unsafe {
@@ -11701,7 +11701,7 @@ fn vk_map_memory2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(pp_data);
+    response.write_raw_ptr(pp_data);
     response.write(result);
     response.send();
 }
@@ -11730,7 +11730,7 @@ fn vk_create_shaders_ext(mut packet: Packet) {
     let create_info_count: u32 = packet.read();
     let p_create_infos: *const vk::ShaderCreateInfoEXT = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_shaders: *mut vk::ShaderEXT = packet.read();
+    let p_shaders: *mut vk::ShaderEXT = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateShadersEXT({device:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_shaders:?})");
 
     let result = unsafe {
@@ -11744,7 +11744,7 @@ fn vk_create_shaders_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_shaders);
+    response.write_raw_ptr(p_shaders);
     response.write(result);
     response.send();
 }
@@ -11769,8 +11769,8 @@ fn vk_destroy_shader_ext(mut packet: Packet) {
 fn vk_get_shader_binary_data_ext(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let shader: vk::ShaderEXT = packet.read();
-    let p_data_size: *mut usize = packet.read();
-    let p_data: *mut std::ffi::c_void = packet.read();
+    let p_data_size: *mut usize = packet.read_nullable_raw_ptr_mut();
+    let p_data: *mut std::ffi::c_void = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetShaderBinaryDataEXT({device:?}, {shader:?}, {p_data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -11783,8 +11783,8 @@ fn vk_get_shader_binary_data_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_data_size);
-    response.write(p_data);
+    response.write_raw_ptr(p_data_size);
+    response.write_raw_ptr(p_data);
     response.write(result);
     response.send();
 }
@@ -11811,7 +11811,7 @@ fn vk_cmd_bind_shaders_ext(mut packet: Packet) {
 fn vk_get_screen_buffer_properties_qnx(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let buffer: *const vk::_screen_buffer = packet.read();
-    let p_properties: *mut vk::ScreenBufferPropertiesQNX = packet.read();
+    let p_properties: *mut vk::ScreenBufferPropertiesQNX = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetScreenBufferPropertiesQNX({device:?}, {buffer:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -11823,7 +11823,7 @@ fn vk_get_screen_buffer_properties_qnx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_properties);
+    response.write_raw_ptr(p_properties);
     response.write(result);
     response.send();
 }
@@ -11852,7 +11852,7 @@ fn vk_get_physical_device_cooperative_matrix_properties_khr(mut packet: Packet) 
 fn vk_get_execution_graph_pipeline_scratch_size_amdx(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let execution_graph: vk::Pipeline = packet.read();
-    let p_size_info: *mut vk::ExecutionGraphPipelineScratchSizeAMDX = packet.read();
+    let p_size_info: *mut vk::ExecutionGraphPipelineScratchSizeAMDX = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetExecutionGraphPipelineScratchSizeAMDX({device:?}, {execution_graph:?}, {p_size_info:?})");
 
     let result = unsafe {
@@ -11864,7 +11864,7 @@ fn vk_get_execution_graph_pipeline_scratch_size_amdx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_size_info);
+    response.write_raw_ptr(p_size_info);
     response.write(result);
     response.send();
 }
@@ -11874,7 +11874,7 @@ fn vk_get_execution_graph_pipeline_node_index_amdx(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let execution_graph: vk::Pipeline = packet.read();
     let p_node_info: *const vk::PipelineShaderStageNodeCreateInfoAMDX = packet.read();
-    let p_node_index: *mut u32 = packet.read();
+    let p_node_index: *mut u32 = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetExecutionGraphPipelineNodeIndexAMDX({device:?}, {execution_graph:?}, {p_node_info:?}, {p_node_index:?})");
 
     let result = unsafe {
@@ -11887,7 +11887,7 @@ fn vk_get_execution_graph_pipeline_node_index_amdx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_node_index);
+    response.write_raw_ptr(p_node_index);
     response.write(result);
     response.send();
 }
@@ -11899,7 +11899,7 @@ fn vk_create_execution_graph_pipelines_amdx(mut packet: Packet) {
     let create_info_count: u32 = packet.read();
     let p_create_infos: *const vk::ExecutionGraphPipelineCreateInfoAMDX = packet.read();
     let p_allocator: *const vk::AllocationCallbacks = packet.read();
-    let p_pipelines: *mut vk::Pipeline = packet.read();
+    let p_pipelines: *mut vk::Pipeline = packet.read_nullable_raw_ptr_mut();
     trace!("called vkCreateExecutionGraphPipelinesAMDX({device:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
     let result = unsafe {
@@ -11914,7 +11914,7 @@ fn vk_create_execution_graph_pipelines_amdx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_pipelines);
+    response.write_raw_ptr(p_pipelines);
     response.write(result);
     response.send();
 }
@@ -12125,7 +12125,7 @@ fn vk_set_latency_marker_nv(mut packet: Packet) {
 fn vk_get_latency_timings_nv(mut packet: Packet) {
     let device: vk::Device = packet.read();
     let swapchain: vk::SwapchainKHR = packet.read();
-    let p_latency_marker_info: *mut vk::GetLatencyMarkerInfoNV = packet.read();
+    let p_latency_marker_info: *mut vk::GetLatencyMarkerInfoNV = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetLatencyTimingsNV({device:?}, {swapchain:?}, {p_latency_marker_info:?})");
 
     unsafe {
@@ -12137,7 +12137,7 @@ fn vk_get_latency_timings_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(p_latency_marker_info);
+    response.write_raw_ptr(p_latency_marker_info);
     response.send();
 }
 

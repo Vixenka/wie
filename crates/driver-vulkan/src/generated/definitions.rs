@@ -888,10 +888,10 @@ unsafe extern "system" fn vkCreateInstance(
     let mut packet = new_packet(1000001000);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_instance);
+    packet.write_nullable_raw_ptr_mut(p_instance);
 
     let mut response = packet.send_with_response();
-    *p_instance = response.read();
+    response.read_to_raw_ptr(p_instance);
     response.read()
 }
 
@@ -970,10 +970,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceProperties(
 
     let mut packet = new_packet(1000001005);
     packet.write(physical_device);
-    packet.write(p_properties);
+    packet.write_nullable_raw_ptr_mut(p_properties);
 
     let mut response = packet.send_with_response();
-    *p_properties = response.read();
+    response.read_to_raw_ptr(p_properties);
     response.read()
 }
 
@@ -1007,10 +1007,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceMemoryProperties(
 
     let mut packet = new_packet(1000001007);
     packet.write(physical_device);
-    packet.write(p_memory_properties);
+    packet.write_nullable_raw_ptr_mut(p_memory_properties);
 
     let mut response = packet.send_with_response();
-    *p_memory_properties = response.read();
+    response.read_to_raw_ptr(p_memory_properties);
     response.read()
 }
 
@@ -1024,10 +1024,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceFeatures(
 
     let mut packet = new_packet(1000001008);
     packet.write(physical_device);
-    packet.write(p_features);
+    packet.write_nullable_raw_ptr_mut(p_features);
 
     let mut response = packet.send_with_response();
-    *p_features = response.read();
+    response.read_to_raw_ptr(p_features);
     response.read()
 }
 
@@ -1043,10 +1043,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceFormatProperties(
     let mut packet = new_packet(1000001009);
     packet.write(physical_device);
     packet.write(format);
-    packet.write(p_format_properties);
+    packet.write_nullable_raw_ptr_mut(p_format_properties);
 
     let mut response = packet.send_with_response();
-    *p_format_properties = response.read();
+    response.read_to_raw_ptr(p_format_properties);
     response.read()
 }
 
@@ -1070,10 +1070,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceImageFormatProperties(
     packet.write(tiling);
     packet.write(usage);
     packet.write(flags);
-    packet.write(p_image_format_properties);
+    packet.write_nullable_raw_ptr_mut(p_image_format_properties);
 
     let mut response = packet.send_with_response();
-    *p_image_format_properties = response.read();
+    response.read_to_raw_ptr(p_image_format_properties);
     response.read()
 }
 
@@ -1091,10 +1091,10 @@ unsafe extern "system" fn vkCreateDevice(
     packet.write(physical_device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_device);
+    packet.write_nullable_raw_ptr_mut(p_device);
 
     let mut response = packet.send_with_response();
-    *p_device = response.read();
+    response.read_to_raw_ptr(p_device);
     response.read()
 }
 
@@ -1119,10 +1119,10 @@ unsafe extern "system" fn vkEnumerateInstanceVersion(p_api_version: *mut u32) ->
     trace!("called vkEnumerateInstanceVersion({p_api_version:?})");
 
     let mut packet = new_packet(1000001013);
-    packet.write(p_api_version);
+    packet.write_nullable_raw_ptr_mut(p_api_version);
 
     let mut response = packet.send_with_response();
-    *p_api_version = response.read();
+    response.read_to_raw_ptr(p_api_version);
     response.read()
 }
 
@@ -1214,10 +1214,10 @@ unsafe extern "system" fn vkGetDeviceQueue(
     packet.write(device);
     packet.write(queue_family_index);
     packet.write(queue_index);
-    packet.write(p_queue);
+    packet.write_nullable_raw_ptr_mut(p_queue);
 
     let mut response = packet.send_with_response();
-    *p_queue = response.read();
+    response.read_to_raw_ptr(p_queue);
     response.read()
 }
 
@@ -1281,10 +1281,10 @@ unsafe extern "system" fn vkAllocateMemory(
     packet.write(device);
     packet.write(p_allocate_info);
     packet.write(p_allocator);
-    packet.write(p_memory);
+    packet.write_nullable_raw_ptr_mut(p_memory);
 
     let mut response = packet.send_with_response();
-    *p_memory = response.read();
+    response.read_to_raw_ptr(p_memory);
     response.read()
 }
 
@@ -1325,10 +1325,10 @@ unsafe extern "system" fn vkMapMemory(
     packet.write(offset);
     packet.write(size);
     packet.write(flags);
-    packet.write(pp_data);
+    packet.write_nullable_raw_ptr_mut(pp_data);
 
     let mut response = packet.send_with_response();
-    *pp_data = response.read();
+    response.read_to_raw_ptr(pp_data);
     response.read()
 }
 
@@ -1394,10 +1394,10 @@ unsafe extern "system" fn vkGetDeviceMemoryCommitment(
     let mut packet = new_packet(1000001028);
     packet.write(device);
     packet.write(memory);
-    packet.write(p_committed_memory_in_bytes);
+    packet.write_nullable_raw_ptr_mut(p_committed_memory_in_bytes);
 
     let mut response = packet.send_with_response();
-    *p_committed_memory_in_bytes = response.read();
+    response.read_to_raw_ptr(p_committed_memory_in_bytes);
     response.read()
 }
 
@@ -1415,10 +1415,10 @@ unsafe extern "system" fn vkGetBufferMemoryRequirements(
     let mut packet = new_packet(1000001029);
     packet.write(device);
     packet.write(buffer);
-    packet.write(p_memory_requirements);
+    packet.write_nullable_raw_ptr_mut(p_memory_requirements);
 
     let mut response = packet.send_with_response();
-    *p_memory_requirements = response.read();
+    response.read_to_raw_ptr(p_memory_requirements);
     response.read()
 }
 
@@ -1454,10 +1454,10 @@ unsafe extern "system" fn vkGetImageMemoryRequirements(
     let mut packet = new_packet(1000001031);
     packet.write(device);
     packet.write(image);
-    packet.write(p_memory_requirements);
+    packet.write_nullable_raw_ptr_mut(p_memory_requirements);
 
     let mut response = packet.send_with_response();
-    *p_memory_requirements = response.read();
+    response.read_to_raw_ptr(p_memory_requirements);
     response.read()
 }
 
@@ -1569,10 +1569,10 @@ unsafe extern "system" fn vkCreateFence(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_fence);
+    packet.write_nullable_raw_ptr_mut(p_fence);
 
     let mut response = packet.send_with_response();
-    *p_fence = response.read();
+    response.read_to_raw_ptr(p_fence);
     response.read()
 }
 
@@ -1662,10 +1662,10 @@ unsafe extern "system" fn vkCreateSemaphore(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_semaphore);
+    packet.write_nullable_raw_ptr_mut(p_semaphore);
 
     let mut response = packet.send_with_response();
-    *p_semaphore = response.read();
+    response.read_to_raw_ptr(p_semaphore);
     response.read()
 }
 
@@ -1700,10 +1700,10 @@ unsafe extern "system" fn vkCreateEvent(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_event);
+    packet.write_nullable_raw_ptr_mut(p_event);
 
     let mut response = packet.send_with_response();
-    *p_event = response.read();
+    response.read_to_raw_ptr(p_event);
     response.read()
 }
 
@@ -1777,10 +1777,10 @@ unsafe extern "system" fn vkCreateQueryPool(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_query_pool);
+    packet.write_nullable_raw_ptr_mut(p_query_pool);
 
     let mut response = packet.send_with_response();
-    *p_query_pool = response.read();
+    response.read_to_raw_ptr(p_query_pool);
     response.read()
 }
 
@@ -1821,12 +1821,12 @@ unsafe extern "system" fn vkGetQueryPoolResults(
     packet.write(first_query);
     packet.write(query_count);
     packet.write(data_size);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data);
     packet.write(stride);
     packet.write(flags);
 
     let mut response = packet.send_with_response();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -1863,10 +1863,10 @@ unsafe extern "system" fn vkCreateBuffer(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_buffer);
+    packet.write_nullable_raw_ptr_mut(p_buffer);
 
     let mut response = packet.send_with_response();
-    *p_buffer = response.read();
+    response.read_to_raw_ptr(p_buffer);
     response.read()
 }
 
@@ -1901,10 +1901,10 @@ unsafe extern "system" fn vkCreateBufferView(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_view);
+    packet.write_nullable_raw_ptr_mut(p_view);
 
     let mut response = packet.send_with_response();
-    *p_view = response.read();
+    response.read_to_raw_ptr(p_view);
     response.read()
 }
 
@@ -1939,10 +1939,10 @@ unsafe extern "system" fn vkCreateImage(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_image);
+    packet.write_nullable_raw_ptr_mut(p_image);
 
     let mut response = packet.send_with_response();
-    *p_image = response.read();
+    response.read_to_raw_ptr(p_image);
     response.read()
 }
 
@@ -1977,10 +1977,10 @@ unsafe extern "system" fn vkGetImageSubresourceLayout(
     packet.write(device);
     packet.write(image);
     packet.write(p_subresource);
-    packet.write(p_layout);
+    packet.write_nullable_raw_ptr_mut(p_layout);
 
     let mut response = packet.send_with_response();
-    *p_layout = response.read();
+    response.read_to_raw_ptr(p_layout);
     response.read()
 }
 
@@ -1998,10 +1998,10 @@ unsafe extern "system" fn vkCreateImageView(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_view);
+    packet.write_nullable_raw_ptr_mut(p_view);
 
     let mut response = packet.send_with_response();
-    *p_view = response.read();
+    response.read_to_raw_ptr(p_view);
     response.read()
 }
 
@@ -2036,10 +2036,10 @@ unsafe extern "system" fn vkCreateShaderModule(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_shader_module);
+    packet.write_nullable_raw_ptr_mut(p_shader_module);
 
     let mut response = packet.send_with_response();
-    *p_shader_module = response.read();
+    response.read_to_raw_ptr(p_shader_module);
     response.read()
 }
 
@@ -2074,10 +2074,10 @@ unsafe extern "system" fn vkCreatePipelineCache(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_pipeline_cache);
+    packet.write_nullable_raw_ptr_mut(p_pipeline_cache);
 
     let mut response = packet.send_with_response();
-    *p_pipeline_cache = response.read();
+    response.read_to_raw_ptr(p_pipeline_cache);
     response.read()
 }
 
@@ -2111,12 +2111,12 @@ unsafe extern "system" fn vkGetPipelineCacheData(
     let mut packet = new_packet(1000001065);
     packet.write(device);
     packet.write(pipeline_cache);
-    packet.write(p_data_size);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data_size);
+    packet.write_nullable_raw_ptr_mut(p_data);
 
     let mut response = packet.send_with_response();
-    *p_data_size = response.read();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data_size);
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -2158,10 +2158,10 @@ unsafe extern "system" fn vkCreateGraphicsPipelines(
     packet.write(create_info_count);
     packet.write(p_create_infos);
     packet.write(p_allocator);
-    packet.write(p_pipelines);
+    packet.write_nullable_raw_ptr_mut(p_pipelines);
 
     let mut response = packet.send_with_response();
-    *p_pipelines = response.read();
+    response.read_to_raw_ptr(p_pipelines);
     response.read()
 }
 
@@ -2183,10 +2183,10 @@ unsafe extern "system" fn vkCreateComputePipelines(
     packet.write(create_info_count);
     packet.write(p_create_infos);
     packet.write(p_allocator);
-    packet.write(p_pipelines);
+    packet.write_nullable_raw_ptr_mut(p_pipelines);
 
     let mut response = packet.send_with_response();
-    *p_pipelines = response.read();
+    response.read_to_raw_ptr(p_pipelines);
     response.read()
 }
 
@@ -2202,10 +2202,10 @@ unsafe extern "system" fn vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(
     let mut packet = new_packet(1000001069);
     packet.write(device);
     packet.write(renderpass);
-    packet.write(p_max_workgroup_size);
+    packet.write_nullable_raw_ptr_mut(p_max_workgroup_size);
 
     let mut response = packet.send_with_response();
-    *p_max_workgroup_size = response.read();
+    response.read_to_raw_ptr(p_max_workgroup_size);
     response.read()
 }
 
@@ -2240,10 +2240,10 @@ unsafe extern "system" fn vkCreatePipelineLayout(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_pipeline_layout);
+    packet.write_nullable_raw_ptr_mut(p_pipeline_layout);
 
     let mut response = packet.send_with_response();
-    *p_pipeline_layout = response.read();
+    response.read_to_raw_ptr(p_pipeline_layout);
     response.read()
 }
 
@@ -2278,10 +2278,10 @@ unsafe extern "system" fn vkCreateSampler(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_sampler);
+    packet.write_nullable_raw_ptr_mut(p_sampler);
 
     let mut response = packet.send_with_response();
-    *p_sampler = response.read();
+    response.read_to_raw_ptr(p_sampler);
     response.read()
 }
 
@@ -2316,10 +2316,10 @@ unsafe extern "system" fn vkCreateDescriptorSetLayout(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_set_layout);
+    packet.write_nullable_raw_ptr_mut(p_set_layout);
 
     let mut response = packet.send_with_response();
-    *p_set_layout = response.read();
+    response.read_to_raw_ptr(p_set_layout);
     response.read()
 }
 
@@ -2354,10 +2354,10 @@ unsafe extern "system" fn vkCreateDescriptorPool(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_descriptor_pool);
+    packet.write_nullable_raw_ptr_mut(p_descriptor_pool);
 
     let mut response = packet.send_with_response();
-    *p_descriptor_pool = response.read();
+    response.read_to_raw_ptr(p_descriptor_pool);
     response.read()
 }
 
@@ -2410,10 +2410,10 @@ unsafe extern "system" fn vkAllocateDescriptorSets(
     let mut packet = new_packet(1000001080);
     packet.write(device);
     packet.write(p_allocate_info);
-    packet.write(p_descriptor_sets);
+    packet.write_nullable_raw_ptr_mut(p_descriptor_sets);
 
     let mut response = packet.send_with_response();
-    *p_descriptor_sets = response.read();
+    response.read_to_raw_ptr(p_descriptor_sets);
     response.read()
 }
 
@@ -2472,10 +2472,10 @@ unsafe extern "system" fn vkCreateFramebuffer(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_framebuffer);
+    packet.write_nullable_raw_ptr_mut(p_framebuffer);
 
     let mut response = packet.send_with_response();
-    *p_framebuffer = response.read();
+    response.read_to_raw_ptr(p_framebuffer);
     response.read()
 }
 
@@ -2510,10 +2510,10 @@ unsafe extern "system" fn vkCreateRenderPass(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_render_pass);
+    packet.write_nullable_raw_ptr_mut(p_render_pass);
 
     let mut response = packet.send_with_response();
-    *p_render_pass = response.read();
+    response.read_to_raw_ptr(p_render_pass);
     response.read()
 }
 
@@ -2546,10 +2546,10 @@ unsafe extern "system" fn vkGetRenderAreaGranularity(
     let mut packet = new_packet(1000001087);
     packet.write(device);
     packet.write(render_pass);
-    packet.write(p_granularity);
+    packet.write_nullable_raw_ptr_mut(p_granularity);
 
     let mut response = packet.send_with_response();
-    *p_granularity = response.read();
+    response.read_to_raw_ptr(p_granularity);
     response.read()
 }
 
@@ -2565,10 +2565,10 @@ unsafe extern "system" fn vkGetRenderingAreaGranularityKHR(
     let mut packet = new_packet(1000001088);
     packet.write(device);
     packet.write(p_rendering_area_info);
-    packet.write(p_granularity);
+    packet.write_nullable_raw_ptr_mut(p_granularity);
 
     let mut response = packet.send_with_response();
-    *p_granularity = response.read();
+    response.read_to_raw_ptr(p_granularity);
     response.read()
 }
 
@@ -2586,10 +2586,10 @@ unsafe extern "system" fn vkCreateCommandPool(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_command_pool);
+    packet.write_nullable_raw_ptr_mut(p_command_pool);
 
     let mut response = packet.send_with_response();
-    *p_command_pool = response.read();
+    response.read_to_raw_ptr(p_command_pool);
     response.read()
 }
 
@@ -2642,10 +2642,10 @@ unsafe extern "system" fn vkAllocateCommandBuffers(
     let mut packet = new_packet(1000001092);
     packet.write(device);
     packet.write(p_allocate_info);
-    packet.write(p_command_buffers);
+    packet.write_nullable_raw_ptr_mut(p_command_buffers);
 
     let mut response = packet.send_with_response();
-    *p_command_buffers = response.read();
+    response.read_to_raw_ptr(p_command_buffers);
     response.read()
 }
 
@@ -3822,10 +3822,10 @@ unsafe extern "system" fn vkCreateAndroidSurfaceKHR(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -3921,10 +3921,10 @@ unsafe extern "system" fn vkCreateDisplayModeKHR(
     packet.write(display);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_mode);
+    packet.write_nullable_raw_ptr_mut(p_mode);
 
     let mut response = packet.send_with_response();
-    *p_mode = response.read();
+    response.read_to_raw_ptr(p_mode);
     response.read()
 }
 
@@ -3942,10 +3942,10 @@ unsafe extern "system" fn vkGetDisplayPlaneCapabilitiesKHR(
     packet.write(physical_device);
     packet.write(mode);
     packet.write(plane_index);
-    packet.write(p_capabilities);
+    packet.write_nullable_raw_ptr_mut(p_capabilities);
 
     let mut response = packet.send_with_response();
-    *p_capabilities = response.read();
+    response.read_to_raw_ptr(p_capabilities);
     response.read()
 }
 
@@ -3963,10 +3963,10 @@ unsafe extern "system" fn vkCreateDisplayPlaneSurfaceKHR(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -3986,10 +3986,10 @@ unsafe extern "system" fn vkCreateSharedSwapchainsKHR(
     packet.write(swapchain_count);
     packet.write(p_create_infos);
     packet.write(p_allocator);
-    packet.write(p_swapchains);
+    packet.write_nullable_raw_ptr_mut(p_swapchains);
 
     let mut response = packet.send_with_response();
-    *p_swapchains = response.read();
+    response.read_to_raw_ptr(p_swapchains);
     response.read()
 }
 
@@ -4024,10 +4024,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceSupportKHR(
     packet.write(physical_device);
     packet.write(queue_family_index);
     packet.write(surface);
-    packet.write(p_supported);
+    packet.write_nullable_raw_ptr_mut(p_supported);
 
     let mut response = packet.send_with_response();
-    *p_supported = response.read();
+    response.read_to_raw_ptr(p_supported);
     response.read()
 }
 
@@ -4043,10 +4043,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
     let mut packet = new_packet(1000001163);
     packet.write(physical_device);
     packet.write(surface);
-    packet.write(p_surface_capabilities);
+    packet.write_nullable_raw_ptr_mut(p_surface_capabilities);
 
     let mut response = packet.send_with_response();
-    *p_surface_capabilities = response.read();
+    response.read_to_raw_ptr(p_surface_capabilities);
     response.read()
 }
 
@@ -4104,10 +4104,10 @@ unsafe extern "system" fn vkCreateSwapchainKHR(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_swapchain);
+    packet.write_nullable_raw_ptr_mut(p_swapchain);
 
     let mut response = packet.send_with_response();
-    *p_swapchain = response.read();
+    response.read_to_raw_ptr(p_swapchain);
     response.read()
 }
 
@@ -4166,10 +4166,10 @@ unsafe extern "system" fn vkAcquireNextImageKHR(
     packet.write(timeout);
     packet.write(semaphore);
     packet.write(fence);
-    packet.write(p_image_index);
+    packet.write_nullable_raw_ptr_mut(p_image_index);
 
     let mut response = packet.send_with_response();
-    *p_image_index = response.read();
+    response.read_to_raw_ptr(p_image_index);
     response.read()
 }
 
@@ -4203,10 +4203,10 @@ unsafe extern "system" fn vkCreateViSurfaceNN(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -4224,10 +4224,10 @@ unsafe extern "system" fn vkCreateWaylandSurfaceKHR(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -4243,10 +4243,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceWaylandPresentationSupportKHR(
     let mut packet = new_packet(1000001173);
     packet.write(physical_device);
     packet.write(queue_family_index);
-    packet.write(display);
+    packet.write_nullable_raw_ptr_mut(display);
 
     let mut response = packet.send_with_response();
-    *display = response.read();
+    response.read_to_raw_ptr(display);
     response.read()
 }
 
@@ -4264,10 +4264,10 @@ unsafe extern "system" fn vkCreateWin32SurfaceKHR(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -4301,10 +4301,10 @@ unsafe extern "system" fn vkCreateXlibSurfaceKHR(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -4321,11 +4321,11 @@ unsafe extern "system" fn vkGetPhysicalDeviceXlibPresentationSupportKHR(
     let mut packet = new_packet(1000001177);
     packet.write(physical_device);
     packet.write(queue_family_index);
-    packet.write(dpy);
+    packet.write_nullable_raw_ptr_mut(dpy);
     packet.write(visual_id);
 
     let mut response = packet.send_with_response();
-    *dpy = response.read();
+    response.read_to_raw_ptr(dpy);
     response.read()
 }
 
@@ -4343,10 +4343,10 @@ unsafe extern "system" fn vkCreateXcbSurfaceKHR(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -4363,11 +4363,11 @@ unsafe extern "system" fn vkGetPhysicalDeviceXcbPresentationSupportKHR(
     let mut packet = new_packet(1000001179);
     packet.write(physical_device);
     packet.write(queue_family_index);
-    packet.write(connection);
+    packet.write_nullable_raw_ptr_mut(connection);
     packet.write(visual_id);
 
     let mut response = packet.send_with_response();
-    *connection = response.read();
+    response.read_to_raw_ptr(connection);
     response.read()
 }
 
@@ -4385,10 +4385,10 @@ unsafe extern "system" fn vkCreateDirectFBSurfaceEXT(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -4404,10 +4404,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceDirectFBPresentationSupportEXT(
     let mut packet = new_packet(1000001181);
     packet.write(physical_device);
     packet.write(queue_family_index);
-    packet.write(dfb);
+    packet.write_nullable_raw_ptr_mut(dfb);
 
     let mut response = packet.send_with_response();
-    *dfb = response.read();
+    response.read_to_raw_ptr(dfb);
     response.read()
 }
 
@@ -4425,10 +4425,10 @@ unsafe extern "system" fn vkCreateImagePipeSurfaceFUCHSIA(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -4446,10 +4446,10 @@ unsafe extern "system" fn vkCreateStreamDescriptorSurfaceGGP(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -4467,10 +4467,10 @@ unsafe extern "system" fn vkCreateScreenSurfaceQNX(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -4486,10 +4486,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceScreenPresentationSupportQNX(
     let mut packet = new_packet(1000001185);
     packet.write(physical_device);
     packet.write(queue_family_index);
-    packet.write(window);
+    packet.write_nullable_raw_ptr_mut(window);
 
     let mut response = packet.send_with_response();
-    *window = response.read();
+    response.read_to_raw_ptr(window);
     response.read()
 }
 
@@ -4507,10 +4507,10 @@ unsafe extern "system" fn vkCreateDebugReportCallbackEXT(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_callback);
+    packet.write_nullable_raw_ptr_mut(p_callback);
 
     let mut response = packet.send_with_response();
-    *p_callback = response.read();
+    response.read_to_raw_ptr(p_callback);
     response.read()
 }
 
@@ -4653,10 +4653,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceExternalImageFormatPropertiesNV(
     packet.write(usage);
     packet.write(flags);
     packet.write(external_handle_type);
-    packet.write(p_external_image_format_properties);
+    packet.write_nullable_raw_ptr_mut(p_external_image_format_properties);
 
     let mut response = packet.send_with_response();
-    *p_external_image_format_properties = response.read();
+    response.read_to_raw_ptr(p_external_image_format_properties);
     response.read()
 }
 
@@ -4676,10 +4676,10 @@ unsafe extern "system" fn vkGetMemoryWin32HandleNV(
     packet.write(device);
     packet.write(memory);
     packet.write(handle_type);
-    packet.write(p_handle);
+    packet.write_nullable_raw_ptr_mut(p_handle);
 
     let mut response = packet.send_with_response();
-    *p_handle = response.read();
+    response.read_to_raw_ptr(p_handle);
     response.read()
 }
 
@@ -4746,10 +4746,10 @@ unsafe extern "system" fn vkGetGeneratedCommandsMemoryRequirementsNV(
     let mut packet = new_packet(1000001199);
     packet.write(device);
     packet.write(p_info);
-    packet.write(p_memory_requirements);
+    packet.write_nullable_raw_ptr_mut(p_memory_requirements);
 
     let mut response = packet.send_with_response();
-    *p_memory_requirements = response.read();
+    response.read_to_raw_ptr(p_memory_requirements);
     response.read()
 }
 
@@ -4767,10 +4767,10 @@ unsafe extern "system" fn vkCreateIndirectCommandsLayoutNV(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_indirect_commands_layout);
+    packet.write_nullable_raw_ptr_mut(p_indirect_commands_layout);
 
     let mut response = packet.send_with_response();
-    *p_indirect_commands_layout = response.read();
+    response.read_to_raw_ptr(p_indirect_commands_layout);
     response.read()
 }
 
@@ -4801,10 +4801,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceFeatures2(
 
     let mut packet = new_packet(1000001202);
     packet.write(physical_device);
-    packet.write(p_features);
+    packet.write_nullable_raw_ptr_mut(p_features);
 
     let mut response = packet.send_with_response();
-    *p_features = response.read();
+    response.read_to_raw_ptr(p_features);
     response.read()
 }
 
@@ -4818,10 +4818,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceProperties2(
 
     let mut packet = new_packet(1000001203);
     packet.write(physical_device);
-    packet.write(p_properties);
+    packet.write_nullable_raw_ptr_mut(p_properties);
 
     let mut response = packet.send_with_response();
-    *p_properties = response.read();
+    response.read_to_raw_ptr(p_properties);
     response.read()
 }
 
@@ -4837,10 +4837,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceFormatProperties2(
     let mut packet = new_packet(1000001204);
     packet.write(physical_device);
     packet.write(format);
-    packet.write(p_format_properties);
+    packet.write_nullable_raw_ptr_mut(p_format_properties);
 
     let mut response = packet.send_with_response();
-    *p_format_properties = response.read();
+    response.read_to_raw_ptr(p_format_properties);
     response.read()
 }
 
@@ -4856,10 +4856,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceImageFormatProperties2(
     let mut packet = new_packet(1000001205);
     packet.write(physical_device);
     packet.write(p_image_format_info);
-    packet.write(p_image_format_properties);
+    packet.write_nullable_raw_ptr_mut(p_image_format_properties);
 
     let mut response = packet.send_with_response();
-    *p_image_format_properties = response.read();
+    response.read_to_raw_ptr(p_image_format_properties);
     response.read()
 }
 
@@ -4893,10 +4893,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceMemoryProperties2(
 
     let mut packet = new_packet(1000001207);
     packet.write(physical_device);
-    packet.write(p_memory_properties);
+    packet.write_nullable_raw_ptr_mut(p_memory_properties);
 
     let mut response = packet.send_with_response();
-    *p_memory_properties = response.read();
+    response.read_to_raw_ptr(p_memory_properties);
     response.read()
 }
 
@@ -4972,10 +4972,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceExternalBufferProperties(
     let mut packet = new_packet(1000001211);
     packet.write(physical_device);
     packet.write(p_external_buffer_info);
-    packet.write(p_external_buffer_properties);
+    packet.write_nullable_raw_ptr_mut(p_external_buffer_properties);
 
     let mut response = packet.send_with_response();
-    *p_external_buffer_properties = response.read();
+    response.read_to_raw_ptr(p_external_buffer_properties);
     response.read()
 }
 
@@ -4993,10 +4993,10 @@ unsafe extern "system" fn vkGetMemoryWin32HandleKHR(
     let mut packet = new_packet(1000001212);
     packet.write(device);
     packet.write(p_get_win32_handle_info);
-    packet.write(p_handle);
+    packet.write_nullable_raw_ptr_mut(p_handle);
 
     let mut response = packet.send_with_response();
-    *p_handle = response.read();
+    response.read_to_raw_ptr(p_handle);
     response.read()
 }
 
@@ -5014,10 +5014,10 @@ unsafe extern "system" fn vkGetMemoryWin32HandlePropertiesKHR(
     packet.write(device);
     packet.write(handle_type);
     packet.write(handle);
-    packet.write(p_memory_win32_handle_properties);
+    packet.write_nullable_raw_ptr_mut(p_memory_win32_handle_properties);
 
     let mut response = packet.send_with_response();
-    *p_memory_win32_handle_properties = response.read();
+    response.read_to_raw_ptr(p_memory_win32_handle_properties);
     response.read()
 }
 
@@ -5033,10 +5033,10 @@ unsafe extern "system" fn vkGetMemoryFdKHR(
     let mut packet = new_packet(1000001214);
     packet.write(device);
     packet.write(p_get_fd_info);
-    packet.write(p_fd);
+    packet.write_nullable_raw_ptr_mut(p_fd);
 
     let mut response = packet.send_with_response();
-    *p_fd = response.read();
+    response.read_to_raw_ptr(p_fd);
     response.read()
 }
 
@@ -5054,10 +5054,10 @@ unsafe extern "system" fn vkGetMemoryFdPropertiesKHR(
     packet.write(device);
     packet.write(handle_type);
     packet.write(fd);
-    packet.write(p_memory_fd_properties);
+    packet.write_nullable_raw_ptr_mut(p_memory_fd_properties);
 
     let mut response = packet.send_with_response();
-    *p_memory_fd_properties = response.read();
+    response.read_to_raw_ptr(p_memory_fd_properties);
     response.read()
 }
 
@@ -5073,10 +5073,10 @@ unsafe extern "system" fn vkGetMemoryZirconHandleFUCHSIA(
     let mut packet = new_packet(1000001216);
     packet.write(device);
     packet.write(p_get_zircon_handle_info);
-    packet.write(p_zircon_handle);
+    packet.write_nullable_raw_ptr_mut(p_zircon_handle);
 
     let mut response = packet.send_with_response();
-    *p_zircon_handle = response.read();
+    response.read_to_raw_ptr(p_zircon_handle);
     response.read()
 }
 
@@ -5094,10 +5094,10 @@ unsafe extern "system" fn vkGetMemoryZirconHandlePropertiesFUCHSIA(
     packet.write(device);
     packet.write(handle_type);
     packet.write(zircon_handle);
-    packet.write(p_memory_zircon_handle_properties);
+    packet.write_nullable_raw_ptr_mut(p_memory_zircon_handle_properties);
 
     let mut response = packet.send_with_response();
-    *p_memory_zircon_handle_properties = response.read();
+    response.read_to_raw_ptr(p_memory_zircon_handle_properties);
     response.read()
 }
 
@@ -5113,10 +5113,10 @@ unsafe extern "system" fn vkGetMemoryRemoteAddressNV(
     let mut packet = new_packet(1000001218);
     packet.write(device);
     packet.write(p_memory_get_remote_address_info);
-    packet.write(p_address);
+    packet.write_nullable_raw_ptr_mut(p_address);
 
     let mut response = packet.send_with_response();
-    *p_address = response.read();
+    response.read_to_raw_ptr(p_address);
     response.read()
 }
 
@@ -5132,10 +5132,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceExternalSemaphoreProperties(
     let mut packet = new_packet(1000001219);
     packet.write(physical_device);
     packet.write(p_external_semaphore_info);
-    packet.write(p_external_semaphore_properties);
+    packet.write_nullable_raw_ptr_mut(p_external_semaphore_properties);
 
     let mut response = packet.send_with_response();
-    *p_external_semaphore_properties = response.read();
+    response.read_to_raw_ptr(p_external_semaphore_properties);
     response.read()
 }
 
@@ -5151,10 +5151,10 @@ unsafe extern "system" fn vkGetSemaphoreWin32HandleKHR(
     let mut packet = new_packet(1000001220);
     packet.write(device);
     packet.write(p_get_win32_handle_info);
-    packet.write(p_handle);
+    packet.write_nullable_raw_ptr_mut(p_handle);
 
     let mut response = packet.send_with_response();
-    *p_handle = response.read();
+    response.read_to_raw_ptr(p_handle);
     response.read()
 }
 
@@ -5186,10 +5186,10 @@ unsafe extern "system" fn vkGetSemaphoreFdKHR(
     let mut packet = new_packet(1000001222);
     packet.write(device);
     packet.write(p_get_fd_info);
-    packet.write(p_fd);
+    packet.write_nullable_raw_ptr_mut(p_fd);
 
     let mut response = packet.send_with_response();
-    *p_fd = response.read();
+    response.read_to_raw_ptr(p_fd);
     response.read()
 }
 
@@ -5221,10 +5221,10 @@ unsafe extern "system" fn vkGetSemaphoreZirconHandleFUCHSIA(
     let mut packet = new_packet(1000001224);
     packet.write(device);
     packet.write(p_get_zircon_handle_info);
-    packet.write(p_zircon_handle);
+    packet.write_nullable_raw_ptr_mut(p_zircon_handle);
 
     let mut response = packet.send_with_response();
-    *p_zircon_handle = response.read();
+    response.read_to_raw_ptr(p_zircon_handle);
     response.read()
 }
 
@@ -5256,10 +5256,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceExternalFenceProperties(
     let mut packet = new_packet(1000001226);
     packet.write(physical_device);
     packet.write(p_external_fence_info);
-    packet.write(p_external_fence_properties);
+    packet.write_nullable_raw_ptr_mut(p_external_fence_properties);
 
     let mut response = packet.send_with_response();
-    *p_external_fence_properties = response.read();
+    response.read_to_raw_ptr(p_external_fence_properties);
     response.read()
 }
 
@@ -5277,10 +5277,10 @@ unsafe extern "system" fn vkGetFenceWin32HandleKHR(
     let mut packet = new_packet(1000001227);
     packet.write(device);
     packet.write(p_get_win32_handle_info);
-    packet.write(p_handle);
+    packet.write_nullable_raw_ptr_mut(p_handle);
 
     let mut response = packet.send_with_response();
-    *p_handle = response.read();
+    response.read_to_raw_ptr(p_handle);
     response.read()
 }
 
@@ -5312,10 +5312,10 @@ unsafe extern "system" fn vkGetFenceFdKHR(
     let mut packet = new_packet(1000001229);
     packet.write(device);
     packet.write(p_get_fd_info);
-    packet.write(p_fd);
+    packet.write_nullable_raw_ptr_mut(p_fd);
 
     let mut response = packet.send_with_response();
-    *p_fd = response.read();
+    response.read_to_raw_ptr(p_fd);
     response.read()
 }
 
@@ -5362,11 +5362,11 @@ unsafe extern "system" fn vkAcquireXlibDisplayEXT(
 
     let mut packet = new_packet(1000001232);
     packet.write(physical_device);
-    packet.write(dpy);
+    packet.write_nullable_raw_ptr_mut(dpy);
     packet.write(display);
 
     let mut response = packet.send_with_response();
-    *dpy = response.read();
+    response.read_to_raw_ptr(dpy);
     response.read()
 }
 
@@ -5382,13 +5382,13 @@ unsafe extern "system" fn vkGetRandROutputDisplayEXT(
 
     let mut packet = new_packet(1000001233);
     packet.write(physical_device);
-    packet.write(dpy);
+    packet.write_nullable_raw_ptr_mut(dpy);
     packet.write(rr_output);
-    packet.write(p_display);
+    packet.write_nullable_raw_ptr_mut(p_display);
 
     let mut response = packet.send_with_response();
-    *dpy = response.read();
-    *p_display = response.read();
+    response.read_to_raw_ptr(dpy);
+    response.read_to_raw_ptr(p_display);
     response.read()
 }
 
@@ -5422,10 +5422,10 @@ unsafe extern "system" fn vkGetWinrtDisplayNV(
     let mut packet = new_packet(1000001235);
     packet.write(physical_device);
     packet.write(device_relative_id);
-    packet.write(p_display);
+    packet.write_nullable_raw_ptr_mut(p_display);
 
     let mut response = packet.send_with_response();
-    *p_display = response.read();
+    response.read_to_raw_ptr(p_display);
     response.read()
 }
 
@@ -5461,10 +5461,10 @@ unsafe extern "system" fn vkRegisterDeviceEventEXT(
     packet.write(device);
     packet.write(p_device_event_info);
     packet.write(p_allocator);
-    packet.write(p_fence);
+    packet.write_nullable_raw_ptr_mut(p_fence);
 
     let mut response = packet.send_with_response();
-    *p_fence = response.read();
+    response.read_to_raw_ptr(p_fence);
     response.read()
 }
 
@@ -5484,10 +5484,10 @@ unsafe extern "system" fn vkRegisterDisplayEventEXT(
     packet.write(display);
     packet.write(p_display_event_info);
     packet.write(p_allocator);
-    packet.write(p_fence);
+    packet.write_nullable_raw_ptr_mut(p_fence);
 
     let mut response = packet.send_with_response();
-    *p_fence = response.read();
+    response.read_to_raw_ptr(p_fence);
     response.read()
 }
 
@@ -5505,10 +5505,10 @@ unsafe extern "system" fn vkGetSwapchainCounterEXT(
     packet.write(device);
     packet.write(swapchain);
     packet.write(counter);
-    packet.write(p_counter_value);
+    packet.write_nullable_raw_ptr_mut(p_counter_value);
 
     let mut response = packet.send_with_response();
-    *p_counter_value = response.read();
+    response.read_to_raw_ptr(p_counter_value);
     response.read()
 }
 
@@ -5524,10 +5524,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceCapabilities2EXT(
     let mut packet = new_packet(1000001240);
     packet.write(physical_device);
     packet.write(surface);
-    packet.write(p_surface_capabilities);
+    packet.write_nullable_raw_ptr_mut(p_surface_capabilities);
 
     let mut response = packet.send_with_response();
-    *p_surface_capabilities = response.read();
+    response.read_to_raw_ptr(p_surface_capabilities);
     response.read()
 }
 
@@ -5571,10 +5571,10 @@ unsafe extern "system" fn vkGetDeviceGroupPeerMemoryFeatures(
     packet.write(heap_index);
     packet.write(local_device_index);
     packet.write(remote_device_index);
-    packet.write(p_peer_memory_features);
+    packet.write_nullable_raw_ptr_mut(p_peer_memory_features);
 
     let mut response = packet.send_with_response();
-    *p_peer_memory_features = response.read();
+    response.read_to_raw_ptr(p_peer_memory_features);
     response.read()
 }
 
@@ -5636,10 +5636,10 @@ unsafe extern "system" fn vkGetDeviceGroupPresentCapabilitiesKHR(
 
     let mut packet = new_packet(1000001246);
     packet.write(device);
-    packet.write(p_device_group_present_capabilities);
+    packet.write_nullable_raw_ptr_mut(p_device_group_present_capabilities);
 
     let mut response = packet.send_with_response();
-    *p_device_group_present_capabilities = response.read();
+    response.read_to_raw_ptr(p_device_group_present_capabilities);
     response.read()
 }
 
@@ -5655,10 +5655,10 @@ unsafe extern "system" fn vkGetDeviceGroupSurfacePresentModesKHR(
     let mut packet = new_packet(1000001247);
     packet.write(device);
     packet.write(surface);
-    packet.write(p_modes);
+    packet.write_nullable_raw_ptr_mut(p_modes);
 
     let mut response = packet.send_with_response();
-    *p_modes = response.read();
+    response.read_to_raw_ptr(p_modes);
     response.read()
 }
 
@@ -5674,10 +5674,10 @@ unsafe extern "system" fn vkAcquireNextImage2KHR(
     let mut packet = new_packet(1000001248);
     packet.write(device);
     packet.write(p_acquire_info);
-    packet.write(p_image_index);
+    packet.write_nullable_raw_ptr_mut(p_image_index);
 
     let mut response = packet.send_with_response();
-    *p_image_index = response.read();
+    response.read_to_raw_ptr(p_image_index);
     response.read()
 }
 
@@ -5740,10 +5740,10 @@ unsafe extern "system" fn vkCreateDescriptorUpdateTemplate(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_descriptor_update_template);
+    packet.write_nullable_raw_ptr_mut(p_descriptor_update_template);
 
     let mut response = packet.send_with_response();
-    *p_descriptor_update_template = response.read();
+    response.read_to_raw_ptr(p_descriptor_update_template);
     response.read()
 }
 
@@ -5851,10 +5851,10 @@ unsafe extern "system" fn vkGetRefreshCycleDurationGOOGLE(
     let mut packet = new_packet(1000001257);
     packet.write(device);
     packet.write(swapchain);
-    packet.write(p_display_timing_properties);
+    packet.write_nullable_raw_ptr_mut(p_display_timing_properties);
 
     let mut response = packet.send_with_response();
-    *p_display_timing_properties = response.read();
+    response.read_to_raw_ptr(p_display_timing_properties);
     response.read()
 }
 
@@ -5892,10 +5892,10 @@ unsafe extern "system" fn vkCreateIOSSurfaceMVK(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -5913,10 +5913,10 @@ unsafe extern "system" fn vkCreateMacOSSurfaceMVK(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -5934,10 +5934,10 @@ unsafe extern "system" fn vkCreateMetalSurfaceEXT(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -6038,10 +6038,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceMultisamplePropertiesEXT(
     let mut packet = new_packet(1000001267);
     packet.write(physical_device);
     packet.write(samples);
-    packet.write(p_multisample_properties);
+    packet.write_nullable_raw_ptr_mut(p_multisample_properties);
 
     let mut response = packet.send_with_response();
-    *p_multisample_properties = response.read();
+    response.read_to_raw_ptr(p_multisample_properties);
     response.read()
 }
 
@@ -6057,10 +6057,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceCapabilities2KHR(
     let mut packet = new_packet(1000001268);
     packet.write(physical_device);
     packet.write(p_surface_info);
-    packet.write(p_surface_capabilities);
+    packet.write_nullable_raw_ptr_mut(p_surface_capabilities);
 
     let mut response = packet.send_with_response();
-    *p_surface_capabilities = response.read();
+    response.read_to_raw_ptr(p_surface_capabilities);
     response.read()
 }
 
@@ -6152,10 +6152,10 @@ unsafe extern "system" fn vkGetDisplayPlaneCapabilities2KHR(
     let mut packet = new_packet(1000001273);
     packet.write(physical_device);
     packet.write(p_display_plane_info);
-    packet.write(p_capabilities);
+    packet.write_nullable_raw_ptr_mut(p_capabilities);
 
     let mut response = packet.send_with_response();
-    *p_capabilities = response.read();
+    response.read_to_raw_ptr(p_capabilities);
     response.read()
 }
 
@@ -6173,10 +6173,10 @@ unsafe extern "system" fn vkGetBufferMemoryRequirements2(
     let mut packet = new_packet(1000001274);
     packet.write(device);
     packet.write(p_info);
-    packet.write(p_memory_requirements);
+    packet.write_nullable_raw_ptr_mut(p_memory_requirements);
 
     let mut response = packet.send_with_response();
-    *p_memory_requirements = response.read();
+    response.read_to_raw_ptr(p_memory_requirements);
     response.read()
 }
 
@@ -6194,10 +6194,10 @@ unsafe extern "system" fn vkGetImageMemoryRequirements2(
     let mut packet = new_packet(1000001275);
     packet.write(device);
     packet.write(p_info);
-    packet.write(p_memory_requirements);
+    packet.write_nullable_raw_ptr_mut(p_memory_requirements);
 
     let mut response = packet.send_with_response();
-    *p_memory_requirements = response.read();
+    response.read_to_raw_ptr(p_memory_requirements);
     response.read()
 }
 
@@ -6239,10 +6239,10 @@ unsafe extern "system" fn vkGetDeviceBufferMemoryRequirements(
     let mut packet = new_packet(1000001277);
     packet.write(device);
     packet.write(p_info);
-    packet.write(p_memory_requirements);
+    packet.write_nullable_raw_ptr_mut(p_memory_requirements);
 
     let mut response = packet.send_with_response();
-    *p_memory_requirements = response.read();
+    response.read_to_raw_ptr(p_memory_requirements);
     response.read()
 }
 
@@ -6258,10 +6258,10 @@ unsafe extern "system" fn vkGetDeviceImageMemoryRequirements(
     let mut packet = new_packet(1000001278);
     packet.write(device);
     packet.write(p_info);
-    packet.write(p_memory_requirements);
+    packet.write_nullable_raw_ptr_mut(p_memory_requirements);
 
     let mut response = packet.send_with_response();
-    *p_memory_requirements = response.read();
+    response.read_to_raw_ptr(p_memory_requirements);
     response.read()
 }
 
@@ -6305,10 +6305,10 @@ unsafe extern "system" fn vkCreateSamplerYcbcrConversion(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_ycbcr_conversion);
+    packet.write_nullable_raw_ptr_mut(p_ycbcr_conversion);
 
     let mut response = packet.send_with_response();
-    *p_ycbcr_conversion = response.read();
+    response.read_to_raw_ptr(p_ycbcr_conversion);
     response.read()
 }
 
@@ -6343,10 +6343,10 @@ unsafe extern "system" fn vkGetDeviceQueue2(
     let mut packet = new_packet(1000001282);
     packet.write(device);
     packet.write(p_queue_info);
-    packet.write(p_queue);
+    packet.write_nullable_raw_ptr_mut(p_queue);
 
     let mut response = packet.send_with_response();
-    *p_queue = response.read();
+    response.read_to_raw_ptr(p_queue);
     response.read()
 }
 
@@ -6364,10 +6364,10 @@ unsafe extern "system" fn vkCreateValidationCacheEXT(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_validation_cache);
+    packet.write_nullable_raw_ptr_mut(p_validation_cache);
 
     let mut response = packet.send_with_response();
-    *p_validation_cache = response.read();
+    response.read_to_raw_ptr(p_validation_cache);
     response.read()
 }
 
@@ -6401,12 +6401,12 @@ unsafe extern "system" fn vkGetValidationCacheDataEXT(
     let mut packet = new_packet(1000001285);
     packet.write(device);
     packet.write(validation_cache);
-    packet.write(p_data_size);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data_size);
+    packet.write_nullable_raw_ptr_mut(p_data);
 
     let mut response = packet.send_with_response();
-    *p_data_size = response.read();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data_size);
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -6442,10 +6442,10 @@ unsafe extern "system" fn vkGetDescriptorSetLayoutSupport(
     let mut packet = new_packet(1000001287);
     packet.write(device);
     packet.write(p_create_info);
-    packet.write(p_support);
+    packet.write_nullable_raw_ptr_mut(p_support);
 
     let mut response = packet.send_with_response();
-    *p_support = response.read();
+    response.read_to_raw_ptr(p_support);
     response.read()
 }
 
@@ -6463,10 +6463,10 @@ unsafe extern "system" fn vkGetSwapchainGrallocUsageANDROID(
     packet.write(device);
     packet.write(format);
     packet.write(image_usage);
-    packet.write(gralloc_usage);
+    packet.write_nullable_raw_ptr_mut(gralloc_usage);
 
     let mut response = packet.send_with_response();
-    *gralloc_usage = response.read();
+    response.read_to_raw_ptr(gralloc_usage);
     response.read()
 }
 
@@ -6487,12 +6487,12 @@ unsafe extern "system" fn vkGetSwapchainGrallocUsage2ANDROID(
     packet.write(format);
     packet.write(image_usage);
     packet.write(swapchain_image_usage);
-    packet.write(gralloc_consumer_usage);
-    packet.write(gralloc_producer_usage);
+    packet.write_nullable_raw_ptr_mut(gralloc_consumer_usage);
+    packet.write_nullable_raw_ptr_mut(gralloc_producer_usage);
 
     let mut response = packet.send_with_response();
-    *gralloc_consumer_usage = response.read();
-    *gralloc_producer_usage = response.read();
+    response.read_to_raw_ptr(gralloc_consumer_usage);
+    response.read_to_raw_ptr(gralloc_producer_usage);
     response.read()
 }
 
@@ -6534,10 +6534,10 @@ unsafe extern "system" fn vkQueueSignalReleaseImageANDROID(
     packet.write(wait_semaphore_count);
     packet.write(p_wait_semaphores);
     packet.write(image);
-    packet.write(p_native_fence_fd);
+    packet.write_nullable_raw_ptr_mut(p_native_fence_fd);
 
     let mut response = packet.send_with_response();
-    *p_native_fence_fd = response.read();
+    response.read_to_raw_ptr(p_native_fence_fd);
     response.read()
 }
 
@@ -6558,12 +6558,12 @@ unsafe extern "system" fn vkGetShaderInfoAMD(
     packet.write(pipeline);
     packet.write(shader_stage);
     packet.write(info_type);
-    packet.write(p_info_size);
-    packet.write(p_info);
+    packet.write_nullable_raw_ptr_mut(p_info_size);
+    packet.write_nullable_raw_ptr_mut(p_info);
 
     let mut response = packet.send_with_response();
-    *p_info_size = response.read();
-    *p_info = response.read();
+    response.read_to_raw_ptr(p_info_size);
+    response.read_to_raw_ptr(p_info);
     response.read()
 }
 
@@ -6617,12 +6617,12 @@ unsafe extern "system" fn vkGetCalibratedTimestampsKHR(
     packet.write(device);
     packet.write(timestamp_count);
     packet.write(p_timestamp_infos);
-    packet.write(p_timestamps);
-    packet.write(p_max_deviation);
+    packet.write_nullable_raw_ptr_mut(p_timestamps);
+    packet.write_nullable_raw_ptr_mut(p_max_deviation);
 
     let mut response = packet.send_with_response();
-    *p_timestamps = response.read();
-    *p_max_deviation = response.read();
+    response.read_to_raw_ptr(p_timestamps);
+    response.read_to_raw_ptr(p_max_deviation);
     response.read()
 }
 
@@ -6754,10 +6754,10 @@ unsafe extern "system" fn vkCreateDebugUtilsMessengerEXT(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_messenger);
+    packet.write_nullable_raw_ptr_mut(p_messenger);
 
     let mut response = packet.send_with_response();
-    *p_messenger = response.read();
+    response.read_to_raw_ptr(p_messenger);
     response.read()
 }
 
@@ -6811,10 +6811,10 @@ unsafe extern "system" fn vkGetMemoryHostPointerPropertiesEXT(
     packet.write(device);
     packet.write(handle_type);
     packet.write(p_host_pointer);
-    packet.write(p_memory_host_pointer_properties);
+    packet.write_nullable_raw_ptr_mut(p_memory_host_pointer_properties);
 
     let mut response = packet.send_with_response();
-    *p_memory_host_pointer_properties = response.read();
+    response.read_to_raw_ptr(p_memory_host_pointer_properties);
     response.read()
 }
 
@@ -6853,10 +6853,10 @@ unsafe extern "system" fn vkCreateRenderPass2(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_render_pass);
+    packet.write_nullable_raw_ptr_mut(p_render_pass);
 
     let mut response = packet.send_with_response();
-    *p_render_pass = response.read();
+    response.read_to_raw_ptr(p_render_pass);
     response.read()
 }
 
@@ -6921,10 +6921,10 @@ unsafe extern "system" fn vkGetSemaphoreCounterValue(
     let mut packet = new_packet(1000001313);
     packet.write(device);
     packet.write(semaphore);
-    packet.write(p_value);
+    packet.write_nullable_raw_ptr_mut(p_value);
 
     let mut response = packet.send_with_response();
-    *p_value = response.read();
+    response.read_to_raw_ptr(p_value);
     response.read()
 }
 
@@ -6974,10 +6974,10 @@ unsafe extern "system" fn vkGetAndroidHardwareBufferPropertiesANDROID(
     let mut packet = new_packet(1000001316);
     packet.write(device);
     packet.write(buffer);
-    packet.write(p_properties);
+    packet.write_nullable_raw_ptr_mut(p_properties);
 
     let mut response = packet.send_with_response();
-    *p_properties = response.read();
+    response.read_to_raw_ptr(p_properties);
     response.read()
 }
 
@@ -6993,10 +6993,10 @@ unsafe extern "system" fn vkGetMemoryAndroidHardwareBufferANDROID(
     let mut packet = new_packet(1000001317);
     packet.write(device);
     packet.write(p_info);
-    packet.write(p_buffer);
+    packet.write_nullable_raw_ptr_mut(p_buffer);
 
     let mut response = packet.send_with_response();
-    *p_buffer = response.read();
+    response.read_to_raw_ptr(p_buffer);
     response.read()
 }
 
@@ -7470,10 +7470,10 @@ unsafe extern "system" fn vkCreateAccelerationStructureNV(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_acceleration_structure);
+    packet.write_nullable_raw_ptr_mut(p_acceleration_structure);
 
     let mut response = packet.send_with_response();
-    *p_acceleration_structure = response.read();
+    response.read_to_raw_ptr(p_acceleration_structure);
     response.read()
 }
 
@@ -7540,10 +7540,10 @@ unsafe extern "system" fn vkGetAccelerationStructureMemoryRequirementsNV(
     let mut packet = new_packet(1000001344);
     packet.write(device);
     packet.write(p_info);
-    packet.write(p_memory_requirements);
+    packet.write_nullable_raw_ptr_mut(p_memory_requirements);
 
     let mut response = packet.send_with_response();
-    *p_memory_requirements = response.read();
+    response.read_to_raw_ptr(p_memory_requirements);
     response.read()
 }
 
@@ -7779,11 +7779,11 @@ unsafe extern "system" fn vkWriteAccelerationStructuresPropertiesKHR(
     packet.write(p_acceleration_structures);
     packet.write(query_type);
     packet.write(data_size);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data);
     packet.write(stride);
 
     let mut response = packet.send_with_response();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -7873,10 +7873,10 @@ unsafe extern "system" fn vkGetRayTracingShaderGroupHandlesKHR(
     packet.write(first_group);
     packet.write(group_count);
     packet.write(data_size);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data);
 
     let mut response = packet.send_with_response();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -7898,10 +7898,10 @@ unsafe extern "system" fn vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(
     packet.write(first_group);
     packet.write(group_count);
     packet.write(data_size);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data);
 
     let mut response = packet.send_with_response();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -7919,10 +7919,10 @@ unsafe extern "system" fn vkGetAccelerationStructureHandleNV(
     packet.write(device);
     packet.write(acceleration_structure);
     packet.write(data_size);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data);
 
     let mut response = packet.send_with_response();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -7944,10 +7944,10 @@ unsafe extern "system" fn vkCreateRayTracingPipelinesNV(
     packet.write(create_info_count);
     packet.write(p_create_infos);
     packet.write(p_allocator);
-    packet.write(p_pipelines);
+    packet.write_nullable_raw_ptr_mut(p_pipelines);
 
     let mut response = packet.send_with_response();
-    *p_pipelines = response.read();
+    response.read_to_raw_ptr(p_pipelines);
     response.read()
 }
 
@@ -7971,10 +7971,10 @@ unsafe extern "system" fn vkCreateRayTracingPipelinesKHR(
     packet.write(create_info_count);
     packet.write(p_create_infos);
     packet.write(p_allocator);
-    packet.write(p_pipelines);
+    packet.write_nullable_raw_ptr_mut(p_pipelines);
 
     let mut response = packet.send_with_response();
-    *p_pipelines = response.read();
+    response.read_to_raw_ptr(p_pipelines);
     response.read()
 }
 
@@ -8046,10 +8046,10 @@ unsafe extern "system" fn vkGetDeviceAccelerationStructureCompatibilityKHR(
     let mut packet = new_packet(1000001367);
     packet.write(device);
     packet.write(p_version_info);
-    packet.write(p_compatibility);
+    packet.write_nullable_raw_ptr_mut(p_compatibility);
 
     let mut response = packet.send_with_response();
-    *p_compatibility = response.read();
+    response.read_to_raw_ptr(p_compatibility);
     response.read()
 }
 
@@ -8116,10 +8116,10 @@ unsafe extern "system" fn vkGetImageViewAddressNVX(
     let mut packet = new_packet(1000001371);
     packet.write(device);
     packet.write(image_view);
-    packet.write(p_properties);
+    packet.write_nullable_raw_ptr_mut(p_properties);
 
     let mut response = packet.send_with_response();
-    *p_properties = response.read();
+    response.read_to_raw_ptr(p_properties);
     response.read()
 }
 
@@ -8155,10 +8155,10 @@ unsafe extern "system" fn vkGetDeviceGroupSurfacePresentModes2EXT(
     let mut packet = new_packet(1000001373);
     packet.write(device);
     packet.write(p_surface_info);
-    packet.write(p_modes);
+    packet.write_nullable_raw_ptr_mut(p_modes);
 
     let mut response = packet.send_with_response();
-    *p_modes = response.read();
+    response.read_to_raw_ptr(p_modes);
     response.read()
 }
 
@@ -8209,11 +8209,11 @@ unsafe extern "system" fn vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCo
     packet.write(physical_device);
     packet.write(queue_family_index);
     packet.write_vk_array_count(p_counter_count, p_counters);
-    packet.write(p_counter_descriptions);
+    packet.write_nullable_raw_ptr_mut(p_counter_descriptions);
 
     let mut response = packet.send_with_response();
     response.read_vk_array(p_counter_count, p_counters);
-    *p_counter_descriptions = response.read();
+    response.read_to_raw_ptr(p_counter_descriptions);
     response.read()
 }
 
@@ -8229,10 +8229,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKH
     let mut packet = new_packet(1000001377);
     packet.write(physical_device);
     packet.write(p_performance_query_create_info);
-    packet.write(p_num_passes);
+    packet.write_nullable_raw_ptr_mut(p_num_passes);
 
     let mut response = packet.send_with_response();
-    *p_num_passes = response.read();
+    response.read_to_raw_ptr(p_num_passes);
     response.read()
 }
 
@@ -8277,10 +8277,10 @@ unsafe extern "system" fn vkGetImageDrmFormatModifierPropertiesEXT(
     let mut packet = new_packet(1000001380);
     packet.write(device);
     packet.write(image);
-    packet.write(p_properties);
+    packet.write_nullable_raw_ptr_mut(p_properties);
 
     let mut response = packet.send_with_response();
-    *p_properties = response.read();
+    response.read_to_raw_ptr(p_properties);
     response.read()
 }
 
@@ -8330,10 +8330,10 @@ unsafe extern "system" fn vkCreateHeadlessSurfaceEXT(
     packet.write(instance);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_surface);
+    packet.write_nullable_raw_ptr_mut(p_surface);
 
     let mut response = packet.send_with_response();
-    *p_surface = response.read();
+    response.read_to_raw_ptr(p_surface);
     response.read()
 }
 
@@ -8442,10 +8442,10 @@ unsafe extern "system" fn vkAcquirePerformanceConfigurationINTEL(
     let mut packet = new_packet(1000001390);
     packet.write(device);
     packet.write(p_acquire_info);
-    packet.write(p_configuration);
+    packet.write_nullable_raw_ptr_mut(p_configuration);
 
     let mut response = packet.send_with_response();
-    *p_configuration = response.read();
+    response.read_to_raw_ptr(p_configuration);
     response.read()
 }
 
@@ -8493,10 +8493,10 @@ unsafe extern "system" fn vkGetPerformanceParameterINTEL(
     let mut packet = new_packet(1000001393);
     packet.write(device);
     packet.write(parameter);
-    packet.write(p_value);
+    packet.write_nullable_raw_ptr_mut(p_value);
 
     let mut response = packet.send_with_response();
-    *p_value = response.read();
+    response.read_to_raw_ptr(p_value);
     response.read()
 }
 
@@ -8625,10 +8625,10 @@ unsafe extern "system" fn vkCreateAccelerationStructureKHR(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_acceleration_structure);
+    packet.write_nullable_raw_ptr_mut(p_acceleration_structure);
 
     let mut response = packet.send_with_response();
-    *p_acceleration_structure = response.read();
+    response.read_to_raw_ptr(p_acceleration_structure);
     response.read()
 }
 
@@ -8724,10 +8724,10 @@ unsafe extern "system" fn vkCreateDeferredOperationKHR(
     let mut packet = new_packet(1000001405);
     packet.write(device);
     packet.write(p_allocator);
-    packet.write(p_deferred_operation);
+    packet.write_nullable_raw_ptr_mut(p_deferred_operation);
 
     let mut response = packet.send_with_response();
-    *p_deferred_operation = response.read();
+    response.read_to_raw_ptr(p_deferred_operation);
     response.read()
 }
 
@@ -8808,10 +8808,10 @@ unsafe extern "system" fn vkGetPipelineIndirectMemoryRequirementsNV(
     let mut packet = new_packet(1000001410);
     packet.write(device);
     packet.write(p_create_info);
-    packet.write(p_memory_requirements);
+    packet.write_nullable_raw_ptr_mut(p_memory_requirements);
 
     let mut response = packet.send_with_response();
-    *p_memory_requirements = response.read();
+    response.read_to_raw_ptr(p_memory_requirements);
     response.read()
 }
 
@@ -9658,10 +9658,10 @@ unsafe extern "system" fn vkCreatePrivateDataSlot(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_private_data_slot);
+    packet.write_nullable_raw_ptr_mut(p_private_data_slot);
 
     let mut response = packet.send_with_response();
-    *p_private_data_slot = response.read();
+    response.read_to_raw_ptr(p_private_data_slot);
     response.read()
 }
 
@@ -9720,10 +9720,10 @@ unsafe extern "system" fn vkGetPrivateData(
     packet.write(object_type);
     packet.write(object_handle);
     packet.write(private_data_slot);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data);
 
     let mut response = packet.send_with_response();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -9885,10 +9885,10 @@ unsafe extern "system" fn vkGetAccelerationStructureBuildSizesKHR(
     packet.write(build_type);
     packet.write(p_build_info);
     packet.write(p_max_primitive_counts);
-    packet.write(p_size_info);
+    packet.write_nullable_raw_ptr_mut(p_size_info);
 
     let mut response = packet.send_with_response();
-    *p_size_info = response.read();
+    response.read_to_raw_ptr(p_size_info);
     response.read()
 }
 
@@ -10156,10 +10156,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceVideoCapabilitiesKHR(
     let mut packet = new_packet(1000001489);
     packet.write(physical_device);
     packet.write(p_video_profile);
-    packet.write(p_capabilities);
+    packet.write_nullable_raw_ptr_mut(p_capabilities);
 
     let mut response = packet.send_with_response();
-    *p_capabilities = response.read();
+    response.read_to_raw_ptr(p_capabilities);
     response.read()
 }
 
@@ -10195,10 +10195,10 @@ unsafe extern "system" fn vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKH
     let mut packet = new_packet(1000001491);
     packet.write(physical_device);
     packet.write(p_quality_level_info);
-    packet.write(p_quality_level_properties);
+    packet.write_nullable_raw_ptr_mut(p_quality_level_properties);
 
     let mut response = packet.send_with_response();
-    *p_quality_level_properties = response.read();
+    response.read_to_raw_ptr(p_quality_level_properties);
     response.read()
 }
 
@@ -10216,10 +10216,10 @@ unsafe extern "system" fn vkCreateVideoSessionKHR(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_video_session);
+    packet.write_nullable_raw_ptr_mut(p_video_session);
 
     let mut response = packet.send_with_response();
-    *p_video_session = response.read();
+    response.read_to_raw_ptr(p_video_session);
     response.read()
 }
 
@@ -10254,10 +10254,10 @@ unsafe extern "system" fn vkCreateVideoSessionParametersKHR(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_video_session_parameters);
+    packet.write_nullable_raw_ptr_mut(p_video_session_parameters);
 
     let mut response = packet.send_with_response();
-    *p_video_session_parameters = response.read();
+    response.read_to_raw_ptr(p_video_session_parameters);
     response.read()
 }
 
@@ -10293,14 +10293,14 @@ unsafe extern "system" fn vkGetEncodedVideoSessionParametersKHR(
     let mut packet = new_packet(1000001496);
     packet.write(device);
     packet.write(p_video_session_parameters_info);
-    packet.write(p_feedback_info);
-    packet.write(p_data_size);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_feedback_info);
+    packet.write_nullable_raw_ptr_mut(p_data_size);
+    packet.write_nullable_raw_ptr_mut(p_data);
 
     let mut response = packet.send_with_response();
-    *p_feedback_info = response.read();
-    *p_data_size = response.read();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_feedback_info);
+    response.read_to_raw_ptr(p_data_size);
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -10488,10 +10488,10 @@ unsafe extern "system" fn vkCreateCuModuleNVX(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_module);
+    packet.write_nullable_raw_ptr_mut(p_module);
 
     let mut response = packet.send_with_response();
-    *p_module = response.read();
+    response.read_to_raw_ptr(p_module);
     response.read()
 }
 
@@ -10509,10 +10509,10 @@ unsafe extern "system" fn vkCreateCuFunctionNVX(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_function);
+    packet.write_nullable_raw_ptr_mut(p_function);
 
     let mut response = packet.send_with_response();
-    *p_function = response.read();
+    response.read_to_raw_ptr(p_function);
     response.read()
 }
 
@@ -10577,10 +10577,10 @@ unsafe extern "system" fn vkGetDescriptorSetLayoutSizeEXT(
     let mut packet = new_packet(1000001512);
     packet.write(device);
     packet.write(layout);
-    packet.write(p_layout_size_in_bytes);
+    packet.write_nullable_raw_ptr_mut(p_layout_size_in_bytes);
 
     let mut response = packet.send_with_response();
-    *p_layout_size_in_bytes = response.read();
+    response.read_to_raw_ptr(p_layout_size_in_bytes);
     response.read()
 }
 
@@ -10598,10 +10598,10 @@ unsafe extern "system" fn vkGetDescriptorSetLayoutBindingOffsetEXT(
     packet.write(device);
     packet.write(layout);
     packet.write(binding);
-    packet.write(p_offset);
+    packet.write_nullable_raw_ptr_mut(p_offset);
 
     let mut response = packet.send_with_response();
-    *p_offset = response.read();
+    response.read_to_raw_ptr(p_offset);
     response.read()
 }
 
@@ -10619,10 +10619,10 @@ unsafe extern "system" fn vkGetDescriptorEXT(
     packet.write(device);
     packet.write(p_descriptor_info);
     packet.write(data_size);
-    packet.write(p_descriptor);
+    packet.write_nullable_raw_ptr_mut(p_descriptor);
 
     let mut response = packet.send_with_response();
-    *p_descriptor = response.read();
+    response.read_to_raw_ptr(p_descriptor);
     response.read()
 }
 
@@ -10699,10 +10699,10 @@ unsafe extern "system" fn vkGetBufferOpaqueCaptureDescriptorDataEXT(
     let mut packet = new_packet(1000001518);
     packet.write(device);
     packet.write(p_info);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data);
 
     let mut response = packet.send_with_response();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -10718,10 +10718,10 @@ unsafe extern "system" fn vkGetImageOpaqueCaptureDescriptorDataEXT(
     let mut packet = new_packet(1000001519);
     packet.write(device);
     packet.write(p_info);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data);
 
     let mut response = packet.send_with_response();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -10739,10 +10739,10 @@ unsafe extern "system" fn vkGetImageViewOpaqueCaptureDescriptorDataEXT(
     let mut packet = new_packet(1000001520);
     packet.write(device);
     packet.write(p_info);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data);
 
     let mut response = packet.send_with_response();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -10758,10 +10758,10 @@ unsafe extern "system" fn vkGetSamplerOpaqueCaptureDescriptorDataEXT(
     let mut packet = new_packet(1000001521);
     packet.write(device);
     packet.write(p_info);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data);
 
     let mut response = packet.send_with_response();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -10777,10 +10777,10 @@ unsafe extern "system" fn vkGetAccelerationStructureOpaqueCaptureDescriptorDataE
     let mut packet = new_packet(1000001522);
     packet.write(device);
     packet.write(p_info);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data);
 
     let mut response = packet.send_with_response();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -10835,10 +10835,10 @@ unsafe extern "system" fn vkGetDrmDisplayEXT(
     packet.write(physical_device);
     packet.write(drm_fd);
     packet.write(connector_id);
-    packet.write(display);
+    packet.write_nullable_raw_ptr_mut(display);
 
     let mut response = packet.send_with_response();
-    *display = response.read();
+    response.read_to_raw_ptr(display);
     response.read()
 }
 
@@ -10876,10 +10876,10 @@ unsafe extern "system" fn vkCreateBufferCollectionFUCHSIA(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_collection);
+    packet.write_nullable_raw_ptr_mut(p_collection);
 
     let mut response = packet.send_with_response();
-    *p_collection = response.read();
+    response.read_to_raw_ptr(p_collection);
     response.read()
 }
 
@@ -10948,10 +10948,10 @@ unsafe extern "system" fn vkGetBufferCollectionPropertiesFUCHSIA(
     let mut packet = new_packet(1000001531);
     packet.write(device);
     packet.write(collection);
-    packet.write(p_properties);
+    packet.write_nullable_raw_ptr_mut(p_properties);
 
     let mut response = packet.send_with_response();
-    *p_properties = response.read();
+    response.read_to_raw_ptr(p_properties);
     response.read()
 }
 
@@ -10971,10 +10971,10 @@ unsafe extern "system" fn vkCreateCudaModuleNV(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_module);
+    packet.write_nullable_raw_ptr_mut(p_module);
 
     let mut response = packet.send_with_response();
-    *p_module = response.read();
+    response.read_to_raw_ptr(p_module);
     response.read()
 }
 
@@ -10993,12 +10993,12 @@ unsafe extern "system" fn vkGetCudaModuleCacheNV(
     let mut packet = new_packet(1000001533);
     packet.write(device);
     packet.write(module);
-    packet.write(p_cache_size);
-    packet.write(p_cache_data);
+    packet.write_nullable_raw_ptr_mut(p_cache_size);
+    packet.write_nullable_raw_ptr_mut(p_cache_data);
 
     let mut response = packet.send_with_response();
-    *p_cache_size = response.read();
-    *p_cache_data = response.read();
+    response.read_to_raw_ptr(p_cache_size);
+    response.read_to_raw_ptr(p_cache_data);
     response.read()
 }
 
@@ -11016,10 +11016,10 @@ unsafe extern "system" fn vkCreateCudaFunctionNV(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_function);
+    packet.write_nullable_raw_ptr_mut(p_function);
 
     let mut response = packet.send_with_response();
-    *p_function = response.read();
+    response.read_to_raw_ptr(p_function);
     response.read()
 }
 
@@ -11110,10 +11110,10 @@ unsafe extern "system" fn vkGetDescriptorSetLayoutHostMappingInfoVALVE(
     let mut packet = new_packet(1000001540);
     packet.write(device);
     packet.write(p_binding_reference);
-    packet.write(p_host_mapping);
+    packet.write_nullable_raw_ptr_mut(p_host_mapping);
 
     let mut response = packet.send_with_response();
-    *p_host_mapping = response.read();
+    response.read_to_raw_ptr(p_host_mapping);
     response.read()
 }
 
@@ -11131,10 +11131,10 @@ unsafe extern "system" fn vkGetDescriptorSetHostMappingVALVE(
     let mut packet = new_packet(1000001541);
     packet.write(device);
     packet.write(descriptor_set);
-    packet.write(pp_data);
+    packet.write_nullable_raw_ptr_mut(pp_data);
 
     let mut response = packet.send_with_response();
-    *pp_data = response.read();
+    response.read_to_raw_ptr(pp_data);
     response.read()
 }
 
@@ -11152,10 +11152,10 @@ unsafe extern "system" fn vkCreateMicromapEXT(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_micromap);
+    packet.write_nullable_raw_ptr_mut(p_micromap);
 
     let mut response = packet.send_with_response();
-    *p_micromap = response.read();
+    response.read_to_raw_ptr(p_micromap);
     response.read()
 }
 
@@ -11354,11 +11354,11 @@ unsafe extern "system" fn vkWriteMicromapsPropertiesEXT(
     packet.write(p_micromaps);
     packet.write(query_type);
     packet.write(data_size);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data);
     packet.write(stride);
 
     let mut response = packet.send_with_response();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -11374,10 +11374,10 @@ unsafe extern "system" fn vkGetDeviceMicromapCompatibilityEXT(
     let mut packet = new_packet(1000001554);
     packet.write(device);
     packet.write(p_version_info);
-    packet.write(p_compatibility);
+    packet.write_nullable_raw_ptr_mut(p_compatibility);
 
     let mut response = packet.send_with_response();
-    *p_compatibility = response.read();
+    response.read_to_raw_ptr(p_compatibility);
     response.read()
 }
 
@@ -11395,10 +11395,10 @@ unsafe extern "system" fn vkGetMicromapBuildSizesEXT(
     packet.write(device);
     packet.write(build_type);
     packet.write(p_build_info);
-    packet.write(p_size_info);
+    packet.write_nullable_raw_ptr_mut(p_size_info);
 
     let mut response = packet.send_with_response();
-    *p_size_info = response.read();
+    response.read_to_raw_ptr(p_size_info);
     response.read()
 }
 
@@ -11416,10 +11416,10 @@ unsafe extern "system" fn vkGetShaderModuleIdentifierEXT(
     let mut packet = new_packet(1000001556);
     packet.write(device);
     packet.write(shader_module);
-    packet.write(p_identifier);
+    packet.write_nullable_raw_ptr_mut(p_identifier);
 
     let mut response = packet.send_with_response();
-    *p_identifier = response.read();
+    response.read_to_raw_ptr(p_identifier);
     response.read()
 }
 
@@ -11435,10 +11435,10 @@ unsafe extern "system" fn vkGetShaderModuleCreateInfoIdentifierEXT(
     let mut packet = new_packet(1000001557);
     packet.write(device);
     packet.write(p_create_info);
-    packet.write(p_identifier);
+    packet.write_nullable_raw_ptr_mut(p_identifier);
 
     let mut response = packet.send_with_response();
-    *p_identifier = response.read();
+    response.read_to_raw_ptr(p_identifier);
     response.read()
 }
 
@@ -11456,10 +11456,10 @@ unsafe extern "system" fn vkGetImageSubresourceLayout2KHR(
     packet.write(device);
     packet.write(image);
     packet.write(p_subresource);
-    packet.write(p_layout);
+    packet.write_nullable_raw_ptr_mut(p_layout);
 
     let mut response = packet.send_with_response();
-    *p_layout = response.read();
+    response.read_to_raw_ptr(p_layout);
     response.read()
 }
 
@@ -11475,10 +11475,10 @@ unsafe extern "system" fn vkGetPipelinePropertiesEXT(
     let mut packet = new_packet(1000001559);
     packet.write(device);
     packet.write(p_pipeline_info);
-    packet.write(p_pipeline_properties);
+    packet.write_nullable_raw_ptr_mut(p_pipeline_properties);
 
     let mut response = packet.send_with_response();
-    *p_pipeline_properties = response.read();
+    response.read_to_raw_ptr(p_pipeline_properties);
     response.read()
 }
 
@@ -11492,10 +11492,10 @@ unsafe extern "system" fn vkExportMetalObjectsEXT(
 
     let mut packet = new_packet(1000001560);
     packet.write(device);
-    packet.write(p_metal_objects_info);
+    packet.write_nullable_raw_ptr_mut(p_metal_objects_info);
 
     let mut response = packet.send_with_response();
-    *p_metal_objects_info = response.read();
+    response.read_to_raw_ptr(p_metal_objects_info);
     response.read()
 }
 
@@ -11531,10 +11531,10 @@ unsafe extern "system" fn vkGetDynamicRenderingTilePropertiesQCOM(
     let mut packet = new_packet(1000001562);
     packet.write(device);
     packet.write(p_rendering_info);
-    packet.write(p_properties);
+    packet.write_nullable_raw_ptr_mut(p_properties);
 
     let mut response = packet.send_with_response();
-    *p_properties = response.read();
+    response.read_to_raw_ptr(p_properties);
     response.read()
 }
 
@@ -11572,10 +11572,10 @@ unsafe extern "system" fn vkCreateOpticalFlowSessionNV(
     packet.write(device);
     packet.write(p_create_info);
     packet.write(p_allocator);
-    packet.write(p_session);
+    packet.write_nullable_raw_ptr_mut(p_session);
 
     let mut response = packet.send_with_response();
-    *p_session = response.read();
+    response.read_to_raw_ptr(p_session);
     response.read()
 }
 
@@ -11646,12 +11646,12 @@ unsafe extern "system" fn vkGetDeviceFaultInfoEXT(
 
     let mut packet = new_packet(1000001568);
     packet.write(device);
-    packet.write(p_fault_counts);
-    packet.write(p_fault_info);
+    packet.write_nullable_raw_ptr_mut(p_fault_counts);
+    packet.write_nullable_raw_ptr_mut(p_fault_info);
 
     let mut response = packet.send_with_response();
-    *p_fault_counts = response.read();
-    *p_fault_info = response.read();
+    response.read_to_raw_ptr(p_fault_counts);
+    response.read_to_raw_ptr(p_fault_info);
     response.read()
 }
 
@@ -11698,10 +11698,10 @@ unsafe extern "system" fn vkGetDeviceImageSubresourceLayoutKHR(
     let mut packet = new_packet(1000001571);
     packet.write(device);
     packet.write(p_info);
-    packet.write(p_layout);
+    packet.write_nullable_raw_ptr_mut(p_layout);
 
     let mut response = packet.send_with_response();
-    *p_layout = response.read();
+    response.read_to_raw_ptr(p_layout);
     response.read()
 }
 
@@ -11717,10 +11717,10 @@ unsafe extern "system" fn vkMapMemory2KHR(
     let mut packet = new_packet(1000001572);
     packet.write(device);
     packet.write(p_memory_map_info);
-    packet.write(pp_data);
+    packet.write_nullable_raw_ptr_mut(pp_data);
 
     let mut response = packet.send_with_response();
-    *pp_data = response.read();
+    response.read_to_raw_ptr(pp_data);
     response.read()
 }
 
@@ -11756,10 +11756,10 @@ unsafe extern "system" fn vkCreateShadersEXT(
     packet.write(create_info_count);
     packet.write(p_create_infos);
     packet.write(p_allocator);
-    packet.write(p_shaders);
+    packet.write_nullable_raw_ptr_mut(p_shaders);
 
     let mut response = packet.send_with_response();
-    *p_shaders = response.read();
+    response.read_to_raw_ptr(p_shaders);
     response.read()
 }
 
@@ -11793,12 +11793,12 @@ unsafe extern "system" fn vkGetShaderBinaryDataEXT(
     let mut packet = new_packet(1000001576);
     packet.write(device);
     packet.write(shader);
-    packet.write(p_data_size);
-    packet.write(p_data);
+    packet.write_nullable_raw_ptr_mut(p_data_size);
+    packet.write_nullable_raw_ptr_mut(p_data);
 
     let mut response = packet.send_with_response();
-    *p_data_size = response.read();
-    *p_data = response.read();
+    response.read_to_raw_ptr(p_data_size);
+    response.read_to_raw_ptr(p_data);
     response.read()
 }
 
@@ -11833,10 +11833,10 @@ unsafe extern "system" fn vkGetScreenBufferPropertiesQNX(
     let mut packet = new_packet(1000001578);
     packet.write(device);
     packet.write(buffer);
-    packet.write(p_properties);
+    packet.write_nullable_raw_ptr_mut(p_properties);
 
     let mut response = packet.send_with_response();
-    *p_properties = response.read();
+    response.read_to_raw_ptr(p_properties);
     response.read()
 }
 
@@ -11870,10 +11870,10 @@ unsafe extern "system" fn vkGetExecutionGraphPipelineScratchSizeAMDX(
     let mut packet = new_packet(1000001580);
     packet.write(device);
     packet.write(execution_graph);
-    packet.write(p_size_info);
+    packet.write_nullable_raw_ptr_mut(p_size_info);
 
     let mut response = packet.send_with_response();
-    *p_size_info = response.read();
+    response.read_to_raw_ptr(p_size_info);
     response.read()
 }
 
@@ -11891,10 +11891,10 @@ unsafe extern "system" fn vkGetExecutionGraphPipelineNodeIndexAMDX(
     packet.write(device);
     packet.write(execution_graph);
     packet.write(p_node_info);
-    packet.write(p_node_index);
+    packet.write_nullable_raw_ptr_mut(p_node_index);
 
     let mut response = packet.send_with_response();
-    *p_node_index = response.read();
+    response.read_to_raw_ptr(p_node_index);
     response.read()
 }
 
@@ -11916,10 +11916,10 @@ unsafe extern "system" fn vkCreateExecutionGraphPipelinesAMDX(
     packet.write(create_info_count);
     packet.write(p_create_infos);
     packet.write(p_allocator);
-    packet.write(p_pipelines);
+    packet.write_nullable_raw_ptr_mut(p_pipelines);
 
     let mut response = packet.send_with_response();
-    *p_pipelines = response.read();
+    response.read_to_raw_ptr(p_pipelines);
     response.read()
 }
 
@@ -12148,10 +12148,10 @@ unsafe extern "system" fn vkGetLatencyTimingsNV(
     let mut packet = new_packet(1000001596);
     packet.write(device);
     packet.write(swapchain);
-    packet.write(p_latency_marker_info);
+    packet.write_nullable_raw_ptr_mut(p_latency_marker_info);
 
     let mut response = packet.send_with_response();
-    *p_latency_marker_info = response.read();
+    response.read_to_raw_ptr(p_latency_marker_info);
     response.read()
 }
 

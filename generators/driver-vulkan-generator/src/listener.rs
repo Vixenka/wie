@@ -92,7 +92,7 @@ fn unpack_packet(builder: &mut String, definition: &CommandDefinition) {
                 builder.push_str(": ");
                 builder.push_str(&to_rust_type(&param.definition));
                 builder.push_str(" = packet.read");
-                transport::read_packet_param(builder, param, last_is_count, is_count);
+                transport::read_packet_param(builder, param, false);
             }
         }
 
@@ -143,7 +143,10 @@ fn write_response(builder: &mut String, definition: &CommandDefinition, is_void:
     {
         let is_count = check_if_count_ptr(param);
 
-        if !last_is_count {
+        if last_is_count {
+            push_param_name(builder, param);
+            builder.push_str(");\n");
+        } else {
             push_indentation(builder, 1);
             builder.push_str("response.write");
 
@@ -154,12 +157,9 @@ fn write_response(builder: &mut String, definition: &CommandDefinition, is_void:
                 last_is_count = true;
                 continue;
             } else {
-                builder.push('(');
+                transport::write_packet_param(builder, param, true);
             }
         }
-
-        push_param_name(builder, param);
-        builder.push_str(");\n");
 
         last_is_count = is_count;
     }

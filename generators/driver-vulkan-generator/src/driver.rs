@@ -108,7 +108,7 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition, handle
         } else {
             push_indentation(builder, 1);
             builder.push_str("packet.write");
-            transport::write_packet_param(builder, param, last_is_count, is_count);
+            transport::write_packet_param(builder, param, false);
         }
 
         last_is_count = is_count;
@@ -119,11 +119,6 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition, handle
     if definition.is_return_data() {
         builder.push_str("let mut response = packet.send_with_response();\n");
         unpack_response(builder, definition);
-
-        /*push_indentation(builder, 1);
-        builder.push_str("unimplemented!(\"");
-        builder.push_str(&definition.proto.name);
-        builder.push_str("\");\n");*/
     } else {
         builder.push_str("packet.send();\n");
     }
@@ -146,20 +141,14 @@ fn unpack_response(builder: &mut String, definition: &CommandDefinition) {
             builder.push_str(");\n");
         } else {
             push_indentation(builder, 1);
-            if !is_count {
-                builder.push('*');
-                push_param_name(builder, param);
-                builder.push_str(" = ");
-            }
-
-            builder.push_str("response.read");
 
             if is_count {
-                builder.push_str("_vk_array(");
+                builder.push_str("response.read_vk_array(");
                 push_param_name(builder, param);
                 builder.push_str(", ");
             } else {
-                transport::read_packet_param(builder, param, last_is_count, is_count);
+                builder.push_str("response.read");
+                transport::read_packet_param(builder, param, true);
                 builder.push_str(";\n");
             }
         }

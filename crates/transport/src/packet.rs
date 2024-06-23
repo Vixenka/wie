@@ -60,10 +60,8 @@ where
         self.buffer.extend_from_slice(slice);
     }
 
-    /// # Safety
-    /// Caller must ensure to pass a valid pointer or null.
     #[inline]
-    pub unsafe fn write_nullable_raw_ptr<TO>(&mut self, object: *const TO) {
+    pub fn write_nullable_raw_ptr<TO>(&mut self, object: *const TO) {
         if object.is_null() {
             self.buffer.push(0);
         } else {
@@ -72,10 +70,8 @@ where
         }
     }
 
-    /// # Safety
-    /// Caller must ensure to pass a valid pointer or null.
     #[inline]
-    pub unsafe fn write_nullable_raw_ptr_mut<TO>(&mut self, object: *mut TO) {
+    pub fn write_nullable_raw_ptr_mut<TO>(&mut self, object: *mut TO) {
         self.write_nullable_raw_ptr(object as *const TO);
     }
 
