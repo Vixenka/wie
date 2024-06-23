@@ -48,6 +48,7 @@ where
 
     #[inline]
     pub fn write<TO>(&mut self, object: TO) {
+        self.align::<TO>();
         let slice = unsafe {
             slice::from_raw_parts(&object as *const _ as *const u8, mem::size_of::<TO>())
         };
@@ -183,6 +184,7 @@ where
 
     #[inline]
     pub fn read<TO>(&mut self) -> TO {
+        self.align::<TO>();
         let size = mem::size_of::<TO>();
 
         let mut object = MaybeUninit::<TO>::uninit();
