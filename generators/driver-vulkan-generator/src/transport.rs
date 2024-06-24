@@ -21,6 +21,13 @@ pub(crate) fn write_packet_param(builder: &mut String, param: &CommandParam, is_
                     builder.push_str("_nullable_raw_ptr_mut(");
                 }
                 push_param_name(builder, param);
+            } else if t.starts_with("*const") {
+                if is_response {
+                    builder.push_str("_raw_ptr(");
+                } else {
+                    builder.push_str("_nullable_raw_ptr(");
+                }
+                push_param_name(builder, param);
             } else {
                 builder.push('(');
                 push_param_name(builder, param);
@@ -40,6 +47,12 @@ pub(crate) fn read_packet_param(builder: &mut String, param: &CommandParam, is_r
                     "_to_raw_ptr"
                 } else {
                     "_nullable_raw_ptr_mut"
+                }
+            } else if t.starts_with("*const") {
+                if is_response {
+                    "_to_raw_ptr"
+                } else {
+                    "_nullable_raw_ptr"
                 }
             } else {
                 ""
