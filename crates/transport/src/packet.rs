@@ -139,9 +139,17 @@ where
     #[inline]
     fn align<TO>(&mut self) {
         let m = self.buffer.len() % mem::align_of::<TO>();
-        unsafe {
+        if m == 0 {
+            return;
+        }
+
+        let missing = mem::align_of::<TO>() - m;
+        if self.buffer.capacity() < self.buffer.len() + missing {
             self.buffer
-                .set_len(self.buffer.len() + mem::align_of::<TO>() - m);
+                .reserve(missing - (self.buffer.capacity() - self.buffer.len()));
+        }
+        unsafe {
+            self.buffer.set_len(self.buffer.len() + missing);
         }
 
         debug_assert_eq!(0, self.buffer.len() % mem::align_of::<TO>());
@@ -257,11 +265,13 @@ where
         let count = self.read::<u32>();
         match count == 0 {
             true => (0, ptr::null_mut()),
-            // TODO: fix memleak here
-            false => (
-                count,
-                Vec::with_capacity(count as usize).leak() as *mut [TA] as *mut TA,
-            ),
+            false => {
+                // TODO: fix memleak here
+                (
+                    count,
+                    Vec::with_capacity(count as usize).leak() as *mut [TA] as *mut TA,
+                )
+            }
         }
     }
 
@@ -302,7 +312,9 @@ where
     #[inline]
     fn align<TO>(&mut self) {
         let m = self.read % mem::align_of::<TO>();
-        self.read += mem::align_of::<TO>() - m;
+        if m != 0 {
+            self.read += mem::align_of::<TO>() - m;
+        }
         debug_assert_eq!(0, self.read % mem::align_of::<TO>());
     }
 }
@@ -321,5 +333,169 @@ where
             let buffer = mem::take(&mut self.buffer);
             self.connection.push_buffer(buffer);
         }
+    }
+}
+
+#[cfg(all(test, debug_assertions))]
+mod tests {
+    use std::{
+        ffi::CStr,
+        mem,
+        ptr::{self, NonNull},
+    };
+
+    use wie_common::stream::mock::MockStream;
+
+    use crate::packet::PacketHeader;
+
+    use super::{Destination, Packet, PacketWriter};
+
+    fn helper<F1, F2>(write: F1, read: F2)
+    where
+        F1: FnOnce(&mut PacketWriter<'_, MockStream>),
+        F2: FnOnce(&mut Packet<'_, MockStream>),
+    {
+        let connection = unsafe { NonNull::dangling().as_ref() };
+
+        let mut writer = PacketWriter::new(
+            connection,
+            vec![0; mem::size_of::<PacketHeader>()],
+            Destination::Handler(0),
+        );
+        write(&mut writer);
+
+        let mut packet = Packet::new(connection, mem::take(&mut writer.buffer));
+        read(&mut packet);
+
+        assert_eq!(packet.buffer.len(), packet.read);
+
+        _ = mem::take(&mut packet.buffer);
+        mem::forget(writer);
+        mem::forget(packet);
+    }
+
+    #[test]
+    fn write_read() {
+        helper(
+            |packet| {
+                packet.write(11u8);
+                packet.write(34.13f64);
+            },
+            |packet| {
+                assert_eq!(packet.read::<u8>(), 11);
+                assert_eq!(packet.read::<f64>(), 34.13);
+            },
+        )
+    }
+
+    #[test]
+    fn vk_array_count_null() {
+        helper(
+            |packet| {
+                let count = 1984u32;
+                unsafe {
+                    packet.write_vk_array_count(&count as *const _, ptr::null::<i128>());
+                }
+            },
+            |packet| {
+                let (count, buffer) = packet.read_and_allocate_vk_array_count::<i128>();
+                assert_eq!(count, 0);
+                assert_eq!(ptr::null(), buffer);
+            },
+        )
+    }
+
+    #[test]
+    fn vk_array_count() {
+        helper(
+            |packet| {
+                let count = 3u32;
+                let buffer = [1, 2, 3];
+                unsafe {
+                    packet.write_vk_array_count(&count as *const _, buffer.as_ptr());
+                }
+            },
+            |packet| {
+                let (count, buffer) = packet.read_and_allocate_vk_array_count::<i128>();
+                assert_eq!(count, 3);
+                assert_ne!(ptr::null(), buffer);
+            },
+        )
+    }
+
+    #[test]
+    fn vk_array() {
+        helper(
+            |packet| {
+                let count = 3u32;
+                let buffer = [1, 2, 3];
+                packet.write_vk_array(count, buffer.as_ptr());
+            },
+            |packet| {
+                let mut count = 0u32;
+                let mut buffer = [0, 0, 0];
+
+                unsafe { packet.read_vk_array(&mut count as *mut _, buffer.as_mut_ptr()) };
+                assert_eq!(count, 3);
+                assert_eq!([1, 2, 3], buffer);
+            },
+        )
+    }
+
+    #[test]
+    fn raw_ptr() {
+        helper(
+            |packet| {
+                let obj = 1984f64;
+                packet.write_raw_ptr(&obj as *const _);
+            },
+            |packet| {
+                let mut obj = 0f64;
+                packet.read_to_raw_ptr(&mut obj as *mut _);
+                assert_eq!(1984f64, obj);
+            },
+        )
+    }
+
+    #[test]
+    fn nullable_raw_ptr() {
+        helper(
+            |packet| {
+                let obj = 1984f64;
+                packet.write_nullable_raw_ptr(&obj as *const _);
+            },
+            |packet| {
+                let ptr = packet.read_nullable_raw_ptr::<f64>();
+                assert_eq!(1984f64, unsafe { *ptr });
+            },
+        )
+    }
+
+    #[test]
+    fn nullable_raw_ptr_mut() {
+        helper(
+            |packet| {
+                let mut obj = 1984f64;
+                packet.write_nullable_raw_ptr_mut(&mut obj as *mut _);
+            },
+            |packet| {
+                let ptr = packet.read_nullable_raw_ptr::<f64>();
+                assert_eq!(1984f64, unsafe { *ptr });
+            },
+        )
+    }
+
+    #[test]
+    fn write_null_str() {
+        let str = b"Hello world\0";
+        helper(
+            |packet| unsafe {
+                packet.write_null_str(str.as_ptr() as *const i8);
+            },
+            |packet| {
+                let read = unsafe { CStr::from_ptr(packet.read_null_str()) };
+                assert_eq!(unsafe { CStr::from_ptr(str.as_ptr() as *const i8) }, read);
+            },
+        )
     }
 }

@@ -243,7 +243,7 @@ where
                     let header = unsafe { &*(packet.as_ptr() as *const PacketHeader) };
                     match header.destination {
                         Destination::Thread(thread_id) => {
-                            let thread_id_raw = unsafe { mem::transmute(thread_id) };
+                            let thread_id_raw: u64 = unsafe { mem::transmute(thread_id) };
                             let channel = connection.thread_channels.get(&thread_id_raw).unwrap();
                             channel.1.sender.send(packet).unwrap();
                         }

@@ -1,6 +1,6 @@
 use std::{
     io::{Read, Write},
-    net::TcpStream,
+    net::{TcpListener, TcpStream},
     sync::Mutex,
 };
 
@@ -9,6 +9,19 @@ use super::{UnsafeRead, UnsafeWrite};
 pub struct MockStream {
     read: Mutex<TcpStream>,
     write: Mutex<TcpStream>,
+}
+
+impl Default for MockStream {
+    fn default() -> Self {
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        let addr = listener.local_addr().unwrap();
+        let stream = TcpStream::connect(addr).unwrap();
+
+        Self {
+            read: Mutex::new(stream),
+            write: Mutex::new(listener.accept().unwrap().0),
+        }
+    }
 }
 
 impl From<TcpStream> for MockStream {
