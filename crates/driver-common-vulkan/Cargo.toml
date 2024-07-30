@@ -1,0 +1,10 @@
+[package]
+name = "wie-driver-common-vulkan"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ash.workspace = true
+cdump.workspace = true
+wie-transport.workspace = true
+wie-common.workspace = true

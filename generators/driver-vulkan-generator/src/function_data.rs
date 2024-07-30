@@ -1,4 +1,4 @@
-use crate::to_rust_type;
+use crate::{to_rust_type, vulkan_types::TypeVulkan};
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum FunctionType {
@@ -10,7 +10,7 @@ pub enum FunctionType {
 
 pub trait CommandExt {
     fn function_type(&self) -> FunctionType;
-    fn is_return_data(&self) -> bool;
+    fn is_return_data(&self, types: &TypeVulkan) -> bool;
 }
 
 impl CommandExt for vk_parse::CommandDefinition {
@@ -34,13 +34,13 @@ impl CommandExt for vk_parse::CommandDefinition {
         }
     }
 
-    fn is_return_data(&self) -> bool {
-        if to_rust_type(&self.proto) != "std::ffi::c_void" {
+    fn is_return_data(&self, types: &TypeVulkan) -> bool {
+        if to_rust_type(&self.proto, types) != "std::ffi::c_void" {
             return true;
         }
 
         for param in self.params.iter() {
-            if param.is_return_data() {
+            if param.is_return_data(types) {
                 return true;
             }
         }
@@ -49,11 +49,11 @@ impl CommandExt for vk_parse::CommandDefinition {
 }
 
 pub trait CommandParamExt {
-    fn is_return_data(&self) -> bool;
+    fn is_return_data(&self, types: &TypeVulkan) -> bool;
 }
 
 impl CommandParamExt for vk_parse::CommandParam {
-    fn is_return_data(&self) -> bool {
-        to_rust_type(&self.definition).contains("*mut")
+    fn is_return_data(&self, types: &TypeVulkan) -> bool {
+        to_rust_type(&self.definition, types).contains("*mut")
     }
 }

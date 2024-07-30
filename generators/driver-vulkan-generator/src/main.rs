@@ -1,16 +1,19 @@
 use std::{collections::HashSet, path::Path};
 
 use itertools::Itertools;
-use vk_parse::{CommandDefinition, CommandParam, Extension, NameWithType};
+use vk_parse::{CommandDefinition, CommandParam, Enum, Extension, NameWithType, Registry};
+use vulkan_types::{generate_vulkan_types, TypeVulkan};
 
 const DESIRED_API: &str = "vulkan";
 const INDENTATION: &str = "    ";
 
 mod driver;
+pub mod enums;
 mod function_address_table;
 pub mod function_data;
 mod listener;
 mod transport;
+mod vulkan_types;
 
 const VULKAN_HANDLERS_BEGIN: u64 = 1_000_001_000;
 
@@ -24,14 +27,57 @@ fn main() {
     }
 
     generate(
-        &directory.join("generators/driver-vulkan-generator/Vulkan-Headers/registry/vk.xml"),
+        &directory.join("generators/driver-vulkan-generator/Vulkan-Headers/registry/"),
         &directory,
     );
 }
 
 fn generate(vk_headers_path: &Path, project_directory: &Path) {
-    let (spec, _errors) = vk_parse::parse_file(vk_headers_path).expect("invalid XML file");
+    let (spec, _errors) =
+        vk_parse::parse_file(&vk_headers_path.join("vk.xml")).expect("invalid XML file");
+    let (required_types, required_commands, _) = get_required_types_commands_and_extensions(&spec);
 
+    let commands: Vec<&CommandDefinition> = spec
+        .0
+        .iter()
+        .filter_map(|x| match x {
+            vk_parse::RegistryChild::Commands(cmds) => Some(cmds),
+            _ => None,
+        })
+        .flat_map(|x| &x.children)
+        .filter_map(|x| match x {
+            vk_parse::Command::Definition(def) => Some(def),
+            _ => None,
+        })
+        .filter(|cmd| required_commands.contains(&cmd.proto.name.as_str()))
+        .unique_by(|x| &x.proto.name)
+        .collect();
+
+    let (spec_video, _errors) =
+        vk_parse::parse_file(&vk_headers_path.join("video.xml")).expect("invalid XML file");
+    let (required_types_video, _, enums_video) =
+        get_required_types_commands_and_extensions(&spec_video);
+
+    let mut types = TypeVulkan::new(&spec, &required_types);
+    let video_types = TypeVulkan::new(&spec_video, &required_types_video);
+    types.chain(&video_types);
+
+    println!("Generating Vulkan types...");
+    generate_vulkan_types(project_directory, &types);
+    println!("Generating Vulkan enums...");
+    enums::generate_enums(project_directory, &enums_video);
+    println!("Generating driver...");
+    driver::generate(project_directory, &commands, &types);
+    println!("Generating listener...");
+    println!("Generating function address table...");
+    function_address_table::generate(project_directory, &commands, &types);
+    println!("Generating transport...");
+    listener::generate(project_directory, &commands, &types);
+}
+
+fn get_required_types_commands_and_extensions(
+    spec: &Registry,
+) -> (HashSet<&str>, HashSet<&str>, Vec<&Enum>) {
     let extensions: Vec<&Extension> = spec
         .0
         .iter()
@@ -67,7 +113,7 @@ fn generate(vk_headers_path: &Path, project_directory: &Path) {
 
     let extension_children = extensions.iter().flat_map(|extension| &extension.children);
 
-    let required_commands = features_children
+    features_children
         .chain(extension_children)
         .filter_map(|x| match x {
             vk_parse::FeatureChild::Require { api, items, .. } => Some((api, items)),
@@ -75,36 +121,24 @@ fn generate(vk_headers_path: &Path, project_directory: &Path) {
         })
         .filter(|(api, _items)| matches!(api.as_deref(), None | Some(DESIRED_API)))
         .flat_map(|(_api, items)| items)
-        .fold(HashSet::new(), |mut acc, elem| {
-            if let vk_parse::InterfaceItem::Command { name, .. } = elem {
-                acc.insert(name.as_str());
-            }
-            acc
-        });
-
-    let commands: Vec<&CommandDefinition> = spec
-        .0
-        .iter()
-        .filter_map(|x| match x {
-            vk_parse::RegistryChild::Commands(cmds) => Some(cmds),
-            _ => None,
-        })
-        .flat_map(|x| &x.children)
-        .filter_map(|x| match x {
-            vk_parse::Command::Definition(def) => Some(def),
-            _ => None,
-        })
-        .filter(|cmd| required_commands.contains(&cmd.proto.name.as_str()))
-        .unique_by(|x| &x.proto.name)
-        .collect();
-
-    println!("Generating driver...");
-    driver::generate(project_directory, &commands);
-    println!("Generating listener...");
-    println!("Generating function address table...");
-    function_address_table::generate(project_directory, &commands);
-    println!("Generating transport...");
-    listener::generate(project_directory, &commands);
+        .fold(
+            (HashSet::new(), HashSet::new(), Vec::new()),
+            |mut acc, elem| {
+                match elem {
+                    vk_parse::InterfaceItem::Type { name, .. } => {
+                        acc.0.insert(name.as_str());
+                    }
+                    vk_parse::InterfaceItem::Command { name, .. } => {
+                        acc.1.insert(name.as_str());
+                    }
+                    vk_parse::InterfaceItem::Enum(e) => {
+                        acc.2.push(e);
+                    }
+                    _ => {}
+                };
+                acc
+            },
+        )
 }
 
 fn trace(builder: &mut String, definition: &CommandDefinition) {
@@ -131,9 +165,13 @@ fn trace(builder: &mut String, definition: &CommandDefinition) {
 }
 
 fn push_param_name(builder: &mut String, param: &CommandParam) {
-    match param.definition.name == "type" {
+    push_element_name(builder, &param.definition.name);
+}
+
+fn push_element_name(builder: &mut String, name: &str) {
+    match name == "type" {
         true => builder.push_str("type_"),
-        false => to_snake_case(builder, &param.definition.name),
+        false => to_snake_case(builder, name),
     }
 }
 
@@ -156,44 +194,98 @@ fn to_snake_case(builder: &mut String, text: &str) {
             builder.push(c.to_ascii_lowercase());
         } else {
             builder.push(c);
-            last_floor = false;
+            last_floor = c == '_';
         }
     }
 }
 
-fn to_rust_type_without_ptr(name_with_type: &NameWithType) -> String {
-    let type_name = name_with_type.type_name.as_ref().unwrap();
-    let mut n = type_name.replace("Vk", "");
+fn to_rust_type_without_ptr(type_name: &Option<String>, types: &TypeVulkan) -> String {
+    let n = type_name.as_ref().unwrap();
 
     match n.as_str() {
-        "void" => "std::ffi::c_void".into(),
+        "void" => "c_void".into(),
         "uint64_t" => "u64".into(),
         "uint32_t" => "u32".into(),
         "uint16_t" => "u16".into(),
+        "uint8_t" => "u8".into(),
         "size_t" => "usize".into(),
         "int" => "std::os::raw::c_int".into(),
+        "int64_t" => "i64".into(),
         "int32_t" => "i32".into(),
+        "int16_t" => "i16".into(),
+        "int8_t" => "i8".into(),
         "float" => "f32".into(),
-        "char" => "std::os::raw::c_char".into(),
-        "SurfaceCounterFlagBitsEXT" => "vk::SurfaceCounterFlagsEXT".into(),
-        "DebugUtilsMessageSeverityFlagBitsEXT" => "vk::DebugUtilsMessageSeverityFlagsEXT".into(),
-        "PipelineStageFlagBits" => "vk::PipelineStageFlags".into(),
-        "ExternalMemoryHandleTypeFlagBits" => "vk::ExternalMemoryHandleTypeFlags".into(),
-        "SampleCountFlagBits" => "vk::SampleCountFlags".into(),
-        "ShaderStageFlagBits" => "vk::ShaderStageFlags".into(),
+        "double" => "f64".into(),
+        "char" => "c_char".into(),
+        "VkSurfaceCounterFlagBitsEXT" => "vk::SurfaceCounterFlagsEXT".into(),
+        "VkDebugUtilsMessageSeverityFlagBitsEXT" => "vk::DebugUtilsMessageSeverityFlagsEXT".into(),
+        "VkPipelineStageFlagBits" => "vk::PipelineStageFlags".into(),
+        "VkExternalMemoryHandleTypeFlagBits" => "vk::ExternalMemoryHandleTypeFlags".into(),
+        "VkSampleCountFlagBits" => "vk::SampleCountFlags".into(),
+        "VkShaderStageFlagBits" => "vk::ShaderStageFlags".into(),
+        "DWORD" => "vk::DWORD".into(),
+        "HANDLE" => "vk::HANDLE".into(),
+        "HWND" => "vk::HANDLE".into(),
+        "HMONITOR" => "vk::HMONITOR".into(),
+        "SECURITY_ATTRIBUTES" => "usize".into(),
+        "LPCWSTR" => "vk::LPCWSTR".into(),
+        "HINSTANCE" => "vk::HINSTANCE".into(),
+        "Display" => "usize".into(),
+        "Window" => "usize".into(),
+        "xcb_connection_t" => "usize".into(),
+        "xcb_window_t" => "usize".into(),
+        "IDirectFB" => "usize".into(),
+        "IDirectFBSurface" => "usize".into(),
+        "zx_handle_t" => "vk::zx_handle_t".into(),
+        "GgpStreamDescriptor" => "vk::GgpStreamDescriptor".into(),
+        "GgpFrameToken" => "vk::GgpFrameToken".into(),
+        "_screen_context" => "usize".into(),
+        "_screen_window" => "usize".into(),
+        "_screen_buffer" => "usize".into(),
+        "wl_display" => "usize".into(),
+        "wl_surface" => "usize".into(),
+        "ANativeWindow" => "usize".into(),
+        "AHardwareBuffer" => "usize".into(),
+        "CAMetalLayer" => "c_void".into(),
+        "IOSurfaceRef" => "usize".into(),
         _ => {
-            n.insert_str(0, "vk::");
-            n
+            if !types.contains_type(n)
+                && (n.starts_with("Vk")
+                    || n.starts_with("PFN")
+                    || n.starts_with("VK_")
+                    || n.starts_with("Std")
+                    || n.starts_with("MTL"))
+            {
+                if n.starts_with("Vk") {
+                    return "NonDisposableHandle".to_owned();
+                }
+
+                return format!(
+                    "vk::{}",
+                    match n.strip_prefix("VK_") {
+                        Some(stripped) => stripped.to_owned(),
+                        None => match n.starts_with("Std") {
+                            true => format!("native::{}", n),
+                            false => n.to_owned(),
+                        },
+                    }
+                );
+            }
+            n.clone()
         }
     }
 }
 
-fn to_rust_type(name_with_type: &NameWithType) -> String {
-    let mut n = to_rust_type_without_ptr(name_with_type);
+fn to_rust_type(name_with_type: &NameWithType, types: &TypeVulkan) -> String {
+    to_rust_type_impl(&name_with_type.type_name, &name_with_type.code, types)
+}
+
+fn to_rust_type_impl(name: &Option<String>, code: &str, types: &TypeVulkan) -> String {
+    let mut n = to_rust_type_without_ptr(name, types);
 
     let mut i = 0;
-    while let Some(p) = name_with_type.code[i..].chars().position(|x| x == '*') {
-        match name_with_type.code[i..].contains("const") {
+    while let Some(p) = code[i..].chars().position(|x| x == '*') {
+        match code[i..].contains("const") {
             true => n.insert_str(0, "*const "),
             false => n.insert_str(0, "*mut "),
         }
@@ -201,17 +293,21 @@ fn to_rust_type(name_with_type: &NameWithType) -> String {
     }
 
     // Array
-    if let Some(p) = name_with_type.code.chars().position(|x| x == '[') {
-        n.insert_str(0, "*const [");
+    if let Some(p) = code.chars().position(|x| x == '[') {
+        n.insert(0, '[');
         n.push_str("; ");
-        n.push_str(
-            &name_with_type.code
-                [p + 1..name_with_type.code.chars().position(|x| x == ']').unwrap()],
-        );
+        n.push_str(&to_rust_type_without_ptr(
+            &Some(code[p + 1..code.chars().position(|x| x == ']').unwrap()].to_owned()),
+            types,
+        ));
         n.push(']');
     }
 
-    n
+    // Special cases
+    match n.as_str() {
+        "*const vk::SampleCountFlags" => "*const u32".to_owned(),
+        _ => n,
+    }
 }
 
 fn contains_desired_api(api: &str) -> bool {

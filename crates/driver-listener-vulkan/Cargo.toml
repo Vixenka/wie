@@ -8,3 +8,4 @@ ash.workspace = true
 log.workspace = true
 wie-transport.workspace = true
 wie-transport-vsock.workspace = true
+wie-driver-common-vulkan.workspace = true

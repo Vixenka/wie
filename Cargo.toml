@@ -16,12 +16,14 @@ itertools = "0.13.0"
 lockfree = "0.5.1"
 rsevents = "0.3.1"
 rayon = "1.10.0"
+cdump = { git = "https://github.com/Vixenka/cdump.git", rev = "65572174b628e7b0f24cc1e28b6fddc26c2df471" }
 
 wie.path = "crates/wie"
 wie-common.path = "crates/common"
 wie-transport.path = "crates/transport"
 wie-transport-vsock.path = "crates/transport-vsock"
 wie-transport-guest.path = "crates/transport-guest"
+wie-driver-common-vulkan.path = "crates/driver-common-vulkan"
 wie-driver-listener-vulkan.path = "crates/driver-listener-vulkan"
 
 rstest = "0.20.0"

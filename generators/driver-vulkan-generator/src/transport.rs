@@ -1,13 +1,18 @@
 use vk_parse::CommandParam;
 
-use crate::{push_param_name, to_rust_type};
+use crate::{push_param_name, to_rust_type, vulkan_types::TypeVulkan};
 
 pub(crate) fn check_if_count_ptr(param: &CommandParam) -> bool {
     param.definition.name.starts_with('p') && param.definition.name.ends_with("Count")
 }
 
-pub(crate) fn write_packet_param(builder: &mut String, param: &CommandParam, is_response: bool) {
-    let t = to_rust_type(&param.definition);
+pub(crate) fn write_packet_param(
+    builder: &mut String,
+    param: &CommandParam,
+    is_response: bool,
+    types: &TypeVulkan,
+) {
+    let t = to_rust_type(&param.definition, types);
     match t.as_str() {
         "*const std::os::raw::c_char" => {
             builder.push_str("_null_str(");
@@ -37,8 +42,13 @@ pub(crate) fn write_packet_param(builder: &mut String, param: &CommandParam, is_
     builder.push_str(");\n");
 }
 
-pub(crate) fn read_packet_param(builder: &mut String, param: &CommandParam, is_response: bool) {
-    let t = to_rust_type(&param.definition);
+pub(crate) fn read_packet_param(
+    builder: &mut String,
+    param: &CommandParam,
+    is_response: bool,
+    types: &TypeVulkan,
+) {
+    let t = to_rust_type(&param.definition, types);
     builder.push_str(match t.as_str() {
         "*const std::os::raw::c_char" => "_null_str",
         _ => {
