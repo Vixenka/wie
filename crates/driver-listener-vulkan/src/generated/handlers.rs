@@ -3,7 +3,7 @@
 use ash::vk;
 use wie_driver_common_vulkan::{*, generated::vulkan_types::*};
 use crate::Packet;
-use std::ffi::c_char;
+use std::ffi::{c_char, c_void};
 
 pub(crate) fn register_handlers_to(map: &mut crate::HandlerMap) {
     map.insert(1000001000, Box::new(vk_create_instance));
@@ -2787,7 +2787,7 @@ fn vk_cmd_set_depth_bias(mut packet: Packet) {
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetBlendConstants.html>"]
 fn vk_cmd_set_blend_constants(mut packet: Packet) {
     let command_buffer: NonDisposableHandle = packet.read();
-    let blend_constants: [f32; 4] = packet.read();
+    let blend_constants: *const [f32; 4] = packet.read_nullable_raw_ptr();
     trace!("called vkCmdSetBlendConstants({command_buffer:?}, {blend_constants:?})");
 
     let result = unsafe {
@@ -4483,7 +4483,7 @@ fn vk_get_physical_device_xlib_presentation_support_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read();
     let queue_family_index: u32 = packet.read();
     let dpy: *mut usize = packet.read_nullable_raw_ptr_mut();
-    let visual_id: VisualID = packet.read();
+    let visual_id: vk::VisualID = packet.read();
     trace!("called vkGetPhysicalDeviceXlibPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {dpy:?}, {visual_id:?})");
 
     let result = unsafe {
@@ -4529,7 +4529,7 @@ fn vk_get_physical_device_xcb_presentation_support_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read();
     let queue_family_index: u32 = packet.read();
     let connection: *mut usize = packet.read_nullable_raw_ptr_mut();
-    let visual_id: xcb_visualid_t = packet.read();
+    let visual_id: vk::xcb_visualid_t = packet.read();
     trace!("called vkGetPhysicalDeviceXcbPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {connection:?}, {visual_id:?})");
 
     let result = unsafe {
@@ -5661,7 +5661,7 @@ fn vk_acquire_xlib_display_ext(mut packet: Packet) {
 fn vk_get_rand_routput_display_ext(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read();
     let dpy: *mut usize = packet.read_nullable_raw_ptr_mut();
-    let rr_output: RROutput = packet.read();
+    let rr_output: vk::RROutput = packet.read();
     let p_display: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
     trace!("called vkGetRandROutputDisplayEXT({physical_device:?}, {dpy:?}, {rr_output:?}, {p_display:?})");
 
@@ -10656,7 +10656,7 @@ fn vk_cmd_resolve_image2(mut packet: Packet) {
 fn vk_cmd_set_fragment_shading_rate_khr(mut packet: Packet) {
     let command_buffer: NonDisposableHandle = packet.read();
     let p_fragment_size: *const VkExtent2D = packet.read_nullable_raw_ptr();
-    let combiner_ops: [NonDisposableHandle; 2] = packet.read();
+    let combiner_ops: *const [NonDisposableHandle; 2] = packet.read_nullable_raw_ptr();
     trace!("called vkCmdSetFragmentShadingRateKHR({command_buffer:?}, {p_fragment_size:?}, {combiner_ops:?})");
 
     let result = unsafe {
@@ -10696,7 +10696,7 @@ fn vk_get_physical_device_fragment_shading_rates_khr(mut packet: Packet) {
 fn vk_cmd_set_fragment_shading_rate_enum_nv(mut packet: Packet) {
     let command_buffer: NonDisposableHandle = packet.read();
     let shading_rate: NonDisposableHandle = packet.read();
-    let combiner_ops: [NonDisposableHandle; 2] = packet.read();
+    let combiner_ops: *const [NonDisposableHandle; 2] = packet.read_nullable_raw_ptr();
     trace!("called vkCmdSetFragmentShadingRateEnumNV({command_buffer:?}, {shading_rate:?}, {combiner_ops:?})");
 
     let result = unsafe {

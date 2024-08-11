@@ -1,4 +1,5 @@
 pub mod vulkan_enums;
+pub mod vulkan_pfn_functions;
 pub mod vulkan_types;
 
 pub const VK_STD_VULKAN_VIDEO_CODEC_H264_DECODE_API_VERSION_1_0_0: usize = 1;

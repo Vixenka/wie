@@ -12,6 +12,7 @@ pub mod enums;
 mod function_address_table;
 pub mod function_data;
 mod listener;
+mod pfn_functions;
 mod transport;
 mod vulkan_types;
 
@@ -66,6 +67,8 @@ fn generate(vk_headers_path: &Path, project_directory: &Path) {
     generate_vulkan_types(project_directory, &types);
     println!("Generating Vulkan enums...");
     enums::generate_enums(project_directory, &enums_video);
+    println!("Generating Vulkan PFN functions...");
+    pfn_functions::generate(project_directory, &commands, &types);
     println!("Generating driver...");
     driver::generate(project_directory, &commands, &types);
     println!("Generating listener...");
@@ -239,6 +242,9 @@ fn to_rust_type_without_ptr(type_name: &Option<String>, types: &TypeVulkan) -> S
         "zx_handle_t" => "vk::zx_handle_t".into(),
         "GgpStreamDescriptor" => "vk::GgpStreamDescriptor".into(),
         "GgpFrameToken" => "vk::GgpFrameToken".into(),
+        "RROutput" => "vk::RROutput".into(),
+        "VisualID" => "vk::VisualID".into(),
+        "xcb_visualid_t" => "vk::xcb_visualid_t".into(),
         "_screen_context" => "usize".into(),
         "_screen_window" => "usize".into(),
         "_screen_buffer" => "usize".into(),
@@ -251,7 +257,6 @@ fn to_rust_type_without_ptr(type_name: &Option<String>, types: &TypeVulkan) -> S
         _ => {
             if !types.contains_type(n)
                 && (n.starts_with("Vk")
-                    || n.starts_with("PFN")
                     || n.starts_with("VK_")
                     || n.starts_with("Std")
                     || n.starts_with("MTL"))
@@ -294,7 +299,13 @@ fn to_rust_type_impl(name: &Option<String>, code: &str, types: &TypeVulkan) -> S
 
     // Array
     if let Some(p) = code.chars().position(|x| x == '[') {
-        n.insert(0, '[');
+        // If it is a const array, we need trait this as a pointer
+        if code.contains("const") && !n.contains("*const") && !n.contains("*mut") {
+            n.insert_str(0, "*const [");
+        } else {
+            n.insert(0, '[');
+        }
+
         n.push_str("; ");
         n.push_str(&to_rust_type_without_ptr(
             &Some(code[p + 1..code.chars().position(|x| x == ']').unwrap()].to_owned()),
