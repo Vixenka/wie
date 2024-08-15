@@ -610,9 +610,9 @@ pub(crate) fn register_handlers_to(map: &mut crate::HandlerMap) {
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateInstance.html>"]
 fn vk_create_instance(mut packet: Packet) {
-    let p_create_info: *const VkInstanceCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_instance: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let p_create_info: *const VkInstanceCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_instance: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateInstance({p_create_info:?}, {p_allocator:?}, {p_instance:?})");
 
     let result = unsafe {
@@ -624,15 +624,17 @@ fn vk_create_instance(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_instance);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_instance);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyInstance.html>"]
 fn vk_destroy_instance(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyInstance({instance:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -643,13 +645,13 @@ fn vk_destroy_instance(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDevices.html>"]
 fn vk_enumerate_physical_devices(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
+    let instance: NonDisposableHandle = packet.read_shallow();
     let (mut p_physical_device_count, p_physical_devices) = packet.read_and_allocate_vk_array_count::<NonDisposableHandle>();
     trace!("called vkEnumeratePhysicalDevices({instance:?}, {p_physical_device_count:?}, {p_physical_devices:?})");
 
@@ -662,15 +664,17 @@ fn vk_enumerate_physical_devices(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_physical_device_count, p_physical_devices);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_physical_device_count, p_physical_devices);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceProcAddr.html>"]
 fn vk_get_device_proc_addr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_name: *const c_char = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_name: *const c_char = packet.read_shallow_under_nullable_ptr();
     trace!("called vkGetDeviceProcAddr({device:?}, {p_name:?})");
 
     let result = unsafe {
@@ -681,14 +685,14 @@ fn vk_get_device_proc_addr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetInstanceProcAddr.html>"]
 fn vk_get_instance_proc_addr(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_name: *const c_char = packet.read_nullable_raw_ptr();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_name: *const c_char = packet.read_shallow_under_nullable_ptr();
     trace!("called vkGetInstanceProcAddr({instance:?}, {p_name:?})");
 
     let result = unsafe {
@@ -699,14 +703,14 @@ fn vk_get_instance_proc_addr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties.html>"]
 fn vk_get_physical_device_properties(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_properties: *mut VkPhysicalDeviceProperties = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_properties: *mut VkPhysicalDeviceProperties = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceProperties({physical_device:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -717,14 +721,16 @@ fn vk_get_physical_device_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties.html>"]
 fn vk_get_physical_device_queue_family_properties(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_queue_family_property_count, p_queue_family_properties) = packet.read_and_allocate_vk_array_count::<VkQueueFamilyProperties>();
     trace!("called vkGetPhysicalDeviceQueueFamilyProperties({physical_device:?}, {p_queue_family_property_count:?}, {p_queue_family_properties:?})");
 
@@ -737,15 +743,17 @@ fn vk_get_physical_device_queue_family_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_queue_family_property_count, p_queue_family_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_queue_family_property_count, p_queue_family_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMemoryProperties.html>"]
 fn vk_get_physical_device_memory_properties(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_memory_properties: *mut VkPhysicalDeviceMemoryProperties = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_memory_properties: *mut VkPhysicalDeviceMemoryProperties = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceMemoryProperties({physical_device:?}, {p_memory_properties:?})");
 
     let result = unsafe {
@@ -756,15 +764,17 @@ fn vk_get_physical_device_memory_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures.html>"]
 fn vk_get_physical_device_features(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_features: *mut VkPhysicalDeviceFeatures = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_features: *mut VkPhysicalDeviceFeatures = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceFeatures({physical_device:?}, {p_features:?})");
 
     let result = unsafe {
@@ -775,16 +785,18 @@ fn vk_get_physical_device_features(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_features);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_features);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFormatProperties.html>"]
 fn vk_get_physical_device_format_properties(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let format: NonDisposableHandle = packet.read();
-    let p_format_properties: *mut VkFormatProperties = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let format: NonDisposableHandle = packet.read_shallow();
+    let p_format_properties: *mut VkFormatProperties = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceFormatProperties({physical_device:?}, {format:?}, {p_format_properties:?})");
 
     let result = unsafe {
@@ -796,20 +808,22 @@ fn vk_get_physical_device_format_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_format_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_format_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties.html>"]
 fn vk_get_physical_device_image_format_properties(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let format: NonDisposableHandle = packet.read();
-    let type_: NonDisposableHandle = packet.read();
-    let tiling: NonDisposableHandle = packet.read();
-    let usage: NonDisposableHandle = packet.read();
-    let flags: NonDisposableHandle = packet.read();
-    let p_image_format_properties: *mut VkImageFormatProperties = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let format: NonDisposableHandle = packet.read_shallow();
+    let type_: NonDisposableHandle = packet.read_shallow();
+    let tiling: NonDisposableHandle = packet.read_shallow();
+    let usage: NonDisposableHandle = packet.read_shallow();
+    let flags: NonDisposableHandle = packet.read_shallow();
+    let p_image_format_properties: *mut VkImageFormatProperties = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceImageFormatProperties({physical_device:?}, {format:?}, {type_:?}, {tiling:?}, {usage:?}, {flags:?}, {p_image_format_properties:?})");
 
     let result = unsafe {
@@ -825,17 +839,19 @@ fn vk_get_physical_device_image_format_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_image_format_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_image_format_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDevice.html>"]
 fn vk_create_device(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkDeviceCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_device: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkDeviceCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_device: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateDevice({physical_device:?}, {p_create_info:?}, {p_allocator:?}, {p_device:?})");
 
     let result = unsafe {
@@ -848,15 +864,17 @@ fn vk_create_device(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_device);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_device);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDevice.html>"]
 fn vk_destroy_device(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyDevice({device:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -867,13 +885,13 @@ fn vk_destroy_device(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceVersion.html>"]
 fn vk_enumerate_instance_version(mut packet: Packet) {
-    let p_api_version: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    let p_api_version: *mut u32 = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkEnumerateInstanceVersion({p_api_version:?})");
 
     let result = unsafe {
@@ -883,8 +901,10 @@ fn vk_enumerate_instance_version(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_api_version);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_api_version);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
@@ -901,14 +921,16 @@ fn vk_enumerate_instance_layer_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceExtensionProperties.html>"]
 fn vk_enumerate_instance_extension_properties(mut packet: Packet) {
-    let p_layer_name: *const c_char = packet.read_nullable_raw_ptr();
+    let p_layer_name: *const c_char = packet.read_shallow_under_nullable_ptr();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkExtensionProperties>();
     trace!("called vkEnumerateInstanceExtensionProperties({p_layer_name:?}, {p_property_count:?}, {p_properties:?})");
 
@@ -921,14 +943,16 @@ fn vk_enumerate_instance_extension_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceLayerProperties.html>"]
 fn vk_enumerate_device_layer_properties(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkLayerProperties>();
     trace!("called vkEnumerateDeviceLayerProperties({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
@@ -941,15 +965,17 @@ fn vk_enumerate_device_layer_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateDeviceExtensionProperties.html>"]
 fn vk_enumerate_device_extension_properties(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_layer_name: *const c_char = packet.read_nullable_raw_ptr();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_layer_name: *const c_char = packet.read_shallow_under_nullable_ptr();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkExtensionProperties>();
     trace!("called vkEnumerateDeviceExtensionProperties({physical_device:?}, {p_layer_name:?}, {p_property_count:?}, {p_properties:?})");
 
@@ -963,17 +989,19 @@ fn vk_enumerate_device_extension_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceQueue.html>"]
 fn vk_get_device_queue(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let queue_family_index: u32 = packet.read();
-    let queue_index: u32 = packet.read();
-    let p_queue: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let queue_family_index: u32 = packet.read_shallow();
+    let queue_index: u32 = packet.read_shallow();
+    let p_queue: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetDeviceQueue({device:?}, {queue_family_index:?}, {queue_index:?}, {p_queue:?})");
 
     let result = unsafe {
@@ -986,17 +1014,19 @@ fn vk_get_device_queue(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_queue);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_queue);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSubmit.html>"]
 fn vk_queue_submit(mut packet: Packet) {
-    let queue: NonDisposableHandle = packet.read();
-    let submit_count: u32 = packet.read();
-    let p_submits: *const VkSubmitInfo = packet.read_nullable_raw_ptr();
-    let fence: NonDisposableHandle = packet.read();
+    let queue: NonDisposableHandle = packet.read_shallow();
+    let submit_count: u32 = packet.read_shallow();
+    let p_submits: *const VkSubmitInfo = packet.read_deep();
+    let fence: NonDisposableHandle = packet.read_shallow();
     trace!("called vkQueueSubmit({queue:?}, {submit_count:?}, {p_submits:?}, {fence:?})");
 
     let result = unsafe {
@@ -1009,13 +1039,13 @@ fn vk_queue_submit(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueWaitIdle.html>"]
 fn vk_queue_wait_idle(mut packet: Packet) {
-    let queue: NonDisposableHandle = packet.read();
+    let queue: NonDisposableHandle = packet.read_shallow();
     trace!("called vkQueueWaitIdle({queue:?})");
 
     let result = unsafe {
@@ -1025,13 +1055,13 @@ fn vk_queue_wait_idle(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDeviceWaitIdle.html>"]
 fn vk_device_wait_idle(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
     trace!("called vkDeviceWaitIdle({device:?})");
 
     let result = unsafe {
@@ -1041,16 +1071,16 @@ fn vk_device_wait_idle(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateMemory.html>"]
 fn vk_allocate_memory(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_allocate_info: *const VkMemoryAllocateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_memory: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_allocate_info: *const VkMemoryAllocateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_memory: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkAllocateMemory({device:?}, {p_allocate_info:?}, {p_allocator:?}, {p_memory:?})");
 
     let result = unsafe {
@@ -1063,16 +1093,18 @@ fn vk_allocate_memory(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_memory);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeMemory.html>"]
 fn vk_free_memory(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let memory: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let memory: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkFreeMemory({device:?}, {memory:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -1084,18 +1116,18 @@ fn vk_free_memory(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMapMemory.html>"]
 fn vk_map_memory(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let memory: NonDisposableHandle = packet.read();
-    let offset: NonDisposableHandle = packet.read();
-    let size: NonDisposableHandle = packet.read();
-    let flags: NonDisposableHandle = packet.read();
-    let pp_data: *mut *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let memory: NonDisposableHandle = packet.read_shallow();
+    let offset: NonDisposableHandle = packet.read_shallow();
+    let size: NonDisposableHandle = packet.read_shallow();
+    let flags: NonDisposableHandle = packet.read_shallow();
+    let pp_data: *mut *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkMapMemory({device:?}, {memory:?}, {offset:?}, {size:?}, {flags:?}, {pp_data:?})");
 
     let result = unsafe {
@@ -1110,15 +1142,17 @@ fn vk_map_memory(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(pp_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(pp_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUnmapMemory.html>"]
 fn vk_unmap_memory(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let memory: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let memory: NonDisposableHandle = packet.read_shallow();
     trace!("called vkUnmapMemory({device:?}, {memory:?})");
 
     let result = unsafe {
@@ -1129,15 +1163,15 @@ fn vk_unmap_memory(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFlushMappedMemoryRanges.html>"]
 fn vk_flush_mapped_memory_ranges(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let memory_range_count: u32 = packet.read();
-    let p_memory_ranges: *const VkMappedMemoryRange = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let memory_range_count: u32 = packet.read_shallow();
+    let p_memory_ranges: *const VkMappedMemoryRange = packet.read_deep();
     trace!("called vkFlushMappedMemoryRanges({device:?}, {memory_range_count:?}, {p_memory_ranges:?})");
 
     let result = unsafe {
@@ -1149,15 +1183,15 @@ fn vk_flush_mapped_memory_ranges(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkInvalidateMappedMemoryRanges.html>"]
 fn vk_invalidate_mapped_memory_ranges(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let memory_range_count: u32 = packet.read();
-    let p_memory_ranges: *const VkMappedMemoryRange = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let memory_range_count: u32 = packet.read_shallow();
+    let p_memory_ranges: *const VkMappedMemoryRange = packet.read_deep();
     trace!("called vkInvalidateMappedMemoryRanges({device:?}, {memory_range_count:?}, {p_memory_ranges:?})");
 
     let result = unsafe {
@@ -1169,15 +1203,15 @@ fn vk_invalidate_mapped_memory_ranges(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMemoryCommitment.html>"]
 fn vk_get_device_memory_commitment(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let memory: NonDisposableHandle = packet.read();
-    let p_committed_memory_in_bytes: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let memory: NonDisposableHandle = packet.read_shallow();
+    let p_committed_memory_in_bytes: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetDeviceMemoryCommitment({device:?}, {memory:?}, {p_committed_memory_in_bytes:?})");
 
     let result = unsafe {
@@ -1189,16 +1223,18 @@ fn vk_get_device_memory_commitment(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_committed_memory_in_bytes);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_committed_memory_in_bytes);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferMemoryRequirements.html>"]
 fn vk_get_buffer_memory_requirements(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let p_memory_requirements: *mut VkMemoryRequirements = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let p_memory_requirements: *mut VkMemoryRequirements = packet.read_mut_deep();
     trace!("called vkGetBufferMemoryRequirements({device:?}, {buffer:?}, {p_memory_requirements:?})");
 
     let result = unsafe {
@@ -1210,17 +1246,19 @@ fn vk_get_buffer_memory_requirements(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_requirements);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_requirements);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindBufferMemory.html>"]
 fn vk_bind_buffer_memory(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let memory: NonDisposableHandle = packet.read();
-    let memory_offset: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let memory: NonDisposableHandle = packet.read_shallow();
+    let memory_offset: NonDisposableHandle = packet.read_shallow();
     trace!("called vkBindBufferMemory({device:?}, {buffer:?}, {memory:?}, {memory_offset:?})");
 
     let result = unsafe {
@@ -1233,15 +1271,15 @@ fn vk_bind_buffer_memory(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageMemoryRequirements.html>"]
 fn vk_get_image_memory_requirements(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let image: NonDisposableHandle = packet.read();
-    let p_memory_requirements: *mut VkMemoryRequirements = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let image: NonDisposableHandle = packet.read_shallow();
+    let p_memory_requirements: *mut VkMemoryRequirements = packet.read_mut_deep();
     trace!("called vkGetImageMemoryRequirements({device:?}, {image:?}, {p_memory_requirements:?})");
 
     let result = unsafe {
@@ -1253,17 +1291,19 @@ fn vk_get_image_memory_requirements(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_requirements);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_requirements);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindImageMemory.html>"]
 fn vk_bind_image_memory(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let image: NonDisposableHandle = packet.read();
-    let memory: NonDisposableHandle = packet.read();
-    let memory_offset: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let image: NonDisposableHandle = packet.read_shallow();
+    let memory: NonDisposableHandle = packet.read_shallow();
+    let memory_offset: NonDisposableHandle = packet.read_shallow();
     trace!("called vkBindImageMemory({device:?}, {image:?}, {memory:?}, {memory_offset:?})");
 
     let result = unsafe {
@@ -1276,14 +1316,14 @@ fn vk_bind_image_memory(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSparseMemoryRequirements.html>"]
 fn vk_get_image_sparse_memory_requirements(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let image: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let image: NonDisposableHandle = packet.read_shallow();
     let (mut p_sparse_memory_requirement_count, p_sparse_memory_requirements) = packet.read_and_allocate_vk_array_count::<VkSparseImageMemoryRequirements>();
     trace!("called vkGetImageSparseMemoryRequirements({device:?}, {image:?}, {p_sparse_memory_requirement_count:?}, {p_sparse_memory_requirements:?})");
 
@@ -1297,19 +1337,21 @@ fn vk_get_image_sparse_memory_requirements(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_sparse_memory_requirement_count, p_sparse_memory_requirements);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_sparse_memory_requirement_count, p_sparse_memory_requirements);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties.html>"]
 fn vk_get_physical_device_sparse_image_format_properties(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let format: NonDisposableHandle = packet.read();
-    let type_: NonDisposableHandle = packet.read();
-    let samples: vk::SampleCountFlags = packet.read();
-    let usage: NonDisposableHandle = packet.read();
-    let tiling: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let format: NonDisposableHandle = packet.read_shallow();
+    let type_: NonDisposableHandle = packet.read_shallow();
+    let samples: vk::SampleCountFlags = packet.read_shallow();
+    let usage: NonDisposableHandle = packet.read_shallow();
+    let tiling: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkSparseImageFormatProperties>();
     trace!("called vkGetPhysicalDeviceSparseImageFormatProperties({physical_device:?}, {format:?}, {type_:?}, {samples:?}, {usage:?}, {tiling:?}, {p_property_count:?}, {p_properties:?})");
 
@@ -1327,17 +1369,19 @@ fn vk_get_physical_device_sparse_image_format_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueBindSparse.html>"]
 fn vk_queue_bind_sparse(mut packet: Packet) {
-    let queue: NonDisposableHandle = packet.read();
-    let bind_info_count: u32 = packet.read();
-    let p_bind_info: *const VkBindSparseInfo = packet.read_nullable_raw_ptr();
-    let fence: NonDisposableHandle = packet.read();
+    let queue: NonDisposableHandle = packet.read_shallow();
+    let bind_info_count: u32 = packet.read_shallow();
+    let p_bind_info: *const VkBindSparseInfo = packet.read_deep();
+    let fence: NonDisposableHandle = packet.read_shallow();
     trace!("called vkQueueBindSparse({queue:?}, {bind_info_count:?}, {p_bind_info:?}, {fence:?})");
 
     let result = unsafe {
@@ -1350,16 +1394,16 @@ fn vk_queue_bind_sparse(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateFence.html>"]
 fn vk_create_fence(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkFenceCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_fence: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkFenceCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_fence: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateFence({device:?}, {p_create_info:?}, {p_allocator:?}, {p_fence:?})");
 
     let result = unsafe {
@@ -1372,16 +1416,18 @@ fn vk_create_fence(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_fence);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_fence);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyFence.html>"]
 fn vk_destroy_fence(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let fence: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let fence: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyFence({device:?}, {fence:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -1393,15 +1439,15 @@ fn vk_destroy_fence(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetFences.html>"]
 fn vk_reset_fences(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let fence_count: u32 = packet.read();
-    let p_fences: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let fence_count: u32 = packet.read_shallow();
+    let p_fences: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkResetFences({device:?}, {fence_count:?}, {p_fences:?})");
 
     let result = unsafe {
@@ -1413,14 +1459,14 @@ fn vk_reset_fences(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceStatus.html>"]
 fn vk_get_fence_status(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let fence: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let fence: NonDisposableHandle = packet.read_shallow();
     trace!("called vkGetFenceStatus({device:?}, {fence:?})");
 
     let result = unsafe {
@@ -1431,17 +1477,17 @@ fn vk_get_fence_status(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWaitForFences.html>"]
 fn vk_wait_for_fences(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let fence_count: u32 = packet.read();
-    let p_fences: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let wait_all: NonDisposableHandle = packet.read();
-    let timeout: u64 = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let fence_count: u32 = packet.read_shallow();
+    let p_fences: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let wait_all: NonDisposableHandle = packet.read_shallow();
+    let timeout: u64 = packet.read_shallow();
     trace!("called vkWaitForFences({device:?}, {fence_count:?}, {p_fences:?}, {wait_all:?}, {timeout:?})");
 
     let result = unsafe {
@@ -1455,16 +1501,16 @@ fn vk_wait_for_fences(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSemaphore.html>"]
 fn vk_create_semaphore(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkSemaphoreCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_semaphore: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkSemaphoreCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_semaphore: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateSemaphore({device:?}, {p_create_info:?}, {p_allocator:?}, {p_semaphore:?})");
 
     let result = unsafe {
@@ -1477,16 +1523,18 @@ fn vk_create_semaphore(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_semaphore);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_semaphore);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySemaphore.html>"]
 fn vk_destroy_semaphore(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let semaphore: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let semaphore: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroySemaphore({device:?}, {semaphore:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -1498,16 +1546,16 @@ fn vk_destroy_semaphore(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateEvent.html>"]
 fn vk_create_event(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkEventCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_event: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkEventCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_event: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateEvent({device:?}, {p_create_info:?}, {p_allocator:?}, {p_event:?})");
 
     let result = unsafe {
@@ -1520,16 +1568,18 @@ fn vk_create_event(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_event);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_event);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyEvent.html>"]
 fn vk_destroy_event(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let event: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let event: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyEvent({device:?}, {event:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -1541,14 +1591,14 @@ fn vk_destroy_event(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetEventStatus.html>"]
 fn vk_get_event_status(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let event: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let event: NonDisposableHandle = packet.read_shallow();
     trace!("called vkGetEventStatus({device:?}, {event:?})");
 
     let result = unsafe {
@@ -1559,14 +1609,14 @@ fn vk_get_event_status(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetEvent.html>"]
 fn vk_set_event(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let event: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let event: NonDisposableHandle = packet.read_shallow();
     trace!("called vkSetEvent({device:?}, {event:?})");
 
     let result = unsafe {
@@ -1577,14 +1627,14 @@ fn vk_set_event(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetEvent.html>"]
 fn vk_reset_event(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let event: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let event: NonDisposableHandle = packet.read_shallow();
     trace!("called vkResetEvent({device:?}, {event:?})");
 
     let result = unsafe {
@@ -1595,16 +1645,16 @@ fn vk_reset_event(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateQueryPool.html>"]
 fn vk_create_query_pool(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkQueryPoolCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_query_pool: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkQueryPoolCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_query_pool: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateQueryPool({device:?}, {p_create_info:?}, {p_allocator:?}, {p_query_pool:?})");
 
     let result = unsafe {
@@ -1617,16 +1667,18 @@ fn vk_create_query_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_query_pool);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_query_pool);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyQueryPool.html>"]
 fn vk_destroy_query_pool(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyQueryPool({device:?}, {query_pool:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -1638,20 +1690,20 @@ fn vk_destroy_query_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetQueryPoolResults.html>"]
 fn vk_get_query_pool_results(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let first_query: u32 = packet.read();
-    let query_count: u32 = packet.read();
-    let data_size: usize = packet.read();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
-    let stride: NonDisposableHandle = packet.read();
-    let flags: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let first_query: u32 = packet.read_shallow();
+    let query_count: u32 = packet.read_shallow();
+    let data_size: usize = packet.read_shallow();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
+    let stride: NonDisposableHandle = packet.read_shallow();
+    let flags: NonDisposableHandle = packet.read_shallow();
     trace!("called vkGetQueryPoolResults({device:?}, {query_pool:?}, {first_query:?}, {query_count:?}, {data_size:?}, {p_data:?}, {stride:?}, {flags:?})");
 
     let result = unsafe {
@@ -1668,17 +1720,19 @@ fn vk_get_query_pool_results(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetQueryPool.html>"]
 fn vk_reset_query_pool(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let first_query: u32 = packet.read();
-    let query_count: u32 = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let first_query: u32 = packet.read_shallow();
+    let query_count: u32 = packet.read_shallow();
     trace!("called vkResetQueryPool({device:?}, {query_pool:?}, {first_query:?}, {query_count:?})");
 
     let result = unsafe {
@@ -1691,16 +1745,16 @@ fn vk_reset_query_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBuffer.html>"]
 fn vk_create_buffer(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkBufferCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_buffer: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkBufferCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_buffer: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateBuffer({device:?}, {p_create_info:?}, {p_allocator:?}, {p_buffer:?})");
 
     let result = unsafe {
@@ -1713,16 +1767,18 @@ fn vk_create_buffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_buffer);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_buffer);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBuffer.html>"]
 fn vk_destroy_buffer(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyBuffer({device:?}, {buffer:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -1734,16 +1790,16 @@ fn vk_destroy_buffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBufferView.html>"]
 fn vk_create_buffer_view(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkBufferViewCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_view: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkBufferViewCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_view: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateBufferView({device:?}, {p_create_info:?}, {p_allocator:?}, {p_view:?})");
 
     let result = unsafe {
@@ -1756,16 +1812,18 @@ fn vk_create_buffer_view(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_view);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_view);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBufferView.html>"]
 fn vk_destroy_buffer_view(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let buffer_view: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let buffer_view: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyBufferView({device:?}, {buffer_view:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -1777,16 +1835,16 @@ fn vk_destroy_buffer_view(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImage.html>"]
 fn vk_create_image(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkImageCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_image: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkImageCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_image: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateImage({device:?}, {p_create_info:?}, {p_allocator:?}, {p_image:?})");
 
     let result = unsafe {
@@ -1799,16 +1857,18 @@ fn vk_create_image(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_image);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_image);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyImage.html>"]
 fn vk_destroy_image(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let image: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let image: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyImage({device:?}, {image:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -1820,16 +1880,16 @@ fn vk_destroy_image(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSubresourceLayout.html>"]
 fn vk_get_image_subresource_layout(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let image: NonDisposableHandle = packet.read();
-    let p_subresource: *const VkImageSubresource = packet.read_nullable_raw_ptr();
-    let p_layout: *mut VkSubresourceLayout = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let image: NonDisposableHandle = packet.read_shallow();
+    let p_subresource: *const VkImageSubresource = packet.read_deep();
+    let p_layout: *mut VkSubresourceLayout = packet.read_mut_deep();
     trace!("called vkGetImageSubresourceLayout({device:?}, {image:?}, {p_subresource:?}, {p_layout:?})");
 
     let result = unsafe {
@@ -1842,17 +1902,19 @@ fn vk_get_image_subresource_layout(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_layout);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_layout);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImageView.html>"]
 fn vk_create_image_view(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkImageViewCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_view: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkImageViewCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_view: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateImageView({device:?}, {p_create_info:?}, {p_allocator:?}, {p_view:?})");
 
     let result = unsafe {
@@ -1865,16 +1927,18 @@ fn vk_create_image_view(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_view);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_view);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyImageView.html>"]
 fn vk_destroy_image_view(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let image_view: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let image_view: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyImageView({device:?}, {image_view:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -1886,16 +1950,16 @@ fn vk_destroy_image_view(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateShaderModule.html>"]
 fn vk_create_shader_module(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkShaderModuleCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_shader_module: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkShaderModuleCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_shader_module: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateShaderModule({device:?}, {p_create_info:?}, {p_allocator:?}, {p_shader_module:?})");
 
     let result = unsafe {
@@ -1908,16 +1972,18 @@ fn vk_create_shader_module(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_shader_module);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_shader_module);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyShaderModule.html>"]
 fn vk_destroy_shader_module(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let shader_module: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let shader_module: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyShaderModule({device:?}, {shader_module:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -1929,16 +1995,16 @@ fn vk_destroy_shader_module(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineCache.html>"]
 fn vk_create_pipeline_cache(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkPipelineCacheCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_pipeline_cache: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkPipelineCacheCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_pipeline_cache: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreatePipelineCache({device:?}, {p_create_info:?}, {p_allocator:?}, {p_pipeline_cache:?})");
 
     let result = unsafe {
@@ -1951,16 +2017,18 @@ fn vk_create_pipeline_cache(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_pipeline_cache);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_pipeline_cache);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineCache.html>"]
 fn vk_destroy_pipeline_cache(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let pipeline_cache: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let pipeline_cache: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyPipelineCache({device:?}, {pipeline_cache:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -1972,16 +2040,16 @@ fn vk_destroy_pipeline_cache(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineCacheData.html>"]
 fn vk_get_pipeline_cache_data(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let pipeline_cache: NonDisposableHandle = packet.read();
-    let p_data_size: *mut usize = packet.read_nullable_raw_ptr_mut();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let pipeline_cache: NonDisposableHandle = packet.read_shallow();
+    let p_data_size: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetPipelineCacheData({device:?}, {pipeline_cache:?}, {p_data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -1994,18 +2062,20 @@ fn vk_get_pipeline_cache_data(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data_size);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data_size);
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMergePipelineCaches.html>"]
 fn vk_merge_pipeline_caches(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let dst_cache: NonDisposableHandle = packet.read();
-    let src_cache_count: u32 = packet.read();
-    let p_src_caches: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let dst_cache: NonDisposableHandle = packet.read_shallow();
+    let src_cache_count: u32 = packet.read_shallow();
+    let p_src_caches: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkMergePipelineCaches({device:?}, {dst_cache:?}, {src_cache_count:?}, {p_src_caches:?})");
 
     let result = unsafe {
@@ -2018,18 +2088,18 @@ fn vk_merge_pipeline_caches(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateGraphicsPipelines.html>"]
 fn vk_create_graphics_pipelines(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let pipeline_cache: NonDisposableHandle = packet.read();
-    let create_info_count: u32 = packet.read();
-    let p_create_infos: *const VkGraphicsPipelineCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_pipelines: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let pipeline_cache: NonDisposableHandle = packet.read_shallow();
+    let create_info_count: u32 = packet.read_shallow();
+    let p_create_infos: *const VkGraphicsPipelineCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_pipelines: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateGraphicsPipelines({device:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
     let result = unsafe {
@@ -2044,19 +2114,21 @@ fn vk_create_graphics_pipelines(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_pipelines);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_pipelines);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateComputePipelines.html>"]
 fn vk_create_compute_pipelines(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let pipeline_cache: NonDisposableHandle = packet.read();
-    let create_info_count: u32 = packet.read();
-    let p_create_infos: *const VkComputePipelineCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_pipelines: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let pipeline_cache: NonDisposableHandle = packet.read_shallow();
+    let create_info_count: u32 = packet.read_shallow();
+    let p_create_infos: *const VkComputePipelineCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_pipelines: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateComputePipelines({device:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
     let result = unsafe {
@@ -2071,16 +2143,18 @@ fn vk_create_compute_pipelines(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_pipelines);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_pipelines);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI.html>"]
 fn vk_get_device_subpass_shading_max_workgroup_size_huawei(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let renderpass: NonDisposableHandle = packet.read();
-    let p_max_workgroup_size: *mut VkExtent2D = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let renderpass: NonDisposableHandle = packet.read_shallow();
+    let p_max_workgroup_size: *mut VkExtent2D = packet.read_mut_deep();
     trace!("called vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI({device:?}, {renderpass:?}, {p_max_workgroup_size:?})");
 
     let result = unsafe {
@@ -2092,16 +2166,18 @@ fn vk_get_device_subpass_shading_max_workgroup_size_huawei(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_max_workgroup_size);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_max_workgroup_size);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipeline.html>"]
 fn vk_destroy_pipeline(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let pipeline: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let pipeline: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyPipeline({device:?}, {pipeline:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -2113,16 +2189,16 @@ fn vk_destroy_pipeline(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePipelineLayout.html>"]
 fn vk_create_pipeline_layout(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkPipelineLayoutCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_pipeline_layout: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkPipelineLayoutCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_pipeline_layout: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreatePipelineLayout({device:?}, {p_create_info:?}, {p_allocator:?}, {p_pipeline_layout:?})");
 
     let result = unsafe {
@@ -2135,16 +2211,18 @@ fn vk_create_pipeline_layout(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_pipeline_layout);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_pipeline_layout);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPipelineLayout.html>"]
 fn vk_destroy_pipeline_layout(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let pipeline_layout: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let pipeline_layout: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyPipelineLayout({device:?}, {pipeline_layout:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -2156,16 +2234,16 @@ fn vk_destroy_pipeline_layout(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSampler.html>"]
 fn vk_create_sampler(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkSamplerCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_sampler: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkSamplerCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_sampler: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateSampler({device:?}, {p_create_info:?}, {p_allocator:?}, {p_sampler:?})");
 
     let result = unsafe {
@@ -2178,16 +2256,18 @@ fn vk_create_sampler(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_sampler);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_sampler);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySampler.html>"]
 fn vk_destroy_sampler(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let sampler: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let sampler: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroySampler({device:?}, {sampler:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -2199,16 +2279,16 @@ fn vk_destroy_sampler(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorSetLayout.html>"]
 fn vk_create_descriptor_set_layout(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkDescriptorSetLayoutCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_set_layout: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkDescriptorSetLayoutCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_set_layout: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateDescriptorSetLayout({device:?}, {p_create_info:?}, {p_allocator:?}, {p_set_layout:?})");
 
     let result = unsafe {
@@ -2221,16 +2301,18 @@ fn vk_create_descriptor_set_layout(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_set_layout);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_set_layout);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorSetLayout.html>"]
 fn vk_destroy_descriptor_set_layout(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let descriptor_set_layout: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let descriptor_set_layout: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyDescriptorSetLayout({device:?}, {descriptor_set_layout:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -2242,16 +2324,16 @@ fn vk_destroy_descriptor_set_layout(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorPool.html>"]
 fn vk_create_descriptor_pool(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkDescriptorPoolCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_descriptor_pool: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkDescriptorPoolCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_descriptor_pool: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateDescriptorPool({device:?}, {p_create_info:?}, {p_allocator:?}, {p_descriptor_pool:?})");
 
     let result = unsafe {
@@ -2264,16 +2346,18 @@ fn vk_create_descriptor_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_descriptor_pool);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_descriptor_pool);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorPool.html>"]
 fn vk_destroy_descriptor_pool(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let descriptor_pool: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let descriptor_pool: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyDescriptorPool({device:?}, {descriptor_pool:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -2285,15 +2369,15 @@ fn vk_destroy_descriptor_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetDescriptorPool.html>"]
 fn vk_reset_descriptor_pool(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let descriptor_pool: NonDisposableHandle = packet.read();
-    let flags: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let descriptor_pool: NonDisposableHandle = packet.read_shallow();
+    let flags: NonDisposableHandle = packet.read_shallow();
     trace!("called vkResetDescriptorPool({device:?}, {descriptor_pool:?}, {flags:?})");
 
     let result = unsafe {
@@ -2305,15 +2389,15 @@ fn vk_reset_descriptor_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateDescriptorSets.html>"]
 fn vk_allocate_descriptor_sets(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_allocate_info: *const VkDescriptorSetAllocateInfo = packet.read_nullable_raw_ptr();
-    let p_descriptor_sets: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_allocate_info: *const VkDescriptorSetAllocateInfo = packet.read_deep();
+    let p_descriptor_sets: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkAllocateDescriptorSets({device:?}, {p_allocate_info:?}, {p_descriptor_sets:?})");
 
     let result = unsafe {
@@ -2325,17 +2409,19 @@ fn vk_allocate_descriptor_sets(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_descriptor_sets);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_descriptor_sets);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeDescriptorSets.html>"]
 fn vk_free_descriptor_sets(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let descriptor_pool: NonDisposableHandle = packet.read();
-    let descriptor_set_count: u32 = packet.read();
-    let p_descriptor_sets: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let descriptor_pool: NonDisposableHandle = packet.read_shallow();
+    let descriptor_set_count: u32 = packet.read_shallow();
+    let p_descriptor_sets: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkFreeDescriptorSets({device:?}, {descriptor_pool:?}, {descriptor_set_count:?}, {p_descriptor_sets:?})");
 
     let result = unsafe {
@@ -2348,17 +2434,17 @@ fn vk_free_descriptor_sets(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateDescriptorSets.html>"]
 fn vk_update_descriptor_sets(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let descriptor_write_count: u32 = packet.read();
-    let p_descriptor_writes: *const VkWriteDescriptorSet = packet.read_nullable_raw_ptr();
-    let descriptor_copy_count: u32 = packet.read();
-    let p_descriptor_copies: *const VkCopyDescriptorSet = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let descriptor_write_count: u32 = packet.read_shallow();
+    let p_descriptor_writes: *const VkWriteDescriptorSet = packet.read_deep();
+    let descriptor_copy_count: u32 = packet.read_shallow();
+    let p_descriptor_copies: *const VkCopyDescriptorSet = packet.read_deep();
     trace!("called vkUpdateDescriptorSets({device:?}, {descriptor_write_count:?}, {p_descriptor_writes:?}, {descriptor_copy_count:?}, {p_descriptor_copies:?})");
 
     let result = unsafe {
@@ -2372,16 +2458,16 @@ fn vk_update_descriptor_sets(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateFramebuffer.html>"]
 fn vk_create_framebuffer(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkFramebufferCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_framebuffer: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkFramebufferCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_framebuffer: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateFramebuffer({device:?}, {p_create_info:?}, {p_allocator:?}, {p_framebuffer:?})");
 
     let result = unsafe {
@@ -2394,16 +2480,18 @@ fn vk_create_framebuffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_framebuffer);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_framebuffer);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyFramebuffer.html>"]
 fn vk_destroy_framebuffer(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let framebuffer: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let framebuffer: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyFramebuffer({device:?}, {framebuffer:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -2415,16 +2503,16 @@ fn vk_destroy_framebuffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRenderPass.html>"]
 fn vk_create_render_pass(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkRenderPassCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_render_pass: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkRenderPassCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_render_pass: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateRenderPass({device:?}, {p_create_info:?}, {p_allocator:?}, {p_render_pass:?})");
 
     let result = unsafe {
@@ -2437,16 +2525,18 @@ fn vk_create_render_pass(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_render_pass);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_render_pass);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyRenderPass.html>"]
 fn vk_destroy_render_pass(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let render_pass: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let render_pass: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyRenderPass({device:?}, {render_pass:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -2458,15 +2548,15 @@ fn vk_destroy_render_pass(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRenderAreaGranularity.html>"]
 fn vk_get_render_area_granularity(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let render_pass: NonDisposableHandle = packet.read();
-    let p_granularity: *mut VkExtent2D = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let render_pass: NonDisposableHandle = packet.read_shallow();
+    let p_granularity: *mut VkExtent2D = packet.read_mut_deep();
     trace!("called vkGetRenderAreaGranularity({device:?}, {render_pass:?}, {p_granularity:?})");
 
     let result = unsafe {
@@ -2478,16 +2568,18 @@ fn vk_get_render_area_granularity(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_granularity);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_granularity);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRenderingAreaGranularityKHR.html>"]
 fn vk_get_rendering_area_granularity_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_rendering_area_info: *const VkRenderingAreaInfoKHR = packet.read_nullable_raw_ptr();
-    let p_granularity: *mut VkExtent2D = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_rendering_area_info: *const VkRenderingAreaInfoKHR = packet.read_deep();
+    let p_granularity: *mut VkExtent2D = packet.read_mut_deep();
     trace!("called vkGetRenderingAreaGranularityKHR({device:?}, {p_rendering_area_info:?}, {p_granularity:?})");
 
     let result = unsafe {
@@ -2499,17 +2591,19 @@ fn vk_get_rendering_area_granularity_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_granularity);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_granularity);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCommandPool.html>"]
 fn vk_create_command_pool(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkCommandPoolCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_command_pool: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkCommandPoolCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_command_pool: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateCommandPool({device:?}, {p_create_info:?}, {p_allocator:?}, {p_command_pool:?})");
 
     let result = unsafe {
@@ -2522,16 +2616,18 @@ fn vk_create_command_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_command_pool);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_command_pool);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCommandPool.html>"]
 fn vk_destroy_command_pool(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let command_pool: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let command_pool: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyCommandPool({device:?}, {command_pool:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -2543,15 +2639,15 @@ fn vk_destroy_command_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetCommandPool.html>"]
 fn vk_reset_command_pool(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let command_pool: NonDisposableHandle = packet.read();
-    let flags: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let command_pool: NonDisposableHandle = packet.read_shallow();
+    let flags: NonDisposableHandle = packet.read_shallow();
     trace!("called vkResetCommandPool({device:?}, {command_pool:?}, {flags:?})");
 
     let result = unsafe {
@@ -2563,15 +2659,15 @@ fn vk_reset_command_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAllocateCommandBuffers.html>"]
 fn vk_allocate_command_buffers(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_allocate_info: *const VkCommandBufferAllocateInfo = packet.read_nullable_raw_ptr();
-    let p_command_buffers: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_allocate_info: *const VkCommandBufferAllocateInfo = packet.read_deep();
+    let p_command_buffers: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkAllocateCommandBuffers({device:?}, {p_allocate_info:?}, {p_command_buffers:?})");
 
     let result = unsafe {
@@ -2583,17 +2679,19 @@ fn vk_allocate_command_buffers(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_command_buffers);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_command_buffers);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkFreeCommandBuffers.html>"]
 fn vk_free_command_buffers(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let command_pool: NonDisposableHandle = packet.read();
-    let command_buffer_count: u32 = packet.read();
-    let p_command_buffers: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let command_pool: NonDisposableHandle = packet.read_shallow();
+    let command_buffer_count: u32 = packet.read_shallow();
+    let p_command_buffers: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkFreeCommandBuffers({device:?}, {command_pool:?}, {command_buffer_count:?}, {p_command_buffers:?})");
 
     let result = unsafe {
@@ -2606,14 +2704,14 @@ fn vk_free_command_buffers(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBeginCommandBuffer.html>"]
 fn vk_begin_command_buffer(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_begin_info: *const VkCommandBufferBeginInfo = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_begin_info: *const VkCommandBufferBeginInfo = packet.read_deep();
     trace!("called vkBeginCommandBuffer({command_buffer:?}, {p_begin_info:?})");
 
     let result = unsafe {
@@ -2624,13 +2722,13 @@ fn vk_begin_command_buffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEndCommandBuffer.html>"]
 fn vk_end_command_buffer(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
     trace!("called vkEndCommandBuffer({command_buffer:?})");
 
     let result = unsafe {
@@ -2640,14 +2738,14 @@ fn vk_end_command_buffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkResetCommandBuffer.html>"]
 fn vk_reset_command_buffer(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let flags: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let flags: NonDisposableHandle = packet.read_shallow();
     trace!("called vkResetCommandBuffer({command_buffer:?}, {flags:?})");
 
     let result = unsafe {
@@ -2658,15 +2756,15 @@ fn vk_reset_command_buffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindPipeline.html>"]
 fn vk_cmd_bind_pipeline(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let pipeline_bind_point: NonDisposableHandle = packet.read();
-    let pipeline: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let pipeline_bind_point: NonDisposableHandle = packet.read_shallow();
+    let pipeline: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdBindPipeline({command_buffer:?}, {pipeline_bind_point:?}, {pipeline:?})");
 
     let result = unsafe {
@@ -2678,14 +2776,14 @@ fn vk_cmd_bind_pipeline(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetAttachmentFeedbackLoopEnableEXT.html>"]
 fn vk_cmd_set_attachment_feedback_loop_enable_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let aspect_mask: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let aspect_mask: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetAttachmentFeedbackLoopEnableEXT({command_buffer:?}, {aspect_mask:?})");
 
     let result = unsafe {
@@ -2696,16 +2794,16 @@ fn vk_cmd_set_attachment_feedback_loop_enable_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewport.html>"]
 fn vk_cmd_set_viewport(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_viewport: u32 = packet.read();
-    let viewport_count: u32 = packet.read();
-    let p_viewports: *const VkViewport = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_viewport: u32 = packet.read_shallow();
+    let viewport_count: u32 = packet.read_shallow();
+    let p_viewports: *const VkViewport = packet.read_deep();
     trace!("called vkCmdSetViewport({command_buffer:?}, {first_viewport:?}, {viewport_count:?}, {p_viewports:?})");
 
     let result = unsafe {
@@ -2718,16 +2816,16 @@ fn vk_cmd_set_viewport(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetScissor.html>"]
 fn vk_cmd_set_scissor(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_scissor: u32 = packet.read();
-    let scissor_count: u32 = packet.read();
-    let p_scissors: *const VkRect2D = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_scissor: u32 = packet.read_shallow();
+    let scissor_count: u32 = packet.read_shallow();
+    let p_scissors: *const VkRect2D = packet.read_deep();
     trace!("called vkCmdSetScissor({command_buffer:?}, {first_scissor:?}, {scissor_count:?}, {p_scissors:?})");
 
     let result = unsafe {
@@ -2740,14 +2838,14 @@ fn vk_cmd_set_scissor(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineWidth.html>"]
 fn vk_cmd_set_line_width(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let line_width: f32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let line_width: f32 = packet.read_shallow();
     trace!("called vkCmdSetLineWidth({command_buffer:?}, {line_width:?})");
 
     let result = unsafe {
@@ -2758,16 +2856,16 @@ fn vk_cmd_set_line_width(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBias.html>"]
 fn vk_cmd_set_depth_bias(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let depth_bias_constant_factor: f32 = packet.read();
-    let depth_bias_clamp: f32 = packet.read();
-    let depth_bias_slope_factor: f32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let depth_bias_constant_factor: f32 = packet.read_shallow();
+    let depth_bias_clamp: f32 = packet.read_shallow();
+    let depth_bias_slope_factor: f32 = packet.read_shallow();
     trace!("called vkCmdSetDepthBias({command_buffer:?}, {depth_bias_constant_factor:?}, {depth_bias_clamp:?}, {depth_bias_slope_factor:?})");
 
     let result = unsafe {
@@ -2780,14 +2878,14 @@ fn vk_cmd_set_depth_bias(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetBlendConstants.html>"]
 fn vk_cmd_set_blend_constants(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let blend_constants: *const [f32; 4] = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let blend_constants: *const [f32; 4] = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdSetBlendConstants({command_buffer:?}, {blend_constants:?})");
 
     let result = unsafe {
@@ -2798,15 +2896,15 @@ fn vk_cmd_set_blend_constants(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBounds.html>"]
 fn vk_cmd_set_depth_bounds(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let min_depth_bounds: f32 = packet.read();
-    let max_depth_bounds: f32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let min_depth_bounds: f32 = packet.read_shallow();
+    let max_depth_bounds: f32 = packet.read_shallow();
     trace!("called vkCmdSetDepthBounds({command_buffer:?}, {min_depth_bounds:?}, {max_depth_bounds:?})");
 
     let result = unsafe {
@@ -2818,15 +2916,15 @@ fn vk_cmd_set_depth_bounds(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilCompareMask.html>"]
 fn vk_cmd_set_stencil_compare_mask(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let face_mask: NonDisposableHandle = packet.read();
-    let compare_mask: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let face_mask: NonDisposableHandle = packet.read_shallow();
+    let compare_mask: u32 = packet.read_shallow();
     trace!("called vkCmdSetStencilCompareMask({command_buffer:?}, {face_mask:?}, {compare_mask:?})");
 
     let result = unsafe {
@@ -2838,15 +2936,15 @@ fn vk_cmd_set_stencil_compare_mask(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilWriteMask.html>"]
 fn vk_cmd_set_stencil_write_mask(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let face_mask: NonDisposableHandle = packet.read();
-    let write_mask: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let face_mask: NonDisposableHandle = packet.read_shallow();
+    let write_mask: u32 = packet.read_shallow();
     trace!("called vkCmdSetStencilWriteMask({command_buffer:?}, {face_mask:?}, {write_mask:?})");
 
     let result = unsafe {
@@ -2858,15 +2956,15 @@ fn vk_cmd_set_stencil_write_mask(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilReference.html>"]
 fn vk_cmd_set_stencil_reference(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let face_mask: NonDisposableHandle = packet.read();
-    let reference: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let face_mask: NonDisposableHandle = packet.read_shallow();
+    let reference: u32 = packet.read_shallow();
     trace!("called vkCmdSetStencilReference({command_buffer:?}, {face_mask:?}, {reference:?})");
 
     let result = unsafe {
@@ -2878,20 +2976,20 @@ fn vk_cmd_set_stencil_reference(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorSets.html>"]
 fn vk_cmd_bind_descriptor_sets(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let pipeline_bind_point: NonDisposableHandle = packet.read();
-    let layout: NonDisposableHandle = packet.read();
-    let first_set: u32 = packet.read();
-    let descriptor_set_count: u32 = packet.read();
-    let p_descriptor_sets: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let dynamic_offset_count: u32 = packet.read();
-    let p_dynamic_offsets: *const u32 = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let pipeline_bind_point: NonDisposableHandle = packet.read_shallow();
+    let layout: NonDisposableHandle = packet.read_shallow();
+    let first_set: u32 = packet.read_shallow();
+    let descriptor_set_count: u32 = packet.read_shallow();
+    let p_descriptor_sets: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let dynamic_offset_count: u32 = packet.read_shallow();
+    let p_dynamic_offsets: *const u32 = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdBindDescriptorSets({command_buffer:?}, {pipeline_bind_point:?}, {layout:?}, {first_set:?}, {descriptor_set_count:?}, {p_descriptor_sets:?}, {dynamic_offset_count:?}, {p_dynamic_offsets:?})");
 
     let result = unsafe {
@@ -2908,16 +3006,16 @@ fn vk_cmd_bind_descriptor_sets(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindIndexBuffer.html>"]
 fn vk_cmd_bind_index_buffer(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let offset: NonDisposableHandle = packet.read();
-    let index_type: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let offset: NonDisposableHandle = packet.read_shallow();
+    let index_type: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdBindIndexBuffer({command_buffer:?}, {buffer:?}, {offset:?}, {index_type:?})");
 
     let result = unsafe {
@@ -2930,17 +3028,17 @@ fn vk_cmd_bind_index_buffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindVertexBuffers.html>"]
 fn vk_cmd_bind_vertex_buffers(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_binding: u32 = packet.read();
-    let binding_count: u32 = packet.read();
-    let p_buffers: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let p_offsets: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_binding: u32 = packet.read_shallow();
+    let binding_count: u32 = packet.read_shallow();
+    let p_buffers: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let p_offsets: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdBindVertexBuffers({command_buffer:?}, {first_binding:?}, {binding_count:?}, {p_buffers:?}, {p_offsets:?})");
 
     let result = unsafe {
@@ -2954,17 +3052,17 @@ fn vk_cmd_bind_vertex_buffers(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDraw.html>"]
 fn vk_cmd_draw(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let vertex_count: u32 = packet.read();
-    let instance_count: u32 = packet.read();
-    let first_vertex: u32 = packet.read();
-    let first_instance: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let vertex_count: u32 = packet.read_shallow();
+    let instance_count: u32 = packet.read_shallow();
+    let first_vertex: u32 = packet.read_shallow();
+    let first_instance: u32 = packet.read_shallow();
     trace!("called vkCmdDraw({command_buffer:?}, {vertex_count:?}, {instance_count:?}, {first_vertex:?}, {first_instance:?})");
 
     let result = unsafe {
@@ -2978,18 +3076,18 @@ fn vk_cmd_draw(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexed.html>"]
 fn vk_cmd_draw_indexed(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let index_count: u32 = packet.read();
-    let instance_count: u32 = packet.read();
-    let first_index: u32 = packet.read();
-    let vertex_offset: i32 = packet.read();
-    let first_instance: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let index_count: u32 = packet.read_shallow();
+    let instance_count: u32 = packet.read_shallow();
+    let first_index: u32 = packet.read_shallow();
+    let vertex_offset: i32 = packet.read_shallow();
+    let first_instance: u32 = packet.read_shallow();
     trace!("called vkCmdDrawIndexed({command_buffer:?}, {index_count:?}, {instance_count:?}, {first_index:?}, {vertex_offset:?}, {first_instance:?})");
 
     let result = unsafe {
@@ -3004,18 +3102,18 @@ fn vk_cmd_draw_indexed(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMultiEXT.html>"]
 fn vk_cmd_draw_multi_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let draw_count: u32 = packet.read();
-    let p_vertex_info: *const VkMultiDrawInfoEXT = packet.read_nullable_raw_ptr();
-    let instance_count: u32 = packet.read();
-    let first_instance: u32 = packet.read();
-    let stride: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let draw_count: u32 = packet.read_shallow();
+    let p_vertex_info: *const VkMultiDrawInfoEXT = packet.read_deep();
+    let instance_count: u32 = packet.read_shallow();
+    let first_instance: u32 = packet.read_shallow();
+    let stride: u32 = packet.read_shallow();
     trace!("called vkCmdDrawMultiEXT({command_buffer:?}, {draw_count:?}, {p_vertex_info:?}, {instance_count:?}, {first_instance:?}, {stride:?})");
 
     let result = unsafe {
@@ -3030,19 +3128,19 @@ fn vk_cmd_draw_multi_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMultiIndexedEXT.html>"]
 fn vk_cmd_draw_multi_indexed_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let draw_count: u32 = packet.read();
-    let p_index_info: *const VkMultiDrawIndexedInfoEXT = packet.read_nullable_raw_ptr();
-    let instance_count: u32 = packet.read();
-    let first_instance: u32 = packet.read();
-    let stride: u32 = packet.read();
-    let p_vertex_offset: *const i32 = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let draw_count: u32 = packet.read_shallow();
+    let p_index_info: *const VkMultiDrawIndexedInfoEXT = packet.read_deep();
+    let instance_count: u32 = packet.read_shallow();
+    let first_instance: u32 = packet.read_shallow();
+    let stride: u32 = packet.read_shallow();
+    let p_vertex_offset: *const i32 = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdDrawMultiIndexedEXT({command_buffer:?}, {draw_count:?}, {p_index_info:?}, {instance_count:?}, {first_instance:?}, {stride:?}, {p_vertex_offset:?})");
 
     let result = unsafe {
@@ -3058,17 +3156,17 @@ fn vk_cmd_draw_multi_indexed_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirect.html>"]
 fn vk_cmd_draw_indirect(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let offset: NonDisposableHandle = packet.read();
-    let draw_count: u32 = packet.read();
-    let stride: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let offset: NonDisposableHandle = packet.read_shallow();
+    let draw_count: u32 = packet.read_shallow();
+    let stride: u32 = packet.read_shallow();
     trace!("called vkCmdDrawIndirect({command_buffer:?}, {buffer:?}, {offset:?}, {draw_count:?}, {stride:?})");
 
     let result = unsafe {
@@ -3082,17 +3180,17 @@ fn vk_cmd_draw_indirect(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexedIndirect.html>"]
 fn vk_cmd_draw_indexed_indirect(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let offset: NonDisposableHandle = packet.read();
-    let draw_count: u32 = packet.read();
-    let stride: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let offset: NonDisposableHandle = packet.read_shallow();
+    let draw_count: u32 = packet.read_shallow();
+    let stride: u32 = packet.read_shallow();
     trace!("called vkCmdDrawIndexedIndirect({command_buffer:?}, {buffer:?}, {offset:?}, {draw_count:?}, {stride:?})");
 
     let result = unsafe {
@@ -3106,16 +3204,16 @@ fn vk_cmd_draw_indexed_indirect(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatch.html>"]
 fn vk_cmd_dispatch(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let group_count_x: u32 = packet.read();
-    let group_count_y: u32 = packet.read();
-    let group_count_z: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let group_count_x: u32 = packet.read_shallow();
+    let group_count_y: u32 = packet.read_shallow();
+    let group_count_z: u32 = packet.read_shallow();
     trace!("called vkCmdDispatch({command_buffer:?}, {group_count_x:?}, {group_count_y:?}, {group_count_z:?})");
 
     let result = unsafe {
@@ -3128,15 +3226,15 @@ fn vk_cmd_dispatch(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchIndirect.html>"]
 fn vk_cmd_dispatch_indirect(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let offset: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let offset: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdDispatchIndirect({command_buffer:?}, {buffer:?}, {offset:?})");
 
     let result = unsafe {
@@ -3148,13 +3246,13 @@ fn vk_cmd_dispatch_indirect(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSubpassShadingHUAWEI.html>"]
 fn vk_cmd_subpass_shading_huawei(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSubpassShadingHUAWEI({command_buffer:?})");
 
     let result = unsafe {
@@ -3164,16 +3262,16 @@ fn vk_cmd_subpass_shading_huawei(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawClusterHUAWEI.html>"]
 fn vk_cmd_draw_cluster_huawei(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let group_count_x: u32 = packet.read();
-    let group_count_y: u32 = packet.read();
-    let group_count_z: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let group_count_x: u32 = packet.read_shallow();
+    let group_count_y: u32 = packet.read_shallow();
+    let group_count_z: u32 = packet.read_shallow();
     trace!("called vkCmdDrawClusterHUAWEI({command_buffer:?}, {group_count_x:?}, {group_count_y:?}, {group_count_z:?})");
 
     let result = unsafe {
@@ -3186,15 +3284,15 @@ fn vk_cmd_draw_cluster_huawei(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawClusterIndirectHUAWEI.html>"]
 fn vk_cmd_draw_cluster_indirect_huawei(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let offset: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let offset: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdDrawClusterIndirectHUAWEI({command_buffer:?}, {buffer:?}, {offset:?})");
 
     let result = unsafe {
@@ -3206,15 +3304,15 @@ fn vk_cmd_draw_cluster_indirect_huawei(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdUpdatePipelineIndirectBufferNV.html>"]
 fn vk_cmd_update_pipeline_indirect_buffer_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let pipeline_bind_point: NonDisposableHandle = packet.read();
-    let pipeline: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let pipeline_bind_point: NonDisposableHandle = packet.read_shallow();
+    let pipeline: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdUpdatePipelineIndirectBufferNV({command_buffer:?}, {pipeline_bind_point:?}, {pipeline:?})");
 
     let result = unsafe {
@@ -3226,17 +3324,17 @@ fn vk_cmd_update_pipeline_indirect_buffer_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBuffer.html>"]
 fn vk_cmd_copy_buffer(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let src_buffer: NonDisposableHandle = packet.read();
-    let dst_buffer: NonDisposableHandle = packet.read();
-    let region_count: u32 = packet.read();
-    let p_regions: *const VkBufferCopy = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let src_buffer: NonDisposableHandle = packet.read_shallow();
+    let dst_buffer: NonDisposableHandle = packet.read_shallow();
+    let region_count: u32 = packet.read_shallow();
+    let p_regions: *const VkBufferCopy = packet.read_deep();
     trace!("called vkCmdCopyBuffer({command_buffer:?}, {src_buffer:?}, {dst_buffer:?}, {region_count:?}, {p_regions:?})");
 
     let result = unsafe {
@@ -3250,19 +3348,19 @@ fn vk_cmd_copy_buffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImage.html>"]
 fn vk_cmd_copy_image(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let src_image: NonDisposableHandle = packet.read();
-    let src_image_layout: NonDisposableHandle = packet.read();
-    let dst_image: NonDisposableHandle = packet.read();
-    let dst_image_layout: NonDisposableHandle = packet.read();
-    let region_count: u32 = packet.read();
-    let p_regions: *const VkImageCopy = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let src_image: NonDisposableHandle = packet.read_shallow();
+    let src_image_layout: NonDisposableHandle = packet.read_shallow();
+    let dst_image: NonDisposableHandle = packet.read_shallow();
+    let dst_image_layout: NonDisposableHandle = packet.read_shallow();
+    let region_count: u32 = packet.read_shallow();
+    let p_regions: *const VkImageCopy = packet.read_deep();
     trace!("called vkCmdCopyImage({command_buffer:?}, {src_image:?}, {src_image_layout:?}, {dst_image:?}, {dst_image_layout:?}, {region_count:?}, {p_regions:?})");
 
     let result = unsafe {
@@ -3278,20 +3376,20 @@ fn vk_cmd_copy_image(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBlitImage.html>"]
 fn vk_cmd_blit_image(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let src_image: NonDisposableHandle = packet.read();
-    let src_image_layout: NonDisposableHandle = packet.read();
-    let dst_image: NonDisposableHandle = packet.read();
-    let dst_image_layout: NonDisposableHandle = packet.read();
-    let region_count: u32 = packet.read();
-    let p_regions: *const VkImageBlit = packet.read_nullable_raw_ptr();
-    let filter: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let src_image: NonDisposableHandle = packet.read_shallow();
+    let src_image_layout: NonDisposableHandle = packet.read_shallow();
+    let dst_image: NonDisposableHandle = packet.read_shallow();
+    let dst_image_layout: NonDisposableHandle = packet.read_shallow();
+    let region_count: u32 = packet.read_shallow();
+    let p_regions: *const VkImageBlit = packet.read_deep();
+    let filter: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdBlitImage({command_buffer:?}, {src_image:?}, {src_image_layout:?}, {dst_image:?}, {dst_image_layout:?}, {region_count:?}, {p_regions:?}, {filter:?})");
 
     let result = unsafe {
@@ -3308,18 +3406,18 @@ fn vk_cmd_blit_image(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBufferToImage.html>"]
 fn vk_cmd_copy_buffer_to_image(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let src_buffer: NonDisposableHandle = packet.read();
-    let dst_image: NonDisposableHandle = packet.read();
-    let dst_image_layout: NonDisposableHandle = packet.read();
-    let region_count: u32 = packet.read();
-    let p_regions: *const VkBufferImageCopy = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let src_buffer: NonDisposableHandle = packet.read_shallow();
+    let dst_image: NonDisposableHandle = packet.read_shallow();
+    let dst_image_layout: NonDisposableHandle = packet.read_shallow();
+    let region_count: u32 = packet.read_shallow();
+    let p_regions: *const VkBufferImageCopy = packet.read_deep();
     trace!("called vkCmdCopyBufferToImage({command_buffer:?}, {src_buffer:?}, {dst_image:?}, {dst_image_layout:?}, {region_count:?}, {p_regions:?})");
 
     let result = unsafe {
@@ -3334,18 +3432,18 @@ fn vk_cmd_copy_buffer_to_image(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImageToBuffer.html>"]
 fn vk_cmd_copy_image_to_buffer(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let src_image: NonDisposableHandle = packet.read();
-    let src_image_layout: NonDisposableHandle = packet.read();
-    let dst_buffer: NonDisposableHandle = packet.read();
-    let region_count: u32 = packet.read();
-    let p_regions: *const VkBufferImageCopy = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let src_image: NonDisposableHandle = packet.read_shallow();
+    let src_image_layout: NonDisposableHandle = packet.read_shallow();
+    let dst_buffer: NonDisposableHandle = packet.read_shallow();
+    let region_count: u32 = packet.read_shallow();
+    let p_regions: *const VkBufferImageCopy = packet.read_deep();
     trace!("called vkCmdCopyImageToBuffer({command_buffer:?}, {src_image:?}, {src_image_layout:?}, {dst_buffer:?}, {region_count:?}, {p_regions:?})");
 
     let result = unsafe {
@@ -3360,16 +3458,16 @@ fn vk_cmd_copy_image_to_buffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryIndirectNV.html>"]
 fn vk_cmd_copy_memory_indirect_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let copy_buffer_address: NonDisposableHandle = packet.read();
-    let copy_count: u32 = packet.read();
-    let stride: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let copy_buffer_address: NonDisposableHandle = packet.read_shallow();
+    let copy_count: u32 = packet.read_shallow();
+    let stride: u32 = packet.read_shallow();
     trace!("called vkCmdCopyMemoryIndirectNV({command_buffer:?}, {copy_buffer_address:?}, {copy_count:?}, {stride:?})");
 
     let result = unsafe {
@@ -3382,19 +3480,19 @@ fn vk_cmd_copy_memory_indirect_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryToImageIndirectNV.html>"]
 fn vk_cmd_copy_memory_to_image_indirect_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let copy_buffer_address: NonDisposableHandle = packet.read();
-    let copy_count: u32 = packet.read();
-    let stride: u32 = packet.read();
-    let dst_image: NonDisposableHandle = packet.read();
-    let dst_image_layout: NonDisposableHandle = packet.read();
-    let p_image_subresources: *const VkImageSubresourceLayers = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let copy_buffer_address: NonDisposableHandle = packet.read_shallow();
+    let copy_count: u32 = packet.read_shallow();
+    let stride: u32 = packet.read_shallow();
+    let dst_image: NonDisposableHandle = packet.read_shallow();
+    let dst_image_layout: NonDisposableHandle = packet.read_shallow();
+    let p_image_subresources: *const VkImageSubresourceLayers = packet.read_deep();
     trace!("called vkCmdCopyMemoryToImageIndirectNV({command_buffer:?}, {copy_buffer_address:?}, {copy_count:?}, {stride:?}, {dst_image:?}, {dst_image_layout:?}, {p_image_subresources:?})");
 
     let result = unsafe {
@@ -3410,17 +3508,17 @@ fn vk_cmd_copy_memory_to_image_indirect_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdUpdateBuffer.html>"]
 fn vk_cmd_update_buffer(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let dst_buffer: NonDisposableHandle = packet.read();
-    let dst_offset: NonDisposableHandle = packet.read();
-    let data_size: NonDisposableHandle = packet.read();
-    let p_data: *const c_void = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let dst_buffer: NonDisposableHandle = packet.read_shallow();
+    let dst_offset: NonDisposableHandle = packet.read_shallow();
+    let data_size: NonDisposableHandle = packet.read_shallow();
+    let p_data: *const c_void = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdUpdateBuffer({command_buffer:?}, {dst_buffer:?}, {dst_offset:?}, {data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -3434,17 +3532,17 @@ fn vk_cmd_update_buffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdFillBuffer.html>"]
 fn vk_cmd_fill_buffer(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let dst_buffer: NonDisposableHandle = packet.read();
-    let dst_offset: NonDisposableHandle = packet.read();
-    let size: NonDisposableHandle = packet.read();
-    let data: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let dst_buffer: NonDisposableHandle = packet.read_shallow();
+    let dst_offset: NonDisposableHandle = packet.read_shallow();
+    let size: NonDisposableHandle = packet.read_shallow();
+    let data: u32 = packet.read_shallow();
     trace!("called vkCmdFillBuffer({command_buffer:?}, {dst_buffer:?}, {dst_offset:?}, {size:?}, {data:?})");
 
     let result = unsafe {
@@ -3458,18 +3556,18 @@ fn vk_cmd_fill_buffer(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearColorImage.html>"]
 fn vk_cmd_clear_color_image(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let image: NonDisposableHandle = packet.read();
-    let image_layout: NonDisposableHandle = packet.read();
-    let p_color: *const VkClearColorValue = packet.read_nullable_raw_ptr();
-    let range_count: u32 = packet.read();
-    let p_ranges: *const VkImageSubresourceRange = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let image: NonDisposableHandle = packet.read_shallow();
+    let image_layout: NonDisposableHandle = packet.read_shallow();
+    let p_color: *const VkClearColorValue = packet.read_deep();
+    let range_count: u32 = packet.read_shallow();
+    let p_ranges: *const VkImageSubresourceRange = packet.read_deep();
     trace!("called vkCmdClearColorImage({command_buffer:?}, {image:?}, {image_layout:?}, {p_color:?}, {range_count:?}, {p_ranges:?})");
 
     let result = unsafe {
@@ -3484,18 +3582,18 @@ fn vk_cmd_clear_color_image(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearDepthStencilImage.html>"]
 fn vk_cmd_clear_depth_stencil_image(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let image: NonDisposableHandle = packet.read();
-    let image_layout: NonDisposableHandle = packet.read();
-    let p_depth_stencil: *const VkClearDepthStencilValue = packet.read_nullable_raw_ptr();
-    let range_count: u32 = packet.read();
-    let p_ranges: *const VkImageSubresourceRange = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let image: NonDisposableHandle = packet.read_shallow();
+    let image_layout: NonDisposableHandle = packet.read_shallow();
+    let p_depth_stencil: *const VkClearDepthStencilValue = packet.read_deep();
+    let range_count: u32 = packet.read_shallow();
+    let p_ranges: *const VkImageSubresourceRange = packet.read_deep();
     trace!("called vkCmdClearDepthStencilImage({command_buffer:?}, {image:?}, {image_layout:?}, {p_depth_stencil:?}, {range_count:?}, {p_ranges:?})");
 
     let result = unsafe {
@@ -3510,17 +3608,17 @@ fn vk_cmd_clear_depth_stencil_image(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdClearAttachments.html>"]
 fn vk_cmd_clear_attachments(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let attachment_count: u32 = packet.read();
-    let p_attachments: *const VkClearAttachment = packet.read_nullable_raw_ptr();
-    let rect_count: u32 = packet.read();
-    let p_rects: *const VkClearRect = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let attachment_count: u32 = packet.read_shallow();
+    let p_attachments: *const VkClearAttachment = packet.read_deep();
+    let rect_count: u32 = packet.read_shallow();
+    let p_rects: *const VkClearRect = packet.read_deep();
     trace!("called vkCmdClearAttachments({command_buffer:?}, {attachment_count:?}, {p_attachments:?}, {rect_count:?}, {p_rects:?})");
 
     let result = unsafe {
@@ -3534,19 +3632,19 @@ fn vk_cmd_clear_attachments(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResolveImage.html>"]
 fn vk_cmd_resolve_image(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let src_image: NonDisposableHandle = packet.read();
-    let src_image_layout: NonDisposableHandle = packet.read();
-    let dst_image: NonDisposableHandle = packet.read();
-    let dst_image_layout: NonDisposableHandle = packet.read();
-    let region_count: u32 = packet.read();
-    let p_regions: *const VkImageResolve = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let src_image: NonDisposableHandle = packet.read_shallow();
+    let src_image_layout: NonDisposableHandle = packet.read_shallow();
+    let dst_image: NonDisposableHandle = packet.read_shallow();
+    let dst_image_layout: NonDisposableHandle = packet.read_shallow();
+    let region_count: u32 = packet.read_shallow();
+    let p_regions: *const VkImageResolve = packet.read_deep();
     trace!("called vkCmdResolveImage({command_buffer:?}, {src_image:?}, {src_image_layout:?}, {dst_image:?}, {dst_image_layout:?}, {region_count:?}, {p_regions:?})");
 
     let result = unsafe {
@@ -3562,15 +3660,15 @@ fn vk_cmd_resolve_image(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetEvent.html>"]
 fn vk_cmd_set_event(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let event: NonDisposableHandle = packet.read();
-    let stage_mask: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let event: NonDisposableHandle = packet.read_shallow();
+    let stage_mask: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetEvent({command_buffer:?}, {event:?}, {stage_mask:?})");
 
     let result = unsafe {
@@ -3582,15 +3680,15 @@ fn vk_cmd_set_event(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetEvent.html>"]
 fn vk_cmd_reset_event(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let event: NonDisposableHandle = packet.read();
-    let stage_mask: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let event: NonDisposableHandle = packet.read_shallow();
+    let stage_mask: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdResetEvent({command_buffer:?}, {event:?}, {stage_mask:?})");
 
     let result = unsafe {
@@ -3602,23 +3700,23 @@ fn vk_cmd_reset_event(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents.html>"]
 fn vk_cmd_wait_events(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let event_count: u32 = packet.read();
-    let p_events: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let src_stage_mask: NonDisposableHandle = packet.read();
-    let dst_stage_mask: NonDisposableHandle = packet.read();
-    let memory_barrier_count: u32 = packet.read();
-    let p_memory_barriers: *const VkMemoryBarrier = packet.read_nullable_raw_ptr();
-    let buffer_memory_barrier_count: u32 = packet.read();
-    let p_buffer_memory_barriers: *const VkBufferMemoryBarrier = packet.read_nullable_raw_ptr();
-    let image_memory_barrier_count: u32 = packet.read();
-    let p_image_memory_barriers: *const VkImageMemoryBarrier = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let event_count: u32 = packet.read_shallow();
+    let p_events: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let src_stage_mask: NonDisposableHandle = packet.read_shallow();
+    let dst_stage_mask: NonDisposableHandle = packet.read_shallow();
+    let memory_barrier_count: u32 = packet.read_shallow();
+    let p_memory_barriers: *const VkMemoryBarrier = packet.read_deep();
+    let buffer_memory_barrier_count: u32 = packet.read_shallow();
+    let p_buffer_memory_barriers: *const VkBufferMemoryBarrier = packet.read_deep();
+    let image_memory_barrier_count: u32 = packet.read_shallow();
+    let p_image_memory_barriers: *const VkImageMemoryBarrier = packet.read_deep();
     trace!("called vkCmdWaitEvents({command_buffer:?}, {event_count:?}, {p_events:?}, {src_stage_mask:?}, {dst_stage_mask:?}, {memory_barrier_count:?}, {p_memory_barriers:?}, {buffer_memory_barrier_count:?}, {p_buffer_memory_barriers:?}, {image_memory_barrier_count:?}, {p_image_memory_barriers:?})");
 
     let result = unsafe {
@@ -3638,22 +3736,22 @@ fn vk_cmd_wait_events(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPipelineBarrier.html>"]
 fn vk_cmd_pipeline_barrier(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let src_stage_mask: NonDisposableHandle = packet.read();
-    let dst_stage_mask: NonDisposableHandle = packet.read();
-    let dependency_flags: NonDisposableHandle = packet.read();
-    let memory_barrier_count: u32 = packet.read();
-    let p_memory_barriers: *const VkMemoryBarrier = packet.read_nullable_raw_ptr();
-    let buffer_memory_barrier_count: u32 = packet.read();
-    let p_buffer_memory_barriers: *const VkBufferMemoryBarrier = packet.read_nullable_raw_ptr();
-    let image_memory_barrier_count: u32 = packet.read();
-    let p_image_memory_barriers: *const VkImageMemoryBarrier = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let src_stage_mask: NonDisposableHandle = packet.read_shallow();
+    let dst_stage_mask: NonDisposableHandle = packet.read_shallow();
+    let dependency_flags: NonDisposableHandle = packet.read_shallow();
+    let memory_barrier_count: u32 = packet.read_shallow();
+    let p_memory_barriers: *const VkMemoryBarrier = packet.read_deep();
+    let buffer_memory_barrier_count: u32 = packet.read_shallow();
+    let p_buffer_memory_barriers: *const VkBufferMemoryBarrier = packet.read_deep();
+    let image_memory_barrier_count: u32 = packet.read_shallow();
+    let p_image_memory_barriers: *const VkImageMemoryBarrier = packet.read_deep();
     trace!("called vkCmdPipelineBarrier({command_buffer:?}, {src_stage_mask:?}, {dst_stage_mask:?}, {dependency_flags:?}, {memory_barrier_count:?}, {p_memory_barriers:?}, {buffer_memory_barrier_count:?}, {p_buffer_memory_barriers:?}, {image_memory_barrier_count:?}, {p_image_memory_barriers:?})");
 
     let result = unsafe {
@@ -3672,16 +3770,16 @@ fn vk_cmd_pipeline_barrier(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginQuery.html>"]
 fn vk_cmd_begin_query(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let query: u32 = packet.read();
-    let flags: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let query: u32 = packet.read_shallow();
+    let flags: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdBeginQuery({command_buffer:?}, {query_pool:?}, {query:?}, {flags:?})");
 
     let result = unsafe {
@@ -3694,15 +3792,15 @@ fn vk_cmd_begin_query(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndQuery.html>"]
 fn vk_cmd_end_query(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let query: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let query: u32 = packet.read_shallow();
     trace!("called vkCmdEndQuery({command_buffer:?}, {query_pool:?}, {query:?})");
 
     let result = unsafe {
@@ -3714,14 +3812,14 @@ fn vk_cmd_end_query(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginConditionalRenderingEXT.html>"]
 fn vk_cmd_begin_conditional_rendering_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_conditional_rendering_begin: *const VkConditionalRenderingBeginInfoEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_conditional_rendering_begin: *const VkConditionalRenderingBeginInfoEXT = packet.read_deep();
     trace!("called vkCmdBeginConditionalRenderingEXT({command_buffer:?}, {p_conditional_rendering_begin:?})");
 
     let result = unsafe {
@@ -3732,13 +3830,13 @@ fn vk_cmd_begin_conditional_rendering_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndConditionalRenderingEXT.html>"]
 fn vk_cmd_end_conditional_rendering_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdEndConditionalRenderingEXT({command_buffer:?})");
 
     let result = unsafe {
@@ -3748,16 +3846,16 @@ fn vk_cmd_end_conditional_rendering_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetQueryPool.html>"]
 fn vk_cmd_reset_query_pool(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let first_query: u32 = packet.read();
-    let query_count: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let first_query: u32 = packet.read_shallow();
+    let query_count: u32 = packet.read_shallow();
     trace!("called vkCmdResetQueryPool({command_buffer:?}, {query_pool:?}, {first_query:?}, {query_count:?})");
 
     let result = unsafe {
@@ -3770,16 +3868,16 @@ fn vk_cmd_reset_query_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteTimestamp.html>"]
 fn vk_cmd_write_timestamp(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let pipeline_stage: vk::PipelineStageFlags = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let query: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let pipeline_stage: vk::PipelineStageFlags = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let query: u32 = packet.read_shallow();
     trace!("called vkCmdWriteTimestamp({command_buffer:?}, {pipeline_stage:?}, {query_pool:?}, {query:?})");
 
     let result = unsafe {
@@ -3792,20 +3890,20 @@ fn vk_cmd_write_timestamp(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyQueryPoolResults.html>"]
 fn vk_cmd_copy_query_pool_results(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let first_query: u32 = packet.read();
-    let query_count: u32 = packet.read();
-    let dst_buffer: NonDisposableHandle = packet.read();
-    let dst_offset: NonDisposableHandle = packet.read();
-    let stride: NonDisposableHandle = packet.read();
-    let flags: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let first_query: u32 = packet.read_shallow();
+    let query_count: u32 = packet.read_shallow();
+    let dst_buffer: NonDisposableHandle = packet.read_shallow();
+    let dst_offset: NonDisposableHandle = packet.read_shallow();
+    let stride: NonDisposableHandle = packet.read_shallow();
+    let flags: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdCopyQueryPoolResults({command_buffer:?}, {query_pool:?}, {first_query:?}, {query_count:?}, {dst_buffer:?}, {dst_offset:?}, {stride:?}, {flags:?})");
 
     let result = unsafe {
@@ -3822,18 +3920,18 @@ fn vk_cmd_copy_query_pool_results(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushConstants.html>"]
 fn vk_cmd_push_constants(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let layout: NonDisposableHandle = packet.read();
-    let stage_flags: NonDisposableHandle = packet.read();
-    let offset: u32 = packet.read();
-    let size: u32 = packet.read();
-    let p_values: *const c_void = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let layout: NonDisposableHandle = packet.read_shallow();
+    let stage_flags: NonDisposableHandle = packet.read_shallow();
+    let offset: u32 = packet.read_shallow();
+    let size: u32 = packet.read_shallow();
+    let p_values: *const c_void = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdPushConstants({command_buffer:?}, {layout:?}, {stage_flags:?}, {offset:?}, {size:?}, {p_values:?})");
 
     let result = unsafe {
@@ -3848,15 +3946,15 @@ fn vk_cmd_push_constants(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRenderPass.html>"]
 fn vk_cmd_begin_render_pass(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_render_pass_begin: *const VkRenderPassBeginInfo = packet.read_nullable_raw_ptr();
-    let contents: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_render_pass_begin: *const VkRenderPassBeginInfo = packet.read_deep();
+    let contents: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdBeginRenderPass({command_buffer:?}, {p_render_pass_begin:?}, {contents:?})");
 
     let result = unsafe {
@@ -3868,14 +3966,14 @@ fn vk_cmd_begin_render_pass(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdNextSubpass.html>"]
 fn vk_cmd_next_subpass(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let contents: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let contents: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdNextSubpass({command_buffer:?}, {contents:?})");
 
     let result = unsafe {
@@ -3886,13 +3984,13 @@ fn vk_cmd_next_subpass(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass.html>"]
 fn vk_cmd_end_render_pass(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdEndRenderPass({command_buffer:?})");
 
     let result = unsafe {
@@ -3902,15 +4000,15 @@ fn vk_cmd_end_render_pass(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdExecuteCommands.html>"]
 fn vk_cmd_execute_commands(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let command_buffer_count: u32 = packet.read();
-    let p_command_buffers: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let command_buffer_count: u32 = packet.read_shallow();
+    let p_command_buffers: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdExecuteCommands({command_buffer:?}, {command_buffer_count:?}, {p_command_buffers:?})");
 
     let result = unsafe {
@@ -3922,16 +4020,16 @@ fn vk_cmd_execute_commands(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateAndroidSurfaceKHR.html>"]
 fn vk_create_android_surface_khr(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkAndroidSurfaceCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkAndroidSurfaceCreateInfoKHR = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateAndroidSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -3944,14 +4042,16 @@ fn vk_create_android_surface_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPropertiesKHR.html>"]
 fn vk_get_physical_device_display_properties_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkDisplayPropertiesKHR>();
     trace!("called vkGetPhysicalDeviceDisplayPropertiesKHR({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
@@ -3964,14 +4064,16 @@ fn vk_get_physical_device_display_properties_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPlanePropertiesKHR.html>"]
 fn vk_get_physical_device_display_plane_properties_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkDisplayPlanePropertiesKHR>();
     trace!("called vkGetPhysicalDeviceDisplayPlanePropertiesKHR({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
@@ -3984,15 +4086,17 @@ fn vk_get_physical_device_display_plane_properties_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneSupportedDisplaysKHR.html>"]
 fn vk_get_display_plane_supported_displays_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let plane_index: u32 = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let plane_index: u32 = packet.read_shallow();
     let (mut p_display_count, p_displays) = packet.read_and_allocate_vk_array_count::<NonDisposableHandle>();
     trace!("called vkGetDisplayPlaneSupportedDisplaysKHR({physical_device:?}, {plane_index:?}, {p_display_count:?}, {p_displays:?})");
 
@@ -4006,15 +4110,17 @@ fn vk_get_display_plane_supported_displays_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_display_count, p_displays);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_display_count, p_displays);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayModePropertiesKHR.html>"]
 fn vk_get_display_mode_properties_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let display: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let display: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkDisplayModePropertiesKHR>();
     trace!("called vkGetDisplayModePropertiesKHR({physical_device:?}, {display:?}, {p_property_count:?}, {p_properties:?})");
 
@@ -4028,18 +4134,20 @@ fn vk_get_display_mode_properties_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDisplayModeKHR.html>"]
 fn vk_create_display_mode_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let display: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkDisplayModeCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_mode: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let display: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkDisplayModeCreateInfoKHR = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_mode: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateDisplayModeKHR({physical_device:?}, {display:?}, {p_create_info:?}, {p_allocator:?}, {p_mode:?})");
 
     let result = unsafe {
@@ -4053,17 +4161,19 @@ fn vk_create_display_mode_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_mode);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_mode);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneCapabilitiesKHR.html>"]
 fn vk_get_display_plane_capabilities_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let mode: NonDisposableHandle = packet.read();
-    let plane_index: u32 = packet.read();
-    let p_capabilities: *mut VkDisplayPlaneCapabilitiesKHR = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let mode: NonDisposableHandle = packet.read_shallow();
+    let plane_index: u32 = packet.read_shallow();
+    let p_capabilities: *mut VkDisplayPlaneCapabilitiesKHR = packet.read_mut_deep();
     trace!("called vkGetDisplayPlaneCapabilitiesKHR({physical_device:?}, {mode:?}, {plane_index:?}, {p_capabilities:?})");
 
     let result = unsafe {
@@ -4076,17 +4186,19 @@ fn vk_get_display_plane_capabilities_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_capabilities);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_capabilities);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDisplayPlaneSurfaceKHR.html>"]
 fn vk_create_display_plane_surface_khr(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkDisplaySurfaceCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkDisplaySurfaceCreateInfoKHR = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateDisplayPlaneSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4099,18 +4211,20 @@ fn vk_create_display_plane_surface_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSharedSwapchainsKHR.html>"]
 fn vk_create_shared_swapchains_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain_count: u32 = packet.read();
-    let p_create_infos: *const VkSwapchainCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_swapchains: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain_count: u32 = packet.read_shallow();
+    let p_create_infos: *const VkSwapchainCreateInfoKHR = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_swapchains: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateSharedSwapchainsKHR({device:?}, {swapchain_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_swapchains:?})");
 
     let result = unsafe {
@@ -4124,16 +4238,18 @@ fn vk_create_shared_swapchains_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_swapchains);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_swapchains);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySurfaceKHR.html>"]
 fn vk_destroy_surface_khr(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let surface: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let surface: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroySurfaceKHR({instance:?}, {surface:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -4145,16 +4261,16 @@ fn vk_destroy_surface_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceSupportKHR.html>"]
 fn vk_get_physical_device_surface_support_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let queue_family_index: u32 = packet.read();
-    let surface: NonDisposableHandle = packet.read();
-    let p_supported: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let queue_family_index: u32 = packet.read_shallow();
+    let surface: NonDisposableHandle = packet.read_shallow();
+    let p_supported: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetPhysicalDeviceSurfaceSupportKHR({physical_device:?}, {queue_family_index:?}, {surface:?}, {p_supported:?})");
 
     let result = unsafe {
@@ -4167,16 +4283,18 @@ fn vk_get_physical_device_surface_support_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_supported);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_supported);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html>"]
 fn vk_get_physical_device_surface_capabilities_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let surface: NonDisposableHandle = packet.read();
-    let p_surface_capabilities: *mut VkSurfaceCapabilitiesKHR = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let surface: NonDisposableHandle = packet.read_shallow();
+    let p_surface_capabilities: *mut VkSurfaceCapabilitiesKHR = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceSurfaceCapabilitiesKHR({physical_device:?}, {surface:?}, {p_surface_capabilities:?})");
 
     let result = unsafe {
@@ -4188,15 +4306,17 @@ fn vk_get_physical_device_surface_capabilities_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface_capabilities);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_surface_capabilities);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceFormatsKHR.html>"]
 fn vk_get_physical_device_surface_formats_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let surface: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let surface: NonDisposableHandle = packet.read_shallow();
     let (mut p_surface_format_count, p_surface_formats) = packet.read_and_allocate_vk_array_count::<VkSurfaceFormatKHR>();
     trace!("called vkGetPhysicalDeviceSurfaceFormatsKHR({physical_device:?}, {surface:?}, {p_surface_format_count:?}, {p_surface_formats:?})");
 
@@ -4210,15 +4330,17 @@ fn vk_get_physical_device_surface_formats_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_surface_format_count, p_surface_formats);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_surface_format_count, p_surface_formats);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModesKHR.html>"]
 fn vk_get_physical_device_surface_present_modes_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let surface: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let surface: NonDisposableHandle = packet.read_shallow();
     let (mut p_present_mode_count, p_present_modes) = packet.read_and_allocate_vk_array_count::<NonDisposableHandle>();
     trace!("called vkGetPhysicalDeviceSurfacePresentModesKHR({physical_device:?}, {surface:?}, {p_present_mode_count:?}, {p_present_modes:?})");
 
@@ -4232,17 +4354,19 @@ fn vk_get_physical_device_surface_present_modes_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_present_mode_count, p_present_modes);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_present_mode_count, p_present_modes);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSwapchainKHR.html>"]
 fn vk_create_swapchain_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkSwapchainCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_swapchain: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkSwapchainCreateInfoKHR = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_swapchain: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateSwapchainKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_swapchain:?})");
 
     let result = unsafe {
@@ -4255,16 +4379,18 @@ fn vk_create_swapchain_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_swapchain);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_swapchain);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySwapchainKHR.html>"]
 fn vk_destroy_swapchain_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroySwapchainKHR({device:?}, {swapchain:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -4276,14 +4402,14 @@ fn vk_destroy_swapchain_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainImagesKHR.html>"]
 fn vk_get_swapchain_images_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
     let (mut p_swapchain_image_count, p_swapchain_images) = packet.read_and_allocate_vk_array_count::<NonDisposableHandle>();
     trace!("called vkGetSwapchainImagesKHR({device:?}, {swapchain:?}, {p_swapchain_image_count:?}, {p_swapchain_images:?})");
 
@@ -4297,19 +4423,21 @@ fn vk_get_swapchain_images_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_swapchain_image_count, p_swapchain_images);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_swapchain_image_count, p_swapchain_images);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireNextImageKHR.html>"]
 fn vk_acquire_next_image_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
-    let timeout: u64 = packet.read();
-    let semaphore: NonDisposableHandle = packet.read();
-    let fence: NonDisposableHandle = packet.read();
-    let p_image_index: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
+    let timeout: u64 = packet.read_shallow();
+    let semaphore: NonDisposableHandle = packet.read_shallow();
+    let fence: NonDisposableHandle = packet.read_shallow();
+    let p_image_index: *mut u32 = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkAcquireNextImageKHR({device:?}, {swapchain:?}, {timeout:?}, {semaphore:?}, {fence:?}, {p_image_index:?})");
 
     let result = unsafe {
@@ -4324,15 +4452,17 @@ fn vk_acquire_next_image_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_image_index);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_image_index);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueuePresentKHR.html>"]
 fn vk_queue_present_khr(mut packet: Packet) {
-    let queue: NonDisposableHandle = packet.read();
-    let p_present_info: *const VkPresentInfoKHR = packet.read_nullable_raw_ptr();
+    let queue: NonDisposableHandle = packet.read_shallow();
+    let p_present_info: *const VkPresentInfoKHR = packet.read_deep();
     trace!("called vkQueuePresentKHR({queue:?}, {p_present_info:?})");
 
     let result = unsafe {
@@ -4343,16 +4473,16 @@ fn vk_queue_present_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateViSurfaceNN.html>"]
 fn vk_create_vi_surface_nn(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkViSurfaceCreateInfoNN = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkViSurfaceCreateInfoNN = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateViSurfaceNN({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4365,17 +4495,19 @@ fn vk_create_vi_surface_nn(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateWaylandSurfaceKHR.html>"]
 fn vk_create_wayland_surface_khr(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkWaylandSurfaceCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkWaylandSurfaceCreateInfoKHR = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateWaylandSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4388,16 +4520,18 @@ fn vk_create_wayland_surface_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceWaylandPresentationSupportKHR.html>"]
 fn vk_get_physical_device_wayland_presentation_support_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let queue_family_index: u32 = packet.read();
-    let display: *mut usize = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let queue_family_index: u32 = packet.read_shallow();
+    let display: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetPhysicalDeviceWaylandPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {display:?})");
 
     let result = unsafe {
@@ -4409,17 +4543,19 @@ fn vk_get_physical_device_wayland_presentation_support_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(display);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(display);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateWin32SurfaceKHR.html>"]
 fn vk_create_win32_surface_khr(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkWin32SurfaceCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkWin32SurfaceCreateInfoKHR = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateWin32SurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4432,15 +4568,17 @@ fn vk_create_win32_surface_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceWin32PresentationSupportKHR.html>"]
 fn vk_get_physical_device_win32_presentation_support_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let queue_family_index: u32 = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let queue_family_index: u32 = packet.read_shallow();
     trace!("called vkGetPhysicalDeviceWin32PresentationSupportKHR({physical_device:?}, {queue_family_index:?})");
 
     let result = unsafe {
@@ -4451,16 +4589,16 @@ fn vk_get_physical_device_win32_presentation_support_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateXlibSurfaceKHR.html>"]
 fn vk_create_xlib_surface_khr(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkXlibSurfaceCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkXlibSurfaceCreateInfoKHR = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateXlibSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4473,17 +4611,19 @@ fn vk_create_xlib_surface_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceXlibPresentationSupportKHR.html>"]
 fn vk_get_physical_device_xlib_presentation_support_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let queue_family_index: u32 = packet.read();
-    let dpy: *mut usize = packet.read_nullable_raw_ptr_mut();
-    let visual_id: vk::VisualID = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let queue_family_index: u32 = packet.read_shallow();
+    let dpy: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
+    let visual_id: vk::VisualID = packet.read_shallow();
     trace!("called vkGetPhysicalDeviceXlibPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {dpy:?}, {visual_id:?})");
 
     let result = unsafe {
@@ -4496,17 +4636,19 @@ fn vk_get_physical_device_xlib_presentation_support_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(dpy);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(dpy);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateXcbSurfaceKHR.html>"]
 fn vk_create_xcb_surface_khr(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkXcbSurfaceCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkXcbSurfaceCreateInfoKHR = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateXcbSurfaceKHR({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4519,17 +4661,19 @@ fn vk_create_xcb_surface_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceXcbPresentationSupportKHR.html>"]
 fn vk_get_physical_device_xcb_presentation_support_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let queue_family_index: u32 = packet.read();
-    let connection: *mut usize = packet.read_nullable_raw_ptr_mut();
-    let visual_id: vk::xcb_visualid_t = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let queue_family_index: u32 = packet.read_shallow();
+    let connection: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
+    let visual_id: vk::xcb_visualid_t = packet.read_shallow();
     trace!("called vkGetPhysicalDeviceXcbPresentationSupportKHR({physical_device:?}, {queue_family_index:?}, {connection:?}, {visual_id:?})");
 
     let result = unsafe {
@@ -4542,17 +4686,19 @@ fn vk_get_physical_device_xcb_presentation_support_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(connection);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(connection);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDirectFBSurfaceEXT.html>"]
 fn vk_create_direct_fbsurface_ext(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkDirectFBSurfaceCreateInfoEXT = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkDirectFBSurfaceCreateInfoEXT = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateDirectFBSurfaceEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4565,16 +4711,18 @@ fn vk_create_direct_fbsurface_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDirectFBPresentationSupportEXT.html>"]
 fn vk_get_physical_device_direct_fbpresentation_support_ext(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let queue_family_index: u32 = packet.read();
-    let dfb: *mut usize = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let queue_family_index: u32 = packet.read_shallow();
+    let dfb: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetPhysicalDeviceDirectFBPresentationSupportEXT({physical_device:?}, {queue_family_index:?}, {dfb:?})");
 
     let result = unsafe {
@@ -4586,17 +4734,19 @@ fn vk_get_physical_device_direct_fbpresentation_support_ext(mut packet: Packet) 
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(dfb);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(dfb);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateImagePipeSurfaceFUCHSIA.html>"]
 fn vk_create_image_pipe_surface_fuchsia(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkImagePipeSurfaceCreateInfoFUCHSIA = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkImagePipeSurfaceCreateInfoFUCHSIA = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateImagePipeSurfaceFUCHSIA({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4609,17 +4759,19 @@ fn vk_create_image_pipe_surface_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateStreamDescriptorSurfaceGGP.html>"]
 fn vk_create_stream_descriptor_surface_ggp(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkStreamDescriptorSurfaceCreateInfoGGP = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkStreamDescriptorSurfaceCreateInfoGGP = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateStreamDescriptorSurfaceGGP({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4632,17 +4784,19 @@ fn vk_create_stream_descriptor_surface_ggp(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateScreenSurfaceQNX.html>"]
 fn vk_create_screen_surface_qnx(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkScreenSurfaceCreateInfoQNX = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkScreenSurfaceCreateInfoQNX = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateScreenSurfaceQNX({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -4655,16 +4809,18 @@ fn vk_create_screen_surface_qnx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceScreenPresentationSupportQNX.html>"]
 fn vk_get_physical_device_screen_presentation_support_qnx(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let queue_family_index: u32 = packet.read();
-    let window: *mut usize = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let queue_family_index: u32 = packet.read_shallow();
+    let window: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetPhysicalDeviceScreenPresentationSupportQNX({physical_device:?}, {queue_family_index:?}, {window:?})");
 
     let result = unsafe {
@@ -4676,17 +4832,19 @@ fn vk_get_physical_device_screen_presentation_support_qnx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(window);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(window);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDebugReportCallbackEXT.html>"]
 fn vk_create_debug_report_callback_ext(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkDebugReportCallbackCreateInfoEXT = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_callback: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkDebugReportCallbackCreateInfoEXT = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_callback: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateDebugReportCallbackEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_callback:?})");
 
     let result = unsafe {
@@ -4699,16 +4857,18 @@ fn vk_create_debug_report_callback_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_callback);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_callback);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDebugReportCallbackEXT.html>"]
 fn vk_destroy_debug_report_callback_ext(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let callback: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let callback: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyDebugReportCallbackEXT({instance:?}, {callback:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -4720,20 +4880,20 @@ fn vk_destroy_debug_report_callback_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDebugReportMessageEXT.html>"]
 fn vk_debug_report_message_ext(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let flags: NonDisposableHandle = packet.read();
-    let object_type: NonDisposableHandle = packet.read();
-    let object: u64 = packet.read();
-    let location: usize = packet.read();
-    let message_code: i32 = packet.read();
-    let p_layer_prefix: *const c_char = packet.read_nullable_raw_ptr();
-    let p_message: *const c_char = packet.read_nullable_raw_ptr();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let flags: NonDisposableHandle = packet.read_shallow();
+    let object_type: NonDisposableHandle = packet.read_shallow();
+    let object: u64 = packet.read_shallow();
+    let location: usize = packet.read_shallow();
+    let message_code: i32 = packet.read_shallow();
+    let p_layer_prefix: *const c_char = packet.read_shallow_under_nullable_ptr();
+    let p_message: *const c_char = packet.read_shallow_under_nullable_ptr();
     trace!("called vkDebugReportMessageEXT({instance:?}, {flags:?}, {object_type:?}, {object:?}, {location:?}, {message_code:?}, {p_layer_prefix:?}, {p_message:?})");
 
     let result = unsafe {
@@ -4750,14 +4910,14 @@ fn vk_debug_report_message_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDebugMarkerSetObjectNameEXT.html>"]
 fn vk_debug_marker_set_object_name_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_name_info: *const VkDebugMarkerObjectNameInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_name_info: *const VkDebugMarkerObjectNameInfoEXT = packet.read_deep();
     trace!("called vkDebugMarkerSetObjectNameEXT({device:?}, {p_name_info:?})");
 
     let result = unsafe {
@@ -4768,14 +4928,14 @@ fn vk_debug_marker_set_object_name_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDebugMarkerSetObjectTagEXT.html>"]
 fn vk_debug_marker_set_object_tag_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_tag_info: *const VkDebugMarkerObjectTagInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_tag_info: *const VkDebugMarkerObjectTagInfoEXT = packet.read_deep();
     trace!("called vkDebugMarkerSetObjectTagEXT({device:?}, {p_tag_info:?})");
 
     let result = unsafe {
@@ -4786,14 +4946,14 @@ fn vk_debug_marker_set_object_tag_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerBeginEXT.html>"]
 fn vk_cmd_debug_marker_begin_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_marker_info: *const VkDebugMarkerMarkerInfoEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_marker_info: *const VkDebugMarkerMarkerInfoEXT = packet.read_deep();
     trace!("called vkCmdDebugMarkerBeginEXT({command_buffer:?}, {p_marker_info:?})");
 
     let result = unsafe {
@@ -4804,13 +4964,13 @@ fn vk_cmd_debug_marker_begin_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerEndEXT.html>"]
 fn vk_cmd_debug_marker_end_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdDebugMarkerEndEXT({command_buffer:?})");
 
     let result = unsafe {
@@ -4820,14 +4980,14 @@ fn vk_cmd_debug_marker_end_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerInsertEXT.html>"]
 fn vk_cmd_debug_marker_insert_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_marker_info: *const VkDebugMarkerMarkerInfoEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_marker_info: *const VkDebugMarkerMarkerInfoEXT = packet.read_deep();
     trace!("called vkCmdDebugMarkerInsertEXT({command_buffer:?}, {p_marker_info:?})");
 
     let result = unsafe {
@@ -4838,20 +4998,20 @@ fn vk_cmd_debug_marker_insert_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalImageFormatPropertiesNV.html>"]
 fn vk_get_physical_device_external_image_format_properties_nv(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let format: NonDisposableHandle = packet.read();
-    let type_: NonDisposableHandle = packet.read();
-    let tiling: NonDisposableHandle = packet.read();
-    let usage: NonDisposableHandle = packet.read();
-    let flags: NonDisposableHandle = packet.read();
-    let external_handle_type: NonDisposableHandle = packet.read();
-    let p_external_image_format_properties: *mut VkExternalImageFormatPropertiesNV = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let format: NonDisposableHandle = packet.read_shallow();
+    let type_: NonDisposableHandle = packet.read_shallow();
+    let tiling: NonDisposableHandle = packet.read_shallow();
+    let usage: NonDisposableHandle = packet.read_shallow();
+    let flags: NonDisposableHandle = packet.read_shallow();
+    let external_handle_type: NonDisposableHandle = packet.read_shallow();
+    let p_external_image_format_properties: *mut VkExternalImageFormatPropertiesNV = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceExternalImageFormatPropertiesNV({physical_device:?}, {format:?}, {type_:?}, {tiling:?}, {usage:?}, {flags:?}, {external_handle_type:?}, {p_external_image_format_properties:?})");
 
     let result = unsafe {
@@ -4868,17 +5028,19 @@ fn vk_get_physical_device_external_image_format_properties_nv(mut packet: Packet
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_external_image_format_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_external_image_format_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandleNV.html>"]
 fn vk_get_memory_win32_handle_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let memory: NonDisposableHandle = packet.read();
-    let handle_type: NonDisposableHandle = packet.read();
-    let p_handle: *mut vk::HANDLE = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let memory: NonDisposableHandle = packet.read_shallow();
+    let handle_type: NonDisposableHandle = packet.read_shallow();
+    let p_handle: *mut vk::HANDLE = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetMemoryWin32HandleNV({device:?}, {memory:?}, {handle_type:?}, {p_handle:?})");
 
     let result = unsafe {
@@ -4891,16 +5053,18 @@ fn vk_get_memory_win32_handle_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_handle);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_handle);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdExecuteGeneratedCommandsNV.html>"]
 fn vk_cmd_execute_generated_commands_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let is_preprocessed: NonDisposableHandle = packet.read();
-    let p_generated_commands_info: *const VkGeneratedCommandsInfoNV = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let is_preprocessed: NonDisposableHandle = packet.read_shallow();
+    let p_generated_commands_info: *const VkGeneratedCommandsInfoNV = packet.read_deep();
     trace!("called vkCmdExecuteGeneratedCommandsNV({command_buffer:?}, {is_preprocessed:?}, {p_generated_commands_info:?})");
 
     let result = unsafe {
@@ -4912,14 +5076,14 @@ fn vk_cmd_execute_generated_commands_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPreprocessGeneratedCommandsNV.html>"]
 fn vk_cmd_preprocess_generated_commands_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_generated_commands_info: *const VkGeneratedCommandsInfoNV = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_generated_commands_info: *const VkGeneratedCommandsInfoNV = packet.read_deep();
     trace!("called vkCmdPreprocessGeneratedCommandsNV({command_buffer:?}, {p_generated_commands_info:?})");
 
     let result = unsafe {
@@ -4930,16 +5094,16 @@ fn vk_cmd_preprocess_generated_commands_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindPipelineShaderGroupNV.html>"]
 fn vk_cmd_bind_pipeline_shader_group_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let pipeline_bind_point: NonDisposableHandle = packet.read();
-    let pipeline: NonDisposableHandle = packet.read();
-    let group_index: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let pipeline_bind_point: NonDisposableHandle = packet.read_shallow();
+    let pipeline: NonDisposableHandle = packet.read_shallow();
+    let group_index: u32 = packet.read_shallow();
     trace!("called vkCmdBindPipelineShaderGroupNV({command_buffer:?}, {pipeline_bind_point:?}, {pipeline:?}, {group_index:?})");
 
     let result = unsafe {
@@ -4952,15 +5116,15 @@ fn vk_cmd_bind_pipeline_shader_group_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetGeneratedCommandsMemoryRequirementsNV.html>"]
 fn vk_get_generated_commands_memory_requirements_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkGeneratedCommandsMemoryRequirementsInfoNV = packet.read_nullable_raw_ptr();
-    let p_memory_requirements: *mut VkMemoryRequirements2 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkGeneratedCommandsMemoryRequirementsInfoNV = packet.read_deep();
+    let p_memory_requirements: *mut VkMemoryRequirements2 = packet.read_mut_deep();
     trace!("called vkGetGeneratedCommandsMemoryRequirementsNV({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
     let result = unsafe {
@@ -4972,17 +5136,19 @@ fn vk_get_generated_commands_memory_requirements_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_requirements);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_requirements);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateIndirectCommandsLayoutNV.html>"]
 fn vk_create_indirect_commands_layout_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkIndirectCommandsLayoutCreateInfoNV = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_indirect_commands_layout: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkIndirectCommandsLayoutCreateInfoNV = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_indirect_commands_layout: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateIndirectCommandsLayoutNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_indirect_commands_layout:?})");
 
     let result = unsafe {
@@ -4995,16 +5161,18 @@ fn vk_create_indirect_commands_layout_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_indirect_commands_layout);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_indirect_commands_layout);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyIndirectCommandsLayoutNV.html>"]
 fn vk_destroy_indirect_commands_layout_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let indirect_commands_layout: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let indirect_commands_layout: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyIndirectCommandsLayoutNV({device:?}, {indirect_commands_layout:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -5016,14 +5184,14 @@ fn vk_destroy_indirect_commands_layout_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFeatures2.html>"]
 fn vk_get_physical_device_features2(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_features: *mut VkPhysicalDeviceFeatures2 = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_features: *mut VkPhysicalDeviceFeatures2 = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceFeatures2({physical_device:?}, {p_features:?})");
 
     let result = unsafe {
@@ -5034,15 +5202,17 @@ fn vk_get_physical_device_features2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_features);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_features);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceProperties2.html>"]
 fn vk_get_physical_device_properties2(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_properties: *mut VkPhysicalDeviceProperties2 = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_properties: *mut VkPhysicalDeviceProperties2 = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceProperties2({physical_device:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -5053,16 +5223,18 @@ fn vk_get_physical_device_properties2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFormatProperties2.html>"]
 fn vk_get_physical_device_format_properties2(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let format: NonDisposableHandle = packet.read();
-    let p_format_properties: *mut VkFormatProperties2 = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let format: NonDisposableHandle = packet.read_shallow();
+    let p_format_properties: *mut VkFormatProperties2 = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceFormatProperties2({physical_device:?}, {format:?}, {p_format_properties:?})");
 
     let result = unsafe {
@@ -5074,16 +5246,18 @@ fn vk_get_physical_device_format_properties2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_format_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_format_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceImageFormatProperties2.html>"]
 fn vk_get_physical_device_image_format_properties2(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_image_format_info: *const VkPhysicalDeviceImageFormatInfo2 = packet.read_nullable_raw_ptr();
-    let p_image_format_properties: *mut VkImageFormatProperties2 = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_image_format_info: *const VkPhysicalDeviceImageFormatInfo2 = packet.read_deep();
+    let p_image_format_properties: *mut VkImageFormatProperties2 = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceImageFormatProperties2({physical_device:?}, {p_image_format_info:?}, {p_image_format_properties:?})");
 
     let result = unsafe {
@@ -5095,14 +5269,16 @@ fn vk_get_physical_device_image_format_properties2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_image_format_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_image_format_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyProperties2.html>"]
 fn vk_get_physical_device_queue_family_properties2(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_queue_family_property_count, p_queue_family_properties) = packet.read_and_allocate_vk_array_count::<VkQueueFamilyProperties2>();
     trace!("called vkGetPhysicalDeviceQueueFamilyProperties2({physical_device:?}, {p_queue_family_property_count:?}, {p_queue_family_properties:?})");
 
@@ -5115,15 +5291,17 @@ fn vk_get_physical_device_queue_family_properties2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_queue_family_property_count, p_queue_family_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_queue_family_property_count, p_queue_family_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMemoryProperties2.html>"]
 fn vk_get_physical_device_memory_properties2(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_memory_properties: *mut VkPhysicalDeviceMemoryProperties2 = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_memory_properties: *mut VkPhysicalDeviceMemoryProperties2 = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceMemoryProperties2({physical_device:?}, {p_memory_properties:?})");
 
     let result = unsafe {
@@ -5134,15 +5312,17 @@ fn vk_get_physical_device_memory_properties2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSparseImageFormatProperties2.html>"]
 fn vk_get_physical_device_sparse_image_format_properties2(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_format_info: *const VkPhysicalDeviceSparseImageFormatInfo2 = packet.read_nullable_raw_ptr();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_format_info: *const VkPhysicalDeviceSparseImageFormatInfo2 = packet.read_deep();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkSparseImageFormatProperties2>();
     trace!("called vkGetPhysicalDeviceSparseImageFormatProperties2({physical_device:?}, {p_format_info:?}, {p_property_count:?}, {p_properties:?})");
 
@@ -5156,19 +5336,21 @@ fn vk_get_physical_device_sparse_image_format_properties2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetKHR.html>"]
 fn vk_cmd_push_descriptor_set_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let pipeline_bind_point: NonDisposableHandle = packet.read();
-    let layout: NonDisposableHandle = packet.read();
-    let set: u32 = packet.read();
-    let descriptor_write_count: u32 = packet.read();
-    let p_descriptor_writes: *const VkWriteDescriptorSet = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let pipeline_bind_point: NonDisposableHandle = packet.read_shallow();
+    let layout: NonDisposableHandle = packet.read_shallow();
+    let set: u32 = packet.read_shallow();
+    let descriptor_write_count: u32 = packet.read_shallow();
+    let p_descriptor_writes: *const VkWriteDescriptorSet = packet.read_deep();
     trace!("called vkCmdPushDescriptorSetKHR({command_buffer:?}, {pipeline_bind_point:?}, {layout:?}, {set:?}, {descriptor_write_count:?}, {p_descriptor_writes:?})");
 
     let result = unsafe {
@@ -5183,15 +5365,15 @@ fn vk_cmd_push_descriptor_set_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkTrimCommandPool.html>"]
 fn vk_trim_command_pool(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let command_pool: NonDisposableHandle = packet.read();
-    let flags: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let command_pool: NonDisposableHandle = packet.read_shallow();
+    let flags: NonDisposableHandle = packet.read_shallow();
     trace!("called vkTrimCommandPool({device:?}, {command_pool:?}, {flags:?})");
 
     let result = unsafe {
@@ -5203,15 +5385,15 @@ fn vk_trim_command_pool(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalBufferProperties.html>"]
 fn vk_get_physical_device_external_buffer_properties(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_external_buffer_info: *const VkPhysicalDeviceExternalBufferInfo = packet.read_nullable_raw_ptr();
-    let p_external_buffer_properties: *mut VkExternalBufferProperties = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_external_buffer_info: *const VkPhysicalDeviceExternalBufferInfo = packet.read_deep();
+    let p_external_buffer_properties: *mut VkExternalBufferProperties = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceExternalBufferProperties({physical_device:?}, {p_external_buffer_info:?}, {p_external_buffer_properties:?})");
 
     let result = unsafe {
@@ -5223,16 +5405,18 @@ fn vk_get_physical_device_external_buffer_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_external_buffer_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_external_buffer_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandleKHR.html>"]
 fn vk_get_memory_win32_handle_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_get_win32_handle_info: *const VkMemoryGetWin32HandleInfoKHR = packet.read_nullable_raw_ptr();
-    let p_handle: *mut vk::HANDLE = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_get_win32_handle_info: *const VkMemoryGetWin32HandleInfoKHR = packet.read_deep();
+    let p_handle: *mut vk::HANDLE = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetMemoryWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})");
 
     let result = unsafe {
@@ -5244,17 +5428,19 @@ fn vk_get_memory_win32_handle_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_handle);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_handle);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryWin32HandlePropertiesKHR.html>"]
 fn vk_get_memory_win32_handle_properties_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read();
-    let handle: vk::HANDLE = packet.read();
-    let p_memory_win32_handle_properties: *mut VkMemoryWin32HandlePropertiesKHR = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read_shallow();
+    let handle: vk::HANDLE = packet.read_shallow();
+    let p_memory_win32_handle_properties: *mut VkMemoryWin32HandlePropertiesKHR = packet.read_mut_deep();
     trace!("called vkGetMemoryWin32HandlePropertiesKHR({device:?}, {handle_type:?}, {handle:?}, {p_memory_win32_handle_properties:?})");
 
     let result = unsafe {
@@ -5267,16 +5453,18 @@ fn vk_get_memory_win32_handle_properties_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_win32_handle_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_win32_handle_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryFdKHR.html>"]
 fn vk_get_memory_fd_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_get_fd_info: *const VkMemoryGetFdInfoKHR = packet.read_nullable_raw_ptr();
-    let p_fd: *mut std::os::raw::c_int = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_get_fd_info: *const VkMemoryGetFdInfoKHR = packet.read_deep();
+    let p_fd: *mut std::os::raw::c_int = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetMemoryFdKHR({device:?}, {p_get_fd_info:?}, {p_fd:?})");
 
     let result = unsafe {
@@ -5288,17 +5476,19 @@ fn vk_get_memory_fd_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_fd);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_fd);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryFdPropertiesKHR.html>"]
 fn vk_get_memory_fd_properties_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read();
-    let fd: std::os::raw::c_int = packet.read();
-    let p_memory_fd_properties: *mut VkMemoryFdPropertiesKHR = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read_shallow();
+    let fd: std::os::raw::c_int = packet.read_shallow();
+    let p_memory_fd_properties: *mut VkMemoryFdPropertiesKHR = packet.read_mut_deep();
     trace!("called vkGetMemoryFdPropertiesKHR({device:?}, {handle_type:?}, {fd:?}, {p_memory_fd_properties:?})");
 
     let result = unsafe {
@@ -5311,16 +5501,18 @@ fn vk_get_memory_fd_properties_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_fd_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_fd_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryZirconHandleFUCHSIA.html>"]
 fn vk_get_memory_zircon_handle_fuchsia(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_get_zircon_handle_info: *const VkMemoryGetZirconHandleInfoFUCHSIA = packet.read_nullable_raw_ptr();
-    let p_zircon_handle: *mut vk::zx_handle_t = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_get_zircon_handle_info: *const VkMemoryGetZirconHandleInfoFUCHSIA = packet.read_deep();
+    let p_zircon_handle: *mut vk::zx_handle_t = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetMemoryZirconHandleFUCHSIA({device:?}, {p_get_zircon_handle_info:?}, {p_zircon_handle:?})");
 
     let result = unsafe {
@@ -5332,17 +5524,19 @@ fn vk_get_memory_zircon_handle_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_zircon_handle);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_zircon_handle);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryZirconHandlePropertiesFUCHSIA.html>"]
 fn vk_get_memory_zircon_handle_properties_fuchsia(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read();
-    let zircon_handle: vk::zx_handle_t = packet.read();
-    let p_memory_zircon_handle_properties: *mut VkMemoryZirconHandlePropertiesFUCHSIA = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read_shallow();
+    let zircon_handle: vk::zx_handle_t = packet.read_shallow();
+    let p_memory_zircon_handle_properties: *mut VkMemoryZirconHandlePropertiesFUCHSIA = packet.read_mut_deep();
     trace!("called vkGetMemoryZirconHandlePropertiesFUCHSIA({device:?}, {handle_type:?}, {zircon_handle:?}, {p_memory_zircon_handle_properties:?})");
 
     let result = unsafe {
@@ -5355,16 +5549,18 @@ fn vk_get_memory_zircon_handle_properties_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_zircon_handle_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_zircon_handle_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryRemoteAddressNV.html>"]
 fn vk_get_memory_remote_address_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_memory_get_remote_address_info: *const VkMemoryGetRemoteAddressInfoNV = packet.read_nullable_raw_ptr();
-    let p_address: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_memory_get_remote_address_info: *const VkMemoryGetRemoteAddressInfoNV = packet.read_deep();
+    let p_address: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetMemoryRemoteAddressNV({device:?}, {p_memory_get_remote_address_info:?}, {p_address:?})");
 
     let result = unsafe {
@@ -5376,16 +5572,18 @@ fn vk_get_memory_remote_address_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_address);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_address);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalSemaphoreProperties.html>"]
 fn vk_get_physical_device_external_semaphore_properties(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_external_semaphore_info: *const VkPhysicalDeviceExternalSemaphoreInfo = packet.read_nullable_raw_ptr();
-    let p_external_semaphore_properties: *mut VkExternalSemaphoreProperties = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_external_semaphore_info: *const VkPhysicalDeviceExternalSemaphoreInfo = packet.read_deep();
+    let p_external_semaphore_properties: *mut VkExternalSemaphoreProperties = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceExternalSemaphoreProperties({physical_device:?}, {p_external_semaphore_info:?}, {p_external_semaphore_properties:?})");
 
     let result = unsafe {
@@ -5397,16 +5595,18 @@ fn vk_get_physical_device_external_semaphore_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_external_semaphore_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_external_semaphore_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreWin32HandleKHR.html>"]
 fn vk_get_semaphore_win32_handle_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_get_win32_handle_info: *const VkSemaphoreGetWin32HandleInfoKHR = packet.read_nullable_raw_ptr();
-    let p_handle: *mut vk::HANDLE = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_get_win32_handle_info: *const VkSemaphoreGetWin32HandleInfoKHR = packet.read_deep();
+    let p_handle: *mut vk::HANDLE = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetSemaphoreWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})");
 
     let result = unsafe {
@@ -5418,15 +5618,17 @@ fn vk_get_semaphore_win32_handle_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_handle);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_handle);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreWin32HandleKHR.html>"]
 fn vk_import_semaphore_win32_handle_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_import_semaphore_win32_handle_info: *const VkImportSemaphoreWin32HandleInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_import_semaphore_win32_handle_info: *const VkImportSemaphoreWin32HandleInfoKHR = packet.read_deep();
     trace!("called vkImportSemaphoreWin32HandleKHR({device:?}, {p_import_semaphore_win32_handle_info:?})");
 
     let result = unsafe {
@@ -5437,15 +5639,15 @@ fn vk_import_semaphore_win32_handle_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreFdKHR.html>"]
 fn vk_get_semaphore_fd_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_get_fd_info: *const VkSemaphoreGetFdInfoKHR = packet.read_nullable_raw_ptr();
-    let p_fd: *mut std::os::raw::c_int = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_get_fd_info: *const VkSemaphoreGetFdInfoKHR = packet.read_deep();
+    let p_fd: *mut std::os::raw::c_int = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetSemaphoreFdKHR({device:?}, {p_get_fd_info:?}, {p_fd:?})");
 
     let result = unsafe {
@@ -5457,15 +5659,17 @@ fn vk_get_semaphore_fd_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_fd);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_fd);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreFdKHR.html>"]
 fn vk_import_semaphore_fd_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_import_semaphore_fd_info: *const VkImportSemaphoreFdInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_import_semaphore_fd_info: *const VkImportSemaphoreFdInfoKHR = packet.read_deep();
     trace!("called vkImportSemaphoreFdKHR({device:?}, {p_import_semaphore_fd_info:?})");
 
     let result = unsafe {
@@ -5476,15 +5680,15 @@ fn vk_import_semaphore_fd_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreZirconHandleFUCHSIA.html>"]
 fn vk_get_semaphore_zircon_handle_fuchsia(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_get_zircon_handle_info: *const VkSemaphoreGetZirconHandleInfoFUCHSIA = packet.read_nullable_raw_ptr();
-    let p_zircon_handle: *mut vk::zx_handle_t = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_get_zircon_handle_info: *const VkSemaphoreGetZirconHandleInfoFUCHSIA = packet.read_deep();
+    let p_zircon_handle: *mut vk::zx_handle_t = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetSemaphoreZirconHandleFUCHSIA({device:?}, {p_get_zircon_handle_info:?}, {p_zircon_handle:?})");
 
     let result = unsafe {
@@ -5496,15 +5700,17 @@ fn vk_get_semaphore_zircon_handle_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_zircon_handle);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_zircon_handle);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportSemaphoreZirconHandleFUCHSIA.html>"]
 fn vk_import_semaphore_zircon_handle_fuchsia(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_import_semaphore_zircon_handle_info: *const VkImportSemaphoreZirconHandleInfoFUCHSIA = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_import_semaphore_zircon_handle_info: *const VkImportSemaphoreZirconHandleInfoFUCHSIA = packet.read_deep();
     trace!("called vkImportSemaphoreZirconHandleFUCHSIA({device:?}, {p_import_semaphore_zircon_handle_info:?})");
 
     let result = unsafe {
@@ -5515,15 +5721,15 @@ fn vk_import_semaphore_zircon_handle_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceExternalFenceProperties.html>"]
 fn vk_get_physical_device_external_fence_properties(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_external_fence_info: *const VkPhysicalDeviceExternalFenceInfo = packet.read_nullable_raw_ptr();
-    let p_external_fence_properties: *mut VkExternalFenceProperties = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_external_fence_info: *const VkPhysicalDeviceExternalFenceInfo = packet.read_deep();
+    let p_external_fence_properties: *mut VkExternalFenceProperties = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceExternalFenceProperties({physical_device:?}, {p_external_fence_info:?}, {p_external_fence_properties:?})");
 
     let result = unsafe {
@@ -5535,16 +5741,18 @@ fn vk_get_physical_device_external_fence_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_external_fence_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_external_fence_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceWin32HandleKHR.html>"]
 fn vk_get_fence_win32_handle_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_get_win32_handle_info: *const VkFenceGetWin32HandleInfoKHR = packet.read_nullable_raw_ptr();
-    let p_handle: *mut vk::HANDLE = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_get_win32_handle_info: *const VkFenceGetWin32HandleInfoKHR = packet.read_deep();
+    let p_handle: *mut vk::HANDLE = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetFenceWin32HandleKHR({device:?}, {p_get_win32_handle_info:?}, {p_handle:?})");
 
     let result = unsafe {
@@ -5556,15 +5764,17 @@ fn vk_get_fence_win32_handle_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_handle);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_handle);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportFenceWin32HandleKHR.html>"]
 fn vk_import_fence_win32_handle_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_import_fence_win32_handle_info: *const VkImportFenceWin32HandleInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_import_fence_win32_handle_info: *const VkImportFenceWin32HandleInfoKHR = packet.read_deep();
     trace!("called vkImportFenceWin32HandleKHR({device:?}, {p_import_fence_win32_handle_info:?})");
 
     let result = unsafe {
@@ -5575,15 +5785,15 @@ fn vk_import_fence_win32_handle_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFenceFdKHR.html>"]
 fn vk_get_fence_fd_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_get_fd_info: *const VkFenceGetFdInfoKHR = packet.read_nullable_raw_ptr();
-    let p_fd: *mut std::os::raw::c_int = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_get_fd_info: *const VkFenceGetFdInfoKHR = packet.read_deep();
+    let p_fd: *mut std::os::raw::c_int = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetFenceFdKHR({device:?}, {p_get_fd_info:?}, {p_fd:?})");
 
     let result = unsafe {
@@ -5595,15 +5805,17 @@ fn vk_get_fence_fd_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_fd);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_fd);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkImportFenceFdKHR.html>"]
 fn vk_import_fence_fd_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_import_fence_fd_info: *const VkImportFenceFdInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_import_fence_fd_info: *const VkImportFenceFdInfoKHR = packet.read_deep();
     trace!("called vkImportFenceFdKHR({device:?}, {p_import_fence_fd_info:?})");
 
     let result = unsafe {
@@ -5614,14 +5826,14 @@ fn vk_import_fence_fd_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseDisplayEXT.html>"]
 fn vk_release_display_ext(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let display: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let display: NonDisposableHandle = packet.read_shallow();
     trace!("called vkReleaseDisplayEXT({physical_device:?}, {display:?})");
 
     let result = unsafe {
@@ -5632,15 +5844,15 @@ fn vk_release_display_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireXlibDisplayEXT.html>"]
 fn vk_acquire_xlib_display_ext(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let dpy: *mut usize = packet.read_nullable_raw_ptr_mut();
-    let display: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let dpy: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
+    let display: NonDisposableHandle = packet.read_shallow();
     trace!("called vkAcquireXlibDisplayEXT({physical_device:?}, {dpy:?}, {display:?})");
 
     let result = unsafe {
@@ -5652,17 +5864,19 @@ fn vk_acquire_xlib_display_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(dpy);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(dpy);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRandROutputDisplayEXT.html>"]
 fn vk_get_rand_routput_display_ext(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let dpy: *mut usize = packet.read_nullable_raw_ptr_mut();
-    let rr_output: vk::RROutput = packet.read();
-    let p_display: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let dpy: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
+    let rr_output: vk::RROutput = packet.read_shallow();
+    let p_display: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetRandROutputDisplayEXT({physical_device:?}, {dpy:?}, {rr_output:?}, {p_display:?})");
 
     let result = unsafe {
@@ -5675,16 +5889,18 @@ fn vk_get_rand_routput_display_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(dpy);
-    response.write_raw_ptr(p_display);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(dpy);
+        response.write_shallow_under_nullable_ptr(p_display);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireWinrtDisplayNV.html>"]
 fn vk_acquire_winrt_display_nv(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let display: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let display: NonDisposableHandle = packet.read_shallow();
     trace!("called vkAcquireWinrtDisplayNV({physical_device:?}, {display:?})");
 
     let result = unsafe {
@@ -5695,15 +5911,15 @@ fn vk_acquire_winrt_display_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetWinrtDisplayNV.html>"]
 fn vk_get_winrt_display_nv(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let device_relative_id: u32 = packet.read();
-    let p_display: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let device_relative_id: u32 = packet.read_shallow();
+    let p_display: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetWinrtDisplayNV({physical_device:?}, {device_relative_id:?}, {p_display:?})");
 
     let result = unsafe {
@@ -5715,16 +5931,18 @@ fn vk_get_winrt_display_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_display);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_display);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDisplayPowerControlEXT.html>"]
 fn vk_display_power_control_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let display: NonDisposableHandle = packet.read();
-    let p_display_power_info: *const VkDisplayPowerInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let display: NonDisposableHandle = packet.read_shallow();
+    let p_display_power_info: *const VkDisplayPowerInfoEXT = packet.read_deep();
     trace!("called vkDisplayPowerControlEXT({device:?}, {display:?}, {p_display_power_info:?})");
 
     let result = unsafe {
@@ -5736,16 +5954,16 @@ fn vk_display_power_control_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkRegisterDeviceEventEXT.html>"]
 fn vk_register_device_event_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_device_event_info: *const VkDeviceEventInfoEXT = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_fence: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_device_event_info: *const VkDeviceEventInfoEXT = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_fence: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkRegisterDeviceEventEXT({device:?}, {p_device_event_info:?}, {p_allocator:?}, {p_fence:?})");
 
     let result = unsafe {
@@ -5758,18 +5976,20 @@ fn vk_register_device_event_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_fence);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_fence);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkRegisterDisplayEventEXT.html>"]
 fn vk_register_display_event_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let display: NonDisposableHandle = packet.read();
-    let p_display_event_info: *const VkDisplayEventInfoEXT = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_fence: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let display: NonDisposableHandle = packet.read_shallow();
+    let p_display_event_info: *const VkDisplayEventInfoEXT = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_fence: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkRegisterDisplayEventEXT({device:?}, {display:?}, {p_display_event_info:?}, {p_allocator:?}, {p_fence:?})");
 
     let result = unsafe {
@@ -5783,17 +6003,19 @@ fn vk_register_display_event_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_fence);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_fence);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainCounterEXT.html>"]
 fn vk_get_swapchain_counter_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
-    let counter: vk::SurfaceCounterFlagsEXT = packet.read();
-    let p_counter_value: *mut u64 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
+    let counter: vk::SurfaceCounterFlagsEXT = packet.read_shallow();
+    let p_counter_value: *mut u64 = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetSwapchainCounterEXT({device:?}, {swapchain:?}, {counter:?}, {p_counter_value:?})");
 
     let result = unsafe {
@@ -5806,16 +6028,18 @@ fn vk_get_swapchain_counter_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_counter_value);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_counter_value);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2EXT.html>"]
 fn vk_get_physical_device_surface_capabilities2_ext(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let surface: NonDisposableHandle = packet.read();
-    let p_surface_capabilities: *mut VkSurfaceCapabilities2EXT = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let surface: NonDisposableHandle = packet.read_shallow();
+    let p_surface_capabilities: *mut VkSurfaceCapabilities2EXT = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceSurfaceCapabilities2EXT({physical_device:?}, {surface:?}, {p_surface_capabilities:?})");
 
     let result = unsafe {
@@ -5827,14 +6051,16 @@ fn vk_get_physical_device_surface_capabilities2_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface_capabilities);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_surface_capabilities);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDeviceGroups.html>"]
 fn vk_enumerate_physical_device_groups(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
+    let instance: NonDisposableHandle = packet.read_shallow();
     let (mut p_physical_device_group_count, p_physical_device_group_properties) = packet.read_and_allocate_vk_array_count::<VkPhysicalDeviceGroupProperties>();
     trace!("called vkEnumeratePhysicalDeviceGroups({instance:?}, {p_physical_device_group_count:?}, {p_physical_device_group_properties:?})");
 
@@ -5847,18 +6073,20 @@ fn vk_enumerate_physical_device_groups(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_physical_device_group_count, p_physical_device_group_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_physical_device_group_count, p_physical_device_group_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupPeerMemoryFeatures.html>"]
 fn vk_get_device_group_peer_memory_features(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let heap_index: u32 = packet.read();
-    let local_device_index: u32 = packet.read();
-    let remote_device_index: u32 = packet.read();
-    let p_peer_memory_features: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let heap_index: u32 = packet.read_shallow();
+    let local_device_index: u32 = packet.read_shallow();
+    let remote_device_index: u32 = packet.read_shallow();
+    let p_peer_memory_features: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetDeviceGroupPeerMemoryFeatures({device:?}, {heap_index:?}, {local_device_index:?}, {remote_device_index:?}, {p_peer_memory_features:?})");
 
     let result = unsafe {
@@ -5872,16 +6100,18 @@ fn vk_get_device_group_peer_memory_features(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_peer_memory_features);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_peer_memory_features);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindBufferMemory2.html>"]
 fn vk_bind_buffer_memory2(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let bind_info_count: u32 = packet.read();
-    let p_bind_infos: *const VkBindBufferMemoryInfo = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let bind_info_count: u32 = packet.read_shallow();
+    let p_bind_infos: *const VkBindBufferMemoryInfo = packet.read_deep();
     trace!("called vkBindBufferMemory2({device:?}, {bind_info_count:?}, {p_bind_infos:?})");
 
     let result = unsafe {
@@ -5893,15 +6123,15 @@ fn vk_bind_buffer_memory2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindImageMemory2.html>"]
 fn vk_bind_image_memory2(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let bind_info_count: u32 = packet.read();
-    let p_bind_infos: *const VkBindImageMemoryInfo = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let bind_info_count: u32 = packet.read_shallow();
+    let p_bind_infos: *const VkBindImageMemoryInfo = packet.read_deep();
     trace!("called vkBindImageMemory2({device:?}, {bind_info_count:?}, {p_bind_infos:?})");
 
     let result = unsafe {
@@ -5913,14 +6143,14 @@ fn vk_bind_image_memory2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDeviceMask.html>"]
 fn vk_cmd_set_device_mask(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let device_mask: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let device_mask: u32 = packet.read_shallow();
     trace!("called vkCmdSetDeviceMask({command_buffer:?}, {device_mask:?})");
 
     let result = unsafe {
@@ -5931,14 +6161,14 @@ fn vk_cmd_set_device_mask(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupPresentCapabilitiesKHR.html>"]
 fn vk_get_device_group_present_capabilities_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_device_group_present_capabilities: *mut VkDeviceGroupPresentCapabilitiesKHR = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_device_group_present_capabilities: *mut VkDeviceGroupPresentCapabilitiesKHR = packet.read_mut_deep();
     trace!("called vkGetDeviceGroupPresentCapabilitiesKHR({device:?}, {p_device_group_present_capabilities:?})");
 
     let result = unsafe {
@@ -5949,16 +6179,18 @@ fn vk_get_device_group_present_capabilities_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_device_group_present_capabilities);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_device_group_present_capabilities);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupSurfacePresentModesKHR.html>"]
 fn vk_get_device_group_surface_present_modes_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let surface: NonDisposableHandle = packet.read();
-    let p_modes: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let surface: NonDisposableHandle = packet.read_shallow();
+    let p_modes: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetDeviceGroupSurfacePresentModesKHR({device:?}, {surface:?}, {p_modes:?})");
 
     let result = unsafe {
@@ -5970,16 +6202,18 @@ fn vk_get_device_group_surface_present_modes_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_modes);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_modes);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireNextImage2KHR.html>"]
 fn vk_acquire_next_image2_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_acquire_info: *const VkAcquireNextImageInfoKHR = packet.read_nullable_raw_ptr();
-    let p_image_index: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_acquire_info: *const VkAcquireNextImageInfoKHR = packet.read_deep();
+    let p_image_index: *mut u32 = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkAcquireNextImage2KHR({device:?}, {p_acquire_info:?}, {p_image_index:?})");
 
     let result = unsafe {
@@ -5991,20 +6225,22 @@ fn vk_acquire_next_image2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_image_index);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_image_index);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchBase.html>"]
 fn vk_cmd_dispatch_base(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let base_group_x: u32 = packet.read();
-    let base_group_y: u32 = packet.read();
-    let base_group_z: u32 = packet.read();
-    let group_count_x: u32 = packet.read();
-    let group_count_y: u32 = packet.read();
-    let group_count_z: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let base_group_x: u32 = packet.read_shallow();
+    let base_group_y: u32 = packet.read_shallow();
+    let base_group_z: u32 = packet.read_shallow();
+    let group_count_x: u32 = packet.read_shallow();
+    let group_count_y: u32 = packet.read_shallow();
+    let group_count_z: u32 = packet.read_shallow();
     trace!("called vkCmdDispatchBase({command_buffer:?}, {base_group_x:?}, {base_group_y:?}, {base_group_z:?}, {group_count_x:?}, {group_count_y:?}, {group_count_z:?})");
 
     let result = unsafe {
@@ -6020,14 +6256,14 @@ fn vk_cmd_dispatch_base(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDevicePresentRectanglesKHR.html>"]
 fn vk_get_physical_device_present_rectangles_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let surface: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let surface: NonDisposableHandle = packet.read_shallow();
     let (mut p_rect_count, p_rects) = packet.read_and_allocate_vk_array_count::<VkRect2D>();
     trace!("called vkGetPhysicalDevicePresentRectanglesKHR({physical_device:?}, {surface:?}, {p_rect_count:?}, {p_rects:?})");
 
@@ -6041,17 +6277,19 @@ fn vk_get_physical_device_present_rectangles_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_rect_count, p_rects);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_rect_count, p_rects);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDescriptorUpdateTemplate.html>"]
 fn vk_create_descriptor_update_template(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkDescriptorUpdateTemplateCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_descriptor_update_template: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkDescriptorUpdateTemplateCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_descriptor_update_template: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateDescriptorUpdateTemplate({device:?}, {p_create_info:?}, {p_allocator:?}, {p_descriptor_update_template:?})");
 
     let result = unsafe {
@@ -6064,16 +6302,18 @@ fn vk_create_descriptor_update_template(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_descriptor_update_template);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_descriptor_update_template);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDescriptorUpdateTemplate.html>"]
 fn vk_destroy_descriptor_update_template(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let descriptor_update_template: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let descriptor_update_template: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyDescriptorUpdateTemplate({device:?}, {descriptor_update_template:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -6085,16 +6325,16 @@ fn vk_destroy_descriptor_update_template(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateDescriptorSetWithTemplate.html>"]
 fn vk_update_descriptor_set_with_template(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let descriptor_set: NonDisposableHandle = packet.read();
-    let descriptor_update_template: NonDisposableHandle = packet.read();
-    let p_data: *const c_void = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let descriptor_set: NonDisposableHandle = packet.read_shallow();
+    let descriptor_update_template: NonDisposableHandle = packet.read_shallow();
+    let p_data: *const c_void = packet.read_shallow_under_nullable_ptr();
     trace!("called vkUpdateDescriptorSetWithTemplate({device:?}, {descriptor_set:?}, {descriptor_update_template:?}, {p_data:?})");
 
     let result = unsafe {
@@ -6107,17 +6347,17 @@ fn vk_update_descriptor_set_with_template(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetWithTemplateKHR.html>"]
 fn vk_cmd_push_descriptor_set_with_template_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let descriptor_update_template: NonDisposableHandle = packet.read();
-    let layout: NonDisposableHandle = packet.read();
-    let set: u32 = packet.read();
-    let p_data: *const c_void = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let descriptor_update_template: NonDisposableHandle = packet.read_shallow();
+    let layout: NonDisposableHandle = packet.read_shallow();
+    let set: u32 = packet.read_shallow();
+    let p_data: *const c_void = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdPushDescriptorSetWithTemplateKHR({command_buffer:?}, {descriptor_update_template:?}, {layout:?}, {set:?}, {p_data:?})");
 
     let result = unsafe {
@@ -6131,16 +6371,16 @@ fn vk_cmd_push_descriptor_set_with_template_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetHdrMetadataEXT.html>"]
 fn vk_set_hdr_metadata_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain_count: u32 = packet.read();
-    let p_swapchains: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let p_metadata: *const VkHdrMetadataEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain_count: u32 = packet.read_shallow();
+    let p_swapchains: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let p_metadata: *const VkHdrMetadataEXT = packet.read_deep();
     trace!("called vkSetHdrMetadataEXT({device:?}, {swapchain_count:?}, {p_swapchains:?}, {p_metadata:?})");
 
     let result = unsafe {
@@ -6153,14 +6393,14 @@ fn vk_set_hdr_metadata_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainStatusKHR.html>"]
 fn vk_get_swapchain_status_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
     trace!("called vkGetSwapchainStatusKHR({device:?}, {swapchain:?})");
 
     let result = unsafe {
@@ -6171,15 +6411,15 @@ fn vk_get_swapchain_status_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRefreshCycleDurationGOOGLE.html>"]
 fn vk_get_refresh_cycle_duration_google(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
-    let p_display_timing_properties: *mut VkRefreshCycleDurationGOOGLE = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
+    let p_display_timing_properties: *mut VkRefreshCycleDurationGOOGLE = packet.read_mut_deep();
     trace!("called vkGetRefreshCycleDurationGOOGLE({device:?}, {swapchain:?}, {p_display_timing_properties:?})");
 
     let result = unsafe {
@@ -6191,15 +6431,17 @@ fn vk_get_refresh_cycle_duration_google(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_display_timing_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_display_timing_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPastPresentationTimingGOOGLE.html>"]
 fn vk_get_past_presentation_timing_google(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
     let (mut p_presentation_timing_count, p_presentation_timings) = packet.read_and_allocate_vk_array_count::<VkPastPresentationTimingGOOGLE>();
     trace!("called vkGetPastPresentationTimingGOOGLE({device:?}, {swapchain:?}, {p_presentation_timing_count:?}, {p_presentation_timings:?})");
 
@@ -6213,17 +6455,19 @@ fn vk_get_past_presentation_timing_google(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_presentation_timing_count, p_presentation_timings);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_presentation_timing_count, p_presentation_timings);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateIOSSurfaceMVK.html>"]
 fn vk_create_iossurface_mvk(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkIOSSurfaceCreateInfoMVK = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkIOSSurfaceCreateInfoMVK = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateIOSSurfaceMVK({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -6236,17 +6480,19 @@ fn vk_create_iossurface_mvk(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateMacOSSurfaceMVK.html>"]
 fn vk_create_mac_ossurface_mvk(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkMacOSSurfaceCreateInfoMVK = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkMacOSSurfaceCreateInfoMVK = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateMacOSSurfaceMVK({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -6259,17 +6505,19 @@ fn vk_create_mac_ossurface_mvk(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateMetalSurfaceEXT.html>"]
 fn vk_create_metal_surface_ext(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkMetalSurfaceCreateInfoEXT = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkMetalSurfaceCreateInfoEXT = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateMetalSurfaceEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -6282,17 +6530,19 @@ fn vk_create_metal_surface_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWScalingNV.html>"]
 fn vk_cmd_set_viewport_wscaling_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_viewport: u32 = packet.read();
-    let viewport_count: u32 = packet.read();
-    let p_viewport_wscalings: *const VkViewportWScalingNV = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_viewport: u32 = packet.read_shallow();
+    let viewport_count: u32 = packet.read_shallow();
+    let p_viewport_wscalings: *const VkViewportWScalingNV = packet.read_deep();
     trace!("called vkCmdSetViewportWScalingNV({command_buffer:?}, {first_viewport:?}, {viewport_count:?}, {p_viewport_wscalings:?})");
 
     let result = unsafe {
@@ -6305,16 +6555,16 @@ fn vk_cmd_set_viewport_wscaling_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleEXT.html>"]
 fn vk_cmd_set_discard_rectangle_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_discard_rectangle: u32 = packet.read();
-    let discard_rectangle_count: u32 = packet.read();
-    let p_discard_rectangles: *const VkRect2D = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_discard_rectangle: u32 = packet.read_shallow();
+    let discard_rectangle_count: u32 = packet.read_shallow();
+    let p_discard_rectangles: *const VkRect2D = packet.read_deep();
     trace!("called vkCmdSetDiscardRectangleEXT({command_buffer:?}, {first_discard_rectangle:?}, {discard_rectangle_count:?}, {p_discard_rectangles:?})");
 
     let result = unsafe {
@@ -6327,14 +6577,14 @@ fn vk_cmd_set_discard_rectangle_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleEnableEXT.html>"]
 fn vk_cmd_set_discard_rectangle_enable_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let discard_rectangle_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let discard_rectangle_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetDiscardRectangleEnableEXT({command_buffer:?}, {discard_rectangle_enable:?})");
 
     let result = unsafe {
@@ -6345,14 +6595,14 @@ fn vk_cmd_set_discard_rectangle_enable_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDiscardRectangleModeEXT.html>"]
 fn vk_cmd_set_discard_rectangle_mode_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let discard_rectangle_mode: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let discard_rectangle_mode: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetDiscardRectangleModeEXT({command_buffer:?}, {discard_rectangle_mode:?})");
 
     let result = unsafe {
@@ -6363,14 +6613,14 @@ fn vk_cmd_set_discard_rectangle_mode_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleLocationsEXT.html>"]
 fn vk_cmd_set_sample_locations_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_sample_locations_info: *const VkSampleLocationsInfoEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_sample_locations_info: *const VkSampleLocationsInfoEXT = packet.read_deep();
     trace!("called vkCmdSetSampleLocationsEXT({command_buffer:?}, {p_sample_locations_info:?})");
 
     let result = unsafe {
@@ -6381,15 +6631,15 @@ fn vk_cmd_set_sample_locations_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceMultisamplePropertiesEXT.html>"]
 fn vk_get_physical_device_multisample_properties_ext(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let samples: vk::SampleCountFlags = packet.read();
-    let p_multisample_properties: *mut VkMultisamplePropertiesEXT = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let samples: vk::SampleCountFlags = packet.read_shallow();
+    let p_multisample_properties: *mut VkMultisamplePropertiesEXT = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceMultisamplePropertiesEXT({physical_device:?}, {samples:?}, {p_multisample_properties:?})");
 
     let result = unsafe {
@@ -6401,16 +6651,18 @@ fn vk_get_physical_device_multisample_properties_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_multisample_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_multisample_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilities2KHR.html>"]
 fn vk_get_physical_device_surface_capabilities2_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR = packet.read_nullable_raw_ptr();
-    let p_surface_capabilities: *mut VkSurfaceCapabilities2KHR = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR = packet.read_deep();
+    let p_surface_capabilities: *mut VkSurfaceCapabilities2KHR = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceSurfaceCapabilities2KHR({physical_device:?}, {p_surface_info:?}, {p_surface_capabilities:?})");
 
     let result = unsafe {
@@ -6422,15 +6674,17 @@ fn vk_get_physical_device_surface_capabilities2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface_capabilities);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_surface_capabilities);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfaceFormats2KHR.html>"]
 fn vk_get_physical_device_surface_formats2_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR = packet.read_nullable_raw_ptr();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR = packet.read_deep();
     let (mut p_surface_format_count, p_surface_formats) = packet.read_and_allocate_vk_array_count::<VkSurfaceFormat2KHR>();
     trace!("called vkGetPhysicalDeviceSurfaceFormats2KHR({physical_device:?}, {p_surface_info:?}, {p_surface_format_count:?}, {p_surface_formats:?})");
 
@@ -6444,14 +6698,16 @@ fn vk_get_physical_device_surface_formats2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_surface_format_count, p_surface_formats);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_surface_format_count, p_surface_formats);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayProperties2KHR.html>"]
 fn vk_get_physical_device_display_properties2_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkDisplayProperties2KHR>();
     trace!("called vkGetPhysicalDeviceDisplayProperties2KHR({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
@@ -6464,14 +6720,16 @@ fn vk_get_physical_device_display_properties2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceDisplayPlaneProperties2KHR.html>"]
 fn vk_get_physical_device_display_plane_properties2_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkDisplayPlaneProperties2KHR>();
     trace!("called vkGetPhysicalDeviceDisplayPlaneProperties2KHR({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
@@ -6484,15 +6742,17 @@ fn vk_get_physical_device_display_plane_properties2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayModeProperties2KHR.html>"]
 fn vk_get_display_mode_properties2_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let display: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let display: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkDisplayModeProperties2KHR>();
     trace!("called vkGetDisplayModeProperties2KHR({physical_device:?}, {display:?}, {p_property_count:?}, {p_properties:?})");
 
@@ -6506,16 +6766,18 @@ fn vk_get_display_mode_properties2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDisplayPlaneCapabilities2KHR.html>"]
 fn vk_get_display_plane_capabilities2_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_display_plane_info: *const VkDisplayPlaneInfo2KHR = packet.read_nullable_raw_ptr();
-    let p_capabilities: *mut VkDisplayPlaneCapabilities2KHR = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_display_plane_info: *const VkDisplayPlaneInfo2KHR = packet.read_deep();
+    let p_capabilities: *mut VkDisplayPlaneCapabilities2KHR = packet.read_mut_deep();
     trace!("called vkGetDisplayPlaneCapabilities2KHR({physical_device:?}, {p_display_plane_info:?}, {p_capabilities:?})");
 
     let result = unsafe {
@@ -6527,16 +6789,18 @@ fn vk_get_display_plane_capabilities2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_capabilities);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_capabilities);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferMemoryRequirements2.html>"]
 fn vk_get_buffer_memory_requirements2(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkBufferMemoryRequirementsInfo2 = packet.read_nullable_raw_ptr();
-    let p_memory_requirements: *mut VkMemoryRequirements2 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkBufferMemoryRequirementsInfo2 = packet.read_deep();
+    let p_memory_requirements: *mut VkMemoryRequirements2 = packet.read_mut_deep();
     trace!("called vkGetBufferMemoryRequirements2({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
     let result = unsafe {
@@ -6548,16 +6812,18 @@ fn vk_get_buffer_memory_requirements2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_requirements);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_requirements);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageMemoryRequirements2.html>"]
 fn vk_get_image_memory_requirements2(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkImageMemoryRequirementsInfo2 = packet.read_nullable_raw_ptr();
-    let p_memory_requirements: *mut VkMemoryRequirements2 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkImageMemoryRequirementsInfo2 = packet.read_deep();
+    let p_memory_requirements: *mut VkMemoryRequirements2 = packet.read_mut_deep();
     trace!("called vkGetImageMemoryRequirements2({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
     let result = unsafe {
@@ -6569,15 +6835,17 @@ fn vk_get_image_memory_requirements2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_requirements);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_requirements);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSparseMemoryRequirements2.html>"]
 fn vk_get_image_sparse_memory_requirements2(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkImageSparseMemoryRequirementsInfo2 = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkImageSparseMemoryRequirementsInfo2 = packet.read_deep();
     let (mut p_sparse_memory_requirement_count, p_sparse_memory_requirements) = packet.read_and_allocate_vk_array_count::<VkSparseImageMemoryRequirements2>();
     trace!("called vkGetImageSparseMemoryRequirements2({device:?}, {p_info:?}, {p_sparse_memory_requirement_count:?}, {p_sparse_memory_requirements:?})");
 
@@ -6591,16 +6859,18 @@ fn vk_get_image_sparse_memory_requirements2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_sparse_memory_requirement_count, p_sparse_memory_requirements);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_sparse_memory_requirement_count, p_sparse_memory_requirements);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceBufferMemoryRequirements.html>"]
 fn vk_get_device_buffer_memory_requirements(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkDeviceBufferMemoryRequirements = packet.read_nullable_raw_ptr();
-    let p_memory_requirements: *mut VkMemoryRequirements2 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkDeviceBufferMemoryRequirements = packet.read_deep();
+    let p_memory_requirements: *mut VkMemoryRequirements2 = packet.read_mut_deep();
     trace!("called vkGetDeviceBufferMemoryRequirements({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
     let result = unsafe {
@@ -6612,16 +6882,18 @@ fn vk_get_device_buffer_memory_requirements(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_requirements);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_requirements);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceImageMemoryRequirements.html>"]
 fn vk_get_device_image_memory_requirements(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkDeviceImageMemoryRequirements = packet.read_nullable_raw_ptr();
-    let p_memory_requirements: *mut VkMemoryRequirements2 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkDeviceImageMemoryRequirements = packet.read_deep();
+    let p_memory_requirements: *mut VkMemoryRequirements2 = packet.read_mut_deep();
     trace!("called vkGetDeviceImageMemoryRequirements({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
     let result = unsafe {
@@ -6633,15 +6905,17 @@ fn vk_get_device_image_memory_requirements(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_requirements);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_requirements);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceImageSparseMemoryRequirements.html>"]
 fn vk_get_device_image_sparse_memory_requirements(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkDeviceImageMemoryRequirements = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkDeviceImageMemoryRequirements = packet.read_deep();
     let (mut p_sparse_memory_requirement_count, p_sparse_memory_requirements) = packet.read_and_allocate_vk_array_count::<VkSparseImageMemoryRequirements2>();
     trace!("called vkGetDeviceImageSparseMemoryRequirements({device:?}, {p_info:?}, {p_sparse_memory_requirement_count:?}, {p_sparse_memory_requirements:?})");
 
@@ -6655,17 +6929,19 @@ fn vk_get_device_image_sparse_memory_requirements(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_sparse_memory_requirement_count, p_sparse_memory_requirements);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_sparse_memory_requirement_count, p_sparse_memory_requirements);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateSamplerYcbcrConversion.html>"]
 fn vk_create_sampler_ycbcr_conversion(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkSamplerYcbcrConversionCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_ycbcr_conversion: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkSamplerYcbcrConversionCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_ycbcr_conversion: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateSamplerYcbcrConversion({device:?}, {p_create_info:?}, {p_allocator:?}, {p_ycbcr_conversion:?})");
 
     let result = unsafe {
@@ -6678,16 +6954,18 @@ fn vk_create_sampler_ycbcr_conversion(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_ycbcr_conversion);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_ycbcr_conversion);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroySamplerYcbcrConversion.html>"]
 fn vk_destroy_sampler_ycbcr_conversion(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let ycbcr_conversion: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let ycbcr_conversion: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroySamplerYcbcrConversion({device:?}, {ycbcr_conversion:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -6699,15 +6977,15 @@ fn vk_destroy_sampler_ycbcr_conversion(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceQueue2.html>"]
 fn vk_get_device_queue2(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_queue_info: *const VkDeviceQueueInfo2 = packet.read_nullable_raw_ptr();
-    let p_queue: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_queue_info: *const VkDeviceQueueInfo2 = packet.read_deep();
+    let p_queue: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetDeviceQueue2({device:?}, {p_queue_info:?}, {p_queue:?})");
 
     let result = unsafe {
@@ -6719,17 +6997,19 @@ fn vk_get_device_queue2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_queue);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_queue);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateValidationCacheEXT.html>"]
 fn vk_create_validation_cache_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkValidationCacheCreateInfoEXT = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_validation_cache: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkValidationCacheCreateInfoEXT = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_validation_cache: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateValidationCacheEXT({device:?}, {p_create_info:?}, {p_allocator:?}, {p_validation_cache:?})");
 
     let result = unsafe {
@@ -6742,16 +7022,18 @@ fn vk_create_validation_cache_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_validation_cache);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_validation_cache);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyValidationCacheEXT.html>"]
 fn vk_destroy_validation_cache_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let validation_cache: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let validation_cache: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyValidationCacheEXT({device:?}, {validation_cache:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -6763,16 +7045,16 @@ fn vk_destroy_validation_cache_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetValidationCacheDataEXT.html>"]
 fn vk_get_validation_cache_data_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let validation_cache: NonDisposableHandle = packet.read();
-    let p_data_size: *mut usize = packet.read_nullable_raw_ptr_mut();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let validation_cache: NonDisposableHandle = packet.read_shallow();
+    let p_data_size: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetValidationCacheDataEXT({device:?}, {validation_cache:?}, {p_data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -6785,18 +7067,20 @@ fn vk_get_validation_cache_data_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data_size);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data_size);
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMergeValidationCachesEXT.html>"]
 fn vk_merge_validation_caches_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let dst_cache: NonDisposableHandle = packet.read();
-    let src_cache_count: u32 = packet.read();
-    let p_src_caches: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let dst_cache: NonDisposableHandle = packet.read_shallow();
+    let src_cache_count: u32 = packet.read_shallow();
+    let p_src_caches: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkMergeValidationCachesEXT({device:?}, {dst_cache:?}, {src_cache_count:?}, {p_src_caches:?})");
 
     let result = unsafe {
@@ -6809,15 +7093,15 @@ fn vk_merge_validation_caches_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutSupport.html>"]
 fn vk_get_descriptor_set_layout_support(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkDescriptorSetLayoutCreateInfo = packet.read_nullable_raw_ptr();
-    let p_support: *mut VkDescriptorSetLayoutSupport = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkDescriptorSetLayoutCreateInfo = packet.read_deep();
+    let p_support: *mut VkDescriptorSetLayoutSupport = packet.read_mut_deep();
     trace!("called vkGetDescriptorSetLayoutSupport({device:?}, {p_create_info:?}, {p_support:?})");
 
     let result = unsafe {
@@ -6829,17 +7113,19 @@ fn vk_get_descriptor_set_layout_support(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_support);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_support);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainGrallocUsageANDROID.html>"]
 fn vk_get_swapchain_gralloc_usage_android(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let format: NonDisposableHandle = packet.read();
-    let image_usage: NonDisposableHandle = packet.read();
-    let gralloc_usage: *mut std::os::raw::c_int = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let format: NonDisposableHandle = packet.read_shallow();
+    let image_usage: NonDisposableHandle = packet.read_shallow();
+    let gralloc_usage: *mut std::os::raw::c_int = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetSwapchainGrallocUsageANDROID({device:?}, {format:?}, {image_usage:?}, {gralloc_usage:?})");
 
     let result = unsafe {
@@ -6852,19 +7138,21 @@ fn vk_get_swapchain_gralloc_usage_android(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(gralloc_usage);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(gralloc_usage);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSwapchainGrallocUsage2ANDROID.html>"]
 fn vk_get_swapchain_gralloc_usage2_android(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let format: NonDisposableHandle = packet.read();
-    let image_usage: NonDisposableHandle = packet.read();
-    let swapchain_image_usage: NonDisposableHandle = packet.read();
-    let gralloc_consumer_usage: *mut u64 = packet.read_nullable_raw_ptr_mut();
-    let gralloc_producer_usage: *mut u64 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let format: NonDisposableHandle = packet.read_shallow();
+    let image_usage: NonDisposableHandle = packet.read_shallow();
+    let swapchain_image_usage: NonDisposableHandle = packet.read_shallow();
+    let gralloc_consumer_usage: *mut u64 = packet.read_mut_shallow_under_nullable_ptr();
+    let gralloc_producer_usage: *mut u64 = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetSwapchainGrallocUsage2ANDROID({device:?}, {format:?}, {image_usage:?}, {swapchain_image_usage:?}, {gralloc_consumer_usage:?}, {gralloc_producer_usage:?})");
 
     let result = unsafe {
@@ -6879,19 +7167,21 @@ fn vk_get_swapchain_gralloc_usage2_android(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(gralloc_consumer_usage);
-    response.write_raw_ptr(gralloc_producer_usage);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(gralloc_consumer_usage);
+        response.write_shallow_under_nullable_ptr(gralloc_producer_usage);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireImageANDROID.html>"]
 fn vk_acquire_image_android(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let image: NonDisposableHandle = packet.read();
-    let native_fence_fd: std::os::raw::c_int = packet.read();
-    let semaphore: NonDisposableHandle = packet.read();
-    let fence: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let image: NonDisposableHandle = packet.read_shallow();
+    let native_fence_fd: std::os::raw::c_int = packet.read_shallow();
+    let semaphore: NonDisposableHandle = packet.read_shallow();
+    let fence: NonDisposableHandle = packet.read_shallow();
     trace!("called vkAcquireImageANDROID({device:?}, {image:?}, {native_fence_fd:?}, {semaphore:?}, {fence:?})");
 
     let result = unsafe {
@@ -6905,17 +7195,17 @@ fn vk_acquire_image_android(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSignalReleaseImageANDROID.html>"]
 fn vk_queue_signal_release_image_android(mut packet: Packet) {
-    let queue: NonDisposableHandle = packet.read();
-    let wait_semaphore_count: u32 = packet.read();
-    let p_wait_semaphores: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let image: NonDisposableHandle = packet.read();
-    let p_native_fence_fd: *mut std::os::raw::c_int = packet.read_nullable_raw_ptr_mut();
+    let queue: NonDisposableHandle = packet.read_shallow();
+    let wait_semaphore_count: u32 = packet.read_shallow();
+    let p_wait_semaphores: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let image: NonDisposableHandle = packet.read_shallow();
+    let p_native_fence_fd: *mut std::os::raw::c_int = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkQueueSignalReleaseImageANDROID({queue:?}, {wait_semaphore_count:?}, {p_wait_semaphores:?}, {image:?}, {p_native_fence_fd:?})");
 
     let result = unsafe {
@@ -6929,19 +7219,21 @@ fn vk_queue_signal_release_image_android(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_native_fence_fd);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_native_fence_fd);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderInfoAMD.html>"]
 fn vk_get_shader_info_amd(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let pipeline: NonDisposableHandle = packet.read();
-    let shader_stage: vk::ShaderStageFlags = packet.read();
-    let info_type: NonDisposableHandle = packet.read();
-    let p_info_size: *mut usize = packet.read_nullable_raw_ptr_mut();
-    let p_info: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let pipeline: NonDisposableHandle = packet.read_shallow();
+    let shader_stage: vk::ShaderStageFlags = packet.read_shallow();
+    let info_type: NonDisposableHandle = packet.read_shallow();
+    let p_info_size: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
+    let p_info: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetShaderInfoAMD({device:?}, {pipeline:?}, {shader_stage:?}, {info_type:?}, {p_info_size:?}, {p_info:?})");
 
     let result = unsafe {
@@ -6956,17 +7248,19 @@ fn vk_get_shader_info_amd(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_info_size);
-    response.write_raw_ptr(p_info);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_info_size);
+        response.write_shallow_under_nullable_ptr(p_info);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetLocalDimmingAMD.html>"]
 fn vk_set_local_dimming_amd(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swap_chain: NonDisposableHandle = packet.read();
-    let local_dimming_enable: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swap_chain: NonDisposableHandle = packet.read_shallow();
+    let local_dimming_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkSetLocalDimmingAMD({device:?}, {swap_chain:?}, {local_dimming_enable:?})");
 
     let result = unsafe {
@@ -6978,13 +7272,13 @@ fn vk_set_local_dimming_amd(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceCalibrateableTimeDomainsKHR.html>"]
 fn vk_get_physical_device_calibrateable_time_domains_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_time_domain_count, p_time_domains) = packet.read_and_allocate_vk_array_count::<NonDisposableHandle>();
     trace!("called vkGetPhysicalDeviceCalibrateableTimeDomainsKHR({physical_device:?}, {p_time_domain_count:?}, {p_time_domains:?})");
 
@@ -6997,18 +7291,20 @@ fn vk_get_physical_device_calibrateable_time_domains_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_time_domain_count, p_time_domains);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_time_domain_count, p_time_domains);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetCalibratedTimestampsKHR.html>"]
 fn vk_get_calibrated_timestamps_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let timestamp_count: u32 = packet.read();
-    let p_timestamp_infos: *const VkCalibratedTimestampInfoKHR = packet.read_nullable_raw_ptr();
-    let p_timestamps: *mut u64 = packet.read_nullable_raw_ptr_mut();
-    let p_max_deviation: *mut u64 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let timestamp_count: u32 = packet.read_shallow();
+    let p_timestamp_infos: *const VkCalibratedTimestampInfoKHR = packet.read_deep();
+    let p_timestamps: *mut u64 = packet.read_mut_shallow_under_nullable_ptr();
+    let p_max_deviation: *mut u64 = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetCalibratedTimestampsKHR({device:?}, {timestamp_count:?}, {p_timestamp_infos:?}, {p_timestamps:?}, {p_max_deviation:?})");
 
     let result = unsafe {
@@ -7022,16 +7318,18 @@ fn vk_get_calibrated_timestamps_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_timestamps);
-    response.write_raw_ptr(p_max_deviation);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_timestamps);
+        response.write_shallow_under_nullable_ptr(p_max_deviation);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetDebugUtilsObjectNameEXT.html>"]
 fn vk_set_debug_utils_object_name_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_name_info: *const VkDebugUtilsObjectNameInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_name_info: *const VkDebugUtilsObjectNameInfoEXT = packet.read_deep();
     trace!("called vkSetDebugUtilsObjectNameEXT({device:?}, {p_name_info:?})");
 
     let result = unsafe {
@@ -7042,14 +7340,14 @@ fn vk_set_debug_utils_object_name_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetDebugUtilsObjectTagEXT.html>"]
 fn vk_set_debug_utils_object_tag_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_tag_info: *const VkDebugUtilsObjectTagInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_tag_info: *const VkDebugUtilsObjectTagInfoEXT = packet.read_deep();
     trace!("called vkSetDebugUtilsObjectTagEXT({device:?}, {p_tag_info:?})");
 
     let result = unsafe {
@@ -7060,14 +7358,14 @@ fn vk_set_debug_utils_object_tag_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueBeginDebugUtilsLabelEXT.html>"]
 fn vk_queue_begin_debug_utils_label_ext(mut packet: Packet) {
-    let queue: NonDisposableHandle = packet.read();
-    let p_label_info: *const VkDebugUtilsLabelEXT = packet.read_nullable_raw_ptr();
+    let queue: NonDisposableHandle = packet.read_shallow();
+    let p_label_info: *const VkDebugUtilsLabelEXT = packet.read_deep();
     trace!("called vkQueueBeginDebugUtilsLabelEXT({queue:?}, {p_label_info:?})");
 
     let result = unsafe {
@@ -7078,13 +7376,13 @@ fn vk_queue_begin_debug_utils_label_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueEndDebugUtilsLabelEXT.html>"]
 fn vk_queue_end_debug_utils_label_ext(mut packet: Packet) {
-    let queue: NonDisposableHandle = packet.read();
+    let queue: NonDisposableHandle = packet.read_shallow();
     trace!("called vkQueueEndDebugUtilsLabelEXT({queue:?})");
 
     let result = unsafe {
@@ -7094,14 +7392,14 @@ fn vk_queue_end_debug_utils_label_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueInsertDebugUtilsLabelEXT.html>"]
 fn vk_queue_insert_debug_utils_label_ext(mut packet: Packet) {
-    let queue: NonDisposableHandle = packet.read();
-    let p_label_info: *const VkDebugUtilsLabelEXT = packet.read_nullable_raw_ptr();
+    let queue: NonDisposableHandle = packet.read_shallow();
+    let p_label_info: *const VkDebugUtilsLabelEXT = packet.read_deep();
     trace!("called vkQueueInsertDebugUtilsLabelEXT({queue:?}, {p_label_info:?})");
 
     let result = unsafe {
@@ -7112,14 +7410,14 @@ fn vk_queue_insert_debug_utils_label_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginDebugUtilsLabelEXT.html>"]
 fn vk_cmd_begin_debug_utils_label_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_label_info: *const VkDebugUtilsLabelEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_label_info: *const VkDebugUtilsLabelEXT = packet.read_deep();
     trace!("called vkCmdBeginDebugUtilsLabelEXT({command_buffer:?}, {p_label_info:?})");
 
     let result = unsafe {
@@ -7130,13 +7428,13 @@ fn vk_cmd_begin_debug_utils_label_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndDebugUtilsLabelEXT.html>"]
 fn vk_cmd_end_debug_utils_label_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdEndDebugUtilsLabelEXT({command_buffer:?})");
 
     let result = unsafe {
@@ -7146,14 +7444,14 @@ fn vk_cmd_end_debug_utils_label_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdInsertDebugUtilsLabelEXT.html>"]
 fn vk_cmd_insert_debug_utils_label_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_label_info: *const VkDebugUtilsLabelEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_label_info: *const VkDebugUtilsLabelEXT = packet.read_deep();
     trace!("called vkCmdInsertDebugUtilsLabelEXT({command_buffer:?}, {p_label_info:?})");
 
     let result = unsafe {
@@ -7164,16 +7462,16 @@ fn vk_cmd_insert_debug_utils_label_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDebugUtilsMessengerEXT.html>"]
 fn vk_create_debug_utils_messenger_ext(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkDebugUtilsMessengerCreateInfoEXT = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_messenger: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkDebugUtilsMessengerCreateInfoEXT = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_messenger: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateDebugUtilsMessengerEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_messenger:?})");
 
     let result = unsafe {
@@ -7186,16 +7484,18 @@ fn vk_create_debug_utils_messenger_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_messenger);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_messenger);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDebugUtilsMessengerEXT.html>"]
 fn vk_destroy_debug_utils_messenger_ext(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let messenger: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let messenger: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyDebugUtilsMessengerEXT({instance:?}, {messenger:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -7207,16 +7507,16 @@ fn vk_destroy_debug_utils_messenger_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSubmitDebugUtilsMessageEXT.html>"]
 fn vk_submit_debug_utils_message_ext(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let message_severity: vk::DebugUtilsMessageSeverityFlagsEXT = packet.read();
-    let message_types: NonDisposableHandle = packet.read();
-    let p_callback_data: *const VkDebugUtilsMessengerCallbackDataEXT = packet.read_nullable_raw_ptr();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let message_severity: vk::DebugUtilsMessageSeverityFlagsEXT = packet.read_shallow();
+    let message_types: NonDisposableHandle = packet.read_shallow();
+    let p_callback_data: *const VkDebugUtilsMessengerCallbackDataEXT = packet.read_deep();
     trace!("called vkSubmitDebugUtilsMessageEXT({instance:?}, {message_severity:?}, {message_types:?}, {p_callback_data:?})");
 
     let result = unsafe {
@@ -7229,16 +7529,16 @@ fn vk_submit_debug_utils_message_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryHostPointerPropertiesEXT.html>"]
 fn vk_get_memory_host_pointer_properties_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read();
-    let p_host_pointer: *const c_void = packet.read_nullable_raw_ptr();
-    let p_memory_host_pointer_properties: *mut VkMemoryHostPointerPropertiesEXT = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let handle_type: vk::ExternalMemoryHandleTypeFlags = packet.read_shallow();
+    let p_host_pointer: *const c_void = packet.read_shallow_under_nullable_ptr();
+    let p_memory_host_pointer_properties: *mut VkMemoryHostPointerPropertiesEXT = packet.read_mut_deep();
     trace!("called vkGetMemoryHostPointerPropertiesEXT({device:?}, {handle_type:?}, {p_host_pointer:?}, {p_memory_host_pointer_properties:?})");
 
     let result = unsafe {
@@ -7251,18 +7551,20 @@ fn vk_get_memory_host_pointer_properties_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_host_pointer_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_host_pointer_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteBufferMarkerAMD.html>"]
 fn vk_cmd_write_buffer_marker_amd(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let pipeline_stage: vk::PipelineStageFlags = packet.read();
-    let dst_buffer: NonDisposableHandle = packet.read();
-    let dst_offset: NonDisposableHandle = packet.read();
-    let marker: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let pipeline_stage: vk::PipelineStageFlags = packet.read_shallow();
+    let dst_buffer: NonDisposableHandle = packet.read_shallow();
+    let dst_offset: NonDisposableHandle = packet.read_shallow();
+    let marker: u32 = packet.read_shallow();
     trace!("called vkCmdWriteBufferMarkerAMD({command_buffer:?}, {pipeline_stage:?}, {dst_buffer:?}, {dst_offset:?}, {marker:?})");
 
     let result = unsafe {
@@ -7276,16 +7578,16 @@ fn vk_cmd_write_buffer_marker_amd(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRenderPass2.html>"]
 fn vk_create_render_pass2(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkRenderPassCreateInfo2 = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_render_pass: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkRenderPassCreateInfo2 = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_render_pass: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateRenderPass2({device:?}, {p_create_info:?}, {p_allocator:?}, {p_render_pass:?})");
 
     let result = unsafe {
@@ -7298,16 +7600,18 @@ fn vk_create_render_pass2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_render_pass);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_render_pass);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRenderPass2.html>"]
 fn vk_cmd_begin_render_pass2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_render_pass_begin: *const VkRenderPassBeginInfo = packet.read_nullable_raw_ptr();
-    let p_subpass_begin_info: *const VkSubpassBeginInfo = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_render_pass_begin: *const VkRenderPassBeginInfo = packet.read_deep();
+    let p_subpass_begin_info: *const VkSubpassBeginInfo = packet.read_deep();
     trace!("called vkCmdBeginRenderPass2({command_buffer:?}, {p_render_pass_begin:?}, {p_subpass_begin_info:?})");
 
     let result = unsafe {
@@ -7319,15 +7623,15 @@ fn vk_cmd_begin_render_pass2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdNextSubpass2.html>"]
 fn vk_cmd_next_subpass2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_subpass_begin_info: *const VkSubpassBeginInfo = packet.read_nullable_raw_ptr();
-    let p_subpass_end_info: *const VkSubpassEndInfo = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_subpass_begin_info: *const VkSubpassBeginInfo = packet.read_deep();
+    let p_subpass_end_info: *const VkSubpassEndInfo = packet.read_deep();
     trace!("called vkCmdNextSubpass2({command_buffer:?}, {p_subpass_begin_info:?}, {p_subpass_end_info:?})");
 
     let result = unsafe {
@@ -7339,14 +7643,14 @@ fn vk_cmd_next_subpass2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass2.html>"]
 fn vk_cmd_end_render_pass2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_subpass_end_info: *const VkSubpassEndInfo = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_subpass_end_info: *const VkSubpassEndInfo = packet.read_deep();
     trace!("called vkCmdEndRenderPass2({command_buffer:?}, {p_subpass_end_info:?})");
 
     let result = unsafe {
@@ -7357,15 +7661,15 @@ fn vk_cmd_end_render_pass2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSemaphoreCounterValue.html>"]
 fn vk_get_semaphore_counter_value(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let semaphore: NonDisposableHandle = packet.read();
-    let p_value: *mut u64 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let semaphore: NonDisposableHandle = packet.read_shallow();
+    let p_value: *mut u64 = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetSemaphoreCounterValue({device:?}, {semaphore:?}, {p_value:?})");
 
     let result = unsafe {
@@ -7377,16 +7681,18 @@ fn vk_get_semaphore_counter_value(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_value);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_value);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWaitSemaphores.html>"]
 fn vk_wait_semaphores(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_wait_info: *const VkSemaphoreWaitInfo = packet.read_nullable_raw_ptr();
-    let timeout: u64 = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_wait_info: *const VkSemaphoreWaitInfo = packet.read_deep();
+    let timeout: u64 = packet.read_shallow();
     trace!("called vkWaitSemaphores({device:?}, {p_wait_info:?}, {timeout:?})");
 
     let result = unsafe {
@@ -7398,14 +7704,14 @@ fn vk_wait_semaphores(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSignalSemaphore.html>"]
 fn vk_signal_semaphore(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_signal_info: *const VkSemaphoreSignalInfo = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_signal_info: *const VkSemaphoreSignalInfo = packet.read_deep();
     trace!("called vkSignalSemaphore({device:?}, {p_signal_info:?})");
 
     let result = unsafe {
@@ -7416,15 +7722,15 @@ fn vk_signal_semaphore(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html>"]
 fn vk_get_android_hardware_buffer_properties_android(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let buffer: *const usize = packet.read_nullable_raw_ptr();
-    let p_properties: *mut VkAndroidHardwareBufferPropertiesANDROID = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let buffer: *const usize = packet.read_shallow_under_nullable_ptr();
+    let p_properties: *mut VkAndroidHardwareBufferPropertiesANDROID = packet.read_mut_deep();
     trace!("called vkGetAndroidHardwareBufferPropertiesANDROID({device:?}, {buffer:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -7436,16 +7742,18 @@ fn vk_get_android_hardware_buffer_properties_android(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMemoryAndroidHardwareBufferANDROID.html>"]
 fn vk_get_memory_android_hardware_buffer_android(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkMemoryGetAndroidHardwareBufferInfoANDROID = packet.read_nullable_raw_ptr();
-    let p_buffer: *mut *mut usize = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkMemoryGetAndroidHardwareBufferInfoANDROID = packet.read_deep();
+    let p_buffer: *mut *mut usize = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetMemoryAndroidHardwareBufferANDROID({device:?}, {p_info:?}, {p_buffer:?})");
 
     let result = unsafe {
@@ -7457,20 +7765,22 @@ fn vk_get_memory_android_hardware_buffer_android(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_buffer);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_buffer);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirectCount.html>"]
 fn vk_cmd_draw_indirect_count(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let offset: NonDisposableHandle = packet.read();
-    let count_buffer: NonDisposableHandle = packet.read();
-    let count_buffer_offset: NonDisposableHandle = packet.read();
-    let max_draw_count: u32 = packet.read();
-    let stride: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let offset: NonDisposableHandle = packet.read_shallow();
+    let count_buffer: NonDisposableHandle = packet.read_shallow();
+    let count_buffer_offset: NonDisposableHandle = packet.read_shallow();
+    let max_draw_count: u32 = packet.read_shallow();
+    let stride: u32 = packet.read_shallow();
     trace!("called vkCmdDrawIndirectCount({command_buffer:?}, {buffer:?}, {offset:?}, {count_buffer:?}, {count_buffer_offset:?}, {max_draw_count:?}, {stride:?})");
 
     let result = unsafe {
@@ -7486,19 +7796,19 @@ fn vk_cmd_draw_indirect_count(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndexedIndirectCount.html>"]
 fn vk_cmd_draw_indexed_indirect_count(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let offset: NonDisposableHandle = packet.read();
-    let count_buffer: NonDisposableHandle = packet.read();
-    let count_buffer_offset: NonDisposableHandle = packet.read();
-    let max_draw_count: u32 = packet.read();
-    let stride: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let offset: NonDisposableHandle = packet.read_shallow();
+    let count_buffer: NonDisposableHandle = packet.read_shallow();
+    let count_buffer_offset: NonDisposableHandle = packet.read_shallow();
+    let max_draw_count: u32 = packet.read_shallow();
+    let stride: u32 = packet.read_shallow();
     trace!("called vkCmdDrawIndexedIndirectCount({command_buffer:?}, {buffer:?}, {offset:?}, {count_buffer:?}, {count_buffer_offset:?}, {max_draw_count:?}, {stride:?})");
 
     let result = unsafe {
@@ -7514,14 +7824,14 @@ fn vk_cmd_draw_indexed_indirect_count(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCheckpointNV.html>"]
 fn vk_cmd_set_checkpoint_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_checkpoint_marker: *const c_void = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_checkpoint_marker: *const c_void = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdSetCheckpointNV({command_buffer:?}, {p_checkpoint_marker:?})");
 
     let result = unsafe {
@@ -7532,13 +7842,13 @@ fn vk_cmd_set_checkpoint_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetQueueCheckpointDataNV.html>"]
 fn vk_get_queue_checkpoint_data_nv(mut packet: Packet) {
-    let queue: NonDisposableHandle = packet.read();
+    let queue: NonDisposableHandle = packet.read_shallow();
     let (mut p_checkpoint_data_count, p_checkpoint_data) = packet.read_and_allocate_vk_array_count::<VkCheckpointDataNV>();
     trace!("called vkGetQueueCheckpointDataNV({queue:?}, {p_checkpoint_data_count:?}, {p_checkpoint_data:?})");
 
@@ -7551,19 +7861,21 @@ fn vk_get_queue_checkpoint_data_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_checkpoint_data_count, p_checkpoint_data);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_checkpoint_data_count, p_checkpoint_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindTransformFeedbackBuffersEXT.html>"]
 fn vk_cmd_bind_transform_feedback_buffers_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_binding: u32 = packet.read();
-    let binding_count: u32 = packet.read();
-    let p_buffers: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let p_offsets: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let p_sizes: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_binding: u32 = packet.read_shallow();
+    let binding_count: u32 = packet.read_shallow();
+    let p_buffers: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let p_offsets: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let p_sizes: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdBindTransformFeedbackBuffersEXT({command_buffer:?}, {first_binding:?}, {binding_count:?}, {p_buffers:?}, {p_offsets:?}, {p_sizes:?})");
 
     let result = unsafe {
@@ -7578,17 +7890,17 @@ fn vk_cmd_bind_transform_feedback_buffers_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginTransformFeedbackEXT.html>"]
 fn vk_cmd_begin_transform_feedback_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_counter_buffer: u32 = packet.read();
-    let counter_buffer_count: u32 = packet.read();
-    let p_counter_buffers: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let p_counter_buffer_offsets: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_counter_buffer: u32 = packet.read_shallow();
+    let counter_buffer_count: u32 = packet.read_shallow();
+    let p_counter_buffers: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let p_counter_buffer_offsets: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdBeginTransformFeedbackEXT({command_buffer:?}, {first_counter_buffer:?}, {counter_buffer_count:?}, {p_counter_buffers:?}, {p_counter_buffer_offsets:?})");
 
     let result = unsafe {
@@ -7602,17 +7914,17 @@ fn vk_cmd_begin_transform_feedback_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndTransformFeedbackEXT.html>"]
 fn vk_cmd_end_transform_feedback_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_counter_buffer: u32 = packet.read();
-    let counter_buffer_count: u32 = packet.read();
-    let p_counter_buffers: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let p_counter_buffer_offsets: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_counter_buffer: u32 = packet.read_shallow();
+    let counter_buffer_count: u32 = packet.read_shallow();
+    let p_counter_buffers: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let p_counter_buffer_offsets: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdEndTransformFeedbackEXT({command_buffer:?}, {first_counter_buffer:?}, {counter_buffer_count:?}, {p_counter_buffers:?}, {p_counter_buffer_offsets:?})");
 
     let result = unsafe {
@@ -7626,17 +7938,17 @@ fn vk_cmd_end_transform_feedback_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginQueryIndexedEXT.html>"]
 fn vk_cmd_begin_query_indexed_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let query: u32 = packet.read();
-    let flags: NonDisposableHandle = packet.read();
-    let index: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let query: u32 = packet.read_shallow();
+    let flags: NonDisposableHandle = packet.read_shallow();
+    let index: u32 = packet.read_shallow();
     trace!("called vkCmdBeginQueryIndexedEXT({command_buffer:?}, {query_pool:?}, {query:?}, {flags:?}, {index:?})");
 
     let result = unsafe {
@@ -7650,16 +7962,16 @@ fn vk_cmd_begin_query_indexed_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndQueryIndexedEXT.html>"]
 fn vk_cmd_end_query_indexed_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let query: u32 = packet.read();
-    let index: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let query: u32 = packet.read_shallow();
+    let index: u32 = packet.read_shallow();
     trace!("called vkCmdEndQueryIndexedEXT({command_buffer:?}, {query_pool:?}, {query:?}, {index:?})");
 
     let result = unsafe {
@@ -7672,19 +7984,19 @@ fn vk_cmd_end_query_indexed_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawIndirectByteCountEXT.html>"]
 fn vk_cmd_draw_indirect_byte_count_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let instance_count: u32 = packet.read();
-    let first_instance: u32 = packet.read();
-    let counter_buffer: NonDisposableHandle = packet.read();
-    let counter_buffer_offset: NonDisposableHandle = packet.read();
-    let counter_offset: u32 = packet.read();
-    let vertex_stride: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let instance_count: u32 = packet.read_shallow();
+    let first_instance: u32 = packet.read_shallow();
+    let counter_buffer: NonDisposableHandle = packet.read_shallow();
+    let counter_buffer_offset: NonDisposableHandle = packet.read_shallow();
+    let counter_offset: u32 = packet.read_shallow();
+    let vertex_stride: u32 = packet.read_shallow();
     trace!("called vkCmdDrawIndirectByteCountEXT({command_buffer:?}, {instance_count:?}, {first_instance:?}, {counter_buffer:?}, {counter_buffer_offset:?}, {counter_offset:?}, {vertex_stride:?})");
 
     let result = unsafe {
@@ -7700,16 +8012,16 @@ fn vk_cmd_draw_indirect_byte_count_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetExclusiveScissorNV.html>"]
 fn vk_cmd_set_exclusive_scissor_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_exclusive_scissor: u32 = packet.read();
-    let exclusive_scissor_count: u32 = packet.read();
-    let p_exclusive_scissors: *const VkRect2D = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_exclusive_scissor: u32 = packet.read_shallow();
+    let exclusive_scissor_count: u32 = packet.read_shallow();
+    let p_exclusive_scissors: *const VkRect2D = packet.read_deep();
     trace!("called vkCmdSetExclusiveScissorNV({command_buffer:?}, {first_exclusive_scissor:?}, {exclusive_scissor_count:?}, {p_exclusive_scissors:?})");
 
     let result = unsafe {
@@ -7722,16 +8034,16 @@ fn vk_cmd_set_exclusive_scissor_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetExclusiveScissorEnableNV.html>"]
 fn vk_cmd_set_exclusive_scissor_enable_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_exclusive_scissor: u32 = packet.read();
-    let exclusive_scissor_count: u32 = packet.read();
-    let p_exclusive_scissor_enables: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_exclusive_scissor: u32 = packet.read_shallow();
+    let exclusive_scissor_count: u32 = packet.read_shallow();
+    let p_exclusive_scissor_enables: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdSetExclusiveScissorEnableNV({command_buffer:?}, {first_exclusive_scissor:?}, {exclusive_scissor_count:?}, {p_exclusive_scissor_enables:?})");
 
     let result = unsafe {
@@ -7744,15 +8056,15 @@ fn vk_cmd_set_exclusive_scissor_enable_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindShadingRateImageNV.html>"]
 fn vk_cmd_bind_shading_rate_image_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let image_view: NonDisposableHandle = packet.read();
-    let image_layout: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let image_view: NonDisposableHandle = packet.read_shallow();
+    let image_layout: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdBindShadingRateImageNV({command_buffer:?}, {image_view:?}, {image_layout:?})");
 
     let result = unsafe {
@@ -7764,16 +8076,16 @@ fn vk_cmd_bind_shading_rate_image_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportShadingRatePaletteNV.html>"]
 fn vk_cmd_set_viewport_shading_rate_palette_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_viewport: u32 = packet.read();
-    let viewport_count: u32 = packet.read();
-    let p_shading_rate_palettes: *const VkShadingRatePaletteNV = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_viewport: u32 = packet.read_shallow();
+    let viewport_count: u32 = packet.read_shallow();
+    let p_shading_rate_palettes: *const VkShadingRatePaletteNV = packet.read_deep();
     trace!("called vkCmdSetViewportShadingRatePaletteNV({command_buffer:?}, {first_viewport:?}, {viewport_count:?}, {p_shading_rate_palettes:?})");
 
     let result = unsafe {
@@ -7786,16 +8098,16 @@ fn vk_cmd_set_viewport_shading_rate_palette_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoarseSampleOrderNV.html>"]
 fn vk_cmd_set_coarse_sample_order_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let sample_order_type: NonDisposableHandle = packet.read();
-    let custom_sample_order_count: u32 = packet.read();
-    let p_custom_sample_orders: *const VkCoarseSampleOrderCustomNV = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let sample_order_type: NonDisposableHandle = packet.read_shallow();
+    let custom_sample_order_count: u32 = packet.read_shallow();
+    let p_custom_sample_orders: *const VkCoarseSampleOrderCustomNV = packet.read_deep();
     trace!("called vkCmdSetCoarseSampleOrderNV({command_buffer:?}, {sample_order_type:?}, {custom_sample_order_count:?}, {p_custom_sample_orders:?})");
 
     let result = unsafe {
@@ -7808,15 +8120,15 @@ fn vk_cmd_set_coarse_sample_order_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksNV.html>"]
 fn vk_cmd_draw_mesh_tasks_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let task_count: u32 = packet.read();
-    let first_task: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let task_count: u32 = packet.read_shallow();
+    let first_task: u32 = packet.read_shallow();
     trace!("called vkCmdDrawMeshTasksNV({command_buffer:?}, {task_count:?}, {first_task:?})");
 
     let result = unsafe {
@@ -7828,17 +8140,17 @@ fn vk_cmd_draw_mesh_tasks_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectNV.html>"]
 fn vk_cmd_draw_mesh_tasks_indirect_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let offset: NonDisposableHandle = packet.read();
-    let draw_count: u32 = packet.read();
-    let stride: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let offset: NonDisposableHandle = packet.read_shallow();
+    let draw_count: u32 = packet.read_shallow();
+    let stride: u32 = packet.read_shallow();
     trace!("called vkCmdDrawMeshTasksIndirectNV({command_buffer:?}, {buffer:?}, {offset:?}, {draw_count:?}, {stride:?})");
 
     let result = unsafe {
@@ -7852,19 +8164,19 @@ fn vk_cmd_draw_mesh_tasks_indirect_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectCountNV.html>"]
 fn vk_cmd_draw_mesh_tasks_indirect_count_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let offset: NonDisposableHandle = packet.read();
-    let count_buffer: NonDisposableHandle = packet.read();
-    let count_buffer_offset: NonDisposableHandle = packet.read();
-    let max_draw_count: u32 = packet.read();
-    let stride: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let offset: NonDisposableHandle = packet.read_shallow();
+    let count_buffer: NonDisposableHandle = packet.read_shallow();
+    let count_buffer_offset: NonDisposableHandle = packet.read_shallow();
+    let max_draw_count: u32 = packet.read_shallow();
+    let stride: u32 = packet.read_shallow();
     trace!("called vkCmdDrawMeshTasksIndirectCountNV({command_buffer:?}, {buffer:?}, {offset:?}, {count_buffer:?}, {count_buffer_offset:?}, {max_draw_count:?}, {stride:?})");
 
     let result = unsafe {
@@ -7880,16 +8192,16 @@ fn vk_cmd_draw_mesh_tasks_indirect_count_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksEXT.html>"]
 fn vk_cmd_draw_mesh_tasks_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let group_count_x: u32 = packet.read();
-    let group_count_y: u32 = packet.read();
-    let group_count_z: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let group_count_x: u32 = packet.read_shallow();
+    let group_count_y: u32 = packet.read_shallow();
+    let group_count_z: u32 = packet.read_shallow();
     trace!("called vkCmdDrawMeshTasksEXT({command_buffer:?}, {group_count_x:?}, {group_count_y:?}, {group_count_z:?})");
 
     let result = unsafe {
@@ -7902,17 +8214,17 @@ fn vk_cmd_draw_mesh_tasks_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectEXT.html>"]
 fn vk_cmd_draw_mesh_tasks_indirect_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let offset: NonDisposableHandle = packet.read();
-    let draw_count: u32 = packet.read();
-    let stride: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let offset: NonDisposableHandle = packet.read_shallow();
+    let draw_count: u32 = packet.read_shallow();
+    let stride: u32 = packet.read_shallow();
     trace!("called vkCmdDrawMeshTasksIndirectEXT({command_buffer:?}, {buffer:?}, {offset:?}, {draw_count:?}, {stride:?})");
 
     let result = unsafe {
@@ -7926,19 +8238,19 @@ fn vk_cmd_draw_mesh_tasks_indirect_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDrawMeshTasksIndirectCountEXT.html>"]
 fn vk_cmd_draw_mesh_tasks_indirect_count_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let offset: NonDisposableHandle = packet.read();
-    let count_buffer: NonDisposableHandle = packet.read();
-    let count_buffer_offset: NonDisposableHandle = packet.read();
-    let max_draw_count: u32 = packet.read();
-    let stride: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let offset: NonDisposableHandle = packet.read_shallow();
+    let count_buffer: NonDisposableHandle = packet.read_shallow();
+    let count_buffer_offset: NonDisposableHandle = packet.read_shallow();
+    let max_draw_count: u32 = packet.read_shallow();
+    let stride: u32 = packet.read_shallow();
     trace!("called vkCmdDrawMeshTasksIndirectCountEXT({command_buffer:?}, {buffer:?}, {offset:?}, {count_buffer:?}, {count_buffer_offset:?}, {max_draw_count:?}, {stride:?})");
 
     let result = unsafe {
@@ -7954,15 +8266,15 @@ fn vk_cmd_draw_mesh_tasks_indirect_count_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCompileDeferredNV.html>"]
 fn vk_compile_deferred_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let pipeline: NonDisposableHandle = packet.read();
-    let shader: u32 = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let pipeline: NonDisposableHandle = packet.read_shallow();
+    let shader: u32 = packet.read_shallow();
     trace!("called vkCompileDeferredNV({device:?}, {pipeline:?}, {shader:?})");
 
     let result = unsafe {
@@ -7974,16 +8286,16 @@ fn vk_compile_deferred_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateAccelerationStructureNV.html>"]
 fn vk_create_acceleration_structure_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkAccelerationStructureCreateInfoNV = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_acceleration_structure: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkAccelerationStructureCreateInfoNV = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_acceleration_structure: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateAccelerationStructureNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_acceleration_structure:?})");
 
     let result = unsafe {
@@ -7996,16 +8308,18 @@ fn vk_create_acceleration_structure_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_acceleration_structure);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_acceleration_structure);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindInvocationMaskHUAWEI.html>"]
 fn vk_cmd_bind_invocation_mask_huawei(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let image_view: NonDisposableHandle = packet.read();
-    let image_layout: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let image_view: NonDisposableHandle = packet.read_shallow();
+    let image_layout: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdBindInvocationMaskHUAWEI({command_buffer:?}, {image_view:?}, {image_layout:?})");
 
     let result = unsafe {
@@ -8017,15 +8331,15 @@ fn vk_cmd_bind_invocation_mask_huawei(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyAccelerationStructureKHR.html>"]
 fn vk_destroy_acceleration_structure_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let acceleration_structure: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let acceleration_structure: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyAccelerationStructureKHR({device:?}, {acceleration_structure:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -8037,15 +8351,15 @@ fn vk_destroy_acceleration_structure_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyAccelerationStructureNV.html>"]
 fn vk_destroy_acceleration_structure_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let acceleration_structure: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let acceleration_structure: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyAccelerationStructureNV({device:?}, {acceleration_structure:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -8057,15 +8371,15 @@ fn vk_destroy_acceleration_structure_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureMemoryRequirementsNV.html>"]
 fn vk_get_acceleration_structure_memory_requirements_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkAccelerationStructureMemoryRequirementsInfoNV = packet.read_nullable_raw_ptr();
-    let p_memory_requirements: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkAccelerationStructureMemoryRequirementsInfoNV = packet.read_deep();
+    let p_memory_requirements: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetAccelerationStructureMemoryRequirementsNV({device:?}, {p_info:?}, {p_memory_requirements:?})");
 
     let result = unsafe {
@@ -8077,16 +8391,18 @@ fn vk_get_acceleration_structure_memory_requirements_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_requirements);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_memory_requirements);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindAccelerationStructureMemoryNV.html>"]
 fn vk_bind_acceleration_structure_memory_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let bind_info_count: u32 = packet.read();
-    let p_bind_infos: *const VkBindAccelerationStructureMemoryInfoNV = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let bind_info_count: u32 = packet.read_shallow();
+    let p_bind_infos: *const VkBindAccelerationStructureMemoryInfoNV = packet.read_deep();
     trace!("called vkBindAccelerationStructureMemoryNV({device:?}, {bind_info_count:?}, {p_bind_infos:?})");
 
     let result = unsafe {
@@ -8098,16 +8414,16 @@ fn vk_bind_acceleration_structure_memory_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyAccelerationStructureNV.html>"]
 fn vk_cmd_copy_acceleration_structure_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let dst: NonDisposableHandle = packet.read();
-    let src: NonDisposableHandle = packet.read();
-    let mode: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let dst: NonDisposableHandle = packet.read_shallow();
+    let src: NonDisposableHandle = packet.read_shallow();
+    let mode: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdCopyAccelerationStructureNV({command_buffer:?}, {dst:?}, {src:?}, {mode:?})");
 
     let result = unsafe {
@@ -8120,14 +8436,14 @@ fn vk_cmd_copy_acceleration_structure_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyAccelerationStructureKHR.html>"]
 fn vk_cmd_copy_acceleration_structure_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_info: *const VkCopyAccelerationStructureInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkCopyAccelerationStructureInfoKHR = packet.read_deep();
     trace!("called vkCmdCopyAccelerationStructureKHR({command_buffer:?}, {p_info:?})");
 
     let result = unsafe {
@@ -8138,15 +8454,15 @@ fn vk_cmd_copy_acceleration_structure_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyAccelerationStructureKHR.html>"]
 fn vk_copy_acceleration_structure_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let deferred_operation: NonDisposableHandle = packet.read();
-    let p_info: *const VkCopyAccelerationStructureInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let deferred_operation: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkCopyAccelerationStructureInfoKHR = packet.read_deep();
     trace!("called vkCopyAccelerationStructureKHR({device:?}, {deferred_operation:?}, {p_info:?})");
 
     let result = unsafe {
@@ -8158,14 +8474,14 @@ fn vk_copy_acceleration_structure_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyAccelerationStructureToMemoryKHR.html>"]
 fn vk_cmd_copy_acceleration_structure_to_memory_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_info: *const VkCopyAccelerationStructureToMemoryInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkCopyAccelerationStructureToMemoryInfoKHR = packet.read_deep();
     trace!("called vkCmdCopyAccelerationStructureToMemoryKHR({command_buffer:?}, {p_info:?})");
 
     let result = unsafe {
@@ -8176,15 +8492,15 @@ fn vk_cmd_copy_acceleration_structure_to_memory_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyAccelerationStructureToMemoryKHR.html>"]
 fn vk_copy_acceleration_structure_to_memory_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let deferred_operation: NonDisposableHandle = packet.read();
-    let p_info: *const VkCopyAccelerationStructureToMemoryInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let deferred_operation: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkCopyAccelerationStructureToMemoryInfoKHR = packet.read_deep();
     trace!("called vkCopyAccelerationStructureToMemoryKHR({device:?}, {deferred_operation:?}, {p_info:?})");
 
     let result = unsafe {
@@ -8196,14 +8512,14 @@ fn vk_copy_acceleration_structure_to_memory_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryToAccelerationStructureKHR.html>"]
 fn vk_cmd_copy_memory_to_acceleration_structure_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_info: *const VkCopyMemoryToAccelerationStructureInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkCopyMemoryToAccelerationStructureInfoKHR = packet.read_deep();
     trace!("called vkCmdCopyMemoryToAccelerationStructureKHR({command_buffer:?}, {p_info:?})");
 
     let result = unsafe {
@@ -8214,15 +8530,15 @@ fn vk_cmd_copy_memory_to_acceleration_structure_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMemoryToAccelerationStructureKHR.html>"]
 fn vk_copy_memory_to_acceleration_structure_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let deferred_operation: NonDisposableHandle = packet.read();
-    let p_info: *const VkCopyMemoryToAccelerationStructureInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let deferred_operation: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkCopyMemoryToAccelerationStructureInfoKHR = packet.read_deep();
     trace!("called vkCopyMemoryToAccelerationStructureKHR({device:?}, {deferred_operation:?}, {p_info:?})");
 
     let result = unsafe {
@@ -8234,18 +8550,18 @@ fn vk_copy_memory_to_acceleration_structure_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesKHR.html>"]
 fn vk_cmd_write_acceleration_structures_properties_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let acceleration_structure_count: u32 = packet.read();
-    let p_acceleration_structures: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let query_type: NonDisposableHandle = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let first_query: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let acceleration_structure_count: u32 = packet.read_shallow();
+    let p_acceleration_structures: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let query_type: NonDisposableHandle = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let first_query: u32 = packet.read_shallow();
     trace!("called vkCmdWriteAccelerationStructuresPropertiesKHR({command_buffer:?}, {acceleration_structure_count:?}, {p_acceleration_structures:?}, {query_type:?}, {query_pool:?}, {first_query:?})");
 
     let result = unsafe {
@@ -8260,18 +8576,18 @@ fn vk_cmd_write_acceleration_structures_properties_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteAccelerationStructuresPropertiesNV.html>"]
 fn vk_cmd_write_acceleration_structures_properties_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let acceleration_structure_count: u32 = packet.read();
-    let p_acceleration_structures: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let query_type: NonDisposableHandle = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let first_query: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let acceleration_structure_count: u32 = packet.read_shallow();
+    let p_acceleration_structures: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let query_type: NonDisposableHandle = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let first_query: u32 = packet.read_shallow();
     trace!("called vkCmdWriteAccelerationStructuresPropertiesNV({command_buffer:?}, {acceleration_structure_count:?}, {p_acceleration_structures:?}, {query_type:?}, {query_pool:?}, {first_query:?})");
 
     let result = unsafe {
@@ -8286,21 +8602,21 @@ fn vk_cmd_write_acceleration_structures_properties_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBuildAccelerationStructureNV.html>"]
 fn vk_cmd_build_acceleration_structure_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_info: *const VkAccelerationStructureInfoNV = packet.read_nullable_raw_ptr();
-    let instance_data: NonDisposableHandle = packet.read();
-    let instance_offset: NonDisposableHandle = packet.read();
-    let update: NonDisposableHandle = packet.read();
-    let dst: NonDisposableHandle = packet.read();
-    let src: NonDisposableHandle = packet.read();
-    let scratch: NonDisposableHandle = packet.read();
-    let scratch_offset: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkAccelerationStructureInfoNV = packet.read_deep();
+    let instance_data: NonDisposableHandle = packet.read_shallow();
+    let instance_offset: NonDisposableHandle = packet.read_shallow();
+    let update: NonDisposableHandle = packet.read_shallow();
+    let dst: NonDisposableHandle = packet.read_shallow();
+    let src: NonDisposableHandle = packet.read_shallow();
+    let scratch: NonDisposableHandle = packet.read_shallow();
+    let scratch_offset: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdBuildAccelerationStructureNV({command_buffer:?}, {p_info:?}, {instance_data:?}, {instance_offset:?}, {update:?}, {dst:?}, {src:?}, {scratch:?}, {scratch_offset:?})");
 
     let result = unsafe {
@@ -8318,19 +8634,19 @@ fn vk_cmd_build_acceleration_structure_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWriteAccelerationStructuresPropertiesKHR.html>"]
 fn vk_write_acceleration_structures_properties_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let acceleration_structure_count: u32 = packet.read();
-    let p_acceleration_structures: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let query_type: NonDisposableHandle = packet.read();
-    let data_size: usize = packet.read();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
-    let stride: usize = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let acceleration_structure_count: u32 = packet.read_shallow();
+    let p_acceleration_structures: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let query_type: NonDisposableHandle = packet.read_shallow();
+    let data_size: usize = packet.read_shallow();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
+    let stride: usize = packet.read_shallow();
     trace!("called vkWriteAccelerationStructuresPropertiesKHR({device:?}, {acceleration_structure_count:?}, {p_acceleration_structures:?}, {query_type:?}, {data_size:?}, {p_data:?}, {stride:?})");
 
     let result = unsafe {
@@ -8346,21 +8662,23 @@ fn vk_write_acceleration_structures_properties_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysKHR.html>"]
 fn vk_cmd_trace_rays_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_raygen_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_nullable_raw_ptr();
-    let p_miss_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_nullable_raw_ptr();
-    let p_hit_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_nullable_raw_ptr();
-    let p_callable_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_nullable_raw_ptr();
-    let width: u32 = packet.read();
-    let height: u32 = packet.read();
-    let depth: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_raygen_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_deep();
+    let p_miss_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_deep();
+    let p_hit_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_deep();
+    let p_callable_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_deep();
+    let width: u32 = packet.read_shallow();
+    let height: u32 = packet.read_shallow();
+    let depth: u32 = packet.read_shallow();
     trace!("called vkCmdTraceRaysKHR({command_buffer:?}, {p_raygen_shader_binding_table:?}, {p_miss_shader_binding_table:?}, {p_hit_shader_binding_table:?}, {p_callable_shader_binding_table:?}, {width:?}, {height:?}, {depth:?})");
 
     let result = unsafe {
@@ -8377,27 +8695,27 @@ fn vk_cmd_trace_rays_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysNV.html>"]
 fn vk_cmd_trace_rays_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let raygen_shader_binding_table_buffer: NonDisposableHandle = packet.read();
-    let raygen_shader_binding_offset: NonDisposableHandle = packet.read();
-    let miss_shader_binding_table_buffer: NonDisposableHandle = packet.read();
-    let miss_shader_binding_offset: NonDisposableHandle = packet.read();
-    let miss_shader_binding_stride: NonDisposableHandle = packet.read();
-    let hit_shader_binding_table_buffer: NonDisposableHandle = packet.read();
-    let hit_shader_binding_offset: NonDisposableHandle = packet.read();
-    let hit_shader_binding_stride: NonDisposableHandle = packet.read();
-    let callable_shader_binding_table_buffer: NonDisposableHandle = packet.read();
-    let callable_shader_binding_offset: NonDisposableHandle = packet.read();
-    let callable_shader_binding_stride: NonDisposableHandle = packet.read();
-    let width: u32 = packet.read();
-    let height: u32 = packet.read();
-    let depth: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let raygen_shader_binding_table_buffer: NonDisposableHandle = packet.read_shallow();
+    let raygen_shader_binding_offset: NonDisposableHandle = packet.read_shallow();
+    let miss_shader_binding_table_buffer: NonDisposableHandle = packet.read_shallow();
+    let miss_shader_binding_offset: NonDisposableHandle = packet.read_shallow();
+    let miss_shader_binding_stride: NonDisposableHandle = packet.read_shallow();
+    let hit_shader_binding_table_buffer: NonDisposableHandle = packet.read_shallow();
+    let hit_shader_binding_offset: NonDisposableHandle = packet.read_shallow();
+    let hit_shader_binding_stride: NonDisposableHandle = packet.read_shallow();
+    let callable_shader_binding_table_buffer: NonDisposableHandle = packet.read_shallow();
+    let callable_shader_binding_offset: NonDisposableHandle = packet.read_shallow();
+    let callable_shader_binding_stride: NonDisposableHandle = packet.read_shallow();
+    let width: u32 = packet.read_shallow();
+    let height: u32 = packet.read_shallow();
+    let depth: u32 = packet.read_shallow();
     trace!("called vkCmdTraceRaysNV({command_buffer:?}, {raygen_shader_binding_table_buffer:?}, {raygen_shader_binding_offset:?}, {miss_shader_binding_table_buffer:?}, {miss_shader_binding_offset:?}, {miss_shader_binding_stride:?}, {hit_shader_binding_table_buffer:?}, {hit_shader_binding_offset:?}, {hit_shader_binding_stride:?}, {callable_shader_binding_table_buffer:?}, {callable_shader_binding_offset:?}, {callable_shader_binding_stride:?}, {width:?}, {height:?}, {depth:?})");
 
     let result = unsafe {
@@ -8421,18 +8739,18 @@ fn vk_cmd_trace_rays_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRayTracingShaderGroupHandlesKHR.html>"]
 fn vk_get_ray_tracing_shader_group_handles_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let pipeline: NonDisposableHandle = packet.read();
-    let first_group: u32 = packet.read();
-    let group_count: u32 = packet.read();
-    let data_size: usize = packet.read();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let pipeline: NonDisposableHandle = packet.read_shallow();
+    let first_group: u32 = packet.read_shallow();
+    let group_count: u32 = packet.read_shallow();
+    let data_size: usize = packet.read_shallow();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetRayTracingShaderGroupHandlesKHR({device:?}, {pipeline:?}, {first_group:?}, {group_count:?}, {data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -8447,19 +8765,21 @@ fn vk_get_ray_tracing_shader_group_handles_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRayTracingCaptureReplayShaderGroupHandlesKHR.html>"]
 fn vk_get_ray_tracing_capture_replay_shader_group_handles_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let pipeline: NonDisposableHandle = packet.read();
-    let first_group: u32 = packet.read();
-    let group_count: u32 = packet.read();
-    let data_size: usize = packet.read();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let pipeline: NonDisposableHandle = packet.read_shallow();
+    let first_group: u32 = packet.read_shallow();
+    let group_count: u32 = packet.read_shallow();
+    let data_size: usize = packet.read_shallow();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetRayTracingCaptureReplayShaderGroupHandlesKHR({device:?}, {pipeline:?}, {first_group:?}, {group_count:?}, {data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -8474,17 +8794,19 @@ fn vk_get_ray_tracing_capture_replay_shader_group_handles_khr(mut packet: Packet
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureHandleNV.html>"]
 fn vk_get_acceleration_structure_handle_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let acceleration_structure: NonDisposableHandle = packet.read();
-    let data_size: usize = packet.read();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let acceleration_structure: NonDisposableHandle = packet.read_shallow();
+    let data_size: usize = packet.read_shallow();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetAccelerationStructureHandleNV({device:?}, {acceleration_structure:?}, {data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -8497,19 +8819,21 @@ fn vk_get_acceleration_structure_handle_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRayTracingPipelinesNV.html>"]
 fn vk_create_ray_tracing_pipelines_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let pipeline_cache: NonDisposableHandle = packet.read();
-    let create_info_count: u32 = packet.read();
-    let p_create_infos: *const VkRayTracingPipelineCreateInfoNV = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_pipelines: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let pipeline_cache: NonDisposableHandle = packet.read_shallow();
+    let create_info_count: u32 = packet.read_shallow();
+    let p_create_infos: *const VkRayTracingPipelineCreateInfoNV = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_pipelines: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateRayTracingPipelinesNV({device:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
     let result = unsafe {
@@ -8524,20 +8848,22 @@ fn vk_create_ray_tracing_pipelines_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_pipelines);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_pipelines);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateRayTracingPipelinesKHR.html>"]
 fn vk_create_ray_tracing_pipelines_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let deferred_operation: NonDisposableHandle = packet.read();
-    let pipeline_cache: NonDisposableHandle = packet.read();
-    let create_info_count: u32 = packet.read();
-    let p_create_infos: *const VkRayTracingPipelineCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_pipelines: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let deferred_operation: NonDisposableHandle = packet.read_shallow();
+    let pipeline_cache: NonDisposableHandle = packet.read_shallow();
+    let create_info_count: u32 = packet.read_shallow();
+    let p_create_infos: *const VkRayTracingPipelineCreateInfoKHR = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_pipelines: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateRayTracingPipelinesKHR({device:?}, {deferred_operation:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
     let result = unsafe {
@@ -8553,14 +8879,16 @@ fn vk_create_ray_tracing_pipelines_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_pipelines);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_pipelines);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesNV.html>"]
 fn vk_get_physical_device_cooperative_matrix_properties_nv(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkCooperativeMatrixPropertiesNV>();
     trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesNV({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
@@ -8573,19 +8901,21 @@ fn vk_get_physical_device_cooperative_matrix_properties_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysIndirectKHR.html>"]
 fn vk_cmd_trace_rays_indirect_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_raygen_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_nullable_raw_ptr();
-    let p_miss_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_nullable_raw_ptr();
-    let p_hit_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_nullable_raw_ptr();
-    let p_callable_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_nullable_raw_ptr();
-    let indirect_device_address: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_raygen_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_deep();
+    let p_miss_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_deep();
+    let p_hit_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_deep();
+    let p_callable_shader_binding_table: *const VkStridedDeviceAddressRegionKHR = packet.read_deep();
+    let indirect_device_address: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdTraceRaysIndirectKHR({command_buffer:?}, {p_raygen_shader_binding_table:?}, {p_miss_shader_binding_table:?}, {p_hit_shader_binding_table:?}, {p_callable_shader_binding_table:?}, {indirect_device_address:?})");
 
     let result = unsafe {
@@ -8600,14 +8930,14 @@ fn vk_cmd_trace_rays_indirect_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdTraceRaysIndirect2KHR.html>"]
 fn vk_cmd_trace_rays_indirect2_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let indirect_device_address: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let indirect_device_address: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdTraceRaysIndirect2KHR({command_buffer:?}, {indirect_device_address:?})");
 
     let result = unsafe {
@@ -8618,15 +8948,15 @@ fn vk_cmd_trace_rays_indirect2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceAccelerationStructureCompatibilityKHR.html>"]
 fn vk_get_device_acceleration_structure_compatibility_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_version_info: *const VkAccelerationStructureVersionInfoKHR = packet.read_nullable_raw_ptr();
-    let p_compatibility: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_version_info: *const VkAccelerationStructureVersionInfoKHR = packet.read_deep();
+    let p_compatibility: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetDeviceAccelerationStructureCompatibilityKHR({device:?}, {p_version_info:?}, {p_compatibility:?})");
 
     let result = unsafe {
@@ -8638,17 +8968,19 @@ fn vk_get_device_acceleration_structure_compatibility_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_compatibility);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_compatibility);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetRayTracingShaderGroupStackSizeKHR.html>"]
 fn vk_get_ray_tracing_shader_group_stack_size_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let pipeline: NonDisposableHandle = packet.read();
-    let group: u32 = packet.read();
-    let group_shader: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let pipeline: NonDisposableHandle = packet.read_shallow();
+    let group: u32 = packet.read_shallow();
+    let group_shader: NonDisposableHandle = packet.read_shallow();
     trace!("called vkGetRayTracingShaderGroupStackSizeKHR({device:?}, {pipeline:?}, {group:?}, {group_shader:?})");
 
     let result = unsafe {
@@ -8661,14 +8993,14 @@ fn vk_get_ray_tracing_shader_group_stack_size_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRayTracingPipelineStackSizeKHR.html>"]
 fn vk_cmd_set_ray_tracing_pipeline_stack_size_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let pipeline_stack_size: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let pipeline_stack_size: u32 = packet.read_shallow();
     trace!("called vkCmdSetRayTracingPipelineStackSizeKHR({command_buffer:?}, {pipeline_stack_size:?})");
 
     let result = unsafe {
@@ -8679,14 +9011,14 @@ fn vk_cmd_set_ray_tracing_pipeline_stack_size_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageViewHandleNVX.html>"]
 fn vk_get_image_view_handle_nvx(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkImageViewHandleInfoNVX = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkImageViewHandleInfoNVX = packet.read_deep();
     trace!("called vkGetImageViewHandleNVX({device:?}, {p_info:?})");
 
     let result = unsafe {
@@ -8697,15 +9029,15 @@ fn vk_get_image_view_handle_nvx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageViewAddressNVX.html>"]
 fn vk_get_image_view_address_nvx(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let image_view: NonDisposableHandle = packet.read();
-    let p_properties: *mut VkImageViewAddressPropertiesNVX = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let image_view: NonDisposableHandle = packet.read_shallow();
+    let p_properties: *mut VkImageViewAddressPropertiesNVX = packet.read_mut_deep();
     trace!("called vkGetImageViewAddressNVX({device:?}, {image_view:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -8717,15 +9049,17 @@ fn vk_get_image_view_address_nvx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSurfacePresentModes2EXT.html>"]
 fn vk_get_physical_device_surface_present_modes2_ext(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR = packet.read_nullable_raw_ptr();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR = packet.read_deep();
     let (mut p_present_mode_count, p_present_modes) = packet.read_and_allocate_vk_array_count::<NonDisposableHandle>();
     trace!("called vkGetPhysicalDeviceSurfacePresentModes2EXT({physical_device:?}, {p_surface_info:?}, {p_present_mode_count:?}, {p_present_modes:?})");
 
@@ -8739,16 +9073,18 @@ fn vk_get_physical_device_surface_present_modes2_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_present_mode_count, p_present_modes);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_present_mode_count, p_present_modes);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceGroupSurfacePresentModes2EXT.html>"]
 fn vk_get_device_group_surface_present_modes2_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR = packet.read_nullable_raw_ptr();
-    let p_modes: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR = packet.read_deep();
+    let p_modes: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetDeviceGroupSurfacePresentModes2EXT({device:?}, {p_surface_info:?}, {p_modes:?})");
 
     let result = unsafe {
@@ -8760,15 +9096,17 @@ fn vk_get_device_group_surface_present_modes2_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_modes);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_modes);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireFullScreenExclusiveModeEXT.html>"]
 fn vk_acquire_full_screen_exclusive_mode_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
     trace!("called vkAcquireFullScreenExclusiveModeEXT({device:?}, {swapchain:?})");
 
     let result = unsafe {
@@ -8779,14 +9117,14 @@ fn vk_acquire_full_screen_exclusive_mode_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseFullScreenExclusiveModeEXT.html>"]
 fn vk_release_full_screen_exclusive_mode_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
     trace!("called vkReleaseFullScreenExclusiveModeEXT({device:?}, {swapchain:?})");
 
     let result = unsafe {
@@ -8797,16 +9135,16 @@ fn vk_release_full_screen_exclusive_mode_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR.html>"]
 fn vk_enumerate_physical_device_queue_family_performance_query_counters_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let queue_family_index: u32 = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let queue_family_index: u32 = packet.read_shallow();
     let (mut p_counter_count, p_counters) = packet.read_and_allocate_vk_array_count::<VkPerformanceCounterKHR>();
-    let p_counter_descriptions: *mut VkPerformanceCounterDescriptionKHR = packet.read_nullable_raw_ptr_mut();
+    let p_counter_descriptions: *mut VkPerformanceCounterDescriptionKHR = packet.read_mut_deep();
     trace!("called vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR({physical_device:?}, {queue_family_index:?}, {p_counter_count:?}, {p_counters:?}, {p_counter_descriptions:?})");
 
     let result = unsafe {
@@ -8820,17 +9158,19 @@ fn vk_enumerate_physical_device_queue_family_performance_query_counters_khr(mut 
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_counter_count, p_counters);
-    response.write_raw_ptr(p_counter_descriptions);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_counter_count, p_counters);
+        response.write_deep(p_counter_descriptions);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR.html>"]
 fn vk_get_physical_device_queue_family_performance_query_passes_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_performance_query_create_info: *const VkQueryPoolPerformanceCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_num_passes: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_performance_query_create_info: *const VkQueryPoolPerformanceCreateInfoKHR = packet.read_deep();
+    let p_num_passes: *mut u32 = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR({physical_device:?}, {p_performance_query_create_info:?}, {p_num_passes:?})");
 
     let result = unsafe {
@@ -8842,15 +9182,17 @@ fn vk_get_physical_device_queue_family_performance_query_passes_khr(mut packet: 
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_num_passes);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_num_passes);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireProfilingLockKHR.html>"]
 fn vk_acquire_profiling_lock_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkAcquireProfilingLockInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkAcquireProfilingLockInfoKHR = packet.read_deep();
     trace!("called vkAcquireProfilingLockKHR({device:?}, {p_info:?})");
 
     let result = unsafe {
@@ -8861,13 +9203,13 @@ fn vk_acquire_profiling_lock_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseProfilingLockKHR.html>"]
 fn vk_release_profiling_lock_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
     trace!("called vkReleaseProfilingLockKHR({device:?})");
 
     let result = unsafe {
@@ -8877,15 +9219,15 @@ fn vk_release_profiling_lock_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageDrmFormatModifierPropertiesEXT.html>"]
 fn vk_get_image_drm_format_modifier_properties_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let image: NonDisposableHandle = packet.read();
-    let p_properties: *mut VkImageDrmFormatModifierPropertiesEXT = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let image: NonDisposableHandle = packet.read_shallow();
+    let p_properties: *mut VkImageDrmFormatModifierPropertiesEXT = packet.read_mut_deep();
     trace!("called vkGetImageDrmFormatModifierPropertiesEXT({device:?}, {image:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -8897,15 +9239,17 @@ fn vk_get_image_drm_format_modifier_properties_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferOpaqueCaptureAddress.html>"]
 fn vk_get_buffer_opaque_capture_address(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkBufferDeviceAddressInfo = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkBufferDeviceAddressInfo = packet.read_deep();
     trace!("called vkGetBufferOpaqueCaptureAddress({device:?}, {p_info:?})");
 
     let result = unsafe {
@@ -8916,14 +9260,14 @@ fn vk_get_buffer_opaque_capture_address(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferDeviceAddress.html>"]
 fn vk_get_buffer_device_address(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkBufferDeviceAddressInfo = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkBufferDeviceAddressInfo = packet.read_deep();
     trace!("called vkGetBufferDeviceAddress({device:?}, {p_info:?})");
 
     let result = unsafe {
@@ -8934,16 +9278,16 @@ fn vk_get_buffer_device_address(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateHeadlessSurfaceEXT.html>"]
 fn vk_create_headless_surface_ext(mut packet: Packet) {
-    let instance: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkHeadlessSurfaceCreateInfoEXT = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_surface: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let instance: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkHeadlessSurfaceCreateInfoEXT = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_surface: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateHeadlessSurfaceEXT({instance:?}, {p_create_info:?}, {p_allocator:?}, {p_surface:?})");
 
     let result = unsafe {
@@ -8956,14 +9300,16 @@ fn vk_create_headless_surface_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_surface);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_surface);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV.html>"]
 fn vk_get_physical_device_supported_framebuffer_mixed_samples_combinations_nv(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_combination_count, p_combinations) = packet.read_and_allocate_vk_array_count::<VkFramebufferMixedSamplesCombinationNV>();
     trace!("called vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV({physical_device:?}, {p_combination_count:?}, {p_combinations:?})");
 
@@ -8976,15 +9322,17 @@ fn vk_get_physical_device_supported_framebuffer_mixed_samples_combinations_nv(mu
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_combination_count, p_combinations);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_combination_count, p_combinations);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkInitializePerformanceApiINTEL.html>"]
 fn vk_initialize_performance_api_intel(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_initialize_info: *const VkInitializePerformanceApiInfoINTEL = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_initialize_info: *const VkInitializePerformanceApiInfoINTEL = packet.read_deep();
     trace!("called vkInitializePerformanceApiINTEL({device:?}, {p_initialize_info:?})");
 
     let result = unsafe {
@@ -8995,13 +9343,13 @@ fn vk_initialize_performance_api_intel(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUninitializePerformanceApiINTEL.html>"]
 fn vk_uninitialize_performance_api_intel(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
     trace!("called vkUninitializePerformanceApiINTEL({device:?})");
 
     let result = unsafe {
@@ -9011,14 +9359,14 @@ fn vk_uninitialize_performance_api_intel(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPerformanceMarkerINTEL.html>"]
 fn vk_cmd_set_performance_marker_intel(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_marker_info: *const VkPerformanceMarkerInfoINTEL = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_marker_info: *const VkPerformanceMarkerInfoINTEL = packet.read_deep();
     trace!("called vkCmdSetPerformanceMarkerINTEL({command_buffer:?}, {p_marker_info:?})");
 
     let result = unsafe {
@@ -9029,14 +9377,14 @@ fn vk_cmd_set_performance_marker_intel(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPerformanceStreamMarkerINTEL.html>"]
 fn vk_cmd_set_performance_stream_marker_intel(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_marker_info: *const VkPerformanceStreamMarkerInfoINTEL = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_marker_info: *const VkPerformanceStreamMarkerInfoINTEL = packet.read_deep();
     trace!("called vkCmdSetPerformanceStreamMarkerINTEL({command_buffer:?}, {p_marker_info:?})");
 
     let result = unsafe {
@@ -9047,14 +9395,14 @@ fn vk_cmd_set_performance_stream_marker_intel(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPerformanceOverrideINTEL.html>"]
 fn vk_cmd_set_performance_override_intel(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_override_info: *const VkPerformanceOverrideInfoINTEL = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_override_info: *const VkPerformanceOverrideInfoINTEL = packet.read_deep();
     trace!("called vkCmdSetPerformanceOverrideINTEL({command_buffer:?}, {p_override_info:?})");
 
     let result = unsafe {
@@ -9065,15 +9413,15 @@ fn vk_cmd_set_performance_override_intel(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquirePerformanceConfigurationINTEL.html>"]
 fn vk_acquire_performance_configuration_intel(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_acquire_info: *const VkPerformanceConfigurationAcquireInfoINTEL = packet.read_nullable_raw_ptr();
-    let p_configuration: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_acquire_info: *const VkPerformanceConfigurationAcquireInfoINTEL = packet.read_deep();
+    let p_configuration: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkAcquirePerformanceConfigurationINTEL({device:?}, {p_acquire_info:?}, {p_configuration:?})");
 
     let result = unsafe {
@@ -9085,15 +9433,17 @@ fn vk_acquire_performance_configuration_intel(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_configuration);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_configuration);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleasePerformanceConfigurationINTEL.html>"]
 fn vk_release_performance_configuration_intel(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let configuration: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let configuration: NonDisposableHandle = packet.read_shallow();
     trace!("called vkReleasePerformanceConfigurationINTEL({device:?}, {configuration:?})");
 
     let result = unsafe {
@@ -9104,14 +9454,14 @@ fn vk_release_performance_configuration_intel(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSetPerformanceConfigurationINTEL.html>"]
 fn vk_queue_set_performance_configuration_intel(mut packet: Packet) {
-    let queue: NonDisposableHandle = packet.read();
-    let configuration: NonDisposableHandle = packet.read();
+    let queue: NonDisposableHandle = packet.read_shallow();
+    let configuration: NonDisposableHandle = packet.read_shallow();
     trace!("called vkQueueSetPerformanceConfigurationINTEL({queue:?}, {configuration:?})");
 
     let result = unsafe {
@@ -9122,15 +9472,15 @@ fn vk_queue_set_performance_configuration_intel(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPerformanceParameterINTEL.html>"]
 fn vk_get_performance_parameter_intel(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let parameter: NonDisposableHandle = packet.read();
-    let p_value: *mut VkPerformanceValueINTEL = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let parameter: NonDisposableHandle = packet.read_shallow();
+    let p_value: *mut VkPerformanceValueINTEL = packet.read_mut_deep();
     trace!("called vkGetPerformanceParameterINTEL({device:?}, {parameter:?}, {p_value:?})");
 
     let result = unsafe {
@@ -9142,15 +9492,17 @@ fn vk_get_performance_parameter_intel(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_value);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_value);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMemoryOpaqueCaptureAddress.html>"]
 fn vk_get_device_memory_opaque_capture_address(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkDeviceMemoryOpaqueCaptureAddressInfo = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkDeviceMemoryOpaqueCaptureAddressInfo = packet.read_deep();
     trace!("called vkGetDeviceMemoryOpaqueCaptureAddress({device:?}, {p_info:?})");
 
     let result = unsafe {
@@ -9161,14 +9513,14 @@ fn vk_get_device_memory_opaque_capture_address(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineExecutablePropertiesKHR.html>"]
 fn vk_get_pipeline_executable_properties_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_pipeline_info: *const VkPipelineInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_pipeline_info: *const VkPipelineInfoKHR = packet.read_deep();
     let (mut p_executable_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkPipelineExecutablePropertiesKHR>();
     trace!("called vkGetPipelineExecutablePropertiesKHR({device:?}, {p_pipeline_info:?}, {p_executable_count:?}, {p_properties:?})");
 
@@ -9182,15 +9534,17 @@ fn vk_get_pipeline_executable_properties_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_executable_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_executable_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineExecutableStatisticsKHR.html>"]
 fn vk_get_pipeline_executable_statistics_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_executable_info: *const VkPipelineExecutableInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_executable_info: *const VkPipelineExecutableInfoKHR = packet.read_deep();
     let (mut p_statistic_count, p_statistics) = packet.read_and_allocate_vk_array_count::<VkPipelineExecutableStatisticKHR>();
     trace!("called vkGetPipelineExecutableStatisticsKHR({device:?}, {p_executable_info:?}, {p_statistic_count:?}, {p_statistics:?})");
 
@@ -9204,15 +9558,17 @@ fn vk_get_pipeline_executable_statistics_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_statistic_count, p_statistics);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_statistic_count, p_statistics);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineExecutableInternalRepresentationsKHR.html>"]
 fn vk_get_pipeline_executable_internal_representations_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_executable_info: *const VkPipelineExecutableInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_executable_info: *const VkPipelineExecutableInfoKHR = packet.read_deep();
     let (mut p_internal_representation_count, p_internal_representations) = packet.read_and_allocate_vk_array_count::<VkPipelineExecutableInternalRepresentationKHR>();
     trace!("called vkGetPipelineExecutableInternalRepresentationsKHR({device:?}, {p_executable_info:?}, {p_internal_representation_count:?}, {p_internal_representations:?})");
 
@@ -9226,16 +9582,18 @@ fn vk_get_pipeline_executable_internal_representations_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_internal_representation_count, p_internal_representations);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_internal_representation_count, p_internal_representations);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineStippleKHR.html>"]
 fn vk_cmd_set_line_stipple_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let line_stipple_factor: u32 = packet.read();
-    let line_stipple_pattern: u16 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let line_stipple_factor: u32 = packet.read_shallow();
+    let line_stipple_pattern: u16 = packet.read_shallow();
     trace!("called vkCmdSetLineStippleKHR({command_buffer:?}, {line_stipple_factor:?}, {line_stipple_pattern:?})");
 
     let result = unsafe {
@@ -9247,13 +9605,13 @@ fn vk_cmd_set_line_stipple_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceToolProperties.html>"]
 fn vk_get_physical_device_tool_properties(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_tool_count, p_tool_properties) = packet.read_and_allocate_vk_array_count::<VkPhysicalDeviceToolProperties>();
     trace!("called vkGetPhysicalDeviceToolProperties({physical_device:?}, {p_tool_count:?}, {p_tool_properties:?})");
 
@@ -9266,17 +9624,19 @@ fn vk_get_physical_device_tool_properties(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_tool_count, p_tool_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_tool_count, p_tool_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateAccelerationStructureKHR.html>"]
 fn vk_create_acceleration_structure_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkAccelerationStructureCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_acceleration_structure: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkAccelerationStructureCreateInfoKHR = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_acceleration_structure: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateAccelerationStructureKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_acceleration_structure:?})");
 
     let result = unsafe {
@@ -9289,17 +9649,19 @@ fn vk_create_acceleration_structure_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_acceleration_structure);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_acceleration_structure);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBuildAccelerationStructuresKHR.html>"]
 fn vk_cmd_build_acceleration_structures_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let info_count: u32 = packet.read();
-    let p_infos: *const VkAccelerationStructureBuildGeometryInfoKHR = packet.read_nullable_raw_ptr();
-    let pp_build_range_infos: *const *const VkAccelerationStructureBuildRangeInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let info_count: u32 = packet.read_shallow();
+    let p_infos: *const VkAccelerationStructureBuildGeometryInfoKHR = packet.read_deep();
+    let pp_build_range_infos: *const *const VkAccelerationStructureBuildRangeInfoKHR = packet.read_deep_double();
     trace!("called vkCmdBuildAccelerationStructuresKHR({command_buffer:?}, {info_count:?}, {p_infos:?}, {pp_build_range_infos:?})");
 
     let result = unsafe {
@@ -9312,18 +9674,18 @@ fn vk_cmd_build_acceleration_structures_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBuildAccelerationStructuresIndirectKHR.html>"]
 fn vk_cmd_build_acceleration_structures_indirect_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let info_count: u32 = packet.read();
-    let p_infos: *const VkAccelerationStructureBuildGeometryInfoKHR = packet.read_nullable_raw_ptr();
-    let p_indirect_device_addresses: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let p_indirect_strides: *const u32 = packet.read_nullable_raw_ptr();
-    let pp_max_primitive_counts: *const *const u32 = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let info_count: u32 = packet.read_shallow();
+    let p_infos: *const VkAccelerationStructureBuildGeometryInfoKHR = packet.read_deep();
+    let p_indirect_device_addresses: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let p_indirect_strides: *const u32 = packet.read_shallow_under_nullable_ptr();
+    let pp_max_primitive_counts: *const *const u32 = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdBuildAccelerationStructuresIndirectKHR({command_buffer:?}, {info_count:?}, {p_infos:?}, {p_indirect_device_addresses:?}, {p_indirect_strides:?}, {pp_max_primitive_counts:?})");
 
     let result = unsafe {
@@ -9338,17 +9700,17 @@ fn vk_cmd_build_acceleration_structures_indirect_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBuildAccelerationStructuresKHR.html>"]
 fn vk_build_acceleration_structures_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let deferred_operation: NonDisposableHandle = packet.read();
-    let info_count: u32 = packet.read();
-    let p_infos: *const VkAccelerationStructureBuildGeometryInfoKHR = packet.read_nullable_raw_ptr();
-    let pp_build_range_infos: *const *const VkAccelerationStructureBuildRangeInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let deferred_operation: NonDisposableHandle = packet.read_shallow();
+    let info_count: u32 = packet.read_shallow();
+    let p_infos: *const VkAccelerationStructureBuildGeometryInfoKHR = packet.read_deep();
+    let pp_build_range_infos: *const *const VkAccelerationStructureBuildRangeInfoKHR = packet.read_deep_double();
     trace!("called vkBuildAccelerationStructuresKHR({device:?}, {deferred_operation:?}, {info_count:?}, {p_infos:?}, {pp_build_range_infos:?})");
 
     let result = unsafe {
@@ -9362,14 +9724,14 @@ fn vk_build_acceleration_structures_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureDeviceAddressKHR.html>"]
 fn vk_get_acceleration_structure_device_address_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkAccelerationStructureDeviceAddressInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkAccelerationStructureDeviceAddressInfoKHR = packet.read_deep();
     trace!("called vkGetAccelerationStructureDeviceAddressKHR({device:?}, {p_info:?})");
 
     let result = unsafe {
@@ -9380,15 +9742,15 @@ fn vk_get_acceleration_structure_device_address_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDeferredOperationKHR.html>"]
 fn vk_create_deferred_operation_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_deferred_operation: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_deferred_operation: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateDeferredOperationKHR({device:?}, {p_allocator:?}, {p_deferred_operation:?})");
 
     let result = unsafe {
@@ -9400,16 +9762,18 @@ fn vk_create_deferred_operation_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_deferred_operation);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_deferred_operation);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyDeferredOperationKHR.html>"]
 fn vk_destroy_deferred_operation_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let operation: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let operation: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyDeferredOperationKHR({device:?}, {operation:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -9421,14 +9785,14 @@ fn vk_destroy_deferred_operation_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeferredOperationMaxConcurrencyKHR.html>"]
 fn vk_get_deferred_operation_max_concurrency_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let operation: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let operation: NonDisposableHandle = packet.read_shallow();
     trace!("called vkGetDeferredOperationMaxConcurrencyKHR({device:?}, {operation:?})");
 
     let result = unsafe {
@@ -9439,14 +9803,14 @@ fn vk_get_deferred_operation_max_concurrency_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeferredOperationResultKHR.html>"]
 fn vk_get_deferred_operation_result_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let operation: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let operation: NonDisposableHandle = packet.read_shallow();
     trace!("called vkGetDeferredOperationResultKHR({device:?}, {operation:?})");
 
     let result = unsafe {
@@ -9457,14 +9821,14 @@ fn vk_get_deferred_operation_result_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDeferredOperationJoinKHR.html>"]
 fn vk_deferred_operation_join_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let operation: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let operation: NonDisposableHandle = packet.read_shallow();
     trace!("called vkDeferredOperationJoinKHR({device:?}, {operation:?})");
 
     let result = unsafe {
@@ -9475,15 +9839,15 @@ fn vk_deferred_operation_join_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineIndirectMemoryRequirementsNV.html>"]
 fn vk_get_pipeline_indirect_memory_requirements_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkComputePipelineCreateInfo = packet.read_nullable_raw_ptr();
-    let p_memory_requirements: *mut VkMemoryRequirements2 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkComputePipelineCreateInfo = packet.read_deep();
+    let p_memory_requirements: *mut VkMemoryRequirements2 = packet.read_mut_deep();
     trace!("called vkGetPipelineIndirectMemoryRequirementsNV({device:?}, {p_create_info:?}, {p_memory_requirements:?})");
 
     let result = unsafe {
@@ -9495,15 +9859,17 @@ fn vk_get_pipeline_indirect_memory_requirements_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_memory_requirements);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_memory_requirements);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelineIndirectDeviceAddressNV.html>"]
 fn vk_get_pipeline_indirect_device_address_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkPipelineIndirectDeviceAddressInfoNV = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkPipelineIndirectDeviceAddressInfoNV = packet.read_deep();
     trace!("called vkGetPipelineIndirectDeviceAddressNV({device:?}, {p_info:?})");
 
     let result = unsafe {
@@ -9514,14 +9880,14 @@ fn vk_get_pipeline_indirect_device_address_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCullMode.html>"]
 fn vk_cmd_set_cull_mode(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let cull_mode: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let cull_mode: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetCullMode({command_buffer:?}, {cull_mode:?})");
 
     let result = unsafe {
@@ -9532,14 +9898,14 @@ fn vk_cmd_set_cull_mode(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetFrontFace.html>"]
 fn vk_cmd_set_front_face(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let front_face: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let front_face: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetFrontFace({command_buffer:?}, {front_face:?})");
 
     let result = unsafe {
@@ -9550,14 +9916,14 @@ fn vk_cmd_set_front_face(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPrimitiveTopology.html>"]
 fn vk_cmd_set_primitive_topology(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let primitive_topology: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let primitive_topology: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetPrimitiveTopology({command_buffer:?}, {primitive_topology:?})");
 
     let result = unsafe {
@@ -9568,15 +9934,15 @@ fn vk_cmd_set_primitive_topology(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWithCount.html>"]
 fn vk_cmd_set_viewport_with_count(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let viewport_count: u32 = packet.read();
-    let p_viewports: *const VkViewport = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let viewport_count: u32 = packet.read_shallow();
+    let p_viewports: *const VkViewport = packet.read_deep();
     trace!("called vkCmdSetViewportWithCount({command_buffer:?}, {viewport_count:?}, {p_viewports:?})");
 
     let result = unsafe {
@@ -9588,15 +9954,15 @@ fn vk_cmd_set_viewport_with_count(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetScissorWithCount.html>"]
 fn vk_cmd_set_scissor_with_count(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let scissor_count: u32 = packet.read();
-    let p_scissors: *const VkRect2D = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let scissor_count: u32 = packet.read_shallow();
+    let p_scissors: *const VkRect2D = packet.read_deep();
     trace!("called vkCmdSetScissorWithCount({command_buffer:?}, {scissor_count:?}, {p_scissors:?})");
 
     let result = unsafe {
@@ -9608,17 +9974,17 @@ fn vk_cmd_set_scissor_with_count(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindIndexBuffer2KHR.html>"]
 fn vk_cmd_bind_index_buffer2_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let buffer: NonDisposableHandle = packet.read();
-    let offset: NonDisposableHandle = packet.read();
-    let size: NonDisposableHandle = packet.read();
-    let index_type: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let buffer: NonDisposableHandle = packet.read_shallow();
+    let offset: NonDisposableHandle = packet.read_shallow();
+    let size: NonDisposableHandle = packet.read_shallow();
+    let index_type: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdBindIndexBuffer2KHR({command_buffer:?}, {buffer:?}, {offset:?}, {size:?}, {index_type:?})");
 
     let result = unsafe {
@@ -9632,19 +9998,19 @@ fn vk_cmd_bind_index_buffer2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindVertexBuffers2.html>"]
 fn vk_cmd_bind_vertex_buffers2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_binding: u32 = packet.read();
-    let binding_count: u32 = packet.read();
-    let p_buffers: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let p_offsets: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let p_sizes: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let p_strides: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_binding: u32 = packet.read_shallow();
+    let binding_count: u32 = packet.read_shallow();
+    let p_buffers: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let p_offsets: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let p_sizes: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let p_strides: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdBindVertexBuffers2({command_buffer:?}, {first_binding:?}, {binding_count:?}, {p_buffers:?}, {p_offsets:?}, {p_sizes:?}, {p_strides:?})");
 
     let result = unsafe {
@@ -9660,14 +10026,14 @@ fn vk_cmd_bind_vertex_buffers2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthTestEnable.html>"]
 fn vk_cmd_set_depth_test_enable(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let depth_test_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let depth_test_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetDepthTestEnable({command_buffer:?}, {depth_test_enable:?})");
 
     let result = unsafe {
@@ -9678,14 +10044,14 @@ fn vk_cmd_set_depth_test_enable(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthWriteEnable.html>"]
 fn vk_cmd_set_depth_write_enable(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let depth_write_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let depth_write_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetDepthWriteEnable({command_buffer:?}, {depth_write_enable:?})");
 
     let result = unsafe {
@@ -9696,14 +10062,14 @@ fn vk_cmd_set_depth_write_enable(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthCompareOp.html>"]
 fn vk_cmd_set_depth_compare_op(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let depth_compare_op: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let depth_compare_op: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetDepthCompareOp({command_buffer:?}, {depth_compare_op:?})");
 
     let result = unsafe {
@@ -9714,14 +10080,14 @@ fn vk_cmd_set_depth_compare_op(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBoundsTestEnable.html>"]
 fn vk_cmd_set_depth_bounds_test_enable(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let depth_bounds_test_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let depth_bounds_test_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetDepthBoundsTestEnable({command_buffer:?}, {depth_bounds_test_enable:?})");
 
     let result = unsafe {
@@ -9732,14 +10098,14 @@ fn vk_cmd_set_depth_bounds_test_enable(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilTestEnable.html>"]
 fn vk_cmd_set_stencil_test_enable(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let stencil_test_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let stencil_test_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetStencilTestEnable({command_buffer:?}, {stencil_test_enable:?})");
 
     let result = unsafe {
@@ -9750,18 +10116,18 @@ fn vk_cmd_set_stencil_test_enable(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetStencilOp.html>"]
 fn vk_cmd_set_stencil_op(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let face_mask: NonDisposableHandle = packet.read();
-    let fail_op: NonDisposableHandle = packet.read();
-    let pass_op: NonDisposableHandle = packet.read();
-    let depth_fail_op: NonDisposableHandle = packet.read();
-    let compare_op: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let face_mask: NonDisposableHandle = packet.read_shallow();
+    let fail_op: NonDisposableHandle = packet.read_shallow();
+    let pass_op: NonDisposableHandle = packet.read_shallow();
+    let depth_fail_op: NonDisposableHandle = packet.read_shallow();
+    let compare_op: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetStencilOp({command_buffer:?}, {face_mask:?}, {fail_op:?}, {pass_op:?}, {depth_fail_op:?}, {compare_op:?})");
 
     let result = unsafe {
@@ -9776,14 +10142,14 @@ fn vk_cmd_set_stencil_op(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPatchControlPointsEXT.html>"]
 fn vk_cmd_set_patch_control_points_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let patch_control_points: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let patch_control_points: u32 = packet.read_shallow();
     trace!("called vkCmdSetPatchControlPointsEXT({command_buffer:?}, {patch_control_points:?})");
 
     let result = unsafe {
@@ -9794,14 +10160,14 @@ fn vk_cmd_set_patch_control_points_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizerDiscardEnable.html>"]
 fn vk_cmd_set_rasterizer_discard_enable(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let rasterizer_discard_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let rasterizer_discard_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetRasterizerDiscardEnable({command_buffer:?}, {rasterizer_discard_enable:?})");
 
     let result = unsafe {
@@ -9812,14 +10178,14 @@ fn vk_cmd_set_rasterizer_discard_enable(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBiasEnable.html>"]
 fn vk_cmd_set_depth_bias_enable(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let depth_bias_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let depth_bias_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetDepthBiasEnable({command_buffer:?}, {depth_bias_enable:?})");
 
     let result = unsafe {
@@ -9830,14 +10196,14 @@ fn vk_cmd_set_depth_bias_enable(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLogicOpEXT.html>"]
 fn vk_cmd_set_logic_op_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let logic_op: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let logic_op: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetLogicOpEXT({command_buffer:?}, {logic_op:?})");
 
     let result = unsafe {
@@ -9848,14 +10214,14 @@ fn vk_cmd_set_logic_op_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPrimitiveRestartEnable.html>"]
 fn vk_cmd_set_primitive_restart_enable(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let primitive_restart_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let primitive_restart_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetPrimitiveRestartEnable({command_buffer:?}, {primitive_restart_enable:?})");
 
     let result = unsafe {
@@ -9866,14 +10232,14 @@ fn vk_cmd_set_primitive_restart_enable(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetTessellationDomainOriginEXT.html>"]
 fn vk_cmd_set_tessellation_domain_origin_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let domain_origin: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let domain_origin: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetTessellationDomainOriginEXT({command_buffer:?}, {domain_origin:?})");
 
     let result = unsafe {
@@ -9884,14 +10250,14 @@ fn vk_cmd_set_tessellation_domain_origin_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClampEnableEXT.html>"]
 fn vk_cmd_set_depth_clamp_enable_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let depth_clamp_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let depth_clamp_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetDepthClampEnableEXT({command_buffer:?}, {depth_clamp_enable:?})");
 
     let result = unsafe {
@@ -9902,14 +10268,14 @@ fn vk_cmd_set_depth_clamp_enable_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetPolygonModeEXT.html>"]
 fn vk_cmd_set_polygon_mode_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let polygon_mode: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let polygon_mode: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetPolygonModeEXT({command_buffer:?}, {polygon_mode:?})");
 
     let result = unsafe {
@@ -9920,14 +10286,14 @@ fn vk_cmd_set_polygon_mode_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizationSamplesEXT.html>"]
 fn vk_cmd_set_rasterization_samples_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let rasterization_samples: vk::SampleCountFlags = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let rasterization_samples: vk::SampleCountFlags = packet.read_shallow();
     trace!("called vkCmdSetRasterizationSamplesEXT({command_buffer:?}, {rasterization_samples:?})");
 
     let result = unsafe {
@@ -9938,15 +10304,15 @@ fn vk_cmd_set_rasterization_samples_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleMaskEXT.html>"]
 fn vk_cmd_set_sample_mask_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let samples: vk::SampleCountFlags = packet.read();
-    let p_sample_mask: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let samples: vk::SampleCountFlags = packet.read_shallow();
+    let p_sample_mask: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdSetSampleMaskEXT({command_buffer:?}, {samples:?}, {p_sample_mask:?})");
 
     let result = unsafe {
@@ -9958,14 +10324,14 @@ fn vk_cmd_set_sample_mask_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetAlphaToCoverageEnableEXT.html>"]
 fn vk_cmd_set_alpha_to_coverage_enable_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let alpha_to_coverage_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let alpha_to_coverage_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetAlphaToCoverageEnableEXT({command_buffer:?}, {alpha_to_coverage_enable:?})");
 
     let result = unsafe {
@@ -9976,14 +10342,14 @@ fn vk_cmd_set_alpha_to_coverage_enable_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetAlphaToOneEnableEXT.html>"]
 fn vk_cmd_set_alpha_to_one_enable_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let alpha_to_one_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let alpha_to_one_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetAlphaToOneEnableEXT({command_buffer:?}, {alpha_to_one_enable:?})");
 
     let result = unsafe {
@@ -9994,14 +10360,14 @@ fn vk_cmd_set_alpha_to_one_enable_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLogicOpEnableEXT.html>"]
 fn vk_cmd_set_logic_op_enable_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let logic_op_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let logic_op_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetLogicOpEnableEXT({command_buffer:?}, {logic_op_enable:?})");
 
     let result = unsafe {
@@ -10012,16 +10378,16 @@ fn vk_cmd_set_logic_op_enable_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendEnableEXT.html>"]
 fn vk_cmd_set_color_blend_enable_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_attachment: u32 = packet.read();
-    let attachment_count: u32 = packet.read();
-    let p_color_blend_enables: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_attachment: u32 = packet.read_shallow();
+    let attachment_count: u32 = packet.read_shallow();
+    let p_color_blend_enables: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdSetColorBlendEnableEXT({command_buffer:?}, {first_attachment:?}, {attachment_count:?}, {p_color_blend_enables:?})");
 
     let result = unsafe {
@@ -10034,16 +10400,16 @@ fn vk_cmd_set_color_blend_enable_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendEquationEXT.html>"]
 fn vk_cmd_set_color_blend_equation_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_attachment: u32 = packet.read();
-    let attachment_count: u32 = packet.read();
-    let p_color_blend_equations: *const VkColorBlendEquationEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_attachment: u32 = packet.read_shallow();
+    let attachment_count: u32 = packet.read_shallow();
+    let p_color_blend_equations: *const VkColorBlendEquationEXT = packet.read_deep();
     trace!("called vkCmdSetColorBlendEquationEXT({command_buffer:?}, {first_attachment:?}, {attachment_count:?}, {p_color_blend_equations:?})");
 
     let result = unsafe {
@@ -10056,16 +10422,16 @@ fn vk_cmd_set_color_blend_equation_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorWriteMaskEXT.html>"]
 fn vk_cmd_set_color_write_mask_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_attachment: u32 = packet.read();
-    let attachment_count: u32 = packet.read();
-    let p_color_write_masks: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_attachment: u32 = packet.read_shallow();
+    let attachment_count: u32 = packet.read_shallow();
+    let p_color_write_masks: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdSetColorWriteMaskEXT({command_buffer:?}, {first_attachment:?}, {attachment_count:?}, {p_color_write_masks:?})");
 
     let result = unsafe {
@@ -10078,14 +10444,14 @@ fn vk_cmd_set_color_write_mask_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRasterizationStreamEXT.html>"]
 fn vk_cmd_set_rasterization_stream_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let rasterization_stream: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let rasterization_stream: u32 = packet.read_shallow();
     trace!("called vkCmdSetRasterizationStreamEXT({command_buffer:?}, {rasterization_stream:?})");
 
     let result = unsafe {
@@ -10096,14 +10462,14 @@ fn vk_cmd_set_rasterization_stream_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetConservativeRasterizationModeEXT.html>"]
 fn vk_cmd_set_conservative_rasterization_mode_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let conservative_rasterization_mode: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let conservative_rasterization_mode: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetConservativeRasterizationModeEXT({command_buffer:?}, {conservative_rasterization_mode:?})");
 
     let result = unsafe {
@@ -10114,14 +10480,14 @@ fn vk_cmd_set_conservative_rasterization_mode_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetExtraPrimitiveOverestimationSizeEXT.html>"]
 fn vk_cmd_set_extra_primitive_overestimation_size_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let extra_primitive_overestimation_size: f32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let extra_primitive_overestimation_size: f32 = packet.read_shallow();
     trace!("called vkCmdSetExtraPrimitiveOverestimationSizeEXT({command_buffer:?}, {extra_primitive_overestimation_size:?})");
 
     let result = unsafe {
@@ -10132,14 +10498,14 @@ fn vk_cmd_set_extra_primitive_overestimation_size_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClipEnableEXT.html>"]
 fn vk_cmd_set_depth_clip_enable_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let depth_clip_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let depth_clip_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetDepthClipEnableEXT({command_buffer:?}, {depth_clip_enable:?})");
 
     let result = unsafe {
@@ -10150,14 +10516,14 @@ fn vk_cmd_set_depth_clip_enable_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetSampleLocationsEnableEXT.html>"]
 fn vk_cmd_set_sample_locations_enable_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let sample_locations_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let sample_locations_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetSampleLocationsEnableEXT({command_buffer:?}, {sample_locations_enable:?})");
 
     let result = unsafe {
@@ -10168,16 +10534,16 @@ fn vk_cmd_set_sample_locations_enable_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorBlendAdvancedEXT.html>"]
 fn vk_cmd_set_color_blend_advanced_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_attachment: u32 = packet.read();
-    let attachment_count: u32 = packet.read();
-    let p_color_blend_advanced: *const VkColorBlendAdvancedEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_attachment: u32 = packet.read_shallow();
+    let attachment_count: u32 = packet.read_shallow();
+    let p_color_blend_advanced: *const VkColorBlendAdvancedEXT = packet.read_deep();
     trace!("called vkCmdSetColorBlendAdvancedEXT({command_buffer:?}, {first_attachment:?}, {attachment_count:?}, {p_color_blend_advanced:?})");
 
     let result = unsafe {
@@ -10190,14 +10556,14 @@ fn vk_cmd_set_color_blend_advanced_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetProvokingVertexModeEXT.html>"]
 fn vk_cmd_set_provoking_vertex_mode_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let provoking_vertex_mode: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let provoking_vertex_mode: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetProvokingVertexModeEXT({command_buffer:?}, {provoking_vertex_mode:?})");
 
     let result = unsafe {
@@ -10208,14 +10574,14 @@ fn vk_cmd_set_provoking_vertex_mode_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineRasterizationModeEXT.html>"]
 fn vk_cmd_set_line_rasterization_mode_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let line_rasterization_mode: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let line_rasterization_mode: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetLineRasterizationModeEXT({command_buffer:?}, {line_rasterization_mode:?})");
 
     let result = unsafe {
@@ -10226,14 +10592,14 @@ fn vk_cmd_set_line_rasterization_mode_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetLineStippleEnableEXT.html>"]
 fn vk_cmd_set_line_stipple_enable_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let stippled_line_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let stippled_line_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetLineStippleEnableEXT({command_buffer:?}, {stippled_line_enable:?})");
 
     let result = unsafe {
@@ -10244,14 +10610,14 @@ fn vk_cmd_set_line_stipple_enable_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthClipNegativeOneToOneEXT.html>"]
 fn vk_cmd_set_depth_clip_negative_one_to_one_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let negative_one_to_one: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let negative_one_to_one: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetDepthClipNegativeOneToOneEXT({command_buffer:?}, {negative_one_to_one:?})");
 
     let result = unsafe {
@@ -10262,14 +10628,14 @@ fn vk_cmd_set_depth_clip_negative_one_to_one_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportWScalingEnableNV.html>"]
 fn vk_cmd_set_viewport_wscaling_enable_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let viewport_wscaling_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let viewport_wscaling_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetViewportWScalingEnableNV({command_buffer:?}, {viewport_wscaling_enable:?})");
 
     let result = unsafe {
@@ -10280,16 +10646,16 @@ fn vk_cmd_set_viewport_wscaling_enable_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetViewportSwizzleNV.html>"]
 fn vk_cmd_set_viewport_swizzle_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let first_viewport: u32 = packet.read();
-    let viewport_count: u32 = packet.read();
-    let p_viewport_swizzles: *const VkViewportSwizzleNV = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let first_viewport: u32 = packet.read_shallow();
+    let viewport_count: u32 = packet.read_shallow();
+    let p_viewport_swizzles: *const VkViewportSwizzleNV = packet.read_deep();
     trace!("called vkCmdSetViewportSwizzleNV({command_buffer:?}, {first_viewport:?}, {viewport_count:?}, {p_viewport_swizzles:?})");
 
     let result = unsafe {
@@ -10302,14 +10668,14 @@ fn vk_cmd_set_viewport_swizzle_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageToColorEnableNV.html>"]
 fn vk_cmd_set_coverage_to_color_enable_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let coverage_to_color_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let coverage_to_color_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetCoverageToColorEnableNV({command_buffer:?}, {coverage_to_color_enable:?})");
 
     let result = unsafe {
@@ -10320,14 +10686,14 @@ fn vk_cmd_set_coverage_to_color_enable_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageToColorLocationNV.html>"]
 fn vk_cmd_set_coverage_to_color_location_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let coverage_to_color_location: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let coverage_to_color_location: u32 = packet.read_shallow();
     trace!("called vkCmdSetCoverageToColorLocationNV({command_buffer:?}, {coverage_to_color_location:?})");
 
     let result = unsafe {
@@ -10338,14 +10704,14 @@ fn vk_cmd_set_coverage_to_color_location_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageModulationModeNV.html>"]
 fn vk_cmd_set_coverage_modulation_mode_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let coverage_modulation_mode: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let coverage_modulation_mode: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetCoverageModulationModeNV({command_buffer:?}, {coverage_modulation_mode:?})");
 
     let result = unsafe {
@@ -10356,14 +10722,14 @@ fn vk_cmd_set_coverage_modulation_mode_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageModulationTableEnableNV.html>"]
 fn vk_cmd_set_coverage_modulation_table_enable_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let coverage_modulation_table_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let coverage_modulation_table_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetCoverageModulationTableEnableNV({command_buffer:?}, {coverage_modulation_table_enable:?})");
 
     let result = unsafe {
@@ -10374,15 +10740,15 @@ fn vk_cmd_set_coverage_modulation_table_enable_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageModulationTableNV.html>"]
 fn vk_cmd_set_coverage_modulation_table_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let coverage_modulation_table_count: u32 = packet.read();
-    let p_coverage_modulation_table: *const f32 = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let coverage_modulation_table_count: u32 = packet.read_shallow();
+    let p_coverage_modulation_table: *const f32 = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdSetCoverageModulationTableNV({command_buffer:?}, {coverage_modulation_table_count:?}, {p_coverage_modulation_table:?})");
 
     let result = unsafe {
@@ -10394,14 +10760,14 @@ fn vk_cmd_set_coverage_modulation_table_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetShadingRateImageEnableNV.html>"]
 fn vk_cmd_set_shading_rate_image_enable_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let shading_rate_image_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let shading_rate_image_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetShadingRateImageEnableNV({command_buffer:?}, {shading_rate_image_enable:?})");
 
     let result = unsafe {
@@ -10412,14 +10778,14 @@ fn vk_cmd_set_shading_rate_image_enable_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetCoverageReductionModeNV.html>"]
 fn vk_cmd_set_coverage_reduction_mode_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let coverage_reduction_mode: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let coverage_reduction_mode: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetCoverageReductionModeNV({command_buffer:?}, {coverage_reduction_mode:?})");
 
     let result = unsafe {
@@ -10430,14 +10796,14 @@ fn vk_cmd_set_coverage_reduction_mode_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRepresentativeFragmentTestEnableNV.html>"]
 fn vk_cmd_set_representative_fragment_test_enable_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let representative_fragment_test_enable: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let representative_fragment_test_enable: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdSetRepresentativeFragmentTestEnableNV({command_buffer:?}, {representative_fragment_test_enable:?})");
 
     let result = unsafe {
@@ -10448,16 +10814,16 @@ fn vk_cmd_set_representative_fragment_test_enable_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreatePrivateDataSlot.html>"]
 fn vk_create_private_data_slot(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkPrivateDataSlotCreateInfo = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_private_data_slot: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkPrivateDataSlotCreateInfo = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_private_data_slot: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreatePrivateDataSlot({device:?}, {p_create_info:?}, {p_allocator:?}, {p_private_data_slot:?})");
 
     let result = unsafe {
@@ -10470,16 +10836,18 @@ fn vk_create_private_data_slot(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_private_data_slot);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_private_data_slot);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyPrivateDataSlot.html>"]
 fn vk_destroy_private_data_slot(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let private_data_slot: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let private_data_slot: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyPrivateDataSlot({device:?}, {private_data_slot:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -10491,17 +10859,17 @@ fn vk_destroy_private_data_slot(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetPrivateData.html>"]
 fn vk_set_private_data(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let object_type: NonDisposableHandle = packet.read();
-    let object_handle: u64 = packet.read();
-    let private_data_slot: NonDisposableHandle = packet.read();
-    let data: u64 = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let object_type: NonDisposableHandle = packet.read_shallow();
+    let object_handle: u64 = packet.read_shallow();
+    let private_data_slot: NonDisposableHandle = packet.read_shallow();
+    let data: u64 = packet.read_shallow();
     trace!("called vkSetPrivateData({device:?}, {object_type:?}, {object_handle:?}, {private_data_slot:?}, {data:?})");
 
     let result = unsafe {
@@ -10515,17 +10883,17 @@ fn vk_set_private_data(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPrivateData.html>"]
 fn vk_get_private_data(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let object_type: NonDisposableHandle = packet.read();
-    let object_handle: u64 = packet.read();
-    let private_data_slot: NonDisposableHandle = packet.read();
-    let p_data: *mut u64 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let object_type: NonDisposableHandle = packet.read_shallow();
+    let object_handle: u64 = packet.read_shallow();
+    let private_data_slot: NonDisposableHandle = packet.read_shallow();
+    let p_data: *mut u64 = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetPrivateData({device:?}, {object_type:?}, {object_handle:?}, {private_data_slot:?}, {p_data:?})");
 
     let result = unsafe {
@@ -10539,15 +10907,17 @@ fn vk_get_private_data(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBuffer2.html>"]
 fn vk_cmd_copy_buffer2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_copy_buffer_info: *const VkCopyBufferInfo2 = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_copy_buffer_info: *const VkCopyBufferInfo2 = packet.read_deep();
     trace!("called vkCmdCopyBuffer2({command_buffer:?}, {p_copy_buffer_info:?})");
 
     let result = unsafe {
@@ -10558,14 +10928,14 @@ fn vk_cmd_copy_buffer2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImage2.html>"]
 fn vk_cmd_copy_image2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_copy_image_info: *const VkCopyImageInfo2 = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_copy_image_info: *const VkCopyImageInfo2 = packet.read_deep();
     trace!("called vkCmdCopyImage2({command_buffer:?}, {p_copy_image_info:?})");
 
     let result = unsafe {
@@ -10576,14 +10946,14 @@ fn vk_cmd_copy_image2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBlitImage2.html>"]
 fn vk_cmd_blit_image2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_blit_image_info: *const VkBlitImageInfo2 = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_blit_image_info: *const VkBlitImageInfo2 = packet.read_deep();
     trace!("called vkCmdBlitImage2({command_buffer:?}, {p_blit_image_info:?})");
 
     let result = unsafe {
@@ -10594,14 +10964,14 @@ fn vk_cmd_blit_image2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyBufferToImage2.html>"]
 fn vk_cmd_copy_buffer_to_image2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_copy_buffer_to_image_info: *const VkCopyBufferToImageInfo2 = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_copy_buffer_to_image_info: *const VkCopyBufferToImageInfo2 = packet.read_deep();
     trace!("called vkCmdCopyBufferToImage2({command_buffer:?}, {p_copy_buffer_to_image_info:?})");
 
     let result = unsafe {
@@ -10612,14 +10982,14 @@ fn vk_cmd_copy_buffer_to_image2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImageToBuffer2.html>"]
 fn vk_cmd_copy_image_to_buffer2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_copy_image_to_buffer_info: *const VkCopyImageToBufferInfo2 = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_copy_image_to_buffer_info: *const VkCopyImageToBufferInfo2 = packet.read_deep();
     trace!("called vkCmdCopyImageToBuffer2({command_buffer:?}, {p_copy_image_to_buffer_info:?})");
 
     let result = unsafe {
@@ -10630,14 +11000,14 @@ fn vk_cmd_copy_image_to_buffer2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResolveImage2.html>"]
 fn vk_cmd_resolve_image2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_resolve_image_info: *const VkResolveImageInfo2 = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_resolve_image_info: *const VkResolveImageInfo2 = packet.read_deep();
     trace!("called vkCmdResolveImage2({command_buffer:?}, {p_resolve_image_info:?})");
 
     let result = unsafe {
@@ -10648,15 +11018,15 @@ fn vk_cmd_resolve_image2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetFragmentShadingRateKHR.html>"]
 fn vk_cmd_set_fragment_shading_rate_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_fragment_size: *const VkExtent2D = packet.read_nullable_raw_ptr();
-    let combiner_ops: *const [NonDisposableHandle; 2] = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_fragment_size: *const VkExtent2D = packet.read_deep();
+    let combiner_ops: *const [NonDisposableHandle; 2] = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdSetFragmentShadingRateKHR({command_buffer:?}, {p_fragment_size:?}, {combiner_ops:?})");
 
     let result = unsafe {
@@ -10668,13 +11038,13 @@ fn vk_cmd_set_fragment_shading_rate_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceFragmentShadingRatesKHR.html>"]
 fn vk_get_physical_device_fragment_shading_rates_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_fragment_shading_rate_count, p_fragment_shading_rates) = packet.read_and_allocate_vk_array_count::<VkPhysicalDeviceFragmentShadingRateKHR>();
     trace!("called vkGetPhysicalDeviceFragmentShadingRatesKHR({physical_device:?}, {p_fragment_shading_rate_count:?}, {p_fragment_shading_rates:?})");
 
@@ -10687,16 +11057,18 @@ fn vk_get_physical_device_fragment_shading_rates_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_fragment_shading_rate_count, p_fragment_shading_rates);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_fragment_shading_rate_count, p_fragment_shading_rates);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetFragmentShadingRateEnumNV.html>"]
 fn vk_cmd_set_fragment_shading_rate_enum_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let shading_rate: NonDisposableHandle = packet.read();
-    let combiner_ops: *const [NonDisposableHandle; 2] = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let shading_rate: NonDisposableHandle = packet.read_shallow();
+    let combiner_ops: *const [NonDisposableHandle; 2] = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdSetFragmentShadingRateEnumNV({command_buffer:?}, {shading_rate:?}, {combiner_ops:?})");
 
     let result = unsafe {
@@ -10708,17 +11080,17 @@ fn vk_cmd_set_fragment_shading_rate_enum_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureBuildSizesKHR.html>"]
 fn vk_get_acceleration_structure_build_sizes_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let build_type: NonDisposableHandle = packet.read();
-    let p_build_info: *const VkAccelerationStructureBuildGeometryInfoKHR = packet.read_nullable_raw_ptr();
-    let p_max_primitive_counts: *const u32 = packet.read_nullable_raw_ptr();
-    let p_size_info: *mut VkAccelerationStructureBuildSizesInfoKHR = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let build_type: NonDisposableHandle = packet.read_shallow();
+    let p_build_info: *const VkAccelerationStructureBuildGeometryInfoKHR = packet.read_deep();
+    let p_max_primitive_counts: *const u32 = packet.read_shallow_under_nullable_ptr();
+    let p_size_info: *mut VkAccelerationStructureBuildSizesInfoKHR = packet.read_mut_deep();
     trace!("called vkGetAccelerationStructureBuildSizesKHR({device:?}, {build_type:?}, {p_build_info:?}, {p_max_primitive_counts:?}, {p_size_info:?})");
 
     let result = unsafe {
@@ -10732,18 +11104,20 @@ fn vk_get_acceleration_structure_build_sizes_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_size_info);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_size_info);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetVertexInputEXT.html>"]
 fn vk_cmd_set_vertex_input_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let vertex_binding_description_count: u32 = packet.read();
-    let p_vertex_binding_descriptions: *const VkVertexInputBindingDescription2EXT = packet.read_nullable_raw_ptr();
-    let vertex_attribute_description_count: u32 = packet.read();
-    let p_vertex_attribute_descriptions: *const VkVertexInputAttributeDescription2EXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let vertex_binding_description_count: u32 = packet.read_shallow();
+    let p_vertex_binding_descriptions: *const VkVertexInputBindingDescription2EXT = packet.read_deep();
+    let vertex_attribute_description_count: u32 = packet.read_shallow();
+    let p_vertex_attribute_descriptions: *const VkVertexInputAttributeDescription2EXT = packet.read_deep();
     trace!("called vkCmdSetVertexInputEXT({command_buffer:?}, {vertex_binding_description_count:?}, {p_vertex_binding_descriptions:?}, {vertex_attribute_description_count:?}, {p_vertex_attribute_descriptions:?})");
 
     let result = unsafe {
@@ -10757,15 +11131,15 @@ fn vk_cmd_set_vertex_input_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetColorWriteEnableEXT.html>"]
 fn vk_cmd_set_color_write_enable_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let attachment_count: u32 = packet.read();
-    let p_color_write_enables: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let attachment_count: u32 = packet.read_shallow();
+    let p_color_write_enables: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdSetColorWriteEnableEXT({command_buffer:?}, {attachment_count:?}, {p_color_write_enables:?})");
 
     let result = unsafe {
@@ -10777,15 +11151,15 @@ fn vk_cmd_set_color_write_enable_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetEvent2.html>"]
 fn vk_cmd_set_event2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let event: NonDisposableHandle = packet.read();
-    let p_dependency_info: *const VkDependencyInfo = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let event: NonDisposableHandle = packet.read_shallow();
+    let p_dependency_info: *const VkDependencyInfo = packet.read_deep();
     trace!("called vkCmdSetEvent2({command_buffer:?}, {event:?}, {p_dependency_info:?})");
 
     let result = unsafe {
@@ -10797,15 +11171,15 @@ fn vk_cmd_set_event2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdResetEvent2.html>"]
 fn vk_cmd_reset_event2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let event: NonDisposableHandle = packet.read();
-    let stage_mask: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let event: NonDisposableHandle = packet.read_shallow();
+    let stage_mask: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdResetEvent2({command_buffer:?}, {event:?}, {stage_mask:?})");
 
     let result = unsafe {
@@ -10817,16 +11191,16 @@ fn vk_cmd_reset_event2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWaitEvents2.html>"]
 fn vk_cmd_wait_events2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let event_count: u32 = packet.read();
-    let p_events: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let p_dependency_infos: *const VkDependencyInfo = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let event_count: u32 = packet.read_shallow();
+    let p_events: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let p_dependency_infos: *const VkDependencyInfo = packet.read_deep();
     trace!("called vkCmdWaitEvents2({command_buffer:?}, {event_count:?}, {p_events:?}, {p_dependency_infos:?})");
 
     let result = unsafe {
@@ -10839,14 +11213,14 @@ fn vk_cmd_wait_events2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPipelineBarrier2.html>"]
 fn vk_cmd_pipeline_barrier2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_dependency_info: *const VkDependencyInfo = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_dependency_info: *const VkDependencyInfo = packet.read_deep();
     trace!("called vkCmdPipelineBarrier2({command_buffer:?}, {p_dependency_info:?})");
 
     let result = unsafe {
@@ -10857,16 +11231,16 @@ fn vk_cmd_pipeline_barrier2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueSubmit2.html>"]
 fn vk_queue_submit2(mut packet: Packet) {
-    let queue: NonDisposableHandle = packet.read();
-    let submit_count: u32 = packet.read();
-    let p_submits: *const VkSubmitInfo2 = packet.read_nullable_raw_ptr();
-    let fence: NonDisposableHandle = packet.read();
+    let queue: NonDisposableHandle = packet.read_shallow();
+    let submit_count: u32 = packet.read_shallow();
+    let p_submits: *const VkSubmitInfo2 = packet.read_deep();
+    let fence: NonDisposableHandle = packet.read_shallow();
     trace!("called vkQueueSubmit2({queue:?}, {submit_count:?}, {p_submits:?}, {fence:?})");
 
     let result = unsafe {
@@ -10879,16 +11253,16 @@ fn vk_queue_submit2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteTimestamp2.html>"]
 fn vk_cmd_write_timestamp2(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let stage: NonDisposableHandle = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let query: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let stage: NonDisposableHandle = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let query: u32 = packet.read_shallow();
     trace!("called vkCmdWriteTimestamp2({command_buffer:?}, {stage:?}, {query_pool:?}, {query:?})");
 
     let result = unsafe {
@@ -10901,17 +11275,17 @@ fn vk_cmd_write_timestamp2(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteBufferMarker2AMD.html>"]
 fn vk_cmd_write_buffer_marker2_amd(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let stage: NonDisposableHandle = packet.read();
-    let dst_buffer: NonDisposableHandle = packet.read();
-    let dst_offset: NonDisposableHandle = packet.read();
-    let marker: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let stage: NonDisposableHandle = packet.read_shallow();
+    let dst_buffer: NonDisposableHandle = packet.read_shallow();
+    let dst_offset: NonDisposableHandle = packet.read_shallow();
+    let marker: u32 = packet.read_shallow();
     trace!("called vkCmdWriteBufferMarker2AMD({command_buffer:?}, {stage:?}, {dst_buffer:?}, {dst_offset:?}, {marker:?})");
 
     let result = unsafe {
@@ -10925,13 +11299,13 @@ fn vk_cmd_write_buffer_marker2_amd(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetQueueCheckpointData2NV.html>"]
 fn vk_get_queue_checkpoint_data2_nv(mut packet: Packet) {
-    let queue: NonDisposableHandle = packet.read();
+    let queue: NonDisposableHandle = packet.read_shallow();
     let (mut p_checkpoint_data_count, p_checkpoint_data) = packet.read_and_allocate_vk_array_count::<VkCheckpointData2NV>();
     trace!("called vkGetQueueCheckpointData2NV({queue:?}, {p_checkpoint_data_count:?}, {p_checkpoint_data:?})");
 
@@ -10944,15 +11318,17 @@ fn vk_get_queue_checkpoint_data2_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_checkpoint_data_count, p_checkpoint_data);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_checkpoint_data_count, p_checkpoint_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMemoryToImageEXT.html>"]
 fn vk_copy_memory_to_image_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_copy_memory_to_image_info: *const VkCopyMemoryToImageInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_copy_memory_to_image_info: *const VkCopyMemoryToImageInfoEXT = packet.read_deep();
     trace!("called vkCopyMemoryToImageEXT({device:?}, {p_copy_memory_to_image_info:?})");
 
     let result = unsafe {
@@ -10963,14 +11339,14 @@ fn vk_copy_memory_to_image_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyImageToMemoryEXT.html>"]
 fn vk_copy_image_to_memory_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_copy_image_to_memory_info: *const VkCopyImageToMemoryInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_copy_image_to_memory_info: *const VkCopyImageToMemoryInfoEXT = packet.read_deep();
     trace!("called vkCopyImageToMemoryEXT({device:?}, {p_copy_image_to_memory_info:?})");
 
     let result = unsafe {
@@ -10981,14 +11357,14 @@ fn vk_copy_image_to_memory_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyImageToImageEXT.html>"]
 fn vk_copy_image_to_image_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_copy_image_to_image_info: *const VkCopyImageToImageInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_copy_image_to_image_info: *const VkCopyImageToImageInfoEXT = packet.read_deep();
     trace!("called vkCopyImageToImageEXT({device:?}, {p_copy_image_to_image_info:?})");
 
     let result = unsafe {
@@ -10999,15 +11375,15 @@ fn vk_copy_image_to_image_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkTransitionImageLayoutEXT.html>"]
 fn vk_transition_image_layout_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let transition_count: u32 = packet.read();
-    let p_transitions: *const VkHostImageLayoutTransitionInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let transition_count: u32 = packet.read_shallow();
+    let p_transitions: *const VkHostImageLayoutTransitionInfoEXT = packet.read_deep();
     trace!("called vkTransitionImageLayoutEXT({device:?}, {transition_count:?}, {p_transitions:?})");
 
     let result = unsafe {
@@ -11019,15 +11395,15 @@ fn vk_transition_image_layout_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceVideoCapabilitiesKHR.html>"]
 fn vk_get_physical_device_video_capabilities_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_video_profile: *const VkVideoProfileInfoKHR = packet.read_nullable_raw_ptr();
-    let p_capabilities: *mut VkVideoCapabilitiesKHR = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_video_profile: *const VkVideoProfileInfoKHR = packet.read_deep();
+    let p_capabilities: *mut VkVideoCapabilitiesKHR = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceVideoCapabilitiesKHR({physical_device:?}, {p_video_profile:?}, {p_capabilities:?})");
 
     let result = unsafe {
@@ -11039,15 +11415,17 @@ fn vk_get_physical_device_video_capabilities_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_capabilities);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_capabilities);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceVideoFormatPropertiesKHR.html>"]
 fn vk_get_physical_device_video_format_properties_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_video_format_info: *const VkPhysicalDeviceVideoFormatInfoKHR = packet.read_nullable_raw_ptr();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_video_format_info: *const VkPhysicalDeviceVideoFormatInfoKHR = packet.read_deep();
     let (mut p_video_format_property_count, p_video_format_properties) = packet.read_and_allocate_vk_array_count::<VkVideoFormatPropertiesKHR>();
     trace!("called vkGetPhysicalDeviceVideoFormatPropertiesKHR({physical_device:?}, {p_video_format_info:?}, {p_video_format_property_count:?}, {p_video_format_properties:?})");
 
@@ -11061,16 +11439,18 @@ fn vk_get_physical_device_video_format_properties_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_video_format_property_count, p_video_format_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_video_format_property_count, p_video_format_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR.html>"]
 fn vk_get_physical_device_video_encode_quality_level_properties_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_quality_level_info: *const VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR = packet.read_nullable_raw_ptr();
-    let p_quality_level_properties: *mut VkVideoEncodeQualityLevelPropertiesKHR = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_quality_level_info: *const VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR = packet.read_deep();
+    let p_quality_level_properties: *mut VkVideoEncodeQualityLevelPropertiesKHR = packet.read_mut_deep();
     trace!("called vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR({physical_device:?}, {p_quality_level_info:?}, {p_quality_level_properties:?})");
 
     let result = unsafe {
@@ -11082,17 +11462,19 @@ fn vk_get_physical_device_video_encode_quality_level_properties_khr(mut packet: 
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_quality_level_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_quality_level_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateVideoSessionKHR.html>"]
 fn vk_create_video_session_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkVideoSessionCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_video_session: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkVideoSessionCreateInfoKHR = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_video_session: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateVideoSessionKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_video_session:?})");
 
     let result = unsafe {
@@ -11105,16 +11487,18 @@ fn vk_create_video_session_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_video_session);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_video_session);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyVideoSessionKHR.html>"]
 fn vk_destroy_video_session_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let video_session: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let video_session: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyVideoSessionKHR({device:?}, {video_session:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -11126,16 +11510,16 @@ fn vk_destroy_video_session_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateVideoSessionParametersKHR.html>"]
 fn vk_create_video_session_parameters_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkVideoSessionParametersCreateInfoKHR = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_video_session_parameters: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkVideoSessionParametersCreateInfoKHR = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_video_session_parameters: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateVideoSessionParametersKHR({device:?}, {p_create_info:?}, {p_allocator:?}, {p_video_session_parameters:?})");
 
     let result = unsafe {
@@ -11148,16 +11532,18 @@ fn vk_create_video_session_parameters_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_video_session_parameters);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_video_session_parameters);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUpdateVideoSessionParametersKHR.html>"]
 fn vk_update_video_session_parameters_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let video_session_parameters: NonDisposableHandle = packet.read();
-    let p_update_info: *const VkVideoSessionParametersUpdateInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let video_session_parameters: NonDisposableHandle = packet.read_shallow();
+    let p_update_info: *const VkVideoSessionParametersUpdateInfoKHR = packet.read_deep();
     trace!("called vkUpdateVideoSessionParametersKHR({device:?}, {video_session_parameters:?}, {p_update_info:?})");
 
     let result = unsafe {
@@ -11169,17 +11555,17 @@ fn vk_update_video_session_parameters_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetEncodedVideoSessionParametersKHR.html>"]
 fn vk_get_encoded_video_session_parameters_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_video_session_parameters_info: *const VkVideoEncodeSessionParametersGetInfoKHR = packet.read_nullable_raw_ptr();
-    let p_feedback_info: *mut VkVideoEncodeSessionParametersFeedbackInfoKHR = packet.read_nullable_raw_ptr_mut();
-    let p_data_size: *mut usize = packet.read_nullable_raw_ptr_mut();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_video_session_parameters_info: *const VkVideoEncodeSessionParametersGetInfoKHR = packet.read_deep();
+    let p_feedback_info: *mut VkVideoEncodeSessionParametersFeedbackInfoKHR = packet.read_mut_deep();
+    let p_data_size: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetEncodedVideoSessionParametersKHR({device:?}, {p_video_session_parameters_info:?}, {p_feedback_info:?}, {p_data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -11193,18 +11579,20 @@ fn vk_get_encoded_video_session_parameters_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_feedback_info);
-    response.write_raw_ptr(p_data_size);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_feedback_info);
+        response.write_shallow_under_nullable_ptr(p_data_size);
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyVideoSessionParametersKHR.html>"]
 fn vk_destroy_video_session_parameters_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let video_session_parameters: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let video_session_parameters: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyVideoSessionParametersKHR({device:?}, {video_session_parameters:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -11216,14 +11604,14 @@ fn vk_destroy_video_session_parameters_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetVideoSessionMemoryRequirementsKHR.html>"]
 fn vk_get_video_session_memory_requirements_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let video_session: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let video_session: NonDisposableHandle = packet.read_shallow();
     let (mut p_memory_requirements_count, p_memory_requirements) = packet.read_and_allocate_vk_array_count::<VkVideoSessionMemoryRequirementsKHR>();
     trace!("called vkGetVideoSessionMemoryRequirementsKHR({device:?}, {video_session:?}, {p_memory_requirements_count:?}, {p_memory_requirements:?})");
 
@@ -11237,17 +11625,19 @@ fn vk_get_video_session_memory_requirements_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_memory_requirements_count, p_memory_requirements);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_memory_requirements_count, p_memory_requirements);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindVideoSessionMemoryKHR.html>"]
 fn vk_bind_video_session_memory_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let video_session: NonDisposableHandle = packet.read();
-    let bind_session_memory_info_count: u32 = packet.read();
-    let p_bind_session_memory_infos: *const VkBindVideoSessionMemoryInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let video_session: NonDisposableHandle = packet.read_shallow();
+    let bind_session_memory_info_count: u32 = packet.read_shallow();
+    let p_bind_session_memory_infos: *const VkBindVideoSessionMemoryInfoKHR = packet.read_deep();
     trace!("called vkBindVideoSessionMemoryKHR({device:?}, {video_session:?}, {bind_session_memory_info_count:?}, {p_bind_session_memory_infos:?})");
 
     let result = unsafe {
@@ -11260,14 +11650,14 @@ fn vk_bind_video_session_memory_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDecodeVideoKHR.html>"]
 fn vk_cmd_decode_video_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_decode_info: *const VkVideoDecodeInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_decode_info: *const VkVideoDecodeInfoKHR = packet.read_deep();
     trace!("called vkCmdDecodeVideoKHR({command_buffer:?}, {p_decode_info:?})");
 
     let result = unsafe {
@@ -11278,14 +11668,14 @@ fn vk_cmd_decode_video_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginVideoCodingKHR.html>"]
 fn vk_cmd_begin_video_coding_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_begin_info: *const VkVideoBeginCodingInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_begin_info: *const VkVideoBeginCodingInfoKHR = packet.read_deep();
     trace!("called vkCmdBeginVideoCodingKHR({command_buffer:?}, {p_begin_info:?})");
 
     let result = unsafe {
@@ -11296,14 +11686,14 @@ fn vk_cmd_begin_video_coding_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdControlVideoCodingKHR.html>"]
 fn vk_cmd_control_video_coding_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_coding_control_info: *const VkVideoCodingControlInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_coding_control_info: *const VkVideoCodingControlInfoKHR = packet.read_deep();
     trace!("called vkCmdControlVideoCodingKHR({command_buffer:?}, {p_coding_control_info:?})");
 
     let result = unsafe {
@@ -11314,14 +11704,14 @@ fn vk_cmd_control_video_coding_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndVideoCodingKHR.html>"]
 fn vk_cmd_end_video_coding_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_end_coding_info: *const VkVideoEndCodingInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_end_coding_info: *const VkVideoEndCodingInfoKHR = packet.read_deep();
     trace!("called vkCmdEndVideoCodingKHR({command_buffer:?}, {p_end_coding_info:?})");
 
     let result = unsafe {
@@ -11332,14 +11722,14 @@ fn vk_cmd_end_video_coding_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEncodeVideoKHR.html>"]
 fn vk_cmd_encode_video_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_encode_info: *const VkVideoEncodeInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_encode_info: *const VkVideoEncodeInfoKHR = packet.read_deep();
     trace!("called vkCmdEncodeVideoKHR({command_buffer:?}, {p_encode_info:?})");
 
     let result = unsafe {
@@ -11350,15 +11740,15 @@ fn vk_cmd_encode_video_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDecompressMemoryNV.html>"]
 fn vk_cmd_decompress_memory_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let decompress_region_count: u32 = packet.read();
-    let p_decompress_memory_regions: *const VkDecompressMemoryRegionNV = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let decompress_region_count: u32 = packet.read_shallow();
+    let p_decompress_memory_regions: *const VkDecompressMemoryRegionNV = packet.read_deep();
     trace!("called vkCmdDecompressMemoryNV({command_buffer:?}, {decompress_region_count:?}, {p_decompress_memory_regions:?})");
 
     let result = unsafe {
@@ -11370,16 +11760,16 @@ fn vk_cmd_decompress_memory_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDecompressMemoryIndirectCountNV.html>"]
 fn vk_cmd_decompress_memory_indirect_count_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let indirect_commands_address: NonDisposableHandle = packet.read();
-    let indirect_commands_count_address: NonDisposableHandle = packet.read();
-    let stride: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let indirect_commands_address: NonDisposableHandle = packet.read_shallow();
+    let indirect_commands_count_address: NonDisposableHandle = packet.read_shallow();
+    let stride: u32 = packet.read_shallow();
     trace!("called vkCmdDecompressMemoryIndirectCountNV({command_buffer:?}, {indirect_commands_address:?}, {indirect_commands_count_address:?}, {stride:?})");
 
     let result = unsafe {
@@ -11392,16 +11782,16 @@ fn vk_cmd_decompress_memory_indirect_count_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCuModuleNVX.html>"]
 fn vk_create_cu_module_nvx(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkCuModuleCreateInfoNVX = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_module: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkCuModuleCreateInfoNVX = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_module: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateCuModuleNVX({device:?}, {p_create_info:?}, {p_allocator:?}, {p_module:?})");
 
     let result = unsafe {
@@ -11414,17 +11804,19 @@ fn vk_create_cu_module_nvx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_module);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_module);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCuFunctionNVX.html>"]
 fn vk_create_cu_function_nvx(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkCuFunctionCreateInfoNVX = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_function: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkCuFunctionCreateInfoNVX = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_function: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateCuFunctionNVX({device:?}, {p_create_info:?}, {p_allocator:?}, {p_function:?})");
 
     let result = unsafe {
@@ -11437,16 +11829,18 @@ fn vk_create_cu_function_nvx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_function);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_function);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCuModuleNVX.html>"]
 fn vk_destroy_cu_module_nvx(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let module: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let module: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyCuModuleNVX({device:?}, {module:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -11458,15 +11852,15 @@ fn vk_destroy_cu_module_nvx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCuFunctionNVX.html>"]
 fn vk_destroy_cu_function_nvx(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let function: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let function: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyCuFunctionNVX({device:?}, {function:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -11478,14 +11872,14 @@ fn vk_destroy_cu_function_nvx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCuLaunchKernelNVX.html>"]
 fn vk_cmd_cu_launch_kernel_nvx(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_launch_info: *const VkCuLaunchInfoNVX = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_launch_info: *const VkCuLaunchInfoNVX = packet.read_deep();
     trace!("called vkCmdCuLaunchKernelNVX({command_buffer:?}, {p_launch_info:?})");
 
     let result = unsafe {
@@ -11496,15 +11890,15 @@ fn vk_cmd_cu_launch_kernel_nvx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutSizeEXT.html>"]
 fn vk_get_descriptor_set_layout_size_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let layout: NonDisposableHandle = packet.read();
-    let p_layout_size_in_bytes: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let layout: NonDisposableHandle = packet.read_shallow();
+    let p_layout_size_in_bytes: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetDescriptorSetLayoutSizeEXT({device:?}, {layout:?}, {p_layout_size_in_bytes:?})");
 
     let result = unsafe {
@@ -11516,17 +11910,19 @@ fn vk_get_descriptor_set_layout_size_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_layout_size_in_bytes);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_layout_size_in_bytes);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutBindingOffsetEXT.html>"]
 fn vk_get_descriptor_set_layout_binding_offset_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let layout: NonDisposableHandle = packet.read();
-    let binding: u32 = packet.read();
-    let p_offset: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let layout: NonDisposableHandle = packet.read_shallow();
+    let binding: u32 = packet.read_shallow();
+    let p_offset: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetDescriptorSetLayoutBindingOffsetEXT({device:?}, {layout:?}, {binding:?}, {p_offset:?})");
 
     let result = unsafe {
@@ -11539,17 +11935,19 @@ fn vk_get_descriptor_set_layout_binding_offset_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_offset);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_offset);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorEXT.html>"]
 fn vk_get_descriptor_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_descriptor_info: *const VkDescriptorGetInfoEXT = packet.read_nullable_raw_ptr();
-    let data_size: usize = packet.read();
-    let p_descriptor: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_descriptor_info: *const VkDescriptorGetInfoEXT = packet.read_deep();
+    let data_size: usize = packet.read_shallow();
+    let p_descriptor: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetDescriptorEXT({device:?}, {p_descriptor_info:?}, {data_size:?}, {p_descriptor:?})");
 
     let result = unsafe {
@@ -11562,16 +11960,18 @@ fn vk_get_descriptor_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_descriptor);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_descriptor);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorBuffersEXT.html>"]
 fn vk_cmd_bind_descriptor_buffers_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let buffer_count: u32 = packet.read();
-    let p_binding_infos: *const VkDescriptorBufferBindingInfoEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let buffer_count: u32 = packet.read_shallow();
+    let p_binding_infos: *const VkDescriptorBufferBindingInfoEXT = packet.read_deep();
     trace!("called vkCmdBindDescriptorBuffersEXT({command_buffer:?}, {buffer_count:?}, {p_binding_infos:?})");
 
     let result = unsafe {
@@ -11583,19 +11983,19 @@ fn vk_cmd_bind_descriptor_buffers_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDescriptorBufferOffsetsEXT.html>"]
 fn vk_cmd_set_descriptor_buffer_offsets_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let pipeline_bind_point: NonDisposableHandle = packet.read();
-    let layout: NonDisposableHandle = packet.read();
-    let first_set: u32 = packet.read();
-    let set_count: u32 = packet.read();
-    let p_buffer_indices: *const u32 = packet.read_nullable_raw_ptr();
-    let p_offsets: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let pipeline_bind_point: NonDisposableHandle = packet.read_shallow();
+    let layout: NonDisposableHandle = packet.read_shallow();
+    let first_set: u32 = packet.read_shallow();
+    let set_count: u32 = packet.read_shallow();
+    let p_buffer_indices: *const u32 = packet.read_shallow_under_nullable_ptr();
+    let p_offsets: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdSetDescriptorBufferOffsetsEXT({command_buffer:?}, {pipeline_bind_point:?}, {layout:?}, {first_set:?}, {set_count:?}, {p_buffer_indices:?}, {p_offsets:?})");
 
     let result = unsafe {
@@ -11611,16 +12011,16 @@ fn vk_cmd_set_descriptor_buffer_offsets_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorBufferEmbeddedSamplersEXT.html>"]
 fn vk_cmd_bind_descriptor_buffer_embedded_samplers_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let pipeline_bind_point: NonDisposableHandle = packet.read();
-    let layout: NonDisposableHandle = packet.read();
-    let set: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let pipeline_bind_point: NonDisposableHandle = packet.read_shallow();
+    let layout: NonDisposableHandle = packet.read_shallow();
+    let set: u32 = packet.read_shallow();
     trace!("called vkCmdBindDescriptorBufferEmbeddedSamplersEXT({command_buffer:?}, {pipeline_bind_point:?}, {layout:?}, {set:?})");
 
     let result = unsafe {
@@ -11633,15 +12033,15 @@ fn vk_cmd_bind_descriptor_buffer_embedded_samplers_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferOpaqueCaptureDescriptorDataEXT.html>"]
 fn vk_get_buffer_opaque_capture_descriptor_data_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkBufferCaptureDescriptorDataInfoEXT = packet.read_nullable_raw_ptr();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkBufferCaptureDescriptorDataInfoEXT = packet.read_deep();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetBufferOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
     let result = unsafe {
@@ -11653,16 +12053,18 @@ fn vk_get_buffer_opaque_capture_descriptor_data_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageOpaqueCaptureDescriptorDataEXT.html>"]
 fn vk_get_image_opaque_capture_descriptor_data_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkImageCaptureDescriptorDataInfoEXT = packet.read_nullable_raw_ptr();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkImageCaptureDescriptorDataInfoEXT = packet.read_deep();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetImageOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
     let result = unsafe {
@@ -11674,16 +12076,18 @@ fn vk_get_image_opaque_capture_descriptor_data_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageViewOpaqueCaptureDescriptorDataEXT.html>"]
 fn vk_get_image_view_opaque_capture_descriptor_data_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkImageViewCaptureDescriptorDataInfoEXT = packet.read_nullable_raw_ptr();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkImageViewCaptureDescriptorDataInfoEXT = packet.read_deep();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetImageViewOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
     let result = unsafe {
@@ -11695,16 +12099,18 @@ fn vk_get_image_view_opaque_capture_descriptor_data_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetSamplerOpaqueCaptureDescriptorDataEXT.html>"]
 fn vk_get_sampler_opaque_capture_descriptor_data_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkSamplerCaptureDescriptorDataInfoEXT = packet.read_nullable_raw_ptr();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkSamplerCaptureDescriptorDataInfoEXT = packet.read_deep();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetSamplerOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
     let result = unsafe {
@@ -11716,16 +12122,18 @@ fn vk_get_sampler_opaque_capture_descriptor_data_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT.html>"]
 fn vk_get_acceleration_structure_opaque_capture_descriptor_data_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkAccelerationStructureCaptureDescriptorDataInfoEXT = packet.read_nullable_raw_ptr();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkAccelerationStructureCaptureDescriptorDataInfoEXT = packet.read_deep();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT({device:?}, {p_info:?}, {p_data:?})");
 
     let result = unsafe {
@@ -11737,16 +12145,18 @@ fn vk_get_acceleration_structure_opaque_capture_descriptor_data_ext(mut packet: 
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetDeviceMemoryPriorityEXT.html>"]
 fn vk_set_device_memory_priority_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let memory: NonDisposableHandle = packet.read();
-    let priority: f32 = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let memory: NonDisposableHandle = packet.read_shallow();
+    let priority: f32 = packet.read_shallow();
     trace!("called vkSetDeviceMemoryPriorityEXT({device:?}, {memory:?}, {priority:?})");
 
     let result = unsafe {
@@ -11758,15 +12168,15 @@ fn vk_set_device_memory_priority_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkAcquireDrmDisplayEXT.html>"]
 fn vk_acquire_drm_display_ext(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let drm_fd: i32 = packet.read();
-    let display: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let drm_fd: i32 = packet.read_shallow();
+    let display: NonDisposableHandle = packet.read_shallow();
     trace!("called vkAcquireDrmDisplayEXT({physical_device:?}, {drm_fd:?}, {display:?})");
 
     let result = unsafe {
@@ -11778,16 +12188,16 @@ fn vk_acquire_drm_display_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDrmDisplayEXT.html>"]
 fn vk_get_drm_display_ext(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let drm_fd: i32 = packet.read();
-    let connector_id: u32 = packet.read();
-    let display: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let drm_fd: i32 = packet.read_shallow();
+    let connector_id: u32 = packet.read_shallow();
+    let display: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetDrmDisplayEXT({physical_device:?}, {drm_fd:?}, {connector_id:?}, {display:?})");
 
     let result = unsafe {
@@ -11800,17 +12210,19 @@ fn vk_get_drm_display_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(display);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(display);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWaitForPresentKHR.html>"]
 fn vk_wait_for_present_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
-    let present_id: u64 = packet.read();
-    let timeout: u64 = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
+    let present_id: u64 = packet.read_shallow();
+    let timeout: u64 = packet.read_shallow();
     trace!("called vkWaitForPresentKHR({device:?}, {swapchain:?}, {present_id:?}, {timeout:?})");
 
     let result = unsafe {
@@ -11823,16 +12235,16 @@ fn vk_wait_for_present_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateBufferCollectionFUCHSIA.html>"]
 fn vk_create_buffer_collection_fuchsia(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkBufferCollectionCreateInfoFUCHSIA = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_collection: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkBufferCollectionCreateInfoFUCHSIA = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_collection: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateBufferCollectionFUCHSIA({device:?}, {p_create_info:?}, {p_allocator:?}, {p_collection:?})");
 
     let result = unsafe {
@@ -11845,16 +12257,18 @@ fn vk_create_buffer_collection_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_collection);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_collection);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetBufferCollectionBufferConstraintsFUCHSIA.html>"]
 fn vk_set_buffer_collection_buffer_constraints_fuchsia(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let collection: NonDisposableHandle = packet.read();
-    let p_buffer_constraints_info: *const VkBufferConstraintsInfoFUCHSIA = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let collection: NonDisposableHandle = packet.read_shallow();
+    let p_buffer_constraints_info: *const VkBufferConstraintsInfoFUCHSIA = packet.read_deep();
     trace!("called vkSetBufferCollectionBufferConstraintsFUCHSIA({device:?}, {collection:?}, {p_buffer_constraints_info:?})");
 
     let result = unsafe {
@@ -11866,15 +12280,15 @@ fn vk_set_buffer_collection_buffer_constraints_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetBufferCollectionImageConstraintsFUCHSIA.html>"]
 fn vk_set_buffer_collection_image_constraints_fuchsia(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let collection: NonDisposableHandle = packet.read();
-    let p_image_constraints_info: *const VkImageConstraintsInfoFUCHSIA = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let collection: NonDisposableHandle = packet.read_shallow();
+    let p_image_constraints_info: *const VkImageConstraintsInfoFUCHSIA = packet.read_deep();
     trace!("called vkSetBufferCollectionImageConstraintsFUCHSIA({device:?}, {collection:?}, {p_image_constraints_info:?})");
 
     let result = unsafe {
@@ -11886,15 +12300,15 @@ fn vk_set_buffer_collection_image_constraints_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyBufferCollectionFUCHSIA.html>"]
 fn vk_destroy_buffer_collection_fuchsia(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let collection: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let collection: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyBufferCollectionFUCHSIA({device:?}, {collection:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -11906,15 +12320,15 @@ fn vk_destroy_buffer_collection_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetBufferCollectionPropertiesFUCHSIA.html>"]
 fn vk_get_buffer_collection_properties_fuchsia(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let collection: NonDisposableHandle = packet.read();
-    let p_properties: *mut VkBufferCollectionPropertiesFUCHSIA = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let collection: NonDisposableHandle = packet.read_shallow();
+    let p_properties: *mut VkBufferCollectionPropertiesFUCHSIA = packet.read_mut_deep();
     trace!("called vkGetBufferCollectionPropertiesFUCHSIA({device:?}, {collection:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -11926,17 +12340,19 @@ fn vk_get_buffer_collection_properties_fuchsia(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCudaModuleNV.html>"]
 fn vk_create_cuda_module_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkCudaModuleCreateInfoNV = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_module: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkCudaModuleCreateInfoNV = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_module: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateCudaModuleNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_module:?})");
 
     let result = unsafe {
@@ -11949,17 +12365,19 @@ fn vk_create_cuda_module_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_module);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_module);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetCudaModuleCacheNV.html>"]
 fn vk_get_cuda_module_cache_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let module: NonDisposableHandle = packet.read();
-    let p_cache_size: *mut usize = packet.read_nullable_raw_ptr_mut();
-    let p_cache_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let module: NonDisposableHandle = packet.read_shallow();
+    let p_cache_size: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
+    let p_cache_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetCudaModuleCacheNV({device:?}, {module:?}, {p_cache_size:?}, {p_cache_data:?})");
 
     let result = unsafe {
@@ -11972,18 +12390,20 @@ fn vk_get_cuda_module_cache_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_cache_size);
-    response.write_raw_ptr(p_cache_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_cache_size);
+        response.write_shallow_under_nullable_ptr(p_cache_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateCudaFunctionNV.html>"]
 fn vk_create_cuda_function_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkCudaFunctionCreateInfoNV = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_function: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkCudaFunctionCreateInfoNV = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_function: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateCudaFunctionNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_function:?})");
 
     let result = unsafe {
@@ -11996,16 +12416,18 @@ fn vk_create_cuda_function_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_function);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_function);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCudaModuleNV.html>"]
 fn vk_destroy_cuda_module_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let module: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let module: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyCudaModuleNV({device:?}, {module:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -12017,15 +12439,15 @@ fn vk_destroy_cuda_module_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyCudaFunctionNV.html>"]
 fn vk_destroy_cuda_function_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let function: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let function: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyCudaFunctionNV({device:?}, {function:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -12037,14 +12459,14 @@ fn vk_destroy_cuda_function_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCudaLaunchKernelNV.html>"]
 fn vk_cmd_cuda_launch_kernel_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_launch_info: *const VkCudaLaunchInfoNV = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_launch_info: *const VkCudaLaunchInfoNV = packet.read_deep();
     trace!("called vkCmdCudaLaunchKernelNV({command_buffer:?}, {p_launch_info:?})");
 
     let result = unsafe {
@@ -12055,14 +12477,14 @@ fn vk_cmd_cuda_launch_kernel_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBeginRendering.html>"]
 fn vk_cmd_begin_rendering(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_rendering_info: *const VkRenderingInfo = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_rendering_info: *const VkRenderingInfo = packet.read_deep();
     trace!("called vkCmdBeginRendering({command_buffer:?}, {p_rendering_info:?})");
 
     let result = unsafe {
@@ -12073,13 +12495,13 @@ fn vk_cmd_begin_rendering(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRendering.html>"]
 fn vk_cmd_end_rendering(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdEndRendering({command_buffer:?})");
 
     let result = unsafe {
@@ -12089,15 +12511,15 @@ fn vk_cmd_end_rendering(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetLayoutHostMappingInfoVALVE.html>"]
 fn vk_get_descriptor_set_layout_host_mapping_info_valve(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_binding_reference: *const VkDescriptorSetBindingReferenceVALVE = packet.read_nullable_raw_ptr();
-    let p_host_mapping: *mut VkDescriptorSetLayoutHostMappingInfoVALVE = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_binding_reference: *const VkDescriptorSetBindingReferenceVALVE = packet.read_deep();
+    let p_host_mapping: *mut VkDescriptorSetLayoutHostMappingInfoVALVE = packet.read_mut_deep();
     trace!("called vkGetDescriptorSetLayoutHostMappingInfoVALVE({device:?}, {p_binding_reference:?}, {p_host_mapping:?})");
 
     let result = unsafe {
@@ -12109,16 +12531,18 @@ fn vk_get_descriptor_set_layout_host_mapping_info_valve(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_host_mapping);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_host_mapping);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDescriptorSetHostMappingVALVE.html>"]
 fn vk_get_descriptor_set_host_mapping_valve(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let descriptor_set: NonDisposableHandle = packet.read();
-    let pp_data: *mut *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let descriptor_set: NonDisposableHandle = packet.read_shallow();
+    let pp_data: *mut *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetDescriptorSetHostMappingVALVE({device:?}, {descriptor_set:?}, {pp_data:?})");
 
     let result = unsafe {
@@ -12130,17 +12554,19 @@ fn vk_get_descriptor_set_host_mapping_valve(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(pp_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(pp_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateMicromapEXT.html>"]
 fn vk_create_micromap_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkMicromapCreateInfoEXT = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_micromap: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkMicromapCreateInfoEXT = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_micromap: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateMicromapEXT({device:?}, {p_create_info:?}, {p_allocator:?}, {p_micromap:?})");
 
     let result = unsafe {
@@ -12153,16 +12579,18 @@ fn vk_create_micromap_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_micromap);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_micromap);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBuildMicromapsEXT.html>"]
 fn vk_cmd_build_micromaps_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let info_count: u32 = packet.read();
-    let p_infos: *const VkMicromapBuildInfoEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let info_count: u32 = packet.read_shallow();
+    let p_infos: *const VkMicromapBuildInfoEXT = packet.read_deep();
     trace!("called vkCmdBuildMicromapsEXT({command_buffer:?}, {info_count:?}, {p_infos:?})");
 
     let result = unsafe {
@@ -12174,16 +12602,16 @@ fn vk_cmd_build_micromaps_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBuildMicromapsEXT.html>"]
 fn vk_build_micromaps_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let deferred_operation: NonDisposableHandle = packet.read();
-    let info_count: u32 = packet.read();
-    let p_infos: *const VkMicromapBuildInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let deferred_operation: NonDisposableHandle = packet.read_shallow();
+    let info_count: u32 = packet.read_shallow();
+    let p_infos: *const VkMicromapBuildInfoEXT = packet.read_deep();
     trace!("called vkBuildMicromapsEXT({device:?}, {deferred_operation:?}, {info_count:?}, {p_infos:?})");
 
     let result = unsafe {
@@ -12196,15 +12624,15 @@ fn vk_build_micromaps_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyMicromapEXT.html>"]
 fn vk_destroy_micromap_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let micromap: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let micromap: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyMicromapEXT({device:?}, {micromap:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -12216,14 +12644,14 @@ fn vk_destroy_micromap_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMicromapEXT.html>"]
 fn vk_cmd_copy_micromap_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_info: *const VkCopyMicromapInfoEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkCopyMicromapInfoEXT = packet.read_deep();
     trace!("called vkCmdCopyMicromapEXT({command_buffer:?}, {p_info:?})");
 
     let result = unsafe {
@@ -12234,15 +12662,15 @@ fn vk_cmd_copy_micromap_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMicromapEXT.html>"]
 fn vk_copy_micromap_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let deferred_operation: NonDisposableHandle = packet.read();
-    let p_info: *const VkCopyMicromapInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let deferred_operation: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkCopyMicromapInfoEXT = packet.read_deep();
     trace!("called vkCopyMicromapEXT({device:?}, {deferred_operation:?}, {p_info:?})");
 
     let result = unsafe {
@@ -12254,14 +12682,14 @@ fn vk_copy_micromap_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMicromapToMemoryEXT.html>"]
 fn vk_cmd_copy_micromap_to_memory_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_info: *const VkCopyMicromapToMemoryInfoEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkCopyMicromapToMemoryInfoEXT = packet.read_deep();
     trace!("called vkCmdCopyMicromapToMemoryEXT({command_buffer:?}, {p_info:?})");
 
     let result = unsafe {
@@ -12272,15 +12700,15 @@ fn vk_cmd_copy_micromap_to_memory_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMicromapToMemoryEXT.html>"]
 fn vk_copy_micromap_to_memory_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let deferred_operation: NonDisposableHandle = packet.read();
-    let p_info: *const VkCopyMicromapToMemoryInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let deferred_operation: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkCopyMicromapToMemoryInfoEXT = packet.read_deep();
     trace!("called vkCopyMicromapToMemoryEXT({device:?}, {deferred_operation:?}, {p_info:?})");
 
     let result = unsafe {
@@ -12292,14 +12720,14 @@ fn vk_copy_micromap_to_memory_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdCopyMemoryToMicromapEXT.html>"]
 fn vk_cmd_copy_memory_to_micromap_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_info: *const VkCopyMemoryToMicromapInfoEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkCopyMemoryToMicromapInfoEXT = packet.read_deep();
     trace!("called vkCmdCopyMemoryToMicromapEXT({command_buffer:?}, {p_info:?})");
 
     let result = unsafe {
@@ -12310,15 +12738,15 @@ fn vk_cmd_copy_memory_to_micromap_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCopyMemoryToMicromapEXT.html>"]
 fn vk_copy_memory_to_micromap_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let deferred_operation: NonDisposableHandle = packet.read();
-    let p_info: *const VkCopyMemoryToMicromapInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let deferred_operation: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkCopyMemoryToMicromapInfoEXT = packet.read_deep();
     trace!("called vkCopyMemoryToMicromapEXT({device:?}, {deferred_operation:?}, {p_info:?})");
 
     let result = unsafe {
@@ -12330,18 +12758,18 @@ fn vk_copy_memory_to_micromap_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdWriteMicromapsPropertiesEXT.html>"]
 fn vk_cmd_write_micromaps_properties_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let micromap_count: u32 = packet.read();
-    let p_micromaps: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let query_type: NonDisposableHandle = packet.read();
-    let query_pool: NonDisposableHandle = packet.read();
-    let first_query: u32 = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let micromap_count: u32 = packet.read_shallow();
+    let p_micromaps: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let query_type: NonDisposableHandle = packet.read_shallow();
+    let query_pool: NonDisposableHandle = packet.read_shallow();
+    let first_query: u32 = packet.read_shallow();
     trace!("called vkCmdWriteMicromapsPropertiesEXT({command_buffer:?}, {micromap_count:?}, {p_micromaps:?}, {query_type:?}, {query_pool:?}, {first_query:?})");
 
     let result = unsafe {
@@ -12356,19 +12784,19 @@ fn vk_cmd_write_micromaps_properties_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkWriteMicromapsPropertiesEXT.html>"]
 fn vk_write_micromaps_properties_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let micromap_count: u32 = packet.read();
-    let p_micromaps: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let query_type: NonDisposableHandle = packet.read();
-    let data_size: usize = packet.read();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
-    let stride: usize = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let micromap_count: u32 = packet.read_shallow();
+    let p_micromaps: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let query_type: NonDisposableHandle = packet.read_shallow();
+    let data_size: usize = packet.read_shallow();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
+    let stride: usize = packet.read_shallow();
     trace!("called vkWriteMicromapsPropertiesEXT({device:?}, {micromap_count:?}, {p_micromaps:?}, {query_type:?}, {data_size:?}, {p_data:?}, {stride:?})");
 
     let result = unsafe {
@@ -12384,16 +12812,18 @@ fn vk_write_micromaps_properties_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceMicromapCompatibilityEXT.html>"]
 fn vk_get_device_micromap_compatibility_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_version_info: *const VkMicromapVersionInfoEXT = packet.read_nullable_raw_ptr();
-    let p_compatibility: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_version_info: *const VkMicromapVersionInfoEXT = packet.read_deep();
+    let p_compatibility: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetDeviceMicromapCompatibilityEXT({device:?}, {p_version_info:?}, {p_compatibility:?})");
 
     let result = unsafe {
@@ -12405,17 +12835,19 @@ fn vk_get_device_micromap_compatibility_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_compatibility);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_compatibility);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetMicromapBuildSizesEXT.html>"]
 fn vk_get_micromap_build_sizes_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let build_type: NonDisposableHandle = packet.read();
-    let p_build_info: *const VkMicromapBuildInfoEXT = packet.read_nullable_raw_ptr();
-    let p_size_info: *mut VkMicromapBuildSizesInfoEXT = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let build_type: NonDisposableHandle = packet.read_shallow();
+    let p_build_info: *const VkMicromapBuildInfoEXT = packet.read_deep();
+    let p_size_info: *mut VkMicromapBuildSizesInfoEXT = packet.read_mut_deep();
     trace!("called vkGetMicromapBuildSizesEXT({device:?}, {build_type:?}, {p_build_info:?}, {p_size_info:?})");
 
     let result = unsafe {
@@ -12428,16 +12860,18 @@ fn vk_get_micromap_build_sizes_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_size_info);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_size_info);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderModuleIdentifierEXT.html>"]
 fn vk_get_shader_module_identifier_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let shader_module: NonDisposableHandle = packet.read();
-    let p_identifier: *mut VkShaderModuleIdentifierEXT = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let shader_module: NonDisposableHandle = packet.read_shallow();
+    let p_identifier: *mut VkShaderModuleIdentifierEXT = packet.read_mut_deep();
     trace!("called vkGetShaderModuleIdentifierEXT({device:?}, {shader_module:?}, {p_identifier:?})");
 
     let result = unsafe {
@@ -12449,16 +12883,18 @@ fn vk_get_shader_module_identifier_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_identifier);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_identifier);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderModuleCreateInfoIdentifierEXT.html>"]
 fn vk_get_shader_module_create_info_identifier_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkShaderModuleCreateInfo = packet.read_nullable_raw_ptr();
-    let p_identifier: *mut VkShaderModuleIdentifierEXT = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkShaderModuleCreateInfo = packet.read_deep();
+    let p_identifier: *mut VkShaderModuleIdentifierEXT = packet.read_mut_deep();
     trace!("called vkGetShaderModuleCreateInfoIdentifierEXT({device:?}, {p_create_info:?}, {p_identifier:?})");
 
     let result = unsafe {
@@ -12470,17 +12906,19 @@ fn vk_get_shader_module_create_info_identifier_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_identifier);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_identifier);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetImageSubresourceLayout2KHR.html>"]
 fn vk_get_image_subresource_layout2_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let image: NonDisposableHandle = packet.read();
-    let p_subresource: *const VkImageSubresource2KHR = packet.read_nullable_raw_ptr();
-    let p_layout: *mut VkSubresourceLayout2KHR = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let image: NonDisposableHandle = packet.read_shallow();
+    let p_subresource: *const VkImageSubresource2KHR = packet.read_deep();
+    let p_layout: *mut VkSubresourceLayout2KHR = packet.read_mut_deep();
     trace!("called vkGetImageSubresourceLayout2KHR({device:?}, {image:?}, {p_subresource:?}, {p_layout:?})");
 
     let result = unsafe {
@@ -12493,16 +12931,18 @@ fn vk_get_image_subresource_layout2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_layout);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_layout);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPipelinePropertiesEXT.html>"]
 fn vk_get_pipeline_properties_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_pipeline_info: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
-    let p_pipeline_properties: *mut VkBaseOutStructure = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_pipeline_info: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
+    let p_pipeline_properties: *mut VkBaseOutStructure = packet.read_mut_deep();
     trace!("called vkGetPipelinePropertiesEXT({device:?}, {p_pipeline_info:?}, {p_pipeline_properties:?})");
 
     let result = unsafe {
@@ -12514,15 +12954,17 @@ fn vk_get_pipeline_properties_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_pipeline_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_pipeline_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkExportMetalObjectsEXT.html>"]
 fn vk_export_metal_objects_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_metal_objects_info: *mut VkExportMetalObjectsInfoEXT = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_metal_objects_info: *mut VkExportMetalObjectsInfoEXT = packet.read_mut_deep();
     trace!("called vkExportMetalObjectsEXT({device:?}, {p_metal_objects_info:?})");
 
     let result = unsafe {
@@ -12533,15 +12975,17 @@ fn vk_export_metal_objects_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_metal_objects_info);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_metal_objects_info);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetFramebufferTilePropertiesQCOM.html>"]
 fn vk_get_framebuffer_tile_properties_qcom(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let framebuffer: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let framebuffer: NonDisposableHandle = packet.read_shallow();
     let (mut p_properties_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkTilePropertiesQCOM>();
     trace!("called vkGetFramebufferTilePropertiesQCOM({device:?}, {framebuffer:?}, {p_properties_count:?}, {p_properties:?})");
 
@@ -12555,16 +12999,18 @@ fn vk_get_framebuffer_tile_properties_qcom(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_properties_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_properties_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDynamicRenderingTilePropertiesQCOM.html>"]
 fn vk_get_dynamic_rendering_tile_properties_qcom(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_rendering_info: *const VkRenderingInfo = packet.read_nullable_raw_ptr();
-    let p_properties: *mut VkTilePropertiesQCOM = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_rendering_info: *const VkRenderingInfo = packet.read_deep();
+    let p_properties: *mut VkTilePropertiesQCOM = packet.read_mut_deep();
     trace!("called vkGetDynamicRenderingTilePropertiesQCOM({device:?}, {p_rendering_info:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -12576,15 +13022,17 @@ fn vk_get_dynamic_rendering_tile_properties_qcom(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceOpticalFlowImageFormatsNV.html>"]
 fn vk_get_physical_device_optical_flow_image_formats_nv(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
-    let p_optical_flow_image_format_info: *const VkOpticalFlowImageFormatInfoNV = packet.read_nullable_raw_ptr();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
+    let p_optical_flow_image_format_info: *const VkOpticalFlowImageFormatInfoNV = packet.read_deep();
     let (mut p_format_count, p_image_format_properties) = packet.read_and_allocate_vk_array_count::<VkOpticalFlowImageFormatPropertiesNV>();
     trace!("called vkGetPhysicalDeviceOpticalFlowImageFormatsNV({physical_device:?}, {p_optical_flow_image_format_info:?}, {p_format_count:?}, {p_image_format_properties:?})");
 
@@ -12598,17 +13046,19 @@ fn vk_get_physical_device_optical_flow_image_formats_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_format_count, p_image_format_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_format_count, p_image_format_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateOpticalFlowSessionNV.html>"]
 fn vk_create_optical_flow_session_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_create_info: *const VkOpticalFlowSessionCreateInfoNV = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_session: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_create_info: *const VkOpticalFlowSessionCreateInfoNV = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_session: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateOpticalFlowSessionNV({device:?}, {p_create_info:?}, {p_allocator:?}, {p_session:?})");
 
     let result = unsafe {
@@ -12621,16 +13071,18 @@ fn vk_create_optical_flow_session_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_session);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_session);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyOpticalFlowSessionNV.html>"]
 fn vk_destroy_optical_flow_session_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let session: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let session: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyOpticalFlowSessionNV({device:?}, {session:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -12642,17 +13094,17 @@ fn vk_destroy_optical_flow_session_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkBindOpticalFlowSessionImageNV.html>"]
 fn vk_bind_optical_flow_session_image_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let session: NonDisposableHandle = packet.read();
-    let binding_point: NonDisposableHandle = packet.read();
-    let view: NonDisposableHandle = packet.read();
-    let layout: NonDisposableHandle = packet.read();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let session: NonDisposableHandle = packet.read_shallow();
+    let binding_point: NonDisposableHandle = packet.read_shallow();
+    let view: NonDisposableHandle = packet.read_shallow();
+    let layout: NonDisposableHandle = packet.read_shallow();
     trace!("called vkBindOpticalFlowSessionImageNV({device:?}, {session:?}, {binding_point:?}, {view:?}, {layout:?})");
 
     let result = unsafe {
@@ -12666,15 +13118,15 @@ fn vk_bind_optical_flow_session_image_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdOpticalFlowExecuteNV.html>"]
 fn vk_cmd_optical_flow_execute_nv(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let session: NonDisposableHandle = packet.read();
-    let p_execute_info: *const VkOpticalFlowExecuteInfoNV = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let session: NonDisposableHandle = packet.read_shallow();
+    let p_execute_info: *const VkOpticalFlowExecuteInfoNV = packet.read_deep();
     trace!("called vkCmdOpticalFlowExecuteNV({command_buffer:?}, {session:?}, {p_execute_info:?})");
 
     let result = unsafe {
@@ -12686,15 +13138,15 @@ fn vk_cmd_optical_flow_execute_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceFaultInfoEXT.html>"]
 fn vk_get_device_fault_info_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_fault_counts: *mut VkDeviceFaultCountsEXT = packet.read_nullable_raw_ptr_mut();
-    let p_fault_info: *mut VkDeviceFaultInfoEXT = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_fault_counts: *mut VkDeviceFaultCountsEXT = packet.read_mut_deep();
+    let p_fault_info: *mut VkDeviceFaultInfoEXT = packet.read_mut_deep();
     trace!("called vkGetDeviceFaultInfoEXT({device:?}, {p_fault_counts:?}, {p_fault_info:?})");
 
     let result = unsafe {
@@ -12706,16 +13158,18 @@ fn vk_get_device_fault_info_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_fault_counts);
-    response.write_raw_ptr(p_fault_info);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_fault_counts);
+        response.write_deep(p_fault_info);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDepthBias2EXT.html>"]
 fn vk_cmd_set_depth_bias2_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_depth_bias_info: *const VkDepthBiasInfoEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_depth_bias_info: *const VkDepthBiasInfoEXT = packet.read_deep();
     trace!("called vkCmdSetDepthBias2EXT({command_buffer:?}, {p_depth_bias_info:?})");
 
     let result = unsafe {
@@ -12726,14 +13180,14 @@ fn vk_cmd_set_depth_bias2_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseSwapchainImagesEXT.html>"]
 fn vk_release_swapchain_images_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_release_info: *const VkReleaseSwapchainImagesInfoEXT = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_release_info: *const VkReleaseSwapchainImagesInfoEXT = packet.read_deep();
     trace!("called vkReleaseSwapchainImagesEXT({device:?}, {p_release_info:?})");
 
     let result = unsafe {
@@ -12744,15 +13198,15 @@ fn vk_release_swapchain_images_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetDeviceImageSubresourceLayoutKHR.html>"]
 fn vk_get_device_image_subresource_layout_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_info: *const VkDeviceImageSubresourceInfoKHR = packet.read_nullable_raw_ptr();
-    let p_layout: *mut VkSubresourceLayout2KHR = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_info: *const VkDeviceImageSubresourceInfoKHR = packet.read_deep();
+    let p_layout: *mut VkSubresourceLayout2KHR = packet.read_mut_deep();
     trace!("called vkGetDeviceImageSubresourceLayoutKHR({device:?}, {p_info:?}, {p_layout:?})");
 
     let result = unsafe {
@@ -12764,16 +13218,18 @@ fn vk_get_device_image_subresource_layout_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_layout);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_layout);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkMapMemory2KHR.html>"]
 fn vk_map_memory2_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_memory_map_info: *const VkMemoryMapInfoKHR = packet.read_nullable_raw_ptr();
-    let pp_data: *mut *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_memory_map_info: *const VkMemoryMapInfoKHR = packet.read_deep();
+    let pp_data: *mut *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkMapMemory2KHR({device:?}, {p_memory_map_info:?}, {pp_data:?})");
 
     let result = unsafe {
@@ -12785,15 +13241,17 @@ fn vk_map_memory2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(pp_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(pp_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUnmapMemory2KHR.html>"]
 fn vk_unmap_memory2_khr(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let p_memory_unmap_info: *const VkMemoryUnmapInfoKHR = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let p_memory_unmap_info: *const VkMemoryUnmapInfoKHR = packet.read_deep();
     trace!("called vkUnmapMemory2KHR({device:?}, {p_memory_unmap_info:?})");
 
     let result = unsafe {
@@ -12804,17 +13262,17 @@ fn vk_unmap_memory2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateShadersEXT.html>"]
 fn vk_create_shaders_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let create_info_count: u32 = packet.read();
-    let p_create_infos: *const VkShaderCreateInfoEXT = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_shaders: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let create_info_count: u32 = packet.read_shallow();
+    let p_create_infos: *const VkShaderCreateInfoEXT = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_shaders: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateShadersEXT({device:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_shaders:?})");
 
     let result = unsafe {
@@ -12828,16 +13286,18 @@ fn vk_create_shaders_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_shaders);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_shaders);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyShaderEXT.html>"]
 fn vk_destroy_shader_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let shader: NonDisposableHandle = packet.read();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let shader: NonDisposableHandle = packet.read_shallow();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     trace!("called vkDestroyShaderEXT({device:?}, {shader:?}, {p_allocator:?})");
 
     let result = unsafe {
@@ -12849,16 +13309,16 @@ fn vk_destroy_shader_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetShaderBinaryDataEXT.html>"]
 fn vk_get_shader_binary_data_ext(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let shader: NonDisposableHandle = packet.read();
-    let p_data_size: *mut usize = packet.read_nullable_raw_ptr_mut();
-    let p_data: *mut c_void = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let shader: NonDisposableHandle = packet.read_shallow();
+    let p_data_size: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
+    let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetShaderBinaryDataEXT({device:?}, {shader:?}, {p_data_size:?}, {p_data:?})");
 
     let result = unsafe {
@@ -12871,18 +13331,20 @@ fn vk_get_shader_binary_data_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_data_size);
-    response.write_raw_ptr(p_data);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_data_size);
+        response.write_shallow_under_nullable_ptr(p_data);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindShadersEXT.html>"]
 fn vk_cmd_bind_shaders_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let stage_count: u32 = packet.read();
-    let p_stages: *const vk::ShaderStageFlags = packet.read_nullable_raw_ptr();
-    let p_shaders: *const NonDisposableHandle = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let stage_count: u32 = packet.read_shallow();
+    let p_stages: *const vk::ShaderStageFlags = packet.read_shallow_under_nullable_ptr();
+    let p_shaders: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     trace!("called vkCmdBindShadersEXT({command_buffer:?}, {stage_count:?}, {p_stages:?}, {p_shaders:?})");
 
     let result = unsafe {
@@ -12895,15 +13357,15 @@ fn vk_cmd_bind_shaders_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetScreenBufferPropertiesQNX.html>"]
 fn vk_get_screen_buffer_properties_qnx(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let buffer: *const usize = packet.read_nullable_raw_ptr();
-    let p_properties: *mut VkScreenBufferPropertiesQNX = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let buffer: *const usize = packet.read_shallow_under_nullable_ptr();
+    let p_properties: *mut VkScreenBufferPropertiesQNX = packet.read_mut_deep();
     trace!("called vkGetScreenBufferPropertiesQNX({device:?}, {buffer:?}, {p_properties:?})");
 
     let result = unsafe {
@@ -12915,14 +13377,16 @@ fn vk_get_screen_buffer_properties_qnx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_properties);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR.html>"]
 fn vk_get_physical_device_cooperative_matrix_properties_khr(mut packet: Packet) {
-    let physical_device: NonDisposableHandle = packet.read();
+    let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkCooperativeMatrixPropertiesKHR>();
     trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR({physical_device:?}, {p_property_count:?}, {p_properties:?})");
 
@@ -12935,16 +13399,18 @@ fn vk_get_physical_device_cooperative_matrix_properties_khr(mut packet: Packet) 
     };
 
     let mut response = packet.write_response(None);
-    response.write_vk_array(p_property_count, p_properties);
-    response.write(result);
+    unsafe {
+        response.write_vk_array(p_property_count, p_properties);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetExecutionGraphPipelineScratchSizeAMDX.html>"]
 fn vk_get_execution_graph_pipeline_scratch_size_amdx(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let execution_graph: NonDisposableHandle = packet.read();
-    let p_size_info: *mut VkExecutionGraphPipelineScratchSizeAMDX = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let execution_graph: NonDisposableHandle = packet.read_shallow();
+    let p_size_info: *mut VkExecutionGraphPipelineScratchSizeAMDX = packet.read_mut_deep();
     trace!("called vkGetExecutionGraphPipelineScratchSizeAMDX({device:?}, {execution_graph:?}, {p_size_info:?})");
 
     let result = unsafe {
@@ -12956,17 +13422,19 @@ fn vk_get_execution_graph_pipeline_scratch_size_amdx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_size_info);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_size_info);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetExecutionGraphPipelineNodeIndexAMDX.html>"]
 fn vk_get_execution_graph_pipeline_node_index_amdx(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let execution_graph: NonDisposableHandle = packet.read();
-    let p_node_info: *const VkPipelineShaderStageNodeCreateInfoAMDX = packet.read_nullable_raw_ptr();
-    let p_node_index: *mut u32 = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let execution_graph: NonDisposableHandle = packet.read_shallow();
+    let p_node_info: *const VkPipelineShaderStageNodeCreateInfoAMDX = packet.read_deep();
+    let p_node_index: *mut u32 = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkGetExecutionGraphPipelineNodeIndexAMDX({device:?}, {execution_graph:?}, {p_node_info:?}, {p_node_index:?})");
 
     let result = unsafe {
@@ -12979,19 +13447,21 @@ fn vk_get_execution_graph_pipeline_node_index_amdx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_node_index);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_node_index);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateExecutionGraphPipelinesAMDX.html>"]
 fn vk_create_execution_graph_pipelines_amdx(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let pipeline_cache: NonDisposableHandle = packet.read();
-    let create_info_count: u32 = packet.read();
-    let p_create_infos: *const VkExecutionGraphPipelineCreateInfoAMDX = packet.read_nullable_raw_ptr();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_nullable_raw_ptr();
-    let p_pipelines: *mut NonDisposableHandle = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let pipeline_cache: NonDisposableHandle = packet.read_shallow();
+    let create_info_count: u32 = packet.read_shallow();
+    let p_create_infos: *const VkExecutionGraphPipelineCreateInfoAMDX = packet.read_deep();
+    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
+    let p_pipelines: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
     trace!("called vkCreateExecutionGraphPipelinesAMDX({device:?}, {pipeline_cache:?}, {create_info_count:?}, {p_create_infos:?}, {p_allocator:?}, {p_pipelines:?})");
 
     let result = unsafe {
@@ -13006,15 +13476,17 @@ fn vk_create_execution_graph_pipelines_amdx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_pipelines);
-    response.write(result);
+    unsafe {
+        response.write_shallow_under_nullable_ptr(p_pipelines);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdInitializeGraphScratchMemoryAMDX.html>"]
 fn vk_cmd_initialize_graph_scratch_memory_amdx(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let scratch: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let scratch: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdInitializeGraphScratchMemoryAMDX({command_buffer:?}, {scratch:?})");
 
     let result = unsafe {
@@ -13025,15 +13497,15 @@ fn vk_cmd_initialize_graph_scratch_memory_amdx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchGraphAMDX.html>"]
 fn vk_cmd_dispatch_graph_amdx(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let scratch: NonDisposableHandle = packet.read();
-    let p_count_info: *const VkDispatchGraphCountInfoAMDX = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let scratch: NonDisposableHandle = packet.read_shallow();
+    let p_count_info: *const VkDispatchGraphCountInfoAMDX = packet.read_deep();
     trace!("called vkCmdDispatchGraphAMDX({command_buffer:?}, {scratch:?}, {p_count_info:?})");
 
     let result = unsafe {
@@ -13045,15 +13517,15 @@ fn vk_cmd_dispatch_graph_amdx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchGraphIndirectAMDX.html>"]
 fn vk_cmd_dispatch_graph_indirect_amdx(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let scratch: NonDisposableHandle = packet.read();
-    let p_count_info: *const VkDispatchGraphCountInfoAMDX = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let scratch: NonDisposableHandle = packet.read_shallow();
+    let p_count_info: *const VkDispatchGraphCountInfoAMDX = packet.read_deep();
     trace!("called vkCmdDispatchGraphIndirectAMDX({command_buffer:?}, {scratch:?}, {p_count_info:?})");
 
     let result = unsafe {
@@ -13065,15 +13537,15 @@ fn vk_cmd_dispatch_graph_indirect_amdx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDispatchGraphIndirectCountAMDX.html>"]
 fn vk_cmd_dispatch_graph_indirect_count_amdx(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let scratch: NonDisposableHandle = packet.read();
-    let count_info: NonDisposableHandle = packet.read();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let scratch: NonDisposableHandle = packet.read_shallow();
+    let count_info: NonDisposableHandle = packet.read_shallow();
     trace!("called vkCmdDispatchGraphIndirectCountAMDX({command_buffer:?}, {scratch:?}, {count_info:?})");
 
     let result = unsafe {
@@ -13085,14 +13557,14 @@ fn vk_cmd_dispatch_graph_indirect_count_amdx(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorSets2KHR.html>"]
 fn vk_cmd_bind_descriptor_sets2_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_bind_descriptor_sets_info: *const VkBindDescriptorSetsInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_bind_descriptor_sets_info: *const VkBindDescriptorSetsInfoKHR = packet.read_deep();
     trace!("called vkCmdBindDescriptorSets2KHR({command_buffer:?}, {p_bind_descriptor_sets_info:?})");
 
     let result = unsafe {
@@ -13103,14 +13575,14 @@ fn vk_cmd_bind_descriptor_sets2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushConstants2KHR.html>"]
 fn vk_cmd_push_constants2_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_push_constants_info: *const VkPushConstantsInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_push_constants_info: *const VkPushConstantsInfoKHR = packet.read_deep();
     trace!("called vkCmdPushConstants2KHR({command_buffer:?}, {p_push_constants_info:?})");
 
     let result = unsafe {
@@ -13121,14 +13593,14 @@ fn vk_cmd_push_constants2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSet2KHR.html>"]
 fn vk_cmd_push_descriptor_set2_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_push_descriptor_set_info: *const VkPushDescriptorSetInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_push_descriptor_set_info: *const VkPushDescriptorSetInfoKHR = packet.read_deep();
     trace!("called vkCmdPushDescriptorSet2KHR({command_buffer:?}, {p_push_descriptor_set_info:?})");
 
     let result = unsafe {
@@ -13139,14 +13611,14 @@ fn vk_cmd_push_descriptor_set2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdPushDescriptorSetWithTemplate2KHR.html>"]
 fn vk_cmd_push_descriptor_set_with_template2_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_push_descriptor_set_with_template_info: *const VkPushDescriptorSetWithTemplateInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_push_descriptor_set_with_template_info: *const VkPushDescriptorSetWithTemplateInfoKHR = packet.read_deep();
     trace!("called vkCmdPushDescriptorSetWithTemplate2KHR({command_buffer:?}, {p_push_descriptor_set_with_template_info:?})");
 
     let result = unsafe {
@@ -13157,14 +13629,14 @@ fn vk_cmd_push_descriptor_set_with_template2_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetDescriptorBufferOffsets2EXT.html>"]
 fn vk_cmd_set_descriptor_buffer_offsets2_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_set_descriptor_buffer_offsets_info: *const VkSetDescriptorBufferOffsetsInfoEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_set_descriptor_buffer_offsets_info: *const VkSetDescriptorBufferOffsetsInfoEXT = packet.read_deep();
     trace!("called vkCmdSetDescriptorBufferOffsets2EXT({command_buffer:?}, {p_set_descriptor_buffer_offsets_info:?})");
 
     let result = unsafe {
@@ -13175,14 +13647,14 @@ fn vk_cmd_set_descriptor_buffer_offsets2_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdBindDescriptorBufferEmbeddedSamplers2EXT.html>"]
 fn vk_cmd_bind_descriptor_buffer_embedded_samplers2_ext(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_bind_descriptor_buffer_embedded_samplers_info: *const VkBindDescriptorBufferEmbeddedSamplersInfoEXT = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_bind_descriptor_buffer_embedded_samplers_info: *const VkBindDescriptorBufferEmbeddedSamplersInfoEXT = packet.read_deep();
     trace!("called vkCmdBindDescriptorBufferEmbeddedSamplers2EXT({command_buffer:?}, {p_bind_descriptor_buffer_embedded_samplers_info:?})");
 
     let result = unsafe {
@@ -13193,15 +13665,15 @@ fn vk_cmd_bind_descriptor_buffer_embedded_samplers2_ext(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetLatencySleepModeNV.html>"]
 fn vk_set_latency_sleep_mode_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
-    let p_sleep_mode_info: *const VkLatencySleepModeInfoNV = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
+    let p_sleep_mode_info: *const VkLatencySleepModeInfoNV = packet.read_deep();
     trace!("called vkSetLatencySleepModeNV({device:?}, {swapchain:?}, {p_sleep_mode_info:?})");
 
     let result = unsafe {
@@ -13213,15 +13685,15 @@ fn vk_set_latency_sleep_mode_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkLatencySleepNV.html>"]
 fn vk_latency_sleep_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
-    let p_sleep_info: *const VkLatencySleepInfoNV = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
+    let p_sleep_info: *const VkLatencySleepInfoNV = packet.read_deep();
     trace!("called vkLatencySleepNV({device:?}, {swapchain:?}, {p_sleep_info:?})");
 
     let result = unsafe {
@@ -13233,15 +13705,15 @@ fn vk_latency_sleep_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkSetLatencyMarkerNV.html>"]
 fn vk_set_latency_marker_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
-    let p_latency_marker_info: *const VkSetLatencyMarkerInfoNV = packet.read_nullable_raw_ptr();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
+    let p_latency_marker_info: *const VkSetLatencyMarkerInfoNV = packet.read_deep();
     trace!("called vkSetLatencyMarkerNV({device:?}, {swapchain:?}, {p_latency_marker_info:?})");
 
     let result = unsafe {
@@ -13253,15 +13725,15 @@ fn vk_set_latency_marker_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetLatencyTimingsNV.html>"]
 fn vk_get_latency_timings_nv(mut packet: Packet) {
-    let device: NonDisposableHandle = packet.read();
-    let swapchain: NonDisposableHandle = packet.read();
-    let p_latency_marker_info: *mut VkGetLatencyMarkerInfoNV = packet.read_nullable_raw_ptr_mut();
+    let device: NonDisposableHandle = packet.read_shallow();
+    let swapchain: NonDisposableHandle = packet.read_shallow();
+    let p_latency_marker_info: *mut VkGetLatencyMarkerInfoNV = packet.read_mut_deep();
     trace!("called vkGetLatencyTimingsNV({device:?}, {swapchain:?}, {p_latency_marker_info:?})");
 
     let result = unsafe {
@@ -13273,15 +13745,17 @@ fn vk_get_latency_timings_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write_raw_ptr(p_latency_marker_info);
-    response.write(result);
+    unsafe {
+        response.write_deep(p_latency_marker_info);
+    }
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueNotifyOutOfBandNV.html>"]
 fn vk_queue_notify_out_of_band_nv(mut packet: Packet) {
-    let queue: NonDisposableHandle = packet.read();
-    let p_queue_type_info: *const VkOutOfBandQueueTypeInfoNV = packet.read_nullable_raw_ptr();
+    let queue: NonDisposableHandle = packet.read_shallow();
+    let p_queue_type_info: *const VkOutOfBandQueueTypeInfoNV = packet.read_deep();
     trace!("called vkQueueNotifyOutOfBandNV({queue:?}, {p_queue_type_info:?})");
 
     let result = unsafe {
@@ -13292,14 +13766,14 @@ fn vk_queue_notify_out_of_band_nv(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRenderingAttachmentLocationsKHR.html>"]
 fn vk_cmd_set_rendering_attachment_locations_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_location_info: *const VkRenderingAttachmentLocationInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_location_info: *const VkRenderingAttachmentLocationInfoKHR = packet.read_deep();
     trace!("called vkCmdSetRenderingAttachmentLocationsKHR({command_buffer:?}, {p_location_info:?})");
 
     let result = unsafe {
@@ -13310,14 +13784,14 @@ fn vk_cmd_set_rendering_attachment_locations_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSetRenderingInputAttachmentIndicesKHR.html>"]
 fn vk_cmd_set_rendering_input_attachment_indices_khr(mut packet: Packet) {
-    let command_buffer: NonDisposableHandle = packet.read();
-    let p_location_info: *const VkRenderingInputAttachmentIndexInfoKHR = packet.read_nullable_raw_ptr();
+    let command_buffer: NonDisposableHandle = packet.read_shallow();
+    let p_location_info: *const VkRenderingInputAttachmentIndexInfoKHR = packet.read_deep();
     trace!("called vkCmdSetRenderingInputAttachmentIndicesKHR({command_buffer:?}, {p_location_info:?})");
 
     let result = unsafe {
@@ -13328,6 +13802,6 @@ fn vk_cmd_set_rendering_input_attachment_indices_khr(mut packet: Packet) {
     };
 
     let mut response = packet.write_response(None);
-    response.write(result);
+    response.write_shallow(result);
     response.send();
 }

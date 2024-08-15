@@ -1,10 +1,13 @@
 use std::{
+    cell::UnsafeCell,
     ffi::c_char,
     mem::{self, MaybeUninit},
     ptr, slice,
     thread::ThreadId,
 };
 
+use aligned_vec::AVec;
+use cdump::{CDeserialize, CDumpReader, CDumpWriter, CSerialize};
 use wie_common::stream::{UnsafeRead, UnsafeWrite};
 
 use crate::Connection;
@@ -28,7 +31,7 @@ where
     T: UnsafeWrite + UnsafeRead + Send + Sync + 'static,
 {
     connection: &'c Connection<T>,
-    buffer: Vec<u8>,
+    buffer: AVec<u8>,
 }
 
 impl<'c, T> PacketWriter<'c, T>
@@ -38,7 +41,7 @@ where
     #[inline]
     pub(crate) fn new(
         connection: &'c Connection<T>,
-        mut buffer: Vec<u8>,
+        mut buffer: AVec<u8>,
         destination: Destination,
     ) -> Self {
         let header = unsafe { &mut *(buffer.as_mut_ptr() as *mut PacketHeader) };
@@ -47,7 +50,7 @@ where
     }
 
     #[inline]
-    pub fn write<TO>(&mut self, object: TO) {
+    pub fn write_shallow<TO>(&mut self, object: TO) {
         self.align::<TO>();
         let slice = unsafe {
             slice::from_raw_parts(&object as *const _ as *const u8, mem::size_of::<TO>())
@@ -56,25 +59,46 @@ where
     }
 
     #[inline]
-    pub fn write_raw_ptr<TO>(&mut self, object: *const TO) {
+    pub fn write_raw_ptr_as_shallow<TO>(&mut self, object: *const TO) {
         self.align::<TO>();
         let slice = unsafe { slice::from_raw_parts(object as *const u8, mem::size_of::<TO>()) };
         self.buffer.extend_from_slice(slice);
     }
 
     #[inline]
-    pub fn write_nullable_raw_ptr<TO>(&mut self, object: *const TO) {
+    pub fn write_shallow_under_nullable_ptr<TO>(&mut self, object: *const TO) {
         if object.is_null() {
             self.buffer.push(0);
         } else {
             self.buffer.push(1);
-            self.write_raw_ptr(object);
+            self.write_raw_ptr_as_shallow(object);
         }
     }
 
+    /// # Safety
+    /// Caller must ensure to pass a valid pointer to object or null.
     #[inline]
-    pub fn write_nullable_raw_ptr_mut<TO>(&mut self, object: *mut TO) {
-        self.write_nullable_raw_ptr(object as *const TO);
+    pub unsafe fn write_deep<TO>(&mut self, object: *const TO)
+    where
+        TO: CSerialize<PacketWriter<'c, T>>,
+    {
+        if object.is_null() {
+            self.buffer.push(0);
+        } else {
+            self.buffer.push(1);
+            let object_ref = &*object;
+            object_ref.serialize(self);
+        }
+    }
+
+    /// # Safety
+    /// Caller must ensure to pass a valid pointer to object or null.
+    #[inline]
+    pub unsafe fn write_deep_double<TO>(&mut self, _object: *const *const TO)
+    where
+        TO: CSerialize<PacketWriter<'c, T>>,
+    {
+        todo!()
     }
 
     /// # Safety
@@ -104,7 +128,7 @@ where
     /// Caller must ensure to pass a valid pointer to count, and valid pointer or null to a buffer.
     #[inline]
     pub unsafe fn write_vk_array_count<TO>(&mut self, count: *const u32, buffer: *const TO) {
-        self.write(match buffer.is_null() {
+        self.write_shallow(match buffer.is_null() {
             true => 0,
             false => *count,
         });
@@ -112,7 +136,7 @@ where
 
     #[inline]
     pub fn write_vk_array<TO>(&mut self, count: u32, buffer: *const TO) {
-        self.write(count);
+        self.write_shallow(count);
         if !buffer.is_null() {
             let slice = unsafe {
                 slice::from_raw_parts(buffer as *mut u8, count as usize * mem::size_of::<TO>())
@@ -123,14 +147,14 @@ where
 
     #[inline]
     pub fn send(mut self) {
-        let buffer = mem::take(&mut self.buffer);
+        let buffer = mem::replace(&mut self.buffer, AVec::with_capacity(0, 0));
         self.connection.send(buffer);
         mem::forget(self);
     }
 
     #[inline]
     pub fn send_with_response(mut self) -> Packet<'c, T> {
-        let buffer = mem::take(&mut self.buffer);
+        let buffer = mem::replace(&mut self.buffer, AVec::with_capacity(0, 0));
         let packet = self.connection.send_with_response(buffer);
         mem::forget(self);
         packet
@@ -165,12 +189,37 @@ where
     }
 }
 
+unsafe impl<T> CDumpWriter for PacketWriter<'_, T>
+where
+    T: UnsafeWrite + UnsafeRead + Send + Sync + 'static,
+{
+    #[inline]
+    fn align<TO>(&mut self) {
+        self.align::<TO>();
+    }
+
+    #[inline]
+    fn push_slice(&mut self, slice: &[u8]) {
+        self.buffer.extend_from_slice(slice);
+    }
+
+    #[inline]
+    fn len(&self) -> usize {
+        self.buffer.len()
+    }
+
+    #[inline]
+    unsafe fn as_mut_ptr_at(&mut self, index: usize) -> *mut u8 {
+        self.buffer.as_mut_ptr().add(index)
+    }
+}
+
 pub struct Packet<'c, T>
 where
     T: UnsafeWrite + UnsafeRead + Send + Sync + 'static,
 {
     connection: &'c Connection<T>,
-    buffer: Vec<u8>,
+    buffer: UnsafeCell<AVec<u8>>,
     read: usize,
 }
 
@@ -178,27 +227,27 @@ impl<'c, T> Packet<'c, T>
 where
     T: UnsafeWrite + UnsafeRead + Send + Sync + 'static,
 {
-    pub(crate) fn new(connection: &'c Connection<T>, buffer: Vec<u8>) -> Self {
+    pub(crate) fn new(connection: &'c Connection<T>, buffer: AVec<u8>) -> Self {
         Self {
             connection,
-            buffer,
+            buffer: UnsafeCell::new(buffer),
             read: mem::size_of::<PacketHeader>(),
         }
     }
 
     pub(crate) fn header(&self) -> &PacketHeader {
-        unsafe { &*(self.buffer.as_ptr() as *const PacketHeader) }
+        unsafe { &*(self.buffer.get() as *const PacketHeader) }
     }
 
     #[inline]
-    pub fn read<TO>(&mut self) -> TO {
+    pub fn read_shallow<TO>(&mut self) -> TO {
         self.align::<TO>();
         let size = mem::size_of::<TO>();
 
         let mut object = MaybeUninit::<TO>::uninit();
         unsafe {
             ptr::copy_nonoverlapping(
-                self.buffer[self.read..].as_ptr(),
+                self.buffer.get_mut()[self.read..].as_ptr(),
                 &mut object as *mut _ as *mut u8,
                 size,
             );
@@ -213,56 +262,68 @@ where
         self.align::<TO>();
         let size = mem::size_of::<TO>();
         unsafe {
-            ptr::copy_nonoverlapping(self.buffer[self.read..].as_ptr(), ptr as *mut u8, size);
+            ptr::copy_nonoverlapping(
+                self.buffer.get_mut()[self.read..].as_ptr(),
+                ptr as *mut u8,
+                size,
+            );
         }
         self.read += size;
     }
 
     #[inline]
-    pub fn read_nullable_raw_ptr<TO>(&mut self) -> *const TO {
-        if self.buffer[self.read] == 0 {
+    pub fn read_shallow_under_nullable_ptr<TO>(&mut self) -> *const TO {
+        if self.buffer.get_mut()[self.read] == 0 {
             self.read += 1;
             ptr::null()
         } else {
             self.read += 1;
             self.align::<TO>();
-            let ptr = unsafe { self.buffer.as_ptr().add(self.read) } as *const TO;
+            let ptr = unsafe { self.buffer.get().add(self.read) } as *const TO;
             self.read += mem::size_of::<TO>();
             ptr
         }
     }
 
     #[inline]
-    pub fn read_nullable_raw_ptr_mut<TO>(&mut self) -> *mut TO {
-        self.read_nullable_raw_ptr::<TO>() as *mut TO
+    pub fn read_mut_shallow_under_nullable_ptr<TO>(&mut self) -> *mut TO {
+        self.read_shallow_under_nullable_ptr::<TO>() as *mut TO
+    }
+
+    /// # Safety
+    /// Caller must ensure to pass a valid pointer to destination.
+    #[inline]
+    pub unsafe fn read_mut_shallow_under_nullable_ptr_at<TO>(&mut self, dst: *mut TO) {
+        let src = self.read_mut_shallow_under_nullable_ptr();
+        ptr::copy_nonoverlapping(src, dst, 1);
     }
 
     #[inline]
     pub fn read_null_str(&mut self) -> *const c_char {
-        if self.buffer[self.read] == 0 {
+        if self.buffer.get_mut()[self.read] == 0 {
             self.read += 1;
             return ptr::null();
         }
 
         let start = self.read;
-        while self.buffer[self.read] != 0 {
+        while self.buffer.get_mut()[self.read] != 0 {
             self.read += 1;
         }
 
         self.read += 1;
-        self.buffer[start..self.read].as_ptr() as *const c_char
+        self.buffer.get_mut()[start..self.read].as_ptr() as *const c_char
     }
 
     #[inline]
     pub fn read_is_null_ptr(&mut self) -> bool {
-        let is_null = self.buffer[self.read] == 1;
+        let is_null = self.buffer.get_mut()[self.read] == 1;
         self.read += 1;
         is_null
     }
 
     #[inline]
     pub fn read_and_allocate_vk_array_count<TA>(&mut self) -> (u32, *mut TA) {
-        let count = self.read::<u32>();
+        let count = self.read_shallow::<u32>();
         match count == 0 {
             true => (0, ptr::null_mut()),
             false => {
@@ -279,11 +340,11 @@ where
     /// Caller must ensure to pass a valid pointer to count, and valid pointer or null to a destination.
     #[inline]
     pub unsafe fn read_vk_array<TO>(&mut self, count: *mut u32, destination: *mut TO) {
-        let c = self.read::<u32>();
+        let c = self.read_shallow::<u32>();
         *count = c;
         if !destination.is_null() {
             ptr::copy_nonoverlapping(
-                self.buffer[self.read..].as_ptr() as *const TO,
+                self.buffer.get_mut()[self.read..].as_ptr() as *const TO,
                 destination,
                 c as usize,
             );
@@ -291,8 +352,49 @@ where
         }
     }
 
+    #[inline]
+    pub fn read_deep<TO>(&mut self) -> *const TO
+    where
+        TO: CDeserialize<Packet<'c, T>>,
+    {
+        match self.read_shallow::<u8>() {
+            1 => {
+                todo!()
+            }
+            _ => ptr::null(),
+        }
+    }
+
+    #[inline]
+    pub fn read_mut_deep<TO>(&mut self) -> *mut TO
+    where
+        TO: CDeserialize<Packet<'c, T>>,
+    {
+        self.read_deep::<TO>() as *mut TO
+    }
+
+    /// # Safety
+    /// Caller must ensure to pass a valid pointer to destination.
+    #[inline]
+    pub unsafe fn read_mut_deep_at<TO>(&mut self, dst: *mut TO)
+    where
+        TO: CDeserialize<Packet<'c, T>>,
+    {
+        if self.read_shallow::<u8>() == 1 {
+            TO::deserialize_to(self, dst);
+        }
+    }
+
+    #[inline]
+    pub fn read_deep_double<TO>(&mut self) -> *const *const TO
+    where
+        TO: CDeserialize<Packet<'c, T>>,
+    {
+        unimplemented!()
+    }
+
     pub fn write_response(mut self, destination: Option<u64>) -> PacketWriter<'c, T> {
-        if self.buffer.len() != self.read {
+        if self.buffer.get_mut().len() != self.read {
             panic!("Packet buffer is not fully read.");
         }
 
@@ -304,7 +406,8 @@ where
             },
         };
 
-        let mut buffer = mem::take(&mut self.buffer);
+        let mut buffer =
+            mem::replace(&mut self.buffer, UnsafeCell::new(AVec::with_capacity(0, 0))).into_inner();
         unsafe { buffer.set_len(mem::size_of::<PacketHeader>()) };
         PacketWriter::new(self.connection, buffer, destination)
     }
@@ -325,25 +428,57 @@ where
 {
     fn drop(&mut self) {
         // Ignore if buffer is cleared.
-        if self.buffer.capacity() != 0 {
-            if self.buffer.len() != self.read {
+        if self.buffer.get_mut().capacity() != 0 {
+            if self.buffer.get_mut().len() != self.read {
                 panic!("Packet buffer is not fully read.");
             }
 
-            let buffer = mem::take(&mut self.buffer);
+            let buffer = mem::replace(&mut self.buffer, UnsafeCell::new(AVec::with_capacity(0, 0)))
+                .into_inner();
             self.connection.push_buffer(buffer);
         }
+    }
+}
+
+unsafe impl<T> CDumpReader for Packet<'_, T>
+where
+    T: UnsafeWrite + UnsafeRead + Send + Sync + 'static,
+{
+    fn align<TO>(&mut self) {
+        self.align::<TO>();
+    }
+
+    fn add_read(&mut self, len: usize) {
+        self.read += len;
+    }
+
+    unsafe fn read_raw_slice(&mut self, len: usize) -> *const u8 {
+        let s = unsafe { &*self.buffer.get() };
+        let ptr = s.as_ptr().add(self.read);
+        self.read += len;
+        ptr
+    }
+
+    unsafe fn as_mut_ptr_at<TO>(&self, index: usize) -> *mut TO {
+        let s = &mut *self.buffer.get();
+        s.as_mut_ptr().add(index) as *mut TO
+    }
+
+    fn get_read(&self) -> usize {
+        self.read
     }
 }
 
 #[cfg(all(test, debug_assertions))]
 mod tests {
     use std::{
+        cell::UnsafeCell,
         ffi::CStr,
         mem,
         ptr::{self, NonNull},
     };
 
+    use aligned_vec::{avec, AVec};
     use wie_common::stream::mock::MockStream;
 
     use crate::packet::PacketHeader;
@@ -359,31 +494,37 @@ mod tests {
 
         let mut writer = PacketWriter::new(
             connection,
-            vec![0; mem::size_of::<PacketHeader>()],
+            avec![0; mem::size_of::<PacketHeader>()],
             Destination::Handler(0),
         );
         write(&mut writer);
 
-        let mut packet = Packet::new(connection, mem::take(&mut writer.buffer));
+        let mut packet = Packet::new(
+            connection,
+            mem::replace(&mut writer.buffer, AVec::with_capacity(0, 0)),
+        );
         read(&mut packet);
 
-        assert_eq!(packet.buffer.len(), packet.read);
+        assert_eq!(packet.buffer.get_mut().len(), packet.read);
 
-        _ = mem::take(&mut packet.buffer);
+        _ = mem::replace(
+            &mut packet.buffer,
+            UnsafeCell::new(AVec::with_capacity(0, 0)),
+        );
         mem::forget(writer);
         mem::forget(packet);
     }
 
     #[test]
-    fn write_read() {
+    fn write_shallow_read() {
         helper(
             |packet| {
-                packet.write(11u8);
-                packet.write(34.13f64);
+                packet.write_shallow(11u8);
+                packet.write_shallow(34.13f64);
             },
             |packet| {
-                assert_eq!(packet.read::<u8>(), 11);
-                assert_eq!(packet.read::<f64>(), 34.13);
+                assert_eq!(packet.read_shallow::<u8>(), 11);
+                assert_eq!(packet.read_shallow::<f64>(), 34.13);
             },
         )
     }
@@ -443,11 +584,11 @@ mod tests {
     }
 
     #[test]
-    fn raw_ptr() {
+    fn raw_ptr_as_shallow() {
         helper(
             |packet| {
                 let obj = 1984f64;
-                packet.write_raw_ptr(&obj as *const _);
+                packet.write_raw_ptr_as_shallow(&obj as *const _);
             },
             |packet| {
                 let mut obj = 0f64;
@@ -458,28 +599,14 @@ mod tests {
     }
 
     #[test]
-    fn nullable_raw_ptr() {
+    fn shallow_under_nullable_ptr() {
         helper(
             |packet| {
                 let obj = 1984f64;
-                packet.write_nullable_raw_ptr(&obj as *const _);
+                packet.write_shallow_under_nullable_ptr(&obj as *const _);
             },
             |packet| {
-                let ptr = packet.read_nullable_raw_ptr::<f64>();
-                assert_eq!(1984f64, unsafe { *ptr });
-            },
-        )
-    }
-
-    #[test]
-    fn nullable_raw_ptr_mut() {
-        helper(
-            |packet| {
-                let mut obj = 1984f64;
-                packet.write_nullable_raw_ptr_mut(&mut obj as *mut _);
-            },
-            |packet| {
-                let ptr = packet.read_nullable_raw_ptr::<f64>();
+                let ptr = packet.read_shallow_under_nullable_ptr::<f64>();
                 assert_eq!(1984f64, unsafe { *ptr });
             },
         )

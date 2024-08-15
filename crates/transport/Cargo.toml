@@ -13,6 +13,8 @@ tracy-client.workspace = true
 profiling.workspace = true
 rsevents.workspace = true
 rayon.workspace = true
+cdump.workspace = true
+aligned-vec.workspace = true
 wie-common.workspace = true
 wie-transport-vsock.workspace = true
 

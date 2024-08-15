@@ -95,7 +95,7 @@ fn unpack_packet(builder: &mut String, definition: &CommandDefinition, types: &T
                 push_param_name(builder, param);
                 builder.push_str(": ");
                 builder.push_str(&to_rust_type(&param.definition, types));
-                builder.push_str(" = packet.read");
+                builder.push_str(" = packet");
                 transport::read_packet_param(builder, param, false, types);
             }
         }
@@ -143,24 +143,31 @@ fn write_response(
     push_indentation(builder, 1);
     builder.push_str("let mut response = packet.write_response(None);\n");
 
-    let mut last_is_count = false;
-    for param in definition
+    let params: Vec<_> = definition
         .params
         .iter()
         .unique_by(|x| &x.definition.name)
         .filter(|x| x.is_return_data(types))
-    {
+        .collect();
+
+    if !params.is_empty() {
+        push_indentation(builder, 1);
+        builder.push_str("unsafe {\n");
+    }
+
+    let mut last_is_count = false;
+    for param in &params {
         let is_count = check_if_count_ptr(param);
 
         if last_is_count {
             push_param_name(builder, param);
             builder.push_str(");\n");
         } else {
-            push_indentation(builder, 1);
-            builder.push_str("response.write");
+            push_indentation(builder, 2);
+            builder.push_str("response");
 
             if is_count {
-                builder.push_str("_vk_array(");
+                builder.push_str(".write_vk_array(");
                 push_param_name(builder, param);
                 builder.push_str(", ");
                 last_is_count = true;
@@ -173,9 +180,14 @@ fn write_response(
         last_is_count = is_count;
     }
 
+    if !params.is_empty() {
+        push_indentation(builder, 1);
+        builder.push_str("}\n");
+    }
+
     if !is_void {
         push_indentation(builder, 1);
-        builder.push_str("response.write(result);\n");
+        builder.push_str("response.write_shallow(result);\n");
     }
 
     push_indentation(builder, 1);

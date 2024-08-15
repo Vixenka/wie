@@ -8,6 +8,7 @@ use std::{
     thread::{self, ThreadId},
 };
 
+use aligned_vec::AVec;
 use lockfree::{map::Map, queue::Queue, stack::Stack};
 use packet::{Destination, Packet, PacketHeader, PacketWriter};
 use rsevents::{AutoResetEvent, Awaitable};
@@ -17,6 +18,7 @@ use wie_common::stream::{UnsafeRead, UnsafeWrite};
 pub mod packet;
 mod unsafe_receiver;
 
+const DEFAULT_MAX_ALIGNMENT: usize = 16;
 const DEFAULT_PART_SIZE: usize = 4096;
 
 pub struct Connection<T>
@@ -24,8 +26,8 @@ where
     T: UnsafeWrite + UnsafeRead + Send + Sync + 'static,
 {
     stream: T,
-    buffer_pool: Stack<Vec<u8>>,
-    write_queue: Queue<Vec<u8>>,
+    buffer_pool: Stack<AVec<u8>>,
+    write_queue: Queue<AVec<u8>>,
     write_mutex: Mutex<()>,
     thread_channels: Map<u64, ThreadChannel>,
     write_reset_event: AutoResetEvent,
@@ -72,7 +74,7 @@ where
         PacketWriter::new(self, buffer, Destination::Handler(destination))
     }
 
-    pub(crate) fn send(&self, mut buffer: Vec<u8>) {
+    pub(crate) fn send(&self, mut buffer: AVec<u8>) {
         profiling::scope!("send packet");
 
         Self::update_header(&mut buffer, None);
@@ -80,7 +82,7 @@ where
         self.notify_write_thread();
     }
 
-    pub(crate) fn send_with_response(&self, mut buffer: Vec<u8>) -> Packet<'_, T> {
+    pub(crate) fn send_with_response(&self, mut buffer: AVec<u8>) -> Packet<'_, T> {
         profiling::scope!("send packet");
 
         let thread_id = thread::current().id();
@@ -128,16 +130,20 @@ where
     }
 
     #[inline]
-    pub(crate) fn push_buffer(&self, mut buffer: Vec<u8>) {
+    pub(crate) fn push_buffer(&self, mut buffer: AVec<u8>) {
         unsafe { buffer.set_len(mem::size_of::<PacketHeader>()) }
         self.buffer_pool.push(buffer);
     }
 
     #[inline]
-    fn pop_buffer(&self) -> Vec<u8> {
+    fn pop_buffer(&self) -> AVec<u8> {
         match self.buffer_pool.pop() {
             Some(buffer) => buffer,
-            None => vec![0; mem::size_of::<PacketHeader>()],
+            None => {
+                let mut vec = AVec::new(DEFAULT_MAX_ALIGNMENT);
+                vec.resize(mem::size_of::<PacketHeader>(), 0);
+                vec
+            }
         }
     }
 
@@ -154,7 +160,7 @@ where
     }
 
     #[inline]
-    fn update_header(buffer: &mut Vec<u8>, sender_thread_id: Option<ThreadId>) {
+    fn update_header(buffer: &mut AVec<u8>, sender_thread_id: Option<ThreadId>) {
         let header = unsafe { &mut *(buffer.as_mut_ptr() as *mut PacketHeader) };
         header.length = buffer.len();
         header.sender_thread_id = sender_thread_id;
@@ -173,9 +179,9 @@ where
 }
 
 struct ThreadChannel {
-    sender: Sender<Vec<u8>>,
+    sender: Sender<AVec<u8>>,
     // Safety: Field access must be externally synchronized.
-    receiver: UnsafeReceiver<Vec<u8>>,
+    receiver: UnsafeReceiver<AVec<u8>>,
 }
 
 fn write_worker<T>(weak: Weak<Connection<T>>)
@@ -205,7 +211,7 @@ where
     let mut buffer = vec![0u8; part_size];
     let mut offset = 0;
 
-    let mut packet = Vec::new();
+    let mut packet = AVec::new(DEFAULT_MAX_ALIGNMENT);
     let mut packet_length = MIN_PACKET_SIZE;
     let mut set_packet_length = false;
 
@@ -312,18 +318,18 @@ mod tests {
             AutoResetEvent::new(rsevents::EventState::Unset);
 
         fn client_handle(mut packet: Packet<MockStream>) {
-            assert_eq!(2409.04f64, packet.read::<f64>());
+            assert_eq!(2409.04f64, packet.read_shallow::<f64>());
             SERVER_RESET_EVENT.set();
 
             CLIENT_RESET_EVENT.wait();
 
             let mut packet = packet.write_response(Some(3));
-            packet.write(2137u16);
+            packet.write_shallow(2137u16);
             packet.send();
         }
 
         fn server_handle(mut packet: Packet<MockStream>) {
-            assert_eq!(2137u16, packet.read::<u16>());
+            assert_eq!(2137u16, packet.read_shallow::<u16>());
             SERVER_RESET_EVENT.set();
         }
 
@@ -334,7 +340,7 @@ mod tests {
         let (server, _client) = new_mock_connection(part_size, server_handlers, client_handlers);
 
         let mut packet = server.new_packet(6);
-        packet.write(2409.04f64);
+        packet.write_shallow(2409.04f64);
         packet.send();
 
         SERVER_RESET_EVENT.wait();
@@ -348,13 +354,13 @@ mod tests {
     #[case(Some(15))]
     fn send_with_response(#[case] part_size: Option<usize>) {
         fn client_handle(mut packet: Packet<MockStream>) {
-            assert_eq!(65.420, packet.read::<f64>());
+            assert_eq!(65.420, packet.read_shallow::<f64>());
             let mut response = packet.write_response(None);
-            response.write(42u32);
+            response.write_shallow(42u32);
             packet = response.send_with_response();
 
             response = packet.write_response(None);
-            response.write(4u128);
+            response.write_shallow(4u128);
             response.send();
         }
 
@@ -363,12 +369,12 @@ mod tests {
         let (server, _client) = new_mock_connection(part_size, HashMap::new(), client_handlers);
 
         let mut packet = server.new_packet(6);
-        packet.write(65.420f64);
+        packet.write_shallow(65.420f64);
         let mut response = packet.send_with_response();
-        assert_eq!(42u32, response.read::<u32>());
+        assert_eq!(42u32, response.read_shallow::<u32>());
 
         packet = response.write_response(None);
         response = packet.send_with_response();
-        assert_eq!(4u128, response.read::<u128>());
+        assert_eq!(4u128, response.read_shallow::<u128>());
     }
 }

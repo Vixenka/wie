@@ -23,6 +23,9 @@ fn vk_icd_get_instance_proc_addr(mut packet: Packet) {
     }
 
     let mut response = packet.write_response(None);
-    response.write(address.is_some());
+    response.write_shallow(match address.is_some() {
+        true => 1u8,
+        false => 0u8,
+    });
     response.send();
 }

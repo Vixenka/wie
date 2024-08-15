@@ -45,7 +45,7 @@ extern "stdcall" fn vk_icdGetInstanceProcAddr(
     let mut packet = new_packet(1000000000);
     unsafe { packet.write_null_str(p_name) };
     let mut response = packet.send_with_response();
-    if !response.read::<bool>() {
+    if response.read_shallow::<u8>() != 1 {
         return None;
     }
 

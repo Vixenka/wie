@@ -282,17 +282,20 @@ fn to_rust_type_without_ptr(type_name: &Option<String>, types: &TypeVulkan) -> S
 }
 
 fn to_rust_type(name_with_type: &NameWithType, types: &TypeVulkan) -> String {
-    to_rust_type_impl(&name_with_type.type_name, &name_with_type.code, types)
+    to_rust_type_from_name(&name_with_type.type_name, &name_with_type.code, types)
 }
 
-fn to_rust_type_impl(name: &Option<String>, code: &str, types: &TypeVulkan) -> String {
-    let mut n = to_rust_type_without_ptr(name, types);
+fn to_rust_type_from_name(name: &Option<String>, code: &str, types: &TypeVulkan) -> String {
+    let n = to_rust_type_without_ptr(name, types);
+    append_ptr_to_rust_type(n, code, types)
+}
 
+fn append_ptr_to_rust_type(mut name: String, code: &str, types: &TypeVulkan) -> String {
     let mut i = 0;
     while let Some(p) = code[i..].chars().position(|x| x == '*') {
         match code[i..].contains("const") {
-            true => n.insert_str(0, "*const "),
-            false => n.insert_str(0, "*mut "),
+            true => name.insert_str(0, "*const "),
+            false => name.insert_str(0, "*mut "),
         }
         i += p + 1;
     }
@@ -300,24 +303,24 @@ fn to_rust_type_impl(name: &Option<String>, code: &str, types: &TypeVulkan) -> S
     // Array
     if let Some(p) = code.chars().position(|x| x == '[') {
         // If it is a const array, we need trait this as a pointer
-        if code.contains("const") && !n.contains("*const") && !n.contains("*mut") {
-            n.insert_str(0, "*const [");
+        if code.contains("const") && !name.contains("*const") && !name.contains("*mut") {
+            name.insert_str(0, "*const [");
         } else {
-            n.insert(0, '[');
+            name.insert(0, '[');
         }
 
-        n.push_str("; ");
-        n.push_str(&to_rust_type_without_ptr(
+        name.push_str("; ");
+        name.push_str(&to_rust_type_without_ptr(
             &Some(code[p + 1..code.chars().position(|x| x == ']').unwrap()].to_owned()),
             types,
         ));
-        n.push(']');
+        name.push(']');
     }
 
     // Special cases
-    match n.as_str() {
+    match name.as_str() {
         "*const vk::SampleCountFlags" => "*const u32".to_owned(),
-        _ => n,
+        _ => name,
     }
 }
 

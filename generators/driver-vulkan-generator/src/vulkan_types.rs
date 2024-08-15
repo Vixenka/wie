@@ -2,7 +2,7 @@ use std::{collections::HashSet, fs, path::Path};
 
 use vk_parse::{Registry, Type, TypeMemberDefinition};
 
-use crate::{push_element_name, push_indentation, to_rust_type_impl};
+use crate::{push_element_name, push_indentation, to_rust_type_from_name};
 
 pub struct TypeVulkan<'r> {
     types: Vec<&'r vk_parse::Type>,
@@ -109,7 +109,7 @@ pub fn generate_type(builder: &mut String, ty: &Type, types: &TypeVulkan) {
 
         push_array_attribute(builder, def);
 
-        let ty = to_rust_type_impl(&member_type, &def.code, types);
+        let ty = to_rust_type_from_name(&member_type, &def.code, types);
 
         // Add dynamic attribute
         let is_dynamic =

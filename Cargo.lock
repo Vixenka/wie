@@ -973,6 +973,7 @@ name = "wie-driver-vulkan"
 version = "0.1.0"
 dependencies = [
  "ash",
+ "cdump",
  "log",
  "wie-driver-common-vulkan",
  "wie-transport",
@@ -991,6 +992,8 @@ dependencies = [
 name = "wie-transport"
 version = "0.1.0"
 dependencies = [
+ "aligned-vec",
+ "cdump",
  "lockfree",
  "log",
  "profiling",

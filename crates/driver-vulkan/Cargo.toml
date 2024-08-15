@@ -7,6 +7,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
+cdump.workspace = true
 ash.workspace = true
 log.workspace = true
 wie-transport.workspace = true

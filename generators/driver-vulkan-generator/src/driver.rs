@@ -114,7 +114,7 @@ fn generate_command(
             builder.push_str(");\n");
         } else {
             push_indentation(builder, 1);
-            builder.push_str("packet.write");
+            builder.push_str("packet");
             transport::write_packet_param(builder, param, false, types);
         }
 
@@ -154,7 +154,7 @@ fn unpack_response(builder: &mut String, definition: &CommandDefinition, types: 
                 push_param_name(builder, param);
                 builder.push_str(", ");
             } else {
-                builder.push_str("response.read");
+                builder.push_str("response");
                 transport::read_packet_param(builder, param, true, types);
             }
         }
@@ -163,5 +163,5 @@ fn unpack_response(builder: &mut String, definition: &CommandDefinition, types: 
     }
 
     push_indentation(builder, 1);
-    builder.push_str("response.read()\n");
+    builder.push_str("response.read_shallow()\n");
 }
