@@ -7,6 +7,15 @@ pub mod generated;
 #[doc = "https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_DEFINE_NON_DISPATCHABLE_HANDLE.html"]
 pub type NonDisposableHandle = u64;
 
+/// # Safety
+/// Ptr must be a valid pointer to a T or null.
+pub unsafe fn to_reference<T>(ptr: *const T) -> Option<&'static T> {
+    match ptr.is_null() {
+        true => None,
+        false => unsafe { Some(&*ptr) },
+    }
+}
+
 pub(crate) unsafe fn p_next_serializer<T: CDumpWriter>(_buf: &mut T, _obj: *const c_void) {}
 
 pub(crate) unsafe fn p_next_deserializer<T: CDumpReader>(_buf: &mut T) -> *mut c_void {

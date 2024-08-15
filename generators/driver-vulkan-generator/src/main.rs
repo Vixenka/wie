@@ -146,25 +146,37 @@ fn get_required_types_commands_and_extensions(
 
 fn trace(builder: &mut String, definition: &CommandDefinition) {
     push_indentation(builder, 1);
-    builder.push_str("trace!(\"called ");
+    builder.push_str("unsafe { trace!(\"called ");
     builder.push_str(&definition.proto.name);
     builder.push('(');
 
     let mut first = true;
-    for param in definition.params.iter().unique_by(|x| &x.definition.name) {
+    for _ in definition.params.iter().unique_by(|x| &x.definition.name) {
         if !first {
             builder.push_str(", ");
         } else {
             first = false;
         }
 
-        builder.push('{');
-        push_param_name(builder, param);
+        builder.push_str("{:?}");
+    }
+    builder.push_str(")\"");
 
-        builder.push_str(":?}");
+    for param in definition.params.iter().unique_by(|x| &x.definition.name) {
+        let is_reference = param.definition.code.chars().any(|x| x == '*')
+            && !param.definition.name.ends_with("Count");
+
+        builder.push_str(", ");
+        if is_reference {
+            builder.push_str("to_reference(");
+        }
+        push_param_name(builder, param);
+        if is_reference {
+            builder.push(')');
+        }
     }
 
-    builder.push_str(")\");\n\n");
+    builder.push_str("); }\n\n");
 }
 
 fn push_param_name(builder: &mut String, param: &CommandParam) {

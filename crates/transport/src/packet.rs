@@ -236,7 +236,10 @@ where
     }
 
     pub(crate) fn header(&self) -> &PacketHeader {
-        unsafe { &*(self.buffer.get() as *const PacketHeader) }
+        unsafe {
+            let reference = &*self.buffer.get();
+            &*(reference.as_ptr() as *const PacketHeader)
+        }
     }
 
     #[inline]
