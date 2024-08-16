@@ -276,13 +276,11 @@ where
 
     #[inline]
     pub fn read_shallow_under_nullable_ptr<TO>(&mut self) -> *const TO {
-        if self.buffer.get_mut()[self.read] == 0 {
-            self.read += 1;
+        if self.read_shallow::<u8>() != 1 {
             ptr::null()
         } else {
-            self.read += 1;
             self.align::<TO>();
-            let ptr = unsafe { self.buffer.get().add(self.read) } as *const TO;
+            let ptr = unsafe { self.buffer.get_mut().as_ptr().add(self.read) } as *const TO;
             self.read += mem::size_of::<TO>();
             ptr
         }
@@ -606,11 +604,24 @@ mod tests {
         helper(
             |packet| {
                 let obj = 1984f64;
-                packet.write_shallow_under_nullable_ptr(&obj as *const _);
+                packet.write_shallow_under_nullable_ptr(&obj as *const f64);
             },
             |packet| {
                 let ptr = packet.read_shallow_under_nullable_ptr::<f64>();
                 assert_eq!(1984f64, unsafe { *ptr });
+            },
+        )
+    }
+
+    #[test]
+    fn shallow_under_nullable_ptr_null_value() {
+        helper(
+            |packet| {
+                packet.write_shallow_under_nullable_ptr(ptr::null::<u32>());
+            },
+            |packet| {
+                let ptr = packet.read_shallow_under_nullable_ptr::<u32>();
+                assert_eq!(ptr::null(), ptr);
             },
         )
     }
