@@ -70,10 +70,10 @@ fn generate(vk_headers_path: &Path, project_directory: &Path) {
     println!("Generating Vulkan PFN functions...");
     pfn_functions::generate(project_directory, &commands, &types);
     println!("Generating driver...");
-    driver::generate(project_directory, &commands, &types);
+    driver::generate(project_directory, &commands, &required_commands, &types);
     println!("Generating listener...");
     println!("Generating function address table...");
-    function_address_table::generate(project_directory, &commands, &types);
+    function_address_table::generate(project_directory, &commands, &required_commands, &types);
     println!("Generating transport...");
     listener::generate(project_directory, &commands, &types);
 }

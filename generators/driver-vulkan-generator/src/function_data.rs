@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 use crate::{to_rust_type, vulkan_types::TypeVulkan};
 
 #[derive(Debug, Copy, Clone, PartialEq)]
@@ -11,6 +13,7 @@ pub enum FunctionType {
 pub trait CommandExt {
     fn function_type(&self) -> FunctionType;
     fn is_return_data(&self, types: &TypeVulkan) -> bool;
+    fn has_khr_alias(&self, required_commands: &HashSet<&str>) -> bool;
 }
 
 impl CommandExt for vk_parse::CommandDefinition {
@@ -45,6 +48,10 @@ impl CommandExt for vk_parse::CommandDefinition {
             }
         }
         false
+    }
+
+    fn has_khr_alias(&self, required_commands: &HashSet<&str>) -> bool {
+        required_commands.contains(&format!("{}KHR", self.proto.name).as_str())
     }
 }
 
