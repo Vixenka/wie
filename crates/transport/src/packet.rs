@@ -145,6 +145,7 @@ where
     pub fn write_vk_array<TO>(&mut self, count: u32, buffer: *const TO) {
         self.write_shallow(count);
         if !buffer.is_null() {
+            self.align::<TO>();
             let slice = unsafe {
                 slice::from_raw_parts(buffer as *mut u8, count as usize * mem::size_of::<TO>())
             };
@@ -359,6 +360,7 @@ where
         let c = self.read_shallow::<u32>();
         *count = c;
         if !destination.is_null() {
+            self.align::<TO>();
             ptr::copy_nonoverlapping(
                 self.buffer.get_mut()[self.read..].as_ptr() as *const TO,
                 destination,
