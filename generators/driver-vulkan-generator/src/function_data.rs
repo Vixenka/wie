@@ -51,18 +51,35 @@ impl CommandExt for vk_parse::CommandDefinition {
     }
 
     fn get_alias(&self, required_commands: &HashSet<&str>) -> Option<String> {
-        if self.proto.name.ends_with("KHR") {
-            let alias = format!("{}EXT", &self.proto.name[..self.proto.name.len() - 3]);
-            if required_commands.contains(alias.as_str()) {
+        fn get_alias_inner(
+            name: &str,
+            suffix: &str,
+            required_commands: &HashSet<&str>,
+        ) -> Option<String> {
+            let alias = format!("{name}{suffix}");
+            match required_commands.contains(alias.as_str()) {
+                true => Some(alias),
+                false => None,
+            }
+        }
+
+        if self.proto.name.ends_with("KHR") || self.proto.name.ends_with("EXT") {
+            if let Some(alias) = get_alias_inner(
+                &self.proto.name[..self.proto.name.len() - 3],
+                "EXT",
+                required_commands,
+            ) {
                 return Some(alias);
             }
         }
 
-        let alias = format!("{}KHR", self.proto.name);
-        match required_commands.contains(alias.as_str()) {
-            true => Some(alias),
-            false => None,
+        if let Some(alias) = get_alias_inner(&self.proto.name, "KHR", required_commands) {
+            return Some(alias);
         }
+        if let Some(alias) = get_alias_inner(&self.proto.name, "EXT", required_commands) {
+            return Some(alias);
+        }
+        None
     }
 }
 
