@@ -32,6 +32,8 @@ where
 {
     connection: &'c Connection<T>,
     buffer: AVec<u8>,
+    /// Store read buffer to extend lifetime of read variables.
+    read_buffer: AVec<u8>,
 }
 
 impl<'c, T> PacketWriter<'c, T>
@@ -42,11 +44,16 @@ where
     pub(crate) fn new(
         connection: &'c Connection<T>,
         mut buffer: AVec<u8>,
+        read_buffer: AVec<u8>,
         destination: Destination,
     ) -> Self {
         let header = unsafe { &mut *(buffer.as_mut_ptr() as *mut PacketHeader) };
         header.destination = destination;
-        Self { connection, buffer }
+        Self {
+            connection,
+            buffer,
+            read_buffer,
+        }
     }
 
     #[inline]
@@ -149,6 +156,10 @@ where
     pub fn send(mut self) {
         let buffer = mem::replace(&mut self.buffer, AVec::with_capacity(0, 0));
         self.connection.send(buffer);
+        self.connection.push_buffer(mem::replace(
+            &mut self.read_buffer,
+            AVec::with_capacity(0, 0),
+        ));
         mem::forget(self);
     }
 
@@ -156,6 +167,10 @@ where
     pub fn send_with_response(mut self) -> Packet<'c, T> {
         let buffer = mem::replace(&mut self.buffer, AVec::with_capacity(0, 0));
         let packet = self.connection.send_with_response(buffer);
+        self.connection.push_buffer(mem::replace(
+            &mut self.read_buffer,
+            AVec::with_capacity(0, 0),
+        ));
         mem::forget(self);
         packet
     }
@@ -407,10 +422,14 @@ where
             },
         };
 
-        let mut buffer =
+        let read_buffer =
             mem::replace(&mut self.buffer, UnsafeCell::new(AVec::with_capacity(0, 0))).into_inner();
-        unsafe { buffer.set_len(mem::size_of::<PacketHeader>()) };
-        PacketWriter::new(self.connection, buffer, destination)
+        PacketWriter::new(
+            self.connection,
+            self.connection.pop_buffer(),
+            read_buffer,
+            destination,
+        )
     }
 
     #[inline]
@@ -496,6 +515,7 @@ mod tests {
         let mut writer = PacketWriter::new(
             connection,
             avec![0; mem::size_of::<PacketHeader>()],
+            AVec::with_capacity(1, 0),
             Destination::Handler(0),
         );
         write(&mut writer);

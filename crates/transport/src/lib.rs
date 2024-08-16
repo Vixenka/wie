@@ -71,7 +71,12 @@ where
     #[inline]
     pub fn new_packet(&self, destination: u64) -> PacketWriter<T> {
         let buffer = self.pop_buffer();
-        PacketWriter::new(self, buffer, Destination::Handler(destination))
+        PacketWriter::new(
+            self,
+            buffer,
+            AVec::with_capacity(1, 0),
+            Destination::Handler(destination),
+        )
     }
 
     pub(crate) fn send(&self, mut buffer: AVec<u8>) {
