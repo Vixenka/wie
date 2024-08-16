@@ -113,12 +113,8 @@ fn generate_set_address(
 
     for command in commands {
         push_address_match(builder, command, &command.proto.name);
-        if command.has_khr_alias(required_commands) {
-            push_address_match(
-                builder,
-                command,
-                format!("{}KHR", &command.proto.name).as_str(),
-            );
+        if let Some(alias) = command.get_alias(required_commands) {
+            push_address_match(builder, command, &alias);
         }
     }
 

@@ -13,7 +13,7 @@ pub enum FunctionType {
 pub trait CommandExt {
     fn function_type(&self) -> FunctionType;
     fn is_return_data(&self, types: &TypeVulkan) -> bool;
-    fn has_khr_alias(&self, required_commands: &HashSet<&str>) -> bool;
+    fn get_alias(&self, required_commands: &HashSet<&str>) -> Option<String>;
 }
 
 impl CommandExt for vk_parse::CommandDefinition {
@@ -50,8 +50,19 @@ impl CommandExt for vk_parse::CommandDefinition {
         false
     }
 
-    fn has_khr_alias(&self, required_commands: &HashSet<&str>) -> bool {
-        required_commands.contains(&format!("{}KHR", self.proto.name).as_str())
+    fn get_alias(&self, required_commands: &HashSet<&str>) -> Option<String> {
+        if self.proto.name.ends_with("KHR") {
+            let alias = format!("{}EXT", &self.proto.name[..self.proto.name.len() - 3]);
+            if required_commands.contains(alias.as_str()) {
+                return Some(alias);
+            }
+        }
+
+        let alias = format!("{}KHR", self.proto.name);
+        match required_commands.contains(alias.as_str()) {
+            true => Some(alias),
+            false => None,
+        }
     }
 }
 

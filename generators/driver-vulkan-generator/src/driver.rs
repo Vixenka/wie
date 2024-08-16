@@ -87,12 +87,8 @@ fn generate_function_name_map(
 
     for definition in commands {
         push_address_match(builder, definition, &definition.proto.name);
-        if definition.has_khr_alias(required_commands) {
-            push_address_match(
-                builder,
-                definition,
-                format!("{}KHR", definition.proto.name).as_str(),
-            );
+        if let Some(alias) = definition.get_alias(required_commands) {
+            push_address_match(builder, definition, &alias);
         }
     }
 
