@@ -374,9 +374,7 @@ where
         TO: CDeserialize<Packet<'c, T>>,
     {
         match self.read_shallow::<u8>() {
-            1 => {
-                todo!()
-            }
+            1 => unsafe { TO::deserialize_ref(self) },
             _ => ptr::null(),
         }
     }

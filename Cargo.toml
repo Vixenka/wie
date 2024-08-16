@@ -16,7 +16,7 @@ itertools = "0.13.0"
 lockfree = "0.5.1"
 rsevents = "0.3.1"
 rayon = "1.10.0"
-cdump = { git = "https://github.com/Vixenka/cdump.git", rev = "a86af510adfc47769717782dcdb5980935494ca7", features = [
+cdump = { git = "https://github.com/Vixenka/cdump.git", rev = "031541a8756874b785cafe4e0d9b1d9302ab3c4c", features = [
     "cdebug",
 ] }
 aligned-vec = "0.6.1"
