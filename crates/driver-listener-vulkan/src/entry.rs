@@ -1,5 +1,7 @@
 use std::ffi::CStr;
 
+use ash::vk;
+
 use crate::{HandlerMap, Packet};
 
 pub fn register_handlers_to(map: &mut HandlerMap) {
@@ -7,6 +9,7 @@ pub fn register_handlers_to(map: &mut HandlerMap) {
 }
 
 fn vk_icd_get_instance_proc_addr(mut packet: Packet) {
+    let instance = packet.read_shallow::<vk::Instance>();
     let p_name = packet.read_null_str();
     let name = unsafe { CStr::from_ptr(p_name) }
         .to_str()
@@ -14,10 +17,9 @@ fn vk_icd_get_instance_proc_addr(mut packet: Packet) {
 
     trace!("requested address for function `{name}`",);
 
-    // TODO: Use Instance parameter to be more accurate.
-    let address = unsafe {
-        crate::get_or_init_entry().get_instance_proc_addr(ash::vk::Instance::null(), p_name)
-    };
+    // NOTE: For different instance driver can return different addresses, but for now we just use the same address for
+    //       all instances. This can be a problem in the future.
+    let address = unsafe { crate::get_or_init_entry().get_instance_proc_addr(instance, p_name) };
     if address.is_some() {
         unsafe { crate::FUNCTION_ADDRESS_TABLE.set_address(name, address) }
     }

@@ -14,7 +14,7 @@ static mut CURRENT_LOADER_ICD_INTERFACE_VERSION: u32 = 0;
 
 #[no_mangle]
 extern "stdcall" fn vk_icdGetInstanceProcAddr(
-    _instance: vk::Instance,
+    instance: vk::Instance,
     p_name: *const c_char,
 ) -> vk::PFN_vkVoidFunction {
     wie_transport_guest::start_connection(crate::transport_handlers::get);
@@ -43,6 +43,7 @@ extern "stdcall" fn vk_icdGetInstanceProcAddr(
     trace!("requested address for function `{}`", name);
 
     let mut packet = new_packet(1000000000);
+    packet.write_shallow(instance);
     unsafe { packet.write_null_str(p_name) };
     let mut response = packet.send_with_response();
     if response.read_shallow::<u8>() != 1 {
