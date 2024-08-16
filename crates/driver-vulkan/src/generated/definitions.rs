@@ -619,7 +619,7 @@ unsafe extern "system" fn vkCreateInstance(
     p_allocator: *const VkAllocationCallbacks,
     p_instance: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateInstance({:?}, {:?}, {:?})", to_reference(p_create_info), to_reference(p_allocator), to_reference(p_instance)); }
+    unsafe { trace!("called vkCreateInstance({:?}, {:?}, {:?})", p_create_info.as_ref(), p_allocator.as_ref(), p_instance.as_ref()); }
 
     let mut packet = new_packet(1000001000);
     packet.write_deep(p_create_info);
@@ -637,7 +637,7 @@ unsafe extern "system" fn vkDestroyInstance(
     instance: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyInstance({:?}, {:?})", instance, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyInstance({:?}, {:?})", instance, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001001);
     packet.write_shallow(instance);
@@ -654,7 +654,7 @@ unsafe extern "system" fn vkEnumeratePhysicalDevices(
     p_physical_device_count: *mut u32,
     p_physical_devices: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkEnumeratePhysicalDevices({:?}, {:?}, {:?})", instance, p_physical_device_count, to_reference(p_physical_devices)); }
+    unsafe { trace!("called vkEnumeratePhysicalDevices({:?}, {:?}, {:?})", instance, p_physical_device_count, p_physical_devices.as_ref()); }
 
     let mut packet = new_packet(1000001002);
     packet.write_shallow(instance);
@@ -671,7 +671,7 @@ unsafe extern "system" fn vkGetDeviceProcAddr(
     device: NonDisposableHandle,
     p_name: *const c_char,
 ) -> PFN_vkVoidFunction {
-    unsafe { trace!("called vkGetDeviceProcAddr({:?}, {:?})", device, to_reference(p_name)); }
+    unsafe { trace!("called vkGetDeviceProcAddr({:?}, {:?})", device, p_name.as_ref()); }
 
     let mut packet = new_packet(1000001003);
     packet.write_shallow(device);
@@ -687,7 +687,7 @@ unsafe extern "system" fn vkGetInstanceProcAddr(
     instance: NonDisposableHandle,
     p_name: *const c_char,
 ) -> PFN_vkVoidFunction {
-    unsafe { trace!("called vkGetInstanceProcAddr({:?}, {:?})", instance, to_reference(p_name)); }
+    unsafe { trace!("called vkGetInstanceProcAddr({:?}, {:?})", instance, p_name.as_ref()); }
 
     let mut packet = new_packet(1000001004);
     packet.write_shallow(instance);
@@ -703,7 +703,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceProperties(
     physical_device: NonDisposableHandle,
     p_properties: *mut VkPhysicalDeviceProperties,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceProperties({:?}, {:?})", physical_device, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceProperties({:?}, {:?})", physical_device, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001005);
     packet.write_shallow(physical_device);
@@ -721,7 +721,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceQueueFamilyProperties(
     p_queue_family_property_count: *mut u32,
     p_queue_family_properties: *mut VkQueueFamilyProperties,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceQueueFamilyProperties({:?}, {:?}, {:?})", physical_device, p_queue_family_property_count, to_reference(p_queue_family_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceQueueFamilyProperties({:?}, {:?}, {:?})", physical_device, p_queue_family_property_count, p_queue_family_properties.as_ref()); }
 
     let mut packet = new_packet(1000001006);
     packet.write_shallow(physical_device);
@@ -738,7 +738,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceMemoryProperties(
     physical_device: NonDisposableHandle,
     p_memory_properties: *mut VkPhysicalDeviceMemoryProperties,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceMemoryProperties({:?}, {:?})", physical_device, to_reference(p_memory_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceMemoryProperties({:?}, {:?})", physical_device, p_memory_properties.as_ref()); }
 
     let mut packet = new_packet(1000001007);
     packet.write_shallow(physical_device);
@@ -755,7 +755,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceFeatures(
     physical_device: NonDisposableHandle,
     p_features: *mut VkPhysicalDeviceFeatures,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceFeatures({:?}, {:?})", physical_device, to_reference(p_features)); }
+    unsafe { trace!("called vkGetPhysicalDeviceFeatures({:?}, {:?})", physical_device, p_features.as_ref()); }
 
     let mut packet = new_packet(1000001008);
     packet.write_shallow(physical_device);
@@ -773,7 +773,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceFormatProperties(
     format: NonDisposableHandle,
     p_format_properties: *mut VkFormatProperties,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceFormatProperties({:?}, {:?}, {:?})", physical_device, format, to_reference(p_format_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceFormatProperties({:?}, {:?}, {:?})", physical_device, format, p_format_properties.as_ref()); }
 
     let mut packet = new_packet(1000001009);
     packet.write_shallow(physical_device);
@@ -796,7 +796,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceImageFormatProperties(
     flags: NonDisposableHandle,
     p_image_format_properties: *mut VkImageFormatProperties,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceImageFormatProperties({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", physical_device, format, type_, tiling, usage, flags, to_reference(p_image_format_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceImageFormatProperties({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", physical_device, format, type_, tiling, usage, flags, p_image_format_properties.as_ref()); }
 
     let mut packet = new_packet(1000001010);
     packet.write_shallow(physical_device);
@@ -820,7 +820,7 @@ unsafe extern "system" fn vkCreateDevice(
     p_allocator: *const VkAllocationCallbacks,
     p_device: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateDevice({:?}, {:?}, {:?}, {:?})", physical_device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_device)); }
+    unsafe { trace!("called vkCreateDevice({:?}, {:?}, {:?}, {:?})", physical_device, p_create_info.as_ref(), p_allocator.as_ref(), p_device.as_ref()); }
 
     let mut packet = new_packet(1000001011);
     packet.write_shallow(physical_device);
@@ -839,7 +839,7 @@ unsafe extern "system" fn vkDestroyDevice(
     device: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyDevice({:?}, {:?})", device, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyDevice({:?}, {:?})", device, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001012);
     packet.write_shallow(device);
@@ -854,7 +854,7 @@ unsafe extern "system" fn vkDestroyDevice(
 unsafe extern "system" fn vkEnumerateInstanceVersion(
     p_api_version: *mut u32,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkEnumerateInstanceVersion({:?})", to_reference(p_api_version)); }
+    unsafe { trace!("called vkEnumerateInstanceVersion({:?})", p_api_version.as_ref()); }
 
     let mut packet = new_packet(1000001013);
     packet.write_shallow_under_nullable_ptr(p_api_version);
@@ -870,7 +870,7 @@ unsafe extern "system" fn vkEnumerateInstanceLayerProperties(
     p_property_count: *mut u32,
     p_properties: *mut VkLayerProperties,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkEnumerateInstanceLayerProperties({:?}, {:?})", p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkEnumerateInstanceLayerProperties({:?}, {:?})", p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001014);
     packet.write_vk_array_count(p_property_count, p_properties);
@@ -887,7 +887,7 @@ unsafe extern "system" fn vkEnumerateInstanceExtensionProperties(
     p_property_count: *mut u32,
     p_properties: *mut VkExtensionProperties,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkEnumerateInstanceExtensionProperties({:?}, {:?}, {:?})", to_reference(p_layer_name), p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkEnumerateInstanceExtensionProperties({:?}, {:?}, {:?})", p_layer_name.as_ref(), p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001015);
     packet.write_shallow_under_nullable_ptr(p_layer_name);
@@ -905,7 +905,7 @@ unsafe extern "system" fn vkEnumerateDeviceLayerProperties(
     p_property_count: *mut u32,
     p_properties: *mut VkLayerProperties,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkEnumerateDeviceLayerProperties({:?}, {:?}, {:?})", physical_device, p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkEnumerateDeviceLayerProperties({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001016);
     packet.write_shallow(physical_device);
@@ -924,7 +924,7 @@ unsafe extern "system" fn vkEnumerateDeviceExtensionProperties(
     p_property_count: *mut u32,
     p_properties: *mut VkExtensionProperties,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkEnumerateDeviceExtensionProperties({:?}, {:?}, {:?}, {:?})", physical_device, to_reference(p_layer_name), p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkEnumerateDeviceExtensionProperties({:?}, {:?}, {:?}, {:?})", physical_device, p_layer_name.as_ref(), p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001017);
     packet.write_shallow(physical_device);
@@ -944,7 +944,7 @@ unsafe extern "system" fn vkGetDeviceQueue(
     queue_index: u32,
     p_queue: *mut NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkGetDeviceQueue({:?}, {:?}, {:?}, {:?})", device, queue_family_index, queue_index, to_reference(p_queue)); }
+    unsafe { trace!("called vkGetDeviceQueue({:?}, {:?}, {:?}, {:?})", device, queue_family_index, queue_index, p_queue.as_ref()); }
 
     let mut packet = new_packet(1000001018);
     packet.write_shallow(device);
@@ -965,7 +965,7 @@ unsafe extern "system" fn vkQueueSubmit(
     p_submits: *const VkSubmitInfo,
     fence: NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkQueueSubmit({:?}, {:?}, {:?}, {:?})", queue, submit_count, to_reference(p_submits), fence); }
+    unsafe { trace!("called vkQueueSubmit({:?}, {:?}, {:?}, {:?})", queue, submit_count, p_submits.as_ref(), fence); }
 
     let mut packet = new_packet(1000001019);
     packet.write_shallow(queue);
@@ -1013,7 +1013,7 @@ unsafe extern "system" fn vkAllocateMemory(
     p_allocator: *const VkAllocationCallbacks,
     p_memory: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkAllocateMemory({:?}, {:?}, {:?}, {:?})", device, to_reference(p_allocate_info), to_reference(p_allocator), to_reference(p_memory)); }
+    unsafe { trace!("called vkAllocateMemory({:?}, {:?}, {:?}, {:?})", device, p_allocate_info.as_ref(), p_allocator.as_ref(), p_memory.as_ref()); }
 
     let mut packet = new_packet(1000001022);
     packet.write_shallow(device);
@@ -1033,7 +1033,7 @@ unsafe extern "system" fn vkFreeMemory(
     memory: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkFreeMemory({:?}, {:?}, {:?})", device, memory, to_reference(p_allocator)); }
+    unsafe { trace!("called vkFreeMemory({:?}, {:?}, {:?})", device, memory, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001023);
     packet.write_shallow(device);
@@ -1054,7 +1054,7 @@ unsafe extern "system" fn vkMapMemory(
     flags: NonDisposableHandle,
     pp_data: *mut *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkMapMemory({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, memory, offset, size, flags, to_reference(pp_data)); }
+    unsafe { trace!("called vkMapMemory({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, memory, offset, size, flags, pp_data.as_ref()); }
 
     let mut packet = new_packet(1000001024);
     packet.write_shallow(device);
@@ -1092,7 +1092,7 @@ unsafe extern "system" fn vkFlushMappedMemoryRanges(
     memory_range_count: u32,
     p_memory_ranges: *const VkMappedMemoryRange,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkFlushMappedMemoryRanges({:?}, {:?}, {:?})", device, memory_range_count, to_reference(p_memory_ranges)); }
+    unsafe { trace!("called vkFlushMappedMemoryRanges({:?}, {:?}, {:?})", device, memory_range_count, p_memory_ranges.as_ref()); }
 
     let mut packet = new_packet(1000001026);
     packet.write_shallow(device);
@@ -1110,7 +1110,7 @@ unsafe extern "system" fn vkInvalidateMappedMemoryRanges(
     memory_range_count: u32,
     p_memory_ranges: *const VkMappedMemoryRange,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkInvalidateMappedMemoryRanges({:?}, {:?}, {:?})", device, memory_range_count, to_reference(p_memory_ranges)); }
+    unsafe { trace!("called vkInvalidateMappedMemoryRanges({:?}, {:?}, {:?})", device, memory_range_count, p_memory_ranges.as_ref()); }
 
     let mut packet = new_packet(1000001027);
     packet.write_shallow(device);
@@ -1128,7 +1128,7 @@ unsafe extern "system" fn vkGetDeviceMemoryCommitment(
     memory: NonDisposableHandle,
     p_committed_memory_in_bytes: *mut NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkGetDeviceMemoryCommitment({:?}, {:?}, {:?})", device, memory, to_reference(p_committed_memory_in_bytes)); }
+    unsafe { trace!("called vkGetDeviceMemoryCommitment({:?}, {:?}, {:?})", device, memory, p_committed_memory_in_bytes.as_ref()); }
 
     let mut packet = new_packet(1000001028);
     packet.write_shallow(device);
@@ -1147,7 +1147,7 @@ unsafe extern "system" fn vkGetBufferMemoryRequirements(
     buffer: NonDisposableHandle,
     p_memory_requirements: *mut VkMemoryRequirements,
 ) -> c_void {
-    unsafe { trace!("called vkGetBufferMemoryRequirements({:?}, {:?}, {:?})", device, buffer, to_reference(p_memory_requirements)); }
+    unsafe { trace!("called vkGetBufferMemoryRequirements({:?}, {:?}, {:?})", device, buffer, p_memory_requirements.as_ref()); }
 
     let mut packet = new_packet(1000001029);
     packet.write_shallow(device);
@@ -1186,7 +1186,7 @@ unsafe extern "system" fn vkGetImageMemoryRequirements(
     image: NonDisposableHandle,
     p_memory_requirements: *mut VkMemoryRequirements,
 ) -> c_void {
-    unsafe { trace!("called vkGetImageMemoryRequirements({:?}, {:?}, {:?})", device, image, to_reference(p_memory_requirements)); }
+    unsafe { trace!("called vkGetImageMemoryRequirements({:?}, {:?}, {:?})", device, image, p_memory_requirements.as_ref()); }
 
     let mut packet = new_packet(1000001031);
     packet.write_shallow(device);
@@ -1226,7 +1226,7 @@ unsafe extern "system" fn vkGetImageSparseMemoryRequirements(
     p_sparse_memory_requirement_count: *mut u32,
     p_sparse_memory_requirements: *mut VkSparseImageMemoryRequirements,
 ) -> c_void {
-    unsafe { trace!("called vkGetImageSparseMemoryRequirements({:?}, {:?}, {:?}, {:?})", device, image, p_sparse_memory_requirement_count, to_reference(p_sparse_memory_requirements)); }
+    unsafe { trace!("called vkGetImageSparseMemoryRequirements({:?}, {:?}, {:?}, {:?})", device, image, p_sparse_memory_requirement_count, p_sparse_memory_requirements.as_ref()); }
 
     let mut packet = new_packet(1000001033);
     packet.write_shallow(device);
@@ -1250,7 +1250,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSparseImageFormatProperties(
     p_property_count: *mut u32,
     p_properties: *mut VkSparseImageFormatProperties,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceSparseImageFormatProperties({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", physical_device, format, type_, samples, usage, tiling, p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceSparseImageFormatProperties({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", physical_device, format, type_, samples, usage, tiling, p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001034);
     packet.write_shallow(physical_device);
@@ -1274,7 +1274,7 @@ unsafe extern "system" fn vkQueueBindSparse(
     p_bind_info: *const VkBindSparseInfo,
     fence: NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkQueueBindSparse({:?}, {:?}, {:?}, {:?})", queue, bind_info_count, to_reference(p_bind_info), fence); }
+    unsafe { trace!("called vkQueueBindSparse({:?}, {:?}, {:?}, {:?})", queue, bind_info_count, p_bind_info.as_ref(), fence); }
 
     let mut packet = new_packet(1000001035);
     packet.write_shallow(queue);
@@ -1294,7 +1294,7 @@ unsafe extern "system" fn vkCreateFence(
     p_allocator: *const VkAllocationCallbacks,
     p_fence: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateFence({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_fence)); }
+    unsafe { trace!("called vkCreateFence({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_fence.as_ref()); }
 
     let mut packet = new_packet(1000001036);
     packet.write_shallow(device);
@@ -1314,7 +1314,7 @@ unsafe extern "system" fn vkDestroyFence(
     fence: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyFence({:?}, {:?}, {:?})", device, fence, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyFence({:?}, {:?}, {:?})", device, fence, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001037);
     packet.write_shallow(device);
@@ -1332,7 +1332,7 @@ unsafe extern "system" fn vkResetFences(
     fence_count: u32,
     p_fences: *const NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkResetFences({:?}, {:?}, {:?})", device, fence_count, to_reference(p_fences)); }
+    unsafe { trace!("called vkResetFences({:?}, {:?}, {:?})", device, fence_count, p_fences.as_ref()); }
 
     let mut packet = new_packet(1000001038);
     packet.write_shallow(device);
@@ -1368,7 +1368,7 @@ unsafe extern "system" fn vkWaitForFences(
     wait_all: NonDisposableHandle,
     timeout: u64,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkWaitForFences({:?}, {:?}, {:?}, {:?}, {:?})", device, fence_count, to_reference(p_fences), wait_all, timeout); }
+    unsafe { trace!("called vkWaitForFences({:?}, {:?}, {:?}, {:?}, {:?})", device, fence_count, p_fences.as_ref(), wait_all, timeout); }
 
     let mut packet = new_packet(1000001040);
     packet.write_shallow(device);
@@ -1389,7 +1389,7 @@ unsafe extern "system" fn vkCreateSemaphore(
     p_allocator: *const VkAllocationCallbacks,
     p_semaphore: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateSemaphore({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_semaphore)); }
+    unsafe { trace!("called vkCreateSemaphore({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_semaphore.as_ref()); }
 
     let mut packet = new_packet(1000001041);
     packet.write_shallow(device);
@@ -1409,7 +1409,7 @@ unsafe extern "system" fn vkDestroySemaphore(
     semaphore: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroySemaphore({:?}, {:?}, {:?})", device, semaphore, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroySemaphore({:?}, {:?}, {:?})", device, semaphore, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001042);
     packet.write_shallow(device);
@@ -1428,7 +1428,7 @@ unsafe extern "system" fn vkCreateEvent(
     p_allocator: *const VkAllocationCallbacks,
     p_event: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateEvent({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_event)); }
+    unsafe { trace!("called vkCreateEvent({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_event.as_ref()); }
 
     let mut packet = new_packet(1000001043);
     packet.write_shallow(device);
@@ -1448,7 +1448,7 @@ unsafe extern "system" fn vkDestroyEvent(
     event: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyEvent({:?}, {:?}, {:?})", device, event, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyEvent({:?}, {:?}, {:?})", device, event, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001044);
     packet.write_shallow(device);
@@ -1515,7 +1515,7 @@ unsafe extern "system" fn vkCreateQueryPool(
     p_allocator: *const VkAllocationCallbacks,
     p_query_pool: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateQueryPool({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_query_pool)); }
+    unsafe { trace!("called vkCreateQueryPool({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_query_pool.as_ref()); }
 
     let mut packet = new_packet(1000001048);
     packet.write_shallow(device);
@@ -1535,7 +1535,7 @@ unsafe extern "system" fn vkDestroyQueryPool(
     query_pool: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyQueryPool({:?}, {:?}, {:?})", device, query_pool, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyQueryPool({:?}, {:?}, {:?})", device, query_pool, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001049);
     packet.write_shallow(device);
@@ -1558,7 +1558,7 @@ unsafe extern "system" fn vkGetQueryPoolResults(
     stride: NonDisposableHandle,
     flags: NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetQueryPoolResults({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, query_pool, first_query, query_count, data_size, to_reference(p_data), stride, flags); }
+    unsafe { trace!("called vkGetQueryPoolResults({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, query_pool, first_query, query_count, data_size, p_data.as_ref(), stride, flags); }
 
     let mut packet = new_packet(1000001050);
     packet.write_shallow(device);
@@ -1603,7 +1603,7 @@ unsafe extern "system" fn vkCreateBuffer(
     p_allocator: *const VkAllocationCallbacks,
     p_buffer: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateBuffer({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_buffer)); }
+    unsafe { trace!("called vkCreateBuffer({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_buffer.as_ref()); }
 
     let mut packet = new_packet(1000001052);
     packet.write_shallow(device);
@@ -1623,7 +1623,7 @@ unsafe extern "system" fn vkDestroyBuffer(
     buffer: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyBuffer({:?}, {:?}, {:?})", device, buffer, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyBuffer({:?}, {:?}, {:?})", device, buffer, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001053);
     packet.write_shallow(device);
@@ -1642,7 +1642,7 @@ unsafe extern "system" fn vkCreateBufferView(
     p_allocator: *const VkAllocationCallbacks,
     p_view: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateBufferView({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_view)); }
+    unsafe { trace!("called vkCreateBufferView({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_view.as_ref()); }
 
     let mut packet = new_packet(1000001054);
     packet.write_shallow(device);
@@ -1662,7 +1662,7 @@ unsafe extern "system" fn vkDestroyBufferView(
     buffer_view: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyBufferView({:?}, {:?}, {:?})", device, buffer_view, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyBufferView({:?}, {:?}, {:?})", device, buffer_view, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001055);
     packet.write_shallow(device);
@@ -1681,7 +1681,7 @@ unsafe extern "system" fn vkCreateImage(
     p_allocator: *const VkAllocationCallbacks,
     p_image: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateImage({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_image)); }
+    unsafe { trace!("called vkCreateImage({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_image.as_ref()); }
 
     let mut packet = new_packet(1000001056);
     packet.write_shallow(device);
@@ -1701,7 +1701,7 @@ unsafe extern "system" fn vkDestroyImage(
     image: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyImage({:?}, {:?}, {:?})", device, image, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyImage({:?}, {:?}, {:?})", device, image, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001057);
     packet.write_shallow(device);
@@ -1720,7 +1720,7 @@ unsafe extern "system" fn vkGetImageSubresourceLayout(
     p_subresource: *const VkImageSubresource,
     p_layout: *mut VkSubresourceLayout,
 ) -> c_void {
-    unsafe { trace!("called vkGetImageSubresourceLayout({:?}, {:?}, {:?}, {:?})", device, image, to_reference(p_subresource), to_reference(p_layout)); }
+    unsafe { trace!("called vkGetImageSubresourceLayout({:?}, {:?}, {:?}, {:?})", device, image, p_subresource.as_ref(), p_layout.as_ref()); }
 
     let mut packet = new_packet(1000001058);
     packet.write_shallow(device);
@@ -1741,7 +1741,7 @@ unsafe extern "system" fn vkCreateImageView(
     p_allocator: *const VkAllocationCallbacks,
     p_view: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateImageView({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_view)); }
+    unsafe { trace!("called vkCreateImageView({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_view.as_ref()); }
 
     let mut packet = new_packet(1000001059);
     packet.write_shallow(device);
@@ -1761,7 +1761,7 @@ unsafe extern "system" fn vkDestroyImageView(
     image_view: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyImageView({:?}, {:?}, {:?})", device, image_view, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyImageView({:?}, {:?}, {:?})", device, image_view, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001060);
     packet.write_shallow(device);
@@ -1780,7 +1780,7 @@ unsafe extern "system" fn vkCreateShaderModule(
     p_allocator: *const VkAllocationCallbacks,
     p_shader_module: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateShaderModule({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_shader_module)); }
+    unsafe { trace!("called vkCreateShaderModule({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_shader_module.as_ref()); }
 
     let mut packet = new_packet(1000001061);
     packet.write_shallow(device);
@@ -1800,7 +1800,7 @@ unsafe extern "system" fn vkDestroyShaderModule(
     shader_module: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyShaderModule({:?}, {:?}, {:?})", device, shader_module, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyShaderModule({:?}, {:?}, {:?})", device, shader_module, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001062);
     packet.write_shallow(device);
@@ -1819,7 +1819,7 @@ unsafe extern "system" fn vkCreatePipelineCache(
     p_allocator: *const VkAllocationCallbacks,
     p_pipeline_cache: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreatePipelineCache({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_pipeline_cache)); }
+    unsafe { trace!("called vkCreatePipelineCache({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_pipeline_cache.as_ref()); }
 
     let mut packet = new_packet(1000001063);
     packet.write_shallow(device);
@@ -1839,7 +1839,7 @@ unsafe extern "system" fn vkDestroyPipelineCache(
     pipeline_cache: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyPipelineCache({:?}, {:?}, {:?})", device, pipeline_cache, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyPipelineCache({:?}, {:?}, {:?})", device, pipeline_cache, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001064);
     packet.write_shallow(device);
@@ -1858,7 +1858,7 @@ unsafe extern "system" fn vkGetPipelineCacheData(
     p_data_size: *mut usize,
     p_data: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPipelineCacheData({:?}, {:?}, {:?}, {:?})", device, pipeline_cache, to_reference(p_data_size), to_reference(p_data)); }
+    unsafe { trace!("called vkGetPipelineCacheData({:?}, {:?}, {:?}, {:?})", device, pipeline_cache, p_data_size.as_ref(), p_data.as_ref()); }
 
     let mut packet = new_packet(1000001065);
     packet.write_shallow(device);
@@ -1880,7 +1880,7 @@ unsafe extern "system" fn vkMergePipelineCaches(
     src_cache_count: u32,
     p_src_caches: *const NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkMergePipelineCaches({:?}, {:?}, {:?}, {:?})", device, dst_cache, src_cache_count, to_reference(p_src_caches)); }
+    unsafe { trace!("called vkMergePipelineCaches({:?}, {:?}, {:?}, {:?})", device, dst_cache, src_cache_count, p_src_caches.as_ref()); }
 
     let mut packet = new_packet(1000001066);
     packet.write_shallow(device);
@@ -1902,7 +1902,7 @@ unsafe extern "system" fn vkCreateGraphicsPipelines(
     p_allocator: *const VkAllocationCallbacks,
     p_pipelines: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateGraphicsPipelines({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, to_reference(p_create_infos), to_reference(p_allocator), to_reference(p_pipelines)); }
+    unsafe { trace!("called vkCreateGraphicsPipelines({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_pipelines.as_ref()); }
 
     let mut packet = new_packet(1000001067);
     packet.write_shallow(device);
@@ -1927,7 +1927,7 @@ unsafe extern "system" fn vkCreateComputePipelines(
     p_allocator: *const VkAllocationCallbacks,
     p_pipelines: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateComputePipelines({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, to_reference(p_create_infos), to_reference(p_allocator), to_reference(p_pipelines)); }
+    unsafe { trace!("called vkCreateComputePipelines({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_pipelines.as_ref()); }
 
     let mut packet = new_packet(1000001068);
     packet.write_shallow(device);
@@ -1949,7 +1949,7 @@ unsafe extern "system" fn vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(
     renderpass: NonDisposableHandle,
     p_max_workgroup_size: *mut VkExtent2D,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI({:?}, {:?}, {:?})", device, renderpass, to_reference(p_max_workgroup_size)); }
+    unsafe { trace!("called vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI({:?}, {:?}, {:?})", device, renderpass, p_max_workgroup_size.as_ref()); }
 
     let mut packet = new_packet(1000001069);
     packet.write_shallow(device);
@@ -1968,7 +1968,7 @@ unsafe extern "system" fn vkDestroyPipeline(
     pipeline: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyPipeline({:?}, {:?}, {:?})", device, pipeline, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyPipeline({:?}, {:?}, {:?})", device, pipeline, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001070);
     packet.write_shallow(device);
@@ -1987,7 +1987,7 @@ unsafe extern "system" fn vkCreatePipelineLayout(
     p_allocator: *const VkAllocationCallbacks,
     p_pipeline_layout: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreatePipelineLayout({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_pipeline_layout)); }
+    unsafe { trace!("called vkCreatePipelineLayout({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_pipeline_layout.as_ref()); }
 
     let mut packet = new_packet(1000001071);
     packet.write_shallow(device);
@@ -2007,7 +2007,7 @@ unsafe extern "system" fn vkDestroyPipelineLayout(
     pipeline_layout: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyPipelineLayout({:?}, {:?}, {:?})", device, pipeline_layout, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyPipelineLayout({:?}, {:?}, {:?})", device, pipeline_layout, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001072);
     packet.write_shallow(device);
@@ -2026,7 +2026,7 @@ unsafe extern "system" fn vkCreateSampler(
     p_allocator: *const VkAllocationCallbacks,
     p_sampler: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateSampler({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_sampler)); }
+    unsafe { trace!("called vkCreateSampler({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_sampler.as_ref()); }
 
     let mut packet = new_packet(1000001073);
     packet.write_shallow(device);
@@ -2046,7 +2046,7 @@ unsafe extern "system" fn vkDestroySampler(
     sampler: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroySampler({:?}, {:?}, {:?})", device, sampler, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroySampler({:?}, {:?}, {:?})", device, sampler, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001074);
     packet.write_shallow(device);
@@ -2065,7 +2065,7 @@ unsafe extern "system" fn vkCreateDescriptorSetLayout(
     p_allocator: *const VkAllocationCallbacks,
     p_set_layout: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateDescriptorSetLayout({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_set_layout)); }
+    unsafe { trace!("called vkCreateDescriptorSetLayout({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_set_layout.as_ref()); }
 
     let mut packet = new_packet(1000001075);
     packet.write_shallow(device);
@@ -2085,7 +2085,7 @@ unsafe extern "system" fn vkDestroyDescriptorSetLayout(
     descriptor_set_layout: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyDescriptorSetLayout({:?}, {:?}, {:?})", device, descriptor_set_layout, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyDescriptorSetLayout({:?}, {:?}, {:?})", device, descriptor_set_layout, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001076);
     packet.write_shallow(device);
@@ -2104,7 +2104,7 @@ unsafe extern "system" fn vkCreateDescriptorPool(
     p_allocator: *const VkAllocationCallbacks,
     p_descriptor_pool: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateDescriptorPool({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_descriptor_pool)); }
+    unsafe { trace!("called vkCreateDescriptorPool({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_descriptor_pool.as_ref()); }
 
     let mut packet = new_packet(1000001077);
     packet.write_shallow(device);
@@ -2124,7 +2124,7 @@ unsafe extern "system" fn vkDestroyDescriptorPool(
     descriptor_pool: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyDescriptorPool({:?}, {:?}, {:?})", device, descriptor_pool, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyDescriptorPool({:?}, {:?}, {:?})", device, descriptor_pool, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001078);
     packet.write_shallow(device);
@@ -2160,7 +2160,7 @@ unsafe extern "system" fn vkAllocateDescriptorSets(
     p_allocate_info: *const VkDescriptorSetAllocateInfo,
     p_descriptor_sets: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkAllocateDescriptorSets({:?}, {:?}, {:?})", device, to_reference(p_allocate_info), to_reference(p_descriptor_sets)); }
+    unsafe { trace!("called vkAllocateDescriptorSets({:?}, {:?}, {:?})", device, p_allocate_info.as_ref(), p_descriptor_sets.as_ref()); }
 
     let mut packet = new_packet(1000001080);
     packet.write_shallow(device);
@@ -2180,7 +2180,7 @@ unsafe extern "system" fn vkFreeDescriptorSets(
     descriptor_set_count: u32,
     p_descriptor_sets: *const NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkFreeDescriptorSets({:?}, {:?}, {:?}, {:?})", device, descriptor_pool, descriptor_set_count, to_reference(p_descriptor_sets)); }
+    unsafe { trace!("called vkFreeDescriptorSets({:?}, {:?}, {:?}, {:?})", device, descriptor_pool, descriptor_set_count, p_descriptor_sets.as_ref()); }
 
     let mut packet = new_packet(1000001081);
     packet.write_shallow(device);
@@ -2201,7 +2201,7 @@ unsafe extern "system" fn vkUpdateDescriptorSets(
     descriptor_copy_count: u32,
     p_descriptor_copies: *const VkCopyDescriptorSet,
 ) -> c_void {
-    unsafe { trace!("called vkUpdateDescriptorSets({:?}, {:?}, {:?}, {:?}, {:?})", device, descriptor_write_count, to_reference(p_descriptor_writes), descriptor_copy_count, to_reference(p_descriptor_copies)); }
+    unsafe { trace!("called vkUpdateDescriptorSets({:?}, {:?}, {:?}, {:?}, {:?})", device, descriptor_write_count, p_descriptor_writes.as_ref(), descriptor_copy_count, p_descriptor_copies.as_ref()); }
 
     let mut packet = new_packet(1000001082);
     packet.write_shallow(device);
@@ -2222,7 +2222,7 @@ unsafe extern "system" fn vkCreateFramebuffer(
     p_allocator: *const VkAllocationCallbacks,
     p_framebuffer: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateFramebuffer({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_framebuffer)); }
+    unsafe { trace!("called vkCreateFramebuffer({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_framebuffer.as_ref()); }
 
     let mut packet = new_packet(1000001083);
     packet.write_shallow(device);
@@ -2242,7 +2242,7 @@ unsafe extern "system" fn vkDestroyFramebuffer(
     framebuffer: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyFramebuffer({:?}, {:?}, {:?})", device, framebuffer, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyFramebuffer({:?}, {:?}, {:?})", device, framebuffer, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001084);
     packet.write_shallow(device);
@@ -2261,7 +2261,7 @@ unsafe extern "system" fn vkCreateRenderPass(
     p_allocator: *const VkAllocationCallbacks,
     p_render_pass: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateRenderPass({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_render_pass)); }
+    unsafe { trace!("called vkCreateRenderPass({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_render_pass.as_ref()); }
 
     let mut packet = new_packet(1000001085);
     packet.write_shallow(device);
@@ -2281,7 +2281,7 @@ unsafe extern "system" fn vkDestroyRenderPass(
     render_pass: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyRenderPass({:?}, {:?}, {:?})", device, render_pass, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyRenderPass({:?}, {:?}, {:?})", device, render_pass, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001086);
     packet.write_shallow(device);
@@ -2299,7 +2299,7 @@ unsafe extern "system" fn vkGetRenderAreaGranularity(
     render_pass: NonDisposableHandle,
     p_granularity: *mut VkExtent2D,
 ) -> c_void {
-    unsafe { trace!("called vkGetRenderAreaGranularity({:?}, {:?}, {:?})", device, render_pass, to_reference(p_granularity)); }
+    unsafe { trace!("called vkGetRenderAreaGranularity({:?}, {:?}, {:?})", device, render_pass, p_granularity.as_ref()); }
 
     let mut packet = new_packet(1000001087);
     packet.write_shallow(device);
@@ -2318,7 +2318,7 @@ unsafe extern "system" fn vkGetRenderingAreaGranularityKHR(
     p_rendering_area_info: *const VkRenderingAreaInfoKHR,
     p_granularity: *mut VkExtent2D,
 ) -> c_void {
-    unsafe { trace!("called vkGetRenderingAreaGranularityKHR({:?}, {:?}, {:?})", device, to_reference(p_rendering_area_info), to_reference(p_granularity)); }
+    unsafe { trace!("called vkGetRenderingAreaGranularityKHR({:?}, {:?}, {:?})", device, p_rendering_area_info.as_ref(), p_granularity.as_ref()); }
 
     let mut packet = new_packet(1000001088);
     packet.write_shallow(device);
@@ -2338,7 +2338,7 @@ unsafe extern "system" fn vkCreateCommandPool(
     p_allocator: *const VkAllocationCallbacks,
     p_command_pool: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateCommandPool({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_command_pool)); }
+    unsafe { trace!("called vkCreateCommandPool({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_command_pool.as_ref()); }
 
     let mut packet = new_packet(1000001089);
     packet.write_shallow(device);
@@ -2358,7 +2358,7 @@ unsafe extern "system" fn vkDestroyCommandPool(
     command_pool: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyCommandPool({:?}, {:?}, {:?})", device, command_pool, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyCommandPool({:?}, {:?}, {:?})", device, command_pool, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001090);
     packet.write_shallow(device);
@@ -2394,7 +2394,7 @@ unsafe extern "system" fn vkAllocateCommandBuffers(
     p_allocate_info: *const VkCommandBufferAllocateInfo,
     p_command_buffers: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkAllocateCommandBuffers({:?}, {:?}, {:?})", device, to_reference(p_allocate_info), to_reference(p_command_buffers)); }
+    unsafe { trace!("called vkAllocateCommandBuffers({:?}, {:?}, {:?})", device, p_allocate_info.as_ref(), p_command_buffers.as_ref()); }
 
     let mut packet = new_packet(1000001092);
     packet.write_shallow(device);
@@ -2414,7 +2414,7 @@ unsafe extern "system" fn vkFreeCommandBuffers(
     command_buffer_count: u32,
     p_command_buffers: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkFreeCommandBuffers({:?}, {:?}, {:?}, {:?})", device, command_pool, command_buffer_count, to_reference(p_command_buffers)); }
+    unsafe { trace!("called vkFreeCommandBuffers({:?}, {:?}, {:?}, {:?})", device, command_pool, command_buffer_count, p_command_buffers.as_ref()); }
 
     let mut packet = new_packet(1000001093);
     packet.write_shallow(device);
@@ -2432,7 +2432,7 @@ unsafe extern "system" fn vkBeginCommandBuffer(
     command_buffer: NonDisposableHandle,
     p_begin_info: *const VkCommandBufferBeginInfo,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkBeginCommandBuffer({:?}, {:?})", command_buffer, to_reference(p_begin_info)); }
+    unsafe { trace!("called vkBeginCommandBuffer({:?}, {:?})", command_buffer, p_begin_info.as_ref()); }
 
     let mut packet = new_packet(1000001094);
     packet.write_shallow(command_buffer);
@@ -2514,7 +2514,7 @@ unsafe extern "system" fn vkCmdSetViewport(
     viewport_count: u32,
     p_viewports: *const VkViewport,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetViewport({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, to_reference(p_viewports)); }
+    unsafe { trace!("called vkCmdSetViewport({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, p_viewports.as_ref()); }
 
     let mut packet = new_packet(1000001099);
     packet.write_shallow(command_buffer);
@@ -2534,7 +2534,7 @@ unsafe extern "system" fn vkCmdSetScissor(
     scissor_count: u32,
     p_scissors: *const VkRect2D,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetScissor({:?}, {:?}, {:?}, {:?})", command_buffer, first_scissor, scissor_count, to_reference(p_scissors)); }
+    unsafe { trace!("called vkCmdSetScissor({:?}, {:?}, {:?}, {:?})", command_buffer, first_scissor, scissor_count, p_scissors.as_ref()); }
 
     let mut packet = new_packet(1000001100);
     packet.write_shallow(command_buffer);
@@ -2682,7 +2682,7 @@ unsafe extern "system" fn vkCmdBindDescriptorSets(
     dynamic_offset_count: u32,
     p_dynamic_offsets: *const u32,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBindDescriptorSets({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, pipeline_bind_point, layout, first_set, descriptor_set_count, to_reference(p_descriptor_sets), dynamic_offset_count, to_reference(p_dynamic_offsets)); }
+    unsafe { trace!("called vkCmdBindDescriptorSets({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, pipeline_bind_point, layout, first_set, descriptor_set_count, p_descriptor_sets.as_ref(), dynamic_offset_count, p_dynamic_offsets.as_ref()); }
 
     let mut packet = new_packet(1000001108);
     packet.write_shallow(command_buffer);
@@ -2727,7 +2727,7 @@ unsafe extern "system" fn vkCmdBindVertexBuffers(
     p_buffers: *const NonDisposableHandle,
     p_offsets: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBindVertexBuffers({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_binding, binding_count, to_reference(p_buffers), to_reference(p_offsets)); }
+    unsafe { trace!("called vkCmdBindVertexBuffers({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_binding, binding_count, p_buffers.as_ref(), p_offsets.as_ref()); }
 
     let mut packet = new_packet(1000001110);
     packet.write_shallow(command_buffer);
@@ -2796,7 +2796,7 @@ unsafe extern "system" fn vkCmdDrawMultiEXT(
     first_instance: u32,
     stride: u32,
 ) -> c_void {
-    unsafe { trace!("called vkCmdDrawMultiEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, draw_count, to_reference(p_vertex_info), instance_count, first_instance, stride); }
+    unsafe { trace!("called vkCmdDrawMultiEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, draw_count, p_vertex_info.as_ref(), instance_count, first_instance, stride); }
 
     let mut packet = new_packet(1000001113);
     packet.write_shallow(command_buffer);
@@ -2821,7 +2821,7 @@ unsafe extern "system" fn vkCmdDrawMultiIndexedEXT(
     stride: u32,
     p_vertex_offset: *const i32,
 ) -> c_void {
-    unsafe { trace!("called vkCmdDrawMultiIndexedEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, draw_count, to_reference(p_index_info), instance_count, first_instance, stride, to_reference(p_vertex_offset)); }
+    unsafe { trace!("called vkCmdDrawMultiIndexedEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, draw_count, p_index_info.as_ref(), instance_count, first_instance, stride, p_vertex_offset.as_ref()); }
 
     let mut packet = new_packet(1000001114);
     packet.write_shallow(command_buffer);
@@ -2997,7 +2997,7 @@ unsafe extern "system" fn vkCmdCopyBuffer(
     region_count: u32,
     p_regions: *const VkBufferCopy,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyBuffer({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_buffer, dst_buffer, region_count, to_reference(p_regions)); }
+    unsafe { trace!("called vkCmdCopyBuffer({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_buffer, dst_buffer, region_count, p_regions.as_ref()); }
 
     let mut packet = new_packet(1000001123);
     packet.write_shallow(command_buffer);
@@ -3021,7 +3021,7 @@ unsafe extern "system" fn vkCmdCopyImage(
     region_count: u32,
     p_regions: *const VkImageCopy,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_image, dst_image_layout, region_count, to_reference(p_regions)); }
+    unsafe { trace!("called vkCmdCopyImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_image, dst_image_layout, region_count, p_regions.as_ref()); }
 
     let mut packet = new_packet(1000001124);
     packet.write_shallow(command_buffer);
@@ -3048,7 +3048,7 @@ unsafe extern "system" fn vkCmdBlitImage(
     p_regions: *const VkImageBlit,
     filter: NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBlitImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_image, dst_image_layout, region_count, to_reference(p_regions), filter); }
+    unsafe { trace!("called vkCmdBlitImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_image, dst_image_layout, region_count, p_regions.as_ref(), filter); }
 
     let mut packet = new_packet(1000001125);
     packet.write_shallow(command_buffer);
@@ -3074,7 +3074,7 @@ unsafe extern "system" fn vkCmdCopyBufferToImage(
     region_count: u32,
     p_regions: *const VkBufferImageCopy,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyBufferToImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_buffer, dst_image, dst_image_layout, region_count, to_reference(p_regions)); }
+    unsafe { trace!("called vkCmdCopyBufferToImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_buffer, dst_image, dst_image_layout, region_count, p_regions.as_ref()); }
 
     let mut packet = new_packet(1000001126);
     packet.write_shallow(command_buffer);
@@ -3098,7 +3098,7 @@ unsafe extern "system" fn vkCmdCopyImageToBuffer(
     region_count: u32,
     p_regions: *const VkBufferImageCopy,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyImageToBuffer({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_buffer, region_count, to_reference(p_regions)); }
+    unsafe { trace!("called vkCmdCopyImageToBuffer({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_buffer, region_count, p_regions.as_ref()); }
 
     let mut packet = new_packet(1000001127);
     packet.write_shallow(command_buffer);
@@ -3143,7 +3143,7 @@ unsafe extern "system" fn vkCmdCopyMemoryToImageIndirectNV(
     dst_image_layout: NonDisposableHandle,
     p_image_subresources: *const VkImageSubresourceLayers,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyMemoryToImageIndirectNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, copy_buffer_address, copy_count, stride, dst_image, dst_image_layout, to_reference(p_image_subresources)); }
+    unsafe { trace!("called vkCmdCopyMemoryToImageIndirectNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, copy_buffer_address, copy_count, stride, dst_image, dst_image_layout, p_image_subresources.as_ref()); }
 
     let mut packet = new_packet(1000001129);
     packet.write_shallow(command_buffer);
@@ -3167,7 +3167,7 @@ unsafe extern "system" fn vkCmdUpdateBuffer(
     data_size: NonDisposableHandle,
     p_data: *const c_void,
 ) -> c_void {
-    unsafe { trace!("called vkCmdUpdateBuffer({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, dst_buffer, dst_offset, data_size, to_reference(p_data)); }
+    unsafe { trace!("called vkCmdUpdateBuffer({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, dst_buffer, dst_offset, data_size, p_data.as_ref()); }
 
     let mut packet = new_packet(1000001130);
     packet.write_shallow(command_buffer);
@@ -3212,7 +3212,7 @@ unsafe extern "system" fn vkCmdClearColorImage(
     range_count: u32,
     p_ranges: *const VkImageSubresourceRange,
 ) -> c_void {
-    unsafe { trace!("called vkCmdClearColorImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, image, image_layout, to_reference(p_color), range_count, to_reference(p_ranges)); }
+    unsafe { trace!("called vkCmdClearColorImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, image, image_layout, p_color.as_ref(), range_count, p_ranges.as_ref()); }
 
     let mut packet = new_packet(1000001132);
     packet.write_shallow(command_buffer);
@@ -3236,7 +3236,7 @@ unsafe extern "system" fn vkCmdClearDepthStencilImage(
     range_count: u32,
     p_ranges: *const VkImageSubresourceRange,
 ) -> c_void {
-    unsafe { trace!("called vkCmdClearDepthStencilImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, image, image_layout, to_reference(p_depth_stencil), range_count, to_reference(p_ranges)); }
+    unsafe { trace!("called vkCmdClearDepthStencilImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, image, image_layout, p_depth_stencil.as_ref(), range_count, p_ranges.as_ref()); }
 
     let mut packet = new_packet(1000001133);
     packet.write_shallow(command_buffer);
@@ -3259,7 +3259,7 @@ unsafe extern "system" fn vkCmdClearAttachments(
     rect_count: u32,
     p_rects: *const VkClearRect,
 ) -> c_void {
-    unsafe { trace!("called vkCmdClearAttachments({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, attachment_count, to_reference(p_attachments), rect_count, to_reference(p_rects)); }
+    unsafe { trace!("called vkCmdClearAttachments({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, attachment_count, p_attachments.as_ref(), rect_count, p_rects.as_ref()); }
 
     let mut packet = new_packet(1000001134);
     packet.write_shallow(command_buffer);
@@ -3283,7 +3283,7 @@ unsafe extern "system" fn vkCmdResolveImage(
     region_count: u32,
     p_regions: *const VkImageResolve,
 ) -> c_void {
-    unsafe { trace!("called vkCmdResolveImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_image, dst_image_layout, region_count, to_reference(p_regions)); }
+    unsafe { trace!("called vkCmdResolveImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_image, dst_image_layout, region_count, p_regions.as_ref()); }
 
     let mut packet = new_packet(1000001135);
     packet.write_shallow(command_buffer);
@@ -3349,7 +3349,7 @@ unsafe extern "system" fn vkCmdWaitEvents(
     image_memory_barrier_count: u32,
     p_image_memory_barriers: *const VkImageMemoryBarrier,
 ) -> c_void {
-    unsafe { trace!("called vkCmdWaitEvents({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, event_count, to_reference(p_events), src_stage_mask, dst_stage_mask, memory_barrier_count, to_reference(p_memory_barriers), buffer_memory_barrier_count, to_reference(p_buffer_memory_barriers), image_memory_barrier_count, to_reference(p_image_memory_barriers)); }
+    unsafe { trace!("called vkCmdWaitEvents({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, event_count, p_events.as_ref(), src_stage_mask, dst_stage_mask, memory_barrier_count, p_memory_barriers.as_ref(), buffer_memory_barrier_count, p_buffer_memory_barriers.as_ref(), image_memory_barrier_count, p_image_memory_barriers.as_ref()); }
 
     let mut packet = new_packet(1000001138);
     packet.write_shallow(command_buffer);
@@ -3382,7 +3382,7 @@ unsafe extern "system" fn vkCmdPipelineBarrier(
     image_memory_barrier_count: u32,
     p_image_memory_barriers: *const VkImageMemoryBarrier,
 ) -> c_void {
-    unsafe { trace!("called vkCmdPipelineBarrier({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_stage_mask, dst_stage_mask, dependency_flags, memory_barrier_count, to_reference(p_memory_barriers), buffer_memory_barrier_count, to_reference(p_buffer_memory_barriers), image_memory_barrier_count, to_reference(p_image_memory_barriers)); }
+    unsafe { trace!("called vkCmdPipelineBarrier({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_stage_mask, dst_stage_mask, dependency_flags, memory_barrier_count, p_memory_barriers.as_ref(), buffer_memory_barrier_count, p_buffer_memory_barriers.as_ref(), image_memory_barrier_count, p_image_memory_barriers.as_ref()); }
 
     let mut packet = new_packet(1000001139);
     packet.write_shallow(command_buffer);
@@ -3444,7 +3444,7 @@ unsafe extern "system" fn vkCmdBeginConditionalRenderingEXT(
     command_buffer: NonDisposableHandle,
     p_conditional_rendering_begin: *const VkConditionalRenderingBeginInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBeginConditionalRenderingEXT({:?}, {:?})", command_buffer, to_reference(p_conditional_rendering_begin)); }
+    unsafe { trace!("called vkCmdBeginConditionalRenderingEXT({:?}, {:?})", command_buffer, p_conditional_rendering_begin.as_ref()); }
 
     let mut packet = new_packet(1000001142);
     packet.write_shallow(command_buffer);
@@ -3546,7 +3546,7 @@ unsafe extern "system" fn vkCmdPushConstants(
     size: u32,
     p_values: *const c_void,
 ) -> c_void {
-    unsafe { trace!("called vkCmdPushConstants({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, layout, stage_flags, offset, size, to_reference(p_values)); }
+    unsafe { trace!("called vkCmdPushConstants({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, layout, stage_flags, offset, size, p_values.as_ref()); }
 
     let mut packet = new_packet(1000001147);
     packet.write_shallow(command_buffer);
@@ -3567,7 +3567,7 @@ unsafe extern "system" fn vkCmdBeginRenderPass(
     p_render_pass_begin: *const VkRenderPassBeginInfo,
     contents: NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBeginRenderPass({:?}, {:?}, {:?})", command_buffer, to_reference(p_render_pass_begin), contents); }
+    unsafe { trace!("called vkCmdBeginRenderPass({:?}, {:?}, {:?})", command_buffer, p_render_pass_begin.as_ref(), contents); }
 
     let mut packet = new_packet(1000001148);
     packet.write_shallow(command_buffer);
@@ -3615,7 +3615,7 @@ unsafe extern "system" fn vkCmdExecuteCommands(
     command_buffer_count: u32,
     p_command_buffers: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdExecuteCommands({:?}, {:?}, {:?})", command_buffer, command_buffer_count, to_reference(p_command_buffers)); }
+    unsafe { trace!("called vkCmdExecuteCommands({:?}, {:?}, {:?})", command_buffer, command_buffer_count, p_command_buffers.as_ref()); }
 
     let mut packet = new_packet(1000001151);
     packet.write_shallow(command_buffer);
@@ -3634,7 +3634,7 @@ unsafe extern "system" fn vkCreateAndroidSurfaceKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateAndroidSurfaceKHR({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateAndroidSurfaceKHR({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001152);
     packet.write_shallow(instance);
@@ -3654,7 +3654,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceDisplayPropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut VkDisplayPropertiesKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceDisplayPropertiesKHR({:?}, {:?}, {:?})", physical_device, p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceDisplayPropertiesKHR({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001153);
     packet.write_shallow(physical_device);
@@ -3672,7 +3672,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut VkDisplayPlanePropertiesKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceDisplayPlanePropertiesKHR({:?}, {:?}, {:?})", physical_device, p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceDisplayPlanePropertiesKHR({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001154);
     packet.write_shallow(physical_device);
@@ -3691,7 +3691,7 @@ unsafe extern "system" fn vkGetDisplayPlaneSupportedDisplaysKHR(
     p_display_count: *mut u32,
     p_displays: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetDisplayPlaneSupportedDisplaysKHR({:?}, {:?}, {:?}, {:?})", physical_device, plane_index, p_display_count, to_reference(p_displays)); }
+    unsafe { trace!("called vkGetDisplayPlaneSupportedDisplaysKHR({:?}, {:?}, {:?}, {:?})", physical_device, plane_index, p_display_count, p_displays.as_ref()); }
 
     let mut packet = new_packet(1000001155);
     packet.write_shallow(physical_device);
@@ -3711,7 +3711,7 @@ unsafe extern "system" fn vkGetDisplayModePropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut VkDisplayModePropertiesKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetDisplayModePropertiesKHR({:?}, {:?}, {:?}, {:?})", physical_device, display, p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetDisplayModePropertiesKHR({:?}, {:?}, {:?}, {:?})", physical_device, display, p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001156);
     packet.write_shallow(physical_device);
@@ -3732,7 +3732,7 @@ unsafe extern "system" fn vkCreateDisplayModeKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_mode: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateDisplayModeKHR({:?}, {:?}, {:?}, {:?}, {:?})", physical_device, display, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_mode)); }
+    unsafe { trace!("called vkCreateDisplayModeKHR({:?}, {:?}, {:?}, {:?}, {:?})", physical_device, display, p_create_info.as_ref(), p_allocator.as_ref(), p_mode.as_ref()); }
 
     let mut packet = new_packet(1000001157);
     packet.write_shallow(physical_device);
@@ -3754,7 +3754,7 @@ unsafe extern "system" fn vkGetDisplayPlaneCapabilitiesKHR(
     plane_index: u32,
     p_capabilities: *mut VkDisplayPlaneCapabilitiesKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetDisplayPlaneCapabilitiesKHR({:?}, {:?}, {:?}, {:?})", physical_device, mode, plane_index, to_reference(p_capabilities)); }
+    unsafe { trace!("called vkGetDisplayPlaneCapabilitiesKHR({:?}, {:?}, {:?}, {:?})", physical_device, mode, plane_index, p_capabilities.as_ref()); }
 
     let mut packet = new_packet(1000001158);
     packet.write_shallow(physical_device);
@@ -3775,7 +3775,7 @@ unsafe extern "system" fn vkCreateDisplayPlaneSurfaceKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateDisplayPlaneSurfaceKHR({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateDisplayPlaneSurfaceKHR({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001159);
     packet.write_shallow(instance);
@@ -3797,7 +3797,7 @@ unsafe extern "system" fn vkCreateSharedSwapchainsKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_swapchains: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateSharedSwapchainsKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, swapchain_count, to_reference(p_create_infos), to_reference(p_allocator), to_reference(p_swapchains)); }
+    unsafe { trace!("called vkCreateSharedSwapchainsKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, swapchain_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_swapchains.as_ref()); }
 
     let mut packet = new_packet(1000001160);
     packet.write_shallow(device);
@@ -3818,7 +3818,7 @@ unsafe extern "system" fn vkDestroySurfaceKHR(
     surface: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroySurfaceKHR({:?}, {:?}, {:?})", instance, surface, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroySurfaceKHR({:?}, {:?}, {:?})", instance, surface, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001161);
     packet.write_shallow(instance);
@@ -3837,7 +3837,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceSupportKHR(
     surface: NonDisposableHandle,
     p_supported: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceSurfaceSupportKHR({:?}, {:?}, {:?}, {:?})", physical_device, queue_family_index, surface, to_reference(p_supported)); }
+    unsafe { trace!("called vkGetPhysicalDeviceSurfaceSupportKHR({:?}, {:?}, {:?}, {:?})", physical_device, queue_family_index, surface, p_supported.as_ref()); }
 
     let mut packet = new_packet(1000001162);
     packet.write_shallow(physical_device);
@@ -3857,7 +3857,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
     surface: NonDisposableHandle,
     p_surface_capabilities: *mut VkSurfaceCapabilitiesKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceSurfaceCapabilitiesKHR({:?}, {:?}, {:?})", physical_device, surface, to_reference(p_surface_capabilities)); }
+    unsafe { trace!("called vkGetPhysicalDeviceSurfaceCapabilitiesKHR({:?}, {:?}, {:?})", physical_device, surface, p_surface_capabilities.as_ref()); }
 
     let mut packet = new_packet(1000001163);
     packet.write_shallow(physical_device);
@@ -3877,7 +3877,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceFormatsKHR(
     p_surface_format_count: *mut u32,
     p_surface_formats: *mut VkSurfaceFormatKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceSurfaceFormatsKHR({:?}, {:?}, {:?}, {:?})", physical_device, surface, p_surface_format_count, to_reference(p_surface_formats)); }
+    unsafe { trace!("called vkGetPhysicalDeviceSurfaceFormatsKHR({:?}, {:?}, {:?}, {:?})", physical_device, surface, p_surface_format_count, p_surface_formats.as_ref()); }
 
     let mut packet = new_packet(1000001164);
     packet.write_shallow(physical_device);
@@ -3897,7 +3897,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfacePresentModesKHR(
     p_present_mode_count: *mut u32,
     p_present_modes: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceSurfacePresentModesKHR({:?}, {:?}, {:?}, {:?})", physical_device, surface, p_present_mode_count, to_reference(p_present_modes)); }
+    unsafe { trace!("called vkGetPhysicalDeviceSurfacePresentModesKHR({:?}, {:?}, {:?}, {:?})", physical_device, surface, p_present_mode_count, p_present_modes.as_ref()); }
 
     let mut packet = new_packet(1000001165);
     packet.write_shallow(physical_device);
@@ -3917,7 +3917,7 @@ unsafe extern "system" fn vkCreateSwapchainKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_swapchain: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateSwapchainKHR({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_swapchain)); }
+    unsafe { trace!("called vkCreateSwapchainKHR({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_swapchain.as_ref()); }
 
     let mut packet = new_packet(1000001166);
     packet.write_shallow(device);
@@ -3937,7 +3937,7 @@ unsafe extern "system" fn vkDestroySwapchainKHR(
     swapchain: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroySwapchainKHR({:?}, {:?}, {:?})", device, swapchain, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroySwapchainKHR({:?}, {:?}, {:?})", device, swapchain, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001167);
     packet.write_shallow(device);
@@ -3956,7 +3956,7 @@ unsafe extern "system" fn vkGetSwapchainImagesKHR(
     p_swapchain_image_count: *mut u32,
     p_swapchain_images: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetSwapchainImagesKHR({:?}, {:?}, {:?}, {:?})", device, swapchain, p_swapchain_image_count, to_reference(p_swapchain_images)); }
+    unsafe { trace!("called vkGetSwapchainImagesKHR({:?}, {:?}, {:?}, {:?})", device, swapchain, p_swapchain_image_count, p_swapchain_images.as_ref()); }
 
     let mut packet = new_packet(1000001168);
     packet.write_shallow(device);
@@ -3978,7 +3978,7 @@ unsafe extern "system" fn vkAcquireNextImageKHR(
     fence: NonDisposableHandle,
     p_image_index: *mut u32,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkAcquireNextImageKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, swapchain, timeout, semaphore, fence, to_reference(p_image_index)); }
+    unsafe { trace!("called vkAcquireNextImageKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, swapchain, timeout, semaphore, fence, p_image_index.as_ref()); }
 
     let mut packet = new_packet(1000001169);
     packet.write_shallow(device);
@@ -3999,7 +3999,7 @@ unsafe extern "system" fn vkQueuePresentKHR(
     queue: NonDisposableHandle,
     p_present_info: *const VkPresentInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkQueuePresentKHR({:?}, {:?})", queue, to_reference(p_present_info)); }
+    unsafe { trace!("called vkQueuePresentKHR({:?}, {:?})", queue, p_present_info.as_ref()); }
 
     let mut packet = new_packet(1000001170);
     packet.write_shallow(queue);
@@ -4017,7 +4017,7 @@ unsafe extern "system" fn vkCreateViSurfaceNN(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateViSurfaceNN({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateViSurfaceNN({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001171);
     packet.write_shallow(instance);
@@ -4038,7 +4038,7 @@ unsafe extern "system" fn vkCreateWaylandSurfaceKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateWaylandSurfaceKHR({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateWaylandSurfaceKHR({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001172);
     packet.write_shallow(instance);
@@ -4058,7 +4058,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceWaylandPresentationSupportKHR(
     queue_family_index: u32,
     display: *mut usize,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceWaylandPresentationSupportKHR({:?}, {:?}, {:?})", physical_device, queue_family_index, to_reference(display)); }
+    unsafe { trace!("called vkGetPhysicalDeviceWaylandPresentationSupportKHR({:?}, {:?}, {:?})", physical_device, queue_family_index, display.as_ref()); }
 
     let mut packet = new_packet(1000001173);
     packet.write_shallow(physical_device);
@@ -4078,7 +4078,7 @@ unsafe extern "system" fn vkCreateWin32SurfaceKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateWin32SurfaceKHR({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateWin32SurfaceKHR({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001174);
     packet.write_shallow(instance);
@@ -4115,7 +4115,7 @@ unsafe extern "system" fn vkCreateXlibSurfaceKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateXlibSurfaceKHR({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateXlibSurfaceKHR({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001176);
     packet.write_shallow(instance);
@@ -4136,7 +4136,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceXlibPresentationSupportKHR(
     dpy: *mut usize,
     visual_id: vk::VisualID,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceXlibPresentationSupportKHR({:?}, {:?}, {:?}, {:?})", physical_device, queue_family_index, to_reference(dpy), visual_id); }
+    unsafe { trace!("called vkGetPhysicalDeviceXlibPresentationSupportKHR({:?}, {:?}, {:?}, {:?})", physical_device, queue_family_index, dpy.as_ref(), visual_id); }
 
     let mut packet = new_packet(1000001177);
     packet.write_shallow(physical_device);
@@ -4157,7 +4157,7 @@ unsafe extern "system" fn vkCreateXcbSurfaceKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateXcbSurfaceKHR({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateXcbSurfaceKHR({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001178);
     packet.write_shallow(instance);
@@ -4178,7 +4178,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceXcbPresentationSupportKHR(
     connection: *mut usize,
     visual_id: vk::xcb_visualid_t,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceXcbPresentationSupportKHR({:?}, {:?}, {:?}, {:?})", physical_device, queue_family_index, to_reference(connection), visual_id); }
+    unsafe { trace!("called vkGetPhysicalDeviceXcbPresentationSupportKHR({:?}, {:?}, {:?}, {:?})", physical_device, queue_family_index, connection.as_ref(), visual_id); }
 
     let mut packet = new_packet(1000001179);
     packet.write_shallow(physical_device);
@@ -4199,7 +4199,7 @@ unsafe extern "system" fn vkCreateDirectFBSurfaceEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateDirectFBSurfaceEXT({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateDirectFBSurfaceEXT({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001180);
     packet.write_shallow(instance);
@@ -4219,7 +4219,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceDirectFBPresentationSupportEXT(
     queue_family_index: u32,
     dfb: *mut usize,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceDirectFBPresentationSupportEXT({:?}, {:?}, {:?})", physical_device, queue_family_index, to_reference(dfb)); }
+    unsafe { trace!("called vkGetPhysicalDeviceDirectFBPresentationSupportEXT({:?}, {:?}, {:?})", physical_device, queue_family_index, dfb.as_ref()); }
 
     let mut packet = new_packet(1000001181);
     packet.write_shallow(physical_device);
@@ -4239,7 +4239,7 @@ unsafe extern "system" fn vkCreateImagePipeSurfaceFUCHSIA(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateImagePipeSurfaceFUCHSIA({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateImagePipeSurfaceFUCHSIA({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001182);
     packet.write_shallow(instance);
@@ -4260,7 +4260,7 @@ unsafe extern "system" fn vkCreateStreamDescriptorSurfaceGGP(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateStreamDescriptorSurfaceGGP({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateStreamDescriptorSurfaceGGP({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001183);
     packet.write_shallow(instance);
@@ -4281,7 +4281,7 @@ unsafe extern "system" fn vkCreateScreenSurfaceQNX(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateScreenSurfaceQNX({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateScreenSurfaceQNX({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001184);
     packet.write_shallow(instance);
@@ -4301,7 +4301,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceScreenPresentationSupportQNX(
     queue_family_index: u32,
     window: *mut usize,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceScreenPresentationSupportQNX({:?}, {:?}, {:?})", physical_device, queue_family_index, to_reference(window)); }
+    unsafe { trace!("called vkGetPhysicalDeviceScreenPresentationSupportQNX({:?}, {:?}, {:?})", physical_device, queue_family_index, window.as_ref()); }
 
     let mut packet = new_packet(1000001185);
     packet.write_shallow(physical_device);
@@ -4321,7 +4321,7 @@ unsafe extern "system" fn vkCreateDebugReportCallbackEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_callback: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateDebugReportCallbackEXT({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_callback)); }
+    unsafe { trace!("called vkCreateDebugReportCallbackEXT({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_callback.as_ref()); }
 
     let mut packet = new_packet(1000001186);
     packet.write_shallow(instance);
@@ -4341,7 +4341,7 @@ unsafe extern "system" fn vkDestroyDebugReportCallbackEXT(
     callback: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyDebugReportCallbackEXT({:?}, {:?}, {:?})", instance, callback, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyDebugReportCallbackEXT({:?}, {:?}, {:?})", instance, callback, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001187);
     packet.write_shallow(instance);
@@ -4364,7 +4364,7 @@ unsafe extern "system" fn vkDebugReportMessageEXT(
     p_layer_prefix: *const c_char,
     p_message: *const c_char,
 ) -> c_void {
-    unsafe { trace!("called vkDebugReportMessageEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", instance, flags, object_type, object, location, message_code, to_reference(p_layer_prefix), to_reference(p_message)); }
+    unsafe { trace!("called vkDebugReportMessageEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", instance, flags, object_type, object, location, message_code, p_layer_prefix.as_ref(), p_message.as_ref()); }
 
     let mut packet = new_packet(1000001188);
     packet.write_shallow(instance);
@@ -4386,7 +4386,7 @@ unsafe extern "system" fn vkDebugMarkerSetObjectNameEXT(
     device: NonDisposableHandle,
     p_name_info: *const VkDebugMarkerObjectNameInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkDebugMarkerSetObjectNameEXT({:?}, {:?})", device, to_reference(p_name_info)); }
+    unsafe { trace!("called vkDebugMarkerSetObjectNameEXT({:?}, {:?})", device, p_name_info.as_ref()); }
 
     let mut packet = new_packet(1000001189);
     packet.write_shallow(device);
@@ -4402,7 +4402,7 @@ unsafe extern "system" fn vkDebugMarkerSetObjectTagEXT(
     device: NonDisposableHandle,
     p_tag_info: *const VkDebugMarkerObjectTagInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkDebugMarkerSetObjectTagEXT({:?}, {:?})", device, to_reference(p_tag_info)); }
+    unsafe { trace!("called vkDebugMarkerSetObjectTagEXT({:?}, {:?})", device, p_tag_info.as_ref()); }
 
     let mut packet = new_packet(1000001190);
     packet.write_shallow(device);
@@ -4418,7 +4418,7 @@ unsafe extern "system" fn vkCmdDebugMarkerBeginEXT(
     command_buffer: NonDisposableHandle,
     p_marker_info: *const VkDebugMarkerMarkerInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdDebugMarkerBeginEXT({:?}, {:?})", command_buffer, to_reference(p_marker_info)); }
+    unsafe { trace!("called vkCmdDebugMarkerBeginEXT({:?}, {:?})", command_buffer, p_marker_info.as_ref()); }
 
     let mut packet = new_packet(1000001191);
     packet.write_shallow(command_buffer);
@@ -4448,7 +4448,7 @@ unsafe extern "system" fn vkCmdDebugMarkerInsertEXT(
     command_buffer: NonDisposableHandle,
     p_marker_info: *const VkDebugMarkerMarkerInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdDebugMarkerInsertEXT({:?}, {:?})", command_buffer, to_reference(p_marker_info)); }
+    unsafe { trace!("called vkCmdDebugMarkerInsertEXT({:?}, {:?})", command_buffer, p_marker_info.as_ref()); }
 
     let mut packet = new_packet(1000001193);
     packet.write_shallow(command_buffer);
@@ -4470,7 +4470,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceExternalImageFormatPropertiesNV(
     external_handle_type: NonDisposableHandle,
     p_external_image_format_properties: *mut VkExternalImageFormatPropertiesNV,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceExternalImageFormatPropertiesNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", physical_device, format, type_, tiling, usage, flags, external_handle_type, to_reference(p_external_image_format_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceExternalImageFormatPropertiesNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", physical_device, format, type_, tiling, usage, flags, external_handle_type, p_external_image_format_properties.as_ref()); }
 
     let mut packet = new_packet(1000001194);
     packet.write_shallow(physical_device);
@@ -4495,7 +4495,7 @@ unsafe extern "system" fn vkGetMemoryWin32HandleNV(
     handle_type: NonDisposableHandle,
     p_handle: *mut vk::HANDLE,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetMemoryWin32HandleNV({:?}, {:?}, {:?}, {:?})", device, memory, handle_type, to_reference(p_handle)); }
+    unsafe { trace!("called vkGetMemoryWin32HandleNV({:?}, {:?}, {:?}, {:?})", device, memory, handle_type, p_handle.as_ref()); }
 
     let mut packet = new_packet(1000001195);
     packet.write_shallow(device);
@@ -4515,7 +4515,7 @@ unsafe extern "system" fn vkCmdExecuteGeneratedCommandsNV(
     is_preprocessed: NonDisposableHandle,
     p_generated_commands_info: *const VkGeneratedCommandsInfoNV,
 ) -> c_void {
-    unsafe { trace!("called vkCmdExecuteGeneratedCommandsNV({:?}, {:?}, {:?})", command_buffer, is_preprocessed, to_reference(p_generated_commands_info)); }
+    unsafe { trace!("called vkCmdExecuteGeneratedCommandsNV({:?}, {:?}, {:?})", command_buffer, is_preprocessed, p_generated_commands_info.as_ref()); }
 
     let mut packet = new_packet(1000001196);
     packet.write_shallow(command_buffer);
@@ -4532,7 +4532,7 @@ unsafe extern "system" fn vkCmdPreprocessGeneratedCommandsNV(
     command_buffer: NonDisposableHandle,
     p_generated_commands_info: *const VkGeneratedCommandsInfoNV,
 ) -> c_void {
-    unsafe { trace!("called vkCmdPreprocessGeneratedCommandsNV({:?}, {:?})", command_buffer, to_reference(p_generated_commands_info)); }
+    unsafe { trace!("called vkCmdPreprocessGeneratedCommandsNV({:?}, {:?})", command_buffer, p_generated_commands_info.as_ref()); }
 
     let mut packet = new_packet(1000001197);
     packet.write_shallow(command_buffer);
@@ -4569,7 +4569,7 @@ unsafe extern "system" fn vkGetGeneratedCommandsMemoryRequirementsNV(
     p_info: *const VkGeneratedCommandsMemoryRequirementsInfoNV,
     p_memory_requirements: *mut VkMemoryRequirements2,
 ) -> c_void {
-    unsafe { trace!("called vkGetGeneratedCommandsMemoryRequirementsNV({:?}, {:?}, {:?})", device, to_reference(p_info), to_reference(p_memory_requirements)); }
+    unsafe { trace!("called vkGetGeneratedCommandsMemoryRequirementsNV({:?}, {:?}, {:?})", device, p_info.as_ref(), p_memory_requirements.as_ref()); }
 
     let mut packet = new_packet(1000001199);
     packet.write_shallow(device);
@@ -4589,7 +4589,7 @@ unsafe extern "system" fn vkCreateIndirectCommandsLayoutNV(
     p_allocator: *const VkAllocationCallbacks,
     p_indirect_commands_layout: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateIndirectCommandsLayoutNV({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_indirect_commands_layout)); }
+    unsafe { trace!("called vkCreateIndirectCommandsLayoutNV({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_indirect_commands_layout.as_ref()); }
 
     let mut packet = new_packet(1000001200);
     packet.write_shallow(device);
@@ -4609,7 +4609,7 @@ unsafe extern "system" fn vkDestroyIndirectCommandsLayoutNV(
     indirect_commands_layout: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyIndirectCommandsLayoutNV({:?}, {:?}, {:?})", device, indirect_commands_layout, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyIndirectCommandsLayoutNV({:?}, {:?}, {:?})", device, indirect_commands_layout, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001201);
     packet.write_shallow(device);
@@ -4626,7 +4626,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceFeatures2(
     physical_device: NonDisposableHandle,
     p_features: *mut VkPhysicalDeviceFeatures2,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceFeatures2({:?}, {:?})", physical_device, to_reference(p_features)); }
+    unsafe { trace!("called vkGetPhysicalDeviceFeatures2({:?}, {:?})", physical_device, p_features.as_ref()); }
 
     let mut packet = new_packet(1000001202);
     packet.write_shallow(physical_device);
@@ -4643,7 +4643,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceProperties2(
     physical_device: NonDisposableHandle,
     p_properties: *mut VkPhysicalDeviceProperties2,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceProperties2({:?}, {:?})", physical_device, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceProperties2({:?}, {:?})", physical_device, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001203);
     packet.write_shallow(physical_device);
@@ -4661,7 +4661,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceFormatProperties2(
     format: NonDisposableHandle,
     p_format_properties: *mut VkFormatProperties2,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceFormatProperties2({:?}, {:?}, {:?})", physical_device, format, to_reference(p_format_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceFormatProperties2({:?}, {:?}, {:?})", physical_device, format, p_format_properties.as_ref()); }
 
     let mut packet = new_packet(1000001204);
     packet.write_shallow(physical_device);
@@ -4680,7 +4680,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceImageFormatProperties2(
     p_image_format_info: *const VkPhysicalDeviceImageFormatInfo2,
     p_image_format_properties: *mut VkImageFormatProperties2,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceImageFormatProperties2({:?}, {:?}, {:?})", physical_device, to_reference(p_image_format_info), to_reference(p_image_format_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceImageFormatProperties2({:?}, {:?}, {:?})", physical_device, p_image_format_info.as_ref(), p_image_format_properties.as_ref()); }
 
     let mut packet = new_packet(1000001205);
     packet.write_shallow(physical_device);
@@ -4699,7 +4699,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceQueueFamilyProperties2(
     p_queue_family_property_count: *mut u32,
     p_queue_family_properties: *mut VkQueueFamilyProperties2,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceQueueFamilyProperties2({:?}, {:?}, {:?})", physical_device, p_queue_family_property_count, to_reference(p_queue_family_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceQueueFamilyProperties2({:?}, {:?}, {:?})", physical_device, p_queue_family_property_count, p_queue_family_properties.as_ref()); }
 
     let mut packet = new_packet(1000001206);
     packet.write_shallow(physical_device);
@@ -4716,7 +4716,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceMemoryProperties2(
     physical_device: NonDisposableHandle,
     p_memory_properties: *mut VkPhysicalDeviceMemoryProperties2,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceMemoryProperties2({:?}, {:?})", physical_device, to_reference(p_memory_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceMemoryProperties2({:?}, {:?})", physical_device, p_memory_properties.as_ref()); }
 
     let mut packet = new_packet(1000001207);
     packet.write_shallow(physical_device);
@@ -4735,7 +4735,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSparseImageFormatProperties2(
     p_property_count: *mut u32,
     p_properties: *mut VkSparseImageFormatProperties2,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceSparseImageFormatProperties2({:?}, {:?}, {:?}, {:?})", physical_device, to_reference(p_format_info), p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceSparseImageFormatProperties2({:?}, {:?}, {:?}, {:?})", physical_device, p_format_info.as_ref(), p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001208);
     packet.write_shallow(physical_device);
@@ -4757,7 +4757,7 @@ unsafe extern "system" fn vkCmdPushDescriptorSetKHR(
     descriptor_write_count: u32,
     p_descriptor_writes: *const VkWriteDescriptorSet,
 ) -> c_void {
-    unsafe { trace!("called vkCmdPushDescriptorSetKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, pipeline_bind_point, layout, set, descriptor_write_count, to_reference(p_descriptor_writes)); }
+    unsafe { trace!("called vkCmdPushDescriptorSetKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, pipeline_bind_point, layout, set, descriptor_write_count, p_descriptor_writes.as_ref()); }
 
     let mut packet = new_packet(1000001209);
     packet.write_shallow(command_buffer);
@@ -4796,7 +4796,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceExternalBufferProperties(
     p_external_buffer_info: *const VkPhysicalDeviceExternalBufferInfo,
     p_external_buffer_properties: *mut VkExternalBufferProperties,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceExternalBufferProperties({:?}, {:?}, {:?})", physical_device, to_reference(p_external_buffer_info), to_reference(p_external_buffer_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceExternalBufferProperties({:?}, {:?}, {:?})", physical_device, p_external_buffer_info.as_ref(), p_external_buffer_properties.as_ref()); }
 
     let mut packet = new_packet(1000001211);
     packet.write_shallow(physical_device);
@@ -4815,7 +4815,7 @@ unsafe extern "system" fn vkGetMemoryWin32HandleKHR(
     p_get_win32_handle_info: *const VkMemoryGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetMemoryWin32HandleKHR({:?}, {:?}, {:?})", device, to_reference(p_get_win32_handle_info), to_reference(p_handle)); }
+    unsafe { trace!("called vkGetMemoryWin32HandleKHR({:?}, {:?}, {:?})", device, p_get_win32_handle_info.as_ref(), p_handle.as_ref()); }
 
     let mut packet = new_packet(1000001212);
     packet.write_shallow(device);
@@ -4835,7 +4835,7 @@ unsafe extern "system" fn vkGetMemoryWin32HandlePropertiesKHR(
     handle: vk::HANDLE,
     p_memory_win32_handle_properties: *mut VkMemoryWin32HandlePropertiesKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetMemoryWin32HandlePropertiesKHR({:?}, {:?}, {:?}, {:?})", device, handle_type, handle, to_reference(p_memory_win32_handle_properties)); }
+    unsafe { trace!("called vkGetMemoryWin32HandlePropertiesKHR({:?}, {:?}, {:?}, {:?})", device, handle_type, handle, p_memory_win32_handle_properties.as_ref()); }
 
     let mut packet = new_packet(1000001213);
     packet.write_shallow(device);
@@ -4855,7 +4855,7 @@ unsafe extern "system" fn vkGetMemoryFdKHR(
     p_get_fd_info: *const VkMemoryGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetMemoryFdKHR({:?}, {:?}, {:?})", device, to_reference(p_get_fd_info), to_reference(p_fd)); }
+    unsafe { trace!("called vkGetMemoryFdKHR({:?}, {:?}, {:?})", device, p_get_fd_info.as_ref(), p_fd.as_ref()); }
 
     let mut packet = new_packet(1000001214);
     packet.write_shallow(device);
@@ -4875,7 +4875,7 @@ unsafe extern "system" fn vkGetMemoryFdPropertiesKHR(
     fd: std::os::raw::c_int,
     p_memory_fd_properties: *mut VkMemoryFdPropertiesKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetMemoryFdPropertiesKHR({:?}, {:?}, {:?}, {:?})", device, handle_type, fd, to_reference(p_memory_fd_properties)); }
+    unsafe { trace!("called vkGetMemoryFdPropertiesKHR({:?}, {:?}, {:?}, {:?})", device, handle_type, fd, p_memory_fd_properties.as_ref()); }
 
     let mut packet = new_packet(1000001215);
     packet.write_shallow(device);
@@ -4895,7 +4895,7 @@ unsafe extern "system" fn vkGetMemoryZirconHandleFUCHSIA(
     p_get_zircon_handle_info: *const VkMemoryGetZirconHandleInfoFUCHSIA,
     p_zircon_handle: *mut vk::zx_handle_t,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetMemoryZirconHandleFUCHSIA({:?}, {:?}, {:?})", device, to_reference(p_get_zircon_handle_info), to_reference(p_zircon_handle)); }
+    unsafe { trace!("called vkGetMemoryZirconHandleFUCHSIA({:?}, {:?}, {:?})", device, p_get_zircon_handle_info.as_ref(), p_zircon_handle.as_ref()); }
 
     let mut packet = new_packet(1000001216);
     packet.write_shallow(device);
@@ -4915,7 +4915,7 @@ unsafe extern "system" fn vkGetMemoryZirconHandlePropertiesFUCHSIA(
     zircon_handle: vk::zx_handle_t,
     p_memory_zircon_handle_properties: *mut VkMemoryZirconHandlePropertiesFUCHSIA,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetMemoryZirconHandlePropertiesFUCHSIA({:?}, {:?}, {:?}, {:?})", device, handle_type, zircon_handle, to_reference(p_memory_zircon_handle_properties)); }
+    unsafe { trace!("called vkGetMemoryZirconHandlePropertiesFUCHSIA({:?}, {:?}, {:?}, {:?})", device, handle_type, zircon_handle, p_memory_zircon_handle_properties.as_ref()); }
 
     let mut packet = new_packet(1000001217);
     packet.write_shallow(device);
@@ -4935,7 +4935,7 @@ unsafe extern "system" fn vkGetMemoryRemoteAddressNV(
     p_memory_get_remote_address_info: *const VkMemoryGetRemoteAddressInfoNV,
     p_address: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetMemoryRemoteAddressNV({:?}, {:?}, {:?})", device, to_reference(p_memory_get_remote_address_info), to_reference(p_address)); }
+    unsafe { trace!("called vkGetMemoryRemoteAddressNV({:?}, {:?}, {:?})", device, p_memory_get_remote_address_info.as_ref(), p_address.as_ref()); }
 
     let mut packet = new_packet(1000001218);
     packet.write_shallow(device);
@@ -4954,7 +4954,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceExternalSemaphoreProperties(
     p_external_semaphore_info: *const VkPhysicalDeviceExternalSemaphoreInfo,
     p_external_semaphore_properties: *mut VkExternalSemaphoreProperties,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceExternalSemaphoreProperties({:?}, {:?}, {:?})", physical_device, to_reference(p_external_semaphore_info), to_reference(p_external_semaphore_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceExternalSemaphoreProperties({:?}, {:?}, {:?})", physical_device, p_external_semaphore_info.as_ref(), p_external_semaphore_properties.as_ref()); }
 
     let mut packet = new_packet(1000001219);
     packet.write_shallow(physical_device);
@@ -4973,7 +4973,7 @@ unsafe extern "system" fn vkGetSemaphoreWin32HandleKHR(
     p_get_win32_handle_info: *const VkSemaphoreGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetSemaphoreWin32HandleKHR({:?}, {:?}, {:?})", device, to_reference(p_get_win32_handle_info), to_reference(p_handle)); }
+    unsafe { trace!("called vkGetSemaphoreWin32HandleKHR({:?}, {:?}, {:?})", device, p_get_win32_handle_info.as_ref(), p_handle.as_ref()); }
 
     let mut packet = new_packet(1000001220);
     packet.write_shallow(device);
@@ -4991,7 +4991,7 @@ unsafe extern "system" fn vkImportSemaphoreWin32HandleKHR(
     device: NonDisposableHandle,
     p_import_semaphore_win32_handle_info: *const VkImportSemaphoreWin32HandleInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkImportSemaphoreWin32HandleKHR({:?}, {:?})", device, to_reference(p_import_semaphore_win32_handle_info)); }
+    unsafe { trace!("called vkImportSemaphoreWin32HandleKHR({:?}, {:?})", device, p_import_semaphore_win32_handle_info.as_ref()); }
 
     let mut packet = new_packet(1000001221);
     packet.write_shallow(device);
@@ -5008,7 +5008,7 @@ unsafe extern "system" fn vkGetSemaphoreFdKHR(
     p_get_fd_info: *const VkSemaphoreGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetSemaphoreFdKHR({:?}, {:?}, {:?})", device, to_reference(p_get_fd_info), to_reference(p_fd)); }
+    unsafe { trace!("called vkGetSemaphoreFdKHR({:?}, {:?}, {:?})", device, p_get_fd_info.as_ref(), p_fd.as_ref()); }
 
     let mut packet = new_packet(1000001222);
     packet.write_shallow(device);
@@ -5026,7 +5026,7 @@ unsafe extern "system" fn vkImportSemaphoreFdKHR(
     device: NonDisposableHandle,
     p_import_semaphore_fd_info: *const VkImportSemaphoreFdInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkImportSemaphoreFdKHR({:?}, {:?})", device, to_reference(p_import_semaphore_fd_info)); }
+    unsafe { trace!("called vkImportSemaphoreFdKHR({:?}, {:?})", device, p_import_semaphore_fd_info.as_ref()); }
 
     let mut packet = new_packet(1000001223);
     packet.write_shallow(device);
@@ -5043,7 +5043,7 @@ unsafe extern "system" fn vkGetSemaphoreZirconHandleFUCHSIA(
     p_get_zircon_handle_info: *const VkSemaphoreGetZirconHandleInfoFUCHSIA,
     p_zircon_handle: *mut vk::zx_handle_t,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetSemaphoreZirconHandleFUCHSIA({:?}, {:?}, {:?})", device, to_reference(p_get_zircon_handle_info), to_reference(p_zircon_handle)); }
+    unsafe { trace!("called vkGetSemaphoreZirconHandleFUCHSIA({:?}, {:?}, {:?})", device, p_get_zircon_handle_info.as_ref(), p_zircon_handle.as_ref()); }
 
     let mut packet = new_packet(1000001224);
     packet.write_shallow(device);
@@ -5061,7 +5061,7 @@ unsafe extern "system" fn vkImportSemaphoreZirconHandleFUCHSIA(
     device: NonDisposableHandle,
     p_import_semaphore_zircon_handle_info: *const VkImportSemaphoreZirconHandleInfoFUCHSIA,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkImportSemaphoreZirconHandleFUCHSIA({:?}, {:?})", device, to_reference(p_import_semaphore_zircon_handle_info)); }
+    unsafe { trace!("called vkImportSemaphoreZirconHandleFUCHSIA({:?}, {:?})", device, p_import_semaphore_zircon_handle_info.as_ref()); }
 
     let mut packet = new_packet(1000001225);
     packet.write_shallow(device);
@@ -5078,7 +5078,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceExternalFenceProperties(
     p_external_fence_info: *const VkPhysicalDeviceExternalFenceInfo,
     p_external_fence_properties: *mut VkExternalFenceProperties,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceExternalFenceProperties({:?}, {:?}, {:?})", physical_device, to_reference(p_external_fence_info), to_reference(p_external_fence_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceExternalFenceProperties({:?}, {:?}, {:?})", physical_device, p_external_fence_info.as_ref(), p_external_fence_properties.as_ref()); }
 
     let mut packet = new_packet(1000001226);
     packet.write_shallow(physical_device);
@@ -5097,7 +5097,7 @@ unsafe extern "system" fn vkGetFenceWin32HandleKHR(
     p_get_win32_handle_info: *const VkFenceGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetFenceWin32HandleKHR({:?}, {:?}, {:?})", device, to_reference(p_get_win32_handle_info), to_reference(p_handle)); }
+    unsafe { trace!("called vkGetFenceWin32HandleKHR({:?}, {:?}, {:?})", device, p_get_win32_handle_info.as_ref(), p_handle.as_ref()); }
 
     let mut packet = new_packet(1000001227);
     packet.write_shallow(device);
@@ -5115,7 +5115,7 @@ unsafe extern "system" fn vkImportFenceWin32HandleKHR(
     device: NonDisposableHandle,
     p_import_fence_win32_handle_info: *const VkImportFenceWin32HandleInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkImportFenceWin32HandleKHR({:?}, {:?})", device, to_reference(p_import_fence_win32_handle_info)); }
+    unsafe { trace!("called vkImportFenceWin32HandleKHR({:?}, {:?})", device, p_import_fence_win32_handle_info.as_ref()); }
 
     let mut packet = new_packet(1000001228);
     packet.write_shallow(device);
@@ -5132,7 +5132,7 @@ unsafe extern "system" fn vkGetFenceFdKHR(
     p_get_fd_info: *const VkFenceGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetFenceFdKHR({:?}, {:?}, {:?})", device, to_reference(p_get_fd_info), to_reference(p_fd)); }
+    unsafe { trace!("called vkGetFenceFdKHR({:?}, {:?}, {:?})", device, p_get_fd_info.as_ref(), p_fd.as_ref()); }
 
     let mut packet = new_packet(1000001229);
     packet.write_shallow(device);
@@ -5150,7 +5150,7 @@ unsafe extern "system" fn vkImportFenceFdKHR(
     device: NonDisposableHandle,
     p_import_fence_fd_info: *const VkImportFenceFdInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkImportFenceFdKHR({:?}, {:?})", device, to_reference(p_import_fence_fd_info)); }
+    unsafe { trace!("called vkImportFenceFdKHR({:?}, {:?})", device, p_import_fence_fd_info.as_ref()); }
 
     let mut packet = new_packet(1000001230);
     packet.write_shallow(device);
@@ -5183,7 +5183,7 @@ unsafe extern "system" fn vkAcquireXlibDisplayEXT(
     dpy: *mut usize,
     display: NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkAcquireXlibDisplayEXT({:?}, {:?}, {:?})", physical_device, to_reference(dpy), display); }
+    unsafe { trace!("called vkAcquireXlibDisplayEXT({:?}, {:?}, {:?})", physical_device, dpy.as_ref(), display); }
 
     let mut packet = new_packet(1000001232);
     packet.write_shallow(physical_device);
@@ -5203,7 +5203,7 @@ unsafe extern "system" fn vkGetRandROutputDisplayEXT(
     rr_output: vk::RROutput,
     p_display: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetRandROutputDisplayEXT({:?}, {:?}, {:?}, {:?})", physical_device, to_reference(dpy), rr_output, to_reference(p_display)); }
+    unsafe { trace!("called vkGetRandROutputDisplayEXT({:?}, {:?}, {:?}, {:?})", physical_device, dpy.as_ref(), rr_output, p_display.as_ref()); }
 
     let mut packet = new_packet(1000001233);
     packet.write_shallow(physical_device);
@@ -5240,7 +5240,7 @@ unsafe extern "system" fn vkGetWinrtDisplayNV(
     device_relative_id: u32,
     p_display: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetWinrtDisplayNV({:?}, {:?}, {:?})", physical_device, device_relative_id, to_reference(p_display)); }
+    unsafe { trace!("called vkGetWinrtDisplayNV({:?}, {:?}, {:?})", physical_device, device_relative_id, p_display.as_ref()); }
 
     let mut packet = new_packet(1000001235);
     packet.write_shallow(physical_device);
@@ -5259,7 +5259,7 @@ unsafe extern "system" fn vkDisplayPowerControlEXT(
     display: NonDisposableHandle,
     p_display_power_info: *const VkDisplayPowerInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkDisplayPowerControlEXT({:?}, {:?}, {:?})", device, display, to_reference(p_display_power_info)); }
+    unsafe { trace!("called vkDisplayPowerControlEXT({:?}, {:?}, {:?})", device, display, p_display_power_info.as_ref()); }
 
     let mut packet = new_packet(1000001236);
     packet.write_shallow(device);
@@ -5278,7 +5278,7 @@ unsafe extern "system" fn vkRegisterDeviceEventEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_fence: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkRegisterDeviceEventEXT({:?}, {:?}, {:?}, {:?})", device, to_reference(p_device_event_info), to_reference(p_allocator), to_reference(p_fence)); }
+    unsafe { trace!("called vkRegisterDeviceEventEXT({:?}, {:?}, {:?}, {:?})", device, p_device_event_info.as_ref(), p_allocator.as_ref(), p_fence.as_ref()); }
 
     let mut packet = new_packet(1000001237);
     packet.write_shallow(device);
@@ -5300,7 +5300,7 @@ unsafe extern "system" fn vkRegisterDisplayEventEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_fence: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkRegisterDisplayEventEXT({:?}, {:?}, {:?}, {:?}, {:?})", device, display, to_reference(p_display_event_info), to_reference(p_allocator), to_reference(p_fence)); }
+    unsafe { trace!("called vkRegisterDisplayEventEXT({:?}, {:?}, {:?}, {:?}, {:?})", device, display, p_display_event_info.as_ref(), p_allocator.as_ref(), p_fence.as_ref()); }
 
     let mut packet = new_packet(1000001238);
     packet.write_shallow(device);
@@ -5322,7 +5322,7 @@ unsafe extern "system" fn vkGetSwapchainCounterEXT(
     counter: vk::SurfaceCounterFlagsEXT,
     p_counter_value: *mut u64,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetSwapchainCounterEXT({:?}, {:?}, {:?}, {:?})", device, swapchain, counter, to_reference(p_counter_value)); }
+    unsafe { trace!("called vkGetSwapchainCounterEXT({:?}, {:?}, {:?}, {:?})", device, swapchain, counter, p_counter_value.as_ref()); }
 
     let mut packet = new_packet(1000001239);
     packet.write_shallow(device);
@@ -5342,7 +5342,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceCapabilities2EXT(
     surface: NonDisposableHandle,
     p_surface_capabilities: *mut VkSurfaceCapabilities2EXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceSurfaceCapabilities2EXT({:?}, {:?}, {:?})", physical_device, surface, to_reference(p_surface_capabilities)); }
+    unsafe { trace!("called vkGetPhysicalDeviceSurfaceCapabilities2EXT({:?}, {:?}, {:?})", physical_device, surface, p_surface_capabilities.as_ref()); }
 
     let mut packet = new_packet(1000001240);
     packet.write_shallow(physical_device);
@@ -5361,7 +5361,7 @@ unsafe extern "system" fn vkEnumeratePhysicalDeviceGroups(
     p_physical_device_group_count: *mut u32,
     p_physical_device_group_properties: *mut VkPhysicalDeviceGroupProperties,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkEnumeratePhysicalDeviceGroups({:?}, {:?}, {:?})", instance, p_physical_device_group_count, to_reference(p_physical_device_group_properties)); }
+    unsafe { trace!("called vkEnumeratePhysicalDeviceGroups({:?}, {:?}, {:?})", instance, p_physical_device_group_count, p_physical_device_group_properties.as_ref()); }
 
     let mut packet = new_packet(1000001241);
     packet.write_shallow(instance);
@@ -5381,7 +5381,7 @@ unsafe extern "system" fn vkGetDeviceGroupPeerMemoryFeatures(
     remote_device_index: u32,
     p_peer_memory_features: *mut NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkGetDeviceGroupPeerMemoryFeatures({:?}, {:?}, {:?}, {:?}, {:?})", device, heap_index, local_device_index, remote_device_index, to_reference(p_peer_memory_features)); }
+    unsafe { trace!("called vkGetDeviceGroupPeerMemoryFeatures({:?}, {:?}, {:?}, {:?}, {:?})", device, heap_index, local_device_index, remote_device_index, p_peer_memory_features.as_ref()); }
 
     let mut packet = new_packet(1000001242);
     packet.write_shallow(device);
@@ -5402,7 +5402,7 @@ unsafe extern "system" fn vkBindBufferMemory2(
     bind_info_count: u32,
     p_bind_infos: *const VkBindBufferMemoryInfo,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkBindBufferMemory2({:?}, {:?}, {:?})", device, bind_info_count, to_reference(p_bind_infos)); }
+    unsafe { trace!("called vkBindBufferMemory2({:?}, {:?}, {:?})", device, bind_info_count, p_bind_infos.as_ref()); }
 
     let mut packet = new_packet(1000001243);
     packet.write_shallow(device);
@@ -5420,7 +5420,7 @@ unsafe extern "system" fn vkBindImageMemory2(
     bind_info_count: u32,
     p_bind_infos: *const VkBindImageMemoryInfo,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkBindImageMemory2({:?}, {:?}, {:?})", device, bind_info_count, to_reference(p_bind_infos)); }
+    unsafe { trace!("called vkBindImageMemory2({:?}, {:?}, {:?})", device, bind_info_count, p_bind_infos.as_ref()); }
 
     let mut packet = new_packet(1000001244);
     packet.write_shallow(device);
@@ -5453,7 +5453,7 @@ unsafe extern "system" fn vkGetDeviceGroupPresentCapabilitiesKHR(
     device: NonDisposableHandle,
     p_device_group_present_capabilities: *mut VkDeviceGroupPresentCapabilitiesKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetDeviceGroupPresentCapabilitiesKHR({:?}, {:?})", device, to_reference(p_device_group_present_capabilities)); }
+    unsafe { trace!("called vkGetDeviceGroupPresentCapabilitiesKHR({:?}, {:?})", device, p_device_group_present_capabilities.as_ref()); }
 
     let mut packet = new_packet(1000001246);
     packet.write_shallow(device);
@@ -5471,7 +5471,7 @@ unsafe extern "system" fn vkGetDeviceGroupSurfacePresentModesKHR(
     surface: NonDisposableHandle,
     p_modes: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetDeviceGroupSurfacePresentModesKHR({:?}, {:?}, {:?})", device, surface, to_reference(p_modes)); }
+    unsafe { trace!("called vkGetDeviceGroupSurfacePresentModesKHR({:?}, {:?}, {:?})", device, surface, p_modes.as_ref()); }
 
     let mut packet = new_packet(1000001247);
     packet.write_shallow(device);
@@ -5490,7 +5490,7 @@ unsafe extern "system" fn vkAcquireNextImage2KHR(
     p_acquire_info: *const VkAcquireNextImageInfoKHR,
     p_image_index: *mut u32,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkAcquireNextImage2KHR({:?}, {:?}, {:?})", device, to_reference(p_acquire_info), to_reference(p_image_index)); }
+    unsafe { trace!("called vkAcquireNextImage2KHR({:?}, {:?}, {:?})", device, p_acquire_info.as_ref(), p_image_index.as_ref()); }
 
     let mut packet = new_packet(1000001248);
     packet.write_shallow(device);
@@ -5536,7 +5536,7 @@ unsafe extern "system" fn vkGetPhysicalDevicePresentRectanglesKHR(
     p_rect_count: *mut u32,
     p_rects: *mut VkRect2D,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDevicePresentRectanglesKHR({:?}, {:?}, {:?}, {:?})", physical_device, surface, p_rect_count, to_reference(p_rects)); }
+    unsafe { trace!("called vkGetPhysicalDevicePresentRectanglesKHR({:?}, {:?}, {:?}, {:?})", physical_device, surface, p_rect_count, p_rects.as_ref()); }
 
     let mut packet = new_packet(1000001250);
     packet.write_shallow(physical_device);
@@ -5556,7 +5556,7 @@ unsafe extern "system" fn vkCreateDescriptorUpdateTemplate(
     p_allocator: *const VkAllocationCallbacks,
     p_descriptor_update_template: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateDescriptorUpdateTemplate({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_descriptor_update_template)); }
+    unsafe { trace!("called vkCreateDescriptorUpdateTemplate({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_descriptor_update_template.as_ref()); }
 
     let mut packet = new_packet(1000001251);
     packet.write_shallow(device);
@@ -5576,7 +5576,7 @@ unsafe extern "system" fn vkDestroyDescriptorUpdateTemplate(
     descriptor_update_template: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyDescriptorUpdateTemplate({:?}, {:?}, {:?})", device, descriptor_update_template, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyDescriptorUpdateTemplate({:?}, {:?}, {:?})", device, descriptor_update_template, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001252);
     packet.write_shallow(device);
@@ -5595,7 +5595,7 @@ unsafe extern "system" fn vkUpdateDescriptorSetWithTemplate(
     descriptor_update_template: NonDisposableHandle,
     p_data: *const c_void,
 ) -> c_void {
-    unsafe { trace!("called vkUpdateDescriptorSetWithTemplate({:?}, {:?}, {:?}, {:?})", device, descriptor_set, descriptor_update_template, to_reference(p_data)); }
+    unsafe { trace!("called vkUpdateDescriptorSetWithTemplate({:?}, {:?}, {:?}, {:?})", device, descriptor_set, descriptor_update_template, p_data.as_ref()); }
 
     let mut packet = new_packet(1000001253);
     packet.write_shallow(device);
@@ -5616,7 +5616,7 @@ unsafe extern "system" fn vkCmdPushDescriptorSetWithTemplateKHR(
     set: u32,
     p_data: *const c_void,
 ) -> c_void {
-    unsafe { trace!("called vkCmdPushDescriptorSetWithTemplateKHR({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, descriptor_update_template, layout, set, to_reference(p_data)); }
+    unsafe { trace!("called vkCmdPushDescriptorSetWithTemplateKHR({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, descriptor_update_template, layout, set, p_data.as_ref()); }
 
     let mut packet = new_packet(1000001254);
     packet.write_shallow(command_buffer);
@@ -5637,7 +5637,7 @@ unsafe extern "system" fn vkSetHdrMetadataEXT(
     p_swapchains: *const NonDisposableHandle,
     p_metadata: *const VkHdrMetadataEXT,
 ) -> c_void {
-    unsafe { trace!("called vkSetHdrMetadataEXT({:?}, {:?}, {:?}, {:?})", device, swapchain_count, to_reference(p_swapchains), to_reference(p_metadata)); }
+    unsafe { trace!("called vkSetHdrMetadataEXT({:?}, {:?}, {:?}, {:?})", device, swapchain_count, p_swapchains.as_ref(), p_metadata.as_ref()); }
 
     let mut packet = new_packet(1000001255);
     packet.write_shallow(device);
@@ -5672,7 +5672,7 @@ unsafe extern "system" fn vkGetRefreshCycleDurationGOOGLE(
     swapchain: NonDisposableHandle,
     p_display_timing_properties: *mut VkRefreshCycleDurationGOOGLE,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetRefreshCycleDurationGOOGLE({:?}, {:?}, {:?})", device, swapchain, to_reference(p_display_timing_properties)); }
+    unsafe { trace!("called vkGetRefreshCycleDurationGOOGLE({:?}, {:?}, {:?})", device, swapchain, p_display_timing_properties.as_ref()); }
 
     let mut packet = new_packet(1000001257);
     packet.write_shallow(device);
@@ -5692,7 +5692,7 @@ unsafe extern "system" fn vkGetPastPresentationTimingGOOGLE(
     p_presentation_timing_count: *mut u32,
     p_presentation_timings: *mut VkPastPresentationTimingGOOGLE,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPastPresentationTimingGOOGLE({:?}, {:?}, {:?}, {:?})", device, swapchain, p_presentation_timing_count, to_reference(p_presentation_timings)); }
+    unsafe { trace!("called vkGetPastPresentationTimingGOOGLE({:?}, {:?}, {:?}, {:?})", device, swapchain, p_presentation_timing_count, p_presentation_timings.as_ref()); }
 
     let mut packet = new_packet(1000001258);
     packet.write_shallow(device);
@@ -5712,7 +5712,7 @@ unsafe extern "system" fn vkCreateIOSSurfaceMVK(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateIOSSurfaceMVK({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateIOSSurfaceMVK({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001259);
     packet.write_shallow(instance);
@@ -5733,7 +5733,7 @@ unsafe extern "system" fn vkCreateMacOSSurfaceMVK(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateMacOSSurfaceMVK({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateMacOSSurfaceMVK({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001260);
     packet.write_shallow(instance);
@@ -5754,7 +5754,7 @@ unsafe extern "system" fn vkCreateMetalSurfaceEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateMetalSurfaceEXT({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateMetalSurfaceEXT({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001261);
     packet.write_shallow(instance);
@@ -5775,7 +5775,7 @@ unsafe extern "system" fn vkCmdSetViewportWScalingNV(
     viewport_count: u32,
     p_viewport_wscalings: *const VkViewportWScalingNV,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetViewportWScalingNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, to_reference(p_viewport_wscalings)); }
+    unsafe { trace!("called vkCmdSetViewportWScalingNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, p_viewport_wscalings.as_ref()); }
 
     let mut packet = new_packet(1000001262);
     packet.write_shallow(command_buffer);
@@ -5795,7 +5795,7 @@ unsafe extern "system" fn vkCmdSetDiscardRectangleEXT(
     discard_rectangle_count: u32,
     p_discard_rectangles: *const VkRect2D,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetDiscardRectangleEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_discard_rectangle, discard_rectangle_count, to_reference(p_discard_rectangles)); }
+    unsafe { trace!("called vkCmdSetDiscardRectangleEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_discard_rectangle, discard_rectangle_count, p_discard_rectangles.as_ref()); }
 
     let mut packet = new_packet(1000001263);
     packet.write_shallow(command_buffer);
@@ -5845,7 +5845,7 @@ unsafe extern "system" fn vkCmdSetSampleLocationsEXT(
     command_buffer: NonDisposableHandle,
     p_sample_locations_info: *const VkSampleLocationsInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetSampleLocationsEXT({:?}, {:?})", command_buffer, to_reference(p_sample_locations_info)); }
+    unsafe { trace!("called vkCmdSetSampleLocationsEXT({:?}, {:?})", command_buffer, p_sample_locations_info.as_ref()); }
 
     let mut packet = new_packet(1000001266);
     packet.write_shallow(command_buffer);
@@ -5862,7 +5862,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceMultisamplePropertiesEXT(
     samples: vk::SampleCountFlags,
     p_multisample_properties: *mut VkMultisamplePropertiesEXT,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceMultisamplePropertiesEXT({:?}, {:?}, {:?})", physical_device, samples, to_reference(p_multisample_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceMultisamplePropertiesEXT({:?}, {:?}, {:?})", physical_device, samples, p_multisample_properties.as_ref()); }
 
     let mut packet = new_packet(1000001267);
     packet.write_shallow(physical_device);
@@ -5881,7 +5881,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceCapabilities2KHR(
     p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR,
     p_surface_capabilities: *mut VkSurfaceCapabilities2KHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceSurfaceCapabilities2KHR({:?}, {:?}, {:?})", physical_device, to_reference(p_surface_info), to_reference(p_surface_capabilities)); }
+    unsafe { trace!("called vkGetPhysicalDeviceSurfaceCapabilities2KHR({:?}, {:?}, {:?})", physical_device, p_surface_info.as_ref(), p_surface_capabilities.as_ref()); }
 
     let mut packet = new_packet(1000001268);
     packet.write_shallow(physical_device);
@@ -5901,7 +5901,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceFormats2KHR(
     p_surface_format_count: *mut u32,
     p_surface_formats: *mut VkSurfaceFormat2KHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceSurfaceFormats2KHR({:?}, {:?}, {:?}, {:?})", physical_device, to_reference(p_surface_info), p_surface_format_count, to_reference(p_surface_formats)); }
+    unsafe { trace!("called vkGetPhysicalDeviceSurfaceFormats2KHR({:?}, {:?}, {:?}, {:?})", physical_device, p_surface_info.as_ref(), p_surface_format_count, p_surface_formats.as_ref()); }
 
     let mut packet = new_packet(1000001269);
     packet.write_shallow(physical_device);
@@ -5920,7 +5920,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceDisplayProperties2KHR(
     p_property_count: *mut u32,
     p_properties: *mut VkDisplayProperties2KHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceDisplayProperties2KHR({:?}, {:?}, {:?})", physical_device, p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceDisplayProperties2KHR({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001270);
     packet.write_shallow(physical_device);
@@ -5938,7 +5938,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
     p_property_count: *mut u32,
     p_properties: *mut VkDisplayPlaneProperties2KHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceDisplayPlaneProperties2KHR({:?}, {:?}, {:?})", physical_device, p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceDisplayPlaneProperties2KHR({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001271);
     packet.write_shallow(physical_device);
@@ -5957,7 +5957,7 @@ unsafe extern "system" fn vkGetDisplayModeProperties2KHR(
     p_property_count: *mut u32,
     p_properties: *mut VkDisplayModeProperties2KHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetDisplayModeProperties2KHR({:?}, {:?}, {:?}, {:?})", physical_device, display, p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetDisplayModeProperties2KHR({:?}, {:?}, {:?}, {:?})", physical_device, display, p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001272);
     packet.write_shallow(physical_device);
@@ -5976,7 +5976,7 @@ unsafe extern "system" fn vkGetDisplayPlaneCapabilities2KHR(
     p_display_plane_info: *const VkDisplayPlaneInfo2KHR,
     p_capabilities: *mut VkDisplayPlaneCapabilities2KHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetDisplayPlaneCapabilities2KHR({:?}, {:?}, {:?})", physical_device, to_reference(p_display_plane_info), to_reference(p_capabilities)); }
+    unsafe { trace!("called vkGetDisplayPlaneCapabilities2KHR({:?}, {:?}, {:?})", physical_device, p_display_plane_info.as_ref(), p_capabilities.as_ref()); }
 
     let mut packet = new_packet(1000001273);
     packet.write_shallow(physical_device);
@@ -5995,7 +5995,7 @@ unsafe extern "system" fn vkGetBufferMemoryRequirements2(
     p_info: *const VkBufferMemoryRequirementsInfo2,
     p_memory_requirements: *mut VkMemoryRequirements2,
 ) -> c_void {
-    unsafe { trace!("called vkGetBufferMemoryRequirements2({:?}, {:?}, {:?})", device, to_reference(p_info), to_reference(p_memory_requirements)); }
+    unsafe { trace!("called vkGetBufferMemoryRequirements2({:?}, {:?}, {:?})", device, p_info.as_ref(), p_memory_requirements.as_ref()); }
 
     let mut packet = new_packet(1000001274);
     packet.write_shallow(device);
@@ -6014,7 +6014,7 @@ unsafe extern "system" fn vkGetImageMemoryRequirements2(
     p_info: *const VkImageMemoryRequirementsInfo2,
     p_memory_requirements: *mut VkMemoryRequirements2,
 ) -> c_void {
-    unsafe { trace!("called vkGetImageMemoryRequirements2({:?}, {:?}, {:?})", device, to_reference(p_info), to_reference(p_memory_requirements)); }
+    unsafe { trace!("called vkGetImageMemoryRequirements2({:?}, {:?}, {:?})", device, p_info.as_ref(), p_memory_requirements.as_ref()); }
 
     let mut packet = new_packet(1000001275);
     packet.write_shallow(device);
@@ -6034,7 +6034,7 @@ unsafe extern "system" fn vkGetImageSparseMemoryRequirements2(
     p_sparse_memory_requirement_count: *mut u32,
     p_sparse_memory_requirements: *mut VkSparseImageMemoryRequirements2,
 ) -> c_void {
-    unsafe { trace!("called vkGetImageSparseMemoryRequirements2({:?}, {:?}, {:?}, {:?})", device, to_reference(p_info), p_sparse_memory_requirement_count, to_reference(p_sparse_memory_requirements)); }
+    unsafe { trace!("called vkGetImageSparseMemoryRequirements2({:?}, {:?}, {:?}, {:?})", device, p_info.as_ref(), p_sparse_memory_requirement_count, p_sparse_memory_requirements.as_ref()); }
 
     let mut packet = new_packet(1000001276);
     packet.write_shallow(device);
@@ -6053,7 +6053,7 @@ unsafe extern "system" fn vkGetDeviceBufferMemoryRequirements(
     p_info: *const VkDeviceBufferMemoryRequirements,
     p_memory_requirements: *mut VkMemoryRequirements2,
 ) -> c_void {
-    unsafe { trace!("called vkGetDeviceBufferMemoryRequirements({:?}, {:?}, {:?})", device, to_reference(p_info), to_reference(p_memory_requirements)); }
+    unsafe { trace!("called vkGetDeviceBufferMemoryRequirements({:?}, {:?}, {:?})", device, p_info.as_ref(), p_memory_requirements.as_ref()); }
 
     let mut packet = new_packet(1000001277);
     packet.write_shallow(device);
@@ -6072,7 +6072,7 @@ unsafe extern "system" fn vkGetDeviceImageMemoryRequirements(
     p_info: *const VkDeviceImageMemoryRequirements,
     p_memory_requirements: *mut VkMemoryRequirements2,
 ) -> c_void {
-    unsafe { trace!("called vkGetDeviceImageMemoryRequirements({:?}, {:?}, {:?})", device, to_reference(p_info), to_reference(p_memory_requirements)); }
+    unsafe { trace!("called vkGetDeviceImageMemoryRequirements({:?}, {:?}, {:?})", device, p_info.as_ref(), p_memory_requirements.as_ref()); }
 
     let mut packet = new_packet(1000001278);
     packet.write_shallow(device);
@@ -6092,7 +6092,7 @@ unsafe extern "system" fn vkGetDeviceImageSparseMemoryRequirements(
     p_sparse_memory_requirement_count: *mut u32,
     p_sparse_memory_requirements: *mut VkSparseImageMemoryRequirements2,
 ) -> c_void {
-    unsafe { trace!("called vkGetDeviceImageSparseMemoryRequirements({:?}, {:?}, {:?}, {:?})", device, to_reference(p_info), p_sparse_memory_requirement_count, to_reference(p_sparse_memory_requirements)); }
+    unsafe { trace!("called vkGetDeviceImageSparseMemoryRequirements({:?}, {:?}, {:?}, {:?})", device, p_info.as_ref(), p_sparse_memory_requirement_count, p_sparse_memory_requirements.as_ref()); }
 
     let mut packet = new_packet(1000001279);
     packet.write_shallow(device);
@@ -6112,7 +6112,7 @@ unsafe extern "system" fn vkCreateSamplerYcbcrConversion(
     p_allocator: *const VkAllocationCallbacks,
     p_ycbcr_conversion: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateSamplerYcbcrConversion({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_ycbcr_conversion)); }
+    unsafe { trace!("called vkCreateSamplerYcbcrConversion({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_ycbcr_conversion.as_ref()); }
 
     let mut packet = new_packet(1000001280);
     packet.write_shallow(device);
@@ -6132,7 +6132,7 @@ unsafe extern "system" fn vkDestroySamplerYcbcrConversion(
     ycbcr_conversion: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroySamplerYcbcrConversion({:?}, {:?}, {:?})", device, ycbcr_conversion, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroySamplerYcbcrConversion({:?}, {:?}, {:?})", device, ycbcr_conversion, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001281);
     packet.write_shallow(device);
@@ -6150,7 +6150,7 @@ unsafe extern "system" fn vkGetDeviceQueue2(
     p_queue_info: *const VkDeviceQueueInfo2,
     p_queue: *mut NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkGetDeviceQueue2({:?}, {:?}, {:?})", device, to_reference(p_queue_info), to_reference(p_queue)); }
+    unsafe { trace!("called vkGetDeviceQueue2({:?}, {:?}, {:?})", device, p_queue_info.as_ref(), p_queue.as_ref()); }
 
     let mut packet = new_packet(1000001282);
     packet.write_shallow(device);
@@ -6170,7 +6170,7 @@ unsafe extern "system" fn vkCreateValidationCacheEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_validation_cache: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateValidationCacheEXT({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_validation_cache)); }
+    unsafe { trace!("called vkCreateValidationCacheEXT({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_validation_cache.as_ref()); }
 
     let mut packet = new_packet(1000001283);
     packet.write_shallow(device);
@@ -6190,7 +6190,7 @@ unsafe extern "system" fn vkDestroyValidationCacheEXT(
     validation_cache: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyValidationCacheEXT({:?}, {:?}, {:?})", device, validation_cache, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyValidationCacheEXT({:?}, {:?}, {:?})", device, validation_cache, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001284);
     packet.write_shallow(device);
@@ -6209,7 +6209,7 @@ unsafe extern "system" fn vkGetValidationCacheDataEXT(
     p_data_size: *mut usize,
     p_data: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetValidationCacheDataEXT({:?}, {:?}, {:?}, {:?})", device, validation_cache, to_reference(p_data_size), to_reference(p_data)); }
+    unsafe { trace!("called vkGetValidationCacheDataEXT({:?}, {:?}, {:?}, {:?})", device, validation_cache, p_data_size.as_ref(), p_data.as_ref()); }
 
     let mut packet = new_packet(1000001285);
     packet.write_shallow(device);
@@ -6231,7 +6231,7 @@ unsafe extern "system" fn vkMergeValidationCachesEXT(
     src_cache_count: u32,
     p_src_caches: *const NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkMergeValidationCachesEXT({:?}, {:?}, {:?}, {:?})", device, dst_cache, src_cache_count, to_reference(p_src_caches)); }
+    unsafe { trace!("called vkMergeValidationCachesEXT({:?}, {:?}, {:?}, {:?})", device, dst_cache, src_cache_count, p_src_caches.as_ref()); }
 
     let mut packet = new_packet(1000001286);
     packet.write_shallow(device);
@@ -6250,7 +6250,7 @@ unsafe extern "system" fn vkGetDescriptorSetLayoutSupport(
     p_create_info: *const VkDescriptorSetLayoutCreateInfo,
     p_support: *mut VkDescriptorSetLayoutSupport,
 ) -> c_void {
-    unsafe { trace!("called vkGetDescriptorSetLayoutSupport({:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_support)); }
+    unsafe { trace!("called vkGetDescriptorSetLayoutSupport({:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_support.as_ref()); }
 
     let mut packet = new_packet(1000001287);
     packet.write_shallow(device);
@@ -6270,7 +6270,7 @@ unsafe extern "system" fn vkGetSwapchainGrallocUsageANDROID(
     image_usage: NonDisposableHandle,
     gralloc_usage: *mut std::os::raw::c_int,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetSwapchainGrallocUsageANDROID({:?}, {:?}, {:?}, {:?})", device, format, image_usage, to_reference(gralloc_usage)); }
+    unsafe { trace!("called vkGetSwapchainGrallocUsageANDROID({:?}, {:?}, {:?}, {:?})", device, format, image_usage, gralloc_usage.as_ref()); }
 
     let mut packet = new_packet(1000001288);
     packet.write_shallow(device);
@@ -6293,7 +6293,7 @@ unsafe extern "system" fn vkGetSwapchainGrallocUsage2ANDROID(
     gralloc_consumer_usage: *mut u64,
     gralloc_producer_usage: *mut u64,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetSwapchainGrallocUsage2ANDROID({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, format, image_usage, swapchain_image_usage, to_reference(gralloc_consumer_usage), to_reference(gralloc_producer_usage)); }
+    unsafe { trace!("called vkGetSwapchainGrallocUsage2ANDROID({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, format, image_usage, swapchain_image_usage, gralloc_consumer_usage.as_ref(), gralloc_producer_usage.as_ref()); }
 
     let mut packet = new_packet(1000001289);
     packet.write_shallow(device);
@@ -6340,7 +6340,7 @@ unsafe extern "system" fn vkQueueSignalReleaseImageANDROID(
     image: NonDisposableHandle,
     p_native_fence_fd: *mut std::os::raw::c_int,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkQueueSignalReleaseImageANDROID({:?}, {:?}, {:?}, {:?}, {:?})", queue, wait_semaphore_count, to_reference(p_wait_semaphores), image, to_reference(p_native_fence_fd)); }
+    unsafe { trace!("called vkQueueSignalReleaseImageANDROID({:?}, {:?}, {:?}, {:?}, {:?})", queue, wait_semaphore_count, p_wait_semaphores.as_ref(), image, p_native_fence_fd.as_ref()); }
 
     let mut packet = new_packet(1000001291);
     packet.write_shallow(queue);
@@ -6364,7 +6364,7 @@ unsafe extern "system" fn vkGetShaderInfoAMD(
     p_info_size: *mut usize,
     p_info: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetShaderInfoAMD({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline, shader_stage, info_type, to_reference(p_info_size), to_reference(p_info)); }
+    unsafe { trace!("called vkGetShaderInfoAMD({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline, shader_stage, info_type, p_info_size.as_ref(), p_info.as_ref()); }
 
     let mut packet = new_packet(1000001292);
     packet.write_shallow(device);
@@ -6405,7 +6405,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
     p_time_domain_count: *mut u32,
     p_time_domains: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceCalibrateableTimeDomainsKHR({:?}, {:?}, {:?})", physical_device, p_time_domain_count, to_reference(p_time_domains)); }
+    unsafe { trace!("called vkGetPhysicalDeviceCalibrateableTimeDomainsKHR({:?}, {:?}, {:?})", physical_device, p_time_domain_count, p_time_domains.as_ref()); }
 
     let mut packet = new_packet(1000001294);
     packet.write_shallow(physical_device);
@@ -6425,7 +6425,7 @@ unsafe extern "system" fn vkGetCalibratedTimestampsKHR(
     p_timestamps: *mut u64,
     p_max_deviation: *mut u64,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetCalibratedTimestampsKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, timestamp_count, to_reference(p_timestamp_infos), to_reference(p_timestamps), to_reference(p_max_deviation)); }
+    unsafe { trace!("called vkGetCalibratedTimestampsKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, timestamp_count, p_timestamp_infos.as_ref(), p_timestamps.as_ref(), p_max_deviation.as_ref()); }
 
     let mut packet = new_packet(1000001295);
     packet.write_shallow(device);
@@ -6446,7 +6446,7 @@ unsafe extern "system" fn vkSetDebugUtilsObjectNameEXT(
     device: NonDisposableHandle,
     p_name_info: *const VkDebugUtilsObjectNameInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkSetDebugUtilsObjectNameEXT({:?}, {:?})", device, to_reference(p_name_info)); }
+    unsafe { trace!("called vkSetDebugUtilsObjectNameEXT({:?}, {:?})", device, p_name_info.as_ref()); }
 
     let mut packet = new_packet(1000001296);
     packet.write_shallow(device);
@@ -6462,7 +6462,7 @@ unsafe extern "system" fn vkSetDebugUtilsObjectTagEXT(
     device: NonDisposableHandle,
     p_tag_info: *const VkDebugUtilsObjectTagInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkSetDebugUtilsObjectTagEXT({:?}, {:?})", device, to_reference(p_tag_info)); }
+    unsafe { trace!("called vkSetDebugUtilsObjectTagEXT({:?}, {:?})", device, p_tag_info.as_ref()); }
 
     let mut packet = new_packet(1000001297);
     packet.write_shallow(device);
@@ -6478,7 +6478,7 @@ unsafe extern "system" fn vkQueueBeginDebugUtilsLabelEXT(
     queue: NonDisposableHandle,
     p_label_info: *const VkDebugUtilsLabelEXT,
 ) -> c_void {
-    unsafe { trace!("called vkQueueBeginDebugUtilsLabelEXT({:?}, {:?})", queue, to_reference(p_label_info)); }
+    unsafe { trace!("called vkQueueBeginDebugUtilsLabelEXT({:?}, {:?})", queue, p_label_info.as_ref()); }
 
     let mut packet = new_packet(1000001298);
     packet.write_shallow(queue);
@@ -6508,7 +6508,7 @@ unsafe extern "system" fn vkQueueInsertDebugUtilsLabelEXT(
     queue: NonDisposableHandle,
     p_label_info: *const VkDebugUtilsLabelEXT,
 ) -> c_void {
-    unsafe { trace!("called vkQueueInsertDebugUtilsLabelEXT({:?}, {:?})", queue, to_reference(p_label_info)); }
+    unsafe { trace!("called vkQueueInsertDebugUtilsLabelEXT({:?}, {:?})", queue, p_label_info.as_ref()); }
 
     let mut packet = new_packet(1000001300);
     packet.write_shallow(queue);
@@ -6524,7 +6524,7 @@ unsafe extern "system" fn vkCmdBeginDebugUtilsLabelEXT(
     command_buffer: NonDisposableHandle,
     p_label_info: *const VkDebugUtilsLabelEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBeginDebugUtilsLabelEXT({:?}, {:?})", command_buffer, to_reference(p_label_info)); }
+    unsafe { trace!("called vkCmdBeginDebugUtilsLabelEXT({:?}, {:?})", command_buffer, p_label_info.as_ref()); }
 
     let mut packet = new_packet(1000001301);
     packet.write_shallow(command_buffer);
@@ -6554,7 +6554,7 @@ unsafe extern "system" fn vkCmdInsertDebugUtilsLabelEXT(
     command_buffer: NonDisposableHandle,
     p_label_info: *const VkDebugUtilsLabelEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdInsertDebugUtilsLabelEXT({:?}, {:?})", command_buffer, to_reference(p_label_info)); }
+    unsafe { trace!("called vkCmdInsertDebugUtilsLabelEXT({:?}, {:?})", command_buffer, p_label_info.as_ref()); }
 
     let mut packet = new_packet(1000001303);
     packet.write_shallow(command_buffer);
@@ -6572,7 +6572,7 @@ unsafe extern "system" fn vkCreateDebugUtilsMessengerEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_messenger: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateDebugUtilsMessengerEXT({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_messenger)); }
+    unsafe { trace!("called vkCreateDebugUtilsMessengerEXT({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_messenger.as_ref()); }
 
     let mut packet = new_packet(1000001304);
     packet.write_shallow(instance);
@@ -6592,7 +6592,7 @@ unsafe extern "system" fn vkDestroyDebugUtilsMessengerEXT(
     messenger: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyDebugUtilsMessengerEXT({:?}, {:?}, {:?})", instance, messenger, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyDebugUtilsMessengerEXT({:?}, {:?}, {:?})", instance, messenger, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001305);
     packet.write_shallow(instance);
@@ -6611,7 +6611,7 @@ unsafe extern "system" fn vkSubmitDebugUtilsMessageEXT(
     message_types: NonDisposableHandle,
     p_callback_data: *const VkDebugUtilsMessengerCallbackDataEXT,
 ) -> c_void {
-    unsafe { trace!("called vkSubmitDebugUtilsMessageEXT({:?}, {:?}, {:?}, {:?})", instance, message_severity, message_types, to_reference(p_callback_data)); }
+    unsafe { trace!("called vkSubmitDebugUtilsMessageEXT({:?}, {:?}, {:?}, {:?})", instance, message_severity, message_types, p_callback_data.as_ref()); }
 
     let mut packet = new_packet(1000001306);
     packet.write_shallow(instance);
@@ -6631,7 +6631,7 @@ unsafe extern "system" fn vkGetMemoryHostPointerPropertiesEXT(
     p_host_pointer: *const c_void,
     p_memory_host_pointer_properties: *mut VkMemoryHostPointerPropertiesEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetMemoryHostPointerPropertiesEXT({:?}, {:?}, {:?}, {:?})", device, handle_type, to_reference(p_host_pointer), to_reference(p_memory_host_pointer_properties)); }
+    unsafe { trace!("called vkGetMemoryHostPointerPropertiesEXT({:?}, {:?}, {:?}, {:?})", device, handle_type, p_host_pointer.as_ref(), p_memory_host_pointer_properties.as_ref()); }
 
     let mut packet = new_packet(1000001307);
     packet.write_shallow(device);
@@ -6674,7 +6674,7 @@ unsafe extern "system" fn vkCreateRenderPass2(
     p_allocator: *const VkAllocationCallbacks,
     p_render_pass: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateRenderPass2({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_render_pass)); }
+    unsafe { trace!("called vkCreateRenderPass2({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_render_pass.as_ref()); }
 
     let mut packet = new_packet(1000001309);
     packet.write_shallow(device);
@@ -6694,7 +6694,7 @@ unsafe extern "system" fn vkCmdBeginRenderPass2(
     p_render_pass_begin: *const VkRenderPassBeginInfo,
     p_subpass_begin_info: *const VkSubpassBeginInfo,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBeginRenderPass2({:?}, {:?}, {:?})", command_buffer, to_reference(p_render_pass_begin), to_reference(p_subpass_begin_info)); }
+    unsafe { trace!("called vkCmdBeginRenderPass2({:?}, {:?}, {:?})", command_buffer, p_render_pass_begin.as_ref(), p_subpass_begin_info.as_ref()); }
 
     let mut packet = new_packet(1000001310);
     packet.write_shallow(command_buffer);
@@ -6712,7 +6712,7 @@ unsafe extern "system" fn vkCmdNextSubpass2(
     p_subpass_begin_info: *const VkSubpassBeginInfo,
     p_subpass_end_info: *const VkSubpassEndInfo,
 ) -> c_void {
-    unsafe { trace!("called vkCmdNextSubpass2({:?}, {:?}, {:?})", command_buffer, to_reference(p_subpass_begin_info), to_reference(p_subpass_end_info)); }
+    unsafe { trace!("called vkCmdNextSubpass2({:?}, {:?}, {:?})", command_buffer, p_subpass_begin_info.as_ref(), p_subpass_end_info.as_ref()); }
 
     let mut packet = new_packet(1000001311);
     packet.write_shallow(command_buffer);
@@ -6729,7 +6729,7 @@ unsafe extern "system" fn vkCmdEndRenderPass2(
     command_buffer: NonDisposableHandle,
     p_subpass_end_info: *const VkSubpassEndInfo,
 ) -> c_void {
-    unsafe { trace!("called vkCmdEndRenderPass2({:?}, {:?})", command_buffer, to_reference(p_subpass_end_info)); }
+    unsafe { trace!("called vkCmdEndRenderPass2({:?}, {:?})", command_buffer, p_subpass_end_info.as_ref()); }
 
     let mut packet = new_packet(1000001312);
     packet.write_shallow(command_buffer);
@@ -6746,7 +6746,7 @@ unsafe extern "system" fn vkGetSemaphoreCounterValue(
     semaphore: NonDisposableHandle,
     p_value: *mut u64,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetSemaphoreCounterValue({:?}, {:?}, {:?})", device, semaphore, to_reference(p_value)); }
+    unsafe { trace!("called vkGetSemaphoreCounterValue({:?}, {:?}, {:?})", device, semaphore, p_value.as_ref()); }
 
     let mut packet = new_packet(1000001313);
     packet.write_shallow(device);
@@ -6765,7 +6765,7 @@ unsafe extern "system" fn vkWaitSemaphores(
     p_wait_info: *const VkSemaphoreWaitInfo,
     timeout: u64,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkWaitSemaphores({:?}, {:?}, {:?})", device, to_reference(p_wait_info), timeout); }
+    unsafe { trace!("called vkWaitSemaphores({:?}, {:?}, {:?})", device, p_wait_info.as_ref(), timeout); }
 
     let mut packet = new_packet(1000001314);
     packet.write_shallow(device);
@@ -6782,7 +6782,7 @@ unsafe extern "system" fn vkSignalSemaphore(
     device: NonDisposableHandle,
     p_signal_info: *const VkSemaphoreSignalInfo,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkSignalSemaphore({:?}, {:?})", device, to_reference(p_signal_info)); }
+    unsafe { trace!("called vkSignalSemaphore({:?}, {:?})", device, p_signal_info.as_ref()); }
 
     let mut packet = new_packet(1000001315);
     packet.write_shallow(device);
@@ -6799,7 +6799,7 @@ unsafe extern "system" fn vkGetAndroidHardwareBufferPropertiesANDROID(
     buffer: *const usize,
     p_properties: *mut VkAndroidHardwareBufferPropertiesANDROID,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetAndroidHardwareBufferPropertiesANDROID({:?}, {:?}, {:?})", device, to_reference(buffer), to_reference(p_properties)); }
+    unsafe { trace!("called vkGetAndroidHardwareBufferPropertiesANDROID({:?}, {:?}, {:?})", device, buffer.as_ref(), p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001316);
     packet.write_shallow(device);
@@ -6818,7 +6818,7 @@ unsafe extern "system" fn vkGetMemoryAndroidHardwareBufferANDROID(
     p_info: *const VkMemoryGetAndroidHardwareBufferInfoANDROID,
     p_buffer: *mut *mut usize,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetMemoryAndroidHardwareBufferANDROID({:?}, {:?}, {:?})", device, to_reference(p_info), to_reference(p_buffer)); }
+    unsafe { trace!("called vkGetMemoryAndroidHardwareBufferANDROID({:?}, {:?}, {:?})", device, p_info.as_ref(), p_buffer.as_ref()); }
 
     let mut packet = new_packet(1000001317);
     packet.write_shallow(device);
@@ -6888,7 +6888,7 @@ unsafe extern "system" fn vkCmdSetCheckpointNV(
     command_buffer: NonDisposableHandle,
     p_checkpoint_marker: *const c_void,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetCheckpointNV({:?}, {:?})", command_buffer, to_reference(p_checkpoint_marker)); }
+    unsafe { trace!("called vkCmdSetCheckpointNV({:?}, {:?})", command_buffer, p_checkpoint_marker.as_ref()); }
 
     let mut packet = new_packet(1000001320);
     packet.write_shallow(command_buffer);
@@ -6905,7 +6905,7 @@ unsafe extern "system" fn vkGetQueueCheckpointDataNV(
     p_checkpoint_data_count: *mut u32,
     p_checkpoint_data: *mut VkCheckpointDataNV,
 ) -> c_void {
-    unsafe { trace!("called vkGetQueueCheckpointDataNV({:?}, {:?}, {:?})", queue, p_checkpoint_data_count, to_reference(p_checkpoint_data)); }
+    unsafe { trace!("called vkGetQueueCheckpointDataNV({:?}, {:?}, {:?})", queue, p_checkpoint_data_count, p_checkpoint_data.as_ref()); }
 
     let mut packet = new_packet(1000001321);
     packet.write_shallow(queue);
@@ -6926,7 +6926,7 @@ unsafe extern "system" fn vkCmdBindTransformFeedbackBuffersEXT(
     p_offsets: *const NonDisposableHandle,
     p_sizes: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBindTransformFeedbackBuffersEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_binding, binding_count, to_reference(p_buffers), to_reference(p_offsets), to_reference(p_sizes)); }
+    unsafe { trace!("called vkCmdBindTransformFeedbackBuffersEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_binding, binding_count, p_buffers.as_ref(), p_offsets.as_ref(), p_sizes.as_ref()); }
 
     let mut packet = new_packet(1000001322);
     packet.write_shallow(command_buffer);
@@ -6949,7 +6949,7 @@ unsafe extern "system" fn vkCmdBeginTransformFeedbackEXT(
     p_counter_buffers: *const NonDisposableHandle,
     p_counter_buffer_offsets: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBeginTransformFeedbackEXT({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_counter_buffer, counter_buffer_count, to_reference(p_counter_buffers), to_reference(p_counter_buffer_offsets)); }
+    unsafe { trace!("called vkCmdBeginTransformFeedbackEXT({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_counter_buffer, counter_buffer_count, p_counter_buffers.as_ref(), p_counter_buffer_offsets.as_ref()); }
 
     let mut packet = new_packet(1000001323);
     packet.write_shallow(command_buffer);
@@ -6971,7 +6971,7 @@ unsafe extern "system" fn vkCmdEndTransformFeedbackEXT(
     p_counter_buffers: *const NonDisposableHandle,
     p_counter_buffer_offsets: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdEndTransformFeedbackEXT({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_counter_buffer, counter_buffer_count, to_reference(p_counter_buffers), to_reference(p_counter_buffer_offsets)); }
+    unsafe { trace!("called vkCmdEndTransformFeedbackEXT({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_counter_buffer, counter_buffer_count, p_counter_buffers.as_ref(), p_counter_buffer_offsets.as_ref()); }
 
     let mut packet = new_packet(1000001324);
     packet.write_shallow(command_buffer);
@@ -7060,7 +7060,7 @@ unsafe extern "system" fn vkCmdSetExclusiveScissorNV(
     exclusive_scissor_count: u32,
     p_exclusive_scissors: *const VkRect2D,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetExclusiveScissorNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_exclusive_scissor, exclusive_scissor_count, to_reference(p_exclusive_scissors)); }
+    unsafe { trace!("called vkCmdSetExclusiveScissorNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_exclusive_scissor, exclusive_scissor_count, p_exclusive_scissors.as_ref()); }
 
     let mut packet = new_packet(1000001328);
     packet.write_shallow(command_buffer);
@@ -7080,7 +7080,7 @@ unsafe extern "system" fn vkCmdSetExclusiveScissorEnableNV(
     exclusive_scissor_count: u32,
     p_exclusive_scissor_enables: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetExclusiveScissorEnableNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_exclusive_scissor, exclusive_scissor_count, to_reference(p_exclusive_scissor_enables)); }
+    unsafe { trace!("called vkCmdSetExclusiveScissorEnableNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_exclusive_scissor, exclusive_scissor_count, p_exclusive_scissor_enables.as_ref()); }
 
     let mut packet = new_packet(1000001329);
     packet.write_shallow(command_buffer);
@@ -7118,7 +7118,7 @@ unsafe extern "system" fn vkCmdSetViewportShadingRatePaletteNV(
     viewport_count: u32,
     p_shading_rate_palettes: *const VkShadingRatePaletteNV,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetViewportShadingRatePaletteNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, to_reference(p_shading_rate_palettes)); }
+    unsafe { trace!("called vkCmdSetViewportShadingRatePaletteNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, p_shading_rate_palettes.as_ref()); }
 
     let mut packet = new_packet(1000001331);
     packet.write_shallow(command_buffer);
@@ -7138,7 +7138,7 @@ unsafe extern "system" fn vkCmdSetCoarseSampleOrderNV(
     custom_sample_order_count: u32,
     p_custom_sample_orders: *const VkCoarseSampleOrderCustomNV,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetCoarseSampleOrderNV({:?}, {:?}, {:?}, {:?})", command_buffer, sample_order_type, custom_sample_order_count, to_reference(p_custom_sample_orders)); }
+    unsafe { trace!("called vkCmdSetCoarseSampleOrderNV({:?}, {:?}, {:?}, {:?})", command_buffer, sample_order_type, custom_sample_order_count, p_custom_sample_orders.as_ref()); }
 
     let mut packet = new_packet(1000001332);
     packet.write_shallow(command_buffer);
@@ -7310,7 +7310,7 @@ unsafe extern "system" fn vkCreateAccelerationStructureNV(
     p_allocator: *const VkAllocationCallbacks,
     p_acceleration_structure: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateAccelerationStructureNV({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_acceleration_structure)); }
+    unsafe { trace!("called vkCreateAccelerationStructureNV({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_acceleration_structure.as_ref()); }
 
     let mut packet = new_packet(1000001340);
     packet.write_shallow(device);
@@ -7348,7 +7348,7 @@ unsafe extern "system" fn vkDestroyAccelerationStructureKHR(
     acceleration_structure: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyAccelerationStructureKHR({:?}, {:?}, {:?})", device, acceleration_structure, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyAccelerationStructureKHR({:?}, {:?}, {:?})", device, acceleration_structure, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001342);
     packet.write_shallow(device);
@@ -7366,7 +7366,7 @@ unsafe extern "system" fn vkDestroyAccelerationStructureNV(
     acceleration_structure: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyAccelerationStructureNV({:?}, {:?}, {:?})", device, acceleration_structure, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyAccelerationStructureNV({:?}, {:?}, {:?})", device, acceleration_structure, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001343);
     packet.write_shallow(device);
@@ -7384,7 +7384,7 @@ unsafe extern "system" fn vkGetAccelerationStructureMemoryRequirementsNV(
     p_info: *const VkAccelerationStructureMemoryRequirementsInfoNV,
     p_memory_requirements: *mut NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkGetAccelerationStructureMemoryRequirementsNV({:?}, {:?}, {:?})", device, to_reference(p_info), to_reference(p_memory_requirements)); }
+    unsafe { trace!("called vkGetAccelerationStructureMemoryRequirementsNV({:?}, {:?}, {:?})", device, p_info.as_ref(), p_memory_requirements.as_ref()); }
 
     let mut packet = new_packet(1000001344);
     packet.write_shallow(device);
@@ -7403,7 +7403,7 @@ unsafe extern "system" fn vkBindAccelerationStructureMemoryNV(
     bind_info_count: u32,
     p_bind_infos: *const VkBindAccelerationStructureMemoryInfoNV,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkBindAccelerationStructureMemoryNV({:?}, {:?}, {:?})", device, bind_info_count, to_reference(p_bind_infos)); }
+    unsafe { trace!("called vkBindAccelerationStructureMemoryNV({:?}, {:?}, {:?})", device, bind_info_count, p_bind_infos.as_ref()); }
 
     let mut packet = new_packet(1000001345);
     packet.write_shallow(device);
@@ -7440,7 +7440,7 @@ unsafe extern "system" fn vkCmdCopyAccelerationStructureKHR(
     command_buffer: NonDisposableHandle,
     p_info: *const VkCopyAccelerationStructureInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyAccelerationStructureKHR({:?}, {:?})", command_buffer, to_reference(p_info)); }
+    unsafe { trace!("called vkCmdCopyAccelerationStructureKHR({:?}, {:?})", command_buffer, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001347);
     packet.write_shallow(command_buffer);
@@ -7457,7 +7457,7 @@ unsafe extern "system" fn vkCopyAccelerationStructureKHR(
     deferred_operation: NonDisposableHandle,
     p_info: *const VkCopyAccelerationStructureInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCopyAccelerationStructureKHR({:?}, {:?}, {:?})", device, deferred_operation, to_reference(p_info)); }
+    unsafe { trace!("called vkCopyAccelerationStructureKHR({:?}, {:?}, {:?})", device, deferred_operation, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001348);
     packet.write_shallow(device);
@@ -7474,7 +7474,7 @@ unsafe extern "system" fn vkCmdCopyAccelerationStructureToMemoryKHR(
     command_buffer: NonDisposableHandle,
     p_info: *const VkCopyAccelerationStructureToMemoryInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyAccelerationStructureToMemoryKHR({:?}, {:?})", command_buffer, to_reference(p_info)); }
+    unsafe { trace!("called vkCmdCopyAccelerationStructureToMemoryKHR({:?}, {:?})", command_buffer, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001349);
     packet.write_shallow(command_buffer);
@@ -7491,7 +7491,7 @@ unsafe extern "system" fn vkCopyAccelerationStructureToMemoryKHR(
     deferred_operation: NonDisposableHandle,
     p_info: *const VkCopyAccelerationStructureToMemoryInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCopyAccelerationStructureToMemoryKHR({:?}, {:?}, {:?})", device, deferred_operation, to_reference(p_info)); }
+    unsafe { trace!("called vkCopyAccelerationStructureToMemoryKHR({:?}, {:?}, {:?})", device, deferred_operation, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001350);
     packet.write_shallow(device);
@@ -7508,7 +7508,7 @@ unsafe extern "system" fn vkCmdCopyMemoryToAccelerationStructureKHR(
     command_buffer: NonDisposableHandle,
     p_info: *const VkCopyMemoryToAccelerationStructureInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyMemoryToAccelerationStructureKHR({:?}, {:?})", command_buffer, to_reference(p_info)); }
+    unsafe { trace!("called vkCmdCopyMemoryToAccelerationStructureKHR({:?}, {:?})", command_buffer, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001351);
     packet.write_shallow(command_buffer);
@@ -7525,7 +7525,7 @@ unsafe extern "system" fn vkCopyMemoryToAccelerationStructureKHR(
     deferred_operation: NonDisposableHandle,
     p_info: *const VkCopyMemoryToAccelerationStructureInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCopyMemoryToAccelerationStructureKHR({:?}, {:?}, {:?})", device, deferred_operation, to_reference(p_info)); }
+    unsafe { trace!("called vkCopyMemoryToAccelerationStructureKHR({:?}, {:?}, {:?})", device, deferred_operation, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001352);
     packet.write_shallow(device);
@@ -7546,7 +7546,7 @@ unsafe extern "system" fn vkCmdWriteAccelerationStructuresPropertiesKHR(
     query_pool: NonDisposableHandle,
     first_query: u32,
 ) -> c_void {
-    unsafe { trace!("called vkCmdWriteAccelerationStructuresPropertiesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, acceleration_structure_count, to_reference(p_acceleration_structures), query_type, query_pool, first_query); }
+    unsafe { trace!("called vkCmdWriteAccelerationStructuresPropertiesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, acceleration_structure_count, p_acceleration_structures.as_ref(), query_type, query_pool, first_query); }
 
     let mut packet = new_packet(1000001353);
     packet.write_shallow(command_buffer);
@@ -7570,7 +7570,7 @@ unsafe extern "system" fn vkCmdWriteAccelerationStructuresPropertiesNV(
     query_pool: NonDisposableHandle,
     first_query: u32,
 ) -> c_void {
-    unsafe { trace!("called vkCmdWriteAccelerationStructuresPropertiesNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, acceleration_structure_count, to_reference(p_acceleration_structures), query_type, query_pool, first_query); }
+    unsafe { trace!("called vkCmdWriteAccelerationStructuresPropertiesNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, acceleration_structure_count, p_acceleration_structures.as_ref(), query_type, query_pool, first_query); }
 
     let mut packet = new_packet(1000001354);
     packet.write_shallow(command_buffer);
@@ -7597,7 +7597,7 @@ unsafe extern "system" fn vkCmdBuildAccelerationStructureNV(
     scratch: NonDisposableHandle,
     scratch_offset: NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBuildAccelerationStructureNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, to_reference(p_info), instance_data, instance_offset, update, dst, src, scratch, scratch_offset); }
+    unsafe { trace!("called vkCmdBuildAccelerationStructureNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, p_info.as_ref(), instance_data, instance_offset, update, dst, src, scratch, scratch_offset); }
 
     let mut packet = new_packet(1000001355);
     packet.write_shallow(command_buffer);
@@ -7625,7 +7625,7 @@ unsafe extern "system" fn vkWriteAccelerationStructuresPropertiesKHR(
     p_data: *mut c_void,
     stride: usize,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkWriteAccelerationStructuresPropertiesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, acceleration_structure_count, to_reference(p_acceleration_structures), query_type, data_size, to_reference(p_data), stride); }
+    unsafe { trace!("called vkWriteAccelerationStructuresPropertiesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, acceleration_structure_count, p_acceleration_structures.as_ref(), query_type, data_size, p_data.as_ref(), stride); }
 
     let mut packet = new_packet(1000001356);
     packet.write_shallow(device);
@@ -7653,7 +7653,7 @@ unsafe extern "system" fn vkCmdTraceRaysKHR(
     height: u32,
     depth: u32,
 ) -> c_void {
-    unsafe { trace!("called vkCmdTraceRaysKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, to_reference(p_raygen_shader_binding_table), to_reference(p_miss_shader_binding_table), to_reference(p_hit_shader_binding_table), to_reference(p_callable_shader_binding_table), width, height, depth); }
+    unsafe { trace!("called vkCmdTraceRaysKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, p_raygen_shader_binding_table.as_ref(), p_miss_shader_binding_table.as_ref(), p_hit_shader_binding_table.as_ref(), p_callable_shader_binding_table.as_ref(), width, height, depth); }
 
     let mut packet = new_packet(1000001357);
     packet.write_shallow(command_buffer);
@@ -7721,7 +7721,7 @@ unsafe extern "system" fn vkGetRayTracingShaderGroupHandlesKHR(
     data_size: usize,
     p_data: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetRayTracingShaderGroupHandlesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline, first_group, group_count, data_size, to_reference(p_data)); }
+    unsafe { trace!("called vkGetRayTracingShaderGroupHandlesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline, first_group, group_count, data_size, p_data.as_ref()); }
 
     let mut packet = new_packet(1000001359);
     packet.write_shallow(device);
@@ -7746,7 +7746,7 @@ unsafe extern "system" fn vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(
     data_size: usize,
     p_data: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetRayTracingCaptureReplayShaderGroupHandlesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline, first_group, group_count, data_size, to_reference(p_data)); }
+    unsafe { trace!("called vkGetRayTracingCaptureReplayShaderGroupHandlesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline, first_group, group_count, data_size, p_data.as_ref()); }
 
     let mut packet = new_packet(1000001360);
     packet.write_shallow(device);
@@ -7769,7 +7769,7 @@ unsafe extern "system" fn vkGetAccelerationStructureHandleNV(
     data_size: usize,
     p_data: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetAccelerationStructureHandleNV({:?}, {:?}, {:?}, {:?})", device, acceleration_structure, data_size, to_reference(p_data)); }
+    unsafe { trace!("called vkGetAccelerationStructureHandleNV({:?}, {:?}, {:?}, {:?})", device, acceleration_structure, data_size, p_data.as_ref()); }
 
     let mut packet = new_packet(1000001361);
     packet.write_shallow(device);
@@ -7792,7 +7792,7 @@ unsafe extern "system" fn vkCreateRayTracingPipelinesNV(
     p_allocator: *const VkAllocationCallbacks,
     p_pipelines: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateRayTracingPipelinesNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, to_reference(p_create_infos), to_reference(p_allocator), to_reference(p_pipelines)); }
+    unsafe { trace!("called vkCreateRayTracingPipelinesNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_pipelines.as_ref()); }
 
     let mut packet = new_packet(1000001362);
     packet.write_shallow(device);
@@ -7818,7 +7818,7 @@ unsafe extern "system" fn vkCreateRayTracingPipelinesKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_pipelines: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateRayTracingPipelinesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, deferred_operation, pipeline_cache, create_info_count, to_reference(p_create_infos), to_reference(p_allocator), to_reference(p_pipelines)); }
+    unsafe { trace!("called vkCreateRayTracingPipelinesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, deferred_operation, pipeline_cache, create_info_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_pipelines.as_ref()); }
 
     let mut packet = new_packet(1000001363);
     packet.write_shallow(device);
@@ -7841,7 +7841,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
     p_property_count: *mut u32,
     p_properties: *mut VkCooperativeMatrixPropertiesNV,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesNV({:?}, {:?}, {:?})", physical_device, p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesNV({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001364);
     packet.write_shallow(physical_device);
@@ -7862,7 +7862,7 @@ unsafe extern "system" fn vkCmdTraceRaysIndirectKHR(
     p_callable_shader_binding_table: *const VkStridedDeviceAddressRegionKHR,
     indirect_device_address: NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdTraceRaysIndirectKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, to_reference(p_raygen_shader_binding_table), to_reference(p_miss_shader_binding_table), to_reference(p_hit_shader_binding_table), to_reference(p_callable_shader_binding_table), indirect_device_address); }
+    unsafe { trace!("called vkCmdTraceRaysIndirectKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, p_raygen_shader_binding_table.as_ref(), p_miss_shader_binding_table.as_ref(), p_hit_shader_binding_table.as_ref(), p_callable_shader_binding_table.as_ref(), indirect_device_address); }
 
     let mut packet = new_packet(1000001365);
     packet.write_shallow(command_buffer);
@@ -7899,7 +7899,7 @@ unsafe extern "system" fn vkGetDeviceAccelerationStructureCompatibilityKHR(
     p_version_info: *const VkAccelerationStructureVersionInfoKHR,
     p_compatibility: *mut NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkGetDeviceAccelerationStructureCompatibilityKHR({:?}, {:?}, {:?})", device, to_reference(p_version_info), to_reference(p_compatibility)); }
+    unsafe { trace!("called vkGetDeviceAccelerationStructureCompatibilityKHR({:?}, {:?}, {:?})", device, p_version_info.as_ref(), p_compatibility.as_ref()); }
 
     let mut packet = new_packet(1000001367);
     packet.write_shallow(device);
@@ -7953,7 +7953,7 @@ unsafe extern "system" fn vkGetImageViewHandleNVX(
     device: NonDisposableHandle,
     p_info: *const VkImageViewHandleInfoNVX,
 ) -> u32 {
-    unsafe { trace!("called vkGetImageViewHandleNVX({:?}, {:?})", device, to_reference(p_info)); }
+    unsafe { trace!("called vkGetImageViewHandleNVX({:?}, {:?})", device, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001370);
     packet.write_shallow(device);
@@ -7970,7 +7970,7 @@ unsafe extern "system" fn vkGetImageViewAddressNVX(
     image_view: NonDisposableHandle,
     p_properties: *mut VkImageViewAddressPropertiesNVX,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetImageViewAddressNVX({:?}, {:?}, {:?})", device, image_view, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetImageViewAddressNVX({:?}, {:?}, {:?})", device, image_view, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001371);
     packet.write_shallow(device);
@@ -7990,7 +7990,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfacePresentModes2EXT(
     p_present_mode_count: *mut u32,
     p_present_modes: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceSurfacePresentModes2EXT({:?}, {:?}, {:?}, {:?})", physical_device, to_reference(p_surface_info), p_present_mode_count, to_reference(p_present_modes)); }
+    unsafe { trace!("called vkGetPhysicalDeviceSurfacePresentModes2EXT({:?}, {:?}, {:?}, {:?})", physical_device, p_surface_info.as_ref(), p_present_mode_count, p_present_modes.as_ref()); }
 
     let mut packet = new_packet(1000001372);
     packet.write_shallow(physical_device);
@@ -8009,7 +8009,7 @@ unsafe extern "system" fn vkGetDeviceGroupSurfacePresentModes2EXT(
     p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR,
     p_modes: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetDeviceGroupSurfacePresentModes2EXT({:?}, {:?}, {:?})", device, to_reference(p_surface_info), to_reference(p_modes)); }
+    unsafe { trace!("called vkGetDeviceGroupSurfacePresentModes2EXT({:?}, {:?}, {:?})", device, p_surface_info.as_ref(), p_modes.as_ref()); }
 
     let mut packet = new_packet(1000001373);
     packet.write_shallow(device);
@@ -8062,7 +8062,7 @@ unsafe extern "system" fn vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCo
     p_counters: *mut VkPerformanceCounterKHR,
     p_counter_descriptions: *mut VkPerformanceCounterDescriptionKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR({:?}, {:?}, {:?}, {:?}, {:?})", physical_device, queue_family_index, p_counter_count, to_reference(p_counters), to_reference(p_counter_descriptions)); }
+    unsafe { trace!("called vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR({:?}, {:?}, {:?}, {:?}, {:?})", physical_device, queue_family_index, p_counter_count, p_counters.as_ref(), p_counter_descriptions.as_ref()); }
 
     let mut packet = new_packet(1000001376);
     packet.write_shallow(physical_device);
@@ -8083,7 +8083,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKH
     p_performance_query_create_info: *const VkQueryPoolPerformanceCreateInfoKHR,
     p_num_passes: *mut u32,
 ) -> c_void {
-    unsafe { trace!("called vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR({:?}, {:?}, {:?})", physical_device, to_reference(p_performance_query_create_info), to_reference(p_num_passes)); }
+    unsafe { trace!("called vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR({:?}, {:?}, {:?})", physical_device, p_performance_query_create_info.as_ref(), p_num_passes.as_ref()); }
 
     let mut packet = new_packet(1000001377);
     packet.write_shallow(physical_device);
@@ -8101,7 +8101,7 @@ unsafe extern "system" fn vkAcquireProfilingLockKHR(
     device: NonDisposableHandle,
     p_info: *const VkAcquireProfilingLockInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkAcquireProfilingLockKHR({:?}, {:?})", device, to_reference(p_info)); }
+    unsafe { trace!("called vkAcquireProfilingLockKHR({:?}, {:?})", device, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001378);
     packet.write_shallow(device);
@@ -8132,7 +8132,7 @@ unsafe extern "system" fn vkGetImageDrmFormatModifierPropertiesEXT(
     image: NonDisposableHandle,
     p_properties: *mut VkImageDrmFormatModifierPropertiesEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetImageDrmFormatModifierPropertiesEXT({:?}, {:?}, {:?})", device, image, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetImageDrmFormatModifierPropertiesEXT({:?}, {:?}, {:?})", device, image, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001380);
     packet.write_shallow(device);
@@ -8150,7 +8150,7 @@ unsafe extern "system" fn vkGetBufferOpaqueCaptureAddress(
     device: NonDisposableHandle,
     p_info: *const VkBufferDeviceAddressInfo,
 ) -> u64 {
-    unsafe { trace!("called vkGetBufferOpaqueCaptureAddress({:?}, {:?})", device, to_reference(p_info)); }
+    unsafe { trace!("called vkGetBufferOpaqueCaptureAddress({:?}, {:?})", device, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001381);
     packet.write_shallow(device);
@@ -8166,7 +8166,7 @@ unsafe extern "system" fn vkGetBufferDeviceAddress(
     device: NonDisposableHandle,
     p_info: *const VkBufferDeviceAddressInfo,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetBufferDeviceAddress({:?}, {:?})", device, to_reference(p_info)); }
+    unsafe { trace!("called vkGetBufferDeviceAddress({:?}, {:?})", device, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001382);
     packet.write_shallow(device);
@@ -8184,7 +8184,7 @@ unsafe extern "system" fn vkCreateHeadlessSurfaceEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateHeadlessSurfaceEXT({:?}, {:?}, {:?}, {:?})", instance, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_surface)); }
+    unsafe { trace!("called vkCreateHeadlessSurfaceEXT({:?}, {:?}, {:?}, {:?})", instance, p_create_info.as_ref(), p_allocator.as_ref(), p_surface.as_ref()); }
 
     let mut packet = new_packet(1000001383);
     packet.write_shallow(instance);
@@ -8204,7 +8204,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCom
     p_combination_count: *mut u32,
     p_combinations: *mut VkFramebufferMixedSamplesCombinationNV,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV({:?}, {:?}, {:?})", physical_device, p_combination_count, to_reference(p_combinations)); }
+    unsafe { trace!("called vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV({:?}, {:?}, {:?})", physical_device, p_combination_count, p_combinations.as_ref()); }
 
     let mut packet = new_packet(1000001384);
     packet.write_shallow(physical_device);
@@ -8221,7 +8221,7 @@ unsafe extern "system" fn vkInitializePerformanceApiINTEL(
     device: NonDisposableHandle,
     p_initialize_info: *const VkInitializePerformanceApiInfoINTEL,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkInitializePerformanceApiINTEL({:?}, {:?})", device, to_reference(p_initialize_info)); }
+    unsafe { trace!("called vkInitializePerformanceApiINTEL({:?}, {:?})", device, p_initialize_info.as_ref()); }
 
     let mut packet = new_packet(1000001385);
     packet.write_shallow(device);
@@ -8251,7 +8251,7 @@ unsafe extern "system" fn vkCmdSetPerformanceMarkerINTEL(
     command_buffer: NonDisposableHandle,
     p_marker_info: *const VkPerformanceMarkerInfoINTEL,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCmdSetPerformanceMarkerINTEL({:?}, {:?})", command_buffer, to_reference(p_marker_info)); }
+    unsafe { trace!("called vkCmdSetPerformanceMarkerINTEL({:?}, {:?})", command_buffer, p_marker_info.as_ref()); }
 
     let mut packet = new_packet(1000001387);
     packet.write_shallow(command_buffer);
@@ -8267,7 +8267,7 @@ unsafe extern "system" fn vkCmdSetPerformanceStreamMarkerINTEL(
     command_buffer: NonDisposableHandle,
     p_marker_info: *const VkPerformanceStreamMarkerInfoINTEL,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCmdSetPerformanceStreamMarkerINTEL({:?}, {:?})", command_buffer, to_reference(p_marker_info)); }
+    unsafe { trace!("called vkCmdSetPerformanceStreamMarkerINTEL({:?}, {:?})", command_buffer, p_marker_info.as_ref()); }
 
     let mut packet = new_packet(1000001388);
     packet.write_shallow(command_buffer);
@@ -8283,7 +8283,7 @@ unsafe extern "system" fn vkCmdSetPerformanceOverrideINTEL(
     command_buffer: NonDisposableHandle,
     p_override_info: *const VkPerformanceOverrideInfoINTEL,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCmdSetPerformanceOverrideINTEL({:?}, {:?})", command_buffer, to_reference(p_override_info)); }
+    unsafe { trace!("called vkCmdSetPerformanceOverrideINTEL({:?}, {:?})", command_buffer, p_override_info.as_ref()); }
 
     let mut packet = new_packet(1000001389);
     packet.write_shallow(command_buffer);
@@ -8300,7 +8300,7 @@ unsafe extern "system" fn vkAcquirePerformanceConfigurationINTEL(
     p_acquire_info: *const VkPerformanceConfigurationAcquireInfoINTEL,
     p_configuration: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkAcquirePerformanceConfigurationINTEL({:?}, {:?}, {:?})", device, to_reference(p_acquire_info), to_reference(p_configuration)); }
+    unsafe { trace!("called vkAcquirePerformanceConfigurationINTEL({:?}, {:?}, {:?})", device, p_acquire_info.as_ref(), p_configuration.as_ref()); }
 
     let mut packet = new_packet(1000001390);
     packet.write_shallow(device);
@@ -8351,7 +8351,7 @@ unsafe extern "system" fn vkGetPerformanceParameterINTEL(
     parameter: NonDisposableHandle,
     p_value: *mut VkPerformanceValueINTEL,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPerformanceParameterINTEL({:?}, {:?}, {:?})", device, parameter, to_reference(p_value)); }
+    unsafe { trace!("called vkGetPerformanceParameterINTEL({:?}, {:?}, {:?})", device, parameter, p_value.as_ref()); }
 
     let mut packet = new_packet(1000001393);
     packet.write_shallow(device);
@@ -8369,7 +8369,7 @@ unsafe extern "system" fn vkGetDeviceMemoryOpaqueCaptureAddress(
     device: NonDisposableHandle,
     p_info: *const VkDeviceMemoryOpaqueCaptureAddressInfo,
 ) -> u64 {
-    unsafe { trace!("called vkGetDeviceMemoryOpaqueCaptureAddress({:?}, {:?})", device, to_reference(p_info)); }
+    unsafe { trace!("called vkGetDeviceMemoryOpaqueCaptureAddress({:?}, {:?})", device, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001394);
     packet.write_shallow(device);
@@ -8387,7 +8387,7 @@ unsafe extern "system" fn vkGetPipelineExecutablePropertiesKHR(
     p_executable_count: *mut u32,
     p_properties: *mut VkPipelineExecutablePropertiesKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPipelineExecutablePropertiesKHR({:?}, {:?}, {:?}, {:?})", device, to_reference(p_pipeline_info), p_executable_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetPipelineExecutablePropertiesKHR({:?}, {:?}, {:?}, {:?})", device, p_pipeline_info.as_ref(), p_executable_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001395);
     packet.write_shallow(device);
@@ -8407,7 +8407,7 @@ unsafe extern "system" fn vkGetPipelineExecutableStatisticsKHR(
     p_statistic_count: *mut u32,
     p_statistics: *mut VkPipelineExecutableStatisticKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPipelineExecutableStatisticsKHR({:?}, {:?}, {:?}, {:?})", device, to_reference(p_executable_info), p_statistic_count, to_reference(p_statistics)); }
+    unsafe { trace!("called vkGetPipelineExecutableStatisticsKHR({:?}, {:?}, {:?}, {:?})", device, p_executable_info.as_ref(), p_statistic_count, p_statistics.as_ref()); }
 
     let mut packet = new_packet(1000001396);
     packet.write_shallow(device);
@@ -8427,7 +8427,7 @@ unsafe extern "system" fn vkGetPipelineExecutableInternalRepresentationsKHR(
     p_internal_representation_count: *mut u32,
     p_internal_representations: *mut VkPipelineExecutableInternalRepresentationKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPipelineExecutableInternalRepresentationsKHR({:?}, {:?}, {:?}, {:?})", device, to_reference(p_executable_info), p_internal_representation_count, to_reference(p_internal_representations)); }
+    unsafe { trace!("called vkGetPipelineExecutableInternalRepresentationsKHR({:?}, {:?}, {:?}, {:?})", device, p_executable_info.as_ref(), p_internal_representation_count, p_internal_representations.as_ref()); }
 
     let mut packet = new_packet(1000001397);
     packet.write_shallow(device);
@@ -8464,7 +8464,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceToolProperties(
     p_tool_count: *mut u32,
     p_tool_properties: *mut VkPhysicalDeviceToolProperties,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceToolProperties({:?}, {:?}, {:?})", physical_device, p_tool_count, to_reference(p_tool_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceToolProperties({:?}, {:?}, {:?})", physical_device, p_tool_count, p_tool_properties.as_ref()); }
 
     let mut packet = new_packet(1000001399);
     packet.write_shallow(physical_device);
@@ -8483,7 +8483,7 @@ unsafe extern "system" fn vkCreateAccelerationStructureKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_acceleration_structure: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateAccelerationStructureKHR({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_acceleration_structure)); }
+    unsafe { trace!("called vkCreateAccelerationStructureKHR({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_acceleration_structure.as_ref()); }
 
     let mut packet = new_packet(1000001400);
     packet.write_shallow(device);
@@ -8504,7 +8504,7 @@ unsafe extern "system" fn vkCmdBuildAccelerationStructuresKHR(
     p_infos: *const VkAccelerationStructureBuildGeometryInfoKHR,
     pp_build_range_infos: *const *const VkAccelerationStructureBuildRangeInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBuildAccelerationStructuresKHR({:?}, {:?}, {:?}, {:?})", command_buffer, info_count, to_reference(p_infos), to_reference(pp_build_range_infos)); }
+    unsafe { trace!("called vkCmdBuildAccelerationStructuresKHR({:?}, {:?}, {:?}, {:?})", command_buffer, info_count, p_infos.as_ref(), pp_build_range_infos.as_ref()); }
 
     let mut packet = new_packet(1000001401);
     packet.write_shallow(command_buffer);
@@ -8526,7 +8526,7 @@ unsafe extern "system" fn vkCmdBuildAccelerationStructuresIndirectKHR(
     p_indirect_strides: *const u32,
     pp_max_primitive_counts: *const *const u32,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBuildAccelerationStructuresIndirectKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, info_count, to_reference(p_infos), to_reference(p_indirect_device_addresses), to_reference(p_indirect_strides), to_reference(pp_max_primitive_counts)); }
+    unsafe { trace!("called vkCmdBuildAccelerationStructuresIndirectKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, info_count, p_infos.as_ref(), p_indirect_device_addresses.as_ref(), p_indirect_strides.as_ref(), pp_max_primitive_counts.as_ref()); }
 
     let mut packet = new_packet(1000001402);
     packet.write_shallow(command_buffer);
@@ -8549,7 +8549,7 @@ unsafe extern "system" fn vkBuildAccelerationStructuresKHR(
     p_infos: *const VkAccelerationStructureBuildGeometryInfoKHR,
     pp_build_range_infos: *const *const VkAccelerationStructureBuildRangeInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkBuildAccelerationStructuresKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, deferred_operation, info_count, to_reference(p_infos), to_reference(pp_build_range_infos)); }
+    unsafe { trace!("called vkBuildAccelerationStructuresKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, deferred_operation, info_count, p_infos.as_ref(), pp_build_range_infos.as_ref()); }
 
     let mut packet = new_packet(1000001403);
     packet.write_shallow(device);
@@ -8568,7 +8568,7 @@ unsafe extern "system" fn vkGetAccelerationStructureDeviceAddressKHR(
     device: NonDisposableHandle,
     p_info: *const VkAccelerationStructureDeviceAddressInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetAccelerationStructureDeviceAddressKHR({:?}, {:?})", device, to_reference(p_info)); }
+    unsafe { trace!("called vkGetAccelerationStructureDeviceAddressKHR({:?}, {:?})", device, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001404);
     packet.write_shallow(device);
@@ -8585,7 +8585,7 @@ unsafe extern "system" fn vkCreateDeferredOperationKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_deferred_operation: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateDeferredOperationKHR({:?}, {:?}, {:?})", device, to_reference(p_allocator), to_reference(p_deferred_operation)); }
+    unsafe { trace!("called vkCreateDeferredOperationKHR({:?}, {:?}, {:?})", device, p_allocator.as_ref(), p_deferred_operation.as_ref()); }
 
     let mut packet = new_packet(1000001405);
     packet.write_shallow(device);
@@ -8604,7 +8604,7 @@ unsafe extern "system" fn vkDestroyDeferredOperationKHR(
     operation: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyDeferredOperationKHR({:?}, {:?}, {:?})", device, operation, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyDeferredOperationKHR({:?}, {:?}, {:?})", device, operation, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001406);
     packet.write_shallow(device);
@@ -8670,7 +8670,7 @@ unsafe extern "system" fn vkGetPipelineIndirectMemoryRequirementsNV(
     p_create_info: *const VkComputePipelineCreateInfo,
     p_memory_requirements: *mut VkMemoryRequirements2,
 ) -> c_void {
-    unsafe { trace!("called vkGetPipelineIndirectMemoryRequirementsNV({:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_memory_requirements)); }
+    unsafe { trace!("called vkGetPipelineIndirectMemoryRequirementsNV({:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_memory_requirements.as_ref()); }
 
     let mut packet = new_packet(1000001410);
     packet.write_shallow(device);
@@ -8688,7 +8688,7 @@ unsafe extern "system" fn vkGetPipelineIndirectDeviceAddressNV(
     device: NonDisposableHandle,
     p_info: *const VkPipelineIndirectDeviceAddressInfoNV,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPipelineIndirectDeviceAddressNV({:?}, {:?})", device, to_reference(p_info)); }
+    unsafe { trace!("called vkGetPipelineIndirectDeviceAddressNV({:?}, {:?})", device, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001411);
     packet.write_shallow(device);
@@ -8753,7 +8753,7 @@ unsafe extern "system" fn vkCmdSetViewportWithCount(
     viewport_count: u32,
     p_viewports: *const VkViewport,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetViewportWithCount({:?}, {:?}, {:?})", command_buffer, viewport_count, to_reference(p_viewports)); }
+    unsafe { trace!("called vkCmdSetViewportWithCount({:?}, {:?}, {:?})", command_buffer, viewport_count, p_viewports.as_ref()); }
 
     let mut packet = new_packet(1000001415);
     packet.write_shallow(command_buffer);
@@ -8771,7 +8771,7 @@ unsafe extern "system" fn vkCmdSetScissorWithCount(
     scissor_count: u32,
     p_scissors: *const VkRect2D,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetScissorWithCount({:?}, {:?}, {:?})", command_buffer, scissor_count, to_reference(p_scissors)); }
+    unsafe { trace!("called vkCmdSetScissorWithCount({:?}, {:?}, {:?})", command_buffer, scissor_count, p_scissors.as_ref()); }
 
     let mut packet = new_packet(1000001416);
     packet.write_shallow(command_buffer);
@@ -8815,7 +8815,7 @@ unsafe extern "system" fn vkCmdBindVertexBuffers2(
     p_sizes: *const NonDisposableHandle,
     p_strides: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBindVertexBuffers2({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_binding, binding_count, to_reference(p_buffers), to_reference(p_offsets), to_reference(p_sizes), to_reference(p_strides)); }
+    unsafe { trace!("called vkCmdBindVertexBuffers2({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_binding, binding_count, p_buffers.as_ref(), p_offsets.as_ref(), p_sizes.as_ref(), p_strides.as_ref()); }
 
     let mut packet = new_packet(1000001418);
     packet.write_shallow(command_buffer);
@@ -9085,7 +9085,7 @@ unsafe extern "system" fn vkCmdSetSampleMaskEXT(
     samples: vk::SampleCountFlags,
     p_sample_mask: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetSampleMaskEXT({:?}, {:?}, {:?})", command_buffer, samples, to_reference(p_sample_mask)); }
+    unsafe { trace!("called vkCmdSetSampleMaskEXT({:?}, {:?}, {:?})", command_buffer, samples, p_sample_mask.as_ref()); }
 
     let mut packet = new_packet(1000001434);
     packet.write_shallow(command_buffer);
@@ -9152,7 +9152,7 @@ unsafe extern "system" fn vkCmdSetColorBlendEnableEXT(
     attachment_count: u32,
     p_color_blend_enables: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetColorBlendEnableEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, to_reference(p_color_blend_enables)); }
+    unsafe { trace!("called vkCmdSetColorBlendEnableEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, p_color_blend_enables.as_ref()); }
 
     let mut packet = new_packet(1000001438);
     packet.write_shallow(command_buffer);
@@ -9172,7 +9172,7 @@ unsafe extern "system" fn vkCmdSetColorBlendEquationEXT(
     attachment_count: u32,
     p_color_blend_equations: *const VkColorBlendEquationEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetColorBlendEquationEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, to_reference(p_color_blend_equations)); }
+    unsafe { trace!("called vkCmdSetColorBlendEquationEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, p_color_blend_equations.as_ref()); }
 
     let mut packet = new_packet(1000001439);
     packet.write_shallow(command_buffer);
@@ -9192,7 +9192,7 @@ unsafe extern "system" fn vkCmdSetColorWriteMaskEXT(
     attachment_count: u32,
     p_color_write_masks: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetColorWriteMaskEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, to_reference(p_color_write_masks)); }
+    unsafe { trace!("called vkCmdSetColorWriteMaskEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, p_color_write_masks.as_ref()); }
 
     let mut packet = new_packet(1000001440);
     packet.write_shallow(command_buffer);
@@ -9292,7 +9292,7 @@ unsafe extern "system" fn vkCmdSetColorBlendAdvancedEXT(
     attachment_count: u32,
     p_color_blend_advanced: *const VkColorBlendAdvancedEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetColorBlendAdvancedEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, to_reference(p_color_blend_advanced)); }
+    unsafe { trace!("called vkCmdSetColorBlendAdvancedEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, p_color_blend_advanced.as_ref()); }
 
     let mut packet = new_packet(1000001446);
     packet.write_shallow(command_buffer);
@@ -9392,7 +9392,7 @@ unsafe extern "system" fn vkCmdSetViewportSwizzleNV(
     viewport_count: u32,
     p_viewport_swizzles: *const VkViewportSwizzleNV,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetViewportSwizzleNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, to_reference(p_viewport_swizzles)); }
+    unsafe { trace!("called vkCmdSetViewportSwizzleNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, p_viewport_swizzles.as_ref()); }
 
     let mut packet = new_packet(1000001452);
     packet.write_shallow(command_buffer);
@@ -9475,7 +9475,7 @@ unsafe extern "system" fn vkCmdSetCoverageModulationTableNV(
     coverage_modulation_table_count: u32,
     p_coverage_modulation_table: *const f32,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetCoverageModulationTableNV({:?}, {:?}, {:?})", command_buffer, coverage_modulation_table_count, to_reference(p_coverage_modulation_table)); }
+    unsafe { trace!("called vkCmdSetCoverageModulationTableNV({:?}, {:?}, {:?})", command_buffer, coverage_modulation_table_count, p_coverage_modulation_table.as_ref()); }
 
     let mut packet = new_packet(1000001457);
     packet.write_shallow(command_buffer);
@@ -9542,7 +9542,7 @@ unsafe extern "system" fn vkCreatePrivateDataSlot(
     p_allocator: *const VkAllocationCallbacks,
     p_private_data_slot: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreatePrivateDataSlot({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_private_data_slot)); }
+    unsafe { trace!("called vkCreatePrivateDataSlot({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_private_data_slot.as_ref()); }
 
     let mut packet = new_packet(1000001461);
     packet.write_shallow(device);
@@ -9562,7 +9562,7 @@ unsafe extern "system" fn vkDestroyPrivateDataSlot(
     private_data_slot: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyPrivateDataSlot({:?}, {:?}, {:?})", device, private_data_slot, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyPrivateDataSlot({:?}, {:?}, {:?})", device, private_data_slot, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001462);
     packet.write_shallow(device);
@@ -9604,7 +9604,7 @@ unsafe extern "system" fn vkGetPrivateData(
     private_data_slot: NonDisposableHandle,
     p_data: *mut u64,
 ) -> c_void {
-    unsafe { trace!("called vkGetPrivateData({:?}, {:?}, {:?}, {:?}, {:?})", device, object_type, object_handle, private_data_slot, to_reference(p_data)); }
+    unsafe { trace!("called vkGetPrivateData({:?}, {:?}, {:?}, {:?}, {:?})", device, object_type, object_handle, private_data_slot, p_data.as_ref()); }
 
     let mut packet = new_packet(1000001464);
     packet.write_shallow(device);
@@ -9624,7 +9624,7 @@ unsafe extern "system" fn vkCmdCopyBuffer2(
     command_buffer: NonDisposableHandle,
     p_copy_buffer_info: *const VkCopyBufferInfo2,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyBuffer2({:?}, {:?})", command_buffer, to_reference(p_copy_buffer_info)); }
+    unsafe { trace!("called vkCmdCopyBuffer2({:?}, {:?})", command_buffer, p_copy_buffer_info.as_ref()); }
 
     let mut packet = new_packet(1000001465);
     packet.write_shallow(command_buffer);
@@ -9640,7 +9640,7 @@ unsafe extern "system" fn vkCmdCopyImage2(
     command_buffer: NonDisposableHandle,
     p_copy_image_info: *const VkCopyImageInfo2,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyImage2({:?}, {:?})", command_buffer, to_reference(p_copy_image_info)); }
+    unsafe { trace!("called vkCmdCopyImage2({:?}, {:?})", command_buffer, p_copy_image_info.as_ref()); }
 
     let mut packet = new_packet(1000001466);
     packet.write_shallow(command_buffer);
@@ -9656,7 +9656,7 @@ unsafe extern "system" fn vkCmdBlitImage2(
     command_buffer: NonDisposableHandle,
     p_blit_image_info: *const VkBlitImageInfo2,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBlitImage2({:?}, {:?})", command_buffer, to_reference(p_blit_image_info)); }
+    unsafe { trace!("called vkCmdBlitImage2({:?}, {:?})", command_buffer, p_blit_image_info.as_ref()); }
 
     let mut packet = new_packet(1000001467);
     packet.write_shallow(command_buffer);
@@ -9672,7 +9672,7 @@ unsafe extern "system" fn vkCmdCopyBufferToImage2(
     command_buffer: NonDisposableHandle,
     p_copy_buffer_to_image_info: *const VkCopyBufferToImageInfo2,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyBufferToImage2({:?}, {:?})", command_buffer, to_reference(p_copy_buffer_to_image_info)); }
+    unsafe { trace!("called vkCmdCopyBufferToImage2({:?}, {:?})", command_buffer, p_copy_buffer_to_image_info.as_ref()); }
 
     let mut packet = new_packet(1000001468);
     packet.write_shallow(command_buffer);
@@ -9688,7 +9688,7 @@ unsafe extern "system" fn vkCmdCopyImageToBuffer2(
     command_buffer: NonDisposableHandle,
     p_copy_image_to_buffer_info: *const VkCopyImageToBufferInfo2,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyImageToBuffer2({:?}, {:?})", command_buffer, to_reference(p_copy_image_to_buffer_info)); }
+    unsafe { trace!("called vkCmdCopyImageToBuffer2({:?}, {:?})", command_buffer, p_copy_image_to_buffer_info.as_ref()); }
 
     let mut packet = new_packet(1000001469);
     packet.write_shallow(command_buffer);
@@ -9704,7 +9704,7 @@ unsafe extern "system" fn vkCmdResolveImage2(
     command_buffer: NonDisposableHandle,
     p_resolve_image_info: *const VkResolveImageInfo2,
 ) -> c_void {
-    unsafe { trace!("called vkCmdResolveImage2({:?}, {:?})", command_buffer, to_reference(p_resolve_image_info)); }
+    unsafe { trace!("called vkCmdResolveImage2({:?}, {:?})", command_buffer, p_resolve_image_info.as_ref()); }
 
     let mut packet = new_packet(1000001470);
     packet.write_shallow(command_buffer);
@@ -9721,7 +9721,7 @@ unsafe extern "system" fn vkCmdSetFragmentShadingRateKHR(
     p_fragment_size: *const VkExtent2D,
     combiner_ops: *const [NonDisposableHandle; 2],
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetFragmentShadingRateKHR({:?}, {:?}, {:?})", command_buffer, to_reference(p_fragment_size), combiner_ops); }
+    unsafe { trace!("called vkCmdSetFragmentShadingRateKHR({:?}, {:?}, {:?})", command_buffer, p_fragment_size.as_ref(), combiner_ops); }
 
     let mut packet = new_packet(1000001471);
     packet.write_shallow(command_buffer);
@@ -9739,7 +9739,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceFragmentShadingRatesKHR(
     p_fragment_shading_rate_count: *mut u32,
     p_fragment_shading_rates: *mut VkPhysicalDeviceFragmentShadingRateKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceFragmentShadingRatesKHR({:?}, {:?}, {:?})", physical_device, p_fragment_shading_rate_count, to_reference(p_fragment_shading_rates)); }
+    unsafe { trace!("called vkGetPhysicalDeviceFragmentShadingRatesKHR({:?}, {:?}, {:?})", physical_device, p_fragment_shading_rate_count, p_fragment_shading_rates.as_ref()); }
 
     let mut packet = new_packet(1000001472);
     packet.write_shallow(physical_device);
@@ -9777,7 +9777,7 @@ unsafe extern "system" fn vkGetAccelerationStructureBuildSizesKHR(
     p_max_primitive_counts: *const u32,
     p_size_info: *mut VkAccelerationStructureBuildSizesInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkGetAccelerationStructureBuildSizesKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, build_type, to_reference(p_build_info), to_reference(p_max_primitive_counts), to_reference(p_size_info)); }
+    unsafe { trace!("called vkGetAccelerationStructureBuildSizesKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, build_type, p_build_info.as_ref(), p_max_primitive_counts.as_ref(), p_size_info.as_ref()); }
 
     let mut packet = new_packet(1000001474);
     packet.write_shallow(device);
@@ -9800,7 +9800,7 @@ unsafe extern "system" fn vkCmdSetVertexInputEXT(
     vertex_attribute_description_count: u32,
     p_vertex_attribute_descriptions: *const VkVertexInputAttributeDescription2EXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetVertexInputEXT({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, vertex_binding_description_count, to_reference(p_vertex_binding_descriptions), vertex_attribute_description_count, to_reference(p_vertex_attribute_descriptions)); }
+    unsafe { trace!("called vkCmdSetVertexInputEXT({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, vertex_binding_description_count, p_vertex_binding_descriptions.as_ref(), vertex_attribute_description_count, p_vertex_attribute_descriptions.as_ref()); }
 
     let mut packet = new_packet(1000001475);
     packet.write_shallow(command_buffer);
@@ -9820,7 +9820,7 @@ unsafe extern "system" fn vkCmdSetColorWriteEnableEXT(
     attachment_count: u32,
     p_color_write_enables: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetColorWriteEnableEXT({:?}, {:?}, {:?})", command_buffer, attachment_count, to_reference(p_color_write_enables)); }
+    unsafe { trace!("called vkCmdSetColorWriteEnableEXT({:?}, {:?}, {:?})", command_buffer, attachment_count, p_color_write_enables.as_ref()); }
 
     let mut packet = new_packet(1000001476);
     packet.write_shallow(command_buffer);
@@ -9838,7 +9838,7 @@ unsafe extern "system" fn vkCmdSetEvent2(
     event: NonDisposableHandle,
     p_dependency_info: *const VkDependencyInfo,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetEvent2({:?}, {:?}, {:?})", command_buffer, event, to_reference(p_dependency_info)); }
+    unsafe { trace!("called vkCmdSetEvent2({:?}, {:?}, {:?})", command_buffer, event, p_dependency_info.as_ref()); }
 
     let mut packet = new_packet(1000001477);
     packet.write_shallow(command_buffer);
@@ -9875,7 +9875,7 @@ unsafe extern "system" fn vkCmdWaitEvents2(
     p_events: *const NonDisposableHandle,
     p_dependency_infos: *const VkDependencyInfo,
 ) -> c_void {
-    unsafe { trace!("called vkCmdWaitEvents2({:?}, {:?}, {:?}, {:?})", command_buffer, event_count, to_reference(p_events), to_reference(p_dependency_infos)); }
+    unsafe { trace!("called vkCmdWaitEvents2({:?}, {:?}, {:?}, {:?})", command_buffer, event_count, p_events.as_ref(), p_dependency_infos.as_ref()); }
 
     let mut packet = new_packet(1000001479);
     packet.write_shallow(command_buffer);
@@ -9893,7 +9893,7 @@ unsafe extern "system" fn vkCmdPipelineBarrier2(
     command_buffer: NonDisposableHandle,
     p_dependency_info: *const VkDependencyInfo,
 ) -> c_void {
-    unsafe { trace!("called vkCmdPipelineBarrier2({:?}, {:?})", command_buffer, to_reference(p_dependency_info)); }
+    unsafe { trace!("called vkCmdPipelineBarrier2({:?}, {:?})", command_buffer, p_dependency_info.as_ref()); }
 
     let mut packet = new_packet(1000001480);
     packet.write_shallow(command_buffer);
@@ -9911,7 +9911,7 @@ unsafe extern "system" fn vkQueueSubmit2(
     p_submits: *const VkSubmitInfo2,
     fence: NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkQueueSubmit2({:?}, {:?}, {:?}, {:?})", queue, submit_count, to_reference(p_submits), fence); }
+    unsafe { trace!("called vkQueueSubmit2({:?}, {:?}, {:?}, {:?})", queue, submit_count, p_submits.as_ref(), fence); }
 
     let mut packet = new_packet(1000001481);
     packet.write_shallow(queue);
@@ -9972,7 +9972,7 @@ unsafe extern "system" fn vkGetQueueCheckpointData2NV(
     p_checkpoint_data_count: *mut u32,
     p_checkpoint_data: *mut VkCheckpointData2NV,
 ) -> c_void {
-    unsafe { trace!("called vkGetQueueCheckpointData2NV({:?}, {:?}, {:?})", queue, p_checkpoint_data_count, to_reference(p_checkpoint_data)); }
+    unsafe { trace!("called vkGetQueueCheckpointData2NV({:?}, {:?}, {:?})", queue, p_checkpoint_data_count, p_checkpoint_data.as_ref()); }
 
     let mut packet = new_packet(1000001484);
     packet.write_shallow(queue);
@@ -9989,7 +9989,7 @@ unsafe extern "system" fn vkCopyMemoryToImageEXT(
     device: NonDisposableHandle,
     p_copy_memory_to_image_info: *const VkCopyMemoryToImageInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCopyMemoryToImageEXT({:?}, {:?})", device, to_reference(p_copy_memory_to_image_info)); }
+    unsafe { trace!("called vkCopyMemoryToImageEXT({:?}, {:?})", device, p_copy_memory_to_image_info.as_ref()); }
 
     let mut packet = new_packet(1000001485);
     packet.write_shallow(device);
@@ -10005,7 +10005,7 @@ unsafe extern "system" fn vkCopyImageToMemoryEXT(
     device: NonDisposableHandle,
     p_copy_image_to_memory_info: *const VkCopyImageToMemoryInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCopyImageToMemoryEXT({:?}, {:?})", device, to_reference(p_copy_image_to_memory_info)); }
+    unsafe { trace!("called vkCopyImageToMemoryEXT({:?}, {:?})", device, p_copy_image_to_memory_info.as_ref()); }
 
     let mut packet = new_packet(1000001486);
     packet.write_shallow(device);
@@ -10021,7 +10021,7 @@ unsafe extern "system" fn vkCopyImageToImageEXT(
     device: NonDisposableHandle,
     p_copy_image_to_image_info: *const VkCopyImageToImageInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCopyImageToImageEXT({:?}, {:?})", device, to_reference(p_copy_image_to_image_info)); }
+    unsafe { trace!("called vkCopyImageToImageEXT({:?}, {:?})", device, p_copy_image_to_image_info.as_ref()); }
 
     let mut packet = new_packet(1000001487);
     packet.write_shallow(device);
@@ -10038,7 +10038,7 @@ unsafe extern "system" fn vkTransitionImageLayoutEXT(
     transition_count: u32,
     p_transitions: *const VkHostImageLayoutTransitionInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkTransitionImageLayoutEXT({:?}, {:?}, {:?})", device, transition_count, to_reference(p_transitions)); }
+    unsafe { trace!("called vkTransitionImageLayoutEXT({:?}, {:?}, {:?})", device, transition_count, p_transitions.as_ref()); }
 
     let mut packet = new_packet(1000001488);
     packet.write_shallow(device);
@@ -10056,7 +10056,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceVideoCapabilitiesKHR(
     p_video_profile: *const VkVideoProfileInfoKHR,
     p_capabilities: *mut VkVideoCapabilitiesKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceVideoCapabilitiesKHR({:?}, {:?}, {:?})", physical_device, to_reference(p_video_profile), to_reference(p_capabilities)); }
+    unsafe { trace!("called vkGetPhysicalDeviceVideoCapabilitiesKHR({:?}, {:?}, {:?})", physical_device, p_video_profile.as_ref(), p_capabilities.as_ref()); }
 
     let mut packet = new_packet(1000001489);
     packet.write_shallow(physical_device);
@@ -10076,7 +10076,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceVideoFormatPropertiesKHR(
     p_video_format_property_count: *mut u32,
     p_video_format_properties: *mut VkVideoFormatPropertiesKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceVideoFormatPropertiesKHR({:?}, {:?}, {:?}, {:?})", physical_device, to_reference(p_video_format_info), p_video_format_property_count, to_reference(p_video_format_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceVideoFormatPropertiesKHR({:?}, {:?}, {:?}, {:?})", physical_device, p_video_format_info.as_ref(), p_video_format_property_count, p_video_format_properties.as_ref()); }
 
     let mut packet = new_packet(1000001490);
     packet.write_shallow(physical_device);
@@ -10095,7 +10095,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKH
     p_quality_level_info: *const VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR,
     p_quality_level_properties: *mut VkVideoEncodeQualityLevelPropertiesKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR({:?}, {:?}, {:?})", physical_device, to_reference(p_quality_level_info), to_reference(p_quality_level_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR({:?}, {:?}, {:?})", physical_device, p_quality_level_info.as_ref(), p_quality_level_properties.as_ref()); }
 
     let mut packet = new_packet(1000001491);
     packet.write_shallow(physical_device);
@@ -10115,7 +10115,7 @@ unsafe extern "system" fn vkCreateVideoSessionKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_video_session: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateVideoSessionKHR({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_video_session)); }
+    unsafe { trace!("called vkCreateVideoSessionKHR({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_video_session.as_ref()); }
 
     let mut packet = new_packet(1000001492);
     packet.write_shallow(device);
@@ -10135,7 +10135,7 @@ unsafe extern "system" fn vkDestroyVideoSessionKHR(
     video_session: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyVideoSessionKHR({:?}, {:?}, {:?})", device, video_session, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyVideoSessionKHR({:?}, {:?}, {:?})", device, video_session, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001493);
     packet.write_shallow(device);
@@ -10154,7 +10154,7 @@ unsafe extern "system" fn vkCreateVideoSessionParametersKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_video_session_parameters: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateVideoSessionParametersKHR({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_video_session_parameters)); }
+    unsafe { trace!("called vkCreateVideoSessionParametersKHR({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_video_session_parameters.as_ref()); }
 
     let mut packet = new_packet(1000001494);
     packet.write_shallow(device);
@@ -10174,7 +10174,7 @@ unsafe extern "system" fn vkUpdateVideoSessionParametersKHR(
     video_session_parameters: NonDisposableHandle,
     p_update_info: *const VkVideoSessionParametersUpdateInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkUpdateVideoSessionParametersKHR({:?}, {:?}, {:?})", device, video_session_parameters, to_reference(p_update_info)); }
+    unsafe { trace!("called vkUpdateVideoSessionParametersKHR({:?}, {:?}, {:?})", device, video_session_parameters, p_update_info.as_ref()); }
 
     let mut packet = new_packet(1000001495);
     packet.write_shallow(device);
@@ -10194,7 +10194,7 @@ unsafe extern "system" fn vkGetEncodedVideoSessionParametersKHR(
     p_data_size: *mut usize,
     p_data: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetEncodedVideoSessionParametersKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, to_reference(p_video_session_parameters_info), to_reference(p_feedback_info), to_reference(p_data_size), to_reference(p_data)); }
+    unsafe { trace!("called vkGetEncodedVideoSessionParametersKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, p_video_session_parameters_info.as_ref(), p_feedback_info.as_ref(), p_data_size.as_ref(), p_data.as_ref()); }
 
     let mut packet = new_packet(1000001496);
     packet.write_shallow(device);
@@ -10217,7 +10217,7 @@ unsafe extern "system" fn vkDestroyVideoSessionParametersKHR(
     video_session_parameters: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyVideoSessionParametersKHR({:?}, {:?}, {:?})", device, video_session_parameters, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyVideoSessionParametersKHR({:?}, {:?}, {:?})", device, video_session_parameters, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001497);
     packet.write_shallow(device);
@@ -10236,7 +10236,7 @@ unsafe extern "system" fn vkGetVideoSessionMemoryRequirementsKHR(
     p_memory_requirements_count: *mut u32,
     p_memory_requirements: *mut VkVideoSessionMemoryRequirementsKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetVideoSessionMemoryRequirementsKHR({:?}, {:?}, {:?}, {:?})", device, video_session, p_memory_requirements_count, to_reference(p_memory_requirements)); }
+    unsafe { trace!("called vkGetVideoSessionMemoryRequirementsKHR({:?}, {:?}, {:?}, {:?})", device, video_session, p_memory_requirements_count, p_memory_requirements.as_ref()); }
 
     let mut packet = new_packet(1000001498);
     packet.write_shallow(device);
@@ -10256,7 +10256,7 @@ unsafe extern "system" fn vkBindVideoSessionMemoryKHR(
     bind_session_memory_info_count: u32,
     p_bind_session_memory_infos: *const VkBindVideoSessionMemoryInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkBindVideoSessionMemoryKHR({:?}, {:?}, {:?}, {:?})", device, video_session, bind_session_memory_info_count, to_reference(p_bind_session_memory_infos)); }
+    unsafe { trace!("called vkBindVideoSessionMemoryKHR({:?}, {:?}, {:?}, {:?})", device, video_session, bind_session_memory_info_count, p_bind_session_memory_infos.as_ref()); }
 
     let mut packet = new_packet(1000001499);
     packet.write_shallow(device);
@@ -10274,7 +10274,7 @@ unsafe extern "system" fn vkCmdDecodeVideoKHR(
     command_buffer: NonDisposableHandle,
     p_decode_info: *const VkVideoDecodeInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdDecodeVideoKHR({:?}, {:?})", command_buffer, to_reference(p_decode_info)); }
+    unsafe { trace!("called vkCmdDecodeVideoKHR({:?}, {:?})", command_buffer, p_decode_info.as_ref()); }
 
     let mut packet = new_packet(1000001500);
     packet.write_shallow(command_buffer);
@@ -10290,7 +10290,7 @@ unsafe extern "system" fn vkCmdBeginVideoCodingKHR(
     command_buffer: NonDisposableHandle,
     p_begin_info: *const VkVideoBeginCodingInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBeginVideoCodingKHR({:?}, {:?})", command_buffer, to_reference(p_begin_info)); }
+    unsafe { trace!("called vkCmdBeginVideoCodingKHR({:?}, {:?})", command_buffer, p_begin_info.as_ref()); }
 
     let mut packet = new_packet(1000001501);
     packet.write_shallow(command_buffer);
@@ -10306,7 +10306,7 @@ unsafe extern "system" fn vkCmdControlVideoCodingKHR(
     command_buffer: NonDisposableHandle,
     p_coding_control_info: *const VkVideoCodingControlInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdControlVideoCodingKHR({:?}, {:?})", command_buffer, to_reference(p_coding_control_info)); }
+    unsafe { trace!("called vkCmdControlVideoCodingKHR({:?}, {:?})", command_buffer, p_coding_control_info.as_ref()); }
 
     let mut packet = new_packet(1000001502);
     packet.write_shallow(command_buffer);
@@ -10322,7 +10322,7 @@ unsafe extern "system" fn vkCmdEndVideoCodingKHR(
     command_buffer: NonDisposableHandle,
     p_end_coding_info: *const VkVideoEndCodingInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdEndVideoCodingKHR({:?}, {:?})", command_buffer, to_reference(p_end_coding_info)); }
+    unsafe { trace!("called vkCmdEndVideoCodingKHR({:?}, {:?})", command_buffer, p_end_coding_info.as_ref()); }
 
     let mut packet = new_packet(1000001503);
     packet.write_shallow(command_buffer);
@@ -10338,7 +10338,7 @@ unsafe extern "system" fn vkCmdEncodeVideoKHR(
     command_buffer: NonDisposableHandle,
     p_encode_info: *const VkVideoEncodeInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdEncodeVideoKHR({:?}, {:?})", command_buffer, to_reference(p_encode_info)); }
+    unsafe { trace!("called vkCmdEncodeVideoKHR({:?}, {:?})", command_buffer, p_encode_info.as_ref()); }
 
     let mut packet = new_packet(1000001504);
     packet.write_shallow(command_buffer);
@@ -10355,7 +10355,7 @@ unsafe extern "system" fn vkCmdDecompressMemoryNV(
     decompress_region_count: u32,
     p_decompress_memory_regions: *const VkDecompressMemoryRegionNV,
 ) -> c_void {
-    unsafe { trace!("called vkCmdDecompressMemoryNV({:?}, {:?}, {:?})", command_buffer, decompress_region_count, to_reference(p_decompress_memory_regions)); }
+    unsafe { trace!("called vkCmdDecompressMemoryNV({:?}, {:?}, {:?})", command_buffer, decompress_region_count, p_decompress_memory_regions.as_ref()); }
 
     let mut packet = new_packet(1000001505);
     packet.write_shallow(command_buffer);
@@ -10394,7 +10394,7 @@ unsafe extern "system" fn vkCreateCuModuleNVX(
     p_allocator: *const VkAllocationCallbacks,
     p_module: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateCuModuleNVX({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_module)); }
+    unsafe { trace!("called vkCreateCuModuleNVX({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_module.as_ref()); }
 
     let mut packet = new_packet(1000001507);
     packet.write_shallow(device);
@@ -10415,7 +10415,7 @@ unsafe extern "system" fn vkCreateCuFunctionNVX(
     p_allocator: *const VkAllocationCallbacks,
     p_function: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateCuFunctionNVX({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_function)); }
+    unsafe { trace!("called vkCreateCuFunctionNVX({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_function.as_ref()); }
 
     let mut packet = new_packet(1000001508);
     packet.write_shallow(device);
@@ -10435,7 +10435,7 @@ unsafe extern "system" fn vkDestroyCuModuleNVX(
     module: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyCuModuleNVX({:?}, {:?}, {:?})", device, module, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyCuModuleNVX({:?}, {:?}, {:?})", device, module, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001509);
     packet.write_shallow(device);
@@ -10453,7 +10453,7 @@ unsafe extern "system" fn vkDestroyCuFunctionNVX(
     function: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyCuFunctionNVX({:?}, {:?}, {:?})", device, function, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyCuFunctionNVX({:?}, {:?}, {:?})", device, function, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001510);
     packet.write_shallow(device);
@@ -10470,7 +10470,7 @@ unsafe extern "system" fn vkCmdCuLaunchKernelNVX(
     command_buffer: NonDisposableHandle,
     p_launch_info: *const VkCuLaunchInfoNVX,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCuLaunchKernelNVX({:?}, {:?})", command_buffer, to_reference(p_launch_info)); }
+    unsafe { trace!("called vkCmdCuLaunchKernelNVX({:?}, {:?})", command_buffer, p_launch_info.as_ref()); }
 
     let mut packet = new_packet(1000001511);
     packet.write_shallow(command_buffer);
@@ -10487,7 +10487,7 @@ unsafe extern "system" fn vkGetDescriptorSetLayoutSizeEXT(
     layout: NonDisposableHandle,
     p_layout_size_in_bytes: *mut NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkGetDescriptorSetLayoutSizeEXT({:?}, {:?}, {:?})", device, layout, to_reference(p_layout_size_in_bytes)); }
+    unsafe { trace!("called vkGetDescriptorSetLayoutSizeEXT({:?}, {:?}, {:?})", device, layout, p_layout_size_in_bytes.as_ref()); }
 
     let mut packet = new_packet(1000001512);
     packet.write_shallow(device);
@@ -10507,7 +10507,7 @@ unsafe extern "system" fn vkGetDescriptorSetLayoutBindingOffsetEXT(
     binding: u32,
     p_offset: *mut NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkGetDescriptorSetLayoutBindingOffsetEXT({:?}, {:?}, {:?}, {:?})", device, layout, binding, to_reference(p_offset)); }
+    unsafe { trace!("called vkGetDescriptorSetLayoutBindingOffsetEXT({:?}, {:?}, {:?}, {:?})", device, layout, binding, p_offset.as_ref()); }
 
     let mut packet = new_packet(1000001513);
     packet.write_shallow(device);
@@ -10528,7 +10528,7 @@ unsafe extern "system" fn vkGetDescriptorEXT(
     data_size: usize,
     p_descriptor: *mut c_void,
 ) -> c_void {
-    unsafe { trace!("called vkGetDescriptorEXT({:?}, {:?}, {:?}, {:?})", device, to_reference(p_descriptor_info), data_size, to_reference(p_descriptor)); }
+    unsafe { trace!("called vkGetDescriptorEXT({:?}, {:?}, {:?}, {:?})", device, p_descriptor_info.as_ref(), data_size, p_descriptor.as_ref()); }
 
     let mut packet = new_packet(1000001514);
     packet.write_shallow(device);
@@ -10548,7 +10548,7 @@ unsafe extern "system" fn vkCmdBindDescriptorBuffersEXT(
     buffer_count: u32,
     p_binding_infos: *const VkDescriptorBufferBindingInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBindDescriptorBuffersEXT({:?}, {:?}, {:?})", command_buffer, buffer_count, to_reference(p_binding_infos)); }
+    unsafe { trace!("called vkCmdBindDescriptorBuffersEXT({:?}, {:?}, {:?})", command_buffer, buffer_count, p_binding_infos.as_ref()); }
 
     let mut packet = new_packet(1000001515);
     packet.write_shallow(command_buffer);
@@ -10570,7 +10570,7 @@ unsafe extern "system" fn vkCmdSetDescriptorBufferOffsetsEXT(
     p_buffer_indices: *const u32,
     p_offsets: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetDescriptorBufferOffsetsEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, pipeline_bind_point, layout, first_set, set_count, to_reference(p_buffer_indices), to_reference(p_offsets)); }
+    unsafe { trace!("called vkCmdSetDescriptorBufferOffsetsEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, pipeline_bind_point, layout, first_set, set_count, p_buffer_indices.as_ref(), p_offsets.as_ref()); }
 
     let mut packet = new_packet(1000001516);
     packet.write_shallow(command_buffer);
@@ -10612,7 +10612,7 @@ unsafe extern "system" fn vkGetBufferOpaqueCaptureDescriptorDataEXT(
     p_info: *const VkBufferCaptureDescriptorDataInfoEXT,
     p_data: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetBufferOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})", device, to_reference(p_info), to_reference(p_data)); }
+    unsafe { trace!("called vkGetBufferOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})", device, p_info.as_ref(), p_data.as_ref()); }
 
     let mut packet = new_packet(1000001518);
     packet.write_shallow(device);
@@ -10631,7 +10631,7 @@ unsafe extern "system" fn vkGetImageOpaqueCaptureDescriptorDataEXT(
     p_info: *const VkImageCaptureDescriptorDataInfoEXT,
     p_data: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetImageOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})", device, to_reference(p_info), to_reference(p_data)); }
+    unsafe { trace!("called vkGetImageOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})", device, p_info.as_ref(), p_data.as_ref()); }
 
     let mut packet = new_packet(1000001519);
     packet.write_shallow(device);
@@ -10650,7 +10650,7 @@ unsafe extern "system" fn vkGetImageViewOpaqueCaptureDescriptorDataEXT(
     p_info: *const VkImageViewCaptureDescriptorDataInfoEXT,
     p_data: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetImageViewOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})", device, to_reference(p_info), to_reference(p_data)); }
+    unsafe { trace!("called vkGetImageViewOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})", device, p_info.as_ref(), p_data.as_ref()); }
 
     let mut packet = new_packet(1000001520);
     packet.write_shallow(device);
@@ -10669,7 +10669,7 @@ unsafe extern "system" fn vkGetSamplerOpaqueCaptureDescriptorDataEXT(
     p_info: *const VkSamplerCaptureDescriptorDataInfoEXT,
     p_data: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetSamplerOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})", device, to_reference(p_info), to_reference(p_data)); }
+    unsafe { trace!("called vkGetSamplerOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})", device, p_info.as_ref(), p_data.as_ref()); }
 
     let mut packet = new_packet(1000001521);
     packet.write_shallow(device);
@@ -10688,7 +10688,7 @@ unsafe extern "system" fn vkGetAccelerationStructureOpaqueCaptureDescriptorDataE
     p_info: *const VkAccelerationStructureCaptureDescriptorDataInfoEXT,
     p_data: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})", device, to_reference(p_info), to_reference(p_data)); }
+    unsafe { trace!("called vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})", device, p_info.as_ref(), p_data.as_ref()); }
 
     let mut packet = new_packet(1000001522);
     packet.write_shallow(device);
@@ -10744,7 +10744,7 @@ unsafe extern "system" fn vkGetDrmDisplayEXT(
     connector_id: u32,
     display: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetDrmDisplayEXT({:?}, {:?}, {:?}, {:?})", physical_device, drm_fd, connector_id, to_reference(display)); }
+    unsafe { trace!("called vkGetDrmDisplayEXT({:?}, {:?}, {:?}, {:?})", physical_device, drm_fd, connector_id, display.as_ref()); }
 
     let mut packet = new_packet(1000001525);
     packet.write_shallow(physical_device);
@@ -10785,7 +10785,7 @@ unsafe extern "system" fn vkCreateBufferCollectionFUCHSIA(
     p_allocator: *const VkAllocationCallbacks,
     p_collection: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateBufferCollectionFUCHSIA({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_collection)); }
+    unsafe { trace!("called vkCreateBufferCollectionFUCHSIA({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_collection.as_ref()); }
 
     let mut packet = new_packet(1000001527);
     packet.write_shallow(device);
@@ -10805,7 +10805,7 @@ unsafe extern "system" fn vkSetBufferCollectionBufferConstraintsFUCHSIA(
     collection: NonDisposableHandle,
     p_buffer_constraints_info: *const VkBufferConstraintsInfoFUCHSIA,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkSetBufferCollectionBufferConstraintsFUCHSIA({:?}, {:?}, {:?})", device, collection, to_reference(p_buffer_constraints_info)); }
+    unsafe { trace!("called vkSetBufferCollectionBufferConstraintsFUCHSIA({:?}, {:?}, {:?})", device, collection, p_buffer_constraints_info.as_ref()); }
 
     let mut packet = new_packet(1000001528);
     packet.write_shallow(device);
@@ -10823,7 +10823,7 @@ unsafe extern "system" fn vkSetBufferCollectionImageConstraintsFUCHSIA(
     collection: NonDisposableHandle,
     p_image_constraints_info: *const VkImageConstraintsInfoFUCHSIA,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkSetBufferCollectionImageConstraintsFUCHSIA({:?}, {:?}, {:?})", device, collection, to_reference(p_image_constraints_info)); }
+    unsafe { trace!("called vkSetBufferCollectionImageConstraintsFUCHSIA({:?}, {:?}, {:?})", device, collection, p_image_constraints_info.as_ref()); }
 
     let mut packet = new_packet(1000001529);
     packet.write_shallow(device);
@@ -10841,7 +10841,7 @@ unsafe extern "system" fn vkDestroyBufferCollectionFUCHSIA(
     collection: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyBufferCollectionFUCHSIA({:?}, {:?}, {:?})", device, collection, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyBufferCollectionFUCHSIA({:?}, {:?}, {:?})", device, collection, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001530);
     packet.write_shallow(device);
@@ -10859,7 +10859,7 @@ unsafe extern "system" fn vkGetBufferCollectionPropertiesFUCHSIA(
     collection: NonDisposableHandle,
     p_properties: *mut VkBufferCollectionPropertiesFUCHSIA,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetBufferCollectionPropertiesFUCHSIA({:?}, {:?}, {:?})", device, collection, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetBufferCollectionPropertiesFUCHSIA({:?}, {:?}, {:?})", device, collection, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001531);
     packet.write_shallow(device);
@@ -10879,7 +10879,7 @@ unsafe extern "system" fn vkCreateCudaModuleNV(
     p_allocator: *const VkAllocationCallbacks,
     p_module: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateCudaModuleNV({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_module)); }
+    unsafe { trace!("called vkCreateCudaModuleNV({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_module.as_ref()); }
 
     let mut packet = new_packet(1000001532);
     packet.write_shallow(device);
@@ -10900,7 +10900,7 @@ unsafe extern "system" fn vkGetCudaModuleCacheNV(
     p_cache_size: *mut usize,
     p_cache_data: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetCudaModuleCacheNV({:?}, {:?}, {:?}, {:?})", device, module, to_reference(p_cache_size), to_reference(p_cache_data)); }
+    unsafe { trace!("called vkGetCudaModuleCacheNV({:?}, {:?}, {:?}, {:?})", device, module, p_cache_size.as_ref(), p_cache_data.as_ref()); }
 
     let mut packet = new_packet(1000001533);
     packet.write_shallow(device);
@@ -10922,7 +10922,7 @@ unsafe extern "system" fn vkCreateCudaFunctionNV(
     p_allocator: *const VkAllocationCallbacks,
     p_function: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateCudaFunctionNV({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_function)); }
+    unsafe { trace!("called vkCreateCudaFunctionNV({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_function.as_ref()); }
 
     let mut packet = new_packet(1000001534);
     packet.write_shallow(device);
@@ -10942,7 +10942,7 @@ unsafe extern "system" fn vkDestroyCudaModuleNV(
     module: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyCudaModuleNV({:?}, {:?}, {:?})", device, module, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyCudaModuleNV({:?}, {:?}, {:?})", device, module, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001535);
     packet.write_shallow(device);
@@ -10960,7 +10960,7 @@ unsafe extern "system" fn vkDestroyCudaFunctionNV(
     function: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyCudaFunctionNV({:?}, {:?}, {:?})", device, function, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyCudaFunctionNV({:?}, {:?}, {:?})", device, function, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001536);
     packet.write_shallow(device);
@@ -10977,7 +10977,7 @@ unsafe extern "system" fn vkCmdCudaLaunchKernelNV(
     command_buffer: NonDisposableHandle,
     p_launch_info: *const VkCudaLaunchInfoNV,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCudaLaunchKernelNV({:?}, {:?})", command_buffer, to_reference(p_launch_info)); }
+    unsafe { trace!("called vkCmdCudaLaunchKernelNV({:?}, {:?})", command_buffer, p_launch_info.as_ref()); }
 
     let mut packet = new_packet(1000001537);
     packet.write_shallow(command_buffer);
@@ -10993,7 +10993,7 @@ unsafe extern "system" fn vkCmdBeginRendering(
     command_buffer: NonDisposableHandle,
     p_rendering_info: *const VkRenderingInfo,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBeginRendering({:?}, {:?})", command_buffer, to_reference(p_rendering_info)); }
+    unsafe { trace!("called vkCmdBeginRendering({:?}, {:?})", command_buffer, p_rendering_info.as_ref()); }
 
     let mut packet = new_packet(1000001538);
     packet.write_shallow(command_buffer);
@@ -11024,7 +11024,7 @@ unsafe extern "system" fn vkGetDescriptorSetLayoutHostMappingInfoVALVE(
     p_binding_reference: *const VkDescriptorSetBindingReferenceVALVE,
     p_host_mapping: *mut VkDescriptorSetLayoutHostMappingInfoVALVE,
 ) -> c_void {
-    unsafe { trace!("called vkGetDescriptorSetLayoutHostMappingInfoVALVE({:?}, {:?}, {:?})", device, to_reference(p_binding_reference), to_reference(p_host_mapping)); }
+    unsafe { trace!("called vkGetDescriptorSetLayoutHostMappingInfoVALVE({:?}, {:?}, {:?})", device, p_binding_reference.as_ref(), p_host_mapping.as_ref()); }
 
     let mut packet = new_packet(1000001540);
     packet.write_shallow(device);
@@ -11043,7 +11043,7 @@ unsafe extern "system" fn vkGetDescriptorSetHostMappingVALVE(
     descriptor_set: NonDisposableHandle,
     pp_data: *mut *mut c_void,
 ) -> c_void {
-    unsafe { trace!("called vkGetDescriptorSetHostMappingVALVE({:?}, {:?}, {:?})", device, descriptor_set, to_reference(pp_data)); }
+    unsafe { trace!("called vkGetDescriptorSetHostMappingVALVE({:?}, {:?}, {:?})", device, descriptor_set, pp_data.as_ref()); }
 
     let mut packet = new_packet(1000001541);
     packet.write_shallow(device);
@@ -11063,7 +11063,7 @@ unsafe extern "system" fn vkCreateMicromapEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_micromap: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateMicromapEXT({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_micromap)); }
+    unsafe { trace!("called vkCreateMicromapEXT({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_micromap.as_ref()); }
 
     let mut packet = new_packet(1000001542);
     packet.write_shallow(device);
@@ -11083,7 +11083,7 @@ unsafe extern "system" fn vkCmdBuildMicromapsEXT(
     info_count: u32,
     p_infos: *const VkMicromapBuildInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBuildMicromapsEXT({:?}, {:?}, {:?})", command_buffer, info_count, to_reference(p_infos)); }
+    unsafe { trace!("called vkCmdBuildMicromapsEXT({:?}, {:?}, {:?})", command_buffer, info_count, p_infos.as_ref()); }
 
     let mut packet = new_packet(1000001543);
     packet.write_shallow(command_buffer);
@@ -11102,7 +11102,7 @@ unsafe extern "system" fn vkBuildMicromapsEXT(
     info_count: u32,
     p_infos: *const VkMicromapBuildInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkBuildMicromapsEXT({:?}, {:?}, {:?}, {:?})", device, deferred_operation, info_count, to_reference(p_infos)); }
+    unsafe { trace!("called vkBuildMicromapsEXT({:?}, {:?}, {:?}, {:?})", device, deferred_operation, info_count, p_infos.as_ref()); }
 
     let mut packet = new_packet(1000001544);
     packet.write_shallow(device);
@@ -11121,7 +11121,7 @@ unsafe extern "system" fn vkDestroyMicromapEXT(
     micromap: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyMicromapEXT({:?}, {:?}, {:?})", device, micromap, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyMicromapEXT({:?}, {:?}, {:?})", device, micromap, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001545);
     packet.write_shallow(device);
@@ -11138,7 +11138,7 @@ unsafe extern "system" fn vkCmdCopyMicromapEXT(
     command_buffer: NonDisposableHandle,
     p_info: *const VkCopyMicromapInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyMicromapEXT({:?}, {:?})", command_buffer, to_reference(p_info)); }
+    unsafe { trace!("called vkCmdCopyMicromapEXT({:?}, {:?})", command_buffer, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001546);
     packet.write_shallow(command_buffer);
@@ -11155,7 +11155,7 @@ unsafe extern "system" fn vkCopyMicromapEXT(
     deferred_operation: NonDisposableHandle,
     p_info: *const VkCopyMicromapInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCopyMicromapEXT({:?}, {:?}, {:?})", device, deferred_operation, to_reference(p_info)); }
+    unsafe { trace!("called vkCopyMicromapEXT({:?}, {:?}, {:?})", device, deferred_operation, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001547);
     packet.write_shallow(device);
@@ -11172,7 +11172,7 @@ unsafe extern "system" fn vkCmdCopyMicromapToMemoryEXT(
     command_buffer: NonDisposableHandle,
     p_info: *const VkCopyMicromapToMemoryInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyMicromapToMemoryEXT({:?}, {:?})", command_buffer, to_reference(p_info)); }
+    unsafe { trace!("called vkCmdCopyMicromapToMemoryEXT({:?}, {:?})", command_buffer, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001548);
     packet.write_shallow(command_buffer);
@@ -11189,7 +11189,7 @@ unsafe extern "system" fn vkCopyMicromapToMemoryEXT(
     deferred_operation: NonDisposableHandle,
     p_info: *const VkCopyMicromapToMemoryInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCopyMicromapToMemoryEXT({:?}, {:?}, {:?})", device, deferred_operation, to_reference(p_info)); }
+    unsafe { trace!("called vkCopyMicromapToMemoryEXT({:?}, {:?}, {:?})", device, deferred_operation, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001549);
     packet.write_shallow(device);
@@ -11206,7 +11206,7 @@ unsafe extern "system" fn vkCmdCopyMemoryToMicromapEXT(
     command_buffer: NonDisposableHandle,
     p_info: *const VkCopyMemoryToMicromapInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdCopyMemoryToMicromapEXT({:?}, {:?})", command_buffer, to_reference(p_info)); }
+    unsafe { trace!("called vkCmdCopyMemoryToMicromapEXT({:?}, {:?})", command_buffer, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001550);
     packet.write_shallow(command_buffer);
@@ -11223,7 +11223,7 @@ unsafe extern "system" fn vkCopyMemoryToMicromapEXT(
     deferred_operation: NonDisposableHandle,
     p_info: *const VkCopyMemoryToMicromapInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCopyMemoryToMicromapEXT({:?}, {:?}, {:?})", device, deferred_operation, to_reference(p_info)); }
+    unsafe { trace!("called vkCopyMemoryToMicromapEXT({:?}, {:?}, {:?})", device, deferred_operation, p_info.as_ref()); }
 
     let mut packet = new_packet(1000001551);
     packet.write_shallow(device);
@@ -11244,7 +11244,7 @@ unsafe extern "system" fn vkCmdWriteMicromapsPropertiesEXT(
     query_pool: NonDisposableHandle,
     first_query: u32,
 ) -> c_void {
-    unsafe { trace!("called vkCmdWriteMicromapsPropertiesEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, micromap_count, to_reference(p_micromaps), query_type, query_pool, first_query); }
+    unsafe { trace!("called vkCmdWriteMicromapsPropertiesEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, micromap_count, p_micromaps.as_ref(), query_type, query_pool, first_query); }
 
     let mut packet = new_packet(1000001552);
     packet.write_shallow(command_buffer);
@@ -11269,7 +11269,7 @@ unsafe extern "system" fn vkWriteMicromapsPropertiesEXT(
     p_data: *mut c_void,
     stride: usize,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkWriteMicromapsPropertiesEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, micromap_count, to_reference(p_micromaps), query_type, data_size, to_reference(p_data), stride); }
+    unsafe { trace!("called vkWriteMicromapsPropertiesEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, micromap_count, p_micromaps.as_ref(), query_type, data_size, p_data.as_ref(), stride); }
 
     let mut packet = new_packet(1000001553);
     packet.write_shallow(device);
@@ -11292,7 +11292,7 @@ unsafe extern "system" fn vkGetDeviceMicromapCompatibilityEXT(
     p_version_info: *const VkMicromapVersionInfoEXT,
     p_compatibility: *mut NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkGetDeviceMicromapCompatibilityEXT({:?}, {:?}, {:?})", device, to_reference(p_version_info), to_reference(p_compatibility)); }
+    unsafe { trace!("called vkGetDeviceMicromapCompatibilityEXT({:?}, {:?}, {:?})", device, p_version_info.as_ref(), p_compatibility.as_ref()); }
 
     let mut packet = new_packet(1000001554);
     packet.write_shallow(device);
@@ -11312,7 +11312,7 @@ unsafe extern "system" fn vkGetMicromapBuildSizesEXT(
     p_build_info: *const VkMicromapBuildInfoEXT,
     p_size_info: *mut VkMicromapBuildSizesInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkGetMicromapBuildSizesEXT({:?}, {:?}, {:?}, {:?})", device, build_type, to_reference(p_build_info), to_reference(p_size_info)); }
+    unsafe { trace!("called vkGetMicromapBuildSizesEXT({:?}, {:?}, {:?}, {:?})", device, build_type, p_build_info.as_ref(), p_size_info.as_ref()); }
 
     let mut packet = new_packet(1000001555);
     packet.write_shallow(device);
@@ -11332,7 +11332,7 @@ unsafe extern "system" fn vkGetShaderModuleIdentifierEXT(
     shader_module: NonDisposableHandle,
     p_identifier: *mut VkShaderModuleIdentifierEXT,
 ) -> c_void {
-    unsafe { trace!("called vkGetShaderModuleIdentifierEXT({:?}, {:?}, {:?})", device, shader_module, to_reference(p_identifier)); }
+    unsafe { trace!("called vkGetShaderModuleIdentifierEXT({:?}, {:?}, {:?})", device, shader_module, p_identifier.as_ref()); }
 
     let mut packet = new_packet(1000001556);
     packet.write_shallow(device);
@@ -11351,7 +11351,7 @@ unsafe extern "system" fn vkGetShaderModuleCreateInfoIdentifierEXT(
     p_create_info: *const VkShaderModuleCreateInfo,
     p_identifier: *mut VkShaderModuleIdentifierEXT,
 ) -> c_void {
-    unsafe { trace!("called vkGetShaderModuleCreateInfoIdentifierEXT({:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_identifier)); }
+    unsafe { trace!("called vkGetShaderModuleCreateInfoIdentifierEXT({:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_identifier.as_ref()); }
 
     let mut packet = new_packet(1000001557);
     packet.write_shallow(device);
@@ -11371,7 +11371,7 @@ unsafe extern "system" fn vkGetImageSubresourceLayout2KHR(
     p_subresource: *const VkImageSubresource2KHR,
     p_layout: *mut VkSubresourceLayout2KHR,
 ) -> c_void {
-    unsafe { trace!("called vkGetImageSubresourceLayout2KHR({:?}, {:?}, {:?}, {:?})", device, image, to_reference(p_subresource), to_reference(p_layout)); }
+    unsafe { trace!("called vkGetImageSubresourceLayout2KHR({:?}, {:?}, {:?}, {:?})", device, image, p_subresource.as_ref(), p_layout.as_ref()); }
 
     let mut packet = new_packet(1000001558);
     packet.write_shallow(device);
@@ -11391,7 +11391,7 @@ unsafe extern "system" fn vkGetPipelinePropertiesEXT(
     p_pipeline_info: *const NonDisposableHandle,
     p_pipeline_properties: *mut VkBaseOutStructure,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPipelinePropertiesEXT({:?}, {:?}, {:?})", device, to_reference(p_pipeline_info), to_reference(p_pipeline_properties)); }
+    unsafe { trace!("called vkGetPipelinePropertiesEXT({:?}, {:?}, {:?})", device, p_pipeline_info.as_ref(), p_pipeline_properties.as_ref()); }
 
     let mut packet = new_packet(1000001559);
     packet.write_shallow(device);
@@ -11409,7 +11409,7 @@ unsafe extern "system" fn vkExportMetalObjectsEXT(
     device: NonDisposableHandle,
     p_metal_objects_info: *mut VkExportMetalObjectsInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkExportMetalObjectsEXT({:?}, {:?})", device, to_reference(p_metal_objects_info)); }
+    unsafe { trace!("called vkExportMetalObjectsEXT({:?}, {:?})", device, p_metal_objects_info.as_ref()); }
 
     let mut packet = new_packet(1000001560);
     packet.write_shallow(device);
@@ -11428,7 +11428,7 @@ unsafe extern "system" fn vkGetFramebufferTilePropertiesQCOM(
     p_properties_count: *mut u32,
     p_properties: *mut VkTilePropertiesQCOM,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetFramebufferTilePropertiesQCOM({:?}, {:?}, {:?}, {:?})", device, framebuffer, p_properties_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetFramebufferTilePropertiesQCOM({:?}, {:?}, {:?}, {:?})", device, framebuffer, p_properties_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001561);
     packet.write_shallow(device);
@@ -11447,7 +11447,7 @@ unsafe extern "system" fn vkGetDynamicRenderingTilePropertiesQCOM(
     p_rendering_info: *const VkRenderingInfo,
     p_properties: *mut VkTilePropertiesQCOM,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetDynamicRenderingTilePropertiesQCOM({:?}, {:?}, {:?})", device, to_reference(p_rendering_info), to_reference(p_properties)); }
+    unsafe { trace!("called vkGetDynamicRenderingTilePropertiesQCOM({:?}, {:?}, {:?})", device, p_rendering_info.as_ref(), p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001562);
     packet.write_shallow(device);
@@ -11467,7 +11467,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceOpticalFlowImageFormatsNV(
     p_format_count: *mut u32,
     p_image_format_properties: *mut VkOpticalFlowImageFormatPropertiesNV,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceOpticalFlowImageFormatsNV({:?}, {:?}, {:?}, {:?})", physical_device, to_reference(p_optical_flow_image_format_info), p_format_count, to_reference(p_image_format_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceOpticalFlowImageFormatsNV({:?}, {:?}, {:?}, {:?})", physical_device, p_optical_flow_image_format_info.as_ref(), p_format_count, p_image_format_properties.as_ref()); }
 
     let mut packet = new_packet(1000001563);
     packet.write_shallow(physical_device);
@@ -11487,7 +11487,7 @@ unsafe extern "system" fn vkCreateOpticalFlowSessionNV(
     p_allocator: *const VkAllocationCallbacks,
     p_session: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateOpticalFlowSessionNV({:?}, {:?}, {:?}, {:?})", device, to_reference(p_create_info), to_reference(p_allocator), to_reference(p_session)); }
+    unsafe { trace!("called vkCreateOpticalFlowSessionNV({:?}, {:?}, {:?}, {:?})", device, p_create_info.as_ref(), p_allocator.as_ref(), p_session.as_ref()); }
 
     let mut packet = new_packet(1000001564);
     packet.write_shallow(device);
@@ -11507,7 +11507,7 @@ unsafe extern "system" fn vkDestroyOpticalFlowSessionNV(
     session: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyOpticalFlowSessionNV({:?}, {:?}, {:?})", device, session, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyOpticalFlowSessionNV({:?}, {:?}, {:?})", device, session, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001565);
     packet.write_shallow(device);
@@ -11547,7 +11547,7 @@ unsafe extern "system" fn vkCmdOpticalFlowExecuteNV(
     session: NonDisposableHandle,
     p_execute_info: *const VkOpticalFlowExecuteInfoNV,
 ) -> c_void {
-    unsafe { trace!("called vkCmdOpticalFlowExecuteNV({:?}, {:?}, {:?})", command_buffer, session, to_reference(p_execute_info)); }
+    unsafe { trace!("called vkCmdOpticalFlowExecuteNV({:?}, {:?}, {:?})", command_buffer, session, p_execute_info.as_ref()); }
 
     let mut packet = new_packet(1000001567);
     packet.write_shallow(command_buffer);
@@ -11565,7 +11565,7 @@ unsafe extern "system" fn vkGetDeviceFaultInfoEXT(
     p_fault_counts: *mut VkDeviceFaultCountsEXT,
     p_fault_info: *mut VkDeviceFaultInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetDeviceFaultInfoEXT({:?}, {:?}, {:?})", device, to_reference(p_fault_counts), to_reference(p_fault_info)); }
+    unsafe { trace!("called vkGetDeviceFaultInfoEXT({:?}, {:?}, {:?})", device, p_fault_counts.as_ref(), p_fault_info.as_ref()); }
 
     let mut packet = new_packet(1000001568);
     packet.write_shallow(device);
@@ -11584,7 +11584,7 @@ unsafe extern "system" fn vkCmdSetDepthBias2EXT(
     command_buffer: NonDisposableHandle,
     p_depth_bias_info: *const VkDepthBiasInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetDepthBias2EXT({:?}, {:?})", command_buffer, to_reference(p_depth_bias_info)); }
+    unsafe { trace!("called vkCmdSetDepthBias2EXT({:?}, {:?})", command_buffer, p_depth_bias_info.as_ref()); }
 
     let mut packet = new_packet(1000001569);
     packet.write_shallow(command_buffer);
@@ -11600,7 +11600,7 @@ unsafe extern "system" fn vkReleaseSwapchainImagesEXT(
     device: NonDisposableHandle,
     p_release_info: *const VkReleaseSwapchainImagesInfoEXT,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkReleaseSwapchainImagesEXT({:?}, {:?})", device, to_reference(p_release_info)); }
+    unsafe { trace!("called vkReleaseSwapchainImagesEXT({:?}, {:?})", device, p_release_info.as_ref()); }
 
     let mut packet = new_packet(1000001570);
     packet.write_shallow(device);
@@ -11617,7 +11617,7 @@ unsafe extern "system" fn vkGetDeviceImageSubresourceLayoutKHR(
     p_info: *const VkDeviceImageSubresourceInfoKHR,
     p_layout: *mut VkSubresourceLayout2KHR,
 ) -> c_void {
-    unsafe { trace!("called vkGetDeviceImageSubresourceLayoutKHR({:?}, {:?}, {:?})", device, to_reference(p_info), to_reference(p_layout)); }
+    unsafe { trace!("called vkGetDeviceImageSubresourceLayoutKHR({:?}, {:?}, {:?})", device, p_info.as_ref(), p_layout.as_ref()); }
 
     let mut packet = new_packet(1000001571);
     packet.write_shallow(device);
@@ -11636,7 +11636,7 @@ unsafe extern "system" fn vkMapMemory2KHR(
     p_memory_map_info: *const VkMemoryMapInfoKHR,
     pp_data: *mut *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkMapMemory2KHR({:?}, {:?}, {:?})", device, to_reference(p_memory_map_info), to_reference(pp_data)); }
+    unsafe { trace!("called vkMapMemory2KHR({:?}, {:?}, {:?})", device, p_memory_map_info.as_ref(), pp_data.as_ref()); }
 
     let mut packet = new_packet(1000001572);
     packet.write_shallow(device);
@@ -11654,7 +11654,7 @@ unsafe extern "system" fn vkUnmapMemory2KHR(
     device: NonDisposableHandle,
     p_memory_unmap_info: *const VkMemoryUnmapInfoKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkUnmapMemory2KHR({:?}, {:?})", device, to_reference(p_memory_unmap_info)); }
+    unsafe { trace!("called vkUnmapMemory2KHR({:?}, {:?})", device, p_memory_unmap_info.as_ref()); }
 
     let mut packet = new_packet(1000001573);
     packet.write_shallow(device);
@@ -11673,7 +11673,7 @@ unsafe extern "system" fn vkCreateShadersEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_shaders: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateShadersEXT({:?}, {:?}, {:?}, {:?}, {:?})", device, create_info_count, to_reference(p_create_infos), to_reference(p_allocator), to_reference(p_shaders)); }
+    unsafe { trace!("called vkCreateShadersEXT({:?}, {:?}, {:?}, {:?}, {:?})", device, create_info_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_shaders.as_ref()); }
 
     let mut packet = new_packet(1000001574);
     packet.write_shallow(device);
@@ -11694,7 +11694,7 @@ unsafe extern "system" fn vkDestroyShaderEXT(
     shader: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
-    unsafe { trace!("called vkDestroyShaderEXT({:?}, {:?}, {:?})", device, shader, to_reference(p_allocator)); }
+    unsafe { trace!("called vkDestroyShaderEXT({:?}, {:?}, {:?})", device, shader, p_allocator.as_ref()); }
 
     let mut packet = new_packet(1000001575);
     packet.write_shallow(device);
@@ -11713,7 +11713,7 @@ unsafe extern "system" fn vkGetShaderBinaryDataEXT(
     p_data_size: *mut usize,
     p_data: *mut c_void,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetShaderBinaryDataEXT({:?}, {:?}, {:?}, {:?})", device, shader, to_reference(p_data_size), to_reference(p_data)); }
+    unsafe { trace!("called vkGetShaderBinaryDataEXT({:?}, {:?}, {:?}, {:?})", device, shader, p_data_size.as_ref(), p_data.as_ref()); }
 
     let mut packet = new_packet(1000001576);
     packet.write_shallow(device);
@@ -11735,7 +11735,7 @@ unsafe extern "system" fn vkCmdBindShadersEXT(
     p_stages: *const vk::ShaderStageFlags,
     p_shaders: *const NonDisposableHandle,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBindShadersEXT({:?}, {:?}, {:?}, {:?})", command_buffer, stage_count, to_reference(p_stages), to_reference(p_shaders)); }
+    unsafe { trace!("called vkCmdBindShadersEXT({:?}, {:?}, {:?}, {:?})", command_buffer, stage_count, p_stages.as_ref(), p_shaders.as_ref()); }
 
     let mut packet = new_packet(1000001577);
     packet.write_shallow(command_buffer);
@@ -11754,7 +11754,7 @@ unsafe extern "system" fn vkGetScreenBufferPropertiesQNX(
     buffer: *const usize,
     p_properties: *mut VkScreenBufferPropertiesQNX,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetScreenBufferPropertiesQNX({:?}, {:?}, {:?})", device, to_reference(buffer), to_reference(p_properties)); }
+    unsafe { trace!("called vkGetScreenBufferPropertiesQNX({:?}, {:?}, {:?})", device, buffer.as_ref(), p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001578);
     packet.write_shallow(device);
@@ -11773,7 +11773,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut VkCooperativeMatrixPropertiesKHR,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR({:?}, {:?}, {:?})", physical_device, p_property_count, to_reference(p_properties)); }
+    unsafe { trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
 
     let mut packet = new_packet(1000001579);
     packet.write_shallow(physical_device);
@@ -11791,7 +11791,7 @@ unsafe extern "system" fn vkGetExecutionGraphPipelineScratchSizeAMDX(
     execution_graph: NonDisposableHandle,
     p_size_info: *mut VkExecutionGraphPipelineScratchSizeAMDX,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetExecutionGraphPipelineScratchSizeAMDX({:?}, {:?}, {:?})", device, execution_graph, to_reference(p_size_info)); }
+    unsafe { trace!("called vkGetExecutionGraphPipelineScratchSizeAMDX({:?}, {:?}, {:?})", device, execution_graph, p_size_info.as_ref()); }
 
     let mut packet = new_packet(1000001580);
     packet.write_shallow(device);
@@ -11811,7 +11811,7 @@ unsafe extern "system" fn vkGetExecutionGraphPipelineNodeIndexAMDX(
     p_node_info: *const VkPipelineShaderStageNodeCreateInfoAMDX,
     p_node_index: *mut u32,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkGetExecutionGraphPipelineNodeIndexAMDX({:?}, {:?}, {:?}, {:?})", device, execution_graph, to_reference(p_node_info), to_reference(p_node_index)); }
+    unsafe { trace!("called vkGetExecutionGraphPipelineNodeIndexAMDX({:?}, {:?}, {:?}, {:?})", device, execution_graph, p_node_info.as_ref(), p_node_index.as_ref()); }
 
     let mut packet = new_packet(1000001581);
     packet.write_shallow(device);
@@ -11834,7 +11834,7 @@ unsafe extern "system" fn vkCreateExecutionGraphPipelinesAMDX(
     p_allocator: *const VkAllocationCallbacks,
     p_pipelines: *mut NonDisposableHandle,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkCreateExecutionGraphPipelinesAMDX({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, to_reference(p_create_infos), to_reference(p_allocator), to_reference(p_pipelines)); }
+    unsafe { trace!("called vkCreateExecutionGraphPipelinesAMDX({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_pipelines.as_ref()); }
 
     let mut packet = new_packet(1000001582);
     packet.write_shallow(device);
@@ -11872,7 +11872,7 @@ unsafe extern "system" fn vkCmdDispatchGraphAMDX(
     scratch: NonDisposableHandle,
     p_count_info: *const VkDispatchGraphCountInfoAMDX,
 ) -> c_void {
-    unsafe { trace!("called vkCmdDispatchGraphAMDX({:?}, {:?}, {:?})", command_buffer, scratch, to_reference(p_count_info)); }
+    unsafe { trace!("called vkCmdDispatchGraphAMDX({:?}, {:?}, {:?})", command_buffer, scratch, p_count_info.as_ref()); }
 
     let mut packet = new_packet(1000001584);
     packet.write_shallow(command_buffer);
@@ -11890,7 +11890,7 @@ unsafe extern "system" fn vkCmdDispatchGraphIndirectAMDX(
     scratch: NonDisposableHandle,
     p_count_info: *const VkDispatchGraphCountInfoAMDX,
 ) -> c_void {
-    unsafe { trace!("called vkCmdDispatchGraphIndirectAMDX({:?}, {:?}, {:?})", command_buffer, scratch, to_reference(p_count_info)); }
+    unsafe { trace!("called vkCmdDispatchGraphIndirectAMDX({:?}, {:?}, {:?})", command_buffer, scratch, p_count_info.as_ref()); }
 
     let mut packet = new_packet(1000001585);
     packet.write_shallow(command_buffer);
@@ -11925,7 +11925,7 @@ unsafe extern "system" fn vkCmdBindDescriptorSets2KHR(
     command_buffer: NonDisposableHandle,
     p_bind_descriptor_sets_info: *const VkBindDescriptorSetsInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBindDescriptorSets2KHR({:?}, {:?})", command_buffer, to_reference(p_bind_descriptor_sets_info)); }
+    unsafe { trace!("called vkCmdBindDescriptorSets2KHR({:?}, {:?})", command_buffer, p_bind_descriptor_sets_info.as_ref()); }
 
     let mut packet = new_packet(1000001587);
     packet.write_shallow(command_buffer);
@@ -11941,7 +11941,7 @@ unsafe extern "system" fn vkCmdPushConstants2KHR(
     command_buffer: NonDisposableHandle,
     p_push_constants_info: *const VkPushConstantsInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdPushConstants2KHR({:?}, {:?})", command_buffer, to_reference(p_push_constants_info)); }
+    unsafe { trace!("called vkCmdPushConstants2KHR({:?}, {:?})", command_buffer, p_push_constants_info.as_ref()); }
 
     let mut packet = new_packet(1000001588);
     packet.write_shallow(command_buffer);
@@ -11957,7 +11957,7 @@ unsafe extern "system" fn vkCmdPushDescriptorSet2KHR(
     command_buffer: NonDisposableHandle,
     p_push_descriptor_set_info: *const VkPushDescriptorSetInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdPushDescriptorSet2KHR({:?}, {:?})", command_buffer, to_reference(p_push_descriptor_set_info)); }
+    unsafe { trace!("called vkCmdPushDescriptorSet2KHR({:?}, {:?})", command_buffer, p_push_descriptor_set_info.as_ref()); }
 
     let mut packet = new_packet(1000001589);
     packet.write_shallow(command_buffer);
@@ -11973,7 +11973,7 @@ unsafe extern "system" fn vkCmdPushDescriptorSetWithTemplate2KHR(
     command_buffer: NonDisposableHandle,
     p_push_descriptor_set_with_template_info: *const VkPushDescriptorSetWithTemplateInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdPushDescriptorSetWithTemplate2KHR({:?}, {:?})", command_buffer, to_reference(p_push_descriptor_set_with_template_info)); }
+    unsafe { trace!("called vkCmdPushDescriptorSetWithTemplate2KHR({:?}, {:?})", command_buffer, p_push_descriptor_set_with_template_info.as_ref()); }
 
     let mut packet = new_packet(1000001590);
     packet.write_shallow(command_buffer);
@@ -11989,7 +11989,7 @@ unsafe extern "system" fn vkCmdSetDescriptorBufferOffsets2EXT(
     command_buffer: NonDisposableHandle,
     p_set_descriptor_buffer_offsets_info: *const VkSetDescriptorBufferOffsetsInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetDescriptorBufferOffsets2EXT({:?}, {:?})", command_buffer, to_reference(p_set_descriptor_buffer_offsets_info)); }
+    unsafe { trace!("called vkCmdSetDescriptorBufferOffsets2EXT({:?}, {:?})", command_buffer, p_set_descriptor_buffer_offsets_info.as_ref()); }
 
     let mut packet = new_packet(1000001591);
     packet.write_shallow(command_buffer);
@@ -12005,7 +12005,7 @@ unsafe extern "system" fn vkCmdBindDescriptorBufferEmbeddedSamplers2EXT(
     command_buffer: NonDisposableHandle,
     p_bind_descriptor_buffer_embedded_samplers_info: *const VkBindDescriptorBufferEmbeddedSamplersInfoEXT,
 ) -> c_void {
-    unsafe { trace!("called vkCmdBindDescriptorBufferEmbeddedSamplers2EXT({:?}, {:?})", command_buffer, to_reference(p_bind_descriptor_buffer_embedded_samplers_info)); }
+    unsafe { trace!("called vkCmdBindDescriptorBufferEmbeddedSamplers2EXT({:?}, {:?})", command_buffer, p_bind_descriptor_buffer_embedded_samplers_info.as_ref()); }
 
     let mut packet = new_packet(1000001592);
     packet.write_shallow(command_buffer);
@@ -12022,7 +12022,7 @@ unsafe extern "system" fn vkSetLatencySleepModeNV(
     swapchain: NonDisposableHandle,
     p_sleep_mode_info: *const VkLatencySleepModeInfoNV,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkSetLatencySleepModeNV({:?}, {:?}, {:?})", device, swapchain, to_reference(p_sleep_mode_info)); }
+    unsafe { trace!("called vkSetLatencySleepModeNV({:?}, {:?}, {:?})", device, swapchain, p_sleep_mode_info.as_ref()); }
 
     let mut packet = new_packet(1000001593);
     packet.write_shallow(device);
@@ -12040,7 +12040,7 @@ unsafe extern "system" fn vkLatencySleepNV(
     swapchain: NonDisposableHandle,
     p_sleep_info: *const VkLatencySleepInfoNV,
 ) -> NonDisposableHandle {
-    unsafe { trace!("called vkLatencySleepNV({:?}, {:?}, {:?})", device, swapchain, to_reference(p_sleep_info)); }
+    unsafe { trace!("called vkLatencySleepNV({:?}, {:?}, {:?})", device, swapchain, p_sleep_info.as_ref()); }
 
     let mut packet = new_packet(1000001594);
     packet.write_shallow(device);
@@ -12058,7 +12058,7 @@ unsafe extern "system" fn vkSetLatencyMarkerNV(
     swapchain: NonDisposableHandle,
     p_latency_marker_info: *const VkSetLatencyMarkerInfoNV,
 ) -> c_void {
-    unsafe { trace!("called vkSetLatencyMarkerNV({:?}, {:?}, {:?})", device, swapchain, to_reference(p_latency_marker_info)); }
+    unsafe { trace!("called vkSetLatencyMarkerNV({:?}, {:?}, {:?})", device, swapchain, p_latency_marker_info.as_ref()); }
 
     let mut packet = new_packet(1000001595);
     packet.write_shallow(device);
@@ -12076,7 +12076,7 @@ unsafe extern "system" fn vkGetLatencyTimingsNV(
     swapchain: NonDisposableHandle,
     p_latency_marker_info: *mut VkGetLatencyMarkerInfoNV,
 ) -> c_void {
-    unsafe { trace!("called vkGetLatencyTimingsNV({:?}, {:?}, {:?})", device, swapchain, to_reference(p_latency_marker_info)); }
+    unsafe { trace!("called vkGetLatencyTimingsNV({:?}, {:?}, {:?})", device, swapchain, p_latency_marker_info.as_ref()); }
 
     let mut packet = new_packet(1000001596);
     packet.write_shallow(device);
@@ -12094,7 +12094,7 @@ unsafe extern "system" fn vkQueueNotifyOutOfBandNV(
     queue: NonDisposableHandle,
     p_queue_type_info: *const VkOutOfBandQueueTypeInfoNV,
 ) -> c_void {
-    unsafe { trace!("called vkQueueNotifyOutOfBandNV({:?}, {:?})", queue, to_reference(p_queue_type_info)); }
+    unsafe { trace!("called vkQueueNotifyOutOfBandNV({:?}, {:?})", queue, p_queue_type_info.as_ref()); }
 
     let mut packet = new_packet(1000001597);
     packet.write_shallow(queue);
@@ -12110,7 +12110,7 @@ unsafe extern "system" fn vkCmdSetRenderingAttachmentLocationsKHR(
     command_buffer: NonDisposableHandle,
     p_location_info: *const VkRenderingAttachmentLocationInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetRenderingAttachmentLocationsKHR({:?}, {:?})", command_buffer, to_reference(p_location_info)); }
+    unsafe { trace!("called vkCmdSetRenderingAttachmentLocationsKHR({:?}, {:?})", command_buffer, p_location_info.as_ref()); }
 
     let mut packet = new_packet(1000001598);
     packet.write_shallow(command_buffer);
@@ -12126,7 +12126,7 @@ unsafe extern "system" fn vkCmdSetRenderingInputAttachmentIndicesKHR(
     command_buffer: NonDisposableHandle,
     p_location_info: *const VkRenderingInputAttachmentIndexInfoKHR,
 ) -> c_void {
-    unsafe { trace!("called vkCmdSetRenderingInputAttachmentIndicesKHR({:?}, {:?})", command_buffer, to_reference(p_location_info)); }
+    unsafe { trace!("called vkCmdSetRenderingInputAttachmentIndicesKHR({:?}, {:?})", command_buffer, p_location_info.as_ref()); }
 
     let mut packet = new_packet(1000001599);
     packet.write_shallow(command_buffer);

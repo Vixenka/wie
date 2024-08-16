@@ -167,12 +167,9 @@ fn trace(builder: &mut String, definition: &CommandDefinition) {
             && !param.definition.name.ends_with("Count");
 
         builder.push_str(", ");
-        if is_reference {
-            builder.push_str("to_reference(");
-        }
         push_param_name(builder, param);
         if is_reference {
-            builder.push(')');
+            builder.push_str(".as_ref()");
         }
     }
 

@@ -16,7 +16,9 @@ itertools = "0.13.0"
 lockfree = "0.5.1"
 rsevents = "0.3.1"
 rayon = "1.10.0"
-cdump = { git = "https://github.com/Vixenka/cdump.git", rev = "65572174b628e7b0f24cc1e28b6fddc26c2df471" }
+cdump = { git = "https://github.com/Vixenka/cdump.git", rev = "b7976bad1885bfe4b595a476376f99379a2bb182", features = [
+    "cdebug",
+] }
 aligned-vec = "0.6.1"
 
 wie.path = "crates/wie"
