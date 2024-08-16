@@ -626,6 +626,8 @@ unsafe extern "system" fn vkCreateInstance(
     packet.write_deep(p_allocator);
     packet.write_shallow_under_nullable_ptr(p_instance);
 
+    trace!("sending packet");
+
     let mut response = packet.send_with_response();
     response.read_mut_shallow_under_nullable_ptr_at(p_instance);
     response.read_shallow()
