@@ -1,3 +1,4 @@
+pub mod vulkan_bitmasks;
 pub mod vulkan_enums;
 pub mod vulkan_pfn_functions;
 pub mod vulkan_types;

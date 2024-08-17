@@ -14,6 +14,7 @@ pub mod function_data;
 mod listener;
 mod pfn_functions;
 mod transport;
+mod vulkan_bitmasks;
 mod vulkan_types;
 
 const VULKAN_HANDLERS_BEGIN: u64 = 1_000_001_000;
@@ -36,7 +37,8 @@ fn main() {
 fn generate(vk_headers_path: &Path, project_directory: &Path) {
     let (spec, _errors) =
         vk_parse::parse_file(&vk_headers_path.join("vk.xml")).expect("invalid XML file");
-    let (required_types, required_commands, _) = get_required_types_commands_and_extensions(&spec);
+    let (required_types, required_commands, _enums) =
+        get_required_types_commands_and_extensions(&spec);
 
     let commands: Vec<&CommandDefinition> = spec
         .0
@@ -59,14 +61,19 @@ fn generate(vk_headers_path: &Path, project_directory: &Path) {
     let (required_types_video, _, enums_video) =
         get_required_types_commands_and_extensions(&spec_video);
 
-    let mut types = TypeVulkan::new(&spec, &required_types);
-    let video_types = TypeVulkan::new(&spec_video, &required_types_video);
+    let registry: vkxml::Registry =
+        vk_parse::parse_file_as_vkxml(&vk_headers_path.join("vk.xml")).unwrap();
+
+    let mut types = TypeVulkan::new(&spec, &registry, &required_types);
+    let video_types = TypeVulkan::new(&spec_video, &registry, &required_types_video);
     types.chain(&video_types);
 
     println!("Generating Vulkan types...");
     generate_vulkan_types(project_directory, &types);
     println!("Generating Vulkan enums...");
     enums::generate_enums(project_directory, &enums_video);
+    println!("Generating Vulkan bitmasks...");
+    vulkan_bitmasks::generate(project_directory, &types);
     println!("Generating Vulkan PFN functions...");
     pfn_functions::generate(project_directory, &commands, &types);
     println!("Generating driver...");
@@ -270,8 +277,16 @@ fn to_rust_type_without_ptr(type_name: &Option<String>, types: &TypeVulkan) -> S
                     || n.starts_with("Std")
                     || n.starts_with("MTL"))
             {
-                if n.starts_with("Vk") {
-                    return "NonDisposableHandle".to_owned();
+                if let Some(stripped) = n.strip_prefix("Vk") {
+                    match types.contains_bitmask(n) || types.contains_enumeration(n) {
+                        true => return n.to_owned(),
+                        false => {}
+                    };
+
+                    return match types.contains_handle(n) {
+                        true => "NonDisposableHandle".to_owned(),
+                        false => format!("vk::{}", stripped),
+                    };
                 }
 
                 return format!(
