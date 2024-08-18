@@ -151,7 +151,7 @@ fn get_required_types_commands_and_extensions(
         )
 }
 
-fn trace(builder: &mut String, definition: &CommandDefinition) {
+fn trace(builder: &mut String, definition: &CommandDefinition, is_listener: bool) {
     push_indentation(builder, 1);
     builder.push_str("unsafe { trace!(\"called ");
     builder.push_str(&definition.proto.name);
@@ -188,11 +188,10 @@ fn trace(builder: &mut String, definition: &CommandDefinition) {
 
             builder.push_str(") as usize)");
         } else {
-            let is_reference = param.definition.code.chars().any(|x| x == '*')
-                && !param.definition.name.ends_with("Count");
+            let is_reference = param.definition.code.chars().any(|x| x == '*');
 
             push_param_name(builder, param);
-            if is_reference {
+            if is_reference && (!is_listener || !param.definition.name.ends_with("Count")) {
                 builder.push_str(".as_ref()");
             }
         }

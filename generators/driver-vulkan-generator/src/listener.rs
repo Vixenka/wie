@@ -87,7 +87,7 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition, types:
     builder.push_str("(mut packet: Packet) {\n");
 
     unpack_packet(builder, definition, types);
-    trace(builder, definition);
+    trace(builder, definition, true);
 
     let return_type = to_rust_type(&definition.proto, types);
     let is_void = return_type == "std::ffi::c_void";

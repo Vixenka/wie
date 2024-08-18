@@ -109,7 +109,7 @@ fn generate_command(
     builder.push_str(".html>\"]");
 
     generate_function_header(builder, definition, 0, types);
-    trace(builder, definition);
+    trace(builder, definition, true);
 
     // Packet creation
     push_indentation(builder, 1);
