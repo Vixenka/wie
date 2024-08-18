@@ -358,8 +358,7 @@ where
     #[inline]
     pub unsafe fn read_vk_array<TO>(&mut self, count: *mut u32, destination: *mut TO) {
         let c = self.read_shallow::<u32>();
-        *count = c;
-        if !destination.is_null() {
+        if !destination.is_null() && *count != 0 {
             self.align::<TO>();
             ptr::copy_nonoverlapping(
                 self.buffer.get_mut()[self.read..].as_ptr() as *const TO,
@@ -368,6 +367,7 @@ where
             );
             self.read += c as usize * mem::size_of::<TO>();
         }
+        *count = c;
     }
 
     #[inline]
