@@ -629,7 +629,7 @@ fn vk_destroy_instance(mut packet: Packet) {
 fn vk_enumerate_physical_devices(mut packet: Packet) {
     let instance: NonDisposableHandle = packet.read_shallow();
     let (mut p_physical_device_count, p_physical_devices) = packet.read_and_allocate_vk_array_count::<NonDisposableHandle>();
-    unsafe { trace!("called vkEnumeratePhysicalDevices({:?}, {:?}, {:?})", instance, p_physical_device_count, p_physical_devices.as_ref()); }
+    unsafe { trace!("called vkEnumeratePhysicalDevices({:?}, {:?}, {:?})", instance, p_physical_device_count, unpack_vk_array(p_physical_devices, (p_physical_device_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_enumerate_physical_devices)(
@@ -651,7 +651,7 @@ fn vk_enumerate_physical_devices(mut packet: Packet) {
 fn vk_get_device_proc_addr(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let p_name: *const c_char = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkGetDeviceProcAddr({:?}, {:?})", device, p_name.as_ref()); }
+    unsafe { trace!("called vkGetDeviceProcAddr({:?}, {:?})", device, unpack_cstr(p_name)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_device_proc_addr)(
@@ -669,7 +669,7 @@ fn vk_get_device_proc_addr(mut packet: Packet) {
 fn vk_get_instance_proc_addr(mut packet: Packet) {
     let instance: NonDisposableHandle = packet.read_shallow();
     let p_name: *const c_char = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkGetInstanceProcAddr({:?}, {:?})", instance, p_name.as_ref()); }
+    unsafe { trace!("called vkGetInstanceProcAddr({:?}, {:?})", instance, unpack_cstr(p_name)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_instance_proc_addr)(
@@ -708,7 +708,7 @@ fn vk_get_physical_device_properties(mut packet: Packet) {
 fn vk_get_physical_device_queue_family_properties(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_queue_family_property_count, p_queue_family_properties) = packet.read_and_allocate_vk_array_count::<VkQueueFamilyProperties>();
-    unsafe { trace!("called vkGetPhysicalDeviceQueueFamilyProperties({:?}, {:?}, {:?})", physical_device, p_queue_family_property_count, p_queue_family_properties.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceQueueFamilyProperties({:?}, {:?}, {:?})", physical_device, p_queue_family_property_count, unpack_vk_array(p_queue_family_properties, (p_queue_family_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_queue_family_properties)(
@@ -887,7 +887,7 @@ fn vk_enumerate_instance_version(mut packet: Packet) {
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceLayerProperties.html>"]
 fn vk_enumerate_instance_layer_properties(mut packet: Packet) {
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkLayerProperties>();
-    unsafe { trace!("called vkEnumerateInstanceLayerProperties({:?}, {:?})", p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkEnumerateInstanceLayerProperties({:?}, {:?})", p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_enumerate_instance_layer_properties)(
@@ -908,7 +908,7 @@ fn vk_enumerate_instance_layer_properties(mut packet: Packet) {
 fn vk_enumerate_instance_extension_properties(mut packet: Packet) {
     let p_layer_name: *const c_char = packet.read_shallow_under_nullable_ptr();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkExtensionProperties>();
-    unsafe { trace!("called vkEnumerateInstanceExtensionProperties({:?}, {:?}, {:?})", p_layer_name.as_ref(), p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkEnumerateInstanceExtensionProperties({:?}, {:?}, {:?})", unpack_cstr(p_layer_name), p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_enumerate_instance_extension_properties)(
@@ -930,7 +930,7 @@ fn vk_enumerate_instance_extension_properties(mut packet: Packet) {
 fn vk_enumerate_device_layer_properties(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkLayerProperties>();
-    unsafe { trace!("called vkEnumerateDeviceLayerProperties({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkEnumerateDeviceLayerProperties({:?}, {:?}, {:?})", physical_device, p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_enumerate_device_layer_properties)(
@@ -953,7 +953,7 @@ fn vk_enumerate_device_extension_properties(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let p_layer_name: *const c_char = packet.read_shallow_under_nullable_ptr();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkExtensionProperties>();
-    unsafe { trace!("called vkEnumerateDeviceExtensionProperties({:?}, {:?}, {:?}, {:?})", physical_device, p_layer_name.as_ref(), p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkEnumerateDeviceExtensionProperties({:?}, {:?}, {:?}, {:?})", physical_device, unpack_cstr(p_layer_name), p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_enumerate_device_extension_properties)(
@@ -1003,7 +1003,7 @@ fn vk_queue_submit(mut packet: Packet) {
     let submit_count: u32 = packet.read_shallow();
     let p_submits: *const VkSubmitInfo = packet.read_deep();
     let fence: NonDisposableHandle = packet.read_shallow();
-    unsafe { trace!("called vkQueueSubmit({:?}, {:?}, {:?}, {:?})", queue, submit_count, p_submits.as_ref(), fence); }
+    unsafe { trace!("called vkQueueSubmit({:?}, {:?}, {:?}, {:?})", queue, submit_count, unpack_vk_array(p_submits, (submit_count) as usize), fence); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_queue_submit)(
@@ -1148,7 +1148,7 @@ fn vk_flush_mapped_memory_ranges(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let memory_range_count: u32 = packet.read_shallow();
     let p_memory_ranges: *const VkMappedMemoryRange = packet.read_deep();
-    unsafe { trace!("called vkFlushMappedMemoryRanges({:?}, {:?}, {:?})", device, memory_range_count, p_memory_ranges.as_ref()); }
+    unsafe { trace!("called vkFlushMappedMemoryRanges({:?}, {:?}, {:?})", device, memory_range_count, unpack_vk_array(p_memory_ranges, (memory_range_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_flush_mapped_memory_ranges)(
@@ -1168,7 +1168,7 @@ fn vk_invalidate_mapped_memory_ranges(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let memory_range_count: u32 = packet.read_shallow();
     let p_memory_ranges: *const VkMappedMemoryRange = packet.read_deep();
-    unsafe { trace!("called vkInvalidateMappedMemoryRanges({:?}, {:?}, {:?})", device, memory_range_count, p_memory_ranges.as_ref()); }
+    unsafe { trace!("called vkInvalidateMappedMemoryRanges({:?}, {:?}, {:?})", device, memory_range_count, unpack_vk_array(p_memory_ranges, (memory_range_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_invalidate_mapped_memory_ranges)(
@@ -1301,7 +1301,7 @@ fn vk_get_image_sparse_memory_requirements(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let image: NonDisposableHandle = packet.read_shallow();
     let (mut p_sparse_memory_requirement_count, p_sparse_memory_requirements) = packet.read_and_allocate_vk_array_count::<VkSparseImageMemoryRequirements>();
-    unsafe { trace!("called vkGetImageSparseMemoryRequirements({:?}, {:?}, {:?}, {:?})", device, image, p_sparse_memory_requirement_count, p_sparse_memory_requirements.as_ref()); }
+    unsafe { trace!("called vkGetImageSparseMemoryRequirements({:?}, {:?}, {:?}, {:?})", device, image, p_sparse_memory_requirement_count, unpack_vk_array(p_sparse_memory_requirements, (p_sparse_memory_requirement_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_image_sparse_memory_requirements)(
@@ -1329,7 +1329,7 @@ fn vk_get_physical_device_sparse_image_format_properties(mut packet: Packet) {
     let usage: VkImageUsageFlags = packet.read_shallow();
     let tiling: VkImageTiling = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkSparseImageFormatProperties>();
-    unsafe { trace!("called vkGetPhysicalDeviceSparseImageFormatProperties({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", physical_device, format, type_, samples, usage, tiling, p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceSparseImageFormatProperties({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", physical_device, format, type_, samples, usage, tiling, p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_sparse_image_format_properties)(
@@ -1358,7 +1358,7 @@ fn vk_queue_bind_sparse(mut packet: Packet) {
     let bind_info_count: u32 = packet.read_shallow();
     let p_bind_info: *const VkBindSparseInfo = packet.read_deep();
     let fence: NonDisposableHandle = packet.read_shallow();
-    unsafe { trace!("called vkQueueBindSparse({:?}, {:?}, {:?}, {:?})", queue, bind_info_count, p_bind_info.as_ref(), fence); }
+    unsafe { trace!("called vkQueueBindSparse({:?}, {:?}, {:?}, {:?})", queue, bind_info_count, unpack_vk_array(p_bind_info, (bind_info_count) as usize), fence); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_queue_bind_sparse)(
@@ -1424,7 +1424,7 @@ fn vk_reset_fences(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let fence_count: u32 = packet.read_shallow();
     let p_fences: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkResetFences({:?}, {:?}, {:?})", device, fence_count, p_fences.as_ref()); }
+    unsafe { trace!("called vkResetFences({:?}, {:?}, {:?})", device, fence_count, unpack_vk_array(p_fences, (fence_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_reset_fences)(
@@ -1464,7 +1464,7 @@ fn vk_wait_for_fences(mut packet: Packet) {
     let p_fences: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     let wait_all: vk::Bool32 = packet.read_shallow();
     let timeout: u64 = packet.read_shallow();
-    unsafe { trace!("called vkWaitForFences({:?}, {:?}, {:?}, {:?}, {:?})", device, fence_count, p_fences.as_ref(), wait_all, timeout); }
+    unsafe { trace!("called vkWaitForFences({:?}, {:?}, {:?}, {:?}, {:?})", device, fence_count, unpack_vk_array(p_fences, (fence_count) as usize), wait_all, timeout); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_wait_for_fences)(
@@ -1680,7 +1680,7 @@ fn vk_get_query_pool_results(mut packet: Packet) {
     let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     let stride: vk::DeviceSize = packet.read_shallow();
     let flags: VkQueryResultFlags = packet.read_shallow();
-    unsafe { trace!("called vkGetQueryPoolResults({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, query_pool, first_query, query_count, data_size, p_data.as_ref(), stride, flags); }
+    unsafe { trace!("called vkGetQueryPoolResults({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, query_pool, first_query, query_count, data_size, unpack_vk_array(p_data, (data_size) as usize), stride, flags); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_query_pool_results)(
@@ -2026,7 +2026,7 @@ fn vk_get_pipeline_cache_data(mut packet: Packet) {
     let pipeline_cache: NonDisposableHandle = packet.read_shallow();
     let p_data_size: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
     let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkGetPipelineCacheData({:?}, {:?}, {:?}, {:?})", device, pipeline_cache, p_data_size.as_ref(), p_data.as_ref()); }
+    unsafe { trace!("called vkGetPipelineCacheData({:?}, {:?}, {:?}, {:?})", device, pipeline_cache, p_data_size.as_ref(), unpack_vk_array(p_data, (p_data_size) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_pipeline_cache_data)(
@@ -2052,7 +2052,7 @@ fn vk_merge_pipeline_caches(mut packet: Packet) {
     let dst_cache: NonDisposableHandle = packet.read_shallow();
     let src_cache_count: u32 = packet.read_shallow();
     let p_src_caches: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkMergePipelineCaches({:?}, {:?}, {:?}, {:?})", device, dst_cache, src_cache_count, p_src_caches.as_ref()); }
+    unsafe { trace!("called vkMergePipelineCaches({:?}, {:?}, {:?}, {:?})", device, dst_cache, src_cache_count, unpack_vk_array(p_src_caches, (src_cache_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_merge_pipeline_caches)(
@@ -2076,7 +2076,7 @@ fn vk_create_graphics_pipelines(mut packet: Packet) {
     let p_create_infos: *const VkGraphicsPipelineCreateInfo = packet.read_deep();
     let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     let p_pipelines: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCreateGraphicsPipelines({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_pipelines.as_ref()); }
+    unsafe { trace!("called vkCreateGraphicsPipelines({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, unpack_vk_array(p_create_infos, (create_info_count) as usize), p_allocator.as_ref(), unpack_vk_array(p_pipelines, (create_info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_create_graphics_pipelines)(
@@ -2105,7 +2105,7 @@ fn vk_create_compute_pipelines(mut packet: Packet) {
     let p_create_infos: *const VkComputePipelineCreateInfo = packet.read_deep();
     let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     let p_pipelines: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCreateComputePipelines({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_pipelines.as_ref()); }
+    unsafe { trace!("called vkCreateComputePipelines({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, unpack_vk_array(p_create_infos, (create_info_count) as usize), p_allocator.as_ref(), unpack_vk_array(p_pipelines, (create_info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_create_compute_pipelines)(
@@ -2131,7 +2131,7 @@ fn vk_get_device_subpass_shading_max_workgroup_size_huawei(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let renderpass: NonDisposableHandle = packet.read_shallow();
     let p_max_workgroup_size: *mut VkExtent2D = packet.read_mut_deep();
-    unsafe { trace!("called vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI({:?}, {:?}, {:?})", device, renderpass, p_max_workgroup_size.as_ref()); }
+    unsafe { trace!("called vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI({:?}, {:?}, {:?})", device, renderpass, unpack_vk_array(p_max_workgroup_size, (1) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_device_subpass_shading_max_workgroup_size_huawei)(
@@ -2374,7 +2374,7 @@ fn vk_allocate_descriptor_sets(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let p_allocate_info: *const VkDescriptorSetAllocateInfo = packet.read_deep();
     let p_descriptor_sets: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkAllocateDescriptorSets({:?}, {:?}, {:?})", device, p_allocate_info.as_ref(), p_descriptor_sets.as_ref()); }
+    unsafe { trace!("called vkAllocateDescriptorSets({:?}, {:?}, {:?})", device, p_allocate_info.as_ref(), unpack_vk_array(p_descriptor_sets, ((&*p_allocate_info).descriptor_set_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_allocate_descriptor_sets)(
@@ -2398,7 +2398,7 @@ fn vk_free_descriptor_sets(mut packet: Packet) {
     let descriptor_pool: NonDisposableHandle = packet.read_shallow();
     let descriptor_set_count: u32 = packet.read_shallow();
     let p_descriptor_sets: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkFreeDescriptorSets({:?}, {:?}, {:?}, {:?})", device, descriptor_pool, descriptor_set_count, p_descriptor_sets.as_ref()); }
+    unsafe { trace!("called vkFreeDescriptorSets({:?}, {:?}, {:?}, {:?})", device, descriptor_pool, descriptor_set_count, unpack_vk_array(p_descriptor_sets, (descriptor_set_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_free_descriptor_sets)(
@@ -2421,7 +2421,7 @@ fn vk_update_descriptor_sets(mut packet: Packet) {
     let p_descriptor_writes: *const VkWriteDescriptorSet = packet.read_deep();
     let descriptor_copy_count: u32 = packet.read_shallow();
     let p_descriptor_copies: *const VkCopyDescriptorSet = packet.read_deep();
-    unsafe { trace!("called vkUpdateDescriptorSets({:?}, {:?}, {:?}, {:?}, {:?})", device, descriptor_write_count, p_descriptor_writes.as_ref(), descriptor_copy_count, p_descriptor_copies.as_ref()); }
+    unsafe { trace!("called vkUpdateDescriptorSets({:?}, {:?}, {:?}, {:?}, {:?})", device, descriptor_write_count, unpack_vk_array(p_descriptor_writes, (descriptor_write_count) as usize), descriptor_copy_count, unpack_vk_array(p_descriptor_copies, (descriptor_copy_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_update_descriptor_sets)(
@@ -2644,7 +2644,7 @@ fn vk_allocate_command_buffers(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let p_allocate_info: *const VkCommandBufferAllocateInfo = packet.read_deep();
     let p_command_buffers: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkAllocateCommandBuffers({:?}, {:?}, {:?})", device, p_allocate_info.as_ref(), p_command_buffers.as_ref()); }
+    unsafe { trace!("called vkAllocateCommandBuffers({:?}, {:?}, {:?})", device, p_allocate_info.as_ref(), unpack_vk_array(p_command_buffers, ((&*p_allocate_info).command_buffer_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_allocate_command_buffers)(
@@ -2668,7 +2668,7 @@ fn vk_free_command_buffers(mut packet: Packet) {
     let command_pool: NonDisposableHandle = packet.read_shallow();
     let command_buffer_count: u32 = packet.read_shallow();
     let p_command_buffers: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkFreeCommandBuffers({:?}, {:?}, {:?}, {:?})", device, command_pool, command_buffer_count, p_command_buffers.as_ref()); }
+    unsafe { trace!("called vkFreeCommandBuffers({:?}, {:?}, {:?}, {:?})", device, command_pool, command_buffer_count, unpack_vk_array(p_command_buffers, (command_buffer_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_free_command_buffers)(
@@ -2780,7 +2780,7 @@ fn vk_cmd_set_viewport(mut packet: Packet) {
     let first_viewport: u32 = packet.read_shallow();
     let viewport_count: u32 = packet.read_shallow();
     let p_viewports: *const VkViewport = packet.read_deep();
-    unsafe { trace!("called vkCmdSetViewport({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, p_viewports.as_ref()); }
+    unsafe { trace!("called vkCmdSetViewport({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, unpack_vk_array(p_viewports, (viewport_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_viewport)(
@@ -2802,7 +2802,7 @@ fn vk_cmd_set_scissor(mut packet: Packet) {
     let first_scissor: u32 = packet.read_shallow();
     let scissor_count: u32 = packet.read_shallow();
     let p_scissors: *const VkRect2D = packet.read_deep();
-    unsafe { trace!("called vkCmdSetScissor({:?}, {:?}, {:?}, {:?})", command_buffer, first_scissor, scissor_count, p_scissors.as_ref()); }
+    unsafe { trace!("called vkCmdSetScissor({:?}, {:?}, {:?}, {:?})", command_buffer, first_scissor, scissor_count, unpack_vk_array(p_scissors, (scissor_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_scissor)(
@@ -2966,7 +2966,7 @@ fn vk_cmd_bind_descriptor_sets(mut packet: Packet) {
     let p_descriptor_sets: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     let dynamic_offset_count: u32 = packet.read_shallow();
     let p_dynamic_offsets: *const u32 = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdBindDescriptorSets({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, pipeline_bind_point, layout, first_set, descriptor_set_count, p_descriptor_sets.as_ref(), dynamic_offset_count, p_dynamic_offsets.as_ref()); }
+    unsafe { trace!("called vkCmdBindDescriptorSets({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, pipeline_bind_point, layout, first_set, descriptor_set_count, unpack_vk_array(p_descriptor_sets, (descriptor_set_count) as usize), dynamic_offset_count, unpack_vk_array(p_dynamic_offsets, (dynamic_offset_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_bind_descriptor_sets)(
@@ -3015,7 +3015,7 @@ fn vk_cmd_bind_vertex_buffers(mut packet: Packet) {
     let binding_count: u32 = packet.read_shallow();
     let p_buffers: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     let p_offsets: *const vk::DeviceSize = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdBindVertexBuffers({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_binding, binding_count, p_buffers.as_ref(), p_offsets.as_ref()); }
+    unsafe { trace!("called vkCmdBindVertexBuffers({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_binding, binding_count, unpack_vk_array(p_buffers, (binding_count) as usize), unpack_vk_array(p_offsets, (binding_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_bind_vertex_buffers)(
@@ -3090,7 +3090,7 @@ fn vk_cmd_draw_multi_ext(mut packet: Packet) {
     let instance_count: u32 = packet.read_shallow();
     let first_instance: u32 = packet.read_shallow();
     let stride: u32 = packet.read_shallow();
-    unsafe { trace!("called vkCmdDrawMultiEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, draw_count, p_vertex_info.as_ref(), instance_count, first_instance, stride); }
+    unsafe { trace!("called vkCmdDrawMultiEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, draw_count, unpack_vk_array(p_vertex_info, (draw_count) as usize), instance_count, first_instance, stride); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_draw_multi_ext)(
@@ -3117,7 +3117,7 @@ fn vk_cmd_draw_multi_indexed_ext(mut packet: Packet) {
     let first_instance: u32 = packet.read_shallow();
     let stride: u32 = packet.read_shallow();
     let p_vertex_offset: *const i32 = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdDrawMultiIndexedEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, draw_count, p_index_info.as_ref(), instance_count, first_instance, stride, p_vertex_offset.as_ref()); }
+    unsafe { trace!("called vkCmdDrawMultiIndexedEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, draw_count, unpack_vk_array(p_index_info, (draw_count) as usize), instance_count, first_instance, stride, p_vertex_offset.as_ref()); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_draw_multi_indexed_ext)(
@@ -3311,7 +3311,7 @@ fn vk_cmd_copy_buffer(mut packet: Packet) {
     let dst_buffer: NonDisposableHandle = packet.read_shallow();
     let region_count: u32 = packet.read_shallow();
     let p_regions: *const VkBufferCopy = packet.read_deep();
-    unsafe { trace!("called vkCmdCopyBuffer({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_buffer, dst_buffer, region_count, p_regions.as_ref()); }
+    unsafe { trace!("called vkCmdCopyBuffer({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_buffer, dst_buffer, region_count, unpack_vk_array(p_regions, (region_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_copy_buffer)(
@@ -3337,7 +3337,7 @@ fn vk_cmd_copy_image(mut packet: Packet) {
     let dst_image_layout: VkImageLayout = packet.read_shallow();
     let region_count: u32 = packet.read_shallow();
     let p_regions: *const VkImageCopy = packet.read_deep();
-    unsafe { trace!("called vkCmdCopyImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_image, dst_image_layout, region_count, p_regions.as_ref()); }
+    unsafe { trace!("called vkCmdCopyImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_image, dst_image_layout, region_count, unpack_vk_array(p_regions, (region_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_copy_image)(
@@ -3366,7 +3366,7 @@ fn vk_cmd_blit_image(mut packet: Packet) {
     let region_count: u32 = packet.read_shallow();
     let p_regions: *const VkImageBlit = packet.read_deep();
     let filter: VkFilter = packet.read_shallow();
-    unsafe { trace!("called vkCmdBlitImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_image, dst_image_layout, region_count, p_regions.as_ref(), filter); }
+    unsafe { trace!("called vkCmdBlitImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_image, dst_image_layout, region_count, unpack_vk_array(p_regions, (region_count) as usize), filter); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_blit_image)(
@@ -3394,7 +3394,7 @@ fn vk_cmd_copy_buffer_to_image(mut packet: Packet) {
     let dst_image_layout: VkImageLayout = packet.read_shallow();
     let region_count: u32 = packet.read_shallow();
     let p_regions: *const VkBufferImageCopy = packet.read_deep();
-    unsafe { trace!("called vkCmdCopyBufferToImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_buffer, dst_image, dst_image_layout, region_count, p_regions.as_ref()); }
+    unsafe { trace!("called vkCmdCopyBufferToImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_buffer, dst_image, dst_image_layout, region_count, unpack_vk_array(p_regions, (region_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_copy_buffer_to_image)(
@@ -3420,7 +3420,7 @@ fn vk_cmd_copy_image_to_buffer(mut packet: Packet) {
     let dst_buffer: NonDisposableHandle = packet.read_shallow();
     let region_count: u32 = packet.read_shallow();
     let p_regions: *const VkBufferImageCopy = packet.read_deep();
-    unsafe { trace!("called vkCmdCopyImageToBuffer({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_buffer, region_count, p_regions.as_ref()); }
+    unsafe { trace!("called vkCmdCopyImageToBuffer({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_buffer, region_count, unpack_vk_array(p_regions, (region_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_copy_image_to_buffer)(
@@ -3469,7 +3469,7 @@ fn vk_cmd_copy_memory_to_image_indirect_nv(mut packet: Packet) {
     let dst_image: NonDisposableHandle = packet.read_shallow();
     let dst_image_layout: VkImageLayout = packet.read_shallow();
     let p_image_subresources: *const VkImageSubresourceLayers = packet.read_deep();
-    unsafe { trace!("called vkCmdCopyMemoryToImageIndirectNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, copy_buffer_address, copy_count, stride, dst_image, dst_image_layout, p_image_subresources.as_ref()); }
+    unsafe { trace!("called vkCmdCopyMemoryToImageIndirectNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, copy_buffer_address, copy_count, stride, dst_image, dst_image_layout, unpack_vk_array(p_image_subresources, (copy_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_copy_memory_to_image_indirect_nv)(
@@ -3495,7 +3495,7 @@ fn vk_cmd_update_buffer(mut packet: Packet) {
     let dst_offset: vk::DeviceSize = packet.read_shallow();
     let data_size: vk::DeviceSize = packet.read_shallow();
     let p_data: *const c_void = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdUpdateBuffer({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, dst_buffer, dst_offset, data_size, p_data.as_ref()); }
+    unsafe { trace!("called vkCmdUpdateBuffer({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, dst_buffer, dst_offset, data_size, unpack_vk_array(p_data, (data_size) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_update_buffer)(
@@ -3544,7 +3544,7 @@ fn vk_cmd_clear_color_image(mut packet: Packet) {
     let p_color: *const VkClearColorValue = packet.read_deep();
     let range_count: u32 = packet.read_shallow();
     let p_ranges: *const VkImageSubresourceRange = packet.read_deep();
-    unsafe { trace!("called vkCmdClearColorImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, image, image_layout, p_color.as_ref(), range_count, p_ranges.as_ref()); }
+    unsafe { trace!("called vkCmdClearColorImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, image, image_layout, p_color.as_ref(), range_count, unpack_vk_array(p_ranges, (range_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_clear_color_image)(
@@ -3570,7 +3570,7 @@ fn vk_cmd_clear_depth_stencil_image(mut packet: Packet) {
     let p_depth_stencil: *const VkClearDepthStencilValue = packet.read_deep();
     let range_count: u32 = packet.read_shallow();
     let p_ranges: *const VkImageSubresourceRange = packet.read_deep();
-    unsafe { trace!("called vkCmdClearDepthStencilImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, image, image_layout, p_depth_stencil.as_ref(), range_count, p_ranges.as_ref()); }
+    unsafe { trace!("called vkCmdClearDepthStencilImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, image, image_layout, p_depth_stencil.as_ref(), range_count, unpack_vk_array(p_ranges, (range_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_clear_depth_stencil_image)(
@@ -3595,7 +3595,7 @@ fn vk_cmd_clear_attachments(mut packet: Packet) {
     let p_attachments: *const VkClearAttachment = packet.read_deep();
     let rect_count: u32 = packet.read_shallow();
     let p_rects: *const VkClearRect = packet.read_deep();
-    unsafe { trace!("called vkCmdClearAttachments({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, attachment_count, p_attachments.as_ref(), rect_count, p_rects.as_ref()); }
+    unsafe { trace!("called vkCmdClearAttachments({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, attachment_count, unpack_vk_array(p_attachments, (attachment_count) as usize), rect_count, unpack_vk_array(p_rects, (rect_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_clear_attachments)(
@@ -3621,7 +3621,7 @@ fn vk_cmd_resolve_image(mut packet: Packet) {
     let dst_image_layout: VkImageLayout = packet.read_shallow();
     let region_count: u32 = packet.read_shallow();
     let p_regions: *const VkImageResolve = packet.read_deep();
-    unsafe { trace!("called vkCmdResolveImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_image, dst_image_layout, region_count, p_regions.as_ref()); }
+    unsafe { trace!("called vkCmdResolveImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_image, src_image_layout, dst_image, dst_image_layout, region_count, unpack_vk_array(p_regions, (region_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_resolve_image)(
@@ -3693,7 +3693,7 @@ fn vk_cmd_wait_events(mut packet: Packet) {
     let p_buffer_memory_barriers: *const VkBufferMemoryBarrier = packet.read_deep();
     let image_memory_barrier_count: u32 = packet.read_shallow();
     let p_image_memory_barriers: *const VkImageMemoryBarrier = packet.read_deep();
-    unsafe { trace!("called vkCmdWaitEvents({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, event_count, p_events.as_ref(), src_stage_mask, dst_stage_mask, memory_barrier_count, p_memory_barriers.as_ref(), buffer_memory_barrier_count, p_buffer_memory_barriers.as_ref(), image_memory_barrier_count, p_image_memory_barriers.as_ref()); }
+    unsafe { trace!("called vkCmdWaitEvents({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, event_count, unpack_vk_array(p_events, (event_count) as usize), src_stage_mask, dst_stage_mask, memory_barrier_count, unpack_vk_array(p_memory_barriers, (memory_barrier_count) as usize), buffer_memory_barrier_count, unpack_vk_array(p_buffer_memory_barriers, (buffer_memory_barrier_count) as usize), image_memory_barrier_count, unpack_vk_array(p_image_memory_barriers, (image_memory_barrier_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_wait_events)(
@@ -3728,7 +3728,7 @@ fn vk_cmd_pipeline_barrier(mut packet: Packet) {
     let p_buffer_memory_barriers: *const VkBufferMemoryBarrier = packet.read_deep();
     let image_memory_barrier_count: u32 = packet.read_shallow();
     let p_image_memory_barriers: *const VkImageMemoryBarrier = packet.read_deep();
-    unsafe { trace!("called vkCmdPipelineBarrier({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_stage_mask, dst_stage_mask, dependency_flags, memory_barrier_count, p_memory_barriers.as_ref(), buffer_memory_barrier_count, p_buffer_memory_barriers.as_ref(), image_memory_barrier_count, p_image_memory_barriers.as_ref()); }
+    unsafe { trace!("called vkCmdPipelineBarrier({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_stage_mask, dst_stage_mask, dependency_flags, memory_barrier_count, unpack_vk_array(p_memory_barriers, (memory_barrier_count) as usize), buffer_memory_barrier_count, unpack_vk_array(p_buffer_memory_barriers, (buffer_memory_barrier_count) as usize), image_memory_barrier_count, unpack_vk_array(p_image_memory_barriers, (image_memory_barrier_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_pipeline_barrier)(
@@ -3908,7 +3908,7 @@ fn vk_cmd_push_constants(mut packet: Packet) {
     let offset: u32 = packet.read_shallow();
     let size: u32 = packet.read_shallow();
     let p_values: *const c_void = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdPushConstants({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, layout, stage_flags, offset, size, p_values.as_ref()); }
+    unsafe { trace!("called vkCmdPushConstants({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, layout, stage_flags, offset, size, unpack_vk_array(p_values, (size) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_push_constants)(
@@ -3985,7 +3985,7 @@ fn vk_cmd_execute_commands(mut packet: Packet) {
     let command_buffer: NonDisposableHandle = packet.read_shallow();
     let command_buffer_count: u32 = packet.read_shallow();
     let p_command_buffers: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdExecuteCommands({:?}, {:?}, {:?})", command_buffer, command_buffer_count, p_command_buffers.as_ref()); }
+    unsafe { trace!("called vkCmdExecuteCommands({:?}, {:?}, {:?})", command_buffer, command_buffer_count, unpack_vk_array(p_command_buffers, (command_buffer_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_execute_commands)(
@@ -4029,7 +4029,7 @@ fn vk_create_android_surface_khr(mut packet: Packet) {
 fn vk_get_physical_device_display_properties_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkDisplayPropertiesKHR>();
-    unsafe { trace!("called vkGetPhysicalDeviceDisplayPropertiesKHR({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceDisplayPropertiesKHR({:?}, {:?}, {:?})", physical_device, p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_display_properties_khr)(
@@ -4051,7 +4051,7 @@ fn vk_get_physical_device_display_properties_khr(mut packet: Packet) {
 fn vk_get_physical_device_display_plane_properties_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkDisplayPlanePropertiesKHR>();
-    unsafe { trace!("called vkGetPhysicalDeviceDisplayPlanePropertiesKHR({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceDisplayPlanePropertiesKHR({:?}, {:?}, {:?})", physical_device, p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_display_plane_properties_khr)(
@@ -4074,7 +4074,7 @@ fn vk_get_display_plane_supported_displays_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let plane_index: u32 = packet.read_shallow();
     let (mut p_display_count, p_displays) = packet.read_and_allocate_vk_array_count::<NonDisposableHandle>();
-    unsafe { trace!("called vkGetDisplayPlaneSupportedDisplaysKHR({:?}, {:?}, {:?}, {:?})", physical_device, plane_index, p_display_count, p_displays.as_ref()); }
+    unsafe { trace!("called vkGetDisplayPlaneSupportedDisplaysKHR({:?}, {:?}, {:?}, {:?})", physical_device, plane_index, p_display_count, unpack_vk_array(p_displays, (p_display_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_display_plane_supported_displays_khr)(
@@ -4098,7 +4098,7 @@ fn vk_get_display_mode_properties_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let display: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkDisplayModePropertiesKHR>();
-    unsafe { trace!("called vkGetDisplayModePropertiesKHR({:?}, {:?}, {:?}, {:?})", physical_device, display, p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkGetDisplayModePropertiesKHR({:?}, {:?}, {:?}, {:?})", physical_device, display, p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_display_mode_properties_khr)(
@@ -4201,7 +4201,7 @@ fn vk_create_shared_swapchains_khr(mut packet: Packet) {
     let p_create_infos: *const VkSwapchainCreateInfoKHR = packet.read_deep();
     let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     let p_swapchains: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCreateSharedSwapchainsKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, swapchain_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_swapchains.as_ref()); }
+    unsafe { trace!("called vkCreateSharedSwapchainsKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, swapchain_count, unpack_vk_array(p_create_infos, (swapchain_count) as usize), p_allocator.as_ref(), unpack_vk_array(p_swapchains, (swapchain_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_create_shared_swapchains_khr)(
@@ -4294,7 +4294,7 @@ fn vk_get_physical_device_surface_formats_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let surface: NonDisposableHandle = packet.read_shallow();
     let (mut p_surface_format_count, p_surface_formats) = packet.read_and_allocate_vk_array_count::<VkSurfaceFormatKHR>();
-    unsafe { trace!("called vkGetPhysicalDeviceSurfaceFormatsKHR({:?}, {:?}, {:?}, {:?})", physical_device, surface, p_surface_format_count, p_surface_formats.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceSurfaceFormatsKHR({:?}, {:?}, {:?}, {:?})", physical_device, surface, p_surface_format_count, unpack_vk_array(p_surface_formats, (p_surface_format_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_surface_formats_khr)(
@@ -4318,7 +4318,7 @@ fn vk_get_physical_device_surface_present_modes_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let surface: NonDisposableHandle = packet.read_shallow();
     let (mut p_present_mode_count, p_present_modes) = packet.read_and_allocate_vk_array_count::<VkPresentModeKHR>();
-    unsafe { trace!("called vkGetPhysicalDeviceSurfacePresentModesKHR({:?}, {:?}, {:?}, {:?})", physical_device, surface, p_present_mode_count, p_present_modes.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceSurfacePresentModesKHR({:?}, {:?}, {:?}, {:?})", physical_device, surface, p_present_mode_count, unpack_vk_array(p_present_modes, (p_present_mode_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_surface_present_modes_khr)(
@@ -4387,7 +4387,7 @@ fn vk_get_swapchain_images_khr(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let swapchain: NonDisposableHandle = packet.read_shallow();
     let (mut p_swapchain_image_count, p_swapchain_images) = packet.read_and_allocate_vk_array_count::<NonDisposableHandle>();
-    unsafe { trace!("called vkGetSwapchainImagesKHR({:?}, {:?}, {:?}, {:?})", device, swapchain, p_swapchain_image_count, p_swapchain_images.as_ref()); }
+    unsafe { trace!("called vkGetSwapchainImagesKHR({:?}, {:?}, {:?}, {:?})", device, swapchain, p_swapchain_image_count, unpack_vk_array(p_swapchain_images, (p_swapchain_image_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_swapchain_images_khr)(
@@ -4870,7 +4870,7 @@ fn vk_debug_report_message_ext(mut packet: Packet) {
     let message_code: i32 = packet.read_shallow();
     let p_layer_prefix: *const c_char = packet.read_shallow_under_nullable_ptr();
     let p_message: *const c_char = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkDebugReportMessageEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", instance, flags, object_type, object, location, message_code, p_layer_prefix.as_ref(), p_message.as_ref()); }
+    unsafe { trace!("called vkDebugReportMessageEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", instance, flags, object_type, object, location, message_code, unpack_cstr(p_layer_prefix), unpack_cstr(p_message)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_debug_report_message_ext)(
@@ -5256,7 +5256,7 @@ fn vk_get_physical_device_image_format_properties2(mut packet: Packet) {
 fn vk_get_physical_device_queue_family_properties2(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_queue_family_property_count, p_queue_family_properties) = packet.read_and_allocate_vk_array_count::<VkQueueFamilyProperties2>();
-    unsafe { trace!("called vkGetPhysicalDeviceQueueFamilyProperties2({:?}, {:?}, {:?})", physical_device, p_queue_family_property_count, p_queue_family_properties.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceQueueFamilyProperties2({:?}, {:?}, {:?})", physical_device, p_queue_family_property_count, unpack_vk_array(p_queue_family_properties, (p_queue_family_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_queue_family_properties2)(
@@ -5300,7 +5300,7 @@ fn vk_get_physical_device_sparse_image_format_properties2(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let p_format_info: *const VkPhysicalDeviceSparseImageFormatInfo2 = packet.read_deep();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkSparseImageFormatProperties2>();
-    unsafe { trace!("called vkGetPhysicalDeviceSparseImageFormatProperties2({:?}, {:?}, {:?}, {:?})", physical_device, p_format_info.as_ref(), p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceSparseImageFormatProperties2({:?}, {:?}, {:?}, {:?})", physical_device, p_format_info.as_ref(), p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_sparse_image_format_properties2)(
@@ -5327,7 +5327,7 @@ fn vk_cmd_push_descriptor_set_khr(mut packet: Packet) {
     let set: u32 = packet.read_shallow();
     let descriptor_write_count: u32 = packet.read_shallow();
     let p_descriptor_writes: *const VkWriteDescriptorSet = packet.read_deep();
-    unsafe { trace!("called vkCmdPushDescriptorSetKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, pipeline_bind_point, layout, set, descriptor_write_count, p_descriptor_writes.as_ref()); }
+    unsafe { trace!("called vkCmdPushDescriptorSetKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, pipeline_bind_point, layout, set, descriptor_write_count, unpack_vk_array(p_descriptor_writes, (descriptor_write_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_push_descriptor_set_khr)(
@@ -6038,7 +6038,7 @@ fn vk_get_physical_device_surface_capabilities2_ext(mut packet: Packet) {
 fn vk_enumerate_physical_device_groups(mut packet: Packet) {
     let instance: NonDisposableHandle = packet.read_shallow();
     let (mut p_physical_device_group_count, p_physical_device_group_properties) = packet.read_and_allocate_vk_array_count::<VkPhysicalDeviceGroupProperties>();
-    unsafe { trace!("called vkEnumeratePhysicalDeviceGroups({:?}, {:?}, {:?})", instance, p_physical_device_group_count, p_physical_device_group_properties.as_ref()); }
+    unsafe { trace!("called vkEnumeratePhysicalDeviceGroups({:?}, {:?}, {:?})", instance, p_physical_device_group_count, unpack_vk_array(p_physical_device_group_properties, (p_physical_device_group_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_enumerate_physical_device_groups)(
@@ -6088,7 +6088,7 @@ fn vk_bind_buffer_memory2(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let bind_info_count: u32 = packet.read_shallow();
     let p_bind_infos: *const VkBindBufferMemoryInfo = packet.read_deep();
-    unsafe { trace!("called vkBindBufferMemory2({:?}, {:?}, {:?})", device, bind_info_count, p_bind_infos.as_ref()); }
+    unsafe { trace!("called vkBindBufferMemory2({:?}, {:?}, {:?})", device, bind_info_count, unpack_vk_array(p_bind_infos, (bind_info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_bind_buffer_memory2)(
@@ -6108,7 +6108,7 @@ fn vk_bind_image_memory2(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let bind_info_count: u32 = packet.read_shallow();
     let p_bind_infos: *const VkBindImageMemoryInfo = packet.read_deep();
-    unsafe { trace!("called vkBindImageMemory2({:?}, {:?}, {:?})", device, bind_info_count, p_bind_infos.as_ref()); }
+    unsafe { trace!("called vkBindImageMemory2({:?}, {:?}, {:?})", device, bind_info_count, unpack_vk_array(p_bind_infos, (bind_info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_bind_image_memory2)(
@@ -6241,7 +6241,7 @@ fn vk_get_physical_device_present_rectangles_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let surface: NonDisposableHandle = packet.read_shallow();
     let (mut p_rect_count, p_rects) = packet.read_and_allocate_vk_array_count::<VkRect2D>();
-    unsafe { trace!("called vkGetPhysicalDevicePresentRectanglesKHR({:?}, {:?}, {:?}, {:?})", physical_device, surface, p_rect_count, p_rects.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDevicePresentRectanglesKHR({:?}, {:?}, {:?}, {:?})", physical_device, surface, p_rect_count, unpack_vk_array(p_rects, (p_rect_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_present_rectangles_khr)(
@@ -6357,7 +6357,7 @@ fn vk_set_hdr_metadata_ext(mut packet: Packet) {
     let swapchain_count: u32 = packet.read_shallow();
     let p_swapchains: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     let p_metadata: *const VkHdrMetadataEXT = packet.read_deep();
-    unsafe { trace!("called vkSetHdrMetadataEXT({:?}, {:?}, {:?}, {:?})", device, swapchain_count, p_swapchains.as_ref(), p_metadata.as_ref()); }
+    unsafe { trace!("called vkSetHdrMetadataEXT({:?}, {:?}, {:?}, {:?})", device, swapchain_count, unpack_vk_array(p_swapchains, (swapchain_count) as usize), unpack_vk_array(p_metadata, (swapchain_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_set_hdr_metadata_ext)(
@@ -6419,7 +6419,7 @@ fn vk_get_past_presentation_timing_google(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let swapchain: NonDisposableHandle = packet.read_shallow();
     let (mut p_presentation_timing_count, p_presentation_timings) = packet.read_and_allocate_vk_array_count::<VkPastPresentationTimingGOOGLE>();
-    unsafe { trace!("called vkGetPastPresentationTimingGOOGLE({:?}, {:?}, {:?}, {:?})", device, swapchain, p_presentation_timing_count, p_presentation_timings.as_ref()); }
+    unsafe { trace!("called vkGetPastPresentationTimingGOOGLE({:?}, {:?}, {:?}, {:?})", device, swapchain, p_presentation_timing_count, unpack_vk_array(p_presentation_timings, (p_presentation_timing_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_past_presentation_timing_google)(
@@ -6519,7 +6519,7 @@ fn vk_cmd_set_viewport_wscaling_nv(mut packet: Packet) {
     let first_viewport: u32 = packet.read_shallow();
     let viewport_count: u32 = packet.read_shallow();
     let p_viewport_wscalings: *const VkViewportWScalingNV = packet.read_deep();
-    unsafe { trace!("called vkCmdSetViewportWScalingNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, p_viewport_wscalings.as_ref()); }
+    unsafe { trace!("called vkCmdSetViewportWScalingNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, unpack_vk_array(p_viewport_wscalings, (viewport_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_viewport_wscaling_nv)(
@@ -6541,7 +6541,7 @@ fn vk_cmd_set_discard_rectangle_ext(mut packet: Packet) {
     let first_discard_rectangle: u32 = packet.read_shallow();
     let discard_rectangle_count: u32 = packet.read_shallow();
     let p_discard_rectangles: *const VkRect2D = packet.read_deep();
-    unsafe { trace!("called vkCmdSetDiscardRectangleEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_discard_rectangle, discard_rectangle_count, p_discard_rectangles.as_ref()); }
+    unsafe { trace!("called vkCmdSetDiscardRectangleEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_discard_rectangle, discard_rectangle_count, unpack_vk_array(p_discard_rectangles, (discard_rectangle_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_discard_rectangle_ext)(
@@ -6662,7 +6662,7 @@ fn vk_get_physical_device_surface_formats2_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR = packet.read_deep();
     let (mut p_surface_format_count, p_surface_formats) = packet.read_and_allocate_vk_array_count::<VkSurfaceFormat2KHR>();
-    unsafe { trace!("called vkGetPhysicalDeviceSurfaceFormats2KHR({:?}, {:?}, {:?}, {:?})", physical_device, p_surface_info.as_ref(), p_surface_format_count, p_surface_formats.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceSurfaceFormats2KHR({:?}, {:?}, {:?}, {:?})", physical_device, p_surface_info.as_ref(), p_surface_format_count, unpack_vk_array(p_surface_formats, (p_surface_format_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_surface_formats2_khr)(
@@ -6685,7 +6685,7 @@ fn vk_get_physical_device_surface_formats2_khr(mut packet: Packet) {
 fn vk_get_physical_device_display_properties2_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkDisplayProperties2KHR>();
-    unsafe { trace!("called vkGetPhysicalDeviceDisplayProperties2KHR({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceDisplayProperties2KHR({:?}, {:?}, {:?})", physical_device, p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_display_properties2_khr)(
@@ -6707,7 +6707,7 @@ fn vk_get_physical_device_display_properties2_khr(mut packet: Packet) {
 fn vk_get_physical_device_display_plane_properties2_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkDisplayPlaneProperties2KHR>();
-    unsafe { trace!("called vkGetPhysicalDeviceDisplayPlaneProperties2KHR({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceDisplayPlaneProperties2KHR({:?}, {:?}, {:?})", physical_device, p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_display_plane_properties2_khr)(
@@ -6730,7 +6730,7 @@ fn vk_get_display_mode_properties2_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let display: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkDisplayModeProperties2KHR>();
-    unsafe { trace!("called vkGetDisplayModeProperties2KHR({:?}, {:?}, {:?}, {:?})", physical_device, display, p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkGetDisplayModeProperties2KHR({:?}, {:?}, {:?}, {:?})", physical_device, display, p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_display_mode_properties2_khr)(
@@ -6823,7 +6823,7 @@ fn vk_get_image_sparse_memory_requirements2(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let p_info: *const VkImageSparseMemoryRequirementsInfo2 = packet.read_deep();
     let (mut p_sparse_memory_requirement_count, p_sparse_memory_requirements) = packet.read_and_allocate_vk_array_count::<VkSparseImageMemoryRequirements2>();
-    unsafe { trace!("called vkGetImageSparseMemoryRequirements2({:?}, {:?}, {:?}, {:?})", device, p_info.as_ref(), p_sparse_memory_requirement_count, p_sparse_memory_requirements.as_ref()); }
+    unsafe { trace!("called vkGetImageSparseMemoryRequirements2({:?}, {:?}, {:?}, {:?})", device, p_info.as_ref(), p_sparse_memory_requirement_count, unpack_vk_array(p_sparse_memory_requirements, (p_sparse_memory_requirement_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_image_sparse_memory_requirements2)(
@@ -6893,7 +6893,7 @@ fn vk_get_device_image_sparse_memory_requirements(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let p_info: *const VkDeviceImageMemoryRequirements = packet.read_deep();
     let (mut p_sparse_memory_requirement_count, p_sparse_memory_requirements) = packet.read_and_allocate_vk_array_count::<VkSparseImageMemoryRequirements2>();
-    unsafe { trace!("called vkGetDeviceImageSparseMemoryRequirements({:?}, {:?}, {:?}, {:?})", device, p_info.as_ref(), p_sparse_memory_requirement_count, p_sparse_memory_requirements.as_ref()); }
+    unsafe { trace!("called vkGetDeviceImageSparseMemoryRequirements({:?}, {:?}, {:?}, {:?})", device, p_info.as_ref(), p_sparse_memory_requirement_count, unpack_vk_array(p_sparse_memory_requirements, (p_sparse_memory_requirement_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_device_image_sparse_memory_requirements)(
@@ -7031,7 +7031,7 @@ fn vk_get_validation_cache_data_ext(mut packet: Packet) {
     let validation_cache: NonDisposableHandle = packet.read_shallow();
     let p_data_size: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
     let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkGetValidationCacheDataEXT({:?}, {:?}, {:?}, {:?})", device, validation_cache, p_data_size.as_ref(), p_data.as_ref()); }
+    unsafe { trace!("called vkGetValidationCacheDataEXT({:?}, {:?}, {:?}, {:?})", device, validation_cache, p_data_size.as_ref(), unpack_vk_array(p_data, (p_data_size) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_validation_cache_data_ext)(
@@ -7057,7 +7057,7 @@ fn vk_merge_validation_caches_ext(mut packet: Packet) {
     let dst_cache: NonDisposableHandle = packet.read_shallow();
     let src_cache_count: u32 = packet.read_shallow();
     let p_src_caches: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkMergeValidationCachesEXT({:?}, {:?}, {:?}, {:?})", device, dst_cache, src_cache_count, p_src_caches.as_ref()); }
+    unsafe { trace!("called vkMergeValidationCachesEXT({:?}, {:?}, {:?}, {:?})", device, dst_cache, src_cache_count, unpack_vk_array(p_src_caches, (src_cache_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_merge_validation_caches_ext)(
@@ -7182,7 +7182,7 @@ fn vk_queue_signal_release_image_android(mut packet: Packet) {
     let p_wait_semaphores: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     let image: NonDisposableHandle = packet.read_shallow();
     let p_native_fence_fd: *mut std::os::raw::c_int = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkQueueSignalReleaseImageANDROID({:?}, {:?}, {:?}, {:?}, {:?})", queue, wait_semaphore_count, p_wait_semaphores.as_ref(), image, p_native_fence_fd.as_ref()); }
+    unsafe { trace!("called vkQueueSignalReleaseImageANDROID({:?}, {:?}, {:?}, {:?}, {:?})", queue, wait_semaphore_count, unpack_vk_array(p_wait_semaphores, (wait_semaphore_count) as usize), image, p_native_fence_fd.as_ref()); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_queue_signal_release_image_android)(
@@ -7210,7 +7210,7 @@ fn vk_get_shader_info_amd(mut packet: Packet) {
     let info_type: VkShaderInfoTypeAMD = packet.read_shallow();
     let p_info_size: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
     let p_info: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkGetShaderInfoAMD({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline, shader_stage, info_type, p_info_size.as_ref(), p_info.as_ref()); }
+    unsafe { trace!("called vkGetShaderInfoAMD({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline, shader_stage, info_type, p_info_size.as_ref(), unpack_vk_array(p_info, (p_info_size) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_shader_info_amd)(
@@ -7256,7 +7256,7 @@ fn vk_set_local_dimming_amd(mut packet: Packet) {
 fn vk_get_physical_device_calibrateable_time_domains_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_time_domain_count, p_time_domains) = packet.read_and_allocate_vk_array_count::<VkTimeDomainKHR>();
-    unsafe { trace!("called vkGetPhysicalDeviceCalibrateableTimeDomainsKHR({:?}, {:?}, {:?})", physical_device, p_time_domain_count, p_time_domains.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceCalibrateableTimeDomainsKHR({:?}, {:?}, {:?})", physical_device, p_time_domain_count, unpack_vk_array(p_time_domains, (p_time_domain_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_calibrateable_time_domains_khr)(
@@ -7281,7 +7281,7 @@ fn vk_get_calibrated_timestamps_khr(mut packet: Packet) {
     let p_timestamp_infos: *const VkCalibratedTimestampInfoKHR = packet.read_deep();
     let p_timestamps: *mut u64 = packet.read_mut_shallow_under_nullable_ptr();
     let p_max_deviation: *mut u64 = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkGetCalibratedTimestampsKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, timestamp_count, p_timestamp_infos.as_ref(), p_timestamps.as_ref(), p_max_deviation.as_ref()); }
+    unsafe { trace!("called vkGetCalibratedTimestampsKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, timestamp_count, unpack_vk_array(p_timestamp_infos, (timestamp_count) as usize), unpack_vk_array(p_timestamps, (timestamp_count) as usize), p_max_deviation.as_ref()); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_calibrated_timestamps_khr)(
@@ -7826,7 +7826,7 @@ fn vk_cmd_set_checkpoint_nv(mut packet: Packet) {
 fn vk_get_queue_checkpoint_data_nv(mut packet: Packet) {
     let queue: NonDisposableHandle = packet.read_shallow();
     let (mut p_checkpoint_data_count, p_checkpoint_data) = packet.read_and_allocate_vk_array_count::<VkCheckpointDataNV>();
-    unsafe { trace!("called vkGetQueueCheckpointDataNV({:?}, {:?}, {:?})", queue, p_checkpoint_data_count, p_checkpoint_data.as_ref()); }
+    unsafe { trace!("called vkGetQueueCheckpointDataNV({:?}, {:?}, {:?})", queue, p_checkpoint_data_count, unpack_vk_array(p_checkpoint_data, (p_checkpoint_data_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_queue_checkpoint_data_nv)(
@@ -7852,7 +7852,7 @@ fn vk_cmd_bind_transform_feedback_buffers_ext(mut packet: Packet) {
     let p_buffers: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     let p_offsets: *const vk::DeviceSize = packet.read_shallow_under_nullable_ptr();
     let p_sizes: *const vk::DeviceSize = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdBindTransformFeedbackBuffersEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_binding, binding_count, p_buffers.as_ref(), p_offsets.as_ref(), p_sizes.as_ref()); }
+    unsafe { trace!("called vkCmdBindTransformFeedbackBuffersEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_binding, binding_count, unpack_vk_array(p_buffers, (binding_count) as usize), unpack_vk_array(p_offsets, (binding_count) as usize), unpack_vk_array(p_sizes, (binding_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_bind_transform_feedback_buffers_ext)(
@@ -7877,7 +7877,7 @@ fn vk_cmd_begin_transform_feedback_ext(mut packet: Packet) {
     let counter_buffer_count: u32 = packet.read_shallow();
     let p_counter_buffers: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     let p_counter_buffer_offsets: *const vk::DeviceSize = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdBeginTransformFeedbackEXT({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_counter_buffer, counter_buffer_count, p_counter_buffers.as_ref(), p_counter_buffer_offsets.as_ref()); }
+    unsafe { trace!("called vkCmdBeginTransformFeedbackEXT({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_counter_buffer, counter_buffer_count, unpack_vk_array(p_counter_buffers, (counter_buffer_count) as usize), unpack_vk_array(p_counter_buffer_offsets, (counter_buffer_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_begin_transform_feedback_ext)(
@@ -7901,7 +7901,7 @@ fn vk_cmd_end_transform_feedback_ext(mut packet: Packet) {
     let counter_buffer_count: u32 = packet.read_shallow();
     let p_counter_buffers: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     let p_counter_buffer_offsets: *const vk::DeviceSize = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdEndTransformFeedbackEXT({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_counter_buffer, counter_buffer_count, p_counter_buffers.as_ref(), p_counter_buffer_offsets.as_ref()); }
+    unsafe { trace!("called vkCmdEndTransformFeedbackEXT({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_counter_buffer, counter_buffer_count, unpack_vk_array(p_counter_buffers, (counter_buffer_count) as usize), unpack_vk_array(p_counter_buffer_offsets, (counter_buffer_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_end_transform_feedback_ext)(
@@ -7998,7 +7998,7 @@ fn vk_cmd_set_exclusive_scissor_nv(mut packet: Packet) {
     let first_exclusive_scissor: u32 = packet.read_shallow();
     let exclusive_scissor_count: u32 = packet.read_shallow();
     let p_exclusive_scissors: *const VkRect2D = packet.read_deep();
-    unsafe { trace!("called vkCmdSetExclusiveScissorNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_exclusive_scissor, exclusive_scissor_count, p_exclusive_scissors.as_ref()); }
+    unsafe { trace!("called vkCmdSetExclusiveScissorNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_exclusive_scissor, exclusive_scissor_count, unpack_vk_array(p_exclusive_scissors, (exclusive_scissor_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_exclusive_scissor_nv)(
@@ -8020,7 +8020,7 @@ fn vk_cmd_set_exclusive_scissor_enable_nv(mut packet: Packet) {
     let first_exclusive_scissor: u32 = packet.read_shallow();
     let exclusive_scissor_count: u32 = packet.read_shallow();
     let p_exclusive_scissor_enables: *const vk::Bool32 = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdSetExclusiveScissorEnableNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_exclusive_scissor, exclusive_scissor_count, p_exclusive_scissor_enables.as_ref()); }
+    unsafe { trace!("called vkCmdSetExclusiveScissorEnableNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_exclusive_scissor, exclusive_scissor_count, unpack_vk_array(p_exclusive_scissor_enables, (exclusive_scissor_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_exclusive_scissor_enable_nv)(
@@ -8062,7 +8062,7 @@ fn vk_cmd_set_viewport_shading_rate_palette_nv(mut packet: Packet) {
     let first_viewport: u32 = packet.read_shallow();
     let viewport_count: u32 = packet.read_shallow();
     let p_shading_rate_palettes: *const VkShadingRatePaletteNV = packet.read_deep();
-    unsafe { trace!("called vkCmdSetViewportShadingRatePaletteNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, p_shading_rate_palettes.as_ref()); }
+    unsafe { trace!("called vkCmdSetViewportShadingRatePaletteNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, unpack_vk_array(p_shading_rate_palettes, (viewport_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_viewport_shading_rate_palette_nv)(
@@ -8084,7 +8084,7 @@ fn vk_cmd_set_coarse_sample_order_nv(mut packet: Packet) {
     let sample_order_type: VkCoarseSampleOrderTypeNV = packet.read_shallow();
     let custom_sample_order_count: u32 = packet.read_shallow();
     let p_custom_sample_orders: *const VkCoarseSampleOrderCustomNV = packet.read_deep();
-    unsafe { trace!("called vkCmdSetCoarseSampleOrderNV({:?}, {:?}, {:?}, {:?})", command_buffer, sample_order_type, custom_sample_order_count, p_custom_sample_orders.as_ref()); }
+    unsafe { trace!("called vkCmdSetCoarseSampleOrderNV({:?}, {:?}, {:?}, {:?})", command_buffer, sample_order_type, custom_sample_order_count, unpack_vk_array(p_custom_sample_orders, (custom_sample_order_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_coarse_sample_order_nv)(
@@ -8379,7 +8379,7 @@ fn vk_bind_acceleration_structure_memory_nv(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let bind_info_count: u32 = packet.read_shallow();
     let p_bind_infos: *const VkBindAccelerationStructureMemoryInfoNV = packet.read_deep();
-    unsafe { trace!("called vkBindAccelerationStructureMemoryNV({:?}, {:?}, {:?})", device, bind_info_count, p_bind_infos.as_ref()); }
+    unsafe { trace!("called vkBindAccelerationStructureMemoryNV({:?}, {:?}, {:?})", device, bind_info_count, unpack_vk_array(p_bind_infos, (bind_info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_bind_acceleration_structure_memory_nv)(
@@ -8538,7 +8538,7 @@ fn vk_cmd_write_acceleration_structures_properties_khr(mut packet: Packet) {
     let query_type: VkQueryType = packet.read_shallow();
     let query_pool: NonDisposableHandle = packet.read_shallow();
     let first_query: u32 = packet.read_shallow();
-    unsafe { trace!("called vkCmdWriteAccelerationStructuresPropertiesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, acceleration_structure_count, p_acceleration_structures.as_ref(), query_type, query_pool, first_query); }
+    unsafe { trace!("called vkCmdWriteAccelerationStructuresPropertiesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, acceleration_structure_count, unpack_vk_array(p_acceleration_structures, (acceleration_structure_count) as usize), query_type, query_pool, first_query); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_write_acceleration_structures_properties_khr)(
@@ -8564,7 +8564,7 @@ fn vk_cmd_write_acceleration_structures_properties_nv(mut packet: Packet) {
     let query_type: VkQueryType = packet.read_shallow();
     let query_pool: NonDisposableHandle = packet.read_shallow();
     let first_query: u32 = packet.read_shallow();
-    unsafe { trace!("called vkCmdWriteAccelerationStructuresPropertiesNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, acceleration_structure_count, p_acceleration_structures.as_ref(), query_type, query_pool, first_query); }
+    unsafe { trace!("called vkCmdWriteAccelerationStructuresPropertiesNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, acceleration_structure_count, unpack_vk_array(p_acceleration_structures, (acceleration_structure_count) as usize), query_type, query_pool, first_query); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_write_acceleration_structures_properties_nv)(
@@ -8623,7 +8623,7 @@ fn vk_write_acceleration_structures_properties_khr(mut packet: Packet) {
     let data_size: usize = packet.read_shallow();
     let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     let stride: usize = packet.read_shallow();
-    unsafe { trace!("called vkWriteAccelerationStructuresPropertiesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, acceleration_structure_count, p_acceleration_structures.as_ref(), query_type, data_size, p_data.as_ref(), stride); }
+    unsafe { trace!("called vkWriteAccelerationStructuresPropertiesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, acceleration_structure_count, unpack_vk_array(p_acceleration_structures, (acceleration_structure_count) as usize), query_type, data_size, unpack_vk_array(p_data, (data_size) as usize), stride); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_write_acceleration_structures_properties_khr)(
@@ -8727,7 +8727,7 @@ fn vk_get_ray_tracing_shader_group_handles_khr(mut packet: Packet) {
     let group_count: u32 = packet.read_shallow();
     let data_size: usize = packet.read_shallow();
     let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkGetRayTracingShaderGroupHandlesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline, first_group, group_count, data_size, p_data.as_ref()); }
+    unsafe { trace!("called vkGetRayTracingShaderGroupHandlesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline, first_group, group_count, data_size, unpack_vk_array(p_data, (data_size) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_ray_tracing_shader_group_handles_khr)(
@@ -8756,7 +8756,7 @@ fn vk_get_ray_tracing_capture_replay_shader_group_handles_khr(mut packet: Packet
     let group_count: u32 = packet.read_shallow();
     let data_size: usize = packet.read_shallow();
     let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkGetRayTracingCaptureReplayShaderGroupHandlesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline, first_group, group_count, data_size, p_data.as_ref()); }
+    unsafe { trace!("called vkGetRayTracingCaptureReplayShaderGroupHandlesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline, first_group, group_count, data_size, unpack_vk_array(p_data, (data_size) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_ray_tracing_capture_replay_shader_group_handles_khr)(
@@ -8783,7 +8783,7 @@ fn vk_get_acceleration_structure_handle_nv(mut packet: Packet) {
     let acceleration_structure: NonDisposableHandle = packet.read_shallow();
     let data_size: usize = packet.read_shallow();
     let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkGetAccelerationStructureHandleNV({:?}, {:?}, {:?}, {:?})", device, acceleration_structure, data_size, p_data.as_ref()); }
+    unsafe { trace!("called vkGetAccelerationStructureHandleNV({:?}, {:?}, {:?}, {:?})", device, acceleration_structure, data_size, unpack_vk_array(p_data, (data_size) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_acceleration_structure_handle_nv)(
@@ -8810,7 +8810,7 @@ fn vk_create_ray_tracing_pipelines_nv(mut packet: Packet) {
     let p_create_infos: *const VkRayTracingPipelineCreateInfoNV = packet.read_deep();
     let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     let p_pipelines: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCreateRayTracingPipelinesNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_pipelines.as_ref()); }
+    unsafe { trace!("called vkCreateRayTracingPipelinesNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, unpack_vk_array(p_create_infos, (create_info_count) as usize), p_allocator.as_ref(), unpack_vk_array(p_pipelines, (create_info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_create_ray_tracing_pipelines_nv)(
@@ -8840,7 +8840,7 @@ fn vk_create_ray_tracing_pipelines_khr(mut packet: Packet) {
     let p_create_infos: *const VkRayTracingPipelineCreateInfoKHR = packet.read_deep();
     let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     let p_pipelines: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCreateRayTracingPipelinesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, deferred_operation, pipeline_cache, create_info_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_pipelines.as_ref()); }
+    unsafe { trace!("called vkCreateRayTracingPipelinesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, deferred_operation, pipeline_cache, create_info_count, unpack_vk_array(p_create_infos, (create_info_count) as usize), p_allocator.as_ref(), unpack_vk_array(p_pipelines, (create_info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_create_ray_tracing_pipelines_khr)(
@@ -8866,7 +8866,7 @@ fn vk_create_ray_tracing_pipelines_khr(mut packet: Packet) {
 fn vk_get_physical_device_cooperative_matrix_properties_nv(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkCooperativeMatrixPropertiesNV>();
-    unsafe { trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesNV({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesNV({:?}, {:?}, {:?})", physical_device, p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_cooperative_matrix_properties_nv)(
@@ -9037,7 +9037,7 @@ fn vk_get_physical_device_surface_present_modes2_ext(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR = packet.read_deep();
     let (mut p_present_mode_count, p_present_modes) = packet.read_and_allocate_vk_array_count::<VkPresentModeKHR>();
-    unsafe { trace!("called vkGetPhysicalDeviceSurfacePresentModes2EXT({:?}, {:?}, {:?}, {:?})", physical_device, p_surface_info.as_ref(), p_present_mode_count, p_present_modes.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceSurfacePresentModes2EXT({:?}, {:?}, {:?}, {:?})", physical_device, p_surface_info.as_ref(), p_present_mode_count, unpack_vk_array(p_present_modes, (p_present_mode_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_surface_present_modes2_ext)(
@@ -9121,7 +9121,7 @@ fn vk_enumerate_physical_device_queue_family_performance_query_counters_khr(mut 
     let queue_family_index: u32 = packet.read_shallow();
     let (mut p_counter_count, p_counters) = packet.read_and_allocate_vk_array_count::<VkPerformanceCounterKHR>();
     let p_counter_descriptions: *mut VkPerformanceCounterDescriptionKHR = packet.read_mut_deep();
-    unsafe { trace!("called vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR({:?}, {:?}, {:?}, {:?}, {:?})", physical_device, queue_family_index, p_counter_count, p_counters.as_ref(), p_counter_descriptions.as_ref()); }
+    unsafe { trace!("called vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR({:?}, {:?}, {:?}, {:?}, {:?})", physical_device, queue_family_index, p_counter_count, unpack_vk_array(p_counters, (p_counter_count) as usize), unpack_vk_array(p_counter_descriptions, (p_counter_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_enumerate_physical_device_queue_family_performance_query_counters_khr)(
@@ -9287,7 +9287,7 @@ fn vk_create_headless_surface_ext(mut packet: Packet) {
 fn vk_get_physical_device_supported_framebuffer_mixed_samples_combinations_nv(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_combination_count, p_combinations) = packet.read_and_allocate_vk_array_count::<VkFramebufferMixedSamplesCombinationNV>();
-    unsafe { trace!("called vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV({:?}, {:?}, {:?})", physical_device, p_combination_count, p_combinations.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV({:?}, {:?}, {:?})", physical_device, p_combination_count, unpack_vk_array(p_combinations, (p_combination_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_supported_framebuffer_mixed_samples_combinations_nv)(
@@ -9498,7 +9498,7 @@ fn vk_get_pipeline_executable_properties_khr(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let p_pipeline_info: *const VkPipelineInfoKHR = packet.read_deep();
     let (mut p_executable_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkPipelineExecutablePropertiesKHR>();
-    unsafe { trace!("called vkGetPipelineExecutablePropertiesKHR({:?}, {:?}, {:?}, {:?})", device, p_pipeline_info.as_ref(), p_executable_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkGetPipelineExecutablePropertiesKHR({:?}, {:?}, {:?}, {:?})", device, p_pipeline_info.as_ref(), p_executable_count, unpack_vk_array(p_properties, (p_executable_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_pipeline_executable_properties_khr)(
@@ -9522,7 +9522,7 @@ fn vk_get_pipeline_executable_statistics_khr(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let p_executable_info: *const VkPipelineExecutableInfoKHR = packet.read_deep();
     let (mut p_statistic_count, p_statistics) = packet.read_and_allocate_vk_array_count::<VkPipelineExecutableStatisticKHR>();
-    unsafe { trace!("called vkGetPipelineExecutableStatisticsKHR({:?}, {:?}, {:?}, {:?})", device, p_executable_info.as_ref(), p_statistic_count, p_statistics.as_ref()); }
+    unsafe { trace!("called vkGetPipelineExecutableStatisticsKHR({:?}, {:?}, {:?}, {:?})", device, p_executable_info.as_ref(), p_statistic_count, unpack_vk_array(p_statistics, (p_statistic_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_pipeline_executable_statistics_khr)(
@@ -9546,7 +9546,7 @@ fn vk_get_pipeline_executable_internal_representations_khr(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let p_executable_info: *const VkPipelineExecutableInfoKHR = packet.read_deep();
     let (mut p_internal_representation_count, p_internal_representations) = packet.read_and_allocate_vk_array_count::<VkPipelineExecutableInternalRepresentationKHR>();
-    unsafe { trace!("called vkGetPipelineExecutableInternalRepresentationsKHR({:?}, {:?}, {:?}, {:?})", device, p_executable_info.as_ref(), p_internal_representation_count, p_internal_representations.as_ref()); }
+    unsafe { trace!("called vkGetPipelineExecutableInternalRepresentationsKHR({:?}, {:?}, {:?}, {:?})", device, p_executable_info.as_ref(), p_internal_representation_count, unpack_vk_array(p_internal_representations, (p_internal_representation_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_pipeline_executable_internal_representations_khr)(
@@ -9589,7 +9589,7 @@ fn vk_cmd_set_line_stipple_khr(mut packet: Packet) {
 fn vk_get_physical_device_tool_properties(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_tool_count, p_tool_properties) = packet.read_and_allocate_vk_array_count::<VkPhysicalDeviceToolProperties>();
-    unsafe { trace!("called vkGetPhysicalDeviceToolProperties({:?}, {:?}, {:?})", physical_device, p_tool_count, p_tool_properties.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceToolProperties({:?}, {:?}, {:?})", physical_device, p_tool_count, unpack_vk_array(p_tool_properties, (p_tool_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_tool_properties)(
@@ -9638,7 +9638,7 @@ fn vk_cmd_build_acceleration_structures_khr(mut packet: Packet) {
     let info_count: u32 = packet.read_shallow();
     let p_infos: *const VkAccelerationStructureBuildGeometryInfoKHR = packet.read_deep();
     let pp_build_range_infos: *const *const VkAccelerationStructureBuildRangeInfoKHR = packet.read_deep_double();
-    unsafe { trace!("called vkCmdBuildAccelerationStructuresKHR({:?}, {:?}, {:?}, {:?})", command_buffer, info_count, p_infos.as_ref(), pp_build_range_infos.as_ref()); }
+    unsafe { trace!("called vkCmdBuildAccelerationStructuresKHR({:?}, {:?}, {:?}, {:?})", command_buffer, info_count, unpack_vk_array(p_infos, (info_count) as usize), unpack_vk_array(pp_build_range_infos, (info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_build_acceleration_structures_khr)(
@@ -9662,7 +9662,7 @@ fn vk_cmd_build_acceleration_structures_indirect_khr(mut packet: Packet) {
     let p_indirect_device_addresses: *const vk::DeviceAddress = packet.read_shallow_under_nullable_ptr();
     let p_indirect_strides: *const u32 = packet.read_shallow_under_nullable_ptr();
     let pp_max_primitive_counts: *const *const u32 = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdBuildAccelerationStructuresIndirectKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, info_count, p_infos.as_ref(), p_indirect_device_addresses.as_ref(), p_indirect_strides.as_ref(), pp_max_primitive_counts.as_ref()); }
+    unsafe { trace!("called vkCmdBuildAccelerationStructuresIndirectKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, info_count, unpack_vk_array(p_infos, (info_count) as usize), unpack_vk_array(p_indirect_device_addresses, (info_count) as usize), unpack_vk_array(p_indirect_strides, (info_count) as usize), unpack_vk_array(pp_max_primitive_counts, (info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_build_acceleration_structures_indirect_khr)(
@@ -9687,7 +9687,7 @@ fn vk_build_acceleration_structures_khr(mut packet: Packet) {
     let info_count: u32 = packet.read_shallow();
     let p_infos: *const VkAccelerationStructureBuildGeometryInfoKHR = packet.read_deep();
     let pp_build_range_infos: *const *const VkAccelerationStructureBuildRangeInfoKHR = packet.read_deep_double();
-    unsafe { trace!("called vkBuildAccelerationStructuresKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, deferred_operation, info_count, p_infos.as_ref(), pp_build_range_infos.as_ref()); }
+    unsafe { trace!("called vkBuildAccelerationStructuresKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, deferred_operation, info_count, unpack_vk_array(p_infos, (info_count) as usize), unpack_vk_array(pp_build_range_infos, (info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_build_acceleration_structures_khr)(
@@ -9919,7 +9919,7 @@ fn vk_cmd_set_viewport_with_count(mut packet: Packet) {
     let command_buffer: NonDisposableHandle = packet.read_shallow();
     let viewport_count: u32 = packet.read_shallow();
     let p_viewports: *const VkViewport = packet.read_deep();
-    unsafe { trace!("called vkCmdSetViewportWithCount({:?}, {:?}, {:?})", command_buffer, viewport_count, p_viewports.as_ref()); }
+    unsafe { trace!("called vkCmdSetViewportWithCount({:?}, {:?}, {:?})", command_buffer, viewport_count, unpack_vk_array(p_viewports, (viewport_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_viewport_with_count)(
@@ -9939,7 +9939,7 @@ fn vk_cmd_set_scissor_with_count(mut packet: Packet) {
     let command_buffer: NonDisposableHandle = packet.read_shallow();
     let scissor_count: u32 = packet.read_shallow();
     let p_scissors: *const VkRect2D = packet.read_deep();
-    unsafe { trace!("called vkCmdSetScissorWithCount({:?}, {:?}, {:?})", command_buffer, scissor_count, p_scissors.as_ref()); }
+    unsafe { trace!("called vkCmdSetScissorWithCount({:?}, {:?}, {:?})", command_buffer, scissor_count, unpack_vk_array(p_scissors, (scissor_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_scissor_with_count)(
@@ -9987,7 +9987,7 @@ fn vk_cmd_bind_vertex_buffers2(mut packet: Packet) {
     let p_offsets: *const vk::DeviceSize = packet.read_shallow_under_nullable_ptr();
     let p_sizes: *const vk::DeviceSize = packet.read_shallow_under_nullable_ptr();
     let p_strides: *const vk::DeviceSize = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdBindVertexBuffers2({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_binding, binding_count, p_buffers.as_ref(), p_offsets.as_ref(), p_sizes.as_ref(), p_strides.as_ref()); }
+    unsafe { trace!("called vkCmdBindVertexBuffers2({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, first_binding, binding_count, unpack_vk_array(p_buffers, (binding_count) as usize), unpack_vk_array(p_offsets, (binding_count) as usize), unpack_vk_array(p_sizes, (binding_count) as usize), unpack_vk_array(p_strides, (binding_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_bind_vertex_buffers2)(
@@ -10289,7 +10289,7 @@ fn vk_cmd_set_sample_mask_ext(mut packet: Packet) {
     let command_buffer: NonDisposableHandle = packet.read_shallow();
     let samples: vk::SampleCountFlags = packet.read_shallow();
     let p_sample_mask: *const vk::SampleMask = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdSetSampleMaskEXT({:?}, {:?}, {:?})", command_buffer, samples, p_sample_mask.as_ref()); }
+    unsafe { trace!("called vkCmdSetSampleMaskEXT({:?}, {:?}, {:?})", command_buffer, samples, unpack_vk_array(p_sample_mask, ((samples.as_raw() + 31) / 32) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_sample_mask_ext)(
@@ -10364,7 +10364,7 @@ fn vk_cmd_set_color_blend_enable_ext(mut packet: Packet) {
     let first_attachment: u32 = packet.read_shallow();
     let attachment_count: u32 = packet.read_shallow();
     let p_color_blend_enables: *const vk::Bool32 = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdSetColorBlendEnableEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, p_color_blend_enables.as_ref()); }
+    unsafe { trace!("called vkCmdSetColorBlendEnableEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, unpack_vk_array(p_color_blend_enables, (attachment_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_color_blend_enable_ext)(
@@ -10386,7 +10386,7 @@ fn vk_cmd_set_color_blend_equation_ext(mut packet: Packet) {
     let first_attachment: u32 = packet.read_shallow();
     let attachment_count: u32 = packet.read_shallow();
     let p_color_blend_equations: *const VkColorBlendEquationEXT = packet.read_deep();
-    unsafe { trace!("called vkCmdSetColorBlendEquationEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, p_color_blend_equations.as_ref()); }
+    unsafe { trace!("called vkCmdSetColorBlendEquationEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, unpack_vk_array(p_color_blend_equations, (attachment_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_color_blend_equation_ext)(
@@ -10408,7 +10408,7 @@ fn vk_cmd_set_color_write_mask_ext(mut packet: Packet) {
     let first_attachment: u32 = packet.read_shallow();
     let attachment_count: u32 = packet.read_shallow();
     let p_color_write_masks: *const VkColorComponentFlags = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdSetColorWriteMaskEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, p_color_write_masks.as_ref()); }
+    unsafe { trace!("called vkCmdSetColorWriteMaskEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, unpack_vk_array(p_color_write_masks, (attachment_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_color_write_mask_ext)(
@@ -10520,7 +10520,7 @@ fn vk_cmd_set_color_blend_advanced_ext(mut packet: Packet) {
     let first_attachment: u32 = packet.read_shallow();
     let attachment_count: u32 = packet.read_shallow();
     let p_color_blend_advanced: *const VkColorBlendAdvancedEXT = packet.read_deep();
-    unsafe { trace!("called vkCmdSetColorBlendAdvancedEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, p_color_blend_advanced.as_ref()); }
+    unsafe { trace!("called vkCmdSetColorBlendAdvancedEXT({:?}, {:?}, {:?}, {:?})", command_buffer, first_attachment, attachment_count, unpack_vk_array(p_color_blend_advanced, (attachment_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_color_blend_advanced_ext)(
@@ -10632,7 +10632,7 @@ fn vk_cmd_set_viewport_swizzle_nv(mut packet: Packet) {
     let first_viewport: u32 = packet.read_shallow();
     let viewport_count: u32 = packet.read_shallow();
     let p_viewport_swizzles: *const VkViewportSwizzleNV = packet.read_deep();
-    unsafe { trace!("called vkCmdSetViewportSwizzleNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, p_viewport_swizzles.as_ref()); }
+    unsafe { trace!("called vkCmdSetViewportSwizzleNV({:?}, {:?}, {:?}, {:?})", command_buffer, first_viewport, viewport_count, unpack_vk_array(p_viewport_swizzles, (viewport_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_viewport_swizzle_nv)(
@@ -10725,7 +10725,7 @@ fn vk_cmd_set_coverage_modulation_table_nv(mut packet: Packet) {
     let command_buffer: NonDisposableHandle = packet.read_shallow();
     let coverage_modulation_table_count: u32 = packet.read_shallow();
     let p_coverage_modulation_table: *const f32 = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdSetCoverageModulationTableNV({:?}, {:?}, {:?})", command_buffer, coverage_modulation_table_count, p_coverage_modulation_table.as_ref()); }
+    unsafe { trace!("called vkCmdSetCoverageModulationTableNV({:?}, {:?}, {:?})", command_buffer, coverage_modulation_table_count, unpack_vk_array(p_coverage_modulation_table, (coverage_modulation_table_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_coverage_modulation_table_nv)(
@@ -11022,7 +11022,7 @@ fn vk_cmd_set_fragment_shading_rate_khr(mut packet: Packet) {
 fn vk_get_physical_device_fragment_shading_rates_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_fragment_shading_rate_count, p_fragment_shading_rates) = packet.read_and_allocate_vk_array_count::<VkPhysicalDeviceFragmentShadingRateKHR>();
-    unsafe { trace!("called vkGetPhysicalDeviceFragmentShadingRatesKHR({:?}, {:?}, {:?})", physical_device, p_fragment_shading_rate_count, p_fragment_shading_rates.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceFragmentShadingRatesKHR({:?}, {:?}, {:?})", physical_device, p_fragment_shading_rate_count, unpack_vk_array(p_fragment_shading_rates, (p_fragment_shading_rate_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_fragment_shading_rates_khr)(
@@ -11067,7 +11067,7 @@ fn vk_get_acceleration_structure_build_sizes_khr(mut packet: Packet) {
     let p_build_info: *const VkAccelerationStructureBuildGeometryInfoKHR = packet.read_deep();
     let p_max_primitive_counts: *const u32 = packet.read_shallow_under_nullable_ptr();
     let p_size_info: *mut VkAccelerationStructureBuildSizesInfoKHR = packet.read_mut_deep();
-    unsafe { trace!("called vkGetAccelerationStructureBuildSizesKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, build_type, p_build_info.as_ref(), p_max_primitive_counts.as_ref(), p_size_info.as_ref()); }
+    unsafe { trace!("called vkGetAccelerationStructureBuildSizesKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, build_type, p_build_info.as_ref(), unpack_vk_array(p_max_primitive_counts, ((&*p_build_info).geometry_count) as usize), p_size_info.as_ref()); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_acceleration_structure_build_sizes_khr)(
@@ -11094,7 +11094,7 @@ fn vk_cmd_set_vertex_input_ext(mut packet: Packet) {
     let p_vertex_binding_descriptions: *const VkVertexInputBindingDescription2EXT = packet.read_deep();
     let vertex_attribute_description_count: u32 = packet.read_shallow();
     let p_vertex_attribute_descriptions: *const VkVertexInputAttributeDescription2EXT = packet.read_deep();
-    unsafe { trace!("called vkCmdSetVertexInputEXT({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, vertex_binding_description_count, p_vertex_binding_descriptions.as_ref(), vertex_attribute_description_count, p_vertex_attribute_descriptions.as_ref()); }
+    unsafe { trace!("called vkCmdSetVertexInputEXT({:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, vertex_binding_description_count, unpack_vk_array(p_vertex_binding_descriptions, (vertex_binding_description_count) as usize), vertex_attribute_description_count, unpack_vk_array(p_vertex_attribute_descriptions, (vertex_attribute_description_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_vertex_input_ext)(
@@ -11116,7 +11116,7 @@ fn vk_cmd_set_color_write_enable_ext(mut packet: Packet) {
     let command_buffer: NonDisposableHandle = packet.read_shallow();
     let attachment_count: u32 = packet.read_shallow();
     let p_color_write_enables: *const vk::Bool32 = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdSetColorWriteEnableEXT({:?}, {:?}, {:?})", command_buffer, attachment_count, p_color_write_enables.as_ref()); }
+    unsafe { trace!("called vkCmdSetColorWriteEnableEXT({:?}, {:?}, {:?})", command_buffer, attachment_count, unpack_vk_array(p_color_write_enables, (attachment_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_color_write_enable_ext)(
@@ -11177,7 +11177,7 @@ fn vk_cmd_wait_events2(mut packet: Packet) {
     let event_count: u32 = packet.read_shallow();
     let p_events: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
     let p_dependency_infos: *const VkDependencyInfo = packet.read_deep();
-    unsafe { trace!("called vkCmdWaitEvents2({:?}, {:?}, {:?}, {:?})", command_buffer, event_count, p_events.as_ref(), p_dependency_infos.as_ref()); }
+    unsafe { trace!("called vkCmdWaitEvents2({:?}, {:?}, {:?}, {:?})", command_buffer, event_count, unpack_vk_array(p_events, (event_count) as usize), unpack_vk_array(p_dependency_infos, (event_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_wait_events2)(
@@ -11217,7 +11217,7 @@ fn vk_queue_submit2(mut packet: Packet) {
     let submit_count: u32 = packet.read_shallow();
     let p_submits: *const VkSubmitInfo2 = packet.read_deep();
     let fence: NonDisposableHandle = packet.read_shallow();
-    unsafe { trace!("called vkQueueSubmit2({:?}, {:?}, {:?}, {:?})", queue, submit_count, p_submits.as_ref(), fence); }
+    unsafe { trace!("called vkQueueSubmit2({:?}, {:?}, {:?}, {:?})", queue, submit_count, unpack_vk_array(p_submits, (submit_count) as usize), fence); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_queue_submit2)(
@@ -11283,7 +11283,7 @@ fn vk_cmd_write_buffer_marker2_amd(mut packet: Packet) {
 fn vk_get_queue_checkpoint_data2_nv(mut packet: Packet) {
     let queue: NonDisposableHandle = packet.read_shallow();
     let (mut p_checkpoint_data_count, p_checkpoint_data) = packet.read_and_allocate_vk_array_count::<VkCheckpointData2NV>();
-    unsafe { trace!("called vkGetQueueCheckpointData2NV({:?}, {:?}, {:?})", queue, p_checkpoint_data_count, p_checkpoint_data.as_ref()); }
+    unsafe { trace!("called vkGetQueueCheckpointData2NV({:?}, {:?}, {:?})", queue, p_checkpoint_data_count, unpack_vk_array(p_checkpoint_data, (p_checkpoint_data_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_queue_checkpoint_data2_nv)(
@@ -11360,7 +11360,7 @@ fn vk_transition_image_layout_ext(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let transition_count: u32 = packet.read_shallow();
     let p_transitions: *const VkHostImageLayoutTransitionInfoEXT = packet.read_deep();
-    unsafe { trace!("called vkTransitionImageLayoutEXT({:?}, {:?}, {:?})", device, transition_count, p_transitions.as_ref()); }
+    unsafe { trace!("called vkTransitionImageLayoutEXT({:?}, {:?}, {:?})", device, transition_count, unpack_vk_array(p_transitions, (transition_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_transition_image_layout_ext)(
@@ -11403,7 +11403,7 @@ fn vk_get_physical_device_video_format_properties_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let p_video_format_info: *const VkPhysicalDeviceVideoFormatInfoKHR = packet.read_deep();
     let (mut p_video_format_property_count, p_video_format_properties) = packet.read_and_allocate_vk_array_count::<VkVideoFormatPropertiesKHR>();
-    unsafe { trace!("called vkGetPhysicalDeviceVideoFormatPropertiesKHR({:?}, {:?}, {:?}, {:?})", physical_device, p_video_format_info.as_ref(), p_video_format_property_count, p_video_format_properties.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceVideoFormatPropertiesKHR({:?}, {:?}, {:?}, {:?})", physical_device, p_video_format_info.as_ref(), p_video_format_property_count, unpack_vk_array(p_video_format_properties, (p_video_format_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_video_format_properties_khr)(
@@ -11542,7 +11542,7 @@ fn vk_get_encoded_video_session_parameters_khr(mut packet: Packet) {
     let p_feedback_info: *mut VkVideoEncodeSessionParametersFeedbackInfoKHR = packet.read_mut_deep();
     let p_data_size: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
     let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkGetEncodedVideoSessionParametersKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, p_video_session_parameters_info.as_ref(), p_feedback_info.as_ref(), p_data_size.as_ref(), p_data.as_ref()); }
+    unsafe { trace!("called vkGetEncodedVideoSessionParametersKHR({:?}, {:?}, {:?}, {:?}, {:?})", device, p_video_session_parameters_info.as_ref(), p_feedback_info.as_ref(), p_data_size.as_ref(), unpack_vk_array(p_data, (p_data_size) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_encoded_video_session_parameters_khr)(
@@ -11589,7 +11589,7 @@ fn vk_get_video_session_memory_requirements_khr(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let video_session: NonDisposableHandle = packet.read_shallow();
     let (mut p_memory_requirements_count, p_memory_requirements) = packet.read_and_allocate_vk_array_count::<VkVideoSessionMemoryRequirementsKHR>();
-    unsafe { trace!("called vkGetVideoSessionMemoryRequirementsKHR({:?}, {:?}, {:?}, {:?})", device, video_session, p_memory_requirements_count, p_memory_requirements.as_ref()); }
+    unsafe { trace!("called vkGetVideoSessionMemoryRequirementsKHR({:?}, {:?}, {:?}, {:?})", device, video_session, p_memory_requirements_count, unpack_vk_array(p_memory_requirements, (p_memory_requirements_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_video_session_memory_requirements_khr)(
@@ -11614,7 +11614,7 @@ fn vk_bind_video_session_memory_khr(mut packet: Packet) {
     let video_session: NonDisposableHandle = packet.read_shallow();
     let bind_session_memory_info_count: u32 = packet.read_shallow();
     let p_bind_session_memory_infos: *const VkBindVideoSessionMemoryInfoKHR = packet.read_deep();
-    unsafe { trace!("called vkBindVideoSessionMemoryKHR({:?}, {:?}, {:?}, {:?})", device, video_session, bind_session_memory_info_count, p_bind_session_memory_infos.as_ref()); }
+    unsafe { trace!("called vkBindVideoSessionMemoryKHR({:?}, {:?}, {:?}, {:?})", device, video_session, bind_session_memory_info_count, unpack_vk_array(p_bind_session_memory_infos, (bind_session_memory_info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_bind_video_session_memory_khr)(
@@ -11725,7 +11725,7 @@ fn vk_cmd_decompress_memory_nv(mut packet: Packet) {
     let command_buffer: NonDisposableHandle = packet.read_shallow();
     let decompress_region_count: u32 = packet.read_shallow();
     let p_decompress_memory_regions: *const VkDecompressMemoryRegionNV = packet.read_deep();
-    unsafe { trace!("called vkCmdDecompressMemoryNV({:?}, {:?}, {:?})", command_buffer, decompress_region_count, p_decompress_memory_regions.as_ref()); }
+    unsafe { trace!("called vkCmdDecompressMemoryNV({:?}, {:?}, {:?})", command_buffer, decompress_region_count, unpack_vk_array(p_decompress_memory_regions, (decompress_region_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_decompress_memory_nv)(
@@ -11924,7 +11924,7 @@ fn vk_get_descriptor_ext(mut packet: Packet) {
     let p_descriptor_info: *const VkDescriptorGetInfoEXT = packet.read_deep();
     let data_size: usize = packet.read_shallow();
     let p_descriptor: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkGetDescriptorEXT({:?}, {:?}, {:?}, {:?})", device, p_descriptor_info.as_ref(), data_size, p_descriptor.as_ref()); }
+    unsafe { trace!("called vkGetDescriptorEXT({:?}, {:?}, {:?}, {:?})", device, p_descriptor_info.as_ref(), data_size, unpack_vk_array(p_descriptor, (data_size) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_descriptor_ext)(
@@ -11948,7 +11948,7 @@ fn vk_cmd_bind_descriptor_buffers_ext(mut packet: Packet) {
     let command_buffer: NonDisposableHandle = packet.read_shallow();
     let buffer_count: u32 = packet.read_shallow();
     let p_binding_infos: *const VkDescriptorBufferBindingInfoEXT = packet.read_deep();
-    unsafe { trace!("called vkCmdBindDescriptorBuffersEXT({:?}, {:?}, {:?})", command_buffer, buffer_count, p_binding_infos.as_ref()); }
+    unsafe { trace!("called vkCmdBindDescriptorBuffersEXT({:?}, {:?}, {:?})", command_buffer, buffer_count, unpack_vk_array(p_binding_infos, (buffer_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_bind_descriptor_buffers_ext)(
@@ -11972,7 +11972,7 @@ fn vk_cmd_set_descriptor_buffer_offsets_ext(mut packet: Packet) {
     let set_count: u32 = packet.read_shallow();
     let p_buffer_indices: *const u32 = packet.read_shallow_under_nullable_ptr();
     let p_offsets: *const vk::DeviceSize = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdSetDescriptorBufferOffsetsEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, pipeline_bind_point, layout, first_set, set_count, p_buffer_indices.as_ref(), p_offsets.as_ref()); }
+    unsafe { trace!("called vkCmdSetDescriptorBufferOffsetsEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, pipeline_bind_point, layout, first_set, set_count, unpack_vk_array(p_buffer_indices, (set_count) as usize), unpack_vk_array(p_offsets, (set_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_set_descriptor_buffer_offsets_ext)(
@@ -12354,7 +12354,7 @@ fn vk_get_cuda_module_cache_nv(mut packet: Packet) {
     let module: NonDisposableHandle = packet.read_shallow();
     let p_cache_size: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
     let p_cache_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkGetCudaModuleCacheNV({:?}, {:?}, {:?}, {:?})", device, module, p_cache_size.as_ref(), p_cache_data.as_ref()); }
+    unsafe { trace!("called vkGetCudaModuleCacheNV({:?}, {:?}, {:?}, {:?})", device, module, p_cache_size.as_ref(), unpack_vk_array(p_cache_data, (p_cache_size) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_cuda_module_cache_nv)(
@@ -12567,7 +12567,7 @@ fn vk_cmd_build_micromaps_ext(mut packet: Packet) {
     let command_buffer: NonDisposableHandle = packet.read_shallow();
     let info_count: u32 = packet.read_shallow();
     let p_infos: *const VkMicromapBuildInfoEXT = packet.read_deep();
-    unsafe { trace!("called vkCmdBuildMicromapsEXT({:?}, {:?}, {:?})", command_buffer, info_count, p_infos.as_ref()); }
+    unsafe { trace!("called vkCmdBuildMicromapsEXT({:?}, {:?}, {:?})", command_buffer, info_count, unpack_vk_array(p_infos, (info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_build_micromaps_ext)(
@@ -12588,7 +12588,7 @@ fn vk_build_micromaps_ext(mut packet: Packet) {
     let deferred_operation: NonDisposableHandle = packet.read_shallow();
     let info_count: u32 = packet.read_shallow();
     let p_infos: *const VkMicromapBuildInfoEXT = packet.read_deep();
-    unsafe { trace!("called vkBuildMicromapsEXT({:?}, {:?}, {:?}, {:?})", device, deferred_operation, info_count, p_infos.as_ref()); }
+    unsafe { trace!("called vkBuildMicromapsEXT({:?}, {:?}, {:?}, {:?})", device, deferred_operation, info_count, unpack_vk_array(p_infos, (info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_build_micromaps_ext)(
@@ -12746,7 +12746,7 @@ fn vk_cmd_write_micromaps_properties_ext(mut packet: Packet) {
     let query_type: VkQueryType = packet.read_shallow();
     let query_pool: NonDisposableHandle = packet.read_shallow();
     let first_query: u32 = packet.read_shallow();
-    unsafe { trace!("called vkCmdWriteMicromapsPropertiesEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, micromap_count, p_micromaps.as_ref(), query_type, query_pool, first_query); }
+    unsafe { trace!("called vkCmdWriteMicromapsPropertiesEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, micromap_count, unpack_vk_array(p_micromaps, (micromap_count) as usize), query_type, query_pool, first_query); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_write_micromaps_properties_ext)(
@@ -12773,7 +12773,7 @@ fn vk_write_micromaps_properties_ext(mut packet: Packet) {
     let data_size: usize = packet.read_shallow();
     let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
     let stride: usize = packet.read_shallow();
-    unsafe { trace!("called vkWriteMicromapsPropertiesEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, micromap_count, p_micromaps.as_ref(), query_type, data_size, p_data.as_ref(), stride); }
+    unsafe { trace!("called vkWriteMicromapsPropertiesEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, micromap_count, unpack_vk_array(p_micromaps, (micromap_count) as usize), query_type, data_size, unpack_vk_array(p_data, (data_size) as usize), stride); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_write_micromaps_properties_ext)(
@@ -12963,7 +12963,7 @@ fn vk_get_framebuffer_tile_properties_qcom(mut packet: Packet) {
     let device: NonDisposableHandle = packet.read_shallow();
     let framebuffer: NonDisposableHandle = packet.read_shallow();
     let (mut p_properties_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkTilePropertiesQCOM>();
-    unsafe { trace!("called vkGetFramebufferTilePropertiesQCOM({:?}, {:?}, {:?}, {:?})", device, framebuffer, p_properties_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkGetFramebufferTilePropertiesQCOM({:?}, {:?}, {:?}, {:?})", device, framebuffer, p_properties_count, unpack_vk_array(p_properties, (p_properties_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_framebuffer_tile_properties_qcom)(
@@ -13010,7 +13010,7 @@ fn vk_get_physical_device_optical_flow_image_formats_nv(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let p_optical_flow_image_format_info: *const VkOpticalFlowImageFormatInfoNV = packet.read_deep();
     let (mut p_format_count, p_image_format_properties) = packet.read_and_allocate_vk_array_count::<VkOpticalFlowImageFormatPropertiesNV>();
-    unsafe { trace!("called vkGetPhysicalDeviceOpticalFlowImageFormatsNV({:?}, {:?}, {:?}, {:?})", physical_device, p_optical_flow_image_format_info.as_ref(), p_format_count, p_image_format_properties.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceOpticalFlowImageFormatsNV({:?}, {:?}, {:?}, {:?})", physical_device, p_optical_flow_image_format_info.as_ref(), p_format_count, unpack_vk_array(p_image_format_properties, (p_format_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_optical_flow_image_formats_nv)(
@@ -13249,7 +13249,7 @@ fn vk_create_shaders_ext(mut packet: Packet) {
     let p_create_infos: *const VkShaderCreateInfoEXT = packet.read_deep();
     let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     let p_shaders: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCreateShadersEXT({:?}, {:?}, {:?}, {:?}, {:?})", device, create_info_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_shaders.as_ref()); }
+    unsafe { trace!("called vkCreateShadersEXT({:?}, {:?}, {:?}, {:?}, {:?})", device, create_info_count, unpack_vk_array(p_create_infos, (create_info_count) as usize), p_allocator.as_ref(), unpack_vk_array(p_shaders, (create_info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_create_shaders_ext)(
@@ -13295,7 +13295,7 @@ fn vk_get_shader_binary_data_ext(mut packet: Packet) {
     let shader: NonDisposableHandle = packet.read_shallow();
     let p_data_size: *mut usize = packet.read_mut_shallow_under_nullable_ptr();
     let p_data: *mut c_void = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkGetShaderBinaryDataEXT({:?}, {:?}, {:?}, {:?})", device, shader, p_data_size.as_ref(), p_data.as_ref()); }
+    unsafe { trace!("called vkGetShaderBinaryDataEXT({:?}, {:?}, {:?}, {:?})", device, shader, p_data_size.as_ref(), unpack_vk_array(p_data, (p_data_size) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_shader_binary_data_ext)(
@@ -13321,7 +13321,7 @@ fn vk_cmd_bind_shaders_ext(mut packet: Packet) {
     let stage_count: u32 = packet.read_shallow();
     let p_stages: *const vk::ShaderStageFlags = packet.read_shallow_under_nullable_ptr();
     let p_shaders: *const NonDisposableHandle = packet.read_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCmdBindShadersEXT({:?}, {:?}, {:?}, {:?})", command_buffer, stage_count, p_stages.as_ref(), p_shaders.as_ref()); }
+    unsafe { trace!("called vkCmdBindShadersEXT({:?}, {:?}, {:?}, {:?})", command_buffer, stage_count, unpack_vk_array(p_stages, (stage_count) as usize), unpack_vk_array(p_shaders, (stage_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_cmd_bind_shaders_ext)(
@@ -13364,7 +13364,7 @@ fn vk_get_screen_buffer_properties_qnx(mut packet: Packet) {
 fn vk_get_physical_device_cooperative_matrix_properties_khr(mut packet: Packet) {
     let physical_device: NonDisposableHandle = packet.read_shallow();
     let (mut p_property_count, p_properties) = packet.read_and_allocate_vk_array_count::<VkCooperativeMatrixPropertiesKHR>();
-    unsafe { trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR({:?}, {:?}, {:?})", physical_device, p_property_count, p_properties.as_ref()); }
+    unsafe { trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR({:?}, {:?}, {:?})", physical_device, p_property_count, unpack_vk_array(p_properties, (p_property_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_get_physical_device_cooperative_matrix_properties_khr)(
@@ -13438,7 +13438,7 @@ fn vk_create_execution_graph_pipelines_amdx(mut packet: Packet) {
     let p_create_infos: *const VkExecutionGraphPipelineCreateInfoAMDX = packet.read_deep();
     let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
     let p_pipelines: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCreateExecutionGraphPipelinesAMDX({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, p_create_infos.as_ref(), p_allocator.as_ref(), p_pipelines.as_ref()); }
+    unsafe { trace!("called vkCreateExecutionGraphPipelinesAMDX({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline_cache, create_info_count, unpack_vk_array(p_create_infos, (create_info_count) as usize), p_allocator.as_ref(), unpack_vk_array(p_pipelines, (create_info_count) as usize)); }
 
     let result = unsafe {
         (crate::FUNCTION_ADDRESS_TABLE.vk_create_execution_graph_pipelines_amdx)(

@@ -170,13 +170,31 @@ fn trace(builder: &mut String, definition: &CommandDefinition) {
     builder.push_str(")\"");
 
     for param in definition.params.iter().unique_by(|x| &x.definition.name) {
-        let is_reference = param.definition.code.chars().any(|x| x == '*')
-            && !param.definition.name.ends_with("Count");
-
         builder.push_str(", ");
-        push_param_name(builder, param);
-        if is_reference {
-            builder.push_str(".as_ref()");
+
+        if param.definition.code.starts_with("const char*") {
+            builder.push_str("unpack_cstr(");
+            push_param_name(builder, param);
+            builder.push(')');
+        } else if let Some(len) = param.altlen.as_ref().or(param.len.as_ref()) {
+            builder.push_str("unpack_vk_array(");
+            push_param_name(builder, param);
+            builder.push_str(", (");
+
+            match len.as_str() {
+                "(samples + 31) / 32" => builder.push_str("(samples.as_raw() + 31) / 32"),
+                _ => to_rust_expression(builder, len),
+            };
+
+            builder.push_str(") as usize)");
+        } else {
+            let is_reference = param.definition.code.chars().any(|x| x == '*')
+                && !param.definition.name.ends_with("Count");
+
+            push_param_name(builder, param);
+            if is_reference {
+                builder.push_str(".as_ref()");
+            }
         }
     }
 
@@ -222,6 +240,18 @@ fn to_screaming_snake_case(builder: &mut String, text: &str) {
     let len = builder.len();
     to_snake_case(builder, text);
     builder.replace_range(len.., &builder[len..].to_ascii_uppercase());
+}
+
+fn to_rust_expression(builder: &mut String, text: &str) {
+    let mut buf = String::new();
+    to_snake_case(&mut buf, text);
+
+    if let Some(index) = buf.find("->") {
+        buf.replace_range(index..index + 2, ").");
+        buf.insert_str(0, "(&*");
+    }
+
+    builder.push_str(&buf);
 }
 
 fn to_rust_type_without_ptr(type_name: &Option<String>, types: &TypeVulkan) -> String {

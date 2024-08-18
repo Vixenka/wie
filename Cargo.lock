@@ -50,7 +50,7 @@ checksum = "41c270e7540d725e65ac7f1b212ac8ce349719624d7bcff99f8e2e488e8cf03f"
 [[package]]
 name = "cdump"
 version = "0.1.0"
-source = "git+https://github.com/Vixenka/cdump.git?rev=1662a849f8f94bd7703c54201d68509bd3e0a522#1662a849f8f94bd7703c54201d68509bd3e0a522"
+source = "git+https://github.com/Vixenka/cdump.git?rev=33a225b73c346aa6f34ea4a62aa3cd11d32b5b44#33a225b73c346aa6f34ea4a62aa3cd11d32b5b44"
 dependencies = [
  "aligned-vec",
  "cdump-macro",
@@ -61,7 +61,7 @@ dependencies = [
 [[package]]
 name = "cdump-macro"
 version = "0.1.0"
-source = "git+https://github.com/Vixenka/cdump.git?rev=1662a849f8f94bd7703c54201d68509bd3e0a522#1662a849f8f94bd7703c54201d68509bd3e0a522"
+source = "git+https://github.com/Vixenka/cdump.git?rev=33a225b73c346aa6f34ea4a62aa3cd11d32b5b44#33a225b73c346aa6f34ea4a62aa3cd11d32b5b44"
 dependencies = [
  "darling",
  "libc",
