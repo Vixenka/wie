@@ -218,6 +218,12 @@ fn to_snake_case(builder: &mut String, text: &str) {
     }
 }
 
+fn to_screaming_snake_case(builder: &mut String, text: &str) {
+    let len = builder.len();
+    to_snake_case(builder, text);
+    builder.replace_range(len.., &builder[len..].to_ascii_uppercase());
+}
+
 fn to_rust_type_without_ptr(type_name: &Option<String>, types: &TypeVulkan) -> String {
     let n = type_name.as_ref().unwrap();
 

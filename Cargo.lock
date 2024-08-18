@@ -974,6 +974,7 @@ version = "0.1.0"
 dependencies = [
  "ash",
  "log",
+ "wie-common",
  "wie-driver-common-vulkan",
  "wie-transport",
  "wie-transport-vsock",

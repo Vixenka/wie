@@ -9,9 +9,13 @@ extern crate log;
 
 pub(crate) mod entry;
 pub(crate) mod generated;
+pub(crate) mod overrided_commands;
+pub(crate) mod utils;
 
 pub(crate) static mut FUNCTION_ADDRESS_TABLE: FunctionAddressTable = FunctionAddressTable::new();
 static ENTRY: OnceLock<ash::Entry> = OnceLock::new();
+
+pub(crate) static ENABLE_VALIDATION_LAYERS: bool = cfg!(debug_assertions);
 
 type HandlerMap = HashMap<u64, Handler<VsockStream>>;
 type Packet<'c> = wie_transport::packet::Packet<'c, VsockStream>;
@@ -19,6 +23,7 @@ type Packet<'c> = wie_transport::packet::Packet<'c, VsockStream>;
 pub fn register_handlers_to(map: &mut HandlerMap) {
     entry::register_handlers_to(map);
     generated::handlers::register_handlers_to(map);
+    overrided_commands::register_handlers_to(map);
 }
 
 /// # Safety

@@ -6,7 +6,6 @@ use crate::Packet;
 use std::ffi::{c_char, c_void};
 
 pub(crate) fn register_handlers_to(map: &mut crate::HandlerMap) {
-    map.insert(1000001000, Box::new(vk_create_instance));
     map.insert(1000001001, Box::new(vk_destroy_instance));
     map.insert(1000001002, Box::new(vk_enumerate_physical_devices));
     map.insert(1000001003, Box::new(vk_get_device_proc_addr));
@@ -606,29 +605,6 @@ pub(crate) fn register_handlers_to(map: &mut crate::HandlerMap) {
     map.insert(1000001597, Box::new(vk_queue_notify_out_of_band_nv));
     map.insert(1000001598, Box::new(vk_cmd_set_rendering_attachment_locations_khr));
     map.insert(1000001599, Box::new(vk_cmd_set_rendering_input_attachment_indices_khr));
-}
-
-#[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateInstance.html>"]
-fn vk_create_instance(mut packet: Packet) {
-    let p_create_info: *const VkInstanceCreateInfo = packet.read_deep();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
-    let p_instance: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe { trace!("called vkCreateInstance({:?}, {:?}, {:?})", p_create_info.as_ref(), p_allocator.as_ref(), p_instance.as_ref()); }
-
-    let result = unsafe {
-        (crate::FUNCTION_ADDRESS_TABLE.vk_create_instance)(
-            p_create_info,
-            p_allocator,
-            p_instance,
-        )
-    };
-
-    let mut response = packet.write_response(None);
-    unsafe {
-        response.write_shallow_under_nullable_ptr(p_instance);
-    }
-    response.write_shallow(result);
-    response.send();
 }
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDestroyInstance.html>"]

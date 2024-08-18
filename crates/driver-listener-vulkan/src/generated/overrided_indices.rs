@@ -1,0 +1,1 @@
+pub const VK_CREATE_INSTANCE: u64 = 1000001000;

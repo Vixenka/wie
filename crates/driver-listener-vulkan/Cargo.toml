@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 ash.workspace = true
 log.workspace = true
+wie-common.workspace = true
 wie-transport.workspace = true
 wie-transport-vsock.workspace = true
 wie-driver-common-vulkan.workspace = true
