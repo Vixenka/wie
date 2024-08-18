@@ -183,7 +183,7 @@ fn trace(builder: &mut String, definition: &CommandDefinition, is_listener: bool
 
             match len.as_str() {
                 "(samples + 31) / 32" => builder.push_str("(samples.as_raw() + 31) / 32"),
-                _ => to_rust_expression(builder, len),
+                _ => to_rust_expression(builder, len, &definition.params, is_listener),
             };
 
             builder.push_str(") as usize)");
@@ -241,13 +241,24 @@ fn to_screaming_snake_case(builder: &mut String, text: &str) {
     builder.replace_range(len.., &builder[len..].to_ascii_uppercase());
 }
 
-fn to_rust_expression(builder: &mut String, text: &str) {
+fn to_rust_expression(
+    builder: &mut String,
+    text: &str,
+    params: &[CommandParam],
+    is_listener: bool,
+) {
     let mut buf = String::new();
     to_snake_case(&mut buf, text);
 
     if let Some(index) = buf.find("->") {
         buf.replace_range(index..index + 2, ").");
         buf.insert_str(0, "(&*");
+    } else if !is_listener {
+        if let Some(param) = params.iter().find(|x| x.definition.name == text) {
+            if param.definition.code.contains('*') {
+                buf.insert(0, '*');
+            }
+        }
     }
 
     builder.push_str(&buf);
