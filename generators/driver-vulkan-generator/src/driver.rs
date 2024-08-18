@@ -109,6 +109,12 @@ fn generate_command(
     builder.push_str(".html>\"]");
 
     generate_function_header(builder, definition, 0, types);
+
+    push_indentation(builder, 1);
+    builder.push_str("trace!(\"called ");
+    builder.push_str(&definition.proto.name);
+    builder.push_str("\");\n");
+
     trace(builder, definition, false);
 
     // Packet creation

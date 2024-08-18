@@ -1189,6 +1189,7 @@ unsafe extern "system" fn vkCreateInstance(
     p_allocator: *const VkAllocationCallbacks,
     p_instance: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateInstance");
     unsafe {
         trace!(
             "called vkCreateInstance({:?}, {:?}, {:?})",
@@ -1214,6 +1215,7 @@ unsafe extern "system" fn vkDestroyInstance(
     instance: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyInstance");
     unsafe {
         trace!(
             "called vkDestroyInstance({:?}, {:?})",
@@ -1237,6 +1239,7 @@ unsafe extern "system" fn vkEnumeratePhysicalDevices(
     p_physical_device_count: *mut u32,
     p_physical_devices: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkEnumeratePhysicalDevices");
     unsafe {
         trace!(
             "called vkEnumeratePhysicalDevices({:?}, {:?}, {:?})",
@@ -1261,6 +1264,7 @@ unsafe extern "system" fn vkGetDeviceProcAddr(
     device: NonDisposableHandle,
     p_name: *const c_char,
 ) -> PFN_vkVoidFunction {
+    trace!("called vkGetDeviceProcAddr");
     unsafe {
         trace!(
             "called vkGetDeviceProcAddr({:?}, {:?})",
@@ -1283,6 +1287,7 @@ unsafe extern "system" fn vkGetInstanceProcAddr(
     instance: NonDisposableHandle,
     p_name: *const c_char,
 ) -> PFN_vkVoidFunction {
+    trace!("called vkGetInstanceProcAddr");
     unsafe {
         trace!(
             "called vkGetInstanceProcAddr({:?}, {:?})",
@@ -1305,6 +1310,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceProperties(
     physical_device: NonDisposableHandle,
     p_properties: *mut VkPhysicalDeviceProperties,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceProperties");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceProperties({:?}, {:?})",
@@ -1329,6 +1335,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceQueueFamilyProperties(
     p_queue_family_property_count: *mut u32,
     p_queue_family_properties: *mut VkQueueFamilyProperties,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceQueueFamilyProperties");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceQueueFamilyProperties({:?}, {:?}, {:?})",
@@ -1356,6 +1363,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceMemoryProperties(
     physical_device: NonDisposableHandle,
     p_memory_properties: *mut VkPhysicalDeviceMemoryProperties,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceMemoryProperties");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceMemoryProperties({:?}, {:?})",
@@ -1379,6 +1387,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceFeatures(
     physical_device: NonDisposableHandle,
     p_features: *mut VkPhysicalDeviceFeatures,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceFeatures");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceFeatures({:?}, {:?})",
@@ -1403,6 +1412,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceFormatProperties(
     format: VkFormat,
     p_format_properties: *mut VkFormatProperties,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceFormatProperties");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceFormatProperties({:?}, {:?}, {:?})",
@@ -1433,6 +1443,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceImageFormatProperties(
     flags: VkImageCreateFlags,
     p_image_format_properties: *mut VkImageFormatProperties,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceImageFormatProperties");
     unsafe {
         trace!("called vkGetPhysicalDeviceImageFormatProperties({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", physical_device, format, type_, tiling, usage, flags, p_image_format_properties.as_ref());
     }
@@ -1459,6 +1470,7 @@ unsafe extern "system" fn vkCreateDevice(
     p_allocator: *const VkAllocationCallbacks,
     p_device: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateDevice");
     unsafe {
         trace!(
             "called vkCreateDevice({:?}, {:?}, {:?}, {:?})",
@@ -1486,6 +1498,7 @@ unsafe extern "system" fn vkDestroyDevice(
     device: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyDevice");
     unsafe {
         trace!(
             "called vkDestroyDevice({:?}, {:?})",
@@ -1505,6 +1518,7 @@ unsafe extern "system" fn vkDestroyDevice(
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEnumerateInstanceVersion.html>"]
 unsafe extern "system" fn vkEnumerateInstanceVersion(p_api_version: *mut u32) -> VkResult {
+    trace!("called vkEnumerateInstanceVersion");
     unsafe {
         trace!(
             "called vkEnumerateInstanceVersion({:?})",
@@ -1526,6 +1540,7 @@ unsafe extern "system" fn vkEnumerateInstanceLayerProperties(
     p_property_count: *mut u32,
     p_properties: *mut VkLayerProperties,
 ) -> VkResult {
+    trace!("called vkEnumerateInstanceLayerProperties");
     unsafe {
         trace!(
             "called vkEnumerateInstanceLayerProperties({:?}, {:?})",
@@ -1549,6 +1564,7 @@ unsafe extern "system" fn vkEnumerateInstanceExtensionProperties(
     p_property_count: *mut u32,
     p_properties: *mut VkExtensionProperties,
 ) -> VkResult {
+    trace!("called vkEnumerateInstanceExtensionProperties");
     unsafe {
         trace!(
             "called vkEnumerateInstanceExtensionProperties({:?}, {:?}, {:?})",
@@ -1574,6 +1590,7 @@ unsafe extern "system" fn vkEnumerateDeviceLayerProperties(
     p_property_count: *mut u32,
     p_properties: *mut VkLayerProperties,
 ) -> VkResult {
+    trace!("called vkEnumerateDeviceLayerProperties");
     unsafe {
         trace!(
             "called vkEnumerateDeviceLayerProperties({:?}, {:?}, {:?})",
@@ -1600,6 +1617,7 @@ unsafe extern "system" fn vkEnumerateDeviceExtensionProperties(
     p_property_count: *mut u32,
     p_properties: *mut VkExtensionProperties,
 ) -> VkResult {
+    trace!("called vkEnumerateDeviceExtensionProperties");
     unsafe {
         trace!(
             "called vkEnumerateDeviceExtensionProperties({:?}, {:?}, {:?}, {:?})",
@@ -1628,6 +1646,7 @@ unsafe extern "system" fn vkGetDeviceQueue(
     queue_index: u32,
     p_queue: *mut NonDisposableHandle,
 ) -> c_void {
+    trace!("called vkGetDeviceQueue");
     unsafe {
         trace!(
             "called vkGetDeviceQueue({:?}, {:?}, {:?}, {:?})",
@@ -1657,6 +1676,7 @@ unsafe extern "system" fn vkQueueSubmit(
     p_submits: *const VkSubmitInfo,
     fence: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkQueueSubmit");
     unsafe {
         trace!(
             "called vkQueueSubmit({:?}, {:?}, {:?}, {:?})",
@@ -1680,6 +1700,7 @@ unsafe extern "system" fn vkQueueSubmit(
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueWaitIdle.html>"]
 unsafe extern "system" fn vkQueueWaitIdle(queue: NonDisposableHandle) -> VkResult {
+    trace!("called vkQueueWaitIdle");
     unsafe {
         trace!("called vkQueueWaitIdle({:?})", queue);
     }
@@ -1694,6 +1715,7 @@ unsafe extern "system" fn vkQueueWaitIdle(queue: NonDisposableHandle) -> VkResul
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkDeviceWaitIdle.html>"]
 unsafe extern "system" fn vkDeviceWaitIdle(device: NonDisposableHandle) -> VkResult {
+    trace!("called vkDeviceWaitIdle");
     unsafe {
         trace!("called vkDeviceWaitIdle({:?})", device);
     }
@@ -1713,6 +1735,7 @@ unsafe extern "system" fn vkAllocateMemory(
     p_allocator: *const VkAllocationCallbacks,
     p_memory: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkAllocateMemory");
     unsafe {
         trace!(
             "called vkAllocateMemory({:?}, {:?}, {:?}, {:?})",
@@ -1741,6 +1764,7 @@ unsafe extern "system" fn vkFreeMemory(
     memory: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkFreeMemory");
     unsafe {
         trace!(
             "called vkFreeMemory({:?}, {:?}, {:?})",
@@ -1769,6 +1793,7 @@ unsafe extern "system" fn vkMapMemory(
     flags: VkMemoryMapFlags,
     pp_data: *mut *mut c_void,
 ) -> VkResult {
+    trace!("called vkMapMemory");
     unsafe {
         trace!(
             "called vkMapMemory({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -1800,6 +1825,7 @@ unsafe extern "system" fn vkUnmapMemory(
     device: NonDisposableHandle,
     memory: NonDisposableHandle,
 ) -> c_void {
+    trace!("called vkUnmapMemory");
     unsafe {
         trace!("called vkUnmapMemory({:?}, {:?})", device, memory);
     }
@@ -1819,6 +1845,7 @@ unsafe extern "system" fn vkFlushMappedMemoryRanges(
     memory_range_count: u32,
     p_memory_ranges: *const VkMappedMemoryRange,
 ) -> VkResult {
+    trace!("called vkFlushMappedMemoryRanges");
     unsafe {
         trace!(
             "called vkFlushMappedMemoryRanges({:?}, {:?}, {:?})",
@@ -1844,6 +1871,7 @@ unsafe extern "system" fn vkInvalidateMappedMemoryRanges(
     memory_range_count: u32,
     p_memory_ranges: *const VkMappedMemoryRange,
 ) -> VkResult {
+    trace!("called vkInvalidateMappedMemoryRanges");
     unsafe {
         trace!(
             "called vkInvalidateMappedMemoryRanges({:?}, {:?}, {:?})",
@@ -1869,6 +1897,7 @@ unsafe extern "system" fn vkGetDeviceMemoryCommitment(
     memory: NonDisposableHandle,
     p_committed_memory_in_bytes: *mut vk::DeviceSize,
 ) -> c_void {
+    trace!("called vkGetDeviceMemoryCommitment");
     unsafe {
         trace!(
             "called vkGetDeviceMemoryCommitment({:?}, {:?}, {:?})",
@@ -1895,6 +1924,7 @@ unsafe extern "system" fn vkGetBufferMemoryRequirements(
     buffer: NonDisposableHandle,
     p_memory_requirements: *mut VkMemoryRequirements,
 ) -> c_void {
+    trace!("called vkGetBufferMemoryRequirements");
     unsafe {
         trace!(
             "called vkGetBufferMemoryRequirements({:?}, {:?}, {:?})",
@@ -1922,6 +1952,7 @@ unsafe extern "system" fn vkBindBufferMemory(
     memory: NonDisposableHandle,
     memory_offset: vk::DeviceSize,
 ) -> VkResult {
+    trace!("called vkBindBufferMemory");
     unsafe {
         trace!(
             "called vkBindBufferMemory({:?}, {:?}, {:?}, {:?})",
@@ -1949,6 +1980,7 @@ unsafe extern "system" fn vkGetImageMemoryRequirements(
     image: NonDisposableHandle,
     p_memory_requirements: *mut VkMemoryRequirements,
 ) -> c_void {
+    trace!("called vkGetImageMemoryRequirements");
     unsafe {
         trace!(
             "called vkGetImageMemoryRequirements({:?}, {:?}, {:?})",
@@ -1976,6 +2008,7 @@ unsafe extern "system" fn vkBindImageMemory(
     memory: NonDisposableHandle,
     memory_offset: vk::DeviceSize,
 ) -> VkResult {
+    trace!("called vkBindImageMemory");
     unsafe {
         trace!(
             "called vkBindImageMemory({:?}, {:?}, {:?}, {:?})",
@@ -2004,6 +2037,7 @@ unsafe extern "system" fn vkGetImageSparseMemoryRequirements(
     p_sparse_memory_requirement_count: *mut u32,
     p_sparse_memory_requirements: *mut VkSparseImageMemoryRequirements,
 ) -> c_void {
+    trace!("called vkGetImageSparseMemoryRequirements");
     unsafe {
         trace!(
             "called vkGetImageSparseMemoryRequirements({:?}, {:?}, {:?}, {:?})",
@@ -2045,6 +2079,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSparseImageFormatProperties(
     p_property_count: *mut u32,
     p_properties: *mut VkSparseImageFormatProperties,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceSparseImageFormatProperties");
     unsafe {
         trace!("called vkGetPhysicalDeviceSparseImageFormatProperties({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", physical_device, format, type_, samples, usage, tiling, p_property_count.as_ref(), unpack_vk_array(p_properties, (p_property_count) as usize));
     }
@@ -2071,6 +2106,7 @@ unsafe extern "system" fn vkQueueBindSparse(
     p_bind_info: *const VkBindSparseInfo,
     fence: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkQueueBindSparse");
     unsafe {
         trace!(
             "called vkQueueBindSparse({:?}, {:?}, {:?}, {:?})",
@@ -2099,6 +2135,7 @@ unsafe extern "system" fn vkCreateFence(
     p_allocator: *const VkAllocationCallbacks,
     p_fence: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateFence");
     unsafe {
         trace!(
             "called vkCreateFence({:?}, {:?}, {:?}, {:?})",
@@ -2127,6 +2164,7 @@ unsafe extern "system" fn vkDestroyFence(
     fence: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyFence");
     unsafe {
         trace!(
             "called vkDestroyFence({:?}, {:?}, {:?})",
@@ -2152,6 +2190,7 @@ unsafe extern "system" fn vkResetFences(
     fence_count: u32,
     p_fences: *const NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkResetFences");
     unsafe {
         trace!(
             "called vkResetFences({:?}, {:?}, {:?})",
@@ -2176,6 +2215,7 @@ unsafe extern "system" fn vkGetFenceStatus(
     device: NonDisposableHandle,
     fence: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkGetFenceStatus");
     unsafe {
         trace!("called vkGetFenceStatus({:?}, {:?})", device, fence);
     }
@@ -2197,6 +2237,7 @@ unsafe extern "system" fn vkWaitForFences(
     wait_all: vk::Bool32,
     timeout: u64,
 ) -> VkResult {
+    trace!("called vkWaitForFences");
     unsafe {
         trace!(
             "called vkWaitForFences({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -2227,6 +2268,7 @@ unsafe extern "system" fn vkCreateSemaphore(
     p_allocator: *const VkAllocationCallbacks,
     p_semaphore: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateSemaphore");
     unsafe {
         trace!(
             "called vkCreateSemaphore({:?}, {:?}, {:?}, {:?})",
@@ -2255,6 +2297,7 @@ unsafe extern "system" fn vkDestroySemaphore(
     semaphore: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroySemaphore");
     unsafe {
         trace!(
             "called vkDestroySemaphore({:?}, {:?}, {:?})",
@@ -2281,6 +2324,7 @@ unsafe extern "system" fn vkCreateEvent(
     p_allocator: *const VkAllocationCallbacks,
     p_event: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateEvent");
     unsafe {
         trace!(
             "called vkCreateEvent({:?}, {:?}, {:?}, {:?})",
@@ -2309,6 +2353,7 @@ unsafe extern "system" fn vkDestroyEvent(
     event: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyEvent");
     unsafe {
         trace!(
             "called vkDestroyEvent({:?}, {:?}, {:?})",
@@ -2333,6 +2378,7 @@ unsafe extern "system" fn vkGetEventStatus(
     device: NonDisposableHandle,
     event: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkGetEventStatus");
     unsafe {
         trace!("called vkGetEventStatus({:?}, {:?})", device, event);
     }
@@ -2351,6 +2397,7 @@ unsafe extern "system" fn vkSetEvent(
     device: NonDisposableHandle,
     event: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkSetEvent");
     unsafe {
         trace!("called vkSetEvent({:?}, {:?})", device, event);
     }
@@ -2369,6 +2416,7 @@ unsafe extern "system" fn vkResetEvent(
     device: NonDisposableHandle,
     event: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkResetEvent");
     unsafe {
         trace!("called vkResetEvent({:?}, {:?})", device, event);
     }
@@ -2389,6 +2437,7 @@ unsafe extern "system" fn vkCreateQueryPool(
     p_allocator: *const VkAllocationCallbacks,
     p_query_pool: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateQueryPool");
     unsafe {
         trace!(
             "called vkCreateQueryPool({:?}, {:?}, {:?}, {:?})",
@@ -2417,6 +2466,7 @@ unsafe extern "system" fn vkDestroyQueryPool(
     query_pool: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyQueryPool");
     unsafe {
         trace!(
             "called vkDestroyQueryPool({:?}, {:?}, {:?})",
@@ -2447,6 +2497,7 @@ unsafe extern "system" fn vkGetQueryPoolResults(
     stride: vk::DeviceSize,
     flags: VkQueryResultFlags,
 ) -> VkResult {
+    trace!("called vkGetQueryPoolResults");
     unsafe {
         trace!(
             "called vkGetQueryPoolResults({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -2484,6 +2535,7 @@ unsafe extern "system" fn vkResetQueryPool(
     first_query: u32,
     query_count: u32,
 ) -> c_void {
+    trace!("called vkResetQueryPool");
     unsafe {
         trace!(
             "called vkResetQueryPool({:?}, {:?}, {:?}, {:?})",
@@ -2512,6 +2564,7 @@ unsafe extern "system" fn vkCreateBuffer(
     p_allocator: *const VkAllocationCallbacks,
     p_buffer: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateBuffer");
     unsafe {
         trace!(
             "called vkCreateBuffer({:?}, {:?}, {:?}, {:?})",
@@ -2540,6 +2593,7 @@ unsafe extern "system" fn vkDestroyBuffer(
     buffer: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyBuffer");
     unsafe {
         trace!(
             "called vkDestroyBuffer({:?}, {:?}, {:?})",
@@ -2566,6 +2620,7 @@ unsafe extern "system" fn vkCreateBufferView(
     p_allocator: *const VkAllocationCallbacks,
     p_view: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateBufferView");
     unsafe {
         trace!(
             "called vkCreateBufferView({:?}, {:?}, {:?}, {:?})",
@@ -2594,6 +2649,7 @@ unsafe extern "system" fn vkDestroyBufferView(
     buffer_view: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyBufferView");
     unsafe {
         trace!(
             "called vkDestroyBufferView({:?}, {:?}, {:?})",
@@ -2620,6 +2676,7 @@ unsafe extern "system" fn vkCreateImage(
     p_allocator: *const VkAllocationCallbacks,
     p_image: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateImage");
     unsafe {
         trace!(
             "called vkCreateImage({:?}, {:?}, {:?}, {:?})",
@@ -2648,6 +2705,7 @@ unsafe extern "system" fn vkDestroyImage(
     image: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyImage");
     unsafe {
         trace!(
             "called vkDestroyImage({:?}, {:?}, {:?})",
@@ -2674,6 +2732,7 @@ unsafe extern "system" fn vkGetImageSubresourceLayout(
     p_subresource: *const VkImageSubresource,
     p_layout: *mut VkSubresourceLayout,
 ) -> c_void {
+    trace!("called vkGetImageSubresourceLayout");
     unsafe {
         trace!(
             "called vkGetImageSubresourceLayout({:?}, {:?}, {:?}, {:?})",
@@ -2703,6 +2762,7 @@ unsafe extern "system" fn vkCreateImageView(
     p_allocator: *const VkAllocationCallbacks,
     p_view: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateImageView");
     unsafe {
         trace!(
             "called vkCreateImageView({:?}, {:?}, {:?}, {:?})",
@@ -2731,6 +2791,7 @@ unsafe extern "system" fn vkDestroyImageView(
     image_view: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyImageView");
     unsafe {
         trace!(
             "called vkDestroyImageView({:?}, {:?}, {:?})",
@@ -2757,6 +2818,7 @@ unsafe extern "system" fn vkCreateShaderModule(
     p_allocator: *const VkAllocationCallbacks,
     p_shader_module: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateShaderModule");
     unsafe {
         trace!(
             "called vkCreateShaderModule({:?}, {:?}, {:?}, {:?})",
@@ -2785,6 +2847,7 @@ unsafe extern "system" fn vkDestroyShaderModule(
     shader_module: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyShaderModule");
     unsafe {
         trace!(
             "called vkDestroyShaderModule({:?}, {:?}, {:?})",
@@ -2811,6 +2874,7 @@ unsafe extern "system" fn vkCreatePipelineCache(
     p_allocator: *const VkAllocationCallbacks,
     p_pipeline_cache: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreatePipelineCache");
     unsafe {
         trace!(
             "called vkCreatePipelineCache({:?}, {:?}, {:?}, {:?})",
@@ -2839,6 +2903,7 @@ unsafe extern "system" fn vkDestroyPipelineCache(
     pipeline_cache: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyPipelineCache");
     unsafe {
         trace!(
             "called vkDestroyPipelineCache({:?}, {:?}, {:?})",
@@ -2865,6 +2930,7 @@ unsafe extern "system" fn vkGetPipelineCacheData(
     p_data_size: *mut usize,
     p_data: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetPipelineCacheData");
     unsafe {
         trace!(
             "called vkGetPipelineCacheData({:?}, {:?}, {:?}, {:?})",
@@ -2895,6 +2961,7 @@ unsafe extern "system" fn vkMergePipelineCaches(
     src_cache_count: u32,
     p_src_caches: *const NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkMergePipelineCaches");
     unsafe {
         trace!(
             "called vkMergePipelineCaches({:?}, {:?}, {:?}, {:?})",
@@ -2925,6 +2992,7 @@ unsafe extern "system" fn vkCreateGraphicsPipelines(
     p_allocator: *const VkAllocationCallbacks,
     p_pipelines: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateGraphicsPipelines");
     unsafe {
         trace!(
             "called vkCreateGraphicsPipelines({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -2960,6 +3028,7 @@ unsafe extern "system" fn vkCreateComputePipelines(
     p_allocator: *const VkAllocationCallbacks,
     p_pipelines: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateComputePipelines");
     unsafe {
         trace!(
             "called vkCreateComputePipelines({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -2992,6 +3061,7 @@ unsafe extern "system" fn vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI(
     renderpass: NonDisposableHandle,
     p_max_workgroup_size: *mut VkExtent2D,
 ) -> VkResult {
+    trace!("called vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI");
     unsafe {
         trace!(
             "called vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI({:?}, {:?}, {:?})",
@@ -3018,6 +3088,7 @@ unsafe extern "system" fn vkDestroyPipeline(
     pipeline: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyPipeline");
     unsafe {
         trace!(
             "called vkDestroyPipeline({:?}, {:?}, {:?})",
@@ -3044,6 +3115,7 @@ unsafe extern "system" fn vkCreatePipelineLayout(
     p_allocator: *const VkAllocationCallbacks,
     p_pipeline_layout: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreatePipelineLayout");
     unsafe {
         trace!(
             "called vkCreatePipelineLayout({:?}, {:?}, {:?}, {:?})",
@@ -3072,6 +3144,7 @@ unsafe extern "system" fn vkDestroyPipelineLayout(
     pipeline_layout: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyPipelineLayout");
     unsafe {
         trace!(
             "called vkDestroyPipelineLayout({:?}, {:?}, {:?})",
@@ -3098,6 +3171,7 @@ unsafe extern "system" fn vkCreateSampler(
     p_allocator: *const VkAllocationCallbacks,
     p_sampler: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateSampler");
     unsafe {
         trace!(
             "called vkCreateSampler({:?}, {:?}, {:?}, {:?})",
@@ -3126,6 +3200,7 @@ unsafe extern "system" fn vkDestroySampler(
     sampler: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroySampler");
     unsafe {
         trace!(
             "called vkDestroySampler({:?}, {:?}, {:?})",
@@ -3152,6 +3227,7 @@ unsafe extern "system" fn vkCreateDescriptorSetLayout(
     p_allocator: *const VkAllocationCallbacks,
     p_set_layout: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateDescriptorSetLayout");
     unsafe {
         trace!(
             "called vkCreateDescriptorSetLayout({:?}, {:?}, {:?}, {:?})",
@@ -3180,6 +3256,7 @@ unsafe extern "system" fn vkDestroyDescriptorSetLayout(
     descriptor_set_layout: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyDescriptorSetLayout");
     unsafe {
         trace!(
             "called vkDestroyDescriptorSetLayout({:?}, {:?}, {:?})",
@@ -3206,6 +3283,7 @@ unsafe extern "system" fn vkCreateDescriptorPool(
     p_allocator: *const VkAllocationCallbacks,
     p_descriptor_pool: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateDescriptorPool");
     unsafe {
         trace!(
             "called vkCreateDescriptorPool({:?}, {:?}, {:?}, {:?})",
@@ -3234,6 +3312,7 @@ unsafe extern "system" fn vkDestroyDescriptorPool(
     descriptor_pool: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyDescriptorPool");
     unsafe {
         trace!(
             "called vkDestroyDescriptorPool({:?}, {:?}, {:?})",
@@ -3259,6 +3338,7 @@ unsafe extern "system" fn vkResetDescriptorPool(
     descriptor_pool: NonDisposableHandle,
     flags: VkDescriptorPoolResetFlags,
 ) -> VkResult {
+    trace!("called vkResetDescriptorPool");
     unsafe {
         trace!(
             "called vkResetDescriptorPool({:?}, {:?}, {:?})",
@@ -3284,6 +3364,7 @@ unsafe extern "system" fn vkAllocateDescriptorSets(
     p_allocate_info: *const VkDescriptorSetAllocateInfo,
     p_descriptor_sets: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkAllocateDescriptorSets");
     unsafe {
         trace!(
             "called vkAllocateDescriptorSets({:?}, {:?}, {:?})",
@@ -3314,6 +3395,7 @@ unsafe extern "system" fn vkFreeDescriptorSets(
     descriptor_set_count: u32,
     p_descriptor_sets: *const NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkFreeDescriptorSets");
     unsafe {
         trace!(
             "called vkFreeDescriptorSets({:?}, {:?}, {:?}, {:?})",
@@ -3343,6 +3425,7 @@ unsafe extern "system" fn vkUpdateDescriptorSets(
     descriptor_copy_count: u32,
     p_descriptor_copies: *const VkCopyDescriptorSet,
 ) -> c_void {
+    trace!("called vkUpdateDescriptorSets");
     unsafe {
         trace!(
             "called vkUpdateDescriptorSets({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -3373,6 +3456,7 @@ unsafe extern "system" fn vkCreateFramebuffer(
     p_allocator: *const VkAllocationCallbacks,
     p_framebuffer: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateFramebuffer");
     unsafe {
         trace!(
             "called vkCreateFramebuffer({:?}, {:?}, {:?}, {:?})",
@@ -3401,6 +3485,7 @@ unsafe extern "system" fn vkDestroyFramebuffer(
     framebuffer: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyFramebuffer");
     unsafe {
         trace!(
             "called vkDestroyFramebuffer({:?}, {:?}, {:?})",
@@ -3427,6 +3512,7 @@ unsafe extern "system" fn vkCreateRenderPass(
     p_allocator: *const VkAllocationCallbacks,
     p_render_pass: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateRenderPass");
     unsafe {
         trace!(
             "called vkCreateRenderPass({:?}, {:?}, {:?}, {:?})",
@@ -3455,6 +3541,7 @@ unsafe extern "system" fn vkDestroyRenderPass(
     render_pass: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyRenderPass");
     unsafe {
         trace!(
             "called vkDestroyRenderPass({:?}, {:?}, {:?})",
@@ -3480,6 +3567,7 @@ unsafe extern "system" fn vkGetRenderAreaGranularity(
     render_pass: NonDisposableHandle,
     p_granularity: *mut VkExtent2D,
 ) -> c_void {
+    trace!("called vkGetRenderAreaGranularity");
     unsafe {
         trace!(
             "called vkGetRenderAreaGranularity({:?}, {:?}, {:?})",
@@ -3506,6 +3594,7 @@ unsafe extern "system" fn vkGetRenderingAreaGranularityKHR(
     p_rendering_area_info: *const VkRenderingAreaInfoKHR,
     p_granularity: *mut VkExtent2D,
 ) -> c_void {
+    trace!("called vkGetRenderingAreaGranularityKHR");
     unsafe {
         trace!(
             "called vkGetRenderingAreaGranularityKHR({:?}, {:?}, {:?})",
@@ -3533,6 +3622,7 @@ unsafe extern "system" fn vkCreateCommandPool(
     p_allocator: *const VkAllocationCallbacks,
     p_command_pool: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateCommandPool");
     unsafe {
         trace!(
             "called vkCreateCommandPool({:?}, {:?}, {:?}, {:?})",
@@ -3561,6 +3651,7 @@ unsafe extern "system" fn vkDestroyCommandPool(
     command_pool: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyCommandPool");
     unsafe {
         trace!(
             "called vkDestroyCommandPool({:?}, {:?}, {:?})",
@@ -3586,6 +3677,7 @@ unsafe extern "system" fn vkResetCommandPool(
     command_pool: NonDisposableHandle,
     flags: VkCommandPoolResetFlags,
 ) -> VkResult {
+    trace!("called vkResetCommandPool");
     unsafe {
         trace!(
             "called vkResetCommandPool({:?}, {:?}, {:?})",
@@ -3611,6 +3703,7 @@ unsafe extern "system" fn vkAllocateCommandBuffers(
     p_allocate_info: *const VkCommandBufferAllocateInfo,
     p_command_buffers: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkAllocateCommandBuffers");
     unsafe {
         trace!(
             "called vkAllocateCommandBuffers({:?}, {:?}, {:?})",
@@ -3641,6 +3734,7 @@ unsafe extern "system" fn vkFreeCommandBuffers(
     command_buffer_count: u32,
     p_command_buffers: *const NonDisposableHandle,
 ) -> c_void {
+    trace!("called vkFreeCommandBuffers");
     unsafe {
         trace!(
             "called vkFreeCommandBuffers({:?}, {:?}, {:?}, {:?})",
@@ -3667,6 +3761,7 @@ unsafe extern "system" fn vkBeginCommandBuffer(
     command_buffer: NonDisposableHandle,
     p_begin_info: *const VkCommandBufferBeginInfo,
 ) -> VkResult {
+    trace!("called vkBeginCommandBuffer");
     unsafe {
         trace!(
             "called vkBeginCommandBuffer({:?}, {:?})",
@@ -3686,6 +3781,7 @@ unsafe extern "system" fn vkBeginCommandBuffer(
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkEndCommandBuffer.html>"]
 unsafe extern "system" fn vkEndCommandBuffer(command_buffer: NonDisposableHandle) -> VkResult {
+    trace!("called vkEndCommandBuffer");
     unsafe {
         trace!("called vkEndCommandBuffer({:?})", command_buffer);
     }
@@ -3703,6 +3799,7 @@ unsafe extern "system" fn vkResetCommandBuffer(
     command_buffer: NonDisposableHandle,
     flags: VkCommandBufferResetFlags,
 ) -> VkResult {
+    trace!("called vkResetCommandBuffer");
     unsafe {
         trace!(
             "called vkResetCommandBuffer({:?}, {:?})",
@@ -3726,6 +3823,7 @@ unsafe extern "system" fn vkCmdBindPipeline(
     pipeline_bind_point: VkPipelineBindPoint,
     pipeline: NonDisposableHandle,
 ) -> c_void {
+    trace!("called vkCmdBindPipeline");
     unsafe {
         trace!(
             "called vkCmdBindPipeline({:?}, {:?}, {:?})",
@@ -3750,6 +3848,7 @@ unsafe extern "system" fn vkCmdSetAttachmentFeedbackLoopEnableEXT(
     command_buffer: NonDisposableHandle,
     aspect_mask: VkImageAspectFlags,
 ) -> c_void {
+    trace!("called vkCmdSetAttachmentFeedbackLoopEnableEXT");
     unsafe {
         trace!(
             "called vkCmdSetAttachmentFeedbackLoopEnableEXT({:?}, {:?})",
@@ -3774,6 +3873,7 @@ unsafe extern "system" fn vkCmdSetViewport(
     viewport_count: u32,
     p_viewports: *const VkViewport,
 ) -> c_void {
+    trace!("called vkCmdSetViewport");
     unsafe {
         trace!(
             "called vkCmdSetViewport({:?}, {:?}, {:?}, {:?})",
@@ -3802,6 +3902,7 @@ unsafe extern "system" fn vkCmdSetScissor(
     scissor_count: u32,
     p_scissors: *const VkRect2D,
 ) -> c_void {
+    trace!("called vkCmdSetScissor");
     unsafe {
         trace!(
             "called vkCmdSetScissor({:?}, {:?}, {:?}, {:?})",
@@ -3828,6 +3929,7 @@ unsafe extern "system" fn vkCmdSetLineWidth(
     command_buffer: NonDisposableHandle,
     line_width: f32,
 ) -> c_void {
+    trace!("called vkCmdSetLineWidth");
     unsafe {
         trace!(
             "called vkCmdSetLineWidth({:?}, {:?})",
@@ -3852,6 +3954,7 @@ unsafe extern "system" fn vkCmdSetDepthBias(
     depth_bias_clamp: f32,
     depth_bias_slope_factor: f32,
 ) -> c_void {
+    trace!("called vkCmdSetDepthBias");
     unsafe {
         trace!(
             "called vkCmdSetDepthBias({:?}, {:?}, {:?}, {:?})",
@@ -3878,6 +3981,7 @@ unsafe extern "system" fn vkCmdSetBlendConstants(
     command_buffer: NonDisposableHandle,
     blend_constants: *const [f32; 4],
 ) -> c_void {
+    trace!("called vkCmdSetBlendConstants");
     unsafe {
         trace!(
             "called vkCmdSetBlendConstants({:?}, {:?})",
@@ -3901,6 +4005,7 @@ unsafe extern "system" fn vkCmdSetDepthBounds(
     min_depth_bounds: f32,
     max_depth_bounds: f32,
 ) -> c_void {
+    trace!("called vkCmdSetDepthBounds");
     unsafe {
         trace!(
             "called vkCmdSetDepthBounds({:?}, {:?}, {:?})",
@@ -3926,6 +4031,7 @@ unsafe extern "system" fn vkCmdSetStencilCompareMask(
     face_mask: VkStencilFaceFlags,
     compare_mask: u32,
 ) -> c_void {
+    trace!("called vkCmdSetStencilCompareMask");
     unsafe {
         trace!(
             "called vkCmdSetStencilCompareMask({:?}, {:?}, {:?})",
@@ -3951,6 +4057,7 @@ unsafe extern "system" fn vkCmdSetStencilWriteMask(
     face_mask: VkStencilFaceFlags,
     write_mask: u32,
 ) -> c_void {
+    trace!("called vkCmdSetStencilWriteMask");
     unsafe {
         trace!(
             "called vkCmdSetStencilWriteMask({:?}, {:?}, {:?})",
@@ -3976,6 +4083,7 @@ unsafe extern "system" fn vkCmdSetStencilReference(
     face_mask: VkStencilFaceFlags,
     reference: u32,
 ) -> c_void {
+    trace!("called vkCmdSetStencilReference");
     unsafe {
         trace!(
             "called vkCmdSetStencilReference({:?}, {:?}, {:?})",
@@ -4006,6 +4114,7 @@ unsafe extern "system" fn vkCmdBindDescriptorSets(
     dynamic_offset_count: u32,
     p_dynamic_offsets: *const u32,
 ) -> c_void {
+    trace!("called vkCmdBindDescriptorSets");
     unsafe {
         trace!(
             "called vkCmdBindDescriptorSets({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4042,6 +4151,7 @@ unsafe extern "system" fn vkCmdBindIndexBuffer(
     offset: vk::DeviceSize,
     index_type: VkIndexType,
 ) -> c_void {
+    trace!("called vkCmdBindIndexBuffer");
     unsafe {
         trace!(
             "called vkCmdBindIndexBuffer({:?}, {:?}, {:?}, {:?})",
@@ -4071,6 +4181,7 @@ unsafe extern "system" fn vkCmdBindVertexBuffers(
     p_buffers: *const NonDisposableHandle,
     p_offsets: *const vk::DeviceSize,
 ) -> c_void {
+    trace!("called vkCmdBindVertexBuffers");
     unsafe {
         trace!(
             "called vkCmdBindVertexBuffers({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4102,6 +4213,7 @@ unsafe extern "system" fn vkCmdDraw(
     first_vertex: u32,
     first_instance: u32,
 ) -> c_void {
+    trace!("called vkCmdDraw");
     unsafe {
         trace!(
             "called vkCmdDraw({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4134,6 +4246,7 @@ unsafe extern "system" fn vkCmdDrawIndexed(
     vertex_offset: i32,
     first_instance: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawIndexed");
     unsafe {
         trace!(
             "called vkCmdDrawIndexed({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4168,6 +4281,7 @@ unsafe extern "system" fn vkCmdDrawMultiEXT(
     first_instance: u32,
     stride: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawMultiEXT");
     unsafe {
         trace!(
             "called vkCmdDrawMultiEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4203,6 +4317,7 @@ unsafe extern "system" fn vkCmdDrawMultiIndexedEXT(
     stride: u32,
     p_vertex_offset: *const i32,
 ) -> c_void {
+    trace!("called vkCmdDrawMultiIndexedEXT");
     unsafe {
         trace!(
             "called vkCmdDrawMultiIndexedEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4238,6 +4353,7 @@ unsafe extern "system" fn vkCmdDrawIndirect(
     draw_count: u32,
     stride: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawIndirect");
     unsafe {
         trace!(
             "called vkCmdDrawIndirect({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4269,6 +4385,7 @@ unsafe extern "system" fn vkCmdDrawIndexedIndirect(
     draw_count: u32,
     stride: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawIndexedIndirect");
     unsafe {
         trace!(
             "called vkCmdDrawIndexedIndirect({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4299,6 +4416,7 @@ unsafe extern "system" fn vkCmdDispatch(
     group_count_y: u32,
     group_count_z: u32,
 ) -> c_void {
+    trace!("called vkCmdDispatch");
     unsafe {
         trace!(
             "called vkCmdDispatch({:?}, {:?}, {:?}, {:?})",
@@ -4326,6 +4444,7 @@ unsafe extern "system" fn vkCmdDispatchIndirect(
     buffer: NonDisposableHandle,
     offset: vk::DeviceSize,
 ) -> c_void {
+    trace!("called vkCmdDispatchIndirect");
     unsafe {
         trace!(
             "called vkCmdDispatchIndirect({:?}, {:?}, {:?})",
@@ -4347,6 +4466,7 @@ unsafe extern "system" fn vkCmdDispatchIndirect(
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdSubpassShadingHUAWEI.html>"]
 unsafe extern "system" fn vkCmdSubpassShadingHUAWEI(command_buffer: NonDisposableHandle) -> c_void {
+    trace!("called vkCmdSubpassShadingHUAWEI");
     unsafe {
         trace!("called vkCmdSubpassShadingHUAWEI({:?})", command_buffer);
     }
@@ -4366,6 +4486,7 @@ unsafe extern "system" fn vkCmdDrawClusterHUAWEI(
     group_count_y: u32,
     group_count_z: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawClusterHUAWEI");
     unsafe {
         trace!(
             "called vkCmdDrawClusterHUAWEI({:?}, {:?}, {:?}, {:?})",
@@ -4393,6 +4514,7 @@ unsafe extern "system" fn vkCmdDrawClusterIndirectHUAWEI(
     buffer: NonDisposableHandle,
     offset: vk::DeviceSize,
 ) -> c_void {
+    trace!("called vkCmdDrawClusterIndirectHUAWEI");
     unsafe {
         trace!(
             "called vkCmdDrawClusterIndirectHUAWEI({:?}, {:?}, {:?})",
@@ -4418,6 +4540,7 @@ unsafe extern "system" fn vkCmdUpdatePipelineIndirectBufferNV(
     pipeline_bind_point: VkPipelineBindPoint,
     pipeline: NonDisposableHandle,
 ) -> c_void {
+    trace!("called vkCmdUpdatePipelineIndirectBufferNV");
     unsafe {
         trace!(
             "called vkCmdUpdatePipelineIndirectBufferNV({:?}, {:?}, {:?})",
@@ -4445,6 +4568,7 @@ unsafe extern "system" fn vkCmdCopyBuffer(
     region_count: u32,
     p_regions: *const VkBufferCopy,
 ) -> c_void {
+    trace!("called vkCmdCopyBuffer");
     unsafe {
         trace!(
             "called vkCmdCopyBuffer({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4478,6 +4602,7 @@ unsafe extern "system" fn vkCmdCopyImage(
     region_count: u32,
     p_regions: *const VkImageCopy,
 ) -> c_void {
+    trace!("called vkCmdCopyImage");
     unsafe {
         trace!(
             "called vkCmdCopyImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4516,6 +4641,7 @@ unsafe extern "system" fn vkCmdBlitImage(
     p_regions: *const VkImageBlit,
     filter: VkFilter,
 ) -> c_void {
+    trace!("called vkCmdBlitImage");
     unsafe {
         trace!(
             "called vkCmdBlitImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4554,6 +4680,7 @@ unsafe extern "system" fn vkCmdCopyBufferToImage(
     region_count: u32,
     p_regions: *const VkBufferImageCopy,
 ) -> c_void {
+    trace!("called vkCmdCopyBufferToImage");
     unsafe {
         trace!(
             "called vkCmdCopyBufferToImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4588,6 +4715,7 @@ unsafe extern "system" fn vkCmdCopyImageToBuffer(
     region_count: u32,
     p_regions: *const VkBufferImageCopy,
 ) -> c_void {
+    trace!("called vkCmdCopyImageToBuffer");
     unsafe {
         trace!(
             "called vkCmdCopyImageToBuffer({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4620,6 +4748,7 @@ unsafe extern "system" fn vkCmdCopyMemoryIndirectNV(
     copy_count: u32,
     stride: u32,
 ) -> c_void {
+    trace!("called vkCmdCopyMemoryIndirectNV");
     unsafe {
         trace!(
             "called vkCmdCopyMemoryIndirectNV({:?}, {:?}, {:?}, {:?})",
@@ -4651,6 +4780,7 @@ unsafe extern "system" fn vkCmdCopyMemoryToImageIndirectNV(
     dst_image_layout: VkImageLayout,
     p_image_subresources: *const VkImageSubresourceLayers,
 ) -> c_void {
+    trace!("called vkCmdCopyMemoryToImageIndirectNV");
     unsafe {
         trace!(
             "called vkCmdCopyMemoryToImageIndirectNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4686,6 +4816,7 @@ unsafe extern "system" fn vkCmdUpdateBuffer(
     data_size: vk::DeviceSize,
     p_data: *const c_void,
 ) -> c_void {
+    trace!("called vkCmdUpdateBuffer");
     unsafe {
         trace!(
             "called vkCmdUpdateBuffer({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4717,6 +4848,7 @@ unsafe extern "system" fn vkCmdFillBuffer(
     size: vk::DeviceSize,
     data: u32,
 ) -> c_void {
+    trace!("called vkCmdFillBuffer");
     unsafe {
         trace!(
             "called vkCmdFillBuffer({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4749,6 +4881,7 @@ unsafe extern "system" fn vkCmdClearColorImage(
     range_count: u32,
     p_ranges: *const VkImageSubresourceRange,
 ) -> c_void {
+    trace!("called vkCmdClearColorImage");
     unsafe {
         trace!(
             "called vkCmdClearColorImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4783,6 +4916,7 @@ unsafe extern "system" fn vkCmdClearDepthStencilImage(
     range_count: u32,
     p_ranges: *const VkImageSubresourceRange,
 ) -> c_void {
+    trace!("called vkCmdClearDepthStencilImage");
     unsafe {
         trace!(
             "called vkCmdClearDepthStencilImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4816,6 +4950,7 @@ unsafe extern "system" fn vkCmdClearAttachments(
     rect_count: u32,
     p_rects: *const VkClearRect,
 ) -> c_void {
+    trace!("called vkCmdClearAttachments");
     unsafe {
         trace!(
             "called vkCmdClearAttachments({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4849,6 +4984,7 @@ unsafe extern "system" fn vkCmdResolveImage(
     region_count: u32,
     p_regions: *const VkImageResolve,
 ) -> c_void {
+    trace!("called vkCmdResolveImage");
     unsafe {
         trace!(
             "called vkCmdResolveImage({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -4882,6 +5018,7 @@ unsafe extern "system" fn vkCmdSetEvent(
     event: NonDisposableHandle,
     stage_mask: VkPipelineStageFlags,
 ) -> c_void {
+    trace!("called vkCmdSetEvent");
     unsafe {
         trace!(
             "called vkCmdSetEvent({:?}, {:?}, {:?})",
@@ -4907,6 +5044,7 @@ unsafe extern "system" fn vkCmdResetEvent(
     event: NonDisposableHandle,
     stage_mask: VkPipelineStageFlags,
 ) -> c_void {
+    trace!("called vkCmdResetEvent");
     unsafe {
         trace!(
             "called vkCmdResetEvent({:?}, {:?}, {:?})",
@@ -4940,6 +5078,7 @@ unsafe extern "system" fn vkCmdWaitEvents(
     image_memory_barrier_count: u32,
     p_image_memory_barriers: *const VkImageMemoryBarrier,
 ) -> c_void {
+    trace!("called vkCmdWaitEvents");
     unsafe {
         trace!("called vkCmdWaitEvents({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, event_count, unpack_vk_array(p_events, (event_count) as usize), src_stage_mask, dst_stage_mask, memory_barrier_count, unpack_vk_array(p_memory_barriers, (memory_barrier_count) as usize), buffer_memory_barrier_count, unpack_vk_array(p_buffer_memory_barriers, (buffer_memory_barrier_count) as usize), image_memory_barrier_count, unpack_vk_array(p_image_memory_barriers, (image_memory_barrier_count) as usize));
     }
@@ -4975,6 +5114,7 @@ unsafe extern "system" fn vkCmdPipelineBarrier(
     image_memory_barrier_count: u32,
     p_image_memory_barriers: *const VkImageMemoryBarrier,
 ) -> c_void {
+    trace!("called vkCmdPipelineBarrier");
     unsafe {
         trace!("called vkCmdPipelineBarrier({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, src_stage_mask, dst_stage_mask, dependency_flags, memory_barrier_count, unpack_vk_array(p_memory_barriers, (memory_barrier_count) as usize), buffer_memory_barrier_count, unpack_vk_array(p_buffer_memory_barriers, (buffer_memory_barrier_count) as usize), image_memory_barrier_count, unpack_vk_array(p_image_memory_barriers, (image_memory_barrier_count) as usize));
     }
@@ -5003,6 +5143,7 @@ unsafe extern "system" fn vkCmdBeginQuery(
     query: u32,
     flags: VkQueryControlFlags,
 ) -> c_void {
+    trace!("called vkCmdBeginQuery");
     unsafe {
         trace!(
             "called vkCmdBeginQuery({:?}, {:?}, {:?}, {:?})",
@@ -5030,6 +5171,7 @@ unsafe extern "system" fn vkCmdEndQuery(
     query_pool: NonDisposableHandle,
     query: u32,
 ) -> c_void {
+    trace!("called vkCmdEndQuery");
     unsafe {
         trace!(
             "called vkCmdEndQuery({:?}, {:?}, {:?})",
@@ -5054,6 +5196,7 @@ unsafe extern "system" fn vkCmdBeginConditionalRenderingEXT(
     command_buffer: NonDisposableHandle,
     p_conditional_rendering_begin: *const VkConditionalRenderingBeginInfoEXT,
 ) -> c_void {
+    trace!("called vkCmdBeginConditionalRenderingEXT");
     unsafe {
         trace!(
             "called vkCmdBeginConditionalRenderingEXT({:?}, {:?})",
@@ -5075,6 +5218,7 @@ unsafe extern "system" fn vkCmdBeginConditionalRenderingEXT(
 unsafe extern "system" fn vkCmdEndConditionalRenderingEXT(
     command_buffer: NonDisposableHandle,
 ) -> c_void {
+    trace!("called vkCmdEndConditionalRenderingEXT");
     unsafe {
         trace!(
             "called vkCmdEndConditionalRenderingEXT({:?})",
@@ -5097,6 +5241,7 @@ unsafe extern "system" fn vkCmdResetQueryPool(
     first_query: u32,
     query_count: u32,
 ) -> c_void {
+    trace!("called vkCmdResetQueryPool");
     unsafe {
         trace!(
             "called vkCmdResetQueryPool({:?}, {:?}, {:?}, {:?})",
@@ -5125,6 +5270,7 @@ unsafe extern "system" fn vkCmdWriteTimestamp(
     query_pool: NonDisposableHandle,
     query: u32,
 ) -> c_void {
+    trace!("called vkCmdWriteTimestamp");
     unsafe {
         trace!(
             "called vkCmdWriteTimestamp({:?}, {:?}, {:?}, {:?})",
@@ -5157,6 +5303,7 @@ unsafe extern "system" fn vkCmdCopyQueryPoolResults(
     stride: vk::DeviceSize,
     flags: VkQueryResultFlags,
 ) -> c_void {
+    trace!("called vkCmdCopyQueryPoolResults");
     unsafe {
         trace!(
             "called vkCmdCopyQueryPoolResults({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -5195,6 +5342,7 @@ unsafe extern "system" fn vkCmdPushConstants(
     size: u32,
     p_values: *const c_void,
 ) -> c_void {
+    trace!("called vkCmdPushConstants");
     unsafe {
         trace!(
             "called vkCmdPushConstants({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -5226,6 +5374,7 @@ unsafe extern "system" fn vkCmdBeginRenderPass(
     p_render_pass_begin: *const VkRenderPassBeginInfo,
     contents: VkSubpassContents,
 ) -> c_void {
+    trace!("called vkCmdBeginRenderPass");
     unsafe {
         trace!(
             "called vkCmdBeginRenderPass({:?}, {:?}, {:?})",
@@ -5250,6 +5399,7 @@ unsafe extern "system" fn vkCmdNextSubpass(
     command_buffer: NonDisposableHandle,
     contents: VkSubpassContents,
 ) -> c_void {
+    trace!("called vkCmdNextSubpass");
     unsafe {
         trace!(
             "called vkCmdNextSubpass({:?}, {:?})",
@@ -5269,6 +5419,7 @@ unsafe extern "system" fn vkCmdNextSubpass(
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRenderPass.html>"]
 unsafe extern "system" fn vkCmdEndRenderPass(command_buffer: NonDisposableHandle) -> c_void {
+    trace!("called vkCmdEndRenderPass");
     unsafe {
         trace!("called vkCmdEndRenderPass({:?})", command_buffer);
     }
@@ -5287,6 +5438,7 @@ unsafe extern "system" fn vkCmdExecuteCommands(
     command_buffer_count: u32,
     p_command_buffers: *const NonDisposableHandle,
 ) -> c_void {
+    trace!("called vkCmdExecuteCommands");
     unsafe {
         trace!(
             "called vkCmdExecuteCommands({:?}, {:?}, {:?})",
@@ -5313,6 +5465,7 @@ unsafe extern "system" fn vkCreateAndroidSurfaceKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateAndroidSurfaceKHR");
     unsafe {
         trace!(
             "called vkCreateAndroidSurfaceKHR({:?}, {:?}, {:?}, {:?})",
@@ -5341,6 +5494,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceDisplayPropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut VkDisplayPropertiesKHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceDisplayPropertiesKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceDisplayPropertiesKHR({:?}, {:?}, {:?})",
@@ -5366,6 +5520,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut VkDisplayPlanePropertiesKHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceDisplayPlanePropertiesKHR({:?}, {:?}, {:?})",
@@ -5392,6 +5547,7 @@ unsafe extern "system" fn vkGetDisplayPlaneSupportedDisplaysKHR(
     p_display_count: *mut u32,
     p_displays: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkGetDisplayPlaneSupportedDisplaysKHR");
     unsafe {
         trace!(
             "called vkGetDisplayPlaneSupportedDisplaysKHR({:?}, {:?}, {:?}, {:?})",
@@ -5420,6 +5576,7 @@ unsafe extern "system" fn vkGetDisplayModePropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut VkDisplayModePropertiesKHR,
 ) -> VkResult {
+    trace!("called vkGetDisplayModePropertiesKHR");
     unsafe {
         trace!(
             "called vkGetDisplayModePropertiesKHR({:?}, {:?}, {:?}, {:?})",
@@ -5449,6 +5606,7 @@ unsafe extern "system" fn vkCreateDisplayModeKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_mode: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateDisplayModeKHR");
     unsafe {
         trace!(
             "called vkCreateDisplayModeKHR({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -5480,6 +5638,7 @@ unsafe extern "system" fn vkGetDisplayPlaneCapabilitiesKHR(
     plane_index: u32,
     p_capabilities: *mut VkDisplayPlaneCapabilitiesKHR,
 ) -> VkResult {
+    trace!("called vkGetDisplayPlaneCapabilitiesKHR");
     unsafe {
         trace!(
             "called vkGetDisplayPlaneCapabilitiesKHR({:?}, {:?}, {:?}, {:?})",
@@ -5509,6 +5668,7 @@ unsafe extern "system" fn vkCreateDisplayPlaneSurfaceKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateDisplayPlaneSurfaceKHR");
     unsafe {
         trace!(
             "called vkCreateDisplayPlaneSurfaceKHR({:?}, {:?}, {:?}, {:?})",
@@ -5539,6 +5699,7 @@ unsafe extern "system" fn vkCreateSharedSwapchainsKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_swapchains: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateSharedSwapchainsKHR");
     unsafe {
         trace!(
             "called vkCreateSharedSwapchainsKHR({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -5569,6 +5730,7 @@ unsafe extern "system" fn vkDestroySurfaceKHR(
     surface: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroySurfaceKHR");
     unsafe {
         trace!(
             "called vkDestroySurfaceKHR({:?}, {:?}, {:?})",
@@ -5595,6 +5757,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceSupportKHR(
     surface: NonDisposableHandle,
     p_supported: *mut vk::Bool32,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceSurfaceSupportKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceSurfaceSupportKHR({:?}, {:?}, {:?}, {:?})",
@@ -5623,6 +5786,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
     surface: NonDisposableHandle,
     p_surface_capabilities: *mut VkSurfaceCapabilitiesKHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceSurfaceCapabilitiesKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceSurfaceCapabilitiesKHR({:?}, {:?}, {:?})",
@@ -5650,6 +5814,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceFormatsKHR(
     p_surface_format_count: *mut u32,
     p_surface_formats: *mut VkSurfaceFormatKHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceSurfaceFormatsKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceSurfaceFormatsKHR({:?}, {:?}, {:?}, {:?})",
@@ -5678,6 +5843,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfacePresentModesKHR(
     p_present_mode_count: *mut u32,
     p_present_modes: *mut VkPresentModeKHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceSurfacePresentModesKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceSurfacePresentModesKHR({:?}, {:?}, {:?}, {:?})",
@@ -5706,6 +5872,7 @@ unsafe extern "system" fn vkCreateSwapchainKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_swapchain: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateSwapchainKHR");
     unsafe {
         trace!(
             "called vkCreateSwapchainKHR({:?}, {:?}, {:?}, {:?})",
@@ -5734,6 +5901,7 @@ unsafe extern "system" fn vkDestroySwapchainKHR(
     swapchain: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroySwapchainKHR");
     unsafe {
         trace!(
             "called vkDestroySwapchainKHR({:?}, {:?}, {:?})",
@@ -5760,6 +5928,7 @@ unsafe extern "system" fn vkGetSwapchainImagesKHR(
     p_swapchain_image_count: *mut u32,
     p_swapchain_images: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkGetSwapchainImagesKHR");
     unsafe {
         trace!(
             "called vkGetSwapchainImagesKHR({:?}, {:?}, {:?}, {:?})",
@@ -5790,6 +5959,7 @@ unsafe extern "system" fn vkAcquireNextImageKHR(
     fence: NonDisposableHandle,
     p_image_index: *mut u32,
 ) -> VkResult {
+    trace!("called vkAcquireNextImageKHR");
     unsafe {
         trace!(
             "called vkAcquireNextImageKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -5821,6 +5991,7 @@ unsafe extern "system" fn vkQueuePresentKHR(
     queue: NonDisposableHandle,
     p_present_info: *const VkPresentInfoKHR,
 ) -> VkResult {
+    trace!("called vkQueuePresentKHR");
     unsafe {
         trace!(
             "called vkQueuePresentKHR({:?}, {:?})",
@@ -5845,6 +6016,7 @@ unsafe extern "system" fn vkCreateViSurfaceNN(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateViSurfaceNN");
     unsafe {
         trace!(
             "called vkCreateViSurfaceNN({:?}, {:?}, {:?}, {:?})",
@@ -5874,6 +6046,7 @@ unsafe extern "system" fn vkCreateWaylandSurfaceKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateWaylandSurfaceKHR");
     unsafe {
         trace!(
             "called vkCreateWaylandSurfaceKHR({:?}, {:?}, {:?}, {:?})",
@@ -5902,6 +6075,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceWaylandPresentationSupportKHR(
     queue_family_index: u32,
     display: *mut usize,
 ) -> vk::Bool32 {
+    trace!("called vkGetPhysicalDeviceWaylandPresentationSupportKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceWaylandPresentationSupportKHR({:?}, {:?}, {:?})",
@@ -5929,6 +6103,7 @@ unsafe extern "system" fn vkCreateWin32SurfaceKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateWin32SurfaceKHR");
     unsafe {
         trace!(
             "called vkCreateWin32SurfaceKHR({:?}, {:?}, {:?}, {:?})",
@@ -5956,6 +6131,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceWin32PresentationSupportKHR(
     physical_device: NonDisposableHandle,
     queue_family_index: u32,
 ) -> vk::Bool32 {
+    trace!("called vkGetPhysicalDeviceWin32PresentationSupportKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceWin32PresentationSupportKHR({:?}, {:?})",
@@ -5980,6 +6156,7 @@ unsafe extern "system" fn vkCreateXlibSurfaceKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateXlibSurfaceKHR");
     unsafe {
         trace!(
             "called vkCreateXlibSurfaceKHR({:?}, {:?}, {:?}, {:?})",
@@ -6009,6 +6186,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceXlibPresentationSupportKHR(
     dpy: *mut usize,
     visual_id: vk::VisualID,
 ) -> vk::Bool32 {
+    trace!("called vkGetPhysicalDeviceXlibPresentationSupportKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceXlibPresentationSupportKHR({:?}, {:?}, {:?}, {:?})",
@@ -6038,6 +6216,7 @@ unsafe extern "system" fn vkCreateXcbSurfaceKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateXcbSurfaceKHR");
     unsafe {
         trace!(
             "called vkCreateXcbSurfaceKHR({:?}, {:?}, {:?}, {:?})",
@@ -6067,6 +6246,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceXcbPresentationSupportKHR(
     connection: *mut usize,
     visual_id: vk::xcb_visualid_t,
 ) -> vk::Bool32 {
+    trace!("called vkGetPhysicalDeviceXcbPresentationSupportKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceXcbPresentationSupportKHR({:?}, {:?}, {:?}, {:?})",
@@ -6096,6 +6276,7 @@ unsafe extern "system" fn vkCreateDirectFBSurfaceEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateDirectFBSurfaceEXT");
     unsafe {
         trace!(
             "called vkCreateDirectFBSurfaceEXT({:?}, {:?}, {:?}, {:?})",
@@ -6124,6 +6305,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceDirectFBPresentationSupportEXT(
     queue_family_index: u32,
     dfb: *mut usize,
 ) -> vk::Bool32 {
+    trace!("called vkGetPhysicalDeviceDirectFBPresentationSupportEXT");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceDirectFBPresentationSupportEXT({:?}, {:?}, {:?})",
@@ -6151,6 +6333,7 @@ unsafe extern "system" fn vkCreateImagePipeSurfaceFUCHSIA(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateImagePipeSurfaceFUCHSIA");
     unsafe {
         trace!(
             "called vkCreateImagePipeSurfaceFUCHSIA({:?}, {:?}, {:?}, {:?})",
@@ -6180,6 +6363,7 @@ unsafe extern "system" fn vkCreateStreamDescriptorSurfaceGGP(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateStreamDescriptorSurfaceGGP");
     unsafe {
         trace!(
             "called vkCreateStreamDescriptorSurfaceGGP({:?}, {:?}, {:?}, {:?})",
@@ -6209,6 +6393,7 @@ unsafe extern "system" fn vkCreateScreenSurfaceQNX(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateScreenSurfaceQNX");
     unsafe {
         trace!(
             "called vkCreateScreenSurfaceQNX({:?}, {:?}, {:?}, {:?})",
@@ -6237,6 +6422,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceScreenPresentationSupportQNX(
     queue_family_index: u32,
     window: *mut usize,
 ) -> vk::Bool32 {
+    trace!("called vkGetPhysicalDeviceScreenPresentationSupportQNX");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceScreenPresentationSupportQNX({:?}, {:?}, {:?})",
@@ -6264,6 +6450,7 @@ unsafe extern "system" fn vkCreateDebugReportCallbackEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_callback: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateDebugReportCallbackEXT");
     unsafe {
         trace!(
             "called vkCreateDebugReportCallbackEXT({:?}, {:?}, {:?}, {:?})",
@@ -6292,6 +6479,7 @@ unsafe extern "system" fn vkDestroyDebugReportCallbackEXT(
     callback: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyDebugReportCallbackEXT");
     unsafe {
         trace!(
             "called vkDestroyDebugReportCallbackEXT({:?}, {:?}, {:?})",
@@ -6322,6 +6510,7 @@ unsafe extern "system" fn vkDebugReportMessageEXT(
     p_layer_prefix: *const c_char,
     p_message: *const c_char,
 ) -> c_void {
+    trace!("called vkDebugReportMessageEXT");
     unsafe {
         trace!(
             "called vkDebugReportMessageEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -6356,6 +6545,7 @@ unsafe extern "system" fn vkDebugMarkerSetObjectNameEXT(
     device: NonDisposableHandle,
     p_name_info: *const VkDebugMarkerObjectNameInfoEXT,
 ) -> VkResult {
+    trace!("called vkDebugMarkerSetObjectNameEXT");
     unsafe {
         trace!(
             "called vkDebugMarkerSetObjectNameEXT({:?}, {:?})",
@@ -6378,6 +6568,7 @@ unsafe extern "system" fn vkDebugMarkerSetObjectTagEXT(
     device: NonDisposableHandle,
     p_tag_info: *const VkDebugMarkerObjectTagInfoEXT,
 ) -> VkResult {
+    trace!("called vkDebugMarkerSetObjectTagEXT");
     unsafe {
         trace!(
             "called vkDebugMarkerSetObjectTagEXT({:?}, {:?})",
@@ -6400,6 +6591,7 @@ unsafe extern "system" fn vkCmdDebugMarkerBeginEXT(
     command_buffer: NonDisposableHandle,
     p_marker_info: *const VkDebugMarkerMarkerInfoEXT,
 ) -> c_void {
+    trace!("called vkCmdDebugMarkerBeginEXT");
     unsafe {
         trace!(
             "called vkCmdDebugMarkerBeginEXT({:?}, {:?})",
@@ -6419,6 +6611,7 @@ unsafe extern "system" fn vkCmdDebugMarkerBeginEXT(
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdDebugMarkerEndEXT.html>"]
 unsafe extern "system" fn vkCmdDebugMarkerEndEXT(command_buffer: NonDisposableHandle) -> c_void {
+    trace!("called vkCmdDebugMarkerEndEXT");
     unsafe {
         trace!("called vkCmdDebugMarkerEndEXT({:?})", command_buffer);
     }
@@ -6436,6 +6629,7 @@ unsafe extern "system" fn vkCmdDebugMarkerInsertEXT(
     command_buffer: NonDisposableHandle,
     p_marker_info: *const VkDebugMarkerMarkerInfoEXT,
 ) -> c_void {
+    trace!("called vkCmdDebugMarkerInsertEXT");
     unsafe {
         trace!(
             "called vkCmdDebugMarkerInsertEXT({:?}, {:?})",
@@ -6464,6 +6658,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceExternalImageFormatPropertiesNV(
     external_handle_type: VkExternalMemoryHandleTypeFlagsNV,
     p_external_image_format_properties: *mut VkExternalImageFormatPropertiesNV,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceExternalImageFormatPropertiesNV");
     unsafe {
         trace!("called vkGetPhysicalDeviceExternalImageFormatPropertiesNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", physical_device, format, type_, tiling, usage, flags, external_handle_type, p_external_image_format_properties.as_ref());
     }
@@ -6491,6 +6686,7 @@ unsafe extern "system" fn vkGetMemoryWin32HandleNV(
     handle_type: VkExternalMemoryHandleTypeFlagsNV,
     p_handle: *mut vk::HANDLE,
 ) -> VkResult {
+    trace!("called vkGetMemoryWin32HandleNV");
     unsafe {
         trace!(
             "called vkGetMemoryWin32HandleNV({:?}, {:?}, {:?}, {:?})",
@@ -6519,6 +6715,7 @@ unsafe extern "system" fn vkCmdExecuteGeneratedCommandsNV(
     is_preprocessed: vk::Bool32,
     p_generated_commands_info: *const VkGeneratedCommandsInfoNV,
 ) -> c_void {
+    trace!("called vkCmdExecuteGeneratedCommandsNV");
     unsafe {
         trace!(
             "called vkCmdExecuteGeneratedCommandsNV({:?}, {:?}, {:?})",
@@ -6543,6 +6740,7 @@ unsafe extern "system" fn vkCmdPreprocessGeneratedCommandsNV(
     command_buffer: NonDisposableHandle,
     p_generated_commands_info: *const VkGeneratedCommandsInfoNV,
 ) -> c_void {
+    trace!("called vkCmdPreprocessGeneratedCommandsNV");
     unsafe {
         trace!(
             "called vkCmdPreprocessGeneratedCommandsNV({:?}, {:?})",
@@ -6567,6 +6765,7 @@ unsafe extern "system" fn vkCmdBindPipelineShaderGroupNV(
     pipeline: NonDisposableHandle,
     group_index: u32,
 ) -> c_void {
+    trace!("called vkCmdBindPipelineShaderGroupNV");
     unsafe {
         trace!(
             "called vkCmdBindPipelineShaderGroupNV({:?}, {:?}, {:?}, {:?})",
@@ -6594,6 +6793,7 @@ unsafe extern "system" fn vkGetGeneratedCommandsMemoryRequirementsNV(
     p_info: *const VkGeneratedCommandsMemoryRequirementsInfoNV,
     p_memory_requirements: *mut VkMemoryRequirements2,
 ) -> c_void {
+    trace!("called vkGetGeneratedCommandsMemoryRequirementsNV");
     unsafe {
         trace!(
             "called vkGetGeneratedCommandsMemoryRequirementsNV({:?}, {:?}, {:?})",
@@ -6621,6 +6821,7 @@ unsafe extern "system" fn vkCreateIndirectCommandsLayoutNV(
     p_allocator: *const VkAllocationCallbacks,
     p_indirect_commands_layout: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateIndirectCommandsLayoutNV");
     unsafe {
         trace!(
             "called vkCreateIndirectCommandsLayoutNV({:?}, {:?}, {:?}, {:?})",
@@ -6649,6 +6850,7 @@ unsafe extern "system" fn vkDestroyIndirectCommandsLayoutNV(
     indirect_commands_layout: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyIndirectCommandsLayoutNV");
     unsafe {
         trace!(
             "called vkDestroyIndirectCommandsLayoutNV({:?}, {:?}, {:?})",
@@ -6673,6 +6875,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceFeatures2(
     physical_device: NonDisposableHandle,
     p_features: *mut VkPhysicalDeviceFeatures2,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceFeatures2");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceFeatures2({:?}, {:?})",
@@ -6696,6 +6899,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceProperties2(
     physical_device: NonDisposableHandle,
     p_properties: *mut VkPhysicalDeviceProperties2,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceProperties2");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceProperties2({:?}, {:?})",
@@ -6720,6 +6924,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceFormatProperties2(
     format: VkFormat,
     p_format_properties: *mut VkFormatProperties2,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceFormatProperties2");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceFormatProperties2({:?}, {:?}, {:?})",
@@ -6746,6 +6951,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceImageFormatProperties2(
     p_image_format_info: *const VkPhysicalDeviceImageFormatInfo2,
     p_image_format_properties: *mut VkImageFormatProperties2,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceImageFormatProperties2");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceImageFormatProperties2({:?}, {:?}, {:?})",
@@ -6772,6 +6978,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceQueueFamilyProperties2(
     p_queue_family_property_count: *mut u32,
     p_queue_family_properties: *mut VkQueueFamilyProperties2,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceQueueFamilyProperties2");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceQueueFamilyProperties2({:?}, {:?}, {:?})",
@@ -6799,6 +7006,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceMemoryProperties2(
     physical_device: NonDisposableHandle,
     p_memory_properties: *mut VkPhysicalDeviceMemoryProperties2,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceMemoryProperties2");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceMemoryProperties2({:?}, {:?})",
@@ -6824,6 +7032,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSparseImageFormatProperties2(
     p_property_count: *mut u32,
     p_properties: *mut VkSparseImageFormatProperties2,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceSparseImageFormatProperties2");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceSparseImageFormatProperties2({:?}, {:?}, {:?}, {:?})",
@@ -6854,6 +7063,7 @@ unsafe extern "system" fn vkCmdPushDescriptorSetKHR(
     descriptor_write_count: u32,
     p_descriptor_writes: *const VkWriteDescriptorSet,
 ) -> c_void {
+    trace!("called vkCmdPushDescriptorSetKHR");
     unsafe {
         trace!(
             "called vkCmdPushDescriptorSetKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -6885,6 +7095,7 @@ unsafe extern "system" fn vkTrimCommandPool(
     command_pool: NonDisposableHandle,
     flags: VkCommandPoolTrimFlags,
 ) -> c_void {
+    trace!("called vkTrimCommandPool");
     unsafe {
         trace!(
             "called vkTrimCommandPool({:?}, {:?}, {:?})",
@@ -6910,6 +7121,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceExternalBufferProperties(
     p_external_buffer_info: *const VkPhysicalDeviceExternalBufferInfo,
     p_external_buffer_properties: *mut VkExternalBufferProperties,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceExternalBufferProperties");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceExternalBufferProperties({:?}, {:?}, {:?})",
@@ -6936,6 +7148,7 @@ unsafe extern "system" fn vkGetMemoryWin32HandleKHR(
     p_get_win32_handle_info: *const VkMemoryGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> VkResult {
+    trace!("called vkGetMemoryWin32HandleKHR");
     unsafe {
         trace!(
             "called vkGetMemoryWin32HandleKHR({:?}, {:?}, {:?})",
@@ -6963,6 +7176,7 @@ unsafe extern "system" fn vkGetMemoryWin32HandlePropertiesKHR(
     handle: vk::HANDLE,
     p_memory_win32_handle_properties: *mut VkMemoryWin32HandlePropertiesKHR,
 ) -> VkResult {
+    trace!("called vkGetMemoryWin32HandlePropertiesKHR");
     unsafe {
         trace!(
             "called vkGetMemoryWin32HandlePropertiesKHR({:?}, {:?}, {:?}, {:?})",
@@ -6991,6 +7205,7 @@ unsafe extern "system" fn vkGetMemoryFdKHR(
     p_get_fd_info: *const VkMemoryGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
 ) -> VkResult {
+    trace!("called vkGetMemoryFdKHR");
     unsafe {
         trace!(
             "called vkGetMemoryFdKHR({:?}, {:?}, {:?})",
@@ -7018,6 +7233,7 @@ unsafe extern "system" fn vkGetMemoryFdPropertiesKHR(
     fd: std::os::raw::c_int,
     p_memory_fd_properties: *mut VkMemoryFdPropertiesKHR,
 ) -> VkResult {
+    trace!("called vkGetMemoryFdPropertiesKHR");
     unsafe {
         trace!(
             "called vkGetMemoryFdPropertiesKHR({:?}, {:?}, {:?}, {:?})",
@@ -7046,6 +7262,7 @@ unsafe extern "system" fn vkGetMemoryZirconHandleFUCHSIA(
     p_get_zircon_handle_info: *const VkMemoryGetZirconHandleInfoFUCHSIA,
     p_zircon_handle: *mut vk::zx_handle_t,
 ) -> VkResult {
+    trace!("called vkGetMemoryZirconHandleFUCHSIA");
     unsafe {
         trace!(
             "called vkGetMemoryZirconHandleFUCHSIA({:?}, {:?}, {:?})",
@@ -7073,6 +7290,7 @@ unsafe extern "system" fn vkGetMemoryZirconHandlePropertiesFUCHSIA(
     zircon_handle: vk::zx_handle_t,
     p_memory_zircon_handle_properties: *mut VkMemoryZirconHandlePropertiesFUCHSIA,
 ) -> VkResult {
+    trace!("called vkGetMemoryZirconHandlePropertiesFUCHSIA");
     unsafe {
         trace!(
             "called vkGetMemoryZirconHandlePropertiesFUCHSIA({:?}, {:?}, {:?}, {:?})",
@@ -7101,6 +7319,7 @@ unsafe extern "system" fn vkGetMemoryRemoteAddressNV(
     p_memory_get_remote_address_info: *const VkMemoryGetRemoteAddressInfoNV,
     p_address: *mut vk::RemoteAddressNV,
 ) -> VkResult {
+    trace!("called vkGetMemoryRemoteAddressNV");
     unsafe {
         trace!(
             "called vkGetMemoryRemoteAddressNV({:?}, {:?}, {:?})",
@@ -7127,6 +7346,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceExternalSemaphoreProperties(
     p_external_semaphore_info: *const VkPhysicalDeviceExternalSemaphoreInfo,
     p_external_semaphore_properties: *mut VkExternalSemaphoreProperties,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceExternalSemaphoreProperties");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceExternalSemaphoreProperties({:?}, {:?}, {:?})",
@@ -7153,6 +7373,7 @@ unsafe extern "system" fn vkGetSemaphoreWin32HandleKHR(
     p_get_win32_handle_info: *const VkSemaphoreGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> VkResult {
+    trace!("called vkGetSemaphoreWin32HandleKHR");
     unsafe {
         trace!(
             "called vkGetSemaphoreWin32HandleKHR({:?}, {:?}, {:?})",
@@ -7178,6 +7399,7 @@ unsafe extern "system" fn vkImportSemaphoreWin32HandleKHR(
     device: NonDisposableHandle,
     p_import_semaphore_win32_handle_info: *const VkImportSemaphoreWin32HandleInfoKHR,
 ) -> VkResult {
+    trace!("called vkImportSemaphoreWin32HandleKHR");
     unsafe {
         trace!(
             "called vkImportSemaphoreWin32HandleKHR({:?}, {:?})",
@@ -7201,6 +7423,7 @@ unsafe extern "system" fn vkGetSemaphoreFdKHR(
     p_get_fd_info: *const VkSemaphoreGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
 ) -> VkResult {
+    trace!("called vkGetSemaphoreFdKHR");
     unsafe {
         trace!(
             "called vkGetSemaphoreFdKHR({:?}, {:?}, {:?})",
@@ -7226,6 +7449,7 @@ unsafe extern "system" fn vkImportSemaphoreFdKHR(
     device: NonDisposableHandle,
     p_import_semaphore_fd_info: *const VkImportSemaphoreFdInfoKHR,
 ) -> VkResult {
+    trace!("called vkImportSemaphoreFdKHR");
     unsafe {
         trace!(
             "called vkImportSemaphoreFdKHR({:?}, {:?})",
@@ -7249,6 +7473,7 @@ unsafe extern "system" fn vkGetSemaphoreZirconHandleFUCHSIA(
     p_get_zircon_handle_info: *const VkSemaphoreGetZirconHandleInfoFUCHSIA,
     p_zircon_handle: *mut vk::zx_handle_t,
 ) -> VkResult {
+    trace!("called vkGetSemaphoreZirconHandleFUCHSIA");
     unsafe {
         trace!(
             "called vkGetSemaphoreZirconHandleFUCHSIA({:?}, {:?}, {:?})",
@@ -7274,6 +7499,7 @@ unsafe extern "system" fn vkImportSemaphoreZirconHandleFUCHSIA(
     device: NonDisposableHandle,
     p_import_semaphore_zircon_handle_info: *const VkImportSemaphoreZirconHandleInfoFUCHSIA,
 ) -> VkResult {
+    trace!("called vkImportSemaphoreZirconHandleFUCHSIA");
     unsafe {
         trace!(
             "called vkImportSemaphoreZirconHandleFUCHSIA({:?}, {:?})",
@@ -7297,6 +7523,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceExternalFenceProperties(
     p_external_fence_info: *const VkPhysicalDeviceExternalFenceInfo,
     p_external_fence_properties: *mut VkExternalFenceProperties,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceExternalFenceProperties");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceExternalFenceProperties({:?}, {:?}, {:?})",
@@ -7323,6 +7550,7 @@ unsafe extern "system" fn vkGetFenceWin32HandleKHR(
     p_get_win32_handle_info: *const VkFenceGetWin32HandleInfoKHR,
     p_handle: *mut vk::HANDLE,
 ) -> VkResult {
+    trace!("called vkGetFenceWin32HandleKHR");
     unsafe {
         trace!(
             "called vkGetFenceWin32HandleKHR({:?}, {:?}, {:?})",
@@ -7348,6 +7576,7 @@ unsafe extern "system" fn vkImportFenceWin32HandleKHR(
     device: NonDisposableHandle,
     p_import_fence_win32_handle_info: *const VkImportFenceWin32HandleInfoKHR,
 ) -> VkResult {
+    trace!("called vkImportFenceWin32HandleKHR");
     unsafe {
         trace!(
             "called vkImportFenceWin32HandleKHR({:?}, {:?})",
@@ -7371,6 +7600,7 @@ unsafe extern "system" fn vkGetFenceFdKHR(
     p_get_fd_info: *const VkFenceGetFdInfoKHR,
     p_fd: *mut std::os::raw::c_int,
 ) -> VkResult {
+    trace!("called vkGetFenceFdKHR");
     unsafe {
         trace!(
             "called vkGetFenceFdKHR({:?}, {:?}, {:?})",
@@ -7396,6 +7626,7 @@ unsafe extern "system" fn vkImportFenceFdKHR(
     device: NonDisposableHandle,
     p_import_fence_fd_info: *const VkImportFenceFdInfoKHR,
 ) -> VkResult {
+    trace!("called vkImportFenceFdKHR");
     unsafe {
         trace!(
             "called vkImportFenceFdKHR({:?}, {:?})",
@@ -7418,6 +7649,7 @@ unsafe extern "system" fn vkReleaseDisplayEXT(
     physical_device: NonDisposableHandle,
     display: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkReleaseDisplayEXT");
     unsafe {
         trace!(
             "called vkReleaseDisplayEXT({:?}, {:?})",
@@ -7441,6 +7673,7 @@ unsafe extern "system" fn vkAcquireXlibDisplayEXT(
     dpy: *mut usize,
     display: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkAcquireXlibDisplayEXT");
     unsafe {
         trace!(
             "called vkAcquireXlibDisplayEXT({:?}, {:?}, {:?})",
@@ -7468,6 +7701,7 @@ unsafe extern "system" fn vkGetRandROutputDisplayEXT(
     rr_output: vk::RROutput,
     p_display: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkGetRandROutputDisplayEXT");
     unsafe {
         trace!(
             "called vkGetRandROutputDisplayEXT({:?}, {:?}, {:?}, {:?})",
@@ -7496,6 +7730,7 @@ unsafe extern "system" fn vkAcquireWinrtDisplayNV(
     physical_device: NonDisposableHandle,
     display: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkAcquireWinrtDisplayNV");
     unsafe {
         trace!(
             "called vkAcquireWinrtDisplayNV({:?}, {:?})",
@@ -7519,6 +7754,7 @@ unsafe extern "system" fn vkGetWinrtDisplayNV(
     device_relative_id: u32,
     p_display: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkGetWinrtDisplayNV");
     unsafe {
         trace!(
             "called vkGetWinrtDisplayNV({:?}, {:?}, {:?})",
@@ -7545,6 +7781,7 @@ unsafe extern "system" fn vkDisplayPowerControlEXT(
     display: NonDisposableHandle,
     p_display_power_info: *const VkDisplayPowerInfoEXT,
 ) -> VkResult {
+    trace!("called vkDisplayPowerControlEXT");
     unsafe {
         trace!(
             "called vkDisplayPowerControlEXT({:?}, {:?}, {:?})",
@@ -7571,6 +7808,7 @@ unsafe extern "system" fn vkRegisterDeviceEventEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_fence: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkRegisterDeviceEventEXT");
     unsafe {
         trace!(
             "called vkRegisterDeviceEventEXT({:?}, {:?}, {:?}, {:?})",
@@ -7601,6 +7839,7 @@ unsafe extern "system" fn vkRegisterDisplayEventEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_fence: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkRegisterDisplayEventEXT");
     unsafe {
         trace!(
             "called vkRegisterDisplayEventEXT({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -7632,6 +7871,7 @@ unsafe extern "system" fn vkGetSwapchainCounterEXT(
     counter: vk::SurfaceCounterFlagsEXT,
     p_counter_value: *mut u64,
 ) -> VkResult {
+    trace!("called vkGetSwapchainCounterEXT");
     unsafe {
         trace!(
             "called vkGetSwapchainCounterEXT({:?}, {:?}, {:?}, {:?})",
@@ -7660,6 +7900,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceCapabilities2EXT(
     surface: NonDisposableHandle,
     p_surface_capabilities: *mut VkSurfaceCapabilities2EXT,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceSurfaceCapabilities2EXT");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceSurfaceCapabilities2EXT({:?}, {:?}, {:?})",
@@ -7686,6 +7927,7 @@ unsafe extern "system" fn vkEnumeratePhysicalDeviceGroups(
     p_physical_device_group_count: *mut u32,
     p_physical_device_group_properties: *mut VkPhysicalDeviceGroupProperties,
 ) -> VkResult {
+    trace!("called vkEnumeratePhysicalDeviceGroups");
     unsafe {
         trace!(
             "called vkEnumeratePhysicalDeviceGroups({:?}, {:?}, {:?})",
@@ -7722,6 +7964,7 @@ unsafe extern "system" fn vkGetDeviceGroupPeerMemoryFeatures(
     remote_device_index: u32,
     p_peer_memory_features: *mut VkPeerMemoryFeatureFlags,
 ) -> c_void {
+    trace!("called vkGetDeviceGroupPeerMemoryFeatures");
     unsafe {
         trace!(
             "called vkGetDeviceGroupPeerMemoryFeatures({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -7752,6 +7995,7 @@ unsafe extern "system" fn vkBindBufferMemory2(
     bind_info_count: u32,
     p_bind_infos: *const VkBindBufferMemoryInfo,
 ) -> VkResult {
+    trace!("called vkBindBufferMemory2");
     unsafe {
         trace!(
             "called vkBindBufferMemory2({:?}, {:?}, {:?})",
@@ -7777,6 +8021,7 @@ unsafe extern "system" fn vkBindImageMemory2(
     bind_info_count: u32,
     p_bind_infos: *const VkBindImageMemoryInfo,
 ) -> VkResult {
+    trace!("called vkBindImageMemory2");
     unsafe {
         trace!(
             "called vkBindImageMemory2({:?}, {:?}, {:?})",
@@ -7801,6 +8046,7 @@ unsafe extern "system" fn vkCmdSetDeviceMask(
     command_buffer: NonDisposableHandle,
     device_mask: u32,
 ) -> c_void {
+    trace!("called vkCmdSetDeviceMask");
     unsafe {
         trace!(
             "called vkCmdSetDeviceMask({:?}, {:?})",
@@ -7823,6 +8069,7 @@ unsafe extern "system" fn vkGetDeviceGroupPresentCapabilitiesKHR(
     device: NonDisposableHandle,
     p_device_group_present_capabilities: *mut VkDeviceGroupPresentCapabilitiesKHR,
 ) -> VkResult {
+    trace!("called vkGetDeviceGroupPresentCapabilitiesKHR");
     unsafe {
         trace!(
             "called vkGetDeviceGroupPresentCapabilitiesKHR({:?}, {:?})",
@@ -7847,6 +8094,7 @@ unsafe extern "system" fn vkGetDeviceGroupSurfacePresentModesKHR(
     surface: NonDisposableHandle,
     p_modes: *mut VkDeviceGroupPresentModeFlagsKHR,
 ) -> VkResult {
+    trace!("called vkGetDeviceGroupSurfacePresentModesKHR");
     unsafe {
         trace!(
             "called vkGetDeviceGroupSurfacePresentModesKHR({:?}, {:?}, {:?})",
@@ -7873,6 +8121,7 @@ unsafe extern "system" fn vkAcquireNextImage2KHR(
     p_acquire_info: *const VkAcquireNextImageInfoKHR,
     p_image_index: *mut u32,
 ) -> VkResult {
+    trace!("called vkAcquireNextImage2KHR");
     unsafe {
         trace!(
             "called vkAcquireNextImage2KHR({:?}, {:?}, {:?})",
@@ -7903,6 +8152,7 @@ unsafe extern "system" fn vkCmdDispatchBase(
     group_count_y: u32,
     group_count_z: u32,
 ) -> c_void {
+    trace!("called vkCmdDispatchBase");
     unsafe {
         trace!(
             "called vkCmdDispatchBase({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -7937,6 +8187,7 @@ unsafe extern "system" fn vkGetPhysicalDevicePresentRectanglesKHR(
     p_rect_count: *mut u32,
     p_rects: *mut VkRect2D,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDevicePresentRectanglesKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDevicePresentRectanglesKHR({:?}, {:?}, {:?}, {:?})",
@@ -7965,6 +8216,7 @@ unsafe extern "system" fn vkCreateDescriptorUpdateTemplate(
     p_allocator: *const VkAllocationCallbacks,
     p_descriptor_update_template: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateDescriptorUpdateTemplate");
     unsafe {
         trace!(
             "called vkCreateDescriptorUpdateTemplate({:?}, {:?}, {:?}, {:?})",
@@ -7993,6 +8245,7 @@ unsafe extern "system" fn vkDestroyDescriptorUpdateTemplate(
     descriptor_update_template: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyDescriptorUpdateTemplate");
     unsafe {
         trace!(
             "called vkDestroyDescriptorUpdateTemplate({:?}, {:?}, {:?})",
@@ -8019,6 +8272,7 @@ unsafe extern "system" fn vkUpdateDescriptorSetWithTemplate(
     descriptor_update_template: NonDisposableHandle,
     p_data: *const c_void,
 ) -> c_void {
+    trace!("called vkUpdateDescriptorSetWithTemplate");
     unsafe {
         trace!(
             "called vkUpdateDescriptorSetWithTemplate({:?}, {:?}, {:?}, {:?})",
@@ -8048,6 +8302,7 @@ unsafe extern "system" fn vkCmdPushDescriptorSetWithTemplateKHR(
     set: u32,
     p_data: *const c_void,
 ) -> c_void {
+    trace!("called vkCmdPushDescriptorSetWithTemplateKHR");
     unsafe {
         trace!(
             "called vkCmdPushDescriptorSetWithTemplateKHR({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -8078,6 +8333,7 @@ unsafe extern "system" fn vkSetHdrMetadataEXT(
     p_swapchains: *const NonDisposableHandle,
     p_metadata: *const VkHdrMetadataEXT,
 ) -> c_void {
+    trace!("called vkSetHdrMetadataEXT");
     unsafe {
         trace!(
             "called vkSetHdrMetadataEXT({:?}, {:?}, {:?}, {:?})",
@@ -8104,6 +8360,7 @@ unsafe extern "system" fn vkGetSwapchainStatusKHR(
     device: NonDisposableHandle,
     swapchain: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkGetSwapchainStatusKHR");
     unsafe {
         trace!(
             "called vkGetSwapchainStatusKHR({:?}, {:?})",
@@ -8127,6 +8384,7 @@ unsafe extern "system" fn vkGetRefreshCycleDurationGOOGLE(
     swapchain: NonDisposableHandle,
     p_display_timing_properties: *mut VkRefreshCycleDurationGOOGLE,
 ) -> VkResult {
+    trace!("called vkGetRefreshCycleDurationGOOGLE");
     unsafe {
         trace!(
             "called vkGetRefreshCycleDurationGOOGLE({:?}, {:?}, {:?})",
@@ -8154,6 +8412,7 @@ unsafe extern "system" fn vkGetPastPresentationTimingGOOGLE(
     p_presentation_timing_count: *mut u32,
     p_presentation_timings: *mut VkPastPresentationTimingGOOGLE,
 ) -> VkResult {
+    trace!("called vkGetPastPresentationTimingGOOGLE");
     unsafe {
         trace!(
             "called vkGetPastPresentationTimingGOOGLE({:?}, {:?}, {:?}, {:?})",
@@ -8185,6 +8444,7 @@ unsafe extern "system" fn vkCreateIOSSurfaceMVK(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateIOSSurfaceMVK");
     unsafe {
         trace!(
             "called vkCreateIOSSurfaceMVK({:?}, {:?}, {:?}, {:?})",
@@ -8214,6 +8474,7 @@ unsafe extern "system" fn vkCreateMacOSSurfaceMVK(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateMacOSSurfaceMVK");
     unsafe {
         trace!(
             "called vkCreateMacOSSurfaceMVK({:?}, {:?}, {:?}, {:?})",
@@ -8243,6 +8504,7 @@ unsafe extern "system" fn vkCreateMetalSurfaceEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateMetalSurfaceEXT");
     unsafe {
         trace!(
             "called vkCreateMetalSurfaceEXT({:?}, {:?}, {:?}, {:?})",
@@ -8272,6 +8534,7 @@ unsafe extern "system" fn vkCmdSetViewportWScalingNV(
     viewport_count: u32,
     p_viewport_wscalings: *const VkViewportWScalingNV,
 ) -> c_void {
+    trace!("called vkCmdSetViewportWScalingNV");
     unsafe {
         trace!(
             "called vkCmdSetViewportWScalingNV({:?}, {:?}, {:?}, {:?})",
@@ -8300,6 +8563,7 @@ unsafe extern "system" fn vkCmdSetDiscardRectangleEXT(
     discard_rectangle_count: u32,
     p_discard_rectangles: *const VkRect2D,
 ) -> c_void {
+    trace!("called vkCmdSetDiscardRectangleEXT");
     unsafe {
         trace!(
             "called vkCmdSetDiscardRectangleEXT({:?}, {:?}, {:?}, {:?})",
@@ -8326,6 +8590,7 @@ unsafe extern "system" fn vkCmdSetDiscardRectangleEnableEXT(
     command_buffer: NonDisposableHandle,
     discard_rectangle_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetDiscardRectangleEnableEXT");
     unsafe {
         trace!(
             "called vkCmdSetDiscardRectangleEnableEXT({:?}, {:?})",
@@ -8348,6 +8613,7 @@ unsafe extern "system" fn vkCmdSetDiscardRectangleModeEXT(
     command_buffer: NonDisposableHandle,
     discard_rectangle_mode: VkDiscardRectangleModeEXT,
 ) -> c_void {
+    trace!("called vkCmdSetDiscardRectangleModeEXT");
     unsafe {
         trace!(
             "called vkCmdSetDiscardRectangleModeEXT({:?}, {:?})",
@@ -8370,6 +8636,7 @@ unsafe extern "system" fn vkCmdSetSampleLocationsEXT(
     command_buffer: NonDisposableHandle,
     p_sample_locations_info: *const VkSampleLocationsInfoEXT,
 ) -> c_void {
+    trace!("called vkCmdSetSampleLocationsEXT");
     unsafe {
         trace!(
             "called vkCmdSetSampleLocationsEXT({:?}, {:?})",
@@ -8393,6 +8660,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceMultisamplePropertiesEXT(
     samples: vk::SampleCountFlags,
     p_multisample_properties: *mut VkMultisamplePropertiesEXT,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceMultisamplePropertiesEXT");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceMultisamplePropertiesEXT({:?}, {:?}, {:?})",
@@ -8419,6 +8687,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceCapabilities2KHR(
     p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR,
     p_surface_capabilities: *mut VkSurfaceCapabilities2KHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceSurfaceCapabilities2KHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceSurfaceCapabilities2KHR({:?}, {:?}, {:?})",
@@ -8446,6 +8715,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfaceFormats2KHR(
     p_surface_format_count: *mut u32,
     p_surface_formats: *mut VkSurfaceFormat2KHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceSurfaceFormats2KHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceSurfaceFormats2KHR({:?}, {:?}, {:?}, {:?})",
@@ -8473,6 +8743,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceDisplayProperties2KHR(
     p_property_count: *mut u32,
     p_properties: *mut VkDisplayProperties2KHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceDisplayProperties2KHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceDisplayProperties2KHR({:?}, {:?}, {:?})",
@@ -8498,6 +8769,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
     p_property_count: *mut u32,
     p_properties: *mut VkDisplayPlaneProperties2KHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceDisplayPlaneProperties2KHR({:?}, {:?}, {:?})",
@@ -8524,6 +8796,7 @@ unsafe extern "system" fn vkGetDisplayModeProperties2KHR(
     p_property_count: *mut u32,
     p_properties: *mut VkDisplayModeProperties2KHR,
 ) -> VkResult {
+    trace!("called vkGetDisplayModeProperties2KHR");
     unsafe {
         trace!(
             "called vkGetDisplayModeProperties2KHR({:?}, {:?}, {:?}, {:?})",
@@ -8551,6 +8824,7 @@ unsafe extern "system" fn vkGetDisplayPlaneCapabilities2KHR(
     p_display_plane_info: *const VkDisplayPlaneInfo2KHR,
     p_capabilities: *mut VkDisplayPlaneCapabilities2KHR,
 ) -> VkResult {
+    trace!("called vkGetDisplayPlaneCapabilities2KHR");
     unsafe {
         trace!(
             "called vkGetDisplayPlaneCapabilities2KHR({:?}, {:?}, {:?})",
@@ -8577,6 +8851,7 @@ unsafe extern "system" fn vkGetBufferMemoryRequirements2(
     p_info: *const VkBufferMemoryRequirementsInfo2,
     p_memory_requirements: *mut VkMemoryRequirements2,
 ) -> c_void {
+    trace!("called vkGetBufferMemoryRequirements2");
     unsafe {
         trace!(
             "called vkGetBufferMemoryRequirements2({:?}, {:?}, {:?})",
@@ -8603,6 +8878,7 @@ unsafe extern "system" fn vkGetImageMemoryRequirements2(
     p_info: *const VkImageMemoryRequirementsInfo2,
     p_memory_requirements: *mut VkMemoryRequirements2,
 ) -> c_void {
+    trace!("called vkGetImageMemoryRequirements2");
     unsafe {
         trace!(
             "called vkGetImageMemoryRequirements2({:?}, {:?}, {:?})",
@@ -8630,6 +8906,7 @@ unsafe extern "system" fn vkGetImageSparseMemoryRequirements2(
     p_sparse_memory_requirement_count: *mut u32,
     p_sparse_memory_requirements: *mut VkSparseImageMemoryRequirements2,
 ) -> c_void {
+    trace!("called vkGetImageSparseMemoryRequirements2");
     unsafe {
         trace!(
             "called vkGetImageSparseMemoryRequirements2({:?}, {:?}, {:?}, {:?})",
@@ -8666,6 +8943,7 @@ unsafe extern "system" fn vkGetDeviceBufferMemoryRequirements(
     p_info: *const VkDeviceBufferMemoryRequirements,
     p_memory_requirements: *mut VkMemoryRequirements2,
 ) -> c_void {
+    trace!("called vkGetDeviceBufferMemoryRequirements");
     unsafe {
         trace!(
             "called vkGetDeviceBufferMemoryRequirements({:?}, {:?}, {:?})",
@@ -8692,6 +8970,7 @@ unsafe extern "system" fn vkGetDeviceImageMemoryRequirements(
     p_info: *const VkDeviceImageMemoryRequirements,
     p_memory_requirements: *mut VkMemoryRequirements2,
 ) -> c_void {
+    trace!("called vkGetDeviceImageMemoryRequirements");
     unsafe {
         trace!(
             "called vkGetDeviceImageMemoryRequirements({:?}, {:?}, {:?})",
@@ -8719,6 +8998,7 @@ unsafe extern "system" fn vkGetDeviceImageSparseMemoryRequirements(
     p_sparse_memory_requirement_count: *mut u32,
     p_sparse_memory_requirements: *mut VkSparseImageMemoryRequirements2,
 ) -> c_void {
+    trace!("called vkGetDeviceImageSparseMemoryRequirements");
     unsafe {
         trace!(
             "called vkGetDeviceImageSparseMemoryRequirements({:?}, {:?}, {:?}, {:?})",
@@ -8756,6 +9036,7 @@ unsafe extern "system" fn vkCreateSamplerYcbcrConversion(
     p_allocator: *const VkAllocationCallbacks,
     p_ycbcr_conversion: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateSamplerYcbcrConversion");
     unsafe {
         trace!(
             "called vkCreateSamplerYcbcrConversion({:?}, {:?}, {:?}, {:?})",
@@ -8784,6 +9065,7 @@ unsafe extern "system" fn vkDestroySamplerYcbcrConversion(
     ycbcr_conversion: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroySamplerYcbcrConversion");
     unsafe {
         trace!(
             "called vkDestroySamplerYcbcrConversion({:?}, {:?}, {:?})",
@@ -8809,6 +9091,7 @@ unsafe extern "system" fn vkGetDeviceQueue2(
     p_queue_info: *const VkDeviceQueueInfo2,
     p_queue: *mut NonDisposableHandle,
 ) -> c_void {
+    trace!("called vkGetDeviceQueue2");
     unsafe {
         trace!(
             "called vkGetDeviceQueue2({:?}, {:?}, {:?})",
@@ -8836,6 +9119,7 @@ unsafe extern "system" fn vkCreateValidationCacheEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_validation_cache: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateValidationCacheEXT");
     unsafe {
         trace!(
             "called vkCreateValidationCacheEXT({:?}, {:?}, {:?}, {:?})",
@@ -8864,6 +9148,7 @@ unsafe extern "system" fn vkDestroyValidationCacheEXT(
     validation_cache: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyValidationCacheEXT");
     unsafe {
         trace!(
             "called vkDestroyValidationCacheEXT({:?}, {:?}, {:?})",
@@ -8890,6 +9175,7 @@ unsafe extern "system" fn vkGetValidationCacheDataEXT(
     p_data_size: *mut usize,
     p_data: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetValidationCacheDataEXT");
     unsafe {
         trace!(
             "called vkGetValidationCacheDataEXT({:?}, {:?}, {:?}, {:?})",
@@ -8920,6 +9206,7 @@ unsafe extern "system" fn vkMergeValidationCachesEXT(
     src_cache_count: u32,
     p_src_caches: *const NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkMergeValidationCachesEXT");
     unsafe {
         trace!(
             "called vkMergeValidationCachesEXT({:?}, {:?}, {:?}, {:?})",
@@ -8947,6 +9234,7 @@ unsafe extern "system" fn vkGetDescriptorSetLayoutSupport(
     p_create_info: *const VkDescriptorSetLayoutCreateInfo,
     p_support: *mut VkDescriptorSetLayoutSupport,
 ) -> c_void {
+    trace!("called vkGetDescriptorSetLayoutSupport");
     unsafe {
         trace!(
             "called vkGetDescriptorSetLayoutSupport({:?}, {:?}, {:?})",
@@ -8974,6 +9262,7 @@ unsafe extern "system" fn vkGetSwapchainGrallocUsageANDROID(
     image_usage: VkImageUsageFlags,
     gralloc_usage: *mut std::os::raw::c_int,
 ) -> VkResult {
+    trace!("called vkGetSwapchainGrallocUsageANDROID");
     unsafe {
         trace!(
             "called vkGetSwapchainGrallocUsageANDROID({:?}, {:?}, {:?}, {:?})",
@@ -9005,6 +9294,7 @@ unsafe extern "system" fn vkGetSwapchainGrallocUsage2ANDROID(
     gralloc_consumer_usage: *mut u64,
     gralloc_producer_usage: *mut u64,
 ) -> VkResult {
+    trace!("called vkGetSwapchainGrallocUsage2ANDROID");
     unsafe {
         trace!(
             "called vkGetSwapchainGrallocUsage2ANDROID({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -9040,6 +9330,7 @@ unsafe extern "system" fn vkAcquireImageANDROID(
     semaphore: NonDisposableHandle,
     fence: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkAcquireImageANDROID");
     unsafe {
         trace!(
             "called vkAcquireImageANDROID({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -9071,6 +9362,7 @@ unsafe extern "system" fn vkQueueSignalReleaseImageANDROID(
     image: NonDisposableHandle,
     p_native_fence_fd: *mut std::os::raw::c_int,
 ) -> VkResult {
+    trace!("called vkQueueSignalReleaseImageANDROID");
     unsafe {
         trace!(
             "called vkQueueSignalReleaseImageANDROID({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -9104,6 +9396,7 @@ unsafe extern "system" fn vkGetShaderInfoAMD(
     p_info_size: *mut usize,
     p_info: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetShaderInfoAMD");
     unsafe {
         trace!(
             "called vkGetShaderInfoAMD({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -9137,6 +9430,7 @@ unsafe extern "system" fn vkSetLocalDimmingAMD(
     swap_chain: NonDisposableHandle,
     local_dimming_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkSetLocalDimmingAMD");
     unsafe {
         trace!(
             "called vkSetLocalDimmingAMD({:?}, {:?}, {:?})",
@@ -9162,6 +9456,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
     p_time_domain_count: *mut u32,
     p_time_domains: *mut VkTimeDomainKHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceCalibrateableTimeDomainsKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceCalibrateableTimeDomainsKHR({:?}, {:?}, {:?})",
@@ -9189,6 +9484,7 @@ unsafe extern "system" fn vkGetCalibratedTimestampsKHR(
     p_timestamps: *mut u64,
     p_max_deviation: *mut u64,
 ) -> VkResult {
+    trace!("called vkGetCalibratedTimestampsKHR");
     unsafe {
         trace!(
             "called vkGetCalibratedTimestampsKHR({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -9219,6 +9515,7 @@ unsafe extern "system" fn vkSetDebugUtilsObjectNameEXT(
     device: NonDisposableHandle,
     p_name_info: *const VkDebugUtilsObjectNameInfoEXT,
 ) -> VkResult {
+    trace!("called vkSetDebugUtilsObjectNameEXT");
     unsafe {
         trace!(
             "called vkSetDebugUtilsObjectNameEXT({:?}, {:?})",
@@ -9241,6 +9538,7 @@ unsafe extern "system" fn vkSetDebugUtilsObjectTagEXT(
     device: NonDisposableHandle,
     p_tag_info: *const VkDebugUtilsObjectTagInfoEXT,
 ) -> VkResult {
+    trace!("called vkSetDebugUtilsObjectTagEXT");
     unsafe {
         trace!(
             "called vkSetDebugUtilsObjectTagEXT({:?}, {:?})",
@@ -9263,6 +9561,7 @@ unsafe extern "system" fn vkQueueBeginDebugUtilsLabelEXT(
     queue: NonDisposableHandle,
     p_label_info: *const VkDebugUtilsLabelEXT,
 ) -> c_void {
+    trace!("called vkQueueBeginDebugUtilsLabelEXT");
     unsafe {
         trace!(
             "called vkQueueBeginDebugUtilsLabelEXT({:?}, {:?})",
@@ -9282,6 +9581,7 @@ unsafe extern "system" fn vkQueueBeginDebugUtilsLabelEXT(
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkQueueEndDebugUtilsLabelEXT.html>"]
 unsafe extern "system" fn vkQueueEndDebugUtilsLabelEXT(queue: NonDisposableHandle) -> c_void {
+    trace!("called vkQueueEndDebugUtilsLabelEXT");
     unsafe {
         trace!("called vkQueueEndDebugUtilsLabelEXT({:?})", queue);
     }
@@ -9299,6 +9599,7 @@ unsafe extern "system" fn vkQueueInsertDebugUtilsLabelEXT(
     queue: NonDisposableHandle,
     p_label_info: *const VkDebugUtilsLabelEXT,
 ) -> c_void {
+    trace!("called vkQueueInsertDebugUtilsLabelEXT");
     unsafe {
         trace!(
             "called vkQueueInsertDebugUtilsLabelEXT({:?}, {:?})",
@@ -9321,6 +9622,7 @@ unsafe extern "system" fn vkCmdBeginDebugUtilsLabelEXT(
     command_buffer: NonDisposableHandle,
     p_label_info: *const VkDebugUtilsLabelEXT,
 ) -> c_void {
+    trace!("called vkCmdBeginDebugUtilsLabelEXT");
     unsafe {
         trace!(
             "called vkCmdBeginDebugUtilsLabelEXT({:?}, {:?})",
@@ -9342,6 +9644,7 @@ unsafe extern "system" fn vkCmdBeginDebugUtilsLabelEXT(
 unsafe extern "system" fn vkCmdEndDebugUtilsLabelEXT(
     command_buffer: NonDisposableHandle,
 ) -> c_void {
+    trace!("called vkCmdEndDebugUtilsLabelEXT");
     unsafe {
         trace!("called vkCmdEndDebugUtilsLabelEXT({:?})", command_buffer);
     }
@@ -9359,6 +9662,7 @@ unsafe extern "system" fn vkCmdInsertDebugUtilsLabelEXT(
     command_buffer: NonDisposableHandle,
     p_label_info: *const VkDebugUtilsLabelEXT,
 ) -> c_void {
+    trace!("called vkCmdInsertDebugUtilsLabelEXT");
     unsafe {
         trace!(
             "called vkCmdInsertDebugUtilsLabelEXT({:?}, {:?})",
@@ -9383,6 +9687,7 @@ unsafe extern "system" fn vkCreateDebugUtilsMessengerEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_messenger: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateDebugUtilsMessengerEXT");
     unsafe {
         trace!(
             "called vkCreateDebugUtilsMessengerEXT({:?}, {:?}, {:?}, {:?})",
@@ -9411,6 +9716,7 @@ unsafe extern "system" fn vkDestroyDebugUtilsMessengerEXT(
     messenger: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyDebugUtilsMessengerEXT");
     unsafe {
         trace!(
             "called vkDestroyDebugUtilsMessengerEXT({:?}, {:?}, {:?})",
@@ -9437,6 +9743,7 @@ unsafe extern "system" fn vkSubmitDebugUtilsMessageEXT(
     message_types: VkDebugUtilsMessageTypeFlagsEXT,
     p_callback_data: *const VkDebugUtilsMessengerCallbackDataEXT,
 ) -> c_void {
+    trace!("called vkSubmitDebugUtilsMessageEXT");
     unsafe {
         trace!(
             "called vkSubmitDebugUtilsMessageEXT({:?}, {:?}, {:?}, {:?})",
@@ -9465,6 +9772,7 @@ unsafe extern "system" fn vkGetMemoryHostPointerPropertiesEXT(
     p_host_pointer: *const c_void,
     p_memory_host_pointer_properties: *mut VkMemoryHostPointerPropertiesEXT,
 ) -> VkResult {
+    trace!("called vkGetMemoryHostPointerPropertiesEXT");
     unsafe {
         trace!(
             "called vkGetMemoryHostPointerPropertiesEXT({:?}, {:?}, {:?}, {:?})",
@@ -9495,6 +9803,7 @@ unsafe extern "system" fn vkCmdWriteBufferMarkerAMD(
     dst_offset: vk::DeviceSize,
     marker: u32,
 ) -> c_void {
+    trace!("called vkCmdWriteBufferMarkerAMD");
     unsafe {
         trace!(
             "called vkCmdWriteBufferMarkerAMD({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -9525,6 +9834,7 @@ unsafe extern "system" fn vkCreateRenderPass2(
     p_allocator: *const VkAllocationCallbacks,
     p_render_pass: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateRenderPass2");
     unsafe {
         trace!(
             "called vkCreateRenderPass2({:?}, {:?}, {:?}, {:?})",
@@ -9553,6 +9863,7 @@ unsafe extern "system" fn vkCmdBeginRenderPass2(
     p_render_pass_begin: *const VkRenderPassBeginInfo,
     p_subpass_begin_info: *const VkSubpassBeginInfo,
 ) -> c_void {
+    trace!("called vkCmdBeginRenderPass2");
     unsafe {
         trace!(
             "called vkCmdBeginRenderPass2({:?}, {:?}, {:?})",
@@ -9578,6 +9889,7 @@ unsafe extern "system" fn vkCmdNextSubpass2(
     p_subpass_begin_info: *const VkSubpassBeginInfo,
     p_subpass_end_info: *const VkSubpassEndInfo,
 ) -> c_void {
+    trace!("called vkCmdNextSubpass2");
     unsafe {
         trace!(
             "called vkCmdNextSubpass2({:?}, {:?}, {:?})",
@@ -9602,6 +9914,7 @@ unsafe extern "system" fn vkCmdEndRenderPass2(
     command_buffer: NonDisposableHandle,
     p_subpass_end_info: *const VkSubpassEndInfo,
 ) -> c_void {
+    trace!("called vkCmdEndRenderPass2");
     unsafe {
         trace!(
             "called vkCmdEndRenderPass2({:?}, {:?})",
@@ -9625,6 +9938,7 @@ unsafe extern "system" fn vkGetSemaphoreCounterValue(
     semaphore: NonDisposableHandle,
     p_value: *mut u64,
 ) -> VkResult {
+    trace!("called vkGetSemaphoreCounterValue");
     unsafe {
         trace!(
             "called vkGetSemaphoreCounterValue({:?}, {:?}, {:?})",
@@ -9651,6 +9965,7 @@ unsafe extern "system" fn vkWaitSemaphores(
     p_wait_info: *const VkSemaphoreWaitInfo,
     timeout: u64,
 ) -> VkResult {
+    trace!("called vkWaitSemaphores");
     unsafe {
         trace!(
             "called vkWaitSemaphores({:?}, {:?}, {:?})",
@@ -9675,6 +9990,7 @@ unsafe extern "system" fn vkSignalSemaphore(
     device: NonDisposableHandle,
     p_signal_info: *const VkSemaphoreSignalInfo,
 ) -> VkResult {
+    trace!("called vkSignalSemaphore");
     unsafe {
         trace!(
             "called vkSignalSemaphore({:?}, {:?})",
@@ -9698,6 +10014,7 @@ unsafe extern "system" fn vkGetAndroidHardwareBufferPropertiesANDROID(
     buffer: *const usize,
     p_properties: *mut VkAndroidHardwareBufferPropertiesANDROID,
 ) -> VkResult {
+    trace!("called vkGetAndroidHardwareBufferPropertiesANDROID");
     unsafe {
         trace!(
             "called vkGetAndroidHardwareBufferPropertiesANDROID({:?}, {:?}, {:?})",
@@ -9724,6 +10041,7 @@ unsafe extern "system" fn vkGetMemoryAndroidHardwareBufferANDROID(
     p_info: *const VkMemoryGetAndroidHardwareBufferInfoANDROID,
     p_buffer: *mut *mut usize,
 ) -> VkResult {
+    trace!("called vkGetMemoryAndroidHardwareBufferANDROID");
     unsafe {
         trace!(
             "called vkGetMemoryAndroidHardwareBufferANDROID({:?}, {:?}, {:?})",
@@ -9754,6 +10072,7 @@ unsafe extern "system" fn vkCmdDrawIndirectCount(
     max_draw_count: u32,
     stride: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawIndirectCount");
     unsafe {
         trace!(
             "called vkCmdDrawIndirectCount({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -9791,6 +10110,7 @@ unsafe extern "system" fn vkCmdDrawIndexedIndirectCount(
     max_draw_count: u32,
     stride: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawIndexedIndirectCount");
     unsafe {
         trace!(
             "called vkCmdDrawIndexedIndirectCount({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -9823,6 +10143,7 @@ unsafe extern "system" fn vkCmdSetCheckpointNV(
     command_buffer: NonDisposableHandle,
     p_checkpoint_marker: *const c_void,
 ) -> c_void {
+    trace!("called vkCmdSetCheckpointNV");
     unsafe {
         trace!(
             "called vkCmdSetCheckpointNV({:?}, {:?})",
@@ -9846,6 +10167,7 @@ unsafe extern "system" fn vkGetQueueCheckpointDataNV(
     p_checkpoint_data_count: *mut u32,
     p_checkpoint_data: *mut VkCheckpointDataNV,
 ) -> c_void {
+    trace!("called vkGetQueueCheckpointDataNV");
     unsafe {
         trace!(
             "called vkGetQueueCheckpointDataNV({:?}, {:?}, {:?})",
@@ -9874,6 +10196,7 @@ unsafe extern "system" fn vkCmdBindTransformFeedbackBuffersEXT(
     p_offsets: *const vk::DeviceSize,
     p_sizes: *const vk::DeviceSize,
 ) -> c_void {
+    trace!("called vkCmdBindTransformFeedbackBuffersEXT");
     unsafe {
         trace!(
             "called vkCmdBindTransformFeedbackBuffersEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -9907,6 +10230,7 @@ unsafe extern "system" fn vkCmdBeginTransformFeedbackEXT(
     p_counter_buffers: *const NonDisposableHandle,
     p_counter_buffer_offsets: *const vk::DeviceSize,
 ) -> c_void {
+    trace!("called vkCmdBeginTransformFeedbackEXT");
     unsafe {
         trace!(
             "called vkCmdBeginTransformFeedbackEXT({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -9938,6 +10262,7 @@ unsafe extern "system" fn vkCmdEndTransformFeedbackEXT(
     p_counter_buffers: *const NonDisposableHandle,
     p_counter_buffer_offsets: *const vk::DeviceSize,
 ) -> c_void {
+    trace!("called vkCmdEndTransformFeedbackEXT");
     unsafe {
         trace!(
             "called vkCmdEndTransformFeedbackEXT({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -9969,6 +10294,7 @@ unsafe extern "system" fn vkCmdBeginQueryIndexedEXT(
     flags: VkQueryControlFlags,
     index: u32,
 ) -> c_void {
+    trace!("called vkCmdBeginQueryIndexedEXT");
     unsafe {
         trace!(
             "called vkCmdBeginQueryIndexedEXT({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -9999,6 +10325,7 @@ unsafe extern "system" fn vkCmdEndQueryIndexedEXT(
     query: u32,
     index: u32,
 ) -> c_void {
+    trace!("called vkCmdEndQueryIndexedEXT");
     unsafe {
         trace!(
             "called vkCmdEndQueryIndexedEXT({:?}, {:?}, {:?}, {:?})",
@@ -10030,6 +10357,7 @@ unsafe extern "system" fn vkCmdDrawIndirectByteCountEXT(
     counter_offset: u32,
     vertex_stride: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawIndirectByteCountEXT");
     unsafe {
         trace!(
             "called vkCmdDrawIndirectByteCountEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -10064,6 +10392,7 @@ unsafe extern "system" fn vkCmdSetExclusiveScissorNV(
     exclusive_scissor_count: u32,
     p_exclusive_scissors: *const VkRect2D,
 ) -> c_void {
+    trace!("called vkCmdSetExclusiveScissorNV");
     unsafe {
         trace!(
             "called vkCmdSetExclusiveScissorNV({:?}, {:?}, {:?}, {:?})",
@@ -10092,6 +10421,7 @@ unsafe extern "system" fn vkCmdSetExclusiveScissorEnableNV(
     exclusive_scissor_count: u32,
     p_exclusive_scissor_enables: *const vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetExclusiveScissorEnableNV");
     unsafe {
         trace!(
             "called vkCmdSetExclusiveScissorEnableNV({:?}, {:?}, {:?}, {:?})",
@@ -10122,6 +10452,7 @@ unsafe extern "system" fn vkCmdBindShadingRateImageNV(
     image_view: NonDisposableHandle,
     image_layout: VkImageLayout,
 ) -> c_void {
+    trace!("called vkCmdBindShadingRateImageNV");
     unsafe {
         trace!(
             "called vkCmdBindShadingRateImageNV({:?}, {:?}, {:?})",
@@ -10148,6 +10479,7 @@ unsafe extern "system" fn vkCmdSetViewportShadingRatePaletteNV(
     viewport_count: u32,
     p_shading_rate_palettes: *const VkShadingRatePaletteNV,
 ) -> c_void {
+    trace!("called vkCmdSetViewportShadingRatePaletteNV");
     unsafe {
         trace!(
             "called vkCmdSetViewportShadingRatePaletteNV({:?}, {:?}, {:?}, {:?})",
@@ -10176,6 +10508,7 @@ unsafe extern "system" fn vkCmdSetCoarseSampleOrderNV(
     custom_sample_order_count: u32,
     p_custom_sample_orders: *const VkCoarseSampleOrderCustomNV,
 ) -> c_void {
+    trace!("called vkCmdSetCoarseSampleOrderNV");
     unsafe {
         trace!(
             "called vkCmdSetCoarseSampleOrderNV({:?}, {:?}, {:?}, {:?})",
@@ -10203,6 +10536,7 @@ unsafe extern "system" fn vkCmdDrawMeshTasksNV(
     task_count: u32,
     first_task: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawMeshTasksNV");
     unsafe {
         trace!(
             "called vkCmdDrawMeshTasksNV({:?}, {:?}, {:?})",
@@ -10230,6 +10564,7 @@ unsafe extern "system" fn vkCmdDrawMeshTasksIndirectNV(
     draw_count: u32,
     stride: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawMeshTasksIndirectNV");
     unsafe {
         trace!(
             "called vkCmdDrawMeshTasksIndirectNV({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -10263,6 +10598,7 @@ unsafe extern "system" fn vkCmdDrawMeshTasksIndirectCountNV(
     max_draw_count: u32,
     stride: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawMeshTasksIndirectCountNV");
     unsafe {
         trace!(
             "called vkCmdDrawMeshTasksIndirectCountNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -10297,6 +10633,7 @@ unsafe extern "system" fn vkCmdDrawMeshTasksEXT(
     group_count_y: u32,
     group_count_z: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawMeshTasksEXT");
     unsafe {
         trace!(
             "called vkCmdDrawMeshTasksEXT({:?}, {:?}, {:?}, {:?})",
@@ -10326,6 +10663,7 @@ unsafe extern "system" fn vkCmdDrawMeshTasksIndirectEXT(
     draw_count: u32,
     stride: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawMeshTasksIndirectEXT");
     unsafe {
         trace!(
             "called vkCmdDrawMeshTasksIndirectEXT({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -10359,6 +10697,7 @@ unsafe extern "system" fn vkCmdDrawMeshTasksIndirectCountEXT(
     max_draw_count: u32,
     stride: u32,
 ) -> c_void {
+    trace!("called vkCmdDrawMeshTasksIndirectCountEXT");
     unsafe {
         trace!(
             "called vkCmdDrawMeshTasksIndirectCountEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -10392,6 +10731,7 @@ unsafe extern "system" fn vkCompileDeferredNV(
     pipeline: NonDisposableHandle,
     shader: u32,
 ) -> VkResult {
+    trace!("called vkCompileDeferredNV");
     unsafe {
         trace!(
             "called vkCompileDeferredNV({:?}, {:?}, {:?})",
@@ -10418,6 +10758,7 @@ unsafe extern "system" fn vkCreateAccelerationStructureNV(
     p_allocator: *const VkAllocationCallbacks,
     p_acceleration_structure: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateAccelerationStructureNV");
     unsafe {
         trace!(
             "called vkCreateAccelerationStructureNV({:?}, {:?}, {:?}, {:?})",
@@ -10446,6 +10787,7 @@ unsafe extern "system" fn vkCmdBindInvocationMaskHUAWEI(
     image_view: NonDisposableHandle,
     image_layout: VkImageLayout,
 ) -> c_void {
+    trace!("called vkCmdBindInvocationMaskHUAWEI");
     unsafe {
         trace!(
             "called vkCmdBindInvocationMaskHUAWEI({:?}, {:?}, {:?})",
@@ -10471,6 +10813,7 @@ unsafe extern "system" fn vkDestroyAccelerationStructureKHR(
     acceleration_structure: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyAccelerationStructureKHR");
     unsafe {
         trace!(
             "called vkDestroyAccelerationStructureKHR({:?}, {:?}, {:?})",
@@ -10496,6 +10839,7 @@ unsafe extern "system" fn vkDestroyAccelerationStructureNV(
     acceleration_structure: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyAccelerationStructureNV");
     unsafe {
         trace!(
             "called vkDestroyAccelerationStructureNV({:?}, {:?}, {:?})",
@@ -10521,6 +10865,7 @@ unsafe extern "system" fn vkGetAccelerationStructureMemoryRequirementsNV(
     p_info: *const VkAccelerationStructureMemoryRequirementsInfoNV,
     p_memory_requirements: *mut vk::MemoryRequirements2KHR,
 ) -> c_void {
+    trace!("called vkGetAccelerationStructureMemoryRequirementsNV");
     unsafe {
         trace!(
             "called vkGetAccelerationStructureMemoryRequirementsNV({:?}, {:?}, {:?})",
@@ -10547,6 +10892,7 @@ unsafe extern "system" fn vkBindAccelerationStructureMemoryNV(
     bind_info_count: u32,
     p_bind_infos: *const VkBindAccelerationStructureMemoryInfoNV,
 ) -> VkResult {
+    trace!("called vkBindAccelerationStructureMemoryNV");
     unsafe {
         trace!(
             "called vkBindAccelerationStructureMemoryNV({:?}, {:?}, {:?})",
@@ -10573,6 +10919,7 @@ unsafe extern "system" fn vkCmdCopyAccelerationStructureNV(
     src: NonDisposableHandle,
     mode: VkCopyAccelerationStructureModeKHR,
 ) -> c_void {
+    trace!("called vkCmdCopyAccelerationStructureNV");
     unsafe {
         trace!(
             "called vkCmdCopyAccelerationStructureNV({:?}, {:?}, {:?}, {:?})",
@@ -10599,6 +10946,7 @@ unsafe extern "system" fn vkCmdCopyAccelerationStructureKHR(
     command_buffer: NonDisposableHandle,
     p_info: *const VkCopyAccelerationStructureInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdCopyAccelerationStructureKHR");
     unsafe {
         trace!(
             "called vkCmdCopyAccelerationStructureKHR({:?}, {:?})",
@@ -10622,6 +10970,7 @@ unsafe extern "system" fn vkCopyAccelerationStructureKHR(
     deferred_operation: NonDisposableHandle,
     p_info: *const VkCopyAccelerationStructureInfoKHR,
 ) -> VkResult {
+    trace!("called vkCopyAccelerationStructureKHR");
     unsafe {
         trace!(
             "called vkCopyAccelerationStructureKHR({:?}, {:?}, {:?})",
@@ -10646,6 +10995,7 @@ unsafe extern "system" fn vkCmdCopyAccelerationStructureToMemoryKHR(
     command_buffer: NonDisposableHandle,
     p_info: *const VkCopyAccelerationStructureToMemoryInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdCopyAccelerationStructureToMemoryKHR");
     unsafe {
         trace!(
             "called vkCmdCopyAccelerationStructureToMemoryKHR({:?}, {:?})",
@@ -10669,6 +11019,7 @@ unsafe extern "system" fn vkCopyAccelerationStructureToMemoryKHR(
     deferred_operation: NonDisposableHandle,
     p_info: *const VkCopyAccelerationStructureToMemoryInfoKHR,
 ) -> VkResult {
+    trace!("called vkCopyAccelerationStructureToMemoryKHR");
     unsafe {
         trace!(
             "called vkCopyAccelerationStructureToMemoryKHR({:?}, {:?}, {:?})",
@@ -10693,6 +11044,7 @@ unsafe extern "system" fn vkCmdCopyMemoryToAccelerationStructureKHR(
     command_buffer: NonDisposableHandle,
     p_info: *const VkCopyMemoryToAccelerationStructureInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdCopyMemoryToAccelerationStructureKHR");
     unsafe {
         trace!(
             "called vkCmdCopyMemoryToAccelerationStructureKHR({:?}, {:?})",
@@ -10716,6 +11068,7 @@ unsafe extern "system" fn vkCopyMemoryToAccelerationStructureKHR(
     deferred_operation: NonDisposableHandle,
     p_info: *const VkCopyMemoryToAccelerationStructureInfoKHR,
 ) -> VkResult {
+    trace!("called vkCopyMemoryToAccelerationStructureKHR");
     unsafe {
         trace!(
             "called vkCopyMemoryToAccelerationStructureKHR({:?}, {:?}, {:?})",
@@ -10744,6 +11097,7 @@ unsafe extern "system" fn vkCmdWriteAccelerationStructuresPropertiesKHR(
     query_pool: NonDisposableHandle,
     first_query: u32,
 ) -> c_void {
+    trace!("called vkCmdWriteAccelerationStructuresPropertiesKHR");
     unsafe {
         trace!("called vkCmdWriteAccelerationStructuresPropertiesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, acceleration_structure_count, unpack_vk_array(p_acceleration_structures, (acceleration_structure_count) as usize), query_type, query_pool, first_query);
     }
@@ -10770,6 +11124,7 @@ unsafe extern "system" fn vkCmdWriteAccelerationStructuresPropertiesNV(
     query_pool: NonDisposableHandle,
     first_query: u32,
 ) -> c_void {
+    trace!("called vkCmdWriteAccelerationStructuresPropertiesNV");
     unsafe {
         trace!("called vkCmdWriteAccelerationStructuresPropertiesNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, acceleration_structure_count, unpack_vk_array(p_acceleration_structures, (acceleration_structure_count) as usize), query_type, query_pool, first_query);
     }
@@ -10799,6 +11154,7 @@ unsafe extern "system" fn vkCmdBuildAccelerationStructureNV(
     scratch: NonDisposableHandle,
     scratch_offset: vk::DeviceSize,
 ) -> c_void {
+    trace!("called vkCmdBuildAccelerationStructureNV");
     unsafe {
         trace!("called vkCmdBuildAccelerationStructureNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, p_info.as_ref(), instance_data, instance_offset, update, dst, src, scratch, scratch_offset);
     }
@@ -10829,6 +11185,7 @@ unsafe extern "system" fn vkWriteAccelerationStructuresPropertiesKHR(
     p_data: *mut c_void,
     stride: usize,
 ) -> VkResult {
+    trace!("called vkWriteAccelerationStructuresPropertiesKHR");
     unsafe {
         trace!("called vkWriteAccelerationStructuresPropertiesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, acceleration_structure_count, unpack_vk_array(p_acceleration_structures, (acceleration_structure_count) as usize), query_type, data_size, unpack_vk_array(p_data, (data_size) as usize), stride);
     }
@@ -10859,6 +11216,7 @@ unsafe extern "system" fn vkCmdTraceRaysKHR(
     height: u32,
     depth: u32,
 ) -> c_void {
+    trace!("called vkCmdTraceRaysKHR");
     unsafe {
         trace!(
             "called vkCmdTraceRaysKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -10906,6 +11264,7 @@ unsafe extern "system" fn vkCmdTraceRaysNV(
     height: u32,
     depth: u32,
 ) -> c_void {
+    trace!("called vkCmdTraceRaysNV");
     unsafe {
         trace!("called vkCmdTraceRaysNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, raygen_shader_binding_table_buffer, raygen_shader_binding_offset, miss_shader_binding_table_buffer, miss_shader_binding_offset, miss_shader_binding_stride, hit_shader_binding_table_buffer, hit_shader_binding_offset, hit_shader_binding_stride, callable_shader_binding_table_buffer, callable_shader_binding_offset, callable_shader_binding_stride, width, height, depth);
     }
@@ -10941,6 +11300,7 @@ unsafe extern "system" fn vkGetRayTracingShaderGroupHandlesKHR(
     data_size: usize,
     p_data: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetRayTracingShaderGroupHandlesKHR");
     unsafe {
         trace!(
             "called vkGetRayTracingShaderGroupHandlesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -10976,6 +11336,7 @@ unsafe extern "system" fn vkGetRayTracingCaptureReplayShaderGroupHandlesKHR(
     data_size: usize,
     p_data: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetRayTracingCaptureReplayShaderGroupHandlesKHR");
     unsafe {
         trace!("called vkGetRayTracingCaptureReplayShaderGroupHandlesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", device, pipeline, first_group, group_count, data_size, unpack_vk_array(p_data, (data_size) as usize));
     }
@@ -11001,6 +11362,7 @@ unsafe extern "system" fn vkGetAccelerationStructureHandleNV(
     data_size: usize,
     p_data: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetAccelerationStructureHandleNV");
     unsafe {
         trace!(
             "called vkGetAccelerationStructureHandleNV({:?}, {:?}, {:?}, {:?})",
@@ -11032,6 +11394,7 @@ unsafe extern "system" fn vkCreateRayTracingPipelinesNV(
     p_allocator: *const VkAllocationCallbacks,
     p_pipelines: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateRayTracingPipelinesNV");
     unsafe {
         trace!(
             "called vkCreateRayTracingPipelinesNV({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -11068,6 +11431,7 @@ unsafe extern "system" fn vkCreateRayTracingPipelinesKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_pipelines: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateRayTracingPipelinesKHR");
     unsafe {
         trace!(
             "called vkCreateRayTracingPipelinesKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -11102,6 +11466,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
     p_property_count: *mut u32,
     p_properties: *mut VkCooperativeMatrixPropertiesNV,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceCooperativeMatrixPropertiesNV({:?}, {:?}, {:?})",
@@ -11130,6 +11495,7 @@ unsafe extern "system" fn vkCmdTraceRaysIndirectKHR(
     p_callable_shader_binding_table: *const VkStridedDeviceAddressRegionKHR,
     indirect_device_address: vk::DeviceAddress,
 ) -> c_void {
+    trace!("called vkCmdTraceRaysIndirectKHR");
     unsafe {
         trace!(
             "called vkCmdTraceRaysIndirectKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -11160,6 +11526,7 @@ unsafe extern "system" fn vkCmdTraceRaysIndirect2KHR(
     command_buffer: NonDisposableHandle,
     indirect_device_address: vk::DeviceAddress,
 ) -> c_void {
+    trace!("called vkCmdTraceRaysIndirect2KHR");
     unsafe {
         trace!(
             "called vkCmdTraceRaysIndirect2KHR({:?}, {:?})",
@@ -11183,6 +11550,7 @@ unsafe extern "system" fn vkGetDeviceAccelerationStructureCompatibilityKHR(
     p_version_info: *const VkAccelerationStructureVersionInfoKHR,
     p_compatibility: *mut VkAccelerationStructureCompatibilityKHR,
 ) -> c_void {
+    trace!("called vkGetDeviceAccelerationStructureCompatibilityKHR");
     unsafe {
         trace!(
             "called vkGetDeviceAccelerationStructureCompatibilityKHR({:?}, {:?}, {:?})",
@@ -11210,6 +11578,7 @@ unsafe extern "system" fn vkGetRayTracingShaderGroupStackSizeKHR(
     group: u32,
     group_shader: VkShaderGroupShaderKHR,
 ) -> vk::DeviceSize {
+    trace!("called vkGetRayTracingShaderGroupStackSizeKHR");
     unsafe {
         trace!(
             "called vkGetRayTracingShaderGroupStackSizeKHR({:?}, {:?}, {:?}, {:?})",
@@ -11236,6 +11605,7 @@ unsafe extern "system" fn vkCmdSetRayTracingPipelineStackSizeKHR(
     command_buffer: NonDisposableHandle,
     pipeline_stack_size: u32,
 ) -> c_void {
+    trace!("called vkCmdSetRayTracingPipelineStackSizeKHR");
     unsafe {
         trace!(
             "called vkCmdSetRayTracingPipelineStackSizeKHR({:?}, {:?})",
@@ -11258,6 +11628,7 @@ unsafe extern "system" fn vkGetImageViewHandleNVX(
     device: NonDisposableHandle,
     p_info: *const VkImageViewHandleInfoNVX,
 ) -> u32 {
+    trace!("called vkGetImageViewHandleNVX");
     unsafe {
         trace!(
             "called vkGetImageViewHandleNVX({:?}, {:?})",
@@ -11281,6 +11652,7 @@ unsafe extern "system" fn vkGetImageViewAddressNVX(
     image_view: NonDisposableHandle,
     p_properties: *mut VkImageViewAddressPropertiesNVX,
 ) -> VkResult {
+    trace!("called vkGetImageViewAddressNVX");
     unsafe {
         trace!(
             "called vkGetImageViewAddressNVX({:?}, {:?}, {:?})",
@@ -11308,6 +11680,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSurfacePresentModes2EXT(
     p_present_mode_count: *mut u32,
     p_present_modes: *mut VkPresentModeKHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceSurfacePresentModes2EXT");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceSurfacePresentModes2EXT({:?}, {:?}, {:?}, {:?})",
@@ -11335,6 +11708,7 @@ unsafe extern "system" fn vkGetDeviceGroupSurfacePresentModes2EXT(
     p_surface_info: *const VkPhysicalDeviceSurfaceInfo2KHR,
     p_modes: *mut VkDeviceGroupPresentModeFlagsKHR,
 ) -> VkResult {
+    trace!("called vkGetDeviceGroupSurfacePresentModes2EXT");
     unsafe {
         trace!(
             "called vkGetDeviceGroupSurfacePresentModes2EXT({:?}, {:?}, {:?})",
@@ -11360,6 +11734,7 @@ unsafe extern "system" fn vkAcquireFullScreenExclusiveModeEXT(
     device: NonDisposableHandle,
     swapchain: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkAcquireFullScreenExclusiveModeEXT");
     unsafe {
         trace!(
             "called vkAcquireFullScreenExclusiveModeEXT({:?}, {:?})",
@@ -11382,6 +11757,7 @@ unsafe extern "system" fn vkReleaseFullScreenExclusiveModeEXT(
     device: NonDisposableHandle,
     swapchain: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkReleaseFullScreenExclusiveModeEXT");
     unsafe {
         trace!(
             "called vkReleaseFullScreenExclusiveModeEXT({:?}, {:?})",
@@ -11407,6 +11783,7 @@ unsafe extern "system" fn vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCo
     p_counters: *mut VkPerformanceCounterKHR,
     p_counter_descriptions: *mut VkPerformanceCounterDescriptionKHR,
 ) -> VkResult {
+    trace!("called vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR");
     unsafe {
         trace!("called vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR({:?}, {:?}, {:?}, {:?}, {:?})", physical_device, queue_family_index, p_counter_count.as_ref(), unpack_vk_array(p_counters, (p_counter_count) as usize), unpack_vk_array(p_counter_descriptions, (p_counter_count) as usize));
     }
@@ -11430,6 +11807,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKH
     p_performance_query_create_info: *const VkQueryPoolPerformanceCreateInfoKHR,
     p_num_passes: *mut u32,
 ) -> c_void {
+    trace!("called vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR({:?}, {:?}, {:?})",
@@ -11455,6 +11833,7 @@ unsafe extern "system" fn vkAcquireProfilingLockKHR(
     device: NonDisposableHandle,
     p_info: *const VkAcquireProfilingLockInfoKHR,
 ) -> VkResult {
+    trace!("called vkAcquireProfilingLockKHR");
     unsafe {
         trace!(
             "called vkAcquireProfilingLockKHR({:?}, {:?})",
@@ -11474,6 +11853,7 @@ unsafe extern "system" fn vkAcquireProfilingLockKHR(
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkReleaseProfilingLockKHR.html>"]
 unsafe extern "system" fn vkReleaseProfilingLockKHR(device: NonDisposableHandle) -> c_void {
+    trace!("called vkReleaseProfilingLockKHR");
     unsafe {
         trace!("called vkReleaseProfilingLockKHR({:?})", device);
     }
@@ -11492,6 +11872,7 @@ unsafe extern "system" fn vkGetImageDrmFormatModifierPropertiesEXT(
     image: NonDisposableHandle,
     p_properties: *mut VkImageDrmFormatModifierPropertiesEXT,
 ) -> VkResult {
+    trace!("called vkGetImageDrmFormatModifierPropertiesEXT");
     unsafe {
         trace!(
             "called vkGetImageDrmFormatModifierPropertiesEXT({:?}, {:?}, {:?})",
@@ -11517,6 +11898,7 @@ unsafe extern "system" fn vkGetBufferOpaqueCaptureAddress(
     device: NonDisposableHandle,
     p_info: *const VkBufferDeviceAddressInfo,
 ) -> u64 {
+    trace!("called vkGetBufferOpaqueCaptureAddress");
     unsafe {
         trace!(
             "called vkGetBufferOpaqueCaptureAddress({:?}, {:?})",
@@ -11539,6 +11921,7 @@ unsafe extern "system" fn vkGetBufferDeviceAddress(
     device: NonDisposableHandle,
     p_info: *const VkBufferDeviceAddressInfo,
 ) -> vk::DeviceAddress {
+    trace!("called vkGetBufferDeviceAddress");
     unsafe {
         trace!(
             "called vkGetBufferDeviceAddress({:?}, {:?})",
@@ -11563,6 +11946,7 @@ unsafe extern "system" fn vkCreateHeadlessSurfaceEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_surface: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateHeadlessSurfaceEXT");
     unsafe {
         trace!(
             "called vkCreateHeadlessSurfaceEXT({:?}, {:?}, {:?}, {:?})",
@@ -11591,6 +11975,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCom
     p_combination_count: *mut u32,
     p_combinations: *mut VkFramebufferMixedSamplesCombinationNV,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV");
     unsafe {
         trace!("called vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV({:?}, {:?}, {:?})", physical_device, p_combination_count.as_ref(), unpack_vk_array(p_combinations, (p_combination_count) as usize));
     }
@@ -11610,6 +11995,7 @@ unsafe extern "system" fn vkInitializePerformanceApiINTEL(
     device: NonDisposableHandle,
     p_initialize_info: *const VkInitializePerformanceApiInfoINTEL,
 ) -> VkResult {
+    trace!("called vkInitializePerformanceApiINTEL");
     unsafe {
         trace!(
             "called vkInitializePerformanceApiINTEL({:?}, {:?})",
@@ -11629,6 +12015,7 @@ unsafe extern "system" fn vkInitializePerformanceApiINTEL(
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkUninitializePerformanceApiINTEL.html>"]
 unsafe extern "system" fn vkUninitializePerformanceApiINTEL(device: NonDisposableHandle) -> c_void {
+    trace!("called vkUninitializePerformanceApiINTEL");
     unsafe {
         trace!("called vkUninitializePerformanceApiINTEL({:?})", device);
     }
@@ -11646,6 +12033,7 @@ unsafe extern "system" fn vkCmdSetPerformanceMarkerINTEL(
     command_buffer: NonDisposableHandle,
     p_marker_info: *const VkPerformanceMarkerInfoINTEL,
 ) -> VkResult {
+    trace!("called vkCmdSetPerformanceMarkerINTEL");
     unsafe {
         trace!(
             "called vkCmdSetPerformanceMarkerINTEL({:?}, {:?})",
@@ -11668,6 +12056,7 @@ unsafe extern "system" fn vkCmdSetPerformanceStreamMarkerINTEL(
     command_buffer: NonDisposableHandle,
     p_marker_info: *const VkPerformanceStreamMarkerInfoINTEL,
 ) -> VkResult {
+    trace!("called vkCmdSetPerformanceStreamMarkerINTEL");
     unsafe {
         trace!(
             "called vkCmdSetPerformanceStreamMarkerINTEL({:?}, {:?})",
@@ -11690,6 +12079,7 @@ unsafe extern "system" fn vkCmdSetPerformanceOverrideINTEL(
     command_buffer: NonDisposableHandle,
     p_override_info: *const VkPerformanceOverrideInfoINTEL,
 ) -> VkResult {
+    trace!("called vkCmdSetPerformanceOverrideINTEL");
     unsafe {
         trace!(
             "called vkCmdSetPerformanceOverrideINTEL({:?}, {:?})",
@@ -11713,6 +12103,7 @@ unsafe extern "system" fn vkAcquirePerformanceConfigurationINTEL(
     p_acquire_info: *const VkPerformanceConfigurationAcquireInfoINTEL,
     p_configuration: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkAcquirePerformanceConfigurationINTEL");
     unsafe {
         trace!(
             "called vkAcquirePerformanceConfigurationINTEL({:?}, {:?}, {:?})",
@@ -11738,6 +12129,7 @@ unsafe extern "system" fn vkReleasePerformanceConfigurationINTEL(
     device: NonDisposableHandle,
     configuration: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkReleasePerformanceConfigurationINTEL");
     unsafe {
         trace!(
             "called vkReleasePerformanceConfigurationINTEL({:?}, {:?})",
@@ -11760,6 +12152,7 @@ unsafe extern "system" fn vkQueueSetPerformanceConfigurationINTEL(
     queue: NonDisposableHandle,
     configuration: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkQueueSetPerformanceConfigurationINTEL");
     unsafe {
         trace!(
             "called vkQueueSetPerformanceConfigurationINTEL({:?}, {:?})",
@@ -11783,6 +12176,7 @@ unsafe extern "system" fn vkGetPerformanceParameterINTEL(
     parameter: VkPerformanceParameterTypeINTEL,
     p_value: *mut VkPerformanceValueINTEL,
 ) -> VkResult {
+    trace!("called vkGetPerformanceParameterINTEL");
     unsafe {
         trace!(
             "called vkGetPerformanceParameterINTEL({:?}, {:?}, {:?})",
@@ -11808,6 +12202,7 @@ unsafe extern "system" fn vkGetDeviceMemoryOpaqueCaptureAddress(
     device: NonDisposableHandle,
     p_info: *const VkDeviceMemoryOpaqueCaptureAddressInfo,
 ) -> u64 {
+    trace!("called vkGetDeviceMemoryOpaqueCaptureAddress");
     unsafe {
         trace!(
             "called vkGetDeviceMemoryOpaqueCaptureAddress({:?}, {:?})",
@@ -11832,6 +12227,7 @@ unsafe extern "system" fn vkGetPipelineExecutablePropertiesKHR(
     p_executable_count: *mut u32,
     p_properties: *mut VkPipelineExecutablePropertiesKHR,
 ) -> VkResult {
+    trace!("called vkGetPipelineExecutablePropertiesKHR");
     unsafe {
         trace!(
             "called vkGetPipelineExecutablePropertiesKHR({:?}, {:?}, {:?}, {:?})",
@@ -11860,6 +12256,7 @@ unsafe extern "system" fn vkGetPipelineExecutableStatisticsKHR(
     p_statistic_count: *mut u32,
     p_statistics: *mut VkPipelineExecutableStatisticKHR,
 ) -> VkResult {
+    trace!("called vkGetPipelineExecutableStatisticsKHR");
     unsafe {
         trace!(
             "called vkGetPipelineExecutableStatisticsKHR({:?}, {:?}, {:?}, {:?})",
@@ -11888,6 +12285,7 @@ unsafe extern "system" fn vkGetPipelineExecutableInternalRepresentationsKHR(
     p_internal_representation_count: *mut u32,
     p_internal_representations: *mut VkPipelineExecutableInternalRepresentationKHR,
 ) -> VkResult {
+    trace!("called vkGetPipelineExecutableInternalRepresentationsKHR");
     unsafe {
         trace!(
             "called vkGetPipelineExecutableInternalRepresentationsKHR({:?}, {:?}, {:?}, {:?})",
@@ -11918,6 +12316,7 @@ unsafe extern "system" fn vkCmdSetLineStippleKHR(
     line_stipple_factor: u32,
     line_stipple_pattern: u16,
 ) -> c_void {
+    trace!("called vkCmdSetLineStippleKHR");
     unsafe {
         trace!(
             "called vkCmdSetLineStippleKHR({:?}, {:?}, {:?})",
@@ -11943,6 +12342,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceToolProperties(
     p_tool_count: *mut u32,
     p_tool_properties: *mut VkPhysicalDeviceToolProperties,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceToolProperties");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceToolProperties({:?}, {:?}, {:?})",
@@ -11969,6 +12369,7 @@ unsafe extern "system" fn vkCreateAccelerationStructureKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_acceleration_structure: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateAccelerationStructureKHR");
     unsafe {
         trace!(
             "called vkCreateAccelerationStructureKHR({:?}, {:?}, {:?}, {:?})",
@@ -11998,6 +12399,7 @@ unsafe extern "system" fn vkCmdBuildAccelerationStructuresKHR(
     p_infos: *const VkAccelerationStructureBuildGeometryInfoKHR,
     pp_build_range_infos: *const *const VkAccelerationStructureBuildRangeInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdBuildAccelerationStructuresKHR");
     unsafe {
         trace!(
             "called vkCmdBuildAccelerationStructuresKHR({:?}, {:?}, {:?}, {:?})",
@@ -12028,6 +12430,7 @@ unsafe extern "system" fn vkCmdBuildAccelerationStructuresIndirectKHR(
     p_indirect_strides: *const u32,
     pp_max_primitive_counts: *const *const u32,
 ) -> c_void {
+    trace!("called vkCmdBuildAccelerationStructuresIndirectKHR");
     unsafe {
         trace!("called vkCmdBuildAccelerationStructuresIndirectKHR({:?}, {:?}, {:?}, {:?}, {:?}, {:?})", command_buffer, info_count, unpack_vk_array(p_infos, (info_count) as usize), unpack_vk_array(p_indirect_device_addresses, (info_count) as usize), unpack_vk_array(p_indirect_strides, (info_count) as usize), unpack_vk_array(pp_max_primitive_counts, (info_count) as usize));
     }
@@ -12053,6 +12456,7 @@ unsafe extern "system" fn vkBuildAccelerationStructuresKHR(
     p_infos: *const VkAccelerationStructureBuildGeometryInfoKHR,
     pp_build_range_infos: *const *const VkAccelerationStructureBuildRangeInfoKHR,
 ) -> VkResult {
+    trace!("called vkBuildAccelerationStructuresKHR");
     unsafe {
         trace!(
             "called vkBuildAccelerationStructuresKHR({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -12081,6 +12485,7 @@ unsafe extern "system" fn vkGetAccelerationStructureDeviceAddressKHR(
     device: NonDisposableHandle,
     p_info: *const VkAccelerationStructureDeviceAddressInfoKHR,
 ) -> vk::DeviceAddress {
+    trace!("called vkGetAccelerationStructureDeviceAddressKHR");
     unsafe {
         trace!(
             "called vkGetAccelerationStructureDeviceAddressKHR({:?}, {:?})",
@@ -12104,6 +12509,7 @@ unsafe extern "system" fn vkCreateDeferredOperationKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_deferred_operation: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateDeferredOperationKHR");
     unsafe {
         trace!(
             "called vkCreateDeferredOperationKHR({:?}, {:?}, {:?})",
@@ -12130,6 +12536,7 @@ unsafe extern "system" fn vkDestroyDeferredOperationKHR(
     operation: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyDeferredOperationKHR");
     unsafe {
         trace!(
             "called vkDestroyDeferredOperationKHR({:?}, {:?}, {:?})",
@@ -12154,6 +12561,7 @@ unsafe extern "system" fn vkGetDeferredOperationMaxConcurrencyKHR(
     device: NonDisposableHandle,
     operation: NonDisposableHandle,
 ) -> u32 {
+    trace!("called vkGetDeferredOperationMaxConcurrencyKHR");
     unsafe {
         trace!(
             "called vkGetDeferredOperationMaxConcurrencyKHR({:?}, {:?})",
@@ -12176,6 +12584,7 @@ unsafe extern "system" fn vkGetDeferredOperationResultKHR(
     device: NonDisposableHandle,
     operation: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkGetDeferredOperationResultKHR");
     unsafe {
         trace!(
             "called vkGetDeferredOperationResultKHR({:?}, {:?})",
@@ -12198,6 +12607,7 @@ unsafe extern "system" fn vkDeferredOperationJoinKHR(
     device: NonDisposableHandle,
     operation: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkDeferredOperationJoinKHR");
     unsafe {
         trace!(
             "called vkDeferredOperationJoinKHR({:?}, {:?})",
@@ -12221,6 +12631,7 @@ unsafe extern "system" fn vkGetPipelineIndirectMemoryRequirementsNV(
     p_create_info: *const VkComputePipelineCreateInfo,
     p_memory_requirements: *mut VkMemoryRequirements2,
 ) -> c_void {
+    trace!("called vkGetPipelineIndirectMemoryRequirementsNV");
     unsafe {
         trace!(
             "called vkGetPipelineIndirectMemoryRequirementsNV({:?}, {:?}, {:?})",
@@ -12246,6 +12657,7 @@ unsafe extern "system" fn vkGetPipelineIndirectDeviceAddressNV(
     device: NonDisposableHandle,
     p_info: *const VkPipelineIndirectDeviceAddressInfoNV,
 ) -> vk::DeviceAddress {
+    trace!("called vkGetPipelineIndirectDeviceAddressNV");
     unsafe {
         trace!(
             "called vkGetPipelineIndirectDeviceAddressNV({:?}, {:?})",
@@ -12268,6 +12680,7 @@ unsafe extern "system" fn vkCmdSetCullMode(
     command_buffer: NonDisposableHandle,
     cull_mode: VkCullModeFlags,
 ) -> c_void {
+    trace!("called vkCmdSetCullMode");
     unsafe {
         trace!(
             "called vkCmdSetCullMode({:?}, {:?})",
@@ -12290,6 +12703,7 @@ unsafe extern "system" fn vkCmdSetFrontFace(
     command_buffer: NonDisposableHandle,
     front_face: VkFrontFace,
 ) -> c_void {
+    trace!("called vkCmdSetFrontFace");
     unsafe {
         trace!(
             "called vkCmdSetFrontFace({:?}, {:?})",
@@ -12312,6 +12726,7 @@ unsafe extern "system" fn vkCmdSetPrimitiveTopology(
     command_buffer: NonDisposableHandle,
     primitive_topology: VkPrimitiveTopology,
 ) -> c_void {
+    trace!("called vkCmdSetPrimitiveTopology");
     unsafe {
         trace!(
             "called vkCmdSetPrimitiveTopology({:?}, {:?})",
@@ -12335,6 +12750,7 @@ unsafe extern "system" fn vkCmdSetViewportWithCount(
     viewport_count: u32,
     p_viewports: *const VkViewport,
 ) -> c_void {
+    trace!("called vkCmdSetViewportWithCount");
     unsafe {
         trace!(
             "called vkCmdSetViewportWithCount({:?}, {:?}, {:?})",
@@ -12360,6 +12776,7 @@ unsafe extern "system" fn vkCmdSetScissorWithCount(
     scissor_count: u32,
     p_scissors: *const VkRect2D,
 ) -> c_void {
+    trace!("called vkCmdSetScissorWithCount");
     unsafe {
         trace!(
             "called vkCmdSetScissorWithCount({:?}, {:?}, {:?})",
@@ -12387,6 +12804,7 @@ unsafe extern "system" fn vkCmdBindIndexBuffer2KHR(
     size: vk::DeviceSize,
     index_type: VkIndexType,
 ) -> c_void {
+    trace!("called vkCmdBindIndexBuffer2KHR");
     unsafe {
         trace!(
             "called vkCmdBindIndexBuffer2KHR({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -12420,6 +12838,7 @@ unsafe extern "system" fn vkCmdBindVertexBuffers2(
     p_sizes: *const vk::DeviceSize,
     p_strides: *const vk::DeviceSize,
 ) -> c_void {
+    trace!("called vkCmdBindVertexBuffers2");
     unsafe {
         trace!(
             "called vkCmdBindVertexBuffers2({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -12452,6 +12871,7 @@ unsafe extern "system" fn vkCmdSetDepthTestEnable(
     command_buffer: NonDisposableHandle,
     depth_test_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetDepthTestEnable");
     unsafe {
         trace!(
             "called vkCmdSetDepthTestEnable({:?}, {:?})",
@@ -12474,6 +12894,7 @@ unsafe extern "system" fn vkCmdSetDepthWriteEnable(
     command_buffer: NonDisposableHandle,
     depth_write_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetDepthWriteEnable");
     unsafe {
         trace!(
             "called vkCmdSetDepthWriteEnable({:?}, {:?})",
@@ -12496,6 +12917,7 @@ unsafe extern "system" fn vkCmdSetDepthCompareOp(
     command_buffer: NonDisposableHandle,
     depth_compare_op: VkCompareOp,
 ) -> c_void {
+    trace!("called vkCmdSetDepthCompareOp");
     unsafe {
         trace!(
             "called vkCmdSetDepthCompareOp({:?}, {:?})",
@@ -12518,6 +12940,7 @@ unsafe extern "system" fn vkCmdSetDepthBoundsTestEnable(
     command_buffer: NonDisposableHandle,
     depth_bounds_test_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetDepthBoundsTestEnable");
     unsafe {
         trace!(
             "called vkCmdSetDepthBoundsTestEnable({:?}, {:?})",
@@ -12540,6 +12963,7 @@ unsafe extern "system" fn vkCmdSetStencilTestEnable(
     command_buffer: NonDisposableHandle,
     stencil_test_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetStencilTestEnable");
     unsafe {
         trace!(
             "called vkCmdSetStencilTestEnable({:?}, {:?})",
@@ -12566,6 +12990,7 @@ unsafe extern "system" fn vkCmdSetStencilOp(
     depth_fail_op: VkStencilOp,
     compare_op: VkCompareOp,
 ) -> c_void {
+    trace!("called vkCmdSetStencilOp");
     unsafe {
         trace!(
             "called vkCmdSetStencilOp({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -12596,6 +13021,7 @@ unsafe extern "system" fn vkCmdSetPatchControlPointsEXT(
     command_buffer: NonDisposableHandle,
     patch_control_points: u32,
 ) -> c_void {
+    trace!("called vkCmdSetPatchControlPointsEXT");
     unsafe {
         trace!(
             "called vkCmdSetPatchControlPointsEXT({:?}, {:?})",
@@ -12618,6 +13044,7 @@ unsafe extern "system" fn vkCmdSetRasterizerDiscardEnable(
     command_buffer: NonDisposableHandle,
     rasterizer_discard_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetRasterizerDiscardEnable");
     unsafe {
         trace!(
             "called vkCmdSetRasterizerDiscardEnable({:?}, {:?})",
@@ -12640,6 +13067,7 @@ unsafe extern "system" fn vkCmdSetDepthBiasEnable(
     command_buffer: NonDisposableHandle,
     depth_bias_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetDepthBiasEnable");
     unsafe {
         trace!(
             "called vkCmdSetDepthBiasEnable({:?}, {:?})",
@@ -12662,6 +13090,7 @@ unsafe extern "system" fn vkCmdSetLogicOpEXT(
     command_buffer: NonDisposableHandle,
     logic_op: VkLogicOp,
 ) -> c_void {
+    trace!("called vkCmdSetLogicOpEXT");
     unsafe {
         trace!(
             "called vkCmdSetLogicOpEXT({:?}, {:?})",
@@ -12684,6 +13113,7 @@ unsafe extern "system" fn vkCmdSetPrimitiveRestartEnable(
     command_buffer: NonDisposableHandle,
     primitive_restart_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetPrimitiveRestartEnable");
     unsafe {
         trace!(
             "called vkCmdSetPrimitiveRestartEnable({:?}, {:?})",
@@ -12706,6 +13136,7 @@ unsafe extern "system" fn vkCmdSetTessellationDomainOriginEXT(
     command_buffer: NonDisposableHandle,
     domain_origin: VkTessellationDomainOrigin,
 ) -> c_void {
+    trace!("called vkCmdSetTessellationDomainOriginEXT");
     unsafe {
         trace!(
             "called vkCmdSetTessellationDomainOriginEXT({:?}, {:?})",
@@ -12728,6 +13159,7 @@ unsafe extern "system" fn vkCmdSetDepthClampEnableEXT(
     command_buffer: NonDisposableHandle,
     depth_clamp_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetDepthClampEnableEXT");
     unsafe {
         trace!(
             "called vkCmdSetDepthClampEnableEXT({:?}, {:?})",
@@ -12750,6 +13182,7 @@ unsafe extern "system" fn vkCmdSetPolygonModeEXT(
     command_buffer: NonDisposableHandle,
     polygon_mode: VkPolygonMode,
 ) -> c_void {
+    trace!("called vkCmdSetPolygonModeEXT");
     unsafe {
         trace!(
             "called vkCmdSetPolygonModeEXT({:?}, {:?})",
@@ -12772,6 +13205,7 @@ unsafe extern "system" fn vkCmdSetRasterizationSamplesEXT(
     command_buffer: NonDisposableHandle,
     rasterization_samples: vk::SampleCountFlags,
 ) -> c_void {
+    trace!("called vkCmdSetRasterizationSamplesEXT");
     unsafe {
         trace!(
             "called vkCmdSetRasterizationSamplesEXT({:?}, {:?})",
@@ -12795,6 +13229,7 @@ unsafe extern "system" fn vkCmdSetSampleMaskEXT(
     samples: vk::SampleCountFlags,
     p_sample_mask: *const vk::SampleMask,
 ) -> c_void {
+    trace!("called vkCmdSetSampleMaskEXT");
     unsafe {
         trace!(
             "called vkCmdSetSampleMaskEXT({:?}, {:?}, {:?})",
@@ -12819,6 +13254,7 @@ unsafe extern "system" fn vkCmdSetAlphaToCoverageEnableEXT(
     command_buffer: NonDisposableHandle,
     alpha_to_coverage_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetAlphaToCoverageEnableEXT");
     unsafe {
         trace!(
             "called vkCmdSetAlphaToCoverageEnableEXT({:?}, {:?})",
@@ -12841,6 +13277,7 @@ unsafe extern "system" fn vkCmdSetAlphaToOneEnableEXT(
     command_buffer: NonDisposableHandle,
     alpha_to_one_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetAlphaToOneEnableEXT");
     unsafe {
         trace!(
             "called vkCmdSetAlphaToOneEnableEXT({:?}, {:?})",
@@ -12863,6 +13300,7 @@ unsafe extern "system" fn vkCmdSetLogicOpEnableEXT(
     command_buffer: NonDisposableHandle,
     logic_op_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetLogicOpEnableEXT");
     unsafe {
         trace!(
             "called vkCmdSetLogicOpEnableEXT({:?}, {:?})",
@@ -12887,6 +13325,7 @@ unsafe extern "system" fn vkCmdSetColorBlendEnableEXT(
     attachment_count: u32,
     p_color_blend_enables: *const vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetColorBlendEnableEXT");
     unsafe {
         trace!(
             "called vkCmdSetColorBlendEnableEXT({:?}, {:?}, {:?}, {:?})",
@@ -12915,6 +13354,7 @@ unsafe extern "system" fn vkCmdSetColorBlendEquationEXT(
     attachment_count: u32,
     p_color_blend_equations: *const VkColorBlendEquationEXT,
 ) -> c_void {
+    trace!("called vkCmdSetColorBlendEquationEXT");
     unsafe {
         trace!(
             "called vkCmdSetColorBlendEquationEXT({:?}, {:?}, {:?}, {:?})",
@@ -12943,6 +13383,7 @@ unsafe extern "system" fn vkCmdSetColorWriteMaskEXT(
     attachment_count: u32,
     p_color_write_masks: *const VkColorComponentFlags,
 ) -> c_void {
+    trace!("called vkCmdSetColorWriteMaskEXT");
     unsafe {
         trace!(
             "called vkCmdSetColorWriteMaskEXT({:?}, {:?}, {:?}, {:?})",
@@ -12969,6 +13410,7 @@ unsafe extern "system" fn vkCmdSetRasterizationStreamEXT(
     command_buffer: NonDisposableHandle,
     rasterization_stream: u32,
 ) -> c_void {
+    trace!("called vkCmdSetRasterizationStreamEXT");
     unsafe {
         trace!(
             "called vkCmdSetRasterizationStreamEXT({:?}, {:?})",
@@ -12991,6 +13433,7 @@ unsafe extern "system" fn vkCmdSetConservativeRasterizationModeEXT(
     command_buffer: NonDisposableHandle,
     conservative_rasterization_mode: VkConservativeRasterizationModeEXT,
 ) -> c_void {
+    trace!("called vkCmdSetConservativeRasterizationModeEXT");
     unsafe {
         trace!(
             "called vkCmdSetConservativeRasterizationModeEXT({:?}, {:?})",
@@ -13013,6 +13456,7 @@ unsafe extern "system" fn vkCmdSetExtraPrimitiveOverestimationSizeEXT(
     command_buffer: NonDisposableHandle,
     extra_primitive_overestimation_size: f32,
 ) -> c_void {
+    trace!("called vkCmdSetExtraPrimitiveOverestimationSizeEXT");
     unsafe {
         trace!(
             "called vkCmdSetExtraPrimitiveOverestimationSizeEXT({:?}, {:?})",
@@ -13035,6 +13479,7 @@ unsafe extern "system" fn vkCmdSetDepthClipEnableEXT(
     command_buffer: NonDisposableHandle,
     depth_clip_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetDepthClipEnableEXT");
     unsafe {
         trace!(
             "called vkCmdSetDepthClipEnableEXT({:?}, {:?})",
@@ -13057,6 +13502,7 @@ unsafe extern "system" fn vkCmdSetSampleLocationsEnableEXT(
     command_buffer: NonDisposableHandle,
     sample_locations_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetSampleLocationsEnableEXT");
     unsafe {
         trace!(
             "called vkCmdSetSampleLocationsEnableEXT({:?}, {:?})",
@@ -13081,6 +13527,7 @@ unsafe extern "system" fn vkCmdSetColorBlendAdvancedEXT(
     attachment_count: u32,
     p_color_blend_advanced: *const VkColorBlendAdvancedEXT,
 ) -> c_void {
+    trace!("called vkCmdSetColorBlendAdvancedEXT");
     unsafe {
         trace!(
             "called vkCmdSetColorBlendAdvancedEXT({:?}, {:?}, {:?}, {:?})",
@@ -13107,6 +13554,7 @@ unsafe extern "system" fn vkCmdSetProvokingVertexModeEXT(
     command_buffer: NonDisposableHandle,
     provoking_vertex_mode: VkProvokingVertexModeEXT,
 ) -> c_void {
+    trace!("called vkCmdSetProvokingVertexModeEXT");
     unsafe {
         trace!(
             "called vkCmdSetProvokingVertexModeEXT({:?}, {:?})",
@@ -13129,6 +13577,7 @@ unsafe extern "system" fn vkCmdSetLineRasterizationModeEXT(
     command_buffer: NonDisposableHandle,
     line_rasterization_mode: VkLineRasterizationModeEXT,
 ) -> c_void {
+    trace!("called vkCmdSetLineRasterizationModeEXT");
     unsafe {
         trace!(
             "called vkCmdSetLineRasterizationModeEXT({:?}, {:?})",
@@ -13151,6 +13600,7 @@ unsafe extern "system" fn vkCmdSetLineStippleEnableEXT(
     command_buffer: NonDisposableHandle,
     stippled_line_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetLineStippleEnableEXT");
     unsafe {
         trace!(
             "called vkCmdSetLineStippleEnableEXT({:?}, {:?})",
@@ -13173,6 +13623,7 @@ unsafe extern "system" fn vkCmdSetDepthClipNegativeOneToOneEXT(
     command_buffer: NonDisposableHandle,
     negative_one_to_one: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetDepthClipNegativeOneToOneEXT");
     unsafe {
         trace!(
             "called vkCmdSetDepthClipNegativeOneToOneEXT({:?}, {:?})",
@@ -13195,6 +13646,7 @@ unsafe extern "system" fn vkCmdSetViewportWScalingEnableNV(
     command_buffer: NonDisposableHandle,
     viewport_wscaling_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetViewportWScalingEnableNV");
     unsafe {
         trace!(
             "called vkCmdSetViewportWScalingEnableNV({:?}, {:?})",
@@ -13219,6 +13671,7 @@ unsafe extern "system" fn vkCmdSetViewportSwizzleNV(
     viewport_count: u32,
     p_viewport_swizzles: *const VkViewportSwizzleNV,
 ) -> c_void {
+    trace!("called vkCmdSetViewportSwizzleNV");
     unsafe {
         trace!(
             "called vkCmdSetViewportSwizzleNV({:?}, {:?}, {:?}, {:?})",
@@ -13245,6 +13698,7 @@ unsafe extern "system" fn vkCmdSetCoverageToColorEnableNV(
     command_buffer: NonDisposableHandle,
     coverage_to_color_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetCoverageToColorEnableNV");
     unsafe {
         trace!(
             "called vkCmdSetCoverageToColorEnableNV({:?}, {:?})",
@@ -13267,6 +13721,7 @@ unsafe extern "system" fn vkCmdSetCoverageToColorLocationNV(
     command_buffer: NonDisposableHandle,
     coverage_to_color_location: u32,
 ) -> c_void {
+    trace!("called vkCmdSetCoverageToColorLocationNV");
     unsafe {
         trace!(
             "called vkCmdSetCoverageToColorLocationNV({:?}, {:?})",
@@ -13289,6 +13744,7 @@ unsafe extern "system" fn vkCmdSetCoverageModulationModeNV(
     command_buffer: NonDisposableHandle,
     coverage_modulation_mode: VkCoverageModulationModeNV,
 ) -> c_void {
+    trace!("called vkCmdSetCoverageModulationModeNV");
     unsafe {
         trace!(
             "called vkCmdSetCoverageModulationModeNV({:?}, {:?})",
@@ -13311,6 +13767,7 @@ unsafe extern "system" fn vkCmdSetCoverageModulationTableEnableNV(
     command_buffer: NonDisposableHandle,
     coverage_modulation_table_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetCoverageModulationTableEnableNV");
     unsafe {
         trace!(
             "called vkCmdSetCoverageModulationTableEnableNV({:?}, {:?})",
@@ -13334,6 +13791,7 @@ unsafe extern "system" fn vkCmdSetCoverageModulationTableNV(
     coverage_modulation_table_count: u32,
     p_coverage_modulation_table: *const f32,
 ) -> c_void {
+    trace!("called vkCmdSetCoverageModulationTableNV");
     unsafe {
         trace!(
             "called vkCmdSetCoverageModulationTableNV({:?}, {:?}, {:?})",
@@ -13361,6 +13819,7 @@ unsafe extern "system" fn vkCmdSetShadingRateImageEnableNV(
     command_buffer: NonDisposableHandle,
     shading_rate_image_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetShadingRateImageEnableNV");
     unsafe {
         trace!(
             "called vkCmdSetShadingRateImageEnableNV({:?}, {:?})",
@@ -13383,6 +13842,7 @@ unsafe extern "system" fn vkCmdSetCoverageReductionModeNV(
     command_buffer: NonDisposableHandle,
     coverage_reduction_mode: VkCoverageReductionModeNV,
 ) -> c_void {
+    trace!("called vkCmdSetCoverageReductionModeNV");
     unsafe {
         trace!(
             "called vkCmdSetCoverageReductionModeNV({:?}, {:?})",
@@ -13405,6 +13865,7 @@ unsafe extern "system" fn vkCmdSetRepresentativeFragmentTestEnableNV(
     command_buffer: NonDisposableHandle,
     representative_fragment_test_enable: vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetRepresentativeFragmentTestEnableNV");
     unsafe {
         trace!(
             "called vkCmdSetRepresentativeFragmentTestEnableNV({:?}, {:?})",
@@ -13429,6 +13890,7 @@ unsafe extern "system" fn vkCreatePrivateDataSlot(
     p_allocator: *const VkAllocationCallbacks,
     p_private_data_slot: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreatePrivateDataSlot");
     unsafe {
         trace!(
             "called vkCreatePrivateDataSlot({:?}, {:?}, {:?}, {:?})",
@@ -13457,6 +13919,7 @@ unsafe extern "system" fn vkDestroyPrivateDataSlot(
     private_data_slot: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyPrivateDataSlot");
     unsafe {
         trace!(
             "called vkDestroyPrivateDataSlot({:?}, {:?}, {:?})",
@@ -13484,6 +13947,7 @@ unsafe extern "system" fn vkSetPrivateData(
     private_data_slot: NonDisposableHandle,
     data: u64,
 ) -> VkResult {
+    trace!("called vkSetPrivateData");
     unsafe {
         trace!(
             "called vkSetPrivateData({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -13515,6 +13979,7 @@ unsafe extern "system" fn vkGetPrivateData(
     private_data_slot: NonDisposableHandle,
     p_data: *mut u64,
 ) -> c_void {
+    trace!("called vkGetPrivateData");
     unsafe {
         trace!(
             "called vkGetPrivateData({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -13544,6 +14009,7 @@ unsafe extern "system" fn vkCmdCopyBuffer2(
     command_buffer: NonDisposableHandle,
     p_copy_buffer_info: *const VkCopyBufferInfo2,
 ) -> c_void {
+    trace!("called vkCmdCopyBuffer2");
     unsafe {
         trace!(
             "called vkCmdCopyBuffer2({:?}, {:?})",
@@ -13566,6 +14032,7 @@ unsafe extern "system" fn vkCmdCopyImage2(
     command_buffer: NonDisposableHandle,
     p_copy_image_info: *const VkCopyImageInfo2,
 ) -> c_void {
+    trace!("called vkCmdCopyImage2");
     unsafe {
         trace!(
             "called vkCmdCopyImage2({:?}, {:?})",
@@ -13588,6 +14055,7 @@ unsafe extern "system" fn vkCmdBlitImage2(
     command_buffer: NonDisposableHandle,
     p_blit_image_info: *const VkBlitImageInfo2,
 ) -> c_void {
+    trace!("called vkCmdBlitImage2");
     unsafe {
         trace!(
             "called vkCmdBlitImage2({:?}, {:?})",
@@ -13610,6 +14078,7 @@ unsafe extern "system" fn vkCmdCopyBufferToImage2(
     command_buffer: NonDisposableHandle,
     p_copy_buffer_to_image_info: *const VkCopyBufferToImageInfo2,
 ) -> c_void {
+    trace!("called vkCmdCopyBufferToImage2");
     unsafe {
         trace!(
             "called vkCmdCopyBufferToImage2({:?}, {:?})",
@@ -13632,6 +14101,7 @@ unsafe extern "system" fn vkCmdCopyImageToBuffer2(
     command_buffer: NonDisposableHandle,
     p_copy_image_to_buffer_info: *const VkCopyImageToBufferInfo2,
 ) -> c_void {
+    trace!("called vkCmdCopyImageToBuffer2");
     unsafe {
         trace!(
             "called vkCmdCopyImageToBuffer2({:?}, {:?})",
@@ -13654,6 +14124,7 @@ unsafe extern "system" fn vkCmdResolveImage2(
     command_buffer: NonDisposableHandle,
     p_resolve_image_info: *const VkResolveImageInfo2,
 ) -> c_void {
+    trace!("called vkCmdResolveImage2");
     unsafe {
         trace!(
             "called vkCmdResolveImage2({:?}, {:?})",
@@ -13677,6 +14148,7 @@ unsafe extern "system" fn vkCmdSetFragmentShadingRateKHR(
     p_fragment_size: *const VkExtent2D,
     combiner_ops: *const [VkFragmentShadingRateCombinerOpKHR; 2],
 ) -> c_void {
+    trace!("called vkCmdSetFragmentShadingRateKHR");
     unsafe {
         trace!(
             "called vkCmdSetFragmentShadingRateKHR({:?}, {:?}, {:?})",
@@ -13702,6 +14174,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceFragmentShadingRatesKHR(
     p_fragment_shading_rate_count: *mut u32,
     p_fragment_shading_rates: *mut VkPhysicalDeviceFragmentShadingRateKHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceFragmentShadingRatesKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceFragmentShadingRatesKHR({:?}, {:?}, {:?})",
@@ -13730,6 +14203,7 @@ unsafe extern "system" fn vkCmdSetFragmentShadingRateEnumNV(
     shading_rate: VkFragmentShadingRateNV,
     combiner_ops: *const [VkFragmentShadingRateCombinerOpKHR; 2],
 ) -> c_void {
+    trace!("called vkCmdSetFragmentShadingRateEnumNV");
     unsafe {
         trace!(
             "called vkCmdSetFragmentShadingRateEnumNV({:?}, {:?}, {:?})",
@@ -13757,6 +14231,7 @@ unsafe extern "system" fn vkGetAccelerationStructureBuildSizesKHR(
     p_max_primitive_counts: *const u32,
     p_size_info: *mut VkAccelerationStructureBuildSizesInfoKHR,
 ) -> c_void {
+    trace!("called vkGetAccelerationStructureBuildSizesKHR");
     unsafe {
         trace!(
             "called vkGetAccelerationStructureBuildSizesKHR({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -13792,6 +14267,7 @@ unsafe extern "system" fn vkCmdSetVertexInputEXT(
     vertex_attribute_description_count: u32,
     p_vertex_attribute_descriptions: *const VkVertexInputAttributeDescription2EXT,
 ) -> c_void {
+    trace!("called vkCmdSetVertexInputEXT");
     unsafe {
         trace!(
             "called vkCmdSetVertexInputEXT({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -13827,6 +14303,7 @@ unsafe extern "system" fn vkCmdSetColorWriteEnableEXT(
     attachment_count: u32,
     p_color_write_enables: *const vk::Bool32,
 ) -> c_void {
+    trace!("called vkCmdSetColorWriteEnableEXT");
     unsafe {
         trace!(
             "called vkCmdSetColorWriteEnableEXT({:?}, {:?}, {:?})",
@@ -13852,6 +14329,7 @@ unsafe extern "system" fn vkCmdSetEvent2(
     event: NonDisposableHandle,
     p_dependency_info: *const VkDependencyInfo,
 ) -> c_void {
+    trace!("called vkCmdSetEvent2");
     unsafe {
         trace!(
             "called vkCmdSetEvent2({:?}, {:?}, {:?})",
@@ -13877,6 +14355,7 @@ unsafe extern "system" fn vkCmdResetEvent2(
     event: NonDisposableHandle,
     stage_mask: VkPipelineStageFlags2,
 ) -> c_void {
+    trace!("called vkCmdResetEvent2");
     unsafe {
         trace!(
             "called vkCmdResetEvent2({:?}, {:?}, {:?})",
@@ -13903,6 +14382,7 @@ unsafe extern "system" fn vkCmdWaitEvents2(
     p_events: *const NonDisposableHandle,
     p_dependency_infos: *const VkDependencyInfo,
 ) -> c_void {
+    trace!("called vkCmdWaitEvents2");
     unsafe {
         trace!(
             "called vkCmdWaitEvents2({:?}, {:?}, {:?}, {:?})",
@@ -13929,6 +14409,7 @@ unsafe extern "system" fn vkCmdPipelineBarrier2(
     command_buffer: NonDisposableHandle,
     p_dependency_info: *const VkDependencyInfo,
 ) -> c_void {
+    trace!("called vkCmdPipelineBarrier2");
     unsafe {
         trace!(
             "called vkCmdPipelineBarrier2({:?}, {:?})",
@@ -13953,6 +14434,7 @@ unsafe extern "system" fn vkQueueSubmit2(
     p_submits: *const VkSubmitInfo2,
     fence: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkQueueSubmit2");
     unsafe {
         trace!(
             "called vkQueueSubmit2({:?}, {:?}, {:?}, {:?})",
@@ -13981,6 +14463,7 @@ unsafe extern "system" fn vkCmdWriteTimestamp2(
     query_pool: NonDisposableHandle,
     query: u32,
 ) -> c_void {
+    trace!("called vkCmdWriteTimestamp2");
     unsafe {
         trace!(
             "called vkCmdWriteTimestamp2({:?}, {:?}, {:?}, {:?})",
@@ -14010,6 +14493,7 @@ unsafe extern "system" fn vkCmdWriteBufferMarker2AMD(
     dst_offset: vk::DeviceSize,
     marker: u32,
 ) -> c_void {
+    trace!("called vkCmdWriteBufferMarker2AMD");
     unsafe {
         trace!(
             "called vkCmdWriteBufferMarker2AMD({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -14039,6 +14523,7 @@ unsafe extern "system" fn vkGetQueueCheckpointData2NV(
     p_checkpoint_data_count: *mut u32,
     p_checkpoint_data: *mut VkCheckpointData2NV,
 ) -> c_void {
+    trace!("called vkGetQueueCheckpointData2NV");
     unsafe {
         trace!(
             "called vkGetQueueCheckpointData2NV({:?}, {:?}, {:?})",
@@ -14063,6 +14548,7 @@ unsafe extern "system" fn vkCopyMemoryToImageEXT(
     device: NonDisposableHandle,
     p_copy_memory_to_image_info: *const VkCopyMemoryToImageInfoEXT,
 ) -> VkResult {
+    trace!("called vkCopyMemoryToImageEXT");
     unsafe {
         trace!(
             "called vkCopyMemoryToImageEXT({:?}, {:?})",
@@ -14085,6 +14571,7 @@ unsafe extern "system" fn vkCopyImageToMemoryEXT(
     device: NonDisposableHandle,
     p_copy_image_to_memory_info: *const VkCopyImageToMemoryInfoEXT,
 ) -> VkResult {
+    trace!("called vkCopyImageToMemoryEXT");
     unsafe {
         trace!(
             "called vkCopyImageToMemoryEXT({:?}, {:?})",
@@ -14107,6 +14594,7 @@ unsafe extern "system" fn vkCopyImageToImageEXT(
     device: NonDisposableHandle,
     p_copy_image_to_image_info: *const VkCopyImageToImageInfoEXT,
 ) -> VkResult {
+    trace!("called vkCopyImageToImageEXT");
     unsafe {
         trace!(
             "called vkCopyImageToImageEXT({:?}, {:?})",
@@ -14130,6 +14618,7 @@ unsafe extern "system" fn vkTransitionImageLayoutEXT(
     transition_count: u32,
     p_transitions: *const VkHostImageLayoutTransitionInfoEXT,
 ) -> VkResult {
+    trace!("called vkTransitionImageLayoutEXT");
     unsafe {
         trace!(
             "called vkTransitionImageLayoutEXT({:?}, {:?}, {:?})",
@@ -14155,6 +14644,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceVideoCapabilitiesKHR(
     p_video_profile: *const VkVideoProfileInfoKHR,
     p_capabilities: *mut VkVideoCapabilitiesKHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceVideoCapabilitiesKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceVideoCapabilitiesKHR({:?}, {:?}, {:?})",
@@ -14182,6 +14672,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceVideoFormatPropertiesKHR(
     p_video_format_property_count: *mut u32,
     p_video_format_properties: *mut VkVideoFormatPropertiesKHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceVideoFormatPropertiesKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceVideoFormatPropertiesKHR({:?}, {:?}, {:?}, {:?})",
@@ -14212,6 +14703,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKH
     p_quality_level_info: *const VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR,
     p_quality_level_properties: *mut VkVideoEncodeQualityLevelPropertiesKHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR({:?}, {:?}, {:?})",
@@ -14239,6 +14731,7 @@ unsafe extern "system" fn vkCreateVideoSessionKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_video_session: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateVideoSessionKHR");
     unsafe {
         trace!(
             "called vkCreateVideoSessionKHR({:?}, {:?}, {:?}, {:?})",
@@ -14267,6 +14760,7 @@ unsafe extern "system" fn vkDestroyVideoSessionKHR(
     video_session: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyVideoSessionKHR");
     unsafe {
         trace!(
             "called vkDestroyVideoSessionKHR({:?}, {:?}, {:?})",
@@ -14293,6 +14787,7 @@ unsafe extern "system" fn vkCreateVideoSessionParametersKHR(
     p_allocator: *const VkAllocationCallbacks,
     p_video_session_parameters: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateVideoSessionParametersKHR");
     unsafe {
         trace!(
             "called vkCreateVideoSessionParametersKHR({:?}, {:?}, {:?}, {:?})",
@@ -14321,6 +14816,7 @@ unsafe extern "system" fn vkUpdateVideoSessionParametersKHR(
     video_session_parameters: NonDisposableHandle,
     p_update_info: *const VkVideoSessionParametersUpdateInfoKHR,
 ) -> VkResult {
+    trace!("called vkUpdateVideoSessionParametersKHR");
     unsafe {
         trace!(
             "called vkUpdateVideoSessionParametersKHR({:?}, {:?}, {:?})",
@@ -14348,6 +14844,7 @@ unsafe extern "system" fn vkGetEncodedVideoSessionParametersKHR(
     p_data_size: *mut usize,
     p_data: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetEncodedVideoSessionParametersKHR");
     unsafe {
         trace!(
             "called vkGetEncodedVideoSessionParametersKHR({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -14380,6 +14877,7 @@ unsafe extern "system" fn vkDestroyVideoSessionParametersKHR(
     video_session_parameters: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyVideoSessionParametersKHR");
     unsafe {
         trace!(
             "called vkDestroyVideoSessionParametersKHR({:?}, {:?}, {:?})",
@@ -14406,6 +14904,7 @@ unsafe extern "system" fn vkGetVideoSessionMemoryRequirementsKHR(
     p_memory_requirements_count: *mut u32,
     p_memory_requirements: *mut VkVideoSessionMemoryRequirementsKHR,
 ) -> VkResult {
+    trace!("called vkGetVideoSessionMemoryRequirementsKHR");
     unsafe {
         trace!(
             "called vkGetVideoSessionMemoryRequirementsKHR({:?}, {:?}, {:?}, {:?})",
@@ -14437,6 +14936,7 @@ unsafe extern "system" fn vkBindVideoSessionMemoryKHR(
     bind_session_memory_info_count: u32,
     p_bind_session_memory_infos: *const VkBindVideoSessionMemoryInfoKHR,
 ) -> VkResult {
+    trace!("called vkBindVideoSessionMemoryKHR");
     unsafe {
         trace!(
             "called vkBindVideoSessionMemoryKHR({:?}, {:?}, {:?}, {:?})",
@@ -14466,6 +14966,7 @@ unsafe extern "system" fn vkCmdDecodeVideoKHR(
     command_buffer: NonDisposableHandle,
     p_decode_info: *const VkVideoDecodeInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdDecodeVideoKHR");
     unsafe {
         trace!(
             "called vkCmdDecodeVideoKHR({:?}, {:?})",
@@ -14488,6 +14989,7 @@ unsafe extern "system" fn vkCmdBeginVideoCodingKHR(
     command_buffer: NonDisposableHandle,
     p_begin_info: *const VkVideoBeginCodingInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdBeginVideoCodingKHR");
     unsafe {
         trace!(
             "called vkCmdBeginVideoCodingKHR({:?}, {:?})",
@@ -14510,6 +15012,7 @@ unsafe extern "system" fn vkCmdControlVideoCodingKHR(
     command_buffer: NonDisposableHandle,
     p_coding_control_info: *const VkVideoCodingControlInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdControlVideoCodingKHR");
     unsafe {
         trace!(
             "called vkCmdControlVideoCodingKHR({:?}, {:?})",
@@ -14532,6 +15035,7 @@ unsafe extern "system" fn vkCmdEndVideoCodingKHR(
     command_buffer: NonDisposableHandle,
     p_end_coding_info: *const VkVideoEndCodingInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdEndVideoCodingKHR");
     unsafe {
         trace!(
             "called vkCmdEndVideoCodingKHR({:?}, {:?})",
@@ -14554,6 +15058,7 @@ unsafe extern "system" fn vkCmdEncodeVideoKHR(
     command_buffer: NonDisposableHandle,
     p_encode_info: *const VkVideoEncodeInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdEncodeVideoKHR");
     unsafe {
         trace!(
             "called vkCmdEncodeVideoKHR({:?}, {:?})",
@@ -14577,6 +15082,7 @@ unsafe extern "system" fn vkCmdDecompressMemoryNV(
     decompress_region_count: u32,
     p_decompress_memory_regions: *const VkDecompressMemoryRegionNV,
 ) -> c_void {
+    trace!("called vkCmdDecompressMemoryNV");
     unsafe {
         trace!(
             "called vkCmdDecompressMemoryNV({:?}, {:?}, {:?})",
@@ -14606,6 +15112,7 @@ unsafe extern "system" fn vkCmdDecompressMemoryIndirectCountNV(
     indirect_commands_count_address: vk::DeviceAddress,
     stride: u32,
 ) -> c_void {
+    trace!("called vkCmdDecompressMemoryIndirectCountNV");
     unsafe {
         trace!(
             "called vkCmdDecompressMemoryIndirectCountNV({:?}, {:?}, {:?}, {:?})",
@@ -14634,6 +15141,7 @@ unsafe extern "system" fn vkCreateCuModuleNVX(
     p_allocator: *const VkAllocationCallbacks,
     p_module: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateCuModuleNVX");
     unsafe {
         trace!(
             "called vkCreateCuModuleNVX({:?}, {:?}, {:?}, {:?})",
@@ -14663,6 +15171,7 @@ unsafe extern "system" fn vkCreateCuFunctionNVX(
     p_allocator: *const VkAllocationCallbacks,
     p_function: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateCuFunctionNVX");
     unsafe {
         trace!(
             "called vkCreateCuFunctionNVX({:?}, {:?}, {:?}, {:?})",
@@ -14691,6 +15200,7 @@ unsafe extern "system" fn vkDestroyCuModuleNVX(
     module: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyCuModuleNVX");
     unsafe {
         trace!(
             "called vkDestroyCuModuleNVX({:?}, {:?}, {:?})",
@@ -14716,6 +15226,7 @@ unsafe extern "system" fn vkDestroyCuFunctionNVX(
     function: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyCuFunctionNVX");
     unsafe {
         trace!(
             "called vkDestroyCuFunctionNVX({:?}, {:?}, {:?})",
@@ -14740,6 +15251,7 @@ unsafe extern "system" fn vkCmdCuLaunchKernelNVX(
     command_buffer: NonDisposableHandle,
     p_launch_info: *const VkCuLaunchInfoNVX,
 ) -> c_void {
+    trace!("called vkCmdCuLaunchKernelNVX");
     unsafe {
         trace!(
             "called vkCmdCuLaunchKernelNVX({:?}, {:?})",
@@ -14763,6 +15275,7 @@ unsafe extern "system" fn vkGetDescriptorSetLayoutSizeEXT(
     layout: NonDisposableHandle,
     p_layout_size_in_bytes: *mut vk::DeviceSize,
 ) -> c_void {
+    trace!("called vkGetDescriptorSetLayoutSizeEXT");
     unsafe {
         trace!(
             "called vkGetDescriptorSetLayoutSizeEXT({:?}, {:?}, {:?})",
@@ -14790,6 +15303,7 @@ unsafe extern "system" fn vkGetDescriptorSetLayoutBindingOffsetEXT(
     binding: u32,
     p_offset: *mut vk::DeviceSize,
 ) -> c_void {
+    trace!("called vkGetDescriptorSetLayoutBindingOffsetEXT");
     unsafe {
         trace!(
             "called vkGetDescriptorSetLayoutBindingOffsetEXT({:?}, {:?}, {:?}, {:?})",
@@ -14819,6 +15333,7 @@ unsafe extern "system" fn vkGetDescriptorEXT(
     data_size: usize,
     p_descriptor: *mut c_void,
 ) -> c_void {
+    trace!("called vkGetDescriptorEXT");
     unsafe {
         trace!(
             "called vkGetDescriptorEXT({:?}, {:?}, {:?}, {:?})",
@@ -14847,6 +15362,7 @@ unsafe extern "system" fn vkCmdBindDescriptorBuffersEXT(
     buffer_count: u32,
     p_binding_infos: *const VkDescriptorBufferBindingInfoEXT,
 ) -> c_void {
+    trace!("called vkCmdBindDescriptorBuffersEXT");
     unsafe {
         trace!(
             "called vkCmdBindDescriptorBuffersEXT({:?}, {:?}, {:?})",
@@ -14876,6 +15392,7 @@ unsafe extern "system" fn vkCmdSetDescriptorBufferOffsetsEXT(
     p_buffer_indices: *const u32,
     p_offsets: *const vk::DeviceSize,
 ) -> c_void {
+    trace!("called vkCmdSetDescriptorBufferOffsetsEXT");
     unsafe {
         trace!(
             "called vkCmdSetDescriptorBufferOffsetsEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -14910,6 +15427,7 @@ unsafe extern "system" fn vkCmdBindDescriptorBufferEmbeddedSamplersEXT(
     layout: NonDisposableHandle,
     set: u32,
 ) -> c_void {
+    trace!("called vkCmdBindDescriptorBufferEmbeddedSamplersEXT");
     unsafe {
         trace!(
             "called vkCmdBindDescriptorBufferEmbeddedSamplersEXT({:?}, {:?}, {:?}, {:?})",
@@ -14937,6 +15455,7 @@ unsafe extern "system" fn vkGetBufferOpaqueCaptureDescriptorDataEXT(
     p_info: *const VkBufferCaptureDescriptorDataInfoEXT,
     p_data: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetBufferOpaqueCaptureDescriptorDataEXT");
     unsafe {
         trace!(
             "called vkGetBufferOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})",
@@ -14963,6 +15482,7 @@ unsafe extern "system" fn vkGetImageOpaqueCaptureDescriptorDataEXT(
     p_info: *const VkImageCaptureDescriptorDataInfoEXT,
     p_data: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetImageOpaqueCaptureDescriptorDataEXT");
     unsafe {
         trace!(
             "called vkGetImageOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})",
@@ -14989,6 +15509,7 @@ unsafe extern "system" fn vkGetImageViewOpaqueCaptureDescriptorDataEXT(
     p_info: *const VkImageViewCaptureDescriptorDataInfoEXT,
     p_data: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetImageViewOpaqueCaptureDescriptorDataEXT");
     unsafe {
         trace!(
             "called vkGetImageViewOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})",
@@ -15015,6 +15536,7 @@ unsafe extern "system" fn vkGetSamplerOpaqueCaptureDescriptorDataEXT(
     p_info: *const VkSamplerCaptureDescriptorDataInfoEXT,
     p_data: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetSamplerOpaqueCaptureDescriptorDataEXT");
     unsafe {
         trace!(
             "called vkGetSamplerOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})",
@@ -15041,6 +15563,7 @@ unsafe extern "system" fn vkGetAccelerationStructureOpaqueCaptureDescriptorDataE
     p_info: *const VkAccelerationStructureCaptureDescriptorDataInfoEXT,
     p_data: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT");
     unsafe {
         trace!(
             "called vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT({:?}, {:?}, {:?})",
@@ -15067,6 +15590,7 @@ unsafe extern "system" fn vkSetDeviceMemoryPriorityEXT(
     memory: NonDisposableHandle,
     priority: f32,
 ) -> c_void {
+    trace!("called vkSetDeviceMemoryPriorityEXT");
     unsafe {
         trace!(
             "called vkSetDeviceMemoryPriorityEXT({:?}, {:?}, {:?})",
@@ -15092,6 +15616,7 @@ unsafe extern "system" fn vkAcquireDrmDisplayEXT(
     drm_fd: i32,
     display: NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkAcquireDrmDisplayEXT");
     unsafe {
         trace!(
             "called vkAcquireDrmDisplayEXT({:?}, {:?}, {:?})",
@@ -15118,6 +15643,7 @@ unsafe extern "system" fn vkGetDrmDisplayEXT(
     connector_id: u32,
     display: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkGetDrmDisplayEXT");
     unsafe {
         trace!(
             "called vkGetDrmDisplayEXT({:?}, {:?}, {:?}, {:?})",
@@ -15147,6 +15673,7 @@ unsafe extern "system" fn vkWaitForPresentKHR(
     present_id: u64,
     timeout: u64,
 ) -> VkResult {
+    trace!("called vkWaitForPresentKHR");
     unsafe {
         trace!(
             "called vkWaitForPresentKHR({:?}, {:?}, {:?}, {:?})",
@@ -15175,6 +15702,7 @@ unsafe extern "system" fn vkCreateBufferCollectionFUCHSIA(
     p_allocator: *const VkAllocationCallbacks,
     p_collection: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateBufferCollectionFUCHSIA");
     unsafe {
         trace!(
             "called vkCreateBufferCollectionFUCHSIA({:?}, {:?}, {:?}, {:?})",
@@ -15203,6 +15731,7 @@ unsafe extern "system" fn vkSetBufferCollectionBufferConstraintsFUCHSIA(
     collection: NonDisposableHandle,
     p_buffer_constraints_info: *const VkBufferConstraintsInfoFUCHSIA,
 ) -> VkResult {
+    trace!("called vkSetBufferCollectionBufferConstraintsFUCHSIA");
     unsafe {
         trace!(
             "called vkSetBufferCollectionBufferConstraintsFUCHSIA({:?}, {:?}, {:?})",
@@ -15228,6 +15757,7 @@ unsafe extern "system" fn vkSetBufferCollectionImageConstraintsFUCHSIA(
     collection: NonDisposableHandle,
     p_image_constraints_info: *const VkImageConstraintsInfoFUCHSIA,
 ) -> VkResult {
+    trace!("called vkSetBufferCollectionImageConstraintsFUCHSIA");
     unsafe {
         trace!(
             "called vkSetBufferCollectionImageConstraintsFUCHSIA({:?}, {:?}, {:?})",
@@ -15253,6 +15783,7 @@ unsafe extern "system" fn vkDestroyBufferCollectionFUCHSIA(
     collection: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyBufferCollectionFUCHSIA");
     unsafe {
         trace!(
             "called vkDestroyBufferCollectionFUCHSIA({:?}, {:?}, {:?})",
@@ -15278,6 +15809,7 @@ unsafe extern "system" fn vkGetBufferCollectionPropertiesFUCHSIA(
     collection: NonDisposableHandle,
     p_properties: *mut VkBufferCollectionPropertiesFUCHSIA,
 ) -> VkResult {
+    trace!("called vkGetBufferCollectionPropertiesFUCHSIA");
     unsafe {
         trace!(
             "called vkGetBufferCollectionPropertiesFUCHSIA({:?}, {:?}, {:?})",
@@ -15305,6 +15837,7 @@ unsafe extern "system" fn vkCreateCudaModuleNV(
     p_allocator: *const VkAllocationCallbacks,
     p_module: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateCudaModuleNV");
     unsafe {
         trace!(
             "called vkCreateCudaModuleNV({:?}, {:?}, {:?}, {:?})",
@@ -15334,6 +15867,7 @@ unsafe extern "system" fn vkGetCudaModuleCacheNV(
     p_cache_size: *mut usize,
     p_cache_data: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetCudaModuleCacheNV");
     unsafe {
         trace!(
             "called vkGetCudaModuleCacheNV({:?}, {:?}, {:?}, {:?})",
@@ -15364,6 +15898,7 @@ unsafe extern "system" fn vkCreateCudaFunctionNV(
     p_allocator: *const VkAllocationCallbacks,
     p_function: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateCudaFunctionNV");
     unsafe {
         trace!(
             "called vkCreateCudaFunctionNV({:?}, {:?}, {:?}, {:?})",
@@ -15392,6 +15927,7 @@ unsafe extern "system" fn vkDestroyCudaModuleNV(
     module: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyCudaModuleNV");
     unsafe {
         trace!(
             "called vkDestroyCudaModuleNV({:?}, {:?}, {:?})",
@@ -15417,6 +15953,7 @@ unsafe extern "system" fn vkDestroyCudaFunctionNV(
     function: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyCudaFunctionNV");
     unsafe {
         trace!(
             "called vkDestroyCudaFunctionNV({:?}, {:?}, {:?})",
@@ -15441,6 +15978,7 @@ unsafe extern "system" fn vkCmdCudaLaunchKernelNV(
     command_buffer: NonDisposableHandle,
     p_launch_info: *const VkCudaLaunchInfoNV,
 ) -> c_void {
+    trace!("called vkCmdCudaLaunchKernelNV");
     unsafe {
         trace!(
             "called vkCmdCudaLaunchKernelNV({:?}, {:?})",
@@ -15463,6 +16001,7 @@ unsafe extern "system" fn vkCmdBeginRendering(
     command_buffer: NonDisposableHandle,
     p_rendering_info: *const VkRenderingInfo,
 ) -> c_void {
+    trace!("called vkCmdBeginRendering");
     unsafe {
         trace!(
             "called vkCmdBeginRendering({:?}, {:?})",
@@ -15482,6 +16021,7 @@ unsafe extern "system" fn vkCmdBeginRendering(
 #[no_mangle]
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCmdEndRendering.html>"]
 unsafe extern "system" fn vkCmdEndRendering(command_buffer: NonDisposableHandle) -> c_void {
+    trace!("called vkCmdEndRendering");
     unsafe {
         trace!("called vkCmdEndRendering({:?})", command_buffer);
     }
@@ -15500,6 +16040,7 @@ unsafe extern "system" fn vkGetDescriptorSetLayoutHostMappingInfoVALVE(
     p_binding_reference: *const VkDescriptorSetBindingReferenceVALVE,
     p_host_mapping: *mut VkDescriptorSetLayoutHostMappingInfoVALVE,
 ) -> c_void {
+    trace!("called vkGetDescriptorSetLayoutHostMappingInfoVALVE");
     unsafe {
         trace!(
             "called vkGetDescriptorSetLayoutHostMappingInfoVALVE({:?}, {:?}, {:?})",
@@ -15526,6 +16067,7 @@ unsafe extern "system" fn vkGetDescriptorSetHostMappingVALVE(
     descriptor_set: NonDisposableHandle,
     pp_data: *mut *mut c_void,
 ) -> c_void {
+    trace!("called vkGetDescriptorSetHostMappingVALVE");
     unsafe {
         trace!(
             "called vkGetDescriptorSetHostMappingVALVE({:?}, {:?}, {:?})",
@@ -15553,6 +16095,7 @@ unsafe extern "system" fn vkCreateMicromapEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_micromap: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateMicromapEXT");
     unsafe {
         trace!(
             "called vkCreateMicromapEXT({:?}, {:?}, {:?}, {:?})",
@@ -15581,6 +16124,7 @@ unsafe extern "system" fn vkCmdBuildMicromapsEXT(
     info_count: u32,
     p_infos: *const VkMicromapBuildInfoEXT,
 ) -> c_void {
+    trace!("called vkCmdBuildMicromapsEXT");
     unsafe {
         trace!(
             "called vkCmdBuildMicromapsEXT({:?}, {:?}, {:?})",
@@ -15607,6 +16151,7 @@ unsafe extern "system" fn vkBuildMicromapsEXT(
     info_count: u32,
     p_infos: *const VkMicromapBuildInfoEXT,
 ) -> VkResult {
+    trace!("called vkBuildMicromapsEXT");
     unsafe {
         trace!(
             "called vkBuildMicromapsEXT({:?}, {:?}, {:?}, {:?})",
@@ -15634,6 +16179,7 @@ unsafe extern "system" fn vkDestroyMicromapEXT(
     micromap: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyMicromapEXT");
     unsafe {
         trace!(
             "called vkDestroyMicromapEXT({:?}, {:?}, {:?})",
@@ -15658,6 +16204,7 @@ unsafe extern "system" fn vkCmdCopyMicromapEXT(
     command_buffer: NonDisposableHandle,
     p_info: *const VkCopyMicromapInfoEXT,
 ) -> c_void {
+    trace!("called vkCmdCopyMicromapEXT");
     unsafe {
         trace!(
             "called vkCmdCopyMicromapEXT({:?}, {:?})",
@@ -15681,6 +16228,7 @@ unsafe extern "system" fn vkCopyMicromapEXT(
     deferred_operation: NonDisposableHandle,
     p_info: *const VkCopyMicromapInfoEXT,
 ) -> VkResult {
+    trace!("called vkCopyMicromapEXT");
     unsafe {
         trace!(
             "called vkCopyMicromapEXT({:?}, {:?}, {:?})",
@@ -15705,6 +16253,7 @@ unsafe extern "system" fn vkCmdCopyMicromapToMemoryEXT(
     command_buffer: NonDisposableHandle,
     p_info: *const VkCopyMicromapToMemoryInfoEXT,
 ) -> c_void {
+    trace!("called vkCmdCopyMicromapToMemoryEXT");
     unsafe {
         trace!(
             "called vkCmdCopyMicromapToMemoryEXT({:?}, {:?})",
@@ -15728,6 +16277,7 @@ unsafe extern "system" fn vkCopyMicromapToMemoryEXT(
     deferred_operation: NonDisposableHandle,
     p_info: *const VkCopyMicromapToMemoryInfoEXT,
 ) -> VkResult {
+    trace!("called vkCopyMicromapToMemoryEXT");
     unsafe {
         trace!(
             "called vkCopyMicromapToMemoryEXT({:?}, {:?}, {:?})",
@@ -15752,6 +16302,7 @@ unsafe extern "system" fn vkCmdCopyMemoryToMicromapEXT(
     command_buffer: NonDisposableHandle,
     p_info: *const VkCopyMemoryToMicromapInfoEXT,
 ) -> c_void {
+    trace!("called vkCmdCopyMemoryToMicromapEXT");
     unsafe {
         trace!(
             "called vkCmdCopyMemoryToMicromapEXT({:?}, {:?})",
@@ -15775,6 +16326,7 @@ unsafe extern "system" fn vkCopyMemoryToMicromapEXT(
     deferred_operation: NonDisposableHandle,
     p_info: *const VkCopyMemoryToMicromapInfoEXT,
 ) -> VkResult {
+    trace!("called vkCopyMemoryToMicromapEXT");
     unsafe {
         trace!(
             "called vkCopyMemoryToMicromapEXT({:?}, {:?}, {:?})",
@@ -15803,6 +16355,7 @@ unsafe extern "system" fn vkCmdWriteMicromapsPropertiesEXT(
     query_pool: NonDisposableHandle,
     first_query: u32,
 ) -> c_void {
+    trace!("called vkCmdWriteMicromapsPropertiesEXT");
     unsafe {
         trace!(
             "called vkCmdWriteMicromapsPropertiesEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -15838,6 +16391,7 @@ unsafe extern "system" fn vkWriteMicromapsPropertiesEXT(
     p_data: *mut c_void,
     stride: usize,
 ) -> VkResult {
+    trace!("called vkWriteMicromapsPropertiesEXT");
     unsafe {
         trace!(
             "called vkWriteMicromapsPropertiesEXT({:?}, {:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -15872,6 +16426,7 @@ unsafe extern "system" fn vkGetDeviceMicromapCompatibilityEXT(
     p_version_info: *const VkMicromapVersionInfoEXT,
     p_compatibility: *mut VkAccelerationStructureCompatibilityKHR,
 ) -> c_void {
+    trace!("called vkGetDeviceMicromapCompatibilityEXT");
     unsafe {
         trace!(
             "called vkGetDeviceMicromapCompatibilityEXT({:?}, {:?}, {:?})",
@@ -15899,6 +16454,7 @@ unsafe extern "system" fn vkGetMicromapBuildSizesEXT(
     p_build_info: *const VkMicromapBuildInfoEXT,
     p_size_info: *mut VkMicromapBuildSizesInfoEXT,
 ) -> c_void {
+    trace!("called vkGetMicromapBuildSizesEXT");
     unsafe {
         trace!(
             "called vkGetMicromapBuildSizesEXT({:?}, {:?}, {:?}, {:?})",
@@ -15927,6 +16483,7 @@ unsafe extern "system" fn vkGetShaderModuleIdentifierEXT(
     shader_module: NonDisposableHandle,
     p_identifier: *mut VkShaderModuleIdentifierEXT,
 ) -> c_void {
+    trace!("called vkGetShaderModuleIdentifierEXT");
     unsafe {
         trace!(
             "called vkGetShaderModuleIdentifierEXT({:?}, {:?}, {:?})",
@@ -15953,6 +16510,7 @@ unsafe extern "system" fn vkGetShaderModuleCreateInfoIdentifierEXT(
     p_create_info: *const VkShaderModuleCreateInfo,
     p_identifier: *mut VkShaderModuleIdentifierEXT,
 ) -> c_void {
+    trace!("called vkGetShaderModuleCreateInfoIdentifierEXT");
     unsafe {
         trace!(
             "called vkGetShaderModuleCreateInfoIdentifierEXT({:?}, {:?}, {:?})",
@@ -15980,6 +16538,7 @@ unsafe extern "system" fn vkGetImageSubresourceLayout2KHR(
     p_subresource: *const VkImageSubresource2KHR,
     p_layout: *mut VkSubresourceLayout2KHR,
 ) -> c_void {
+    trace!("called vkGetImageSubresourceLayout2KHR");
     unsafe {
         trace!(
             "called vkGetImageSubresourceLayout2KHR({:?}, {:?}, {:?}, {:?})",
@@ -16008,6 +16567,7 @@ unsafe extern "system" fn vkGetPipelinePropertiesEXT(
     p_pipeline_info: *const vk::PipelineInfoEXT,
     p_pipeline_properties: *mut VkBaseOutStructure,
 ) -> VkResult {
+    trace!("called vkGetPipelinePropertiesEXT");
     unsafe {
         trace!(
             "called vkGetPipelinePropertiesEXT({:?}, {:?}, {:?})",
@@ -16033,6 +16593,7 @@ unsafe extern "system" fn vkExportMetalObjectsEXT(
     device: NonDisposableHandle,
     p_metal_objects_info: *mut VkExportMetalObjectsInfoEXT,
 ) -> c_void {
+    trace!("called vkExportMetalObjectsEXT");
     unsafe {
         trace!(
             "called vkExportMetalObjectsEXT({:?}, {:?})",
@@ -16058,6 +16619,7 @@ unsafe extern "system" fn vkGetFramebufferTilePropertiesQCOM(
     p_properties_count: *mut u32,
     p_properties: *mut VkTilePropertiesQCOM,
 ) -> VkResult {
+    trace!("called vkGetFramebufferTilePropertiesQCOM");
     unsafe {
         trace!(
             "called vkGetFramebufferTilePropertiesQCOM({:?}, {:?}, {:?}, {:?})",
@@ -16085,6 +16647,7 @@ unsafe extern "system" fn vkGetDynamicRenderingTilePropertiesQCOM(
     p_rendering_info: *const VkRenderingInfo,
     p_properties: *mut VkTilePropertiesQCOM,
 ) -> VkResult {
+    trace!("called vkGetDynamicRenderingTilePropertiesQCOM");
     unsafe {
         trace!(
             "called vkGetDynamicRenderingTilePropertiesQCOM({:?}, {:?}, {:?})",
@@ -16112,6 +16675,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceOpticalFlowImageFormatsNV(
     p_format_count: *mut u32,
     p_image_format_properties: *mut VkOpticalFlowImageFormatPropertiesNV,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceOpticalFlowImageFormatsNV");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceOpticalFlowImageFormatsNV({:?}, {:?}, {:?}, {:?})",
@@ -16140,6 +16704,7 @@ unsafe extern "system" fn vkCreateOpticalFlowSessionNV(
     p_allocator: *const VkAllocationCallbacks,
     p_session: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateOpticalFlowSessionNV");
     unsafe {
         trace!(
             "called vkCreateOpticalFlowSessionNV({:?}, {:?}, {:?}, {:?})",
@@ -16168,6 +16733,7 @@ unsafe extern "system" fn vkDestroyOpticalFlowSessionNV(
     session: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyOpticalFlowSessionNV");
     unsafe {
         trace!(
             "called vkDestroyOpticalFlowSessionNV({:?}, {:?}, {:?})",
@@ -16195,6 +16761,7 @@ unsafe extern "system" fn vkBindOpticalFlowSessionImageNV(
     view: NonDisposableHandle,
     layout: VkImageLayout,
 ) -> VkResult {
+    trace!("called vkBindOpticalFlowSessionImageNV");
     unsafe {
         trace!(
             "called vkBindOpticalFlowSessionImageNV({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -16224,6 +16791,7 @@ unsafe extern "system" fn vkCmdOpticalFlowExecuteNV(
     session: NonDisposableHandle,
     p_execute_info: *const VkOpticalFlowExecuteInfoNV,
 ) -> c_void {
+    trace!("called vkCmdOpticalFlowExecuteNV");
     unsafe {
         trace!(
             "called vkCmdOpticalFlowExecuteNV({:?}, {:?}, {:?})",
@@ -16249,6 +16817,7 @@ unsafe extern "system" fn vkGetDeviceFaultInfoEXT(
     p_fault_counts: *mut VkDeviceFaultCountsEXT,
     p_fault_info: *mut VkDeviceFaultInfoEXT,
 ) -> VkResult {
+    trace!("called vkGetDeviceFaultInfoEXT");
     unsafe {
         trace!(
             "called vkGetDeviceFaultInfoEXT({:?}, {:?}, {:?})",
@@ -16275,6 +16844,7 @@ unsafe extern "system" fn vkCmdSetDepthBias2EXT(
     command_buffer: NonDisposableHandle,
     p_depth_bias_info: *const VkDepthBiasInfoEXT,
 ) -> c_void {
+    trace!("called vkCmdSetDepthBias2EXT");
     unsafe {
         trace!(
             "called vkCmdSetDepthBias2EXT({:?}, {:?})",
@@ -16297,6 +16867,7 @@ unsafe extern "system" fn vkReleaseSwapchainImagesEXT(
     device: NonDisposableHandle,
     p_release_info: *const VkReleaseSwapchainImagesInfoEXT,
 ) -> VkResult {
+    trace!("called vkReleaseSwapchainImagesEXT");
     unsafe {
         trace!(
             "called vkReleaseSwapchainImagesEXT({:?}, {:?})",
@@ -16320,6 +16891,7 @@ unsafe extern "system" fn vkGetDeviceImageSubresourceLayoutKHR(
     p_info: *const VkDeviceImageSubresourceInfoKHR,
     p_layout: *mut VkSubresourceLayout2KHR,
 ) -> c_void {
+    trace!("called vkGetDeviceImageSubresourceLayoutKHR");
     unsafe {
         trace!(
             "called vkGetDeviceImageSubresourceLayoutKHR({:?}, {:?}, {:?})",
@@ -16346,6 +16918,7 @@ unsafe extern "system" fn vkMapMemory2KHR(
     p_memory_map_info: *const VkMemoryMapInfoKHR,
     pp_data: *mut *mut c_void,
 ) -> VkResult {
+    trace!("called vkMapMemory2KHR");
     unsafe {
         trace!(
             "called vkMapMemory2KHR({:?}, {:?}, {:?})",
@@ -16371,6 +16944,7 @@ unsafe extern "system" fn vkUnmapMemory2KHR(
     device: NonDisposableHandle,
     p_memory_unmap_info: *const VkMemoryUnmapInfoKHR,
 ) -> VkResult {
+    trace!("called vkUnmapMemory2KHR");
     unsafe {
         trace!(
             "called vkUnmapMemory2KHR({:?}, {:?})",
@@ -16396,6 +16970,7 @@ unsafe extern "system" fn vkCreateShadersEXT(
     p_allocator: *const VkAllocationCallbacks,
     p_shaders: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateShadersEXT");
     unsafe {
         trace!(
             "called vkCreateShadersEXT({:?}, {:?}, {:?}, {:?}, {:?})",
@@ -16426,6 +17001,7 @@ unsafe extern "system" fn vkDestroyShaderEXT(
     shader: NonDisposableHandle,
     p_allocator: *const VkAllocationCallbacks,
 ) -> c_void {
+    trace!("called vkDestroyShaderEXT");
     unsafe {
         trace!(
             "called vkDestroyShaderEXT({:?}, {:?}, {:?})",
@@ -16452,6 +17028,7 @@ unsafe extern "system" fn vkGetShaderBinaryDataEXT(
     p_data_size: *mut usize,
     p_data: *mut c_void,
 ) -> VkResult {
+    trace!("called vkGetShaderBinaryDataEXT");
     unsafe {
         trace!(
             "called vkGetShaderBinaryDataEXT({:?}, {:?}, {:?}, {:?})",
@@ -16482,6 +17059,7 @@ unsafe extern "system" fn vkCmdBindShadersEXT(
     p_stages: *const vk::ShaderStageFlags,
     p_shaders: *const NonDisposableHandle,
 ) -> c_void {
+    trace!("called vkCmdBindShadersEXT");
     unsafe {
         trace!(
             "called vkCmdBindShadersEXT({:?}, {:?}, {:?}, {:?})",
@@ -16509,6 +17087,7 @@ unsafe extern "system" fn vkGetScreenBufferPropertiesQNX(
     buffer: *const usize,
     p_properties: *mut VkScreenBufferPropertiesQNX,
 ) -> VkResult {
+    trace!("called vkGetScreenBufferPropertiesQNX");
     unsafe {
         trace!(
             "called vkGetScreenBufferPropertiesQNX({:?}, {:?}, {:?})",
@@ -16535,6 +17114,7 @@ unsafe extern "system" fn vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(
     p_property_count: *mut u32,
     p_properties: *mut VkCooperativeMatrixPropertiesKHR,
 ) -> VkResult {
+    trace!("called vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR");
     unsafe {
         trace!(
             "called vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR({:?}, {:?}, {:?})",
@@ -16560,6 +17140,7 @@ unsafe extern "system" fn vkGetExecutionGraphPipelineScratchSizeAMDX(
     execution_graph: NonDisposableHandle,
     p_size_info: *mut VkExecutionGraphPipelineScratchSizeAMDX,
 ) -> VkResult {
+    trace!("called vkGetExecutionGraphPipelineScratchSizeAMDX");
     unsafe {
         trace!(
             "called vkGetExecutionGraphPipelineScratchSizeAMDX({:?}, {:?}, {:?})",
@@ -16587,6 +17168,7 @@ unsafe extern "system" fn vkGetExecutionGraphPipelineNodeIndexAMDX(
     p_node_info: *const VkPipelineShaderStageNodeCreateInfoAMDX,
     p_node_index: *mut u32,
 ) -> VkResult {
+    trace!("called vkGetExecutionGraphPipelineNodeIndexAMDX");
     unsafe {
         trace!(
             "called vkGetExecutionGraphPipelineNodeIndexAMDX({:?}, {:?}, {:?}, {:?})",
@@ -16618,6 +17200,7 @@ unsafe extern "system" fn vkCreateExecutionGraphPipelinesAMDX(
     p_allocator: *const VkAllocationCallbacks,
     p_pipelines: *mut NonDisposableHandle,
 ) -> VkResult {
+    trace!("called vkCreateExecutionGraphPipelinesAMDX");
     unsafe {
         trace!(
             "called vkCreateExecutionGraphPipelinesAMDX({:?}, {:?}, {:?}, {:?}, {:?}, {:?})",
@@ -16649,6 +17232,7 @@ unsafe extern "system" fn vkCmdInitializeGraphScratchMemoryAMDX(
     command_buffer: NonDisposableHandle,
     scratch: vk::DeviceAddress,
 ) -> c_void {
+    trace!("called vkCmdInitializeGraphScratchMemoryAMDX");
     unsafe {
         trace!(
             "called vkCmdInitializeGraphScratchMemoryAMDX({:?}, {:?})",
@@ -16672,6 +17256,7 @@ unsafe extern "system" fn vkCmdDispatchGraphAMDX(
     scratch: vk::DeviceAddress,
     p_count_info: *const VkDispatchGraphCountInfoAMDX,
 ) -> c_void {
+    trace!("called vkCmdDispatchGraphAMDX");
     unsafe {
         trace!(
             "called vkCmdDispatchGraphAMDX({:?}, {:?}, {:?})",
@@ -16697,6 +17282,7 @@ unsafe extern "system" fn vkCmdDispatchGraphIndirectAMDX(
     scratch: vk::DeviceAddress,
     p_count_info: *const VkDispatchGraphCountInfoAMDX,
 ) -> c_void {
+    trace!("called vkCmdDispatchGraphIndirectAMDX");
     unsafe {
         trace!(
             "called vkCmdDispatchGraphIndirectAMDX({:?}, {:?}, {:?})",
@@ -16722,6 +17308,7 @@ unsafe extern "system" fn vkCmdDispatchGraphIndirectCountAMDX(
     scratch: vk::DeviceAddress,
     count_info: vk::DeviceAddress,
 ) -> c_void {
+    trace!("called vkCmdDispatchGraphIndirectCountAMDX");
     unsafe {
         trace!(
             "called vkCmdDispatchGraphIndirectCountAMDX({:?}, {:?}, {:?})",
@@ -16746,6 +17333,7 @@ unsafe extern "system" fn vkCmdBindDescriptorSets2KHR(
     command_buffer: NonDisposableHandle,
     p_bind_descriptor_sets_info: *const VkBindDescriptorSetsInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdBindDescriptorSets2KHR");
     unsafe {
         trace!(
             "called vkCmdBindDescriptorSets2KHR({:?}, {:?})",
@@ -16768,6 +17356,7 @@ unsafe extern "system" fn vkCmdPushConstants2KHR(
     command_buffer: NonDisposableHandle,
     p_push_constants_info: *const VkPushConstantsInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdPushConstants2KHR");
     unsafe {
         trace!(
             "called vkCmdPushConstants2KHR({:?}, {:?})",
@@ -16790,6 +17379,7 @@ unsafe extern "system" fn vkCmdPushDescriptorSet2KHR(
     command_buffer: NonDisposableHandle,
     p_push_descriptor_set_info: *const VkPushDescriptorSetInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdPushDescriptorSet2KHR");
     unsafe {
         trace!(
             "called vkCmdPushDescriptorSet2KHR({:?}, {:?})",
@@ -16812,6 +17402,7 @@ unsafe extern "system" fn vkCmdPushDescriptorSetWithTemplate2KHR(
     command_buffer: NonDisposableHandle,
     p_push_descriptor_set_with_template_info: *const VkPushDescriptorSetWithTemplateInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdPushDescriptorSetWithTemplate2KHR");
     unsafe {
         trace!(
             "called vkCmdPushDescriptorSetWithTemplate2KHR({:?}, {:?})",
@@ -16834,6 +17425,7 @@ unsafe extern "system" fn vkCmdSetDescriptorBufferOffsets2EXT(
     command_buffer: NonDisposableHandle,
     p_set_descriptor_buffer_offsets_info: *const VkSetDescriptorBufferOffsetsInfoEXT,
 ) -> c_void {
+    trace!("called vkCmdSetDescriptorBufferOffsets2EXT");
     unsafe {
         trace!(
             "called vkCmdSetDescriptorBufferOffsets2EXT({:?}, {:?})",
@@ -16856,6 +17448,7 @@ unsafe extern "system" fn vkCmdBindDescriptorBufferEmbeddedSamplers2EXT(
     command_buffer: NonDisposableHandle,
     p_bind_descriptor_buffer_embedded_samplers_info: *const VkBindDescriptorBufferEmbeddedSamplersInfoEXT,
 ) -> c_void {
+    trace!("called vkCmdBindDescriptorBufferEmbeddedSamplers2EXT");
     unsafe {
         trace!(
             "called vkCmdBindDescriptorBufferEmbeddedSamplers2EXT({:?}, {:?})",
@@ -16879,6 +17472,7 @@ unsafe extern "system" fn vkSetLatencySleepModeNV(
     swapchain: NonDisposableHandle,
     p_sleep_mode_info: *const VkLatencySleepModeInfoNV,
 ) -> VkResult {
+    trace!("called vkSetLatencySleepModeNV");
     unsafe {
         trace!(
             "called vkSetLatencySleepModeNV({:?}, {:?}, {:?})",
@@ -16904,6 +17498,7 @@ unsafe extern "system" fn vkLatencySleepNV(
     swapchain: NonDisposableHandle,
     p_sleep_info: *const VkLatencySleepInfoNV,
 ) -> VkResult {
+    trace!("called vkLatencySleepNV");
     unsafe {
         trace!(
             "called vkLatencySleepNV({:?}, {:?}, {:?})",
@@ -16929,6 +17524,7 @@ unsafe extern "system" fn vkSetLatencyMarkerNV(
     swapchain: NonDisposableHandle,
     p_latency_marker_info: *const VkSetLatencyMarkerInfoNV,
 ) -> c_void {
+    trace!("called vkSetLatencyMarkerNV");
     unsafe {
         trace!(
             "called vkSetLatencyMarkerNV({:?}, {:?}, {:?})",
@@ -16954,6 +17550,7 @@ unsafe extern "system" fn vkGetLatencyTimingsNV(
     swapchain: NonDisposableHandle,
     p_latency_marker_info: *mut VkGetLatencyMarkerInfoNV,
 ) -> c_void {
+    trace!("called vkGetLatencyTimingsNV");
     unsafe {
         trace!(
             "called vkGetLatencyTimingsNV({:?}, {:?}, {:?})",
@@ -16979,6 +17576,7 @@ unsafe extern "system" fn vkQueueNotifyOutOfBandNV(
     queue: NonDisposableHandle,
     p_queue_type_info: *const VkOutOfBandQueueTypeInfoNV,
 ) -> c_void {
+    trace!("called vkQueueNotifyOutOfBandNV");
     unsafe {
         trace!(
             "called vkQueueNotifyOutOfBandNV({:?}, {:?})",
@@ -17001,6 +17599,7 @@ unsafe extern "system" fn vkCmdSetRenderingAttachmentLocationsKHR(
     command_buffer: NonDisposableHandle,
     p_location_info: *const VkRenderingAttachmentLocationInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdSetRenderingAttachmentLocationsKHR");
     unsafe {
         trace!(
             "called vkCmdSetRenderingAttachmentLocationsKHR({:?}, {:?})",
@@ -17023,6 +17622,7 @@ unsafe extern "system" fn vkCmdSetRenderingInputAttachmentIndicesKHR(
     command_buffer: NonDisposableHandle,
     p_location_info: *const VkRenderingInputAttachmentIndexInfoKHR,
 ) -> c_void {
+    trace!("called vkCmdSetRenderingInputAttachmentIndicesKHR");
     unsafe {
         trace!(
             "called vkCmdSetRenderingInputAttachmentIndicesKHR({:?}, {:?})",
