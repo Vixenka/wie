@@ -3,7 +3,9 @@
 set batdir=%~dp0
 
 echo "Running code generators..."
+cd "%batdir%..\..\"
 cargo run --bin wie-driver-vulkan-generator || echo "Failed!" && exit 1
+cd "%batdir%"
 echo "Building wie-driver-vulkan..."
 cargo build || echo "Failed!" && exit 1
 
