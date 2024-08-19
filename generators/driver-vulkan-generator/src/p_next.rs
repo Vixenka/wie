@@ -51,6 +51,8 @@ fn cdebugger(structure_types: &[(String, String)]) -> TokenStream {
             let ty = *(obj as *const StructureType);
             match ty {
                 #quotes
+                StructureType::LOADER_INSTANCE_CREATE_INFO => &"<not implemented yet, see #1>",
+                StructureType::LOADER_DEVICE_CREATE_INFO => &"<not implemented yet, see #2>",
                 _ => panic!("Unknown structure type: {:?}", ty),
             }
         }
