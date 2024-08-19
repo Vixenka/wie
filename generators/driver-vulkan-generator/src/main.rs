@@ -12,8 +12,10 @@ pub mod enums;
 mod function_address_table;
 pub mod function_data;
 mod listener;
+mod p_next;
 mod pfn_functions;
 mod transport;
+mod utils;
 mod vulkan_bitmasks;
 mod vulkan_types;
 
@@ -76,6 +78,8 @@ fn generate(vk_headers_path: &Path, project_directory: &Path) {
     vulkan_bitmasks::generate(project_directory, &types);
     println!("Generating Vulkan PFN functions...");
     pfn_functions::generate(project_directory, &commands, &types);
+    println!("Generating Vulkan p_next dynamic functions...");
+    p_next::generate(project_directory, &registry, &types);
     println!("Generating driver...");
     driver::generate(project_directory, &commands, &required_commands, &types);
     println!("Generating listener...");
