@@ -2,6 +2,8 @@
 
 set batdir=%~dp0
 
+echo "Running code generators..."
+cargo run --bin wie-driver-vulkan-generator || echo "Failed!" && exit 1
 echo "Building wie-driver-vulkan..."
 cargo build --release || echo "Failed!" && exit 1
 
