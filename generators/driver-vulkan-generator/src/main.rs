@@ -79,7 +79,7 @@ fn generate(vk_headers_path: &Path, project_directory: &Path) {
     println!("Generating Vulkan PFN functions...");
     pfn_functions::generate(project_directory, &commands, &types);
     println!("Generating Vulkan p_next dynamic functions...");
-    p_next::generate(project_directory, &registry, &types);
+    p_next::generate(project_directory, &spec, &registry, &types);
     println!("Generating driver...");
     driver::generate(project_directory, &commands, &required_commands, &types);
     println!("Generating listener...");

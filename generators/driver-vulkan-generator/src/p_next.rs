@@ -10,10 +10,15 @@ use vkxml::{
 
 const VK_STRUCTURE_TYPE: &str = "VK_STRUCTURE_TYPE_";
 
-use crate::vulkan_types::TypeVulkan;
+use crate::{contains_desired_api, vulkan_types::TypeVulkan, DESIRED_API};
 
-pub fn generate(project_directory: &Path, registry: &vkxml::Registry, types: &TypeVulkan) {
-    let structure_types = get_structure_types(registry, types);
+pub fn generate(
+    project_directory: &Path,
+    spec: &vk_parse::Registry,
+    registry: &vkxml::Registry,
+    types: &TypeVulkan,
+) {
+    let structure_types = get_structure_types(spec, registry, types);
 
     let cdebugger = cdebugger(&structure_types);
 
@@ -59,7 +64,21 @@ fn cdebugger(structure_types: &[(String, String)]) -> TokenStream {
     }
 }
 
-fn get_structure_types(registry: &vkxml::Registry, types: &TypeVulkan) -> Vec<(String, String)> {
+fn get_structure_types(
+    spec: &vk_parse::Registry,
+    registry: &vkxml::Registry,
+    types: &TypeVulkan,
+) -> Vec<(String, String)> {
+    let features = spec
+        .0
+        .iter()
+        .filter_map(|x| match x {
+            vk_parse::RegistryChild::Feature(ext) => Some(ext),
+            _ => None,
+        })
+        .filter(|feature| contains_desired_api(&feature.api))
+        .flat_map(|x| get_vk_structure_type_from_extension(x));
+
     registry
         .elements
         .iter()
@@ -100,6 +119,7 @@ fn get_structure_types(registry: &vkxml::Registry, types: &TypeVulkan) -> Vec<(S
             _ => None,
         })
         .flatten()
+        .chain(features)
         .unique()
         .filter_map(|x| {
             let y = x[VK_STRUCTURE_TYPE.len()..]
@@ -116,6 +136,42 @@ fn get_structure_types(registry: &vkxml::Registry, types: &TypeVulkan) -> Vec<(S
             None
         })
         .collect_vec()
+}
+
+fn get_vk_structure_type_from_extension(extension: &vk_parse::Feature) -> Vec<&String> {
+    extension
+        .children
+        .iter()
+        .filter_map(|x| match x {
+            vk_parse::ExtensionChild::Require { api, items, .. } => Some((api, items)),
+            _ => None,
+        })
+        .filter(|(api, _items)| match &api {
+            Some(api) => api == DESIRED_API,
+            None => true,
+        })
+        .flat_map(|(_api, items)| items)
+        .filter_map(|x| match x {
+            vk_parse::InterfaceItem::Enum(x) => Some(x),
+            _ => None,
+        })
+        .filter(|x| x.deprecated.is_none())
+        .filter(|x| match get_extend_from_enum(x) {
+            Some(extends) => extends == "VkStructureType",
+            None => false,
+        })
+        .map(|x| &x.name)
+        .collect_vec()
+}
+
+fn get_extend_from_enum(enum_: &vk_parse::Enum) -> Option<&String> {
+    match &enum_.spec {
+        vk_parse::EnumSpec::Alias { extends, .. } => extends.as_ref(),
+        vk_parse::EnumSpec::Offset { extends, .. } => Some(extends),
+        vk_parse::EnumSpec::Bitpos { extends, .. } => extends.as_ref(),
+        vk_parse::EnumSpec::Value { extends, .. } => extends.as_ref(),
+        _ => None,
+    }
 }
 
 fn get_index_of_prefix_end(text: &str) -> usize {
