@@ -1,7 +1,4 @@
-use std::{
-    ffi::{c_char, c_void, CStr},
-    ptr,
-};
+use std::ffi::{c_char, c_void, CStr};
 
 use cdump::{CDumpReader, CDumpWriter};
 
@@ -20,12 +17,6 @@ pub unsafe fn unpack_vk_array<T>(ptr: *const T, len: usize) -> Option<&'static [
 /// Ptr must be a null or valid pointer to C string, ended with null byte.
 pub unsafe fn unpack_cstr(ptr: *const c_char) -> Option<&'static str> {
     (!ptr.is_null()).then(|| CStr::from_ptr(ptr).to_str().unwrap())
-}
-
-pub(crate) unsafe fn p_next_serializer<T: CDumpWriter>(_buf: &mut T, _obj: *const c_void) {}
-
-pub(crate) unsafe fn p_next_deserializer<T: CDumpReader>(_buf: &mut T) -> *mut c_void {
-    ptr::null_mut()
 }
 
 pub(crate) unsafe fn unimplemented_serializer<T: CDumpWriter>(_buf: &mut T, _obj: *const c_void) {
