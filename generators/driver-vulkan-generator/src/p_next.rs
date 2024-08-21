@@ -83,13 +83,18 @@ fn deserializer(structure_types: &[(String, String)]) -> TokenStream {
         |quotes| {
             quote! {
                 pub(crate) unsafe fn p_next_deserializer<T: CDumpReader>(buf: &mut T) -> *mut c_void {
+                    unsafe fn unimplemented<T: CDumpReader>(buf: &mut T) -> *mut c_void {
+                        buf.add_read(mem::size_of::<StructureType>());
+                        ptr::null_mut()
+                    }
+
                     buf.align::<StructureType>();
                     let ptr = buf.as_mut_ptr_at::<c_void>(buf.get_read());
                     let ty = *(ptr as *const StructureType);
                     match ty {
                         #quotes
-                        StructureType::LOADER_INSTANCE_CREATE_INFO => return ptr::null_mut(),
-                        StructureType::LOADER_DEVICE_CREATE_INFO => return ptr::null_mut(),
+                        StructureType::LOADER_INSTANCE_CREATE_INFO => return unimplemented(buf),
+                        StructureType::LOADER_DEVICE_CREATE_INFO => return unimplemented(buf),
                         _ => panic!("Unknown structure type: {:?}", ty),
                     }
                     ptr
