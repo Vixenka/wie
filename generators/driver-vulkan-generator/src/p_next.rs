@@ -30,7 +30,7 @@ pub fn generate(
         use ash::vk::StructureType;
         use cdump::{CDumpReader, CDumpWriter, CSerialize, CDeserialize};
         use crate::generated::vulkan_types::*;
-        use std::{mem, ptr, ffi::c_void, fmt::Debug};
+        use std::{slice, mem, ptr, ffi::c_void, fmt::Debug};
 
         #serializer
         #deserializer
@@ -48,12 +48,18 @@ fn serializer(structure_types: &[(String, String)]) -> TokenStream {
         |quotes| {
             quote! {
                 pub(crate) unsafe fn p_next_serializer<T: CDumpWriter>(buf: &mut T, obj: *const c_void) -> usize {
+                    unsafe fn unimplemented<T: CDumpWriter>(buf: &mut T, ty: StructureType) -> usize {
+                        let size = mem::size_of::<StructureType>();
+                        buf.push_slice(slice::from_raw_parts(&ty as *const StructureType as *const u8, size));
+                        size
+                    }
+
                     buf.align::<StructureType>();
                     let ty = *(obj as *const StructureType);
                     match ty {
                         #quotes
-                        StructureType::LOADER_INSTANCE_CREATE_INFO => 0usize,
-                        StructureType::LOADER_DEVICE_CREATE_INFO => 0usize,
+                        StructureType::LOADER_INSTANCE_CREATE_INFO => unimplemented(buf, ty),
+                        StructureType::LOADER_DEVICE_CREATE_INFO => unimplemented(buf, ty),
                         _ => panic!("Unknown structure type: {:?}", ty),
                     }
                 }
