@@ -140,9 +140,18 @@ where
     {
         self.write_shallow(count);
         if !buffer.is_null() {
+            self.align::<TO>();
+
+            let size = mem::size_of::<TO>();
+            let read = self.buffer.len();
+
+            self.push_slice(slice::from_raw_parts(
+                buffer as *const u8,
+                size * count as usize,
+            ));
             for i in 0..count as usize {
                 let object_ref = &*buffer.add(i);
-                object_ref.serialize(self);
+                object_ref.serialize_without_shallow_copy(self, read + size * i);
             }
         }
     }
@@ -360,8 +369,11 @@ where
         if count != 0 {
             self.align::<TO>();
             let read = self.get_read();
-            for _ in 0..count as usize {
-                TO::deserialize_ref(self);
+            let size = mem::size_of::<TO>();
+            self.add_read(size * count as usize);
+
+            for i in 0..count as usize {
+                TO::deserialize_to_without_shallow_copy(self, self.as_mut_ptr_at(read + size * i));
             }
             let reference = self.as_mut_ptr_at(read);
             (count, reference)
@@ -500,6 +512,7 @@ mod tests {
     };
 
     use aligned_vec::{avec, AVec};
+    use cdump::{CDeserialize, CSerialize};
     use wie_common::stream::mock::MockStream;
 
     use crate::packet::PacketHeader;
@@ -582,6 +595,32 @@ mod tests {
                 assert_eq!(init, unsafe {
                     slice::from_raw_parts(buffer, count as usize)
                 });
+            },
+        )
+    }
+
+    #[test]
+    fn vk_array_check_if_inline() {
+        #[derive(CSerialize, CDeserialize, Copy, Clone)]
+        #[repr(C)]
+        struct Foo {
+            v: *const u32,
+        }
+
+        let a = 5635;
+        let b = 1775;
+        let array = [Foo { v: &a }, Foo { v: &b }];
+        helper(
+            |packet| {
+                unsafe { packet.write_vk_array(array.len() as u32, array.as_ptr()) };
+            },
+            |packet| {
+                let (count, buffer) = unsafe { packet.read_vk_array_ref_mut::<Foo>() };
+                assert_eq!(array.len() as u32, count);
+                for (i, foo) in array.iter().enumerate() {
+                    assert_ne!(foo.v, unsafe { *buffer.add(i) }.v);
+                    unsafe { assert_eq!(*foo.v, *(*buffer.add(i)).v) };
+                }
             },
         )
     }
