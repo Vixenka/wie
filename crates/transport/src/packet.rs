@@ -358,6 +358,7 @@ where
     {
         let count = self.read_shallow::<u32>();
         if count != 0 {
+            self.align::<TO>();
             let read = self.get_read();
             for _ in 0..count as usize {
                 TO::deserialize_ref(self);
@@ -495,6 +496,7 @@ mod tests {
         ffi::CStr,
         mem,
         ptr::{self, NonNull},
+        slice,
     };
 
     use aligned_vec::{avec, AVec};
@@ -563,6 +565,23 @@ mod tests {
                 unsafe { packet.read_vk_array(&mut count, buffer.as_mut_ptr()) };
                 assert_eq!(3, count);
                 assert_eq!([0x44253634, 0x6838342, 0x12124], buffer);
+            },
+        )
+    }
+
+    #[test]
+    fn vk_array_ref_mut() {
+        let init = [0x44253634, 0x6838342, 0x12124];
+        helper(
+            |packet| {
+                unsafe { packet.write_vk_array(init.len() as u32, init.as_ptr()) };
+            },
+            |packet| {
+                let (count, buffer) = unsafe { packet.read_vk_array_ref_mut::<i32>() };
+                assert_eq!(init.len() as u32, count);
+                assert_eq!(init, unsafe {
+                    slice::from_raw_parts(buffer, count as usize)
+                });
             },
         )
     }
