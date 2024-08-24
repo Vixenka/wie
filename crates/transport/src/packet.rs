@@ -138,14 +138,12 @@ where
     where
         TO: CSerialize<PacketWriter<'c, T>>,
     {
-        if !buffer.is_null() && count != 0 {
-            self.write_shallow(count);
+        self.write_shallow(count);
+        if !buffer.is_null() {
             for i in 0..count as usize {
                 let object_ref = &*buffer.add(i);
                 object_ref.serialize(self);
             }
-        } else {
-            self.write_shallow(0);
         }
     }
 
