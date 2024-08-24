@@ -350,9 +350,14 @@ where
     {
         let c = self.read_shallow::<u32>();
         if !destination.is_null() && c != 0 {
+            self.align::<TO>();
+
+            let size = mem::size_of::<TO>() * c as usize;
+            ptr::copy_nonoverlapping(self.read_raw_slice(size), destination as *mut u8, size);
+
             for i in 0..c as usize {
                 let dst = destination.add(i);
-                TO::deserialize_to(self, dst);
+                TO::deserialize_to_without_shallow_copy(self, dst);
             }
         }
         *count = c;
@@ -601,6 +606,35 @@ mod tests {
 
     #[test]
     fn vk_array_check_if_inline() {
+        #[derive(CSerialize, CDeserialize, Copy, Clone)]
+        #[repr(C)]
+        struct Foo {
+            v: *const u32,
+        }
+
+        let a = 5635;
+        let b = 1775;
+        let array = [Foo { v: &a }, Foo { v: &b }];
+        helper(
+            |packet| {
+                unsafe { packet.write_vk_array(array.len() as u32, array.as_ptr()) };
+            },
+            |packet| {
+                let mut count = 0;
+                let mut buffer = [Foo { v: ptr::null() }, Foo { v: ptr::null() }];
+                unsafe { packet.read_vk_array(&mut count, buffer.as_mut_ptr()) };
+
+                assert_eq!(array.len() as u32, count);
+                for (i, foo) in array.iter().enumerate() {
+                    assert_ne!(foo.v, buffer[i].v);
+                    unsafe { assert_eq!(*foo.v, *buffer[i].v) };
+                }
+            },
+        )
+    }
+
+    #[test]
+    fn vk_array_ref_mut_check_if_inline() {
         #[derive(CSerialize, CDeserialize, Copy, Clone)]
         #[repr(C)]
         struct Foo {
