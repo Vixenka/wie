@@ -4,5 +4,6 @@ pub mod instance;
 // Functions must be public used directly, without ::* syntax.
 // Sort alphabetically.
 
+pub use debug::vk_create_debug_report_callback_ext;
 pub use debug::vk_create_debug_utils_messenger_ext;
 pub use instance::vk_create_instance;

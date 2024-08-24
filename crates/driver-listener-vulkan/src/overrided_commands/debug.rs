@@ -1,9 +1,12 @@
-use std::ffi::{c_void, CStr};
+use std::ffi::{c_char, c_void, CStr};
 
 use ash::vk;
 use log::Level;
 use wie_driver_common_vulkan::{
-    generated::vulkan_types::{VkAllocationCallbacks, VkDebugUtilsMessengerCreateInfoEXT},
+    generated::vulkan_types::{
+        VkAllocationCallbacks, VkDebugReportCallbackCreateInfoEXT,
+        VkDebugUtilsMessengerCreateInfoEXT,
+    },
     NonDisposableHandle,
 };
 
@@ -63,7 +66,7 @@ pub unsafe fn vk_create_debug_utils_messenger_ext(
 
     create_info.message_severity = u32::MAX;
     create_info.message_type = u32::MAX;
-    create_info.pfn_user_callback = Some(callback);
+    create_info.pfn_user_callback = Some(utils_callback);
 
     (crate::FUNCTION_ADDRESS_TABLE.vk_create_debug_utils_messenger_ext)(
         instance,
@@ -73,7 +76,28 @@ pub unsafe fn vk_create_debug_utils_messenger_ext(
     )
 }
 
-unsafe extern "system" fn callback(
+#[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateDebugReportCallbackEXT.html>"]
+pub unsafe fn vk_create_debug_report_callback_ext(
+    instance: NonDisposableHandle,
+    p_create_info: *const VkDebugReportCallbackCreateInfoEXT,
+    p_allocator: *const VkAllocationCallbacks,
+    p_callback: *mut NonDisposableHandle,
+) -> u32 {
+    let p_create_info: *mut VkDebugReportCallbackCreateInfoEXT =
+        p_create_info as *mut VkDebugReportCallbackCreateInfoEXT;
+    let create_info = &mut *p_create_info;
+
+    create_info.pfn_callback = Some(report_callback);
+
+    (crate::FUNCTION_ADDRESS_TABLE.vk_create_debug_report_callback_ext)(
+        instance,
+        p_create_info,
+        p_allocator,
+        p_callback,
+    )
+}
+
+unsafe extern "system" fn utils_callback(
     message_severity: vk::DebugUtilsMessageSeverityFlagsEXT,
     message_type: vk::DebugUtilsMessageTypeFlagsEXT,
     p_callback_data: *const vk::DebugUtilsMessengerCallbackDataEXT,
@@ -83,5 +107,19 @@ unsafe extern "system" fn callback(
 
     // TODO: Implement calling the original callback.
 
+    vk::FALSE
+}
+
+unsafe extern "system" fn report_callback(
+    _flags: vk::DebugReportFlagsEXT,
+    _object_type: vk::DebugReportObjectTypeEXT,
+    _object: u64,
+    _location: usize,
+    _message_code: i32,
+    _p_layer_prefix: *const c_char,
+    _p_message: *const c_char,
+    _p_user_data: *mut c_void,
+) -> vk::Bool32 {
+    // TODO: Implement calling the original callback.
     vk::FALSE
 }
