@@ -132,24 +132,20 @@ where
     }
 
     /// # Safety
-    /// Caller must ensure to pass a valid pointer to count, and valid pointer or null to a buffer.
+    /// Caller must ensure to pass a null or valid pointer to the buffer, which contains count number of elements.
     #[inline]
-    pub unsafe fn write_vk_array_count<TO>(&mut self, count: *const u32, buffer: *const TO) {
-        self.write_shallow(match buffer.is_null() {
-            true => 0,
-            false => *count,
-        });
-    }
-
-    #[inline]
-    pub fn write_vk_array<TO>(&mut self, count: u32, buffer: *const TO) {
-        self.write_shallow(count);
-        if !buffer.is_null() {
-            self.align::<TO>();
-            let slice = unsafe {
-                slice::from_raw_parts(buffer as *mut u8, count as usize * mem::size_of::<TO>())
-            };
-            self.buffer.extend_from_slice(slice);
+    pub unsafe fn write_vk_array<TO>(&mut self, count: u32, buffer: *const TO)
+    where
+        TO: CSerialize<PacketWriter<'c, T>>,
+    {
+        if !buffer.is_null() && count != 0 {
+            self.write_shallow(count);
+            for i in 0..count as usize {
+                let object_ref = &*buffer.add(i);
+                object_ref.serialize(self);
+            }
+        } else {
+            self.write_shallow(0);
         }
     }
 
@@ -338,36 +334,41 @@ where
         is_null
     }
 
-    #[inline]
-    pub fn read_and_allocate_vk_array_count<TA>(&mut self) -> (u32, *mut TA) {
-        let count = self.read_shallow::<u32>();
-        match count == 0 {
-            true => (0, ptr::null_mut()),
-            false => {
-                // TODO: fix memleak here
-                (
-                    count,
-                    Vec::with_capacity(count as usize).leak() as *mut [TA] as *mut TA,
-                )
-            }
-        }
-    }
-
     /// # Safety
     /// Caller must ensure to pass a valid pointer to count, and valid pointer or null to a destination.
     #[inline]
-    pub unsafe fn read_vk_array<TO>(&mut self, count: *mut u32, destination: *mut TO) {
+    pub unsafe fn read_vk_array<TO>(&mut self, count: *mut u32, destination: *mut TO)
+    where
+        TO: CDeserialize<Packet<'c, T>>,
+    {
         let c = self.read_shallow::<u32>();
-        if !destination.is_null() && *count != 0 {
-            self.align::<TO>();
-            ptr::copy_nonoverlapping(
-                self.buffer.get_mut()[self.read..].as_ptr() as *const TO,
-                destination,
-                c as usize,
-            );
-            self.read += c as usize * mem::size_of::<TO>();
+        if !destination.is_null() && c != 0 {
+            for i in 0..c as usize {
+                let dst = destination.add(i);
+                TO::deserialize_to(self, dst);
+            }
         }
         *count = c;
+    }
+
+    /// # Safety
+    /// Caller must ensure to buffer contain valid data.
+    #[inline]
+    pub unsafe fn read_vk_array_ref_mut<TO>(&mut self) -> (u32, *mut TO)
+    where
+        TO: CDeserialize<Packet<'c, T>>,
+    {
+        let count = self.read_shallow::<u32>();
+        if count != 0 {
+            let read = self.get_read();
+            for _ in 0..count as usize {
+                TO::deserialize_ref(self);
+            }
+            let reference = self.as_mut_ptr_at(read);
+            (count, reference)
+        } else {
+            (count, ptr::null_mut())
+        }
     }
 
     #[inline]
@@ -551,55 +552,19 @@ mod tests {
     }
 
     #[test]
-    fn vk_array_count_null() {
-        helper(
-            |packet| {
-                let count = 1984u32;
-                unsafe {
-                    packet.write_vk_array_count(&count as *const _, ptr::null::<i128>());
-                }
-            },
-            |packet| {
-                let (count, buffer) = packet.read_and_allocate_vk_array_count::<i128>();
-                assert_eq!(count, 0);
-                assert_eq!(ptr::null(), buffer);
-            },
-        )
-    }
-
-    #[test]
-    fn vk_array_count() {
-        helper(
-            |packet| {
-                let count = 3u32;
-                let buffer = [1, 2, 3];
-                unsafe {
-                    packet.write_vk_array_count(&count as *const _, buffer.as_ptr());
-                }
-            },
-            |packet| {
-                let (count, buffer) = packet.read_and_allocate_vk_array_count::<i128>();
-                assert_eq!(count, 3);
-                assert_ne!(ptr::null(), buffer);
-            },
-        )
-    }
-
-    #[test]
     fn vk_array() {
         helper(
             |packet| {
-                let count = 3u32;
-                let buffer = [1, 2, 3];
-                packet.write_vk_array(count, buffer.as_ptr());
+                let buffer = [0x44253634, 0x6838342, 0x12124];
+                unsafe { packet.write_vk_array(buffer.len() as u32, buffer.as_ptr()) };
             },
             |packet| {
                 let mut count = 0u32;
                 let mut buffer = [0, 0, 0];
 
-                unsafe { packet.read_vk_array(&mut count as *mut _, buffer.as_mut_ptr()) };
-                assert_eq!(count, 3);
-                assert_eq!([1, 2, 3], buffer);
+                unsafe { packet.read_vk_array(&mut count, buffer.as_mut_ptr()) };
+                assert_eq!(3, count);
+                assert_eq!([0x44253634, 0x6838342, 0x12124], buffer);
             },
         )
     }

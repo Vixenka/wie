@@ -128,7 +128,7 @@ fn generate_command(
         let is_count = check_if_count_ptr(param);
         if is_count {
             push_indentation(builder, 1);
-            builder.push_str("packet.write_vk_array_count(");
+            builder.push_str("packet.write_vk_array(*");
             push_param_name(builder, param);
             builder.push_str(", ");
         } else if last_is_count {

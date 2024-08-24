@@ -84,12 +84,12 @@ fn unpack_packet(builder: &mut String, definition: &CommandDefinition, types: &T
 
         if last_is_count {
             push_param_name(builder, param);
-            builder.push_str(") = packet.read_and_allocate_vk_array_count::<");
+            builder.push_str(") = unsafe { packet.read_vk_array_ref_mut::<");
             builder.push_str(&to_rust_type_without_ptr(
                 &param.definition.type_name,
                 types,
             ));
-            builder.push_str(">();\n");
+            builder.push_str(">() };\n");
         } else {
             push_indentation(builder, 1);
             builder.push_str("let ");
