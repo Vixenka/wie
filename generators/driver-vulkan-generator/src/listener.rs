@@ -28,11 +28,7 @@ pub fn generate(project_directory: &Path, commands: &[&CommandDefinition], types
     );
 
     for definition in commands {
-        if overrided_commands.is_overrided(&definition.proto.name) {
-            continue;
-        }
-
-        generate_command(&mut builder, definition, types);
+        generate_command(&mut builder, definition, types, &overrided_commands);
     }
 
     let path = project_directory.join("crates/driver-listener-vulkan/src/generated/handlers.rs");
@@ -51,20 +47,12 @@ fn generate_function_handler_map(
 
     let mut i = VULKAN_HANDLERS_BEGIN;
     for definition in commands {
-        if !overrided_commands.is_overrided(&definition.proto.name) {
-            push_indentation(builder, 1);
-            builder.push_str("map.insert(");
-            builder.push_str(&i.to_string());
-            builder.push_str(", Box::new(");
-            to_snake_case(builder, &definition.proto.name);
-            builder.push_str("));\n");
-        } else {
-            override_builder.push_str("pub const ");
-            to_screaming_snake_case(&mut override_builder, &definition.proto.name);
-            override_builder.push_str(": u64 = ");
-            override_builder.push_str(&i.to_string());
-            override_builder.push_str(";\n");
-        }
+        push_indentation(builder, 1);
+        builder.push_str("map.insert(");
+        builder.push_str(&i.to_string());
+        builder.push_str(", Box::new(");
+        to_snake_case(builder, &definition.proto.name);
+        builder.push_str("));\n");
 
         i += 1;
     }
@@ -77,7 +65,12 @@ fn generate_function_handler_map(
     fs::write(path, override_builder).expect("write to a file");
 }
 
-fn generate_command(builder: &mut String, definition: &CommandDefinition, types: &TypeVulkan) {
+fn generate_command(
+    builder: &mut String,
+    definition: &CommandDefinition,
+    types: &TypeVulkan,
+    overrided_commands: &OverridedCommands,
+) {
     builder.push_str(
         "\n#[doc = \"<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/",
     );
@@ -92,7 +85,7 @@ fn generate_command(builder: &mut String, definition: &CommandDefinition, types:
     let return_type = to_rust_type(&definition.proto, types);
     let is_void = return_type == "std::ffi::c_void";
 
-    call_vulkan_function(builder, definition, is_void);
+    call_vulkan_function(builder, definition, is_void, overrided_commands);
     if definition.is_return_data(types) {
         write_response(builder, definition, is_void, types);
     }
@@ -134,7 +127,12 @@ fn unpack_packet(builder: &mut String, definition: &CommandDefinition, types: &T
     }
 }
 
-fn call_vulkan_function(builder: &mut String, definition: &CommandDefinition, is_void: bool) {
+fn call_vulkan_function(
+    builder: &mut String,
+    definition: &CommandDefinition,
+    is_void: bool,
+    overrided_commands: &OverridedCommands,
+) {
     push_indentation(builder, 1);
     if !is_void {
         builder.push_str("let result = ");
@@ -142,9 +140,13 @@ fn call_vulkan_function(builder: &mut String, definition: &CommandDefinition, is
     builder.push_str("unsafe {\n");
 
     push_indentation(builder, 2);
-    builder.push_str("(crate::FUNCTION_ADDRESS_TABLE.");
-    to_snake_case(builder, &definition.proto.name);
-    builder.push_str(")(\n");
+    if overrided_commands.is_overrided(&definition.proto.name) {
+        call_vulkan_overrided_function(builder, definition);
+    } else {
+        builder.push_str("(crate::FUNCTION_ADDRESS_TABLE.");
+        to_snake_case(builder, &definition.proto.name);
+        builder.push_str(")(\n");
+    }
 
     for param in definition.params.iter().unique_by(|x| &x.definition.name) {
         push_indentation(builder, 3);
@@ -161,6 +163,12 @@ fn call_vulkan_function(builder: &mut String, definition: &CommandDefinition, is
 
     push_indentation(builder, 1);
     builder.push_str("};\n");
+}
+
+fn call_vulkan_overrided_function(builder: &mut String, definition: &CommandDefinition) {
+    builder.push_str("crate::overrided_commands::");
+    to_snake_case(builder, &definition.proto.name);
+    builder.push_str("(\n");
 }
 
 fn write_response(

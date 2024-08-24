@@ -23,7 +23,6 @@ type Packet<'c> = wie_transport::packet::Packet<'c, VsockStream>;
 pub fn register_handlers_to(map: &mut HandlerMap) {
     entry::register_handlers_to(map);
     generated::handlers::register_handlers_to(map);
-    overrided_commands::register_handlers_to(map);
 }
 
 /// # Safety

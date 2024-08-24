@@ -6,10 +6,14 @@ use wie_driver_common_vulkan::{
     NonDisposableHandle,
 };
 
-use crate::{utils, Packet};
+use crate::utils;
 
 #[doc = "<https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkCreateInstance.html>"]
-pub fn vk_create_instance(mut packet: Packet) {
+pub fn vk_create_instance(
+    p_create_info: *const VkInstanceCreateInfo,
+    p_allocator: *const VkAllocationCallbacks,
+    p_instance: *mut NonDisposableHandle,
+) -> u32 {
     unsafe fn turn_on_validation_layers(
         p_instance: *mut NonDisposableHandle,
         create_info: *mut VkInstanceCreateInfo,
@@ -49,18 +53,7 @@ Make sure to have it properly installed in system.
         None
     }
 
-    let p_create_info: *mut VkInstanceCreateInfo = packet.read_mut_deep();
-    let p_allocator: *const VkAllocationCallbacks = packet.read_deep();
-    let p_instance: *mut NonDisposableHandle = packet.read_mut_shallow_under_nullable_ptr();
-    unsafe {
-        trace!(
-            "called vkCreateInstance({:?}, {:?}, {:?})",
-            p_create_info.as_ref(),
-            p_allocator.as_ref(),
-            p_instance.as_ref()
-        );
-    }
-
+    let p_create_info = p_create_info as *mut _;
     let _outlive_buf =
         match crate::ENABLE_VALIDATION_LAYERS || env::is_active("VK_VALIDATION_LAYERS") {
             true => unsafe { turn_on_validation_layers(p_instance, p_create_info) },
@@ -68,15 +61,7 @@ Make sure to have it properly installed in system.
         };
 
     unsafe {
-        trace!("updated data {:?}", p_create_info.as_ref(),);
-    }
-
-    let result = unsafe {
+        trace!("updated data {:?}", p_create_info.as_ref());
         (crate::FUNCTION_ADDRESS_TABLE.vk_create_instance)(p_create_info, p_allocator, p_instance)
-    };
-
-    let mut response = packet.write_response(None);
-    response.write_shallow_under_nullable_ptr(p_instance);
-    response.write_shallow(result);
-    response.send();
+    }
 }
