@@ -143,7 +143,7 @@ where
             self.align::<TO>();
 
             let size = mem::size_of::<TO>();
-            let read = self.buffer.len();
+            let start_index = self.buffer.len();
 
             self.push_slice(slice::from_raw_parts(
                 buffer as *const u8,
@@ -151,7 +151,7 @@ where
             ));
             for i in 0..count as usize {
                 let object_ref = &*buffer.add(i);
-                object_ref.serialize_without_shallow_copy(self, read + size * i);
+                object_ref.serialize_without_shallow_copy(self, start_index + size * i);
             }
         }
     }
